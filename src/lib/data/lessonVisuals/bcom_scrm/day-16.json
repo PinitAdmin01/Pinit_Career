@@ -10,7 +10,7 @@
       "codeHash": "9bb7a9fb5b510f5d803d4c810ea50f1e0955db434ef8840fcf8d045dbe2eb379",
       "spec": {
         "template": "funnel",
-        "title": "Relational CRM Schema Architecture: Standa — RevOps Funnel",
+        "title": "Relational CRM Schema Architecture: Standa \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Relational CRM Schema Architecture: Standa — RevOps Funnel",
+        "title": "Relational CRM Schema Architecture: Standa \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (10,000 leads).",
+            "caption": "Inbound revenue funnel (ten,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (4,500).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,800 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (720 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "f63ddaf1a082066bb415a137c0905672a4a701d156e8bbf5648ed0a48d9acea6",
       "spec": {
         "template": "funnel",
-        "title": "Deterministic & Fuzzy Deduplication Algori — RevOps Funnel",
+        "title": "Deterministic & Fuzzy Deduplication Algori \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Deterministic & Fuzzy Deduplication Algori — RevOps Funnel",
+        "title": "Deterministic & Fuzzy Deduplication Algori \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (12,500 leads).",
+            "caption": "Inbound revenue funnel (twelve,server-error leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (5,625).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (2,250 deals).",
+            "caption": "Targeted conversion workflows advance (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (900 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "00d38c9c9d405ea00b78a8848f4002d69e74a39abf842dc8e5e54f8cfe49ae68",
       "spec": {
         "template": "funnel",
-        "title": "Pipeline Stage-Gating: Enforcing Validatio — RevOps Funnel",
+        "title": "Pipeline Stage-Gating: Enforcing Validatio \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Pipeline Stage-Gating: Enforcing Validatio — RevOps Funnel",
+        "title": "Pipeline Stage-Gating: Enforcing Validatio \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (8,000 leads).",
+            "caption": "Inbound revenue funnel (eight,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (3,600).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,440 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (576 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "ba82bf49fb8960e633f652b803eab74779cd7ae8776c88ee273056cb0039330f",
       "spec": {
         "template": "funnel",
-        "title": "CRM Data Decay Physics & Automated Enrichm — RevOps Funnel",
+        "title": "CRM Data Decay Physics & Automated Enrichm \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "CRM Data Decay Physics & Automated Enrichm — RevOps Funnel",
+        "title": "CRM Data Decay Physics & Automated Enrichm \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (9,500 leads).",
+            "caption": "Inbound revenue funnel (nine,server-error leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (4,275).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,710 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (684 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "5cd71c8055750ebf3070e340c0039f9be9b42904d4e7ef53de8834bc9708bf18",
       "spec": {
         "template": "funnel",
-        "title": "Master RevOps CRM Architecture & Data Hygi — RevOps Funnel",
+        "title": "Master RevOps CRM Architecture & Data Hygi \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Master RevOps CRM Architecture & Data Hygi — RevOps Funnel",
+        "title": "Master RevOps CRM Architecture & Data Hygi \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (15,000 leads).",
+            "caption": "Inbound revenue funnel (multiple,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (6,750).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (2,700 deals).",
+            "caption": "Targeted conversion workflows advance (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (1,080 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

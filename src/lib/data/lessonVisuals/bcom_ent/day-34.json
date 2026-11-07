@@ -8,7 +8,152 @@
     {
       "partTitle": "Liquidation Preference Fundamentals: Seniority, Multipliers & Non-Participating Preferred",
       "codeHash": "5cd2b44a6d35ce760bf719fc3315b3ac7a27d35cd6f068f80ce2c38414709b0a",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Liquidation Preference Fundamentals: Seniority, Multipliers & Non-Participating Preferred Waterfall Distribution",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Liquidation preference fundamentals and non-participating conversion models.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Liquidation preferences govern cash proceeds during company acquisitions.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Maritime salvage bonds illustrate senior recovery prioritization.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify ownership percentages to inspect break-even valuation hurdles.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Liquidation Preference Fundamentals: Seniority, Multipliers & Non-Participating Preferred Waterfall Distribution",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Full Participating Preferred vs Capped Participating Preferred",
       "codeHash": "d2710c004fd68e9cabe3faca592f31fb81a5ebe71d3ce0c78d248cc70e3113fe",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Full Participating Preferred vs Capped Participating Preferred Waterfall Distribution",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Analysis of participating preferred double-dip conversion mechanics.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Participating preferred terms extract additional proceeds from founders.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial real estate partnerships illustrate equity double-dip claims.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calibrate participation caps to protect common shareholder distributions.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Full Participating Preferred vs Capped Participating Preferred Waterfall Distribution",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Seniority Stacks: Standard (Pari Passu) vs Tiered (Series B Senior to Series A)",
       "codeHash": "f8308d1fcfa50f2799723edee4b1c48690d3522af2aba34e873b4f33be6a2c0c",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Seniority Stacks: Standard (Pari Passu) vs Tiered (Series B Senior to Series A) Waterfall Distribution",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Seniority tiering and pari passu distribution waterfall architectures.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Seniority stacks determine distribution priority during impaired exits.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Multi-story fire escapes illustrate sequenced evacuation priority.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate higher exit proceeds to observe capital reaching common stock.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Seniority Stacks: Standard (Pari Passu) vs Tiered (Series B Senior to Series A) Waterfall Distribution",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Management Carve-Out Plans & Common Stockholder Floors",
       "codeHash": "5690c1ce449659a892c35272be335168fedb0c0e0a2ed472a8f42a2d69819ab2",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Management Carve-Out Plans & Common Stockholder Floors Waterfall Distribution",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Management carve-out plans and executive incentive floor mechanics.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Management carve-outs align founder incentives during downside acquisitions.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Offshore platform crews receive transition bonuses during decommissioning.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adjust carve-out percentages to evaluate executive retention and recovery.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Management Carve-Out Plans & Common Stockholder Floors Waterfall Distribution",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Low-Exit Common Stockholders Zero-Dollar Wipeout",
       "codeHash": "fa9a94969e2ccba3df5b88971ad80457b89946e1de095320d1e46b45c7855852",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Low-Exit Common Stockholders Zero-Dollar Wipeout Waterfall Distribution",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against zero-dollar wipeouts and oversized preference hurdles.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Oversized liquidation stacks consume exit proceeds before common equity.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Orchard grain harvests illustrate total lender crop seizure dynamics.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Stack additional venture rounds to inspect expanding wipeout thresholds.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Exit Proceeds",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Senior Prefs",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Junior Prefs",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Common Remainder",
+                "value": 20,
+                "percentage": 20,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Low-Exit Common Stockholders Zero-Dollar Wipeout Waterfall Distribution",

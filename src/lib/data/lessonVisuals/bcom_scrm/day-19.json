@@ -10,7 +10,7 @@
       "codeHash": "2f5b88481594542fdd588b47f1aa773215651a2a9012b4d1aa59a340592df872",
       "spec": {
         "template": "funnel",
-        "title": "The Economics of Enterprise Sales Compensa — RevOps Funnel",
+        "title": "The Economics of Enterprise Sales Compensa \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "The Economics of Enterprise Sales Compensa — RevOps Funnel",
+        "title": "The Economics of Enterprise Sales Compensa \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (10,000 leads).",
+            "caption": "Inbound revenue funnel (ten,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (4,500).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,800 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (720 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "9c219910978526b160baaf62655921ce6fda97863990a2473cb49363ebaa667e",
       "spec": {
         "template": "funnel",
-        "title": "Commission Tier Architecture & Non-Linear  — RevOps Funnel",
+        "title": "Commission Tier Architecture & Non-Linear  \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Commission Tier Architecture & Non-Linear  — RevOps Funnel",
+        "title": "Commission Tier Architecture & Non-Linear  \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (12,500 leads).",
+            "caption": "Inbound revenue funnel (twelve,server-error leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (5,625).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (2,250 deals).",
+            "caption": "Targeted conversion workflows advance (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (900 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "7554b9b5dec780a85581c231803da32963418b71665759d95daaf82b8e765d61",
       "spec": {
         "template": "funnel",
-        "title": "Draw Schedules, Recoverable vs Non-Recover — RevOps Funnel",
+        "title": "Draw Schedules, Recoverable vs Non-Recover \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Draw Schedules, Recoverable vs Non-Recover — RevOps Funnel",
+        "title": "Draw Schedules, Recoverable vs Non-Recover \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (8,000 leads).",
+            "caption": "Inbound revenue funnel (eight,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (3,600).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,440 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (576 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "ee83b529ba4680961aa43e6b85bfcacad912b5e7f9768f3701453d4e723e2acb",
       "spec": {
         "template": "funnel",
-        "title": "Clawback Governance, Payment Timing & Tact — RevOps Funnel",
+        "title": "Clawback Governance, Payment Timing & Tact \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Clawback Governance, Payment Timing & Tact — RevOps Funnel",
+        "title": "Clawback Governance, Payment Timing & Tact \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (9,500 leads).",
+            "caption": "Inbound revenue funnel (nine,server-error leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (4,275).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,710 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (684 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "cc57039f9366b494fd02118de49b25fc78fc16ccd035bf6af95b54f11146e249",
       "spec": {
         "template": "funnel",
-        "title": "Master Enterprise Sales Compensation & Com — RevOps Funnel",
+        "title": "Master Enterprise Sales Compensation & Com \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Master Enterprise Sales Compensation & Com — RevOps Funnel",
+        "title": "Master Enterprise Sales Compensation & Com \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (15,000 leads).",
+            "caption": "Inbound revenue funnel (multiple,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (6,750).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (2,700 deals).",
+            "caption": "Targeted conversion workflows advance (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (1,080 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

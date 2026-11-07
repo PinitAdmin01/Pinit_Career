@@ -10,7 +10,7 @@
       "codeHash": "65e09a273df4a1c136f200b003208d4340e69db1e5c3e0078d4ebd3223e285f3",
       "spec": {
         "template": "funnel",
-        "title": "The Tell-Show-Tell Tailored Demonstration  — Conversion Pipeline",
+        "title": "The Tell-Show-Tell Tailored Demonstration  \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "The Tell-Show-Tell Tailored Demonstration  — Conversion Pipeline",
+        "title": "The Tell-Show-Tell Tailored Demonstration  \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (10,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,500).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,800 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (720 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "db535a1c4fd7205f02c8450992f92e7146ad7d7ccde8698885eed3e4d103342f",
       "spec": {
         "template": "funnel",
-        "title": "Proof of Concept (POC/POV) Success Charter — Conversion Pipeline",
+        "title": "Proof of Concept (POC/POV) Success Charter \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Proof of Concept (POC/POV) Success Charter — Conversion Pipeline",
+        "title": "Proof of Concept (POC/POV) Success Charter \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (12,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (twelve,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (5,625).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,250 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (900 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "d0070fd46aeb3bcb6b7cfd02044a4fc078a2b2c4d9ef926f80579412beb86959",
       "spec": {
         "template": "funnel",
-        "title": "Strategic Competitor Depositioning & The ' — Conversion Pipeline",
+        "title": "Strategic Competitor Depositioning & The ' \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Strategic Competitor Depositioning & The ' — Conversion Pipeline",
+        "title": "Strategic Competitor Depositioning & The ' \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (8,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (eight,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (3,600).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,440 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (576 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "331c74bff73ed99fd88954ad93bd19b40719262a55b9a421ca0e00112226ffff",
       "spec": {
         "template": "funnel",
-        "title": "The LAER Framework: Listen, Acknowledge, E — Conversion Pipeline",
+        "title": "The LAER Framework: Listen, Acknowledge, E \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "The LAER Framework: Listen, Acknowledge, E — Conversion Pipeline",
+        "title": "The LAER Framework: Listen, Acknowledge, E \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (9,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (nine,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,275).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,710 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (684 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "e0b9b68ea658586d11e282e108181c78f983029f3d97c48956c288a048986ad0",
       "spec": {
         "template": "funnel",
-        "title": "Technical Validation Governance, POC Score — Conversion Pipeline",
+        "title": "Technical Validation Governance, POC Score \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Technical Validation Governance, POC Score — Conversion Pipeline",
+        "title": "Technical Validation Governance, POC Score \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (15,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (6,750).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,700 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (1,080 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

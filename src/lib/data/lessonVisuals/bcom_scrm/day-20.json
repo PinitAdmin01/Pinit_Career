@@ -10,7 +10,7 @@
       "codeHash": "baf8b90167793b68e76038ad56ba150775b0af2c8e1189a4a7e0bbf2d9c85ff4",
       "spec": {
         "template": "funnel",
-        "title": "Conversational Intelligence Telemetry & Go — RevOps Funnel",
+        "title": "Conversational Intelligence Telemetry & Go \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Conversational Intelligence Telemetry & Go — RevOps Funnel",
+        "title": "Conversational Intelligence Telemetry & Go \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (10,000 leads).",
+            "caption": "Inbound revenue funnel (ten,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (4,500).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,800 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (720 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "2859ffa4d08f9a74c50c779bf2b09cba6ce565d6c2456c2c00d0ff9aa9a39435",
       "spec": {
         "template": "funnel",
-        "title": "Conversational Dynamics: Question Pacing,  — RevOps Funnel",
+        "title": "Conversational Dynamics: Question Pacing,  \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Conversational Dynamics: Question Pacing,  — RevOps Funnel",
+        "title": "Conversational Dynamics: Question Pacing,  \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (12,500 leads).",
+            "caption": "Inbound revenue funnel (twelve,server-error leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (5,625).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (2,250 deals).",
+            "caption": "Targeted conversion workflows advance (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (900 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "0588e2ef2b53321a3267596dbcd03a37aa1202102620090d071cf9898ee6d9ef",
       "spec": {
         "template": "funnel",
-        "title": "Enterprise 1-on-1 Deal Inspection & Mutual — RevOps Funnel",
+        "title": "Enterprise 1-on-1 Deal Inspection & Mutual \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Enterprise 1-on-1 Deal Inspection & Mutual — RevOps Funnel",
+        "title": "Enterprise 1-on-1 Deal Inspection & Mutual \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (8,000 leads).",
+            "caption": "Inbound revenue funnel (eight,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (3,600).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,440 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (576 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "4d302f6587d232b4bb0fdbc058d893949e325e884608f9127e3be53a0a1b2b25",
       "spec": {
         "template": "funnel",
-        "title": "RevOps Infrastructure Integration & Boardr — RevOps Funnel",
+        "title": "RevOps Infrastructure Integration & Boardr \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "RevOps Infrastructure Integration & Boardr — RevOps Funnel",
+        "title": "RevOps Infrastructure Integration & Boardr \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (9,500 leads).",
+            "caption": "Inbound revenue funnel (nine,server-error leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (4,275).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (1,710 deals).",
+            "caption": "Targeted conversion workflows advance (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (684 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "5b909417987048d1f45c4916441969ea0d766b6de83f301fafe90f881e3c21b7",
       "spec": {
         "template": "funnel",
-        "title": "Master Milestone 4 Grand Capstone: Soverei — RevOps Funnel",
+        "title": "Master Milestone 4 Grand Capstone: Soverei \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Master Milestone 4 Grand Capstone: Soverei — RevOps Funnel",
+        "title": "Master Milestone 4 Grand Capstone: Soverei \u2014 RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound revenue funnel (15,000 leads).",
+            "caption": "Inbound revenue funnel (multiple,multiple leads).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Operational gating qualifies 45.0% of opportunities (6,750).",
+            "caption": "Operational gating qualifies multiple.zero% of opportunities.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted conversion workflows advance (2,700 deals).",
+            "caption": "Targeted conversion workflows advance (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won ARR realization (1,080 accounts, 7.2% net funnel yield).",
+            "caption": "Final closed-won ARR realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

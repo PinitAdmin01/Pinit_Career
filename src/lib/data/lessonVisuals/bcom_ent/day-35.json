@@ -8,7 +8,152 @@
     {
       "partTitle": "Pre-Seed & Seed Phase: Debt-to-Equity & Post-Money SAFE Synthesis Engine",
       "codeHash": "31c1509de8adc6a5fafbada3aa6b369f992ca3324626b23d9d9876b7c60bfd51",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Pre-Seed & Seed Phase: Debt-to-Equity & Post-Money SAFE Synthesis Engine Capstone Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Pre-seed and seed financing synthesis and debt accrual modeling.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Seed financing combines convertible notes and post-money safes.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Skyscraper foundations illustrate pre-sale contracts and excavation.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expand safe investment amounts to inspect founder equity retention.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Pre-Seed & Seed Phase: Debt-to-Equity & Post-Money SAFE Synthesis Engine Capstone Pipeline",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Series A Institutional Equity Financing & Pre-Money Option Pool Shuffle",
       "codeHash": "46ea3d9983b606f35368ff53aaadc2293a6efa7b7215996da175ca84f44bbd73",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Series A Institutional Equity Financing & Pre-Money Option Pool Shuffle Capstone Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Simultaneous algebraic solver resolving series A share pricing.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Simultaneous equations reconcile option pools and seed share conversions.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Luxury resort partnerships illustrate land reserve commitments.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calibrate option pool ratios to observe founder majority control.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Series A Institutional Equity Financing & Pre-Money Option Pool Shuffle Capstone Pipeline",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Series B Growth Capital Financing & Tiered Liquidation Seniority",
       "codeHash": "e900b45008ac3cdee8f90e320de399db2caf8b37b49248e22b44161dc8e56687",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Series B Growth Capital Financing & Tiered Liquidation Seniority Capstone Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Series B growth capital financing and tiered seniority stacking.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Tiered liquidation seniority prioritizes later growth capital rounds.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Container ships allocate senior salvage recovery to specialized decks.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expand growth capital check sizes to inspect total preference stacks.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Series B Growth Capital Financing & Tiered Liquidation Seniority Capstone Pipeline",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Comprehensive 5-Scenario Exit Waterfall Simulation ($20M to $600M)",
       "codeHash": "f2802eb58a76be79e1d84c4f78fa1f5d2fa10d916c9fb50a769410e57de36c29",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Comprehensive 5-Scenario Exit Waterfall Simulation ($20M to $600M) Capstone Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Comprehensive five scenario exit waterfall distribution simulation.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Waterfall simulations model payouts across distressed and public exits.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Transit authorities model floodwater evacuation across crest levels.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Model intermediate exit valuations to observe preferred conversion.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Comprehensive 5-Scenario Exit Waterfall Simulation ($20M to $600M) Capstone Pipeline",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Milestone 7 Capstone Control Tower & Outage Audit Suite",
       "codeHash": "d5771dafecbee5bfc90b2c54116253ccfdea34de65acf4e379cb93f8a344ad0d",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Milestone 7 Capstone Control Tower & Outage Audit Suite Capstone Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Capstone control tower verification and governance audit suite.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Control towers execute automated verification sweeps across invariants.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Spaceport telemetry sweeps all propulsion systems before ignition.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Toggle invariant test statuses to observe control tower error alerts.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Seed Capital",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Series A Close",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Series B Growth",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Exit Realization",
+                "value": 40,
+                "percentage": 40,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Milestone 7 Capstone Control Tower & Outage Audit Suite Capstone Pipeline",

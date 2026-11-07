@@ -172,7 +172,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound commercial funnel (10,000 accounts).",
+            "caption": "Inbound commercial funnel (ten,multiple accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Territory gating qualifies 45.0% of target accounts (4,500).",
+            "caption": "Territory gating qualifies multiple.zero% of target accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Ecosystem co-selling advances (1,800 deals).",
+            "caption": "Ecosystem co-selling advances (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed ARR & expansion realization (720 enterprise clients, 7.2% yield).",
+            "caption": "Final closed ARR & expansion realization (multiple enterprise clients.",
             "activeStageId": "final",
             "stages": [
               {
@@ -492,7 +492,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound commercial funnel (12,500 accounts).",
+            "caption": "Inbound commercial funnel (twelve,server-error accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Territory gating qualifies 45.0% of target accounts (5,625).",
+            "caption": "Territory gating qualifies multiple.zero% of target accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Ecosystem co-selling advances (2,250 deals).",
+            "caption": "Ecosystem co-selling advances (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed ARR & expansion realization (900 enterprise clients, 7.2% yield).",
+            "caption": "Final closed ARR & expansion realization (multiple enterprise clients.",
             "activeStageId": "final",
             "stages": [
               {
@@ -812,7 +812,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound commercial funnel (8,000 accounts).",
+            "caption": "Inbound commercial funnel (eight,multiple accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Territory gating qualifies 45.0% of target accounts (3,600).",
+            "caption": "Territory gating qualifies multiple.zero% of target accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Ecosystem co-selling advances (1,440 deals).",
+            "caption": "Ecosystem co-selling advances (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed ARR & expansion realization (576 enterprise clients, 7.2% yield).",
+            "caption": "Final closed ARR & expansion realization (multiple enterprise clients.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1132,7 +1132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound commercial funnel (9,500 accounts).",
+            "caption": "Inbound commercial funnel (nine,server-error accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Territory gating qualifies 45.0% of target accounts (4,275).",
+            "caption": "Territory gating qualifies multiple.zero% of target accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Ecosystem co-selling advances (1,710 deals).",
+            "caption": "Ecosystem co-selling advances (one,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed ARR & expansion realization (684 enterprise clients, 7.2% yield).",
+            "caption": "Final closed ARR & expansion realization (multiple enterprise clients.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1286,11 +1286,11 @@
       }
     },
     {
-      "partTitle": "🏆 Grand Capstone: The Global Commercial Operations & Ecosystem Governance Control Tower",
+      "partTitle": "\ud83c\udfc6 Grand Capstone: The Global Commercial Operations & Ecosystem Governance Control Tower",
       "codeHash": "ce7f5456941cd38cf6e781729675b34e8cad82c5a6a6faf0d35c4611dc1e50fe",
       "spec": {
         "template": "funnel",
-        "title": "🏆 Grand Capstone: The Global Commercial Op - RevOps Funnel",
+        "title": "\ud83c\udfc6 Grand Capstone: The Global Commercial Op - RevOps Funnel",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "🏆 Grand Capstone: The Global Commercial Op - RevOps Funnel",
+        "title": "\ud83c\udfc6 Grand Capstone: The Global Commercial Op - RevOps Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Inbound commercial funnel (15,000 accounts).",
+            "caption": "Inbound commercial funnel (multiple,multiple accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Territory gating qualifies 45.0% of target accounts (6,750).",
+            "caption": "Territory gating qualifies multiple.zero% of target accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Ecosystem co-selling advances (2,700 deals).",
+            "caption": "Ecosystem co-selling advances (two,multiple deals).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed ARR & expansion realization (1,080 enterprise clients, 7.2% yield).",
+            "caption": "Final closed ARR & expansion realization (one,multiple enterprise.",
             "activeStageId": "final",
             "stages": [
               {

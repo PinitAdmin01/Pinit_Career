@@ -10,7 +10,7 @@
       "codeHash": "f7be50af815e98730bd272c2c5dacbe6e5f1500fa00dca5a78944ca23a44ee0e",
       "spec": {
         "template": "funnel",
-        "title": "Venture Debt Financing Mechanics & Warrant Co... — Conversion Pipeline",
+        "title": "Venture Debt Financing Mechanics & Warrant Co... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Venture Debt Financing Mechanics & Warrant Co... — Conversion Pipeline",
+        "title": "Venture Debt Financing Mechanics & Warrant Co... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,500 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,725).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,890 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (756).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "aaa52813139c60b6078fc47ae3bfe60d9058bc0c5791494e9714e4023ed486cb",
       "spec": {
         "template": "funnel",
-        "title": "IRC Section 409A Common Stock Valuation & Lac... — Conversion Pipeline",
+        "title": "IRC Section 409A Common Stock Valuation & Lac... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "IRC Section 409A Common Stock Valuation & Lac... — Conversion Pipeline",
+        "title": "IRC Section 409A Common Stock Valuation & Lac... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,500 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,725).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,890 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (756).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "62d03fc6f4b5860a7ce49b723a34f7bbcc767aadc6b8f7a34cc11aa9551b0036",
       "spec": {
         "template": "funnel",
-        "title": "Secondary Share Liquidity, Company Bylaws & R... — Conversion Pipeline",
+        "title": "Secondary Share Liquidity, Company Bylaws & R... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Secondary Share Liquidity, Company Bylaws & R... — Conversion Pipeline",
+        "title": "Secondary Share Liquidity, Company Bylaws & R... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,500 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,725).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,890 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (756).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "5fbf504f928462524f06fe4872eac2e33a566d1081d7794ef5939f25d971e73e",
       "spec": {
         "template": "funnel",
-        "title": "Down-Round Anti-Dilution: Broad-Based Weighte... — Conversion Pipeline",
+        "title": "Down-Round Anti-Dilution: Broad-Based Weighte... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Down-Round Anti-Dilution: Broad-Based Weighte... — Conversion Pipeline",
+        "title": "Down-Round Anti-Dilution: Broad-Based Weighte... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,500 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,725).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,890 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (756).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "5d3c8a554bf7d5b30dff81b1398d091eac39cf13865a260eddc0740bd0496537",
       "spec": {
         "template": "funnel",
-        "title": "Founder Equity Vesting, 83(b) Tax Elections &... — Conversion Pipeline",
+        "title": "Founder Equity Vesting, 83(b) Tax Elections &... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Founder Equity Vesting, 83(b) Tax Elections &... — Conversion Pipeline",
+        "title": "Founder Equity Vesting, 83(b) Tax Elections &... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,500 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,725).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,890 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (756).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {

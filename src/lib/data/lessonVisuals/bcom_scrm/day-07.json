@@ -10,7 +10,7 @@
       "codeHash": "6597143e2b24774458d98ad62576ff8bb7770b2a63e3b89694e91769723ed29e",
       "spec": {
         "template": "funnel",
-        "title": "Multi-Touch, Multi-Channel Outbound Cadenc — Conversion Pipeline",
+        "title": "Multi-Touch, Multi-Channel Outbound Cadenc \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Multi-Touch, Multi-Channel Outbound Cadenc — Conversion Pipeline",
+        "title": "Multi-Touch, Multi-Channel Outbound Cadenc \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (10,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,500).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,800 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (720 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "4c5a78ec40f2411909d6b486b17861f60007f4e096ae05345bdf755b4ab19219",
       "spec": {
         "template": "funnel",
-        "title": "Technical Email Deliverability & Domain In — Conversion Pipeline",
+        "title": "Technical Email Deliverability & Domain In \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Technical Email Deliverability & Domain In — Conversion Pipeline",
+        "title": "Technical Email Deliverability & Domain In \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (12,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (twelve,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (5,625).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,250 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (900 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "1e8f79df73decce23a826ddf7131a45c091a91599dbdd2725bff7b83f0d50ae1",
       "spec": {
         "template": "funnel",
-        "title": "Personalization at Scale: The 10-80-10 Val — Conversion Pipeline",
+        "title": "Personalization at Scale: The 10-80-10 Val \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Personalization at Scale: The 10-80-10 Val — Conversion Pipeline",
+        "title": "Personalization at Scale: The 10-80-10 Val \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (8,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (eight,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (3,600).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,440 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (576 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "d0b6c4ba89dbe6f2d659da3a7d59bd8482fac37b198c92a1091bdbe5aeeabec9",
       "spec": {
         "template": "funnel",
-        "title": "Cold Calling Psychology: Pattern Interrupt — Conversion Pipeline",
+        "title": "Cold Calling Psychology: Pattern Interrupt \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Cold Calling Psychology: Pattern Interrupt — Conversion Pipeline",
+        "title": "Cold Calling Psychology: Pattern Interrupt \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (9,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (nine,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,275).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,710 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (684 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "b4c27c0f93770a859fe6db359b255cc80a39fb60ced8f9082e6aaef736659542",
       "spec": {
         "template": "funnel",
-        "title": "Executive Outbound Sales Development Orche — Conversion Pipeline",
+        "title": "Executive Outbound Sales Development Orche \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Executive Outbound Sales Development Orche — Conversion Pipeline",
+        "title": "Executive Outbound Sales Development Orche \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (15,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (6,750).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,700 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (1,080 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

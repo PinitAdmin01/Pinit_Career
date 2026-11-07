@@ -8,7 +8,152 @@
     {
       "partTitle": "Seed Capital Economics: Debt-to-Equity Hybrid Instruments & Valuation Deferral Invariants",
       "codeHash": "885e8c7419510c739cb2c29864afd57541acb673665def695d4c3dfdd21f3901",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Seed Capital Economics: Debt-to-Equity Hybrid Instruments & Valuation Deferral Invariants Execution Funnel",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Foundational convertible note valuation deferral mechanisms.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Convertible notes defer equity valuation until Series A rounds.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Earnest deposit guarantees discount or valuation ceiling.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify valuation cap parameters to observe discount activation.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Seed Capital Economics: Debt-to-Equity Hybrid Instruments & Valuation Deferral Invariants Execution Funnel",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Valuation Cap Math & Effective Price per Share Calculus",
       "codeHash": "84cb80560c337b55753b33ebe1ae530a9b8d5a77db3182a96c15c11de7cc5caa",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Valuation Cap Math & Effective Price per Share Calculus Execution Funnel",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Mathematical modeling of valuation cap conversion mechanics.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Valuation cap determines conversion price per share.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Ticket vouchers protect passengers against market price surges.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate option pool expansion to inspect share dilution.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Valuation Cap Math & Effective Price per Share Calculus Execution Funnel",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Simple vs Compound Interest Accrual on Convertible Promissory Notes",
       "codeHash": "50ffda12458e82fa6328a1e18a8e20167fc07ea747f406410eeb687eeb425621",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Simple vs Compound Interest Accrual on Convertible Promissory Notes Execution Funnel",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Analysis of simple versus compound interest accrual models.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Interest accrues silently until equity conversion occurs.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Elevator storage charges compound into crop surrenders.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Extend note duration to evaluate compound interest growth.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Simple vs Compound Interest Accrual on Convertible Promissory Notes Execution Funnel",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Qualified Financing Hurdles & Automatic vs Voluntary Conversion Gates",
       "codeHash": "c9127d761cf8402589a30ddaedf4723e8903737b97511f4ec532306bfd2109ba",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Qualified Financing Hurdles & Automatic vs Voluntary Conversion Gates Execution Funnel",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Evaluation of qualified financing hurdles and conversion gates.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Qualified financing hurdles enforce mandatory preferred conversion.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Contract option grants discretion when funding falls short.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Advance calendar dates to activate debt maturity remedies.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Qualified Financing Hurdles & Automatic vs Voluntary Conversion Gates Execution Funnel",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Double-Dipping Cap & Phantom Dilution Outage",
       "codeHash": "be0b47c644b6fe226c615420939e0c7e8508ee70fe9ace3f632ba5d5071c5910",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Double-Dipping Cap & Phantom Dilution Outage Execution Funnel",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against stacked note dilution and cap tables.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Stacked convertible notes threaten founder control equity.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Municipal developers face insolvency from unhedged promises.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Stack additional notes to observe founder equity threshold.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Accrual",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Cap Evaluation",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Equity Conversion",
+                "value": 90,
+                "percentage": 90,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Double-Dipping Cap & Phantom Dilution Outage Execution Funnel",

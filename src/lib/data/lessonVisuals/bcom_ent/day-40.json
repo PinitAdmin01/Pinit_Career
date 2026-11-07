@@ -8,7 +8,152 @@
     {
       "partTitle": "Architecture of the Multi-Instrument Governance, Debt & ESOP Capital Engine",
       "codeHash": "70f7fa475c2a1585408bbcc8966f38ffadf8a76dd6c52a9a47dbcf38552148b5",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Architecture of the Multi-Instrument Governance, Debt & ESOP Capital Engine Capstone Engine",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Milestone capstone multi instrument capital architecture engine.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Multi instrument capital structures synthesize debt and equity governance.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Satellite constellation syndicates illustrate multi instrument finance.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate the complete multi instrument capital architecture.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Architecture of the Multi-Instrument Governance, Debt & ESOP Capital Engine Capstone Engine",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Automated Debt Amortization, Covenant Distress Alarms & Warrant Exercise Solver",
       "codeHash": "bcec66aa4c060acf0b2ada0191285e1fc1aed3ead28cbca45be9d3b9bd88bc2d",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Automated Debt Amortization, Covenant Distress Alarms & Warrant Exercise Solver Capstone Engine",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Debt amortization schedules and automated covenant distress telemetry.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Automated debt telemetry monitors liquidity covenants and burn rates.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "High speed rail infrastructure illustrates debt service reserves.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase monthly burn to observe covenant alert alarms.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Automated Debt Amortization, Covenant Distress Alarms & Warrant Exercise Solver Capstone Engine",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Board Voting Deadlock Simulator & Statutory Drag-Along Squeeze-Out Processor",
       "codeHash": "320fb134068c0610aac91ffc4355a03d6d832c540f2598f35e8686354966197b",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Board Voting Deadlock Simulator & Statutory Drag-Along Squeeze-Out Processor Capstone Engine",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Boardroom deadlock arbitration and drag along squeeze out execution.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Independent director swing votes resolve polarized boardroom splits.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Semiconductor foundry joint ventures illustrate board voting balance.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate the independent director casting vote to break the tie.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Board Voting Deadlock Simulator & Statutory Drag-Along Squeeze-Out Processor Capstone Engine",
@@ -461,7 +896,152 @@
     {
       "partTitle": "ESOP Pool Replenishment, Tender Offer Liquidity & Secondary Price Discovery",
       "codeHash": "49954760887bfbf30c28aa8dfbab791aa6fd8db14bba39cd900429a055c694f5",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "ESOP Pool Replenishment, Tender Offer Liquidity & Secondary Price Discovery Capstone Engine",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Employee stock option pool replenishment and secondary tender liquidity.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Secondary tender offers provide critical liquidity for tenured staff.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Aviation pilot equity trusts illustrate secondary liquidity windows.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calculate founder dilution savings from empirical pool budgeting.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "ESOP Pool Replenishment, Tender Offer Liquidity & Secondary Price Discovery Capstone Engine",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Milestone 8 Capstone Control Tower & Corporate Governance Certification Suite",
       "codeHash": "bbf2b63a402fe6132a0f133052c5f8f4297e1263990a69724cae8fe0ca8dd2ec",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Milestone 8 Capstone Control Tower & Corporate Governance Certification Suite Capstone Engine",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Milestone capstone control tower and corporate governance audit bench.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "The capstone control tower audits all governance and debt invariants.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Nuclear power safety audit systems illustrate invariant verification.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Execute the milestone capstone audit suite to verify all invariants.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Milestone Engine",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Debt & Warrants",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Board Governance",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Certified Credential",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Milestone 8 Capstone Control Tower & Corporate Governance Certification Suite Capstone Engine",

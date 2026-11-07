@@ -172,7 +172,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Venture commercial reach (10,000 prospects).",
+            "caption": "Venture commercial reach (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% of intent cohort (4,500).",
+            "caption": "Qualification filter retains multiple.zero% of intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Channel evaluation converts (1,800 opportunities).",
+            "caption": "Channel evaluation converts (one,multiple opportunities).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed contracts expand LTV (720 accounts).",
+            "caption": "Closed contracts expand LTV (multiple accounts).",
             "activeStageId": "final",
             "stages": [
               {
@@ -492,7 +492,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Venture commercial reach (12,500 prospects).",
+            "caption": "Venture commercial reach (twelve,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% of intent cohort (5,625).",
+            "caption": "Qualification filter retains multiple.zero% of intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Channel evaluation converts (2,250 opportunities).",
+            "caption": "Channel evaluation converts (two,multiple opportunities).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed contracts expand LTV (900 accounts).",
+            "caption": "Closed contracts expand LTV (multiple accounts).",
             "activeStageId": "final",
             "stages": [
               {
@@ -812,7 +812,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Venture commercial reach (8,000 prospects).",
+            "caption": "Venture commercial reach (eight,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% of intent cohort (3,600).",
+            "caption": "Qualification filter retains multiple.zero% of intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Channel evaluation converts (1,440 opportunities).",
+            "caption": "Channel evaluation converts (one,multiple opportunities).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed contracts expand LTV (576 accounts).",
+            "caption": "Closed contracts expand LTV (multiple accounts).",
             "activeStageId": "final",
             "stages": [
               {
@@ -1132,7 +1132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Venture commercial reach (9,500 prospects).",
+            "caption": "Venture commercial reach (nine,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% of intent cohort (4,275).",
+            "caption": "Qualification filter retains multiple.zero% of intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Channel evaluation converts (1,710 opportunities).",
+            "caption": "Channel evaluation converts (one,multiple opportunities).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed contracts expand LTV (684 accounts).",
+            "caption": "Closed contracts expand LTV (multiple accounts).",
             "activeStageId": "final",
             "stages": [
               {
@@ -1286,11 +1286,11 @@
       }
     },
     {
-      "partTitle": "🏆 Master Sovereign Milestone 4 Capstone Audit Engine & Four-Gate Accreditation",
+      "partTitle": "\ud83c\udfc6 Master Sovereign Milestone 4 Capstone Audit Engine & Four-Gate Accreditation",
       "codeHash": "f34346b943d3a9bab5d49d3559deb05aa3d089e646cd3ed06f11f62c63d2e77a",
       "spec": {
         "template": "funnel",
-        "title": "🏆 Master Sovereign Milestone 4 Capstone  - Venture Pipeline",
+        "title": "\ud83c\udfc6 Master Sovereign Milestone 4 Capstone  - Venture Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "🏆 Master Sovereign Milestone 4 Capstone  - Venture Pipeline",
+        "title": "\ud83c\udfc6 Master Sovereign Milestone 4 Capstone  - Venture Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Venture commercial reach (15,000 prospects).",
+            "caption": "Venture commercial reach (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% of intent cohort (6,750).",
+            "caption": "Qualification filter retains multiple.zero% of intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Channel evaluation converts (2,700 opportunities).",
+            "caption": "Channel evaluation converts (two,multiple opportunities).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed contracts expand LTV (1,080 accounts).",
+            "caption": "Closed contracts expand LTV (one,multiple accounts).",
             "activeStageId": "final",
             "stages": [
               {
