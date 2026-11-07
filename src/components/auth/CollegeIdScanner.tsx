@@ -249,7 +249,7 @@ export default function CollegeIdScanner({
       if (res.ok) {
         const json = await res.json();
         storagePath = json.storagePath || '';
-        if (json.success && json.metadata && json.source === 'gemini-vision') {
+        if (json.success && json.metadata && (json.source === 'groq-vision' || json.source === 'gemini-vision')) {
           extracted = json.metadata;
         }
       }
