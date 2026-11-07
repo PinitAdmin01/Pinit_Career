@@ -1,4 +1,11 @@
 'use client';
+/**
+ * PinIT College ID Scanner Engine v2.1
+ * - Dual Engine: Gemini Flash Vision + Client Tesseract.js fallback
+ * - Offscreen HTML5 Canvas Grayscale & 1.35x Contrast Enhancement
+ * - Strict Department & Degree Normalization (No 2-letter false positives)
+ * - Real-Time Institutional PinIT ID Generation & Duplicate Collision Guard
+ */
 
 import React, { useState, useEffect, useRef } from 'react';
 import {
