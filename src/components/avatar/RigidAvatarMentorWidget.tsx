@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { usePersonalAvatarMemory }    from './hooks/usePersonalAvatarMemory';
 import { useFacialEmotionDetection }  from './hooks/useFacialEmotionDetection';
 import * as THREE from 'three';
+import { PrecisionTimer } from './VRoidAvatarEngine';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 
 type AnimState = 'idle'|'listening'|'thinking'|'talking'|'wave'|'nod'|'shrug';
@@ -13,7 +14,7 @@ class AvatarScene {
   leftShoulder?: THREE.Object3D; rightShoulder?: THREE.Object3D;
   leftArm?: THREE.Object3D; rightArm?: THREE.Object3D;
   animState: AnimState='idle'; animT=0; talkPhase=0; disposed=false; raf?: number;
-  clock=new THREE.Clock();
+  clock=new PrecisionTimer();
 
   isVRM = false;
   faceMeshes: THREE.Mesh[] = [];

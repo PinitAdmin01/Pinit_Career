@@ -17,6 +17,7 @@ interface MissionsArchetypeMatrixProps {
   setHoveredQuadrant: (key: string | null) => void;
   selectedQuadrant: string | null;
   setSelectedQuadrant: (key: string | null) => void;
+  hasCompletedAnyMission?: boolean;
 }
 
 export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = ({
@@ -27,31 +28,39 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
   setHoveredQuadrant,
   selectedQuadrant,
   setSelectedQuadrant,
+  hasCompletedAnyMission,
 }) => {
-  const activeArch = onboardingAnswers?.mindset_archetype || 'Pattern Hunter';
+  // If user has not completed a single mission, strictly show null / uncalibrated stats
+  const isCalibrated = typeof hasCompletedAnyMission === 'boolean'
+    ? hasCompletedAnyMission
+    : Boolean((user?.missions_completed && user.missions_completed > 0) || (user?.mission_streak && user.mission_streak > 0));
+
+  const activeArch = isCalibrated ? (onboardingAnswers?.mindset_archetype || 'Pattern Hunter') : 'Uncalibrated';
   const lowerArch = activeArch.toLowerCase();
 
   // Default base coordinates for user
-  let userX = 74;
-  let userY = 26;
+  let userX = isCalibrated ? 74 : 50;
+  let userY = isCalibrated ? 26 : 50;
   let userArchKey = 'pattern';
 
-  if (lowerArch.includes('pattern') || lowerArch.includes('logic') || lowerArch.includes('deep thinker')) {
-    userX = 74;
-    userY = 26;
-    userArchKey = 'pattern';
-  } else if (lowerArch.includes('social') || lowerArch.includes('comm') || lowerArch.includes('harmonizer') || lowerArch.includes('navigator')) {
-    userX = 26;
-    userY = 26;
-    userArchKey = 'social';
-  } else if (lowerArch.includes('architect') || lowerArch.includes('strategist') || lowerArch.includes('vision')) {
-    userX = 26;
-    userY = 74;
-    userArchKey = 'architect';
-  } else if (lowerArch.includes('executor') || lowerArch.includes('sprinter') || lowerArch.includes('pragmatic')) {
-    userX = 74;
-    userY = 74;
-    userArchKey = 'executor';
+  if (isCalibrated) {
+    if (lowerArch.includes('pattern') || lowerArch.includes('logic') || lowerArch.includes('deep thinker')) {
+      userX = 74;
+      userY = 26;
+      userArchKey = 'pattern';
+    } else if (lowerArch.includes('social') || lowerArch.includes('comm') || lowerArch.includes('harmonizer') || lowerArch.includes('navigator')) {
+      userX = 26;
+      userY = 26;
+      userArchKey = 'social';
+    } else if (lowerArch.includes('architect') || lowerArch.includes('strategist') || lowerArch.includes('vision')) {
+      userX = 26;
+      userY = 74;
+      userArchKey = 'architect';
+    } else if (lowerArch.includes('executor') || lowerArch.includes('sprinter') || lowerArch.includes('pragmatic')) {
+      userX = 74;
+      userY = 74;
+      userArchKey = 'executor';
+    }
   }
 
   // Fine-tune user target coordinates based on actual user scores in real-time with NaN guards
@@ -60,23 +69,25 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
   const rawExec = Number(user?.execution_score);
   const rawLead = Number(user?.leadership_score);
 
-  const qt2Score = Number.isFinite(rawQt2) ? rawQt2 : 75;
-  const commScore = Number.isFinite(rawComm) ? rawComm : 75;
-  const execScore = Number.isFinite(rawExec) ? rawExec : 75;
-  const leadScore = Number.isFinite(rawLead) ? rawLead : 75;
+  const qt2Score = isCalibrated && Number.isFinite(rawQt2) ? rawQt2 : null;
+  const commScore = isCalibrated && Number.isFinite(rawComm) ? rawComm : 75;
+  const execScore = isCalibrated && Number.isFinite(rawExec) ? rawExec : 75;
+  const leadScore = isCalibrated && Number.isFinite(rawLead) ? rawLead : 75;
 
-  if (userArchKey === 'pattern') {
-    userX = Math.min(88, Math.max(58, 50 + (qt2Score - 50) * 0.7));
-    userY = Math.max(12, Math.min(42, 50 - (leadScore - 50) * 0.7));
-  } else if (userArchKey === 'social') {
-    userX = Math.max(12, Math.min(42, 50 - (commScore - 50) * 0.7));
-    userY = Math.max(12, Math.min(42, 50 - (leadScore - 50) * 0.7));
-  } else if (userArchKey === 'architect') {
-    userX = Math.max(12, Math.min(42, 50 - (commScore - 50) * 0.7));
-    userY = Math.min(88, Math.max(58, 50 + (qt2Score - 50) * 0.7));
-  } else if (userArchKey === 'executor') {
-    userX = Math.min(88, Math.max(58, 50 + (execScore - 50) * 0.7));
-    userY = Math.min(88, Math.max(58, 50 + (execScore - 50) * 0.7));
+  if (isCalibrated) {
+    if (userArchKey === 'pattern') {
+      userX = Math.min(88, Math.max(58, 50 + ((qt2Score ?? 75) - 50) * 0.7));
+      userY = Math.max(12, Math.min(42, 50 - (leadScore - 50) * 0.7));
+    } else if (userArchKey === 'social') {
+      userX = Math.max(12, Math.min(42, 50 - (commScore - 50) * 0.7));
+      userY = Math.max(12, Math.min(42, 50 - (leadScore - 50) * 0.7));
+    } else if (userArchKey === 'architect') {
+      userX = Math.max(12, Math.min(42, 50 - (commScore - 50) * 0.7));
+      userY = Math.min(88, Math.max(58, 50 + ((qt2Score ?? 75) - 50) * 0.7));
+    } else if (userArchKey === 'executor') {
+      userX = Math.min(88, Math.max(58, 50 + (execScore - 50) * 0.7));
+      userY = Math.min(88, Math.max(58, 50 + (execScore - 50) * 0.7));
+    }
   }
 
   // Safeguard against NaN coordinates
@@ -84,7 +95,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
   userY = Number.isFinite(userY) ? userY : 50;
 
   // Determine active inspect view (Hover / Click / User Default)
-  const activeKey = hoveredQuadrant || selectedQuadrant || userArchKey;
+  const activeKey = hoveredQuadrant || selectedQuadrant || (isCalibrated ? userArchKey : null);
 
   const ARCHETYPE_META: Record<string, { label: string; emoji: string; color: string; desc: string; focus: string }> = {
     pattern: {
@@ -117,7 +128,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
     }
   };
 
-  const currentMeta = ARCHETYPE_META[activeKey] || ARCHETYPE_META.pattern;
+  const currentMeta = activeKey ? ARCHETYPE_META[activeKey] : null;
   const isInspectMode = Boolean(hoveredQuadrant || selectedQuadrant);
 
   return (
@@ -153,13 +164,23 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
               Reset Lock ✕
             </button>
           ) : (
-            <span style={{ fontSize: 10.5, fontWeight: 700, padding: '2px 7px', borderRadius: 6, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)' }}>
-              ● Live Reactive
+            <span style={{
+              fontSize: 10.5,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 6,
+              background: isCalibrated ? 'rgba(20,184,166,0.1)' : 'rgba(156,163,175,0.1)',
+              color: isCalibrated ? 'var(--teal)' : theme.tTertiary,
+              border: `1px solid ${isCalibrated ? 'rgba(20,184,166,0.2)' : theme.border}`
+            }}>
+              {isCalibrated ? '● Live Reactive' : 'Pending Baseline'}
             </span>
           )}
         </div>
         <p style={{ fontSize: 12, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
-          Hover or click quadrants to inspect cognitive archetypes. Updates in real-time as you complete missions.
+          {isCalibrated
+            ? 'Hover or click quadrants to inspect cognitive archetypes. Updates in real-time as you complete missions.'
+            : 'Complete your first daily mission or crisis simulation to establish and calibrate your mindset archetype.'}
         </p>
       </div>
 
@@ -251,7 +272,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           }}
         />
 
-        {/* Axis Crosshair (+ Shape) */}
+        {/* Centered Crosshair Lines */}
         <div style={{
           position: 'absolute',
           top: '50%',
@@ -304,13 +325,13 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           Systems ▶
         </span>
 
-        {/* 4 Quadrant Labels with dynamic highlighting */}
+        {/* 4 Quadrant Labels with dynamic highlighting (only checkmark when calibrated) */}
         <div style={{
           position: 'absolute', top: 22, left: 14, fontSize: 11, fontWeight: 800,
           color: activeKey === 'social' ? '#14b8a6' : theme.tTertiary,
           transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
-          🤝 Social {activeKey === 'social' && '✓'}
+          🤝 Social {isCalibrated && activeKey === 'social' && '✓'}
         </div>
 
         <div style={{
@@ -318,7 +339,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           color: activeKey === 'pattern' ? '#8b5cf6' : theme.tTertiary,
           textAlign: 'right', transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
-          🧩 Pattern Hunter {activeKey === 'pattern' && '✓'}
+          🧩 Pattern Hunter {isCalibrated && activeKey === 'pattern' && '✓'}
         </div>
 
         <div style={{
@@ -326,7 +347,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           color: activeKey === 'architect' ? '#3b82f6' : theme.tTertiary,
           transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
-          🎯 Architect {activeKey === 'architect' && '✓'}
+          🎯 Architect {isCalibrated && activeKey === 'architect' && '✓'}
         </div>
 
         <div style={{
@@ -334,10 +355,10 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           color: activeKey === 'executor' ? '#f59e0b' : theme.tTertiary,
           textAlign: 'right', transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
         }}>
-          ⚡ Executor {activeKey === 'executor' && '✓'}
+          ⚡ Executor {isCalibrated && activeKey === 'executor' && '✓'}
         </div>
 
-        {/* Dynamic Pulsing User Target Pin */}
+        {/* Dynamic User Target Pin */}
         <div style={{
           position: 'absolute',
           left: `${userX}%`,
@@ -351,67 +372,97 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           pointerEvents: 'none'
         }}>
           <div style={{
-            width: 20,
-            height: 20,
+            width: isCalibrated ? 20 : 14,
+            height: isCalibrated ? 20 : 14,
             borderRadius: '50%',
-            background: ARCHETYPE_META[userArchKey]?.color || '#8b5cf6',
-            boxShadow: `0 0 16px ${ARCHETYPE_META[userArchKey]?.color || '#8b5cf6'}`,
-            border: '2.5px solid #ffffff',
+            background: isCalibrated ? (ARCHETYPE_META[userArchKey]?.color || '#8b5cf6') : 'transparent',
+            boxShadow: isCalibrated ? `0 0 16px ${ARCHETYPE_META[userArchKey]?.color || '#8b5cf6'}` : 'none',
+            border: isCalibrated ? '2.5px solid #ffffff' : `2px dashed ${theme.tTertiary}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 10.5,
             color: '#ffffff'
           }}>
-            📍
+            {isCalibrated ? '📍' : ''}
           </div>
           <span style={{
             fontSize: 9.5,
             fontWeight: 800,
-            color: theme.tPrimary,
+            color: isCalibrated ? theme.tPrimary : theme.tTertiary,
             background: theme.bgCard,
             border: `1px solid ${theme.border}`,
             padding: '1.5px 6px',
             borderRadius: 5,
             marginTop: 3,
             whiteSpace: 'nowrap',
-            boxShadow: 'var(--shadow-sm)'
+            boxShadow: 'var(--shadow-sm)',
+            fontFamily: 'var(--font-mono)'
           }}>
-            {userArchKey === activeKey ? 'YOU ARE HERE' : 'YOUR POSITION'}
+            {isCalibrated
+              ? (userArchKey === activeKey ? 'YOU ARE HERE' : 'YOUR POSITION')
+              : 'CALIBRATION PENDING'}
           </span>
         </div>
       </div>
 
       {/* Archetype Profile Breakdown Card */}
-      <div style={{
-        background: theme.bgInside,
-        border: `1.5px solid ${currentMeta.color}`,
-        borderRadius: 14,
-        padding: '12px 14px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 6,
-        transition: 'all 0.25s ease'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontSize: 15.5 }}>{currentMeta.emoji}</span>
-            <span style={{ fontSize: 14, fontWeight: 800, color: theme.tPrimary }}>
-              {currentMeta.label}
+      {isCalibrated && currentMeta ? (
+        <div style={{
+          background: theme.bgInside,
+          border: `1.5px solid ${currentMeta.color}`,
+          borderRadius: 14,
+          padding: '12px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 6,
+          transition: 'all 0.25s ease'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 15.5 }}>{currentMeta.emoji}</span>
+              <span style={{ fontSize: 14, fontWeight: 800, color: theme.tPrimary }}>
+                {currentMeta.label}
+              </span>
+            </div>
+            <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: currentMeta.color, fontWeight: 800, background: `${currentMeta.color}15`, padding: '2px 7px', borderRadius: 6 }}>
+              {isInspectMode ? 'INSPECTING' : `QT2: ${qt2Score ?? 'null'} pts`}
             </span>
           </div>
-          <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: currentMeta.color, fontWeight: 800, background: `${currentMeta.color}15`, padding: '2px 7px', borderRadius: 6 }}>
-            {isInspectMode ? 'INSPECTING' : `QT2: ${qt2Score} pts`}
-          </span>
+          <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
+            {currentMeta.desc}
+          </p>
+          <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary, marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>{currentMeta.focus}</span>
+            <span>X: {userX.toFixed(0)}% • Y: {(100 - userY).toFixed(0)}%</span>
+          </div>
         </div>
-        <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
-          {currentMeta.desc}
-        </p>
-        <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary, marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>{currentMeta.focus}</span>
-          <span>X: {userX.toFixed(0)}% • Y: {(100 - userY).toFixed(0)}%</span>
+      ) : (
+        <div style={{
+          background: theme.bgInside,
+          border: `1px dashed ${theme.border}`,
+          borderRadius: 14,
+          padding: '12px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 6
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 15.5 }}>🧬</span>
+              <span style={{ fontSize: 13.5, fontWeight: 800, color: theme.tPrimary }}>
+                Mindset Archetype: null (Uncalibrated)
+              </span>
+            </div>
+            <span style={{ fontSize: 10.5, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+              QT2: null
+            </span>
+          </div>
+          <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
+            Complete your first daily mission or crisis simulation to map your dynamic cognitive archetype across Logic, People, Execution, and Architecture.
+          </p>
         </div>
-      </div>
+      )}
     </div>
   );
 };

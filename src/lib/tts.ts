@@ -542,7 +542,7 @@ export async function speakWithAvatar(
           clearTimeout(streamDeadlineTimer);
           streamDeadlineTimer = null;
         }
-        console.warn('[PinIT Voice] Streaming audio queue error:', streamErr);
+        console.debug('[PinIT Voice] Streaming audio queue fallback:', streamErr instanceof Error ? streamErr.message : streamErr);
         if (options?.allowWebSpeechFallback && mySpeechId === currentSpeechId) {
           fallbackWebSpeech(
             cleanSpeechText,
@@ -574,7 +574,7 @@ export async function speakWithAvatar(
         if (mySpeechId !== currentSpeechId) return;
         if (options?.allowWebSpeechFallback) {
           handedToWebSpeech = true;
-          console.warn(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms, speaking with WebSpeech fallback.`);
+          console.debug(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms, speaking with WebSpeech fallback.`);
           fallbackWebSpeech(
             cleanSpeechText,
             teacherId,
@@ -587,7 +587,7 @@ export async function speakWithAvatar(
             dynamicMaxDurationMs
           );
         } else {
-          console.warn(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms. Maintaining avatar persona.`);
+          console.debug(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms. Maintaining avatar persona.`);
         }
       }, startDeadlineMs);
     }

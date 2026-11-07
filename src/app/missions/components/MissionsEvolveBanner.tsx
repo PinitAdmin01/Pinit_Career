@@ -34,6 +34,7 @@ interface MissionsEvolveBannerProps {
   setCustomSkill: (skill: string) => void;
   handleGenerateCustomQuests: () => void;
   generatingSkill: boolean;
+  hasCompletedAnyMission?: boolean;
 }
 
 export default function MissionsEvolveBanner({
@@ -57,7 +58,13 @@ export default function MissionsEvolveBanner({
   setCustomSkill,
   handleGenerateCustomQuests,
   generatingSkill,
+  hasCompletedAnyMission,
 }: MissionsEvolveBannerProps) {
+  const isCalibrated =
+    typeof hasCompletedAnyMission === 'boolean'
+      ? hasCompletedAnyMission
+      : Boolean((completedMissions && completedMissions.length > 0) || (pastCompleted && pastCompleted.length > 0));
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: '100%' }}>
       {/* Hero Mindset Persona Simulator Banner */}
@@ -127,15 +134,15 @@ export default function MissionsEvolveBanner({
                   fontWeight: 700,
                   letterSpacing: '0.8px',
                   textTransform: 'uppercase',
-                  color: 'var(--teal)',
+                  color: isCalibrated ? 'var(--teal)' : theme.tTertiary,
                   fontFamily: 'var(--font-mono)',
-                  background: 'rgba(20,184,166,0.1)',
+                  background: isCalibrated ? 'rgba(20,184,166,0.1)' : 'rgba(156,163,175,0.1)',
                   padding: '4px 10px',
                   borderRadius: 8,
-                  border: '1px solid rgba(20,184,166,0.25)',
+                  border: `1px solid ${isCalibrated ? 'rgba(20,184,166,0.25)' : theme.border}`,
                 }}
               >
-                ● Live Crisis Engine
+                {isCalibrated ? '● Live Crisis Engine' : 'Pending Baseline'}
               </span>
             </div>
 
@@ -198,8 +205,8 @@ export default function MissionsEvolveBanner({
                 >
                   Archetype:
                 </span>
-                <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--purple)' }}>
-                  {onboardingAnswers?.mindset_archetype || 'Pattern Hunter'}
+                <span style={{ fontSize: 14, fontWeight: 800, color: isCalibrated ? 'var(--purple)' : theme.tTertiary }}>
+                  {isCalibrated ? (onboardingAnswers?.mindset_archetype || 'Pattern Hunter') : 'null (Uncalibrated)'}
                 </span>
               </div>
 
@@ -225,8 +232,8 @@ export default function MissionsEvolveBanner({
                 >
                   QT2 Score:
                 </span>
-                <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--teal)' }}>
-                  🧠 {onboardingAnswers?.qt2_score || 75} pts
+                <span style={{ fontSize: 14, fontWeight: 800, color: isCalibrated ? 'var(--teal)' : theme.tTertiary }}>
+                  {isCalibrated ? `🧠 ${onboardingAnswers?.qt2_score || 75} pts` : '🧠 null'}
                 </span>
               </div>
 
@@ -282,11 +289,11 @@ export default function MissionsEvolveBanner({
                   fontWeight: 800,
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
-                  color: 'var(--teal)',
+                  color: isCalibrated ? 'var(--teal)' : theme.tPrimary,
                   fontFamily: 'var(--font-mono)',
                 }}
               >
-                Simulation Ready
+                {isCalibrated ? 'Simulation Ready' : 'Calibration Session Ready'}
               </span>
             </div>
 
@@ -313,7 +320,7 @@ export default function MissionsEvolveBanner({
             </button>
 
             <span style={{ fontSize: 12, color: theme.tTertiary, lineHeight: 1.4 }}>
-              Includes 3D VRoid avatar debrief, real-time System 2 evaluation, and QT2 score re-indexing.
+              Includes 3D VRoid avatar debrief, real-time System 2 evaluation, and QT2 score calibration.
             </span>
 
             <div style={{ paddingTop: 4, borderTop: `1px solid ${theme.border}`, width: '100%' }}>
