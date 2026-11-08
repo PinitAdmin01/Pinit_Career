@@ -1,3 +1,5 @@
+import fsModule from 'fs';
+import pathModule from 'path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -336,4 +338,46 @@ test('BRUTAL AUDIT 4.6: Stale Course Template Re-synchronization (No Java projec
   assert.ok(freshProjs[0].techStack.toLowerCase().includes('python'), 'Fresh projects must be Python based');
   assert.ok(!freshProjs[0].name.toLowerCase().includes('banking') && !freshProjs[0].name.toLowerCase().includes('java'),
     'Must never give Java banking project to Python student');
+});
+
+test('BRUTAL AUDIT 5.1: Task 2 Degree Track Switcher Elimination from Certification Pathway', () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const pageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+
+  // Must have certification-curriculum-strip
+  assert.ok(pageSource.includes('data-testid="certification-curriculum-strip"'), 'Must have accredited degree curriculum strip');
+  
+  // In the certification section, it must NOT have Switch Degree Track dropdown
+  const certStripCode = pageSource.substring(
+    pageSource.indexOf('data-testid="certification-curriculum-strip"'),
+    pageSource.indexOf('data-testid="standalone-sprint-strip"')
+  );
+  assert.ok(!certStripCode.includes('Switch Degree Track:'), 'Certification strip must NEVER have "Switch Degree Track:"');
+  assert.ok(!certStripCode.includes('course-track-selector'), 'Certification strip must NEVER render course selector dropdown');
+  assert.ok(certStripCode.includes('Accredited Degree Curriculum'), 'Must show authoritative Accredited Degree Curriculum badge');
+  assert.ok(certStripCode.includes('University Enrolled Track'), 'Must show University Enrolled Track locked status');
+
+  // Standalone strip must have the switcher
+  const standaloneStripCode = pageSource.substring(
+    pageSource.indexOf('data-testid="standalone-sprint-strip"'),
+    pageSource.indexOf('data-testid="roadmap-track-strip"')
+  );
+  assert.ok(standaloneStripCode.includes('Switch Skill Sprint:'), 'Standalone strip must allow switching skill sprints');
+  assert.ok(standaloneStripCode.includes('id="course-track-selector"'), 'Standalone strip must render course selector dropdown');
+});
+
+test('BRUTAL AUDIT 5.2: Task 1 Innovation Hub Redundant Header Elimination & Task 3 Beginner-Friendly Activation Card', () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const hubPageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/innovation-hub/page.tsx'), 'utf8');
+  assert.ok(!hubPageSource.includes('Innovation Hub & Collaborative Squads Form 3-person hackathon squads'),
+    'Must eliminate redundant 2-line Innovation Hub header');
+  assert.ok(!hubPageSource.includes('Form 3-person hackathon squads, build production prototypes'),
+    'Must eliminate redundant squad description header');
+
+  const projectsPageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+  assert.ok(projectsPageSource.includes('Pathway Activation Required'), 'Must feature clear activation badge');
+  assert.ok(projectsPageSource.includes('1️⃣') && projectsPageSource.includes('2️⃣'), 'Must feature 2-step visual activation roadmap');
+  assert.ok(projectsPageSource.includes('data-testid="start-day-1-btn"'), 'Must feature primary Start Day 1 action button');
 });

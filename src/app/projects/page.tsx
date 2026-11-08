@@ -1274,17 +1274,83 @@ function ProjectsPageContent() {
         </div>
       </div>
 
-      {/* ── ACTIVE TRACK SELECTOR (FOR CERTIFICATION PATHWAY) ── */}
-      {(selectedPathway === 'certification' || selectedPathway === 'standalone') && (
+      {/* ── PATHWAY CONTEXT BANNER ── */}
+      {selectedPathway === 'certification' && (
         <div
+          data-testid="certification-curriculum-strip"
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: 12,
-            marginBottom: 16,
-            padding: '12px 18px',
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#10b981',
+                background: 'rgba(16, 185, 129, 0.12)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              🎓 Accredited Degree Curriculum
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 600 }}>
+              {degree || 'Computer Science & Engineering'}
+            </span>
+            <span style={{ color: 'var(--border2)' }}>•</span>
+            <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>({activeCourse.difficulty} • {activeCourse.durationWeeks} Weeks)</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: 'var(--t3)',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                padding: '4px 12px',
+                borderRadius: 20,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5
+              }}
+              title="This curriculum is locked to your enrolled degree syllabus"
+            >
+              <span>🔒</span> University Enrolled Track
+            </span>
+          </div>
+        </div>
+      )}
+
+      {selectedPathway === 'standalone' && (
+        <div
+          data-testid="standalone-sprint-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
             borderRadius: 14,
             background: 'var(--card)',
             border: '1px solid var(--border)',
@@ -1299,14 +1365,14 @@ function ProjectsPageContent() {
                 color: 'var(--accent)',
                 background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
                 border: '1px solid var(--border2)',
-                padding: '3px 8px',
-                borderRadius: 6,
+                padding: '4px 10px',
+                borderRadius: 8,
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
                 fontFamily: 'var(--font-mono, monospace)'
               }}
             >
-              {selectedPathway === 'certification' ? 'Active Certification Track' : 'Active Standalone Course'}
+              ⚡ Focused Skill Sprint
             </span>
             <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
             <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
@@ -1315,7 +1381,7 @@ function ProjectsPageContent() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <label htmlFor="course-track-selector" style={{ fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
-              {selectedPathway === 'certification' ? 'Switch Degree Track:' : 'Switch Standalone Skill:'}
+              Switch Skill Sprint:
             </label>
             <select
               id="course-track-selector"
@@ -1335,13 +1401,13 @@ function ProjectsPageContent() {
                   setProjects(newProjs as Project[]);
                   setSelectedGuideProject(newProjs[0] as Project);
                   saveCareerProjects(newProjs);
-                  toast.success('Track Switched 🎯', `Now viewing capstones for ${courseObj?.title || newId}`);
+                  toast.success('Sprint Switched 🎯', `Now viewing capstones for ${courseObj?.title || newId}`);
                 }
               }}
               style={{
-                padding: '6px 12px',
-                borderRadius: 8,
-                background: 'var(--bg3)',
+                padding: '7px 14px',
+                borderRadius: 10,
+                background: 'var(--bg2)',
                 border: '1px solid var(--border2)',
                 color: 'var(--t1)',
                 fontSize: 13,
@@ -1361,7 +1427,108 @@ function ProjectsPageContent() {
         </div>
       )}
 
-      {/* ── PATHWAY STATUS & GATING ── */}
+      {selectedPathway === 'roadmap' && (
+        <div
+          data-testid="roadmap-track-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#8b5cf6',
+                background: 'rgba(139, 92, 246, 0.12)',
+                border: '1px solid rgba(139, 92, 246, 0.25)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              🗺️ Personalized AI Roadmap
+            </span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{selectedGoal || 'Full-Stack Software Developer'}</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>(3-Stage Architecture Progression)</span>
+          </div>
+          <div style={{ fontSize: 12.5, color: 'var(--t3)', fontWeight: 600 }}>
+            Tailored to your DNA Score & Target Role
+          </div>
+        </div>
+      )}
+
+      {selectedPathway === 'independent' && (
+        <div
+          data-testid="independent-track-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#3b82f6',
+                background: 'rgba(59, 130, 246, 0.12)',
+                border: '1px solid rgba(59, 130, 246, 0.25)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              🛠️ Custom Software Repository
+            </span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>Self-Authored Production Project</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>(Direct GitHub Verification)</span>
+          </div>
+          <button
+            onClick={() => {
+              setOwnProjectStep('confirm');
+              setShowOwnProjectModal(true);
+            }}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 8,
+              background: 'var(--bg2)',
+              border: '1px solid var(--border2)',
+              color: 'var(--accent)',
+              fontSize: 12.5,
+              fontWeight: 800,
+              cursor: 'pointer'
+            }}
+          >
+            + Link Another GitHub Repo
+          </button>
+        </div>
+      )}
+
+      {/* ── PATHWAY STATUS & GATING (OPTIMIZED BEGINNER-FRIENDLY UI/UX) ── */}
       {!isPathwayActive ? (
         /* INACTIVE PATHWAY VIEW */
         <div
@@ -1369,49 +1536,152 @@ function ProjectsPageContent() {
           style={{
             background: 'var(--card)',
             border: '1px solid var(--border)',
-            borderRadius: 20,
-            padding: '48px 24px',
-            textAlign: 'center',
+            borderLeft: '4px solid #f59e0b',
+            borderRadius: 16,
+            padding: '28px 32px',
             margin: '20px 0',
-            boxShadow: 'var(--shadow-sm)'
+            boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.08)'
           }}
         >
-          <div style={{ fontSize: 52, marginBottom: 16 }}>⏳</div>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>
-            {selectedPathway === 'certification' ? 'Certification Course Pathway Inactive' :
-             selectedPathway === 'roadmap' ? 'Custom Roadmap Inactive' :
-             selectedPathway === 'standalone' ? 'Standalone Course Inactive' : 'No Independent Project Configured'}
-          </h2>
-          <p style={{ fontSize: 15, color: 'var(--t2)', maxWidth: 540, margin: '0 auto 24px', lineHeight: 1.6 }}>
-            {selectedPathway === 'certification' ? `You have not completed any coursework for ${activeCourse.title} yet. To activate this pathway and unlock capstones, you must complete at least Day 1 of coursework in Quests.` :
-             selectedPathway === 'roadmap' ? 'You have not started or completed any quests on your personalized AI roadmap. Complete at least Day 1 in Quests to activate this track.' :
-             selectedPathway === 'standalone' ? 'No active standalone course progress detected. Complete at least Day 1 of a standalone track to activate.' :
-             'You have not initialized an independent project yet. Click "+ Start Your Own Project" to link your GitHub repository.'}
-          </p>
-          <button
-            onClick={() => {
-              if (selectedPathway === 'independent') {
-                setOwnProjectStep('confirm');
-                setShowOwnProjectModal(true);
-              } else {
-                router.push('/quests');
-              }
-            }}
-            data-testid="start-day-1-btn"
-            style={{
-              padding: '12px 28px',
-              borderRadius: 12,
-              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-              color: '#fff',
-              fontSize: 15,
-              fontWeight: 800,
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)'
-            }}
-          >
-            {selectedPathway === 'independent' ? '🛠️ Link GitHub Repository' : '🚀 Start Day 1 in Quests'}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, maxWidth: 760 }}>
+              <div
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 14,
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  border: '1px solid rgba(245, 158, 11, 0.28)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 26,
+                  flexShrink: 0
+                }}
+              >
+                ⏳
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: '#f59e0b',
+                      background: 'rgba(245, 158, 11, 0.12)',
+                      border: '1px solid rgba(245, 158, 11, 0.25)',
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.4px'
+                    }}
+                  >
+                    Pathway Activation Required
+                  </span>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>• 1 Day of Quests Needed</span>
+                </div>
+                <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0', letterSpacing: '-0.2px' }}>
+                  {selectedPathway === 'certification' ? 'Certification Course Pathway Inactive' :
+                   selectedPathway === 'roadmap' ? 'Custom Roadmap Inactive' :
+                   selectedPathway === 'standalone' ? 'Standalone Course Inactive' : 'No Independent Project Configured'}
+                </h2>
+                <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: '0 0 16px 0', lineHeight: 1.55 }}>
+                  {selectedPathway === 'certification' ? `You have not completed any coursework for ${activeCourse.title} yet. To activate this pathway and unlock capstones, complete at least Day 1 of coursework in Quests.` :
+                   selectedPathway === 'roadmap' ? 'You have not completed any quests on your personalized AI roadmap yet. Complete at least Day 1 in Quests to activate this track.' :
+                   selectedPathway === 'standalone' ? `No active progress detected for ${activeCourse.title}. Complete at least Day 1 of this skill sprint in Quests to activate.` :
+                   'You have not initialized an independent project yet. Connect your GitHub repository to link custom code and bypass course milestones.'}
+                </p>
+
+                {/* 2-Step Activation Roadmap */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', fontSize: 12.5 }}>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '6px 12px',
+                    borderRadius: 8,
+                    background: 'var(--bg2)',
+                    border: '1px solid var(--border)',
+                    fontWeight: 700,
+                    color: 'var(--t1)'
+                  }}>
+                    <span style={{ color: '#f59e0b' }}>1️⃣</span> Complete Day 1 in Quests
+                    <span style={{ color: 'var(--t3)', fontWeight: 500 }}>(Activates Track)</span>
+                  </div>
+                  <span style={{ color: 'var(--t3)', fontSize: 14 }}>➔</span>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '6px 12px',
+                    borderRadius: 8,
+                    background: 'var(--bg2)',
+                    border: '1px solid var(--border)',
+                    fontWeight: 700,
+                    color: 'var(--t1)'
+                  }}>
+                    <span style={{ color: '#6366f1' }}>2️⃣</span> Reach 3 Quests (Milestone 1)
+                    <span style={{ color: 'var(--t3)', fontWeight: 500 }}>(Unlocks Capstone Build)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 220, alignSelf: 'center' }}>
+              <button
+                onClick={() => {
+                  if (selectedPathway === 'independent') {
+                    setOwnProjectStep('confirm');
+                    setShowOwnProjectModal(true);
+                  } else {
+                    router.push('/quests');
+                  }
+                }}
+                data-testid="start-day-1-btn"
+                style={{
+                  padding: '13px 24px',
+                  borderRadius: 12,
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  color: '#fff',
+                  fontSize: 14.5,
+                  fontWeight: 800,
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {selectedPathway === 'independent' ? '🛠️ Link GitHub Repository' : '🚀 Start Day 1 in Quests'}
+              </button>
+
+              {selectedPathway !== 'independent' && (
+                <button
+                  onClick={() => {
+                    setOwnProjectStep('confirm');
+                    setShowOwnProjectModal(true);
+                  }}
+                  style={{
+                    padding: '9px 16px',
+                    borderRadius: 10,
+                    background: 'transparent',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t2)',
+                    fontSize: 12.5,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  Or link GitHub repository directly →
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       ) : !isPathwayMilestoneReached ? (
         /* ACTIVE BUT BELOW MILESTONE VIEW */
