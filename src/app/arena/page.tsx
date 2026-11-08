@@ -65,6 +65,35 @@ function ArenaContent() {
     });
   }, [xp, user]);
 
+
+  const [recentMatches, setRecentMatches] = useState<BattleMatch[]>([]);
+
+  // Hydrate real match history from local storage and server
+  useEffect(() => {
+    if (!studentId) return;
+    CodeWarsApiService.getStudentMatchesAsync(studentId).then(matches => {
+      if (matches && matches.length > 0) {
+        setRecentMatches(matches);
+      }
+    }).catch(() => {});
+  }, [studentId]);
+
+  // Elo Tier & Progress Calculation (Real user data)
+  const eloRating = (user as any)?.arena_elo || 1200;
+  const eloTier = React.useMemo(() => {
+    if (eloRating >= 2000) return { name: 'Diamond Apex', icon: '💎', base: 2000, target: 2500, next: 'Grandmaster' };
+    if (eloRating >= 1700) return { name: 'Platinum Vanguard', icon: '🛡️', base: 1700, target: 2000, next: 'Diamond' };
+    if (eloRating >= 1400) return { name: 'Gold Architect', icon: '⚔️', base: 1400, target: 1700, next: 'Platinum' };
+    if (eloRating >= 1200) return { name: 'Silver Tactician', icon: '⚡', base: 1200, target: 1400, next: 'Gold' };
+    return { name: 'Bronze Cadet', icon: '🔰', base: 1000, target: 1200, next: 'Silver' };
+  }, [eloRating]);
+  const eloProgressPct = Math.min(100, Math.max(5, Math.round(((eloRating - eloTier.base) / (eloTier.target - eloTier.base)) * 100)));
+
+  // Combat Precision & Win Ratio (Real match evidence)
+  const totalBattles = recentMatches.length;
+  const winsCount = recentMatches.filter(m => m.status === 'victory').length;
+  const winRatePct = totalBattles > 0 ? Math.round((winsCount / totalBattles) * 100) : 0;
+
   const [activeTab, setActiveTab] = useState<'all' | 'code_wars' | 'hackathons' | 'viva'>(initialTab);
 
   // Sync tab with URL query parameter
@@ -125,7 +154,6 @@ function ArenaContent() {
     evidenceRecordId?: string;
   } | null>(null);
 
-  const [recentMatches, setRecentMatches] = useState<BattleMatch[]>([]);
   const [showCodeInspect, setShowCodeInspect] = useState<boolean>(false);
 
   // Code War Rules & Competitive State (Task 15)
@@ -292,37 +320,49 @@ function ArenaContent() {
     };
   }, [roomStatus, soloStatus, timeRemaining, problemDifficulty]);
 
-  // Matchmaking Queue Timer
+  // Matchmaking Queue Timer (Fast 1s Clock + 2s Polling Cadence for Fast Pairing)
   useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
-    if (isQueueing) {
-      timer = setInterval(async () => {
-        setQueueSeconds(s => s + 1);
+    if (!isQueueing) return;
 
-        // Poll matchmaker every 3s
-        try {
-          const res = await ArenaPvPService.matchmake({
-            studentId,
-            studentName,
-            studentAvatar,
-            difficulty: selectedDifficulty,
-            defaultProblemId: selectedProblemId,
-          });
+    let isSubscribed = true;
 
-          if (res.matched && res.room) {
-            setIsQueueing(false);
-            setQueueSeconds(0);
-            setActiveRoom(res.room);
-            setTimeRemaining(res.room.timeLimitSeconds || 600);
-          }
-        } catch (err) {
-          console.warn('Matchmaking poll error:', err);
+    // 1. Precise 1-second clock timer for visual radar feedback
+    const clockInterval = setInterval(() => {
+      setQueueSeconds(s => s + 1);
+    }, 1000);
+
+    // 2. Immediate poll on start
+    const pollMatchmaker = async () => {
+      if (!isSubscribed) return;
+      try {
+        const res = await ArenaPvPService.matchmake({
+          studentId,
+          studentName,
+          studentAvatar,
+          difficulty: selectedDifficulty,
+          defaultProblemId: selectedProblemId,
+        });
+
+        if (res.matched && res.room && isSubscribed) {
+          setIsQueueing(false);
+          setQueueSeconds(0);
+          setActiveRoom(res.room);
+          setTimeRemaining(res.room.timeLimitSeconds || 600);
         }
-      }, 3000);
-    }
+      } catch (err) {
+        console.warn('Matchmaking poll error:', err);
+      }
+    };
+
+    pollMatchmaker();
+
+    // 3. Fast 2-second polling cadence for instantaneous pairing
+    const pollInterval = setInterval(pollMatchmaker, 2000);
 
     return () => {
-      if (timer) clearInterval(timer);
+      isSubscribed = false;
+      clearInterval(clockInterval);
+      clearInterval(pollInterval);
     };
   }, [isQueueing, selectedDifficulty, selectedProblemId, studentId, studentName, studentAvatar]);
 
@@ -632,6 +672,15 @@ function ArenaContent() {
     }
   }, [isMatchOver, didIWin]);
 
+  // Synchronize recentMatches on match completion
+  useEffect(() => {
+    if (!isMatchOver) return;
+    const updated = CodeWarsApiService.getStudentMatches(studentId);
+    if (updated && updated.length > 0) {
+      setRecentMatches(updated);
+    }
+  }, [isMatchOver, studentId]);
+
   // Synchronize match XP & rewards to student profile upon match conclusion
   const awardAppliedRef = useRef<string | null>(null);
   useEffect(() => {
@@ -648,94 +697,18 @@ function ArenaContent() {
   return (
     <div style={{ maxWidth: 1380, margin: '0 auto', minHeight: '85vh', paddingBottom: 40 }}>
       
-      {/* ── Combat Header ────────────────────────────────────────── */}
-      <div style={{
-        padding: '24px 32px',
-        borderRadius: 16,
-        background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
-        border: '1px solid var(--border)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 20,
-        marginBottom: 24,
-        boxShadow: 'var(--shadow-md)'
-      }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-            
-            <h1 style={{ fontSize: 28.5, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.5px' }}>
-              Challenging Arena &amp; Combat Center
-            </h1>
-          </div>
-          <p style={{ margin: 0, color: 'var(--t2)', fontSize: 15.5, maxWidth: 680, lineHeight: 1.5 }}>
-            Put your engineering capabilities to the test. Compete in real-time 1v1 PvP algorithmic code battles,
-            create private battle rooms to challenge friends, or defend your architecture in AI viva drills.
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <div style={{
-            padding: '10px 18px',
-            borderRadius: 12,
-            background: 'rgba(245, 158, 11, 0.12)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-          }}>
-            <div>
-              <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--amber-dark, #b45309)', fontWeight: 800, letterSpacing: '0.04em' }}>Arena XP</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>{xp.toLocaleString()}</div>
-            </div>
-          </div>
-
-          <div style={{
-            padding: '10px 18px',
-            borderRadius: 12,
-            background: 'rgba(234, 179, 8, 0.12)',
-            border: '1px solid rgba(234, 179, 8, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-          }}>
-            <div>
-              <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--t2)', fontWeight: 800, letterSpacing: '0.04em' }}>Combat Pins</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>{pins.toLocaleString()}</div>
-            </div>
-          </div>
-
-          <Link
-            href="/leaderboard?tab=code_wars"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '12px 20px',
-              borderRadius: 12,
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              color: '#ffffff',
-              fontWeight: 700,
-              fontSize: 15.5,
-              textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
-              transition: 'transform 0.15s ease'
-            }}
-          >
-            Leaderboard
-          </Link>
-        </div>
-      </div>
-
-      {/* ── Arena Navigation Tabs ─────────────────────────────────── */}
+      {/* ── Arena Navigation Tabs (Sleek Glass Segmented Bar) ───────────────────── */}
       <div style={{
         display: 'flex',
         gap: 8,
-        borderBottom: '1px solid var(--border)',
-        paddingBottom: 16,
+        padding: '6px',
+        borderRadius: 14,
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
         marginBottom: 24,
-        overflowX: 'auto'
+        marginTop: 4,
+        overflowX: 'auto',
+        boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04))'
       }}>
         {[
           { id: 'all', label: 'All Combat Modes', badge: 'Overview' },
@@ -755,26 +728,26 @@ function ArenaContent() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                padding: '10px 18px',
+                padding: '9px 16px',
                 borderRadius: 10,
-                background: isSelected ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
+                background: isSelected ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
                 border: isSelected ? '1px solid var(--accent)' : '1px solid transparent',
                 color: isSelected ? 'var(--t1)' : 'var(--t2)',
-                fontWeight: isSelected ? 700 : 500,
-                fontSize: 15.5,
+                fontWeight: isSelected ? 800 : 600,
+                fontSize: 14.5,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.15s ease'
               }}
             >
-                            <span>{tab.label}</span>
+              <span>{tab.label}</span>
               <span style={{
-                fontSize: 12,
+                fontSize: 11.5,
                 padding: '2px 8px',
                 borderRadius: 20,
                 background: isSelected ? 'rgba(99, 102, 241, 0.3)' : 'var(--bg3)',
                 color: isSelected ? '#a5b4fc' : 'var(--t3)',
-                fontWeight: 600,
+                fontWeight: 700,
               }}>
                 {tab.badge}
               </span>
@@ -783,41 +756,67 @@ function ArenaContent() {
         })}
       </div>
 
-      {/* ── Tab Content ─────────────────────────────────────────── */}
+      {/* ── Tab Content (Heaven-Grade Frosted Glass Overview Cards) ── */}
       {(activeTab === 'all' || activeTab === 'hackathons' || activeTab === 'viva') && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
           {/* Card 1: 1v1 Code Wars */}
           {activeTab === 'all' && (
           <div style={{
-            padding: 24,
-            borderRadius: 16,
-            background: 'var(--bg2)',
+            padding: '28px 26px',
+            borderRadius: 20,
+            background: 'var(--card)',
+            backdropFilter: 'blur(16px)',
             border: '1px solid var(--border)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
           }}>
+            {/* Ambient Red Accent Glow */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: 160,
+              height: 160,
+              background: 'radial-gradient(circle at top right, rgba(239, 68, 68, 0.12), transparent 70%)',
+              pointerEvents: 'none'
+            }} />
+
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                
-                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', fontSize: 13, fontWeight: 700 }}>
-                  1v1 PvP ARENA
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '4px 12px',
+                  borderRadius: 20,
+                  background: 'rgba(239, 68, 68, 0.12)',
+                  border: '1px solid rgba(239, 68, 68, 0.25)',
+                  color: '#ef4444',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  letterSpacing: '0.04em'
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', boxShadow: '0 0 6px #ef4444' }} />
+                  1V1 PVP ARENA
                 </span>
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, letterSpacing: '-0.3px' }}>
                 Algorithmic Code Wars
               </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 20 }}>
                 Challenge fellow engineers in private 1v1 duel rooms or spar against the Turing Benchmark AI.
                 Solve deterministic algorithmic challenges, optimize time complexity, and earn verified skill evidence.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ 1v1 Room Battles</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Turing AI Sparring</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ SHA-256 Ledger Evidence</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Monaco Code Runner</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ 1v1 Room Battles</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Turing AI Sparring</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ SHA-256 Ledger Evidence</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Monaco Code Runner</span>
               </div>
             </div>
             <button
@@ -825,18 +824,19 @@ function ArenaContent() {
               style={{
                 width: '100%',
                 padding: '14px',
-                borderRadius: 12,
+                borderRadius: 14,
                 background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
                 color: '#fff',
-                fontWeight: 700,
-                fontSize: 16.5,
+                fontWeight: 800,
+                fontSize: 15.5,
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: 8,
-                boxShadow: '0 4px 14px rgba(239, 68, 68, 0.35)'
+                boxShadow: '0 4px 16px rgba(239, 68, 68, 0.35)',
+                transition: 'all 0.15s ease'
               }}
             >
               Open 1v1 Code Wars Arena →
@@ -847,32 +847,60 @@ function ArenaContent() {
           {/* Card 2: Hackathon Squads */}
           {(activeTab === 'all' || activeTab === 'hackathons') && (
           <div style={{
-            padding: 24,
-            borderRadius: 16,
-            background: 'var(--bg2)',
+            padding: '28px 26px',
+            borderRadius: 20,
+            background: 'var(--card)',
+            backdropFilter: 'blur(16px)',
             border: '1px solid var(--border)',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            position: 'relative',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
           }}>
+            {/* Ambient Purple Accent Glow */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: 160,
+              height: 160,
+              background: 'radial-gradient(circle at top right, rgba(168, 85, 247, 0.12), transparent 70%)',
+              pointerEvents: 'none'
+            }} />
+
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                
-                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', fontSize: 13, fontWeight: 700 }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '4px 12px',
+                  borderRadius: 20,
+                  background: 'rgba(168, 85, 247, 0.12)',
+                  border: '1px solid rgba(168, 85, 247, 0.25)',
+                  color: '#c084fc',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  letterSpacing: '0.04em'
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#a855f7', boxShadow: '0 0 6px #a855f7' }} />
                   SQUAD COLLABORATION
                 </span>
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                Squad Collaboration & Projects
+              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, letterSpacing: '-0.3px' }}>
+                Squad Collaboration &amp; Projects
               </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 20 }}>
                 Collaborate on production-grade capstone products in the Projects hub. Form multi-disciplinary teams with Frontend, Backend, and AI roles to build portfolio-grade software.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Role Slot Allocation</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Milestone Tracker</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ GitHub Workspaces</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Portfolio Capstones</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Role Slot Allocation</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Milestone Tracker</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ GitHub Workspaces</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Portfolio Capstones</span>
               </div>
             </div>
             <Link
@@ -880,11 +908,11 @@ function ArenaContent() {
               style={{
                 width: '100%',
                 padding: '14px',
-                borderRadius: 12,
+                borderRadius: 14,
                 background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
                 color: '#fff',
-                fontWeight: 700,
-                fontSize: 16.5,
+                fontWeight: 800,
+                fontSize: 15.5,
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
@@ -892,10 +920,11 @@ function ArenaContent() {
                 justifyContent: 'center',
                 gap: 8,
                 textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(168, 85, 247, 0.35)'
+                boxShadow: '0 4px 16px rgba(168, 85, 247, 0.35)',
+                transition: 'all 0.15s ease'
               }}
             >
-              Enter Squads & Projects →
+              Enter Squads &amp; Projects →
             </Link>
           </div>
           )}
@@ -903,32 +932,60 @@ function ArenaContent() {
           {/* Card 3: AI STAR Viva */}
           {(activeTab === 'all' || activeTab === 'viva') && (
           <div style={{
-            padding: 24,
-            borderRadius: 16,
-            background: 'var(--bg2)',
+            padding: '28px 26px',
+            borderRadius: 20,
+            background: 'var(--card)',
+            backdropFilter: 'blur(16px)',
             border: '1px solid var(--border)',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            position: 'relative',
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
           }}>
+            {/* Ambient Blue Accent Glow */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: 160,
+              height: 160,
+              background: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 70%)',
+              pointerEvents: 'none'
+            }} />
+
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                
-                <span style={{ padding: '4px 10px', borderRadius: 12, background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', fontSize: 13, fontWeight: 700 }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '4px 12px',
+                  borderRadius: 20,
+                  background: 'rgba(59, 130, 246, 0.12)',
+                  border: '1px solid rgba(59, 130, 246, 0.25)',
+                  color: '#60a5fa',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  letterSpacing: '0.04em'
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', boxShadow: '0 0 6px #3b82f6' }} />
                   LIVE AI DEFENSE
                 </span>
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
+              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, letterSpacing: '-0.3px' }}>
                 AI STAR Mock Interview Viva
               </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 15.5, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 20 }}>
                 Face off against strict corporate AI recruiters with full voice-to-voice interaction. Defend your code, build architecture canvases, and answer high-pressure STAR behavioral drills.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ STAR Methodology</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ System Design Canvas</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Live Voice STT/TTS</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 13, color: 'var(--t2)' }}>✔ Recruiter Personas</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ STAR Methodology</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ System Design Canvas</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Live Voice STT/TTS</span>
+                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Recruiter Personas</span>
               </div>
             </div>
             <Link
@@ -936,11 +993,11 @@ function ArenaContent() {
               style={{
                 width: '100%',
                 padding: '14px',
-                borderRadius: 12,
+                borderRadius: 14,
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                 color: '#fff',
-                fontWeight: 700,
-                fontSize: 16.5,
+                fontWeight: 800,
+                fontSize: 15.5,
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
@@ -948,7 +1005,8 @@ function ArenaContent() {
                 justifyContent: 'center',
                 gap: 8,
                 textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(59, 130, 246, 0.35)'
+                boxShadow: '0 4px 16px rgba(59, 130, 246, 0.35)',
+                transition: 'all 0.15s ease'
               }}
             >
               Start AI Mock Interview →
@@ -969,11 +1027,12 @@ function ArenaContent() {
                 
                 {/* Mode A: 1v1 Quick Matchmaking */}
                 <div style={{
-                  padding: 24,
-                  borderRadius: 16,
-                  background: 'var(--bg2)',
+                  padding: '28px 24px',
+                  borderRadius: 20,
+                  background: 'var(--card)',
+                  backdropFilter: 'blur(16px)',
                   border: isQueueing ? '1.5px solid var(--accent)' : '1px solid var(--border)',
-                  boxShadow: isQueueing ? '0 0 24px rgba(99, 102, 241, 0.25)' : 'none',
+                  boxShadow: isQueueing ? '0 0 28px rgba(99, 102, 241, 0.3)' : 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
@@ -981,8 +1040,21 @@ function ArenaContent() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       
-                      <span style={{ fontSize: 13, fontWeight: 700, color: '#818cf8', background: 'rgba(99, 102, 241, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
-                        TURING AI SPARRING & DUELS
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        fontSize: 12,
+                        fontWeight: 800,
+                        letterSpacing: '0.04em',
+                        color: '#818cf8',
+                        background: 'rgba(99, 102, 241, 0.12)',
+                        border: '1px solid rgba(99, 102, 241, 0.25)',
+                        padding: '4px 12px',
+                        borderRadius: 20
+                      }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#818cf8', boxShadow: '0 0 6px #818cf8' }} />
+                        TURING AI SPARRING &amp; DUELS
                       </span>
                     </div>
                     <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
@@ -1082,10 +1154,12 @@ function ArenaContent() {
 
                 {/* Mode B: Create Custom Battle Room */}
                 <div style={{
-                  padding: 24,
-                  borderRadius: 16,
-                  background: 'var(--bg2)',
+                  padding: '28px 24px',
+                  borderRadius: 20,
+                  background: 'var(--card)',
+                  backdropFilter: 'blur(16px)',
                   border: '1px solid var(--border)',
+                  boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
@@ -1093,7 +1167,20 @@ function ArenaContent() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       
-                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--green, #059669)', background: 'rgba(16, 185, 129, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        fontSize: 12,
+                        fontWeight: 800,
+                        letterSpacing: '0.04em',
+                        color: '#10b981',
+                        background: 'rgba(16, 185, 129, 0.12)',
+                        border: '1px solid rgba(16, 185, 129, 0.25)',
+                        padding: '4px 12px',
+                        borderRadius: 20
+                      }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
                         PRIVATE INVITE
                       </span>
                     </div>
@@ -1177,10 +1264,12 @@ function ArenaContent() {
 
                 {/* Mode C: Join Room via Code */}
                 <div style={{
-                  padding: 24,
-                  borderRadius: 16,
-                  background: 'var(--bg2)',
+                  padding: '28px 24px',
+                  borderRadius: 20,
+                  background: 'var(--card)',
+                  backdropFilter: 'blur(16px)',
                   border: '1px solid var(--border)',
+                  boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
@@ -1188,7 +1277,20 @@ function ArenaContent() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       
-                      <span style={{ fontSize: 13, fontWeight: 700, color: '#f472b6', background: 'rgba(244, 114, 182, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        fontSize: 12,
+                        fontWeight: 800,
+                        letterSpacing: '0.04em',
+                        color: '#ec4899',
+                        background: 'rgba(236, 72, 153, 0.12)',
+                        border: '1px solid rgba(236, 72, 153, 0.25)',
+                        padding: '4px 12px',
+                        borderRadius: 20
+                      }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ec4899', boxShadow: '0 0 6px #ec4899' }} />
                         ENTER CODE
                       </span>
                     </div>
@@ -2287,6 +2389,215 @@ function ArenaContent() {
           )}
         </div>
       )}
+
+      {/* ── BOTTOM COMBAT MASTERY & TELEMETRY DOCK (Screenshot 2 Relocated + 2 Progress Bars) ── */}
+      <div
+        data-testid="arena-bottom-telemetry-dock"
+        style={{
+          marginTop: 40,
+          padding: '26px 30px',
+          borderRadius: 20,
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
+          backdropFilter: 'blur(16px)'
+        }}
+      >
+        {/* Top row: Title + Screenshot 2 Components (Arena XP, Combat Pins, Leaderboard) */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 16,
+            paddingBottom: 20,
+            borderBottom: '1px solid var(--border)',
+            marginBottom: 20
+          }}
+        >
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 20 }}>⚔️</span>
+              <h2 style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
+                Combat Mastery &amp; Season Telemetry
+              </h2>
+            </div>
+            <p style={{ margin: 0, fontSize: 13.5, color: 'var(--t3)' }}>
+              Real-time calibration of your competitive rating, win precision, and combat pin reserves.
+            </p>
+          </div>
+
+          {/* Screenshot 2 Components: Arena XP, Combat Pins, Leaderboard */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            <div
+              style={{
+                padding: '9px 18px',
+                borderRadius: 12,
+                background: 'rgba(245, 158, 11, 0.12)',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--amber-dark, #b45309)', fontWeight: 800, letterSpacing: '0.04em' }}>
+                  Arena XP
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
+                  {xp.toLocaleString()}
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: '9px 18px',
+                borderRadius: 12,
+                background: 'rgba(234, 179, 8, 0.12)',
+                border: '1px solid rgba(234, 179, 8, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--t2)', fontWeight: 800, letterSpacing: '0.04em' }}>
+                  Combat Pins
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
+                  {pins.toLocaleString()}
+                </div>
+              </div>
+            </div>
+
+            <Link
+              href="/leaderboard?tab=code_wars"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '11px 20px',
+                borderRadius: 12,
+                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                color: '#ffffff',
+                fontWeight: 700,
+                fontSize: 14.5,
+                textDecoration: 'none',
+                boxShadow: '0 4px 14px rgba(79, 70, 229, 0.35)',
+                transition: 'transform 0.15s ease'
+              }}
+            >
+              <span>🏆</span>
+              <span>Leaderboard</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* 2 Dynamic Progress Bars Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
+          {/* Progress Bar 1: Arena Elo Tier & Advancement */}
+          <div
+            style={{
+              padding: '16px 20px',
+              borderRadius: 16,
+              background: 'var(--bg2)',
+              border: '1px solid var(--border)'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 16 }}>{eloTier.icon}</span>
+                <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>
+                  Tier: {eloTier.name}
+                </span>
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#f59e0b' }}>
+                {eloRating} / {eloTier.target} ELO
+              </span>
+            </div>
+
+            {/* Glowing Gradient Bar */}
+            <div
+              style={{
+                width: '100%',
+                height: 10,
+                borderRadius: 10,
+                background: 'var(--bg3)',
+                overflow: 'hidden',
+                position: 'relative'
+              }}
+            >
+              <div
+                style={{
+                  width: `${eloProgressPct}%`,
+                  height: '100%',
+                  borderRadius: 10,
+                  background: 'linear-gradient(90deg, #f59e0b 0%, #ef4444 100%)',
+                  boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)',
+                  transition: 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 11.5, color: 'var(--t3)' }}>
+              <span>Base Floor: {eloTier.base} ELO</span>
+              <span>{eloProgressPct}% to {eloTier.next}</span>
+            </div>
+          </div>
+
+          {/* Progress Bar 2: Combat Precision & Win Ratio */}
+          <div
+            style={{
+              padding: '16px 20px',
+              borderRadius: 16,
+              background: 'var(--bg2)',
+              border: '1px solid var(--border)'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 16 }}>🎯</span>
+                <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>
+                  Combat Precision &amp; Win Rate
+                </span>
+              </div>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#10b981' }}>
+                {totalBattles > 0 ? `${winRatePct}% Win Ratio` : 'Placement Phase'}
+              </span>
+            </div>
+
+            {/* Dual-tone Precision Bar */}
+            <div
+              style={{
+                width: '100%',
+                height: 10,
+                borderRadius: 10,
+                background: 'var(--bg3)',
+                overflow: 'hidden',
+                position: 'relative'
+              }}
+            >
+              <div
+                style={{
+                  width: `${totalBattles > 0 ? Math.max(6, winRatePct) : 0}%`,
+                  height: '100%',
+                  borderRadius: 10,
+                  background: 'linear-gradient(90deg, #10b981 0%, #06b6d4 100%)',
+                  boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)',
+                  transition: 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 11.5, color: 'var(--t3)' }}>
+              <span>{totalBattles > 0 ? `${winsCount} Victories • ${totalBattles - winsCount} Defeats` : '0 battles recorded'}</span>
+              <span>{totalBattles > 0 ? `${totalBattles} Total Duels` : 'Play a 1v1 match to calibrate'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ARENA RULES CODEX MODAL (Task 15) */}
       {showRulesDrawer && (
