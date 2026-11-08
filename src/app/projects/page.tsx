@@ -150,7 +150,7 @@ function ProjectsPageContent() {
       level: 'Beginner',
       description: ownProjectDesc.trim() || 'Custom independent project authored outside standard curriculum milestones.',
       techStack: ownProjectTechStack.trim() || 'Custom Stack',
-      problem: 'Independent software design challenge implemented directly by student.',
+      problem: ownProjectDesc.trim() || 'Independent software design challenge implemented directly by student.',
       deliverable: 'Production GitHub repository with automated tests and CI deployment.',
       xpReward: 350,
       status: 'In Progress',

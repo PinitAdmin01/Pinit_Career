@@ -15,6 +15,9 @@ function InnovationHubPageContent() {
     : (user?.displayName || 'Current Student');
   const studentAvatar = user?.avatar || (user as any)?.image || (user as any)?.avatarUrl;
   const initialJoinSquadId = searchParams?.get('join') || undefined;
+  const initialRepo = searchParams?.get('repo') || undefined;
+  const initialTitle = searchParams?.get('title') || undefined;
+  const initialProblem = searchParams?.get('problem') || undefined;
 
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
@@ -23,6 +26,9 @@ function InnovationHubPageContent() {
         studentName={studentName}
         studentAvatar={studentAvatar}
         initialJoinSquadId={initialJoinSquadId}
+        initialRepoUrl={initialRepo}
+        initialTitle={initialTitle}
+        initialProblem={initialProblem}
       />
     </div>
   );

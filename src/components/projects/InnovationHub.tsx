@@ -39,6 +39,9 @@ interface InnovationHubProps {
   studentName: string;
   studentAvatar?: string;
   initialJoinSquadId?: string;
+  initialRepoUrl?: string;
+  initialTitle?: string;
+  initialProblem?: string;
 }
 
 export const InnovationHub: React.FC<InnovationHubProps> = ({
@@ -46,6 +49,9 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   studentName,
   studentAvatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
   initialJoinSquadId,
+  initialRepoUrl,
+  initialTitle,
+  initialProblem,
 }) => {
   const [squads, setSquads] = useState<HackathonSquad[]>([]);
   const [selectedSquadId, setSelectedSquadId] = useState<string>('');
@@ -63,6 +69,16 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   const [newMyRole, setNewMyRole] = useState<TeamRole>('backend_lead');
   const [newRepoUrl, setNewRepoUrl] = useState<string>('');
   const [newIsPublic, setNewIsPublic] = useState<boolean>(true);
+
+  // Auto-fill from incoming project navigation if provided
+  useEffect(() => {
+    if (initialRepoUrl || initialTitle) {
+      if (initialRepoUrl) setNewRepoUrl(initialRepoUrl);
+      if (initialTitle) setNewSquadName(`${initialTitle} Squad`);
+      if (initialProblem) setNewProblemStatement(initialProblem);
+      setShowCreateModal(true);
+    }
+  }, [initialRepoUrl, initialTitle, initialProblem]);
 
   // Form state for Join Request
   const [joinRole, setJoinRole] = useState<TeamRole>('frontend_lead');
