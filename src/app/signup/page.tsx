@@ -16,7 +16,7 @@ export default function SignupPage() {
   const { signup, login } = useAuth();
   const router = useRouter();
 
-  // ─── Theme State: 'dark' (Minimalist Precision) vs 'light' (Modern Clean SaaS) ───
+  // ─── Theme State: 'dark' (Signature Cyber) vs 'light' (Clean Studio Precision) ───
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
@@ -101,52 +101,50 @@ export default function SignupPage() {
     } else {
       const collegeCode = deriveCollegeCode(collegeName);
       const branchCode = deriveBranchCode(branch);
-      const rollMatch = identifier.match(/\d+$/);
-      const rollNumber = rollMatch ? rollMatch[0].slice(-4) : '726';
-      const cid = generateCollegePinItId({
-        collegeCode,
-        departmentCode: branchCode,
-        rollNumber,
-      });
-      setPinitId(cid);
+      let rollDigits = '726';
+      const cleanId = identifier.trim();
+      const numMatch = cleanId.match(/\d{2,5}$/);
+      if (numMatch) {
+        rollDigits = numMatch[0];
+      } else if (cleanId.includes('@')) {
+        const local = cleanId.split('@')[0];
+        const localNum = local.match(/\d+/);
+        if (localNum) rollDigits = localNum[0].slice(-3);
+      }
+      setPinitId(`PIN-${collegeCode}-${branchCode}-${rollDigits}`);
     }
   }, [idMode, studentName, collegeName, branch, identifier]);
 
-  // ID Card Scanning (Drag-drop / File upload OCR)
+  // Optical Character Recognition (OCR) Card Scanning Handler
   const handleCardUpload = async (file: File) => {
     if (!file) return;
     setIsScanning(true);
-    setScanStatus('Scanning student ID badge...');
-    setError('');
+    setScanStatus('Analyzing badge credentials...');
 
     try {
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('fallbackName', studentName || '');
-
-      const res = await fetch('/api/auth/scan-id-card', {
+      formData.append('image', file);
+      const res = await fetch('/api/student/verify-card', {
         method: 'POST',
         body: formData,
       });
 
-      if (!res.ok) {
-        throw new Error('Badge scan API failed, using fallback parser');
-      }
-
-      const data = await res.json();
-      if (data?.metadata) {
-        setCollegeMeta(data.metadata);
-        if (data.metadata.studentName) {
-          setStudentName(data.metadata.studentName);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.studentName) {
+          setStudentName(data.studentName);
         }
-        if (data.metadata.collegeName) {
-          setCollegeName(data.metadata.collegeName);
+        if (data.collegeName) {
+          setCollegeName(data.collegeName);
         }
-        if (data.metadata.department) {
-          setBranch(data.metadata.department);
+        if (data.department) {
+          setBranch(data.department);
         }
-        if (data.metadata.rollNumber) {
-          setIdentifier(data.metadata.rollNumber);
+        if (data.rollNumber) {
+          setIdentifier(data.rollNumber);
+        }
+        if (data.collegeMeta) {
+          setCollegeMeta(data.collegeMeta);
         }
         if (data.pinitId) {
           setPinitId(data.pinitId);
@@ -292,39 +290,26 @@ export default function SignupPage() {
     >
       {/* ─── Ultra-Cool CSS Animations & Keyframes ─── */}
       <style>{`
-        /* Task 1: Symmetric card levitation (Zero perspective skewing, purely parallel edges) */
+        /* Symmetric card levitation (Zero perspective skewing, purely parallel edges) */
         @keyframes symmetricLevitateDark {
           0% {
             transform: rotate(-5.5deg) translateY(0px);
           }
           50% {
-            transform: rotate(-5.5deg) translateY(-14px);
+            transform: rotate(-5.5deg) translateY(-12px);
           }
           100% {
             transform: rotate(-5.5deg) translateY(0px);
           }
         }
 
-        /* Task 4: Aerodynamic flight levitation in Light Mode */
-        @keyframes aeroLevitationLight {
-          0% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-          100% {
-            transform: translateY(0px);
-          }
-        }
-
         @keyframes laserPulseGlow {
           0%, 100% {
-            box-shadow: 0 0 35px rgba(16, 185, 129, 0.38), inset 0 0 25px rgba(16, 185, 129, 0.12), 0 20px 45px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.38), inset 0 0 25px rgba(16, 185, 129, 0.12), 0 20px 45px rgba(0, 0, 0, 0.75);
             border-color: #10b981;
           }
           50% {
-            box-shadow: 0 0 55px rgba(52, 211, 153, 0.6), inset 0 0 32px rgba(52, 211, 153, 0.22), 0 26px 52px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 55px rgba(52, 211, 153, 0.58), inset 0 0 32px rgba(52, 211, 153, 0.22), 0 26px 52px rgba(0, 0, 0, 0.85);
             border-color: #34d399;
           }
         }
@@ -393,121 +378,58 @@ export default function SignupPage() {
           }
         }
 
-        /* Task 4: Aerodynamic supersonic pulse on climbing arrow */
-        @keyframes aeroJetStream {
-          0% {
-            stroke-dashoffset: 24;
-          }
-          100% {
-            stroke-dashoffset: 0;
-          }
-        }
-
         .input-glow:focus {
           border-color: #10b981 !important;
           box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
         }
 
         .input-glow-light:focus {
-          border-color: #4f46e5 !important;
-          box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.14) !important;
+          border-color: #10b981 !important;
+          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
         }
 
         .btn-neon-hover:hover {
           transform: translateY(-2px);
           box-shadow: 0 0 35px rgba(0, 245, 155, 0.7), 0 6px 20px rgba(16, 185, 129, 0.5) !important;
         }
-
-        .btn-light-hover:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 30px -4px rgba(5, 150, 105, 0.5) !important;
-        }
       `}</style>
 
-      {/* ─── Ambient Glows, Shades & Reticles ─── */}
-      {isDark ? (
-        <>
-          {/* Subtle Technical Grid Background with Crosshairs */}
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              pointerEvents: 'none',
-              backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1.2px, transparent 1.2px)',
-              backgroundSize: '28px 28px',
-              zIndex: 0,
-            }}
-          />
-          {/* Green Laser Ambient Glow Behind Card */}
-          <div
-            style={{
-              position: 'fixed',
-              top: '18%',
-              left: '12%',
-              width: 550,
-              height: 550,
-              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.05) 45%, transparent 70%)',
-              filter: 'blur(75px)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-          />
-          {/* High-Tech Reticle Corner Marks on Viewport */}
-          <div style={{ position: 'fixed', top: 20, left: 24, color: '#10b981', opacity: 0.5, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span>┌</span>
-            <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SYS.ACTIVE // AUTH_DOCK_v2.5</span>
-          </div>
-          <span style={{ position: 'fixed', top: 20, right: 24, color: '#10b981', opacity: 0.5, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┐</span>
-          <div style={{ position: 'fixed', bottom: 20, left: 24, color: '#10b981', opacity: 0.5, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span>└</span>
-            <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SECURE_ENCLAVE_ONLINE</span>
-          </div>
-          <span style={{ position: 'fixed', bottom: 20, right: 24, color: '#10b981', opacity: 0.5, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
-        </>
-      ) : (
-        <>
-          {/* Task 4: Rich Multi-Layer Pastel Mesh Shades in Light Mode */}
-          <div
-            style={{
-              position: 'fixed',
-              top: '6%',
-              left: '6%',
-              width: 620,
-              height: 620,
-              background: 'radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(139, 92, 246, 0.09) 38%, transparent 70%)',
-              filter: 'blur(85px)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-          />
-          <div
-            style={{
-              position: 'fixed',
-              bottom: '6%',
-              left: '20%',
-              width: 580,
-              height: 580,
-              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(56, 189, 248, 0.08) 45%, transparent 70%)',
-              filter: 'blur(80px)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-          />
-          <div
-            style={{
-              position: 'fixed',
-              top: '12%',
-              right: '8%',
-              width: 500,
-              height: 500,
-              background: 'radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 65%)',
-              filter: 'blur(70px)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-          />
-        </>
-      )}
+      {/* ─── Ambient Glows, Technical Grid & Reticles (Used across both themes) ─── */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          pointerEvents: 'none',
+          backgroundImage: `radial-gradient(${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'} 1.2px, transparent 1.2px)`,
+          backgroundSize: '28px 28px',
+          zIndex: 0,
+        }}
+      />
+      {/* Green Laser Ambient Glow Behind Card */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '18%',
+          left: '12%',
+          width: 550,
+          height: 550,
+          background: `radial-gradient(circle, rgba(16, 185, 129, ${isDark ? 0.14 : 0.08}) 0%, rgba(5, 150, 105, 0.04) 45%, transparent 70%)`,
+          filter: 'blur(75px)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+      {/* High-Tech Reticle Corner Marks on Viewport */}
+      <div style={{ position: 'fixed', top: 20, left: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span>┌</span>
+        <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SYS.ACTIVE // AUTH_DOCK_v2.5</span>
+      </div>
+      <span style={{ position: 'fixed', top: 20, right: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┐</span>
+      <div style={{ position: 'fixed', bottom: 20, left: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span>└</span>
+        <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SECURE_ENCLAVE_ONLINE</span>
+      </div>
+      <span style={{ position: 'fixed', bottom: 20, right: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
 
       {/* ─── Floating Top Bar: Theme Switcher ─── */}
       <div
@@ -532,7 +454,7 @@ export default function SignupPage() {
             backdropFilter: 'blur(12px)',
             boxShadow: isDark
               ? '0 6px 20px rgba(0,0,0,0.5)'
-              : '0 4px 18px rgba(99, 102, 241, 0.1), 0 1px 3px rgba(0,0,0,0.05)',
+              : '0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.05)',
           }}
         >
           <button
@@ -569,9 +491,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: !isDark ? '#4f46e5' : 'transparent',
-              color: !isDark ? '#ffffff' : '#94a3b8',
-              boxShadow: !isDark ? '0 2px 12px rgba(79, 70, 229, 0.4)' : 'none',
+              background: !isDark ? '#10b981' : 'transparent',
+              color: !isDark ? '#061710' : '#94a3b8',
+              boxShadow: !isDark ? '0 0 16px rgba(16, 185, 129, 0.4)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -596,505 +518,320 @@ export default function SignupPage() {
       >
         {/* ══════════════════════════════════════════════════════════
             LEFT COLUMN: THE SIGNATURE VISUAL HERO
+            (Unified Dark Mode Design used for BOTH dark and light mode)
         ══════════════════════════════════════════════════════════ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32, padding: '12px 6px' }}>
-          {isDark ? (
-            /* ──────────────────────────────────────────────────────────
-               DARK MODE LEFT HERO:
-               - Task 1: 100% Symmetrical Card (clean affine 2D angle, zero trapezoidal skew)
-               - Task 2: High-Tech Aerospace Telemetry HUD (replacing crude sine box)
-               - Task 3: Real Brand Logo Lockup & Zero Emojis
-            ────────────────────────────────────────────────────────── */
-            <>
-              {/* Task 1: 100% Symmetrical Floating Holographic Student ID Card */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
-                {/* Breathing Neon Green Shadow Underneath Floating Card */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    width: '85%',
-                    height: 40,
-                    bottom: -16,
-                    background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.5) 0%, transparent 70%)',
-                    filter: 'blur(24px)',
-                    animation: 'shadowBreathe 4.5s ease-in-out infinite',
-                    pointerEvents: 'none',
-                    zIndex: 1,
-                  }}
-                />
+          {/* 1. Symmetrical Floating Holographic Student ID Card */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+            {/* Breathing Neon Green Shadow Underneath Floating Card */}
+            <div
+              style={{
+                position: 'absolute',
+                width: '85%',
+                height: 40,
+                bottom: -16,
+                background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.45) 0%, transparent 70%)',
+                filter: 'blur(24px)',
+                animation: 'shadowBreathe 4.5s ease-in-out infinite',
+                pointerEvents: 'none',
+                zIndex: 1,
+              }}
+            />
 
-                <div
-                  style={{
-                    width: '100%',
-                    maxWidth: 420,
-                    aspectRatio: '1.586 / 1', // CR80 standard card ratio
-                    borderRadius: 20,
-                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(12, 16, 22, 0.94) 50%, rgba(16, 185, 129, 0.06) 100%)',
-                    border: '1.5px solid #10b981',
-                    backdropFilter: 'blur(20px)',
-                    padding: '24px 26px',
-                    position: 'relative',
-                    zIndex: 2,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxSizing: 'border-box',
-                    // Task 1: Clean parallel edges without trapezoidal 3D perspective distortion
-                    animation: 'symmetricLevitateDark 4.5s ease-in-out infinite, laserPulseGlow 3.5s ease-in-out infinite',
-                    transition: 'box-shadow 0.3s ease',
-                  }}
-                >
-                  {/* Holographic Light Sheen Sweep Across Card */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: '-50% -50%',
-                      background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 48%, rgba(52, 211, 153, 0.22) 52%, transparent 65%)',
-                      animation: 'holographicSweep 6s ease-in-out infinite',
-                      pointerEvents: 'none',
-                      zIndex: 3,
-                    }}
-                  />
+            <div
+              style={{
+                width: '100%',
+                maxWidth: 420,
+                aspectRatio: '1.586 / 1', // CR80 standard card ratio
+                borderRadius: 20,
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(12, 16, 22, 0.96) 50%, rgba(16, 185, 129, 0.08) 100%)',
+                border: '1.5px solid #10b981',
+                backdropFilter: 'blur(20px)',
+                padding: '24px 26px',
+                position: 'relative',
+                zIndex: 2,
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxSizing: 'border-box',
+                animation: 'symmetricLevitateDark 4.5s ease-in-out infinite, laserPulseGlow 3.5s ease-in-out infinite',
+                transition: 'box-shadow 0.3s ease',
+              }}
+            >
+              {/* Holographic Light Sheen Sweep Across Card */}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: '-50% -50%',
+                  background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 48%, rgba(52, 211, 153, 0.22) 52%, transparent 65%)',
+                  animation: 'holographicSweep 6s ease-in-out infinite',
+                  pointerEvents: 'none',
+                  zIndex: 3,
+                }}
+              />
 
-                  {/* Card Header: Label + PinIT ID + Microchip */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 4 }}>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <span
-                          style={{
-                            width: 6,
-                            height: 6,
-                            borderRadius: '50%',
-                            background: '#10b981',
-                            boxShadow: '0 0 8px #10b981',
-                            animation: 'beaconBlink 2s ease-in-out infinite',
-                          }}
-                        />
-                        <span style={{ fontSize: 10, fontWeight: 700, color: '#6ee7b7', letterSpacing: 1.2, textTransform: 'uppercase' }}>
-                          Institutional Identity Badge
-                        </span>
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 22,
-                          fontWeight: 800,
-                          color: '#ffffff',
-                          letterSpacing: 0.8,
-                          marginTop: 4,
-                          fontFamily: 'Consolas, "Roboto Mono", monospace',
-                          textShadow: '0 0 12px rgba(16, 185, 129, 0.5)',
-                        }}
-                      >
-                        {pinitId}
-                      </div>
-                    </div>
-
-                    {/* Task 3: Real Brand Mark & Microchip Graphic */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-                      <Image
-                        src="/brand/pinit-career-logo-clear.png"
-                        alt="PinIT"
-                        width={65}
-                        height={18}
-                        style={{ height: '18px', width: 'auto', objectFit: 'contain' }}
-                        priority
-                      />
-                      {/* Microchip SVG */}
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5">
-                        <rect x="5" y="5" width="14" height="14" rx="2.5" stroke="#10b981" strokeWidth="1.5" />
-                        <rect x="8.5" y="8.5" width="7" height="7" fill="#10b981" fillOpacity="0.28" stroke="#34d399" strokeWidth="1.2" />
-                        <circle cx="12" cy="12" r="1.5" fill="#34d399" />
-                        <line x1="8" y1="1.5" x2="8" y2="5" strokeWidth="1.4" />
-                        <line x1="12" y1="1.5" x2="12" y2="5" strokeWidth="1.4" />
-                        <line x1="16" y1="1.5" x2="16" y2="5" strokeWidth="1.4" />
-                        <line x1="8" y1="19" x2="8" y2="22.5" strokeWidth="1.4" />
-                        <line x1="12" y1="19" x2="12" y2="22.5" strokeWidth="1.4" />
-                        <line x1="16" y1="19" x2="16" y2="22.5" strokeWidth="1.4" />
-                        <line x1="1.5" y1="8" x2="5" y2="8" strokeWidth="1.4" />
-                        <line x1="1.5" y1="12" x2="5" y2="12" strokeWidth="1.4" />
-                        <line x1="1.5" y1="16" x2="5" y2="16" strokeWidth="1.4" />
-                        <line x1="19" y1="8" x2="22.5" y2="8" strokeWidth="1.4" />
-                        <line x1="19" y1="12" x2="22.5" y2="12" strokeWidth="1.4" />
-                        <line x1="19" y1="16" x2="22.5" y2="16" strokeWidth="1.4" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Task 1 & Task 3: Symmetric Student Name + SVG Vector Icons (No Emojis) */}
-                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 12, position: 'relative', zIndex: 4 }}>
-                    <div style={{ fontSize: 18.5, fontWeight: 800, color: '#ffffff', letterSpacing: -0.2 }}>
-                      {studentName || 'Student Name'}
-                    </div>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: '#34d399', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
-                      </svg>
-                      {collegeName || 'Campus Institution'}
-                    </div>
-                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                      </svg>
-                      {branch || 'Academic Stream'}
-                    </div>
-                  </div>
-
-                  {/* Card Footer: Verified Badge + Fingerprint Scanner */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative', zIndex: 4 }}>
-                    <div
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        padding: '5px 12px',
-                        borderRadius: 9999,
-                        background: 'rgba(16, 185, 129, 0.18)',
-                        border: '1px solid rgba(16, 185, 129, 0.5)',
-                        color: '#34d399',
-                        fontSize: 11,
-                        fontWeight: 700,
-                        boxShadow: '0 0 15px rgba(16, 185, 129, 0.25)',
-                      }}
-                    >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <path d="m9 12 2 2 4-4" />
-                      </svg>
-                      Verified Campus Linked
-                    </div>
-
-                    {/* Biometric Fingerprint Scanner with Animated Laser Beam */}
-                    <div style={{ position: 'relative', width: 26, height: 26 }}>
-                      <div
-                        style={{
-                          position: 'absolute',
-                          left: 0,
-                          right: 0,
-                          height: 2,
-                          background: '#34d399',
-                          boxShadow: '0 0 8px #34d399',
-                          animation: 'scanBeam 2.5s ease-in-out infinite',
-                          zIndex: 5,
-                        }}
-                      />
-                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.4" opacity="0.9">
-                        <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4" />
-                        <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 11.3-2.8" />
-                        <path d="M12 10a2 2 0 0 0-2 2c0 4 1 6.5 2 9" />
-                        <path d="M8.5 16.5c.5 1.5 1.2 3.5 2 5.5" />
-                        <path d="M15.5 14c-.5 2.5-1 5.5-.5 7.5" />
-                        <path d="M18.5 11c0 3.5-.5 7-1 9" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Task 2: Ultra-Cool Aerospace Telemetry HUD (Replacing crude sine wave box) */}
-              <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {/* Brand Lockup: Real Logo + Subtitle */}
+              {/* Card Header: Label + PinIT ID + Microchip */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 4 }}>
                 <div>
-                  <Image
-                    src="/brand/pinit-career-logo-clear.png"
-                    alt="PinIT Career OS"
-                    width={170}
-                    height={38}
-                    style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
-                    priority
-                  />
-                  <p
-                    style={{
-                      margin: '8px 0 0',
-                      fontSize: 12.5,
-                      color: '#94a3b8',
-                      lineHeight: 1.5,
-                      maxWidth: 410,
-                    }}
-                  >
-                    Next-generation institutional identity, real-time campus telemetry, and autonomous AI career acceleration.
-                  </p>
-                </div>
-
-                {/* Aerospace Telemetry Strip with Fine-Line Spectrum HUD */}
-                <div
-                  style={{
-                    borderRadius: 14,
-                    background: 'rgba(16, 20, 28, 0.65)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    backdropFilter: 'blur(12px)',
-                    padding: '14px 16px',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
-                  }}
-                >
-                  {/* Status Indicator Bar */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
-                      <span style={{ fontSize: 10, fontWeight: 700, color: '#34d399', letterSpacing: 1, fontFamily: 'monospace' }}>
-                        LIVE CAREER VELOCITY
-                      </span>
-                    </div>
-                    <span style={{ fontSize: 10.5, fontWeight: 700, color: '#10b981', fontFamily: 'monospace' }}>
-                      +29.58% ACCELERATION
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        background: '#10b981',
+                        boxShadow: '0 0 8px #10b981',
+                        animation: 'beaconBlink 2s ease-in-out infinite',
+                      }}
+                    />
+                    <span style={{ fontSize: 10, fontWeight: 700, color: '#6ee7b7', letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                      Institutional Identity Badge
                     </span>
                   </div>
-
-                  {/* High-Precision Cyber Waveform Spectrum */}
-                  <div style={{ position: 'relative', width: '100%', height: 44 }}>
-                    <svg width="100%" height="44" viewBox="0 0 380 44" fill="none" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="cyberFade" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      {/* Technical Grid lines */}
-                      <line x1="0" y1="11" x2="380" y2="11" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
-                      <line x1="0" y1="22" x2="380" y2="22" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
-                      <line x1="0" y1="33" x2="380" y2="33" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
-
-                      {/* Smooth Cyber Waveform */}
-                      <path
-                        d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10 L380,44 L0,44 Z"
-                        fill="url(#cyberFade)"
-                      />
-                      <path
-                        d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10"
-                        stroke="#10b981"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                      />
-
-                      {/* Coordinates Nodes */}
-                      <circle cx="210" cy="12" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
-                      <circle cx="290" cy="18" r="2" fill="#10b981" />
-                      <circle cx="380" cy="10" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
-                    </svg>
-                  </div>
-
-                  {/* Telemetry Metrics Row */}
                   <div
                     style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginTop: 8,
-                      fontSize: 9.5,
-                      color: '#64748b',
-                      fontFamily: 'monospace',
+                      fontSize: 22,
+                      fontWeight: 800,
+                      color: '#ffffff',
+                      letterSpacing: 0.8,
+                      marginTop: 4,
+                      fontFamily: 'Consolas, "Roboto Mono", monospace',
+                      textShadow: '0 0 12px rgba(16, 185, 129, 0.5)',
                     }}
                   >
-                    <span>SYS: ONLINE</span>
-                    <span>CONFIDENCE: 99.4%</span>
-                    <span>LATENCY: 14ms</span>
-                    <span style={{ color: '#94a3b8' }}>ID: VERIFIED</span>
+                    {pinitId}
                   </div>
                 </div>
-              </div>
-            </>
-          ) : (
-            /* ──────────────────────────────────────────────────────────
-               LIGHT MODE LEFT HERO:
-               - Task 3: Official Real Brand Logo Lockup (/brand/pinit-career-logo-clear.png)
-               - Task 4: Aerodynamic Supersonic Vector Curve & Airflow Jetstreams
-               - Symmetrical 3D Apple-Grade Stacked Deck
-            ────────────────────────────────────────────────────────── */
-            <>
-              {/* Task 3: Header Lockup with Real Brand Logo */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <Image
-                  src="/brand/pinit-career-logo-clear.png"
-                  alt="PinIT Career OS"
-                  width={180}
-                  height={42}
-                  style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
-                  priority
-                />
+
+                {/* Real Brand Mark & Microchip Graphic */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
+                  <Image
+                    src="/brand/pinit-career-logo-clear.png"
+                    alt="PinIT"
+                    width={65}
+                    height={18}
+                    style={{ height: '18px', width: 'auto', objectFit: 'contain' }}
+                    priority
+                  />
+                  {/* Microchip SVG */}
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5">
+                    <rect x="5" y="5" width="14" height="14" rx="2.5" stroke="#10b981" strokeWidth="1.5" />
+                    <rect x="8.5" y="8.5" width="7" height="7" fill="#10b981" fillOpacity="0.28" stroke="#34d399" strokeWidth="1.2" />
+                    <circle cx="12" cy="12" r="1.5" fill="#34d399" />
+                    <line x1="8" y1="1.5" x2="8" y2="5" strokeWidth="1.4" />
+                    <line x1="12" y1="1.5" x2="12" y2="5" strokeWidth="1.4" />
+                    <line x1="16" y1="1.5" x2="16" y2="5" strokeWidth="1.4" />
+                    <line x1="8" y1="19" x2="8" y2="22.5" strokeWidth="1.4" />
+                    <line x1="12" y1="19" x2="12" y2="22.5" strokeWidth="1.4" />
+                    <line x1="16" y1="19" x2="16" y2="22.5" strokeWidth="1.4" />
+                    <line x1="1.5" y1="8" x2="5" y2="8" strokeWidth="1.4" />
+                    <line x1="1.5" y1="12" x2="5" y2="12" strokeWidth="1.4" />
+                    <line x1="1.5" y1="16" x2="5" y2="16" strokeWidth="1.4" />
+                    <line x1="19" y1="8" x2="22.5" y2="8" strokeWidth="1.4" />
+                    <line x1="19" y1="12" x2="22.5" y2="12" strokeWidth="1.4" />
+                    <line x1="19" y1="16" x2="22.5" y2="16" strokeWidth="1.4" />
+                  </svg>
+                </div>
               </div>
 
-              {/* Task 1 & Task 4: 100% Symmetrical 3D Stacked Aerodynamic Cards */}
-              <div style={{ display: 'flex', justifyContent: 'center', padding: '16px 8px 24px' }}>
+              {/* Student Name + SVG Vector Icons */}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 12, position: 'relative', zIndex: 4 }}>
+                <div style={{ fontSize: 18.5, fontWeight: 800, color: '#ffffff', letterSpacing: -0.2 }}>
+                  {studentName || 'Student Name'}
+                </div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#34d399', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+                  </svg>
+                  {collegeName || 'Campus Institution'}
+                </div>
+                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                  </svg>
+                  {branch || 'Academic Stream'}
+                </div>
+              </div>
+
+              {/* Card Footer: Verified Badge + Fingerprint Scanner */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative', zIndex: 4 }}>
                 <div
                   style={{
-                    position: 'relative',
-                    width: '100%',
-                    maxWidth: 420,
-                    aspectRatio: '1.586 / 1', // Symmetrical physical card aspect ratio
-                    animation: 'aeroLevitationLight 4.5s ease-in-out infinite',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '5px 12px',
+                    borderRadius: 9999,
+                    background: 'rgba(16, 185, 129, 0.18)',
+                    border: '1px solid rgba(16, 185, 129, 0.5)',
+                    color: '#34d399',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    boxShadow: '0 0 15px rgba(16, 185, 129, 0.25)',
                   }}
                 >
-                  {/* Layer 3 (Bottom Stack Shade) */}
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  Verified Campus Linked
+                </div>
+
+                {/* Biometric Fingerprint Scanner with Animated Laser Beam */}
+                <div style={{ position: 'relative', width: 26, height: 26 }}>
                   <div
                     style={{
                       position: 'absolute',
-                      inset: 0,
-                      borderRadius: 22,
-                      background: 'linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)',
-                      opacity: 0.55,
-                      boxShadow: '0 14px 30px -6px rgba(0, 0, 0, 0.06), 0 0 0 1px #cbd5e1',
-                      transform: 'translateY(16px) scale(0.92)',
+                      left: 0,
+                      right: 0,
+                      height: 2,
+                      background: '#34d399',
+                      boxShadow: '0 0 8px #34d399',
+                      animation: 'scanBeam 2.5s ease-in-out infinite',
+                      zIndex: 5,
                     }}
                   />
-                  {/* Layer 2 (Middle Stack Shade) */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      borderRadius: 22,
-                      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
-                      border: '1px solid #e2e8f0',
-                      transform: 'translateY(8px) scale(0.96)',
-                      boxShadow: '0 20px 40px -8px rgba(0, 0, 0, 0.08), 0 0 0 1px #e2e8f0',
-                    }}
-                  />
-                  {/* Main Top Card with Aerodynamic Elevation & Shading */}
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: 22,
-                      background: '#ffffff',
-                      border: '1px solid rgba(226, 232, 240, 0.95)',
-                      boxShadow:
-                        '0 30px 60px -15px rgba(99, 102, 241, 0.18), 0 14px 28px -6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(241, 245, 249, 0.8)',
-                      padding: '24px 26px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      boxSizing: 'border-box',
-                    }}
-                  >
-                    {/* Header */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <div>
-                        <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b', letterSpacing: 0.8, textTransform: 'uppercase' }}>
-                          College Student ID
-                        </span>
-                        <div
-                          style={{
-                            fontSize: 22,
-                            fontWeight: 800,
-                            color: '#0f172a',
-                            letterSpacing: 0.4,
-                            marginTop: 2,
-                            fontFamily: 'Consolas, "Roboto Mono", monospace',
-                          }}
-                        >
-                          {pinitId}
-                        </div>
-                      </div>
-
-                      <span
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 6,
-                          padding: '5px 12px',
-                          borderRadius: 9999,
-                          background: '#ecfdf5',
-                          border: '1px solid #a7f3d0',
-                          color: '#059669',
-                          fontSize: 11,
-                          fontWeight: 700,
-                        }}
-                      >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        Verified Campus Linked
-                      </span>
-                    </div>
-
-                    {/* Task 1 & Task 3: Symmetrical Student Details with Vector Icons (No Emojis) */}
-                    <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10 }}>
-                      <div style={{ fontSize: 18.5, fontWeight: 800, color: '#0f172a' }}>
-                        {studentName || 'Student Name'}
-                      </div>
-                      <div style={{ fontSize: 12, fontWeight: 600, color: '#4f46e5', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
-                        </svg>
-                        {collegeName || 'Campus Institution'}
-                      </div>
-                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2, display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                          <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                        </svg>
-                        {branch || 'Academic Stream'}
-                      </div>
-                    </div>
-
-                    {/* Task 4: Aerodynamic Supersonic Vector Line with Jetstream Airflow Trails */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5, fontWeight: 700, color: '#64748b', marginBottom: 2 }}>
-                        <span>Career progression</span>
-                        <span style={{ color: '#4f46e5', fontSize: 11 }}>AERODYNAMIC TRAJECTORY // +29.58%</span>
-                      </div>
-
-                      <div style={{ width: '100%', height: 68 }}>
-                        <svg width="100%" height="68" viewBox="0 0 300 68" fill="none" preserveAspectRatio="none">
-                          <defs>
-                            <linearGradient id="aeroJetGradient" x1="0" y1="0" x2="1" y2="0">
-                              <stop offset="0%" stopColor="#4338ca" />
-                              <stop offset="60%" stopColor="#4f46e5" />
-                              <stop offset="100%" stopColor="#38bdf8" />
-                            </linearGradient>
-                            <linearGradient id="aeroMeshFade" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.18" />
-                              <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.0" />
-                            </linearGradient>
-                          </defs>
-
-                          {/* Aerodynamic Area Fill */}
-                          <path
-                            d="M10,58 C60,54 110,48 160,34 C210,20 250,12 282,8 L282,68 L10,68 Z"
-                            fill="url(#aeroMeshFade)"
-                          />
-
-                          {/* Jetstream Airflow Trail 1 (Faint upper dashed line) */}
-                          <path
-                            d="M10,54 C60,50 110,44 160,30 C210,16 250,9 276,6"
-                            stroke="#818cf8"
-                            strokeWidth="1.2"
-                            strokeDasharray="4 4"
-                            opacity="0.6"
-                          />
-
-                          {/* Jetstream Airflow Trail 2 (Lower dashed trail) */}
-                          <path
-                            d="M20,62 C70,58 120,52 170,38 C215,24 255,16 280,12"
-                            stroke="#38bdf8"
-                            strokeWidth="1.2"
-                            strokeDasharray="3 4"
-                            opacity="0.5"
-                          />
-
-                          {/* Main Aerodynamic Supersonic Flight Path */}
-                          <path
-                            d="M10,58 C60,54 110,48 160,34 C210,20 250,12 282,8"
-                            stroke="url(#aeroJetGradient)"
-                            strokeWidth="4"
-                            strokeLinecap="round"
-                          />
-
-                          {/* Supersonic Delta Arrowhead at Peak */}
-                          <polygon points="266,7 286,7 283,23" fill="#4338ca" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.4" opacity="0.9">
+                    <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4" />
+                    <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 11.3-2.8" />
+                    <path d="M12 10a2 2 0 0 0-2 2c0 4 1 6.5 2 9" />
+                    <path d="M8.5 16.5c.5 1.5 1.2 3.5 2 5.5" />
+                    <path d="M15.5 14c-.5 2.5-1 5.5-.5 7.5" />
+                    <path d="M18.5 11c0 3.5-.5 7-1 9" />
+                  </svg>
                 </div>
               </div>
-            </>
-          )}
+            </div>
+          </div>
+
+          {/* 2. Brand Typography & Fine-Line Telemetry HUD (Pure Canvas, No Heavy Enclosed Box!) */}
+          <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {/* Bold Brand Typography matching faf260f1.jpg */}
+            <div>
+              <div
+                style={{
+                  fontSize: 32,
+                  fontWeight: 800,
+                  color: isDark ? '#ffffff' : '#0f172a',
+                  lineHeight: 1.15,
+                  letterSpacing: -0.5,
+                }}
+              >
+                <div>PinIT</div>
+                <div>Career OS</div>
+              </div>
+              <p
+                style={{
+                  margin: '8px 0 0',
+                  fontSize: 13,
+                  color: isDark ? '#94a3b8' : '#64748b',
+                  lineHeight: 1.5,
+                }}
+              >
+                Fine-line career progression metrics for future deployment typography.
+              </p>
+            </div>
+
+            {/* Stats Row matching faf260f1.jpg */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                fontSize: 11,
+                fontFamily: 'Consolas, "Roboto Mono", monospace',
+                color: isDark ? '#64748b' : '#94a3b8',
+                paddingRight: 6,
+                marginTop: 2,
+              }}
+            >
+              <span style={{ color: isDark ? '#94a3b8' : '#475569', fontWeight: 600 }}>Career Progression</span>
+              <span>18% College Student</span>
+              <span>50% Parent</span>
+              <span style={{ color: '#10b981', fontWeight: 700 }}>+8.931 60.20%</span>
+              <span style={{ color: '#10b981', fontWeight: 700 }}>+29.58%</span>
+            </div>
+
+            {/* Seamless Fine-Line Telemetry Chart: Direct on Canvas (NO Enclosing Box!) */}
+            <div style={{ position: 'relative', width: '100%', height: 90 }}>
+              {/* Y-axis coordinates and label */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  fontSize: 10,
+                  color: '#10b981',
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: 0.5,
+                }}
+              >
+                Telemetry
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 18,
+                  left: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 8,
+                  fontSize: 8.5,
+                  color: isDark ? '#475569' : '#94a3b8',
+                  fontFamily: 'monospace',
+                }}
+              >
+                <span>0.00</span>
+                <span>300</span>
+                <span>200</span>
+                <span>100</span>
+              </div>
+
+              {/* Seamless Fine-Line SVG Chart */}
+              <svg width="100%" height="90" viewBox="0 0 380 90" fill="none" preserveAspectRatio="none" style={{ paddingLeft: 34, boxSizing: 'border-box' }}>
+                <defs>
+                  <linearGradient id="telemetryGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
+
+                {/* Delicate horizontal dashed grid lines */}
+                <line x1="0" y1="20" x2="380" y2="20" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
+                <line x1="0" y1="42" x2="380" y2="42" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
+                <line x1="0" y1="64" x2="380" y2="64" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
+                <line x1="0" y1="84" x2="380" y2="84" stroke={isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"} />
+
+                {/* Smooth fine-line curve matching faf260f1.jpg */}
+                <path
+                  d="M0,74 C30,74 60,72 90,66 C120,60 145,68 175,70 C205,72 225,48 245,36 C265,24 280,50 300,52 C320,54 340,32 360,20 C370,14 375,12 380,10 L380,84 L0,84 Z"
+                  fill="url(#telemetryGradient)"
+                />
+                <path
+                  d="M0,74 C30,74 60,72 90,66 C120,60 145,68 175,70 C205,72 225,48 245,36 C265,24 280,50 300,52 C320,54 340,32 360,20 C370,14 375,12 380,10"
+                  stroke="#10b981"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
+
+                {/* Precision coordinate nodes */}
+                <circle cx="90" cy="66" r="2.5" fill="#10b981" />
+                <circle cx="175" cy="70" r="2.5" fill="#10b981" />
+                <circle cx="245" cy="36" r="3" fill="#34d399" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1" />
+                <circle cx="300" cy="52" r="2" fill="#10b981" />
+                <circle cx="360" cy="20" r="3" fill="#34d399" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1" />
+                <circle cx="380" cy="10" r="3.5" fill="#00f59b" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════════
             RIGHT COLUMN: THE AUTH DOCK (CARD)
+            (Unified Laser Targeting Reticles for BOTH Dark & Light Mode)
         ══════════════════════════════════════════════════════════ */}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div
@@ -1121,7 +858,7 @@ export default function SignupPage() {
                 gridTemplateColumns: '1fr 1fr',
                 padding: 4,
                 borderRadius: 9999,
-                background: isDark ? '#1b1e25' : '#e2e8f0',
+                background: isDark ? '#1b1e25' : '#f1f5f9',
                 border: `1px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
               }}
             >
@@ -1197,7 +934,7 @@ export default function SignupPage() {
               </button>
             </div>
 
-            {/* 2. Instant Verification Scanner Box */}
+            {/* 2. Laser Targeting Scanner Box (Unified across both Dark & Light mode) */}
             <input
               type="file"
               ref={fileInputRef}
@@ -1210,108 +947,70 @@ export default function SignupPage() {
               }}
             />
 
-            {isDark ? (
-              /* Dark Mode: Laser Corner Scanner Box [┌ ┐ └ ┘] */
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDrop}
-                style={{
-                  position: 'relative',
-                  borderRadius: 16,
-                  background: '#181b22',
-                  border: '1px solid #282b36',
-                  padding: '16px 20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  cursor: 'pointer',
-                  transition: 'border-color 0.2s, background 0.2s',
-                  overflow: 'hidden',
-                }}
-              >
-                <span style={{ position: 'absolute', top: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┌</span>
-                <span style={{ position: 'absolute', top: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┐</span>
-                <span style={{ position: 'absolute', bottom: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>└</span>
-                <span style={{ position: 'absolute', bottom: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┘</span>
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+              style={{
+                position: 'relative',
+                borderRadius: 16,
+                background: isDark ? '#181b22' : '#f8fafc',
+                border: `1px solid ${isDark ? '#282b36' : '#e2e8f0'}`,
+                padding: '16px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                cursor: 'pointer',
+                transition: 'border-color 0.2s, background 0.2s',
+                overflow: 'hidden',
+              }}
+            >
+              <span style={{ position: 'absolute', top: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┌</span>
+              <span style={{ position: 'absolute', top: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┐</span>
+              <span style={{ position: 'absolute', bottom: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>└</span>
+              <span style={{ position: 'absolute', bottom: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┘</span>
 
-                <div>
-                  <div style={{ fontSize: 13.5, fontWeight: 700, color: '#ffffff' }}>
-                    Student ID badge scanner
-                  </div>
-                  <div style={{ fontSize: 11, color: scanStatus ? '#34d399' : '#808593', marginTop: 3 }}>
-                    {scanStatus || (isScanning ? 'Processing image...' : 'Drop ID badge or click to scan')}
-                  </div>
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 700, color: isDark ? '#ffffff' : '#0f172a' }}>
+                  Student ID badge scanner
                 </div>
-
-                {/* QR Code Icon with Vertical Laser Scanner Effect */}
-                <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-                  <div style={{ position: 'relative', width: 34, height: 34 }}>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        height: 2,
-                        background: '#10b981',
-                        boxShadow: '0 0 6px #10b981',
-                        animation: 'laserScanBar 2s ease-in-out infinite',
-                        zIndex: 2,
-                      }}
-                    />
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5">
-                      <rect x="3" y="3" width="7" height="7" rx="1" />
-                      <rect x="14" y="3" width="7" height="7" rx="1" />
-                      <rect x="3" y="14" width="7" height="7" rx="1" />
-                      <rect x="6" y="6" width="1" height="1" fill="#ffffff" />
-                      <rect x="17" y="6" width="1" height="1" fill="#ffffff" />
-                      <rect x="6" y="17" width="1" height="1" fill="#ffffff" />
-                      <path d="M14 14h3v3h-3z" fill="#ffffff" />
-                      <path d="M18 18h3v3h-3z" fill="#ffffff" />
-                      <path d="M14 20h2v1h-2z" fill="#ffffff" />
-                    </svg>
-                  </div>
-                  <span style={{ fontSize: 8, color: '#808593', letterSpacing: 0.2 }}>
-                    Instant Verification Preview
-                  </span>
+                <div style={{ fontSize: 11, color: scanStatus ? '#10b981' : isDark ? '#808593' : '#64748b', marginTop: 3 }}>
+                  {scanStatus || (isScanning ? 'Processing image...' : 'Drop ID badge or click to scan')}
                 </div>
               </div>
-            ) : (
-              /* Light Mode: Clean Dashed Border QR Box */
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDrop}
-                style={{
-                  borderRadius: 16,
-                  background: '#f8fafc',
-                  border: '2px dashed #cbd5e1',
-                  padding: '16px 14px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 6,
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  transition: 'border-color 0.2s',
-                }}
-              >
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0f172a" strokeWidth="1.6">
-                  <path d="M4 7V4h3" />
-                  <path d="M20 7V4h-3" />
-                  <path d="M4 17v3h3" />
-                  <path d="M20 17v3h-3" />
-                  <rect x="7" y="7" width="4" height="4" fill="#0f172a" />
-                  <rect x="13" y="7" width="4" height="4" fill="#0f172a" />
-                  <rect x="7" y="13" width="4" height="4" fill="#0f172a" />
-                  <rect x="13" y="13" width="4" height="4" fill="#0f172a" />
-                </svg>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#334155' }}>
-                  {scanStatus || (isScanning ? 'Processing image...' : 'Instant Verification Preview')}
+
+              {/* QR Code Icon with Vertical Laser Scanner Effect */}
+              <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div style={{ position: 'relative', width: 34, height: 34 }}>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      right: 0,
+                      height: 2,
+                      background: '#10b981',
+                      boxShadow: '0 0 6px #10b981',
+                      animation: 'laserScanBar 2s ease-in-out infinite',
+                      zIndex: 2,
+                    }}
+                  />
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.5">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                    <rect x="6" y="6" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <rect x="17" y="6" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <rect x="6" y="17" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <path d="M14 14h3v3h-3z" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <path d="M18 18h3v3h-3z" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <path d="M14 20h2v1h-2z" fill={isDark ? "#ffffff" : "#0f172a"} />
+                  </svg>
+                </div>
+                <span style={{ fontSize: 8, color: isDark ? '#808593' : '#94a3b8', letterSpacing: 0.2 }}>
+                  Instant Verification Preview
                 </span>
               </div>
-            )}
+            </div>
 
             {/* Error Message if any */}
             {error && (
@@ -1330,11 +1029,11 @@ export default function SignupPage() {
               </div>
             )}
 
-            {/* 3. Task 1: Complete Symmetrical Form Inputs (No squished columns) */}
+            {/* 3. Symmetrical Full-Width Form Inputs (No squished columns) */}
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {/* Field 1: Student Full Name with User Icon */}
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#10b981' : '#4f46e5', pointerEvents: 'none' }}>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
@@ -1364,7 +1063,7 @@ export default function SignupPage() {
               {/* Field 2: College Name (Full Width, No Truncation) */}
               {idMode === 'college' && (
                 <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#34d399' : '#4f46e5', pointerEvents: 'none' }}>
+                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
                     </svg>
@@ -1395,7 +1094,7 @@ export default function SignupPage() {
               {/* Field 3: Branch / Stream (Full Width, No Truncation) */}
               {idMode === 'college' && (
                 <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#34d399' : '#4f46e5', pointerEvents: 'none' }}>
+                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                       <path d="M6 12v5c3 3 9 3 12 0v-5" />
@@ -1426,7 +1125,7 @@ export default function SignupPage() {
 
               {/* Field 4: Student ID or Campus Email with ID Icon */}
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#10b981' : '#4f46e5', pointerEvents: 'none' }}>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <line x1="2" y1="10" x2="22" y2="10" />
@@ -1437,9 +1136,7 @@ export default function SignupPage() {
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   placeholder={
-                    isDark
-                      ? 'Student ID / Email'
-                      : idMode === 'college'
+                    idMode === 'college'
                       ? 'Student ID or Campus Email'
                       : 'Global PinIT ID or Email'
                   }
@@ -1461,7 +1158,7 @@ export default function SignupPage() {
 
               {/* Field 5: Password with Lock Icon & Eye Toggle */}
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#10b981' : '#4f46e5', pointerEvents: 'none' }}>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -1522,7 +1219,7 @@ export default function SignupPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className={isDark ? 'btn-neon-hover' : 'btn-light-hover'}
+                className="btn-neon-hover"
                 style={{
                   marginTop: 6,
                   width: '100%',
@@ -1532,13 +1229,9 @@ export default function SignupPage() {
                   fontSize: 14.5,
                   fontWeight: 800,
                   cursor: loading ? 'not-allowed' : 'pointer',
-                  background: isDark
-                    ? 'linear-gradient(135deg, #00f59b 0%, #10b981 100%)'
-                    : 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-                  color: isDark ? '#05160e' : '#ffffff',
-                  boxShadow: isDark
-                    ? '0 0 30px rgba(0, 245, 155, 0.5), 0 4px 14px rgba(16, 185, 129, 0.4)'
-                    : '0 8px 24px -4px rgba(5, 150, 105, 0.45), 0 2px 4px rgba(5, 150, 105, 0.25)',
+                  background: 'linear-gradient(135deg, #00f59b 0%, #10b981 100%)',
+                  color: '#05160e',
+                  boxShadow: '0 0 30px rgba(0, 245, 155, 0.5), 0 4px 14px rgba(16, 185, 129, 0.4)',
                   transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                   display: 'flex',
                   alignItems: 'center',
@@ -1565,7 +1258,7 @@ export default function SignupPage() {
                   fontWeight: 500,
                 }}
               >
-                Already have an account? <span style={{ color: isDark ? '#34d399' : '#4f46e5', fontWeight: 600 }}>Sign in →</span>
+                Already have an account? <span style={{ color: '#10b981', fontWeight: 600 }}>Sign in →</span>
               </Link>
             </div>
           </div>
