@@ -9,6 +9,7 @@ import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
+import { parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getDomainFallback } from '@/lib/projects/projectCatalog';
 import { getSavedCareerProjects, needsProjectKeyMigration, SavedProjectsSource } from '@/lib/projects/savedProjects';
 import {
@@ -80,7 +81,41 @@ function ProjectsPageContent() {
         localStorage.setItem('pinit_selected_project_pathway', p);
       } catch {}
     }
+
+    if (p === 'standalone') {
+      // Honors active standalone course (defaults to Python 30-Day crash)
+      const standaloneId = 'course-python-backend';
+      setSelectedCourseId(standaloneId);
+      const projs = getDomainFallback(selectedGoal, [], degree || 'Undergraduate', standaloneId);
+      if (projs && projs.length > 0) {
+        setProjects(projs as Project[]);
+        setSelectedGuideProject(projs[0] as Project);
+      }
+    } else if (p === 'certification') {
+      const certId = cOsCourseId || (onboardingAnswers as any)?.activeCourseId || selectedCourseId || 'course-python-backend';
+      setSelectedCourseId(certId);
+      const projs = getDomainFallback(selectedGoal, [], degree || 'Undergraduate', certId);
+      if (projs && projs.length > 0) {
+        setProjects(projs as Project[]);
+        setSelectedGuideProject(projs[0] as Project);
+      }
+    } else if (p === 'roadmap') {
+      if (roadmapCtx) {
+        const found = findRoadmapCapstone(projects, roadmapCtx);
+        if (found) setSelectedGuideProject(found);
+      }
+    } else if (p === 'independent') {
+      const indep = projects.filter(proj => !proj.isTemplate || Boolean(proj.githubLink) || proj.id.startsWith('custom_proj_'));
+      if (indep.length > 0) {
+        setSelectedGuideProject(indep[0]);
+      } else {
+        setOwnProjectStep('confirm');
+        setShowOwnProjectModal(true);
+      }
+    }
   };
+
+
 
   // Own Project Modal State
   const [showOwnProjectModal, setShowOwnProjectModal] = useState<boolean>(false);
@@ -414,6 +449,14 @@ function ProjectsPageContent() {
   const [selectedGoal, setSelectedGoal] = useState<string>(onboardingAnswers?.role || 'AI Engineer');
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedGuideProject, setSelectedGuideProject] = useState<Project | null>(null);
+
+  // Edge Case Guard: Ensure selectedGuideProject is safely bound whenever projects change
+  useEffect(() => {
+    if (!selectedGuideProject && projects.length > 0) {
+      const active = projects.find(p => p.status === 'In Progress') || projects[0];
+      setSelectedGuideProject(active);
+    }
+  }, [selectedGuideProject, projects]);
   
   // Workspace tabs: 'overview' | 'guide' | 'reqs' | 'resources' | 'submit'
   const [activeWorkspaceTab, setActiveWorkspaceTab] = useState<'overview' | 'guide' | 'reqs' | 'resources' | 'submit'>('overview');
@@ -437,12 +480,47 @@ function ProjectsPageContent() {
   // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
   // A finished custom roadmap (recorded by the quests page) hands the student their capstone project.
   const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
+
+  // Helper to resolve completed quests and distinct days for a specific course
+  const getCourseCompletedQuests = (courseId: string, questsList: string[] = []): string[] => {
+    if (!questsList || questsList.length === 0) return [];
+    const cid = courseId.toLowerCase();
+    return questsList.filter(q => {
+      const ql = q.toLowerCase();
+      const parsed = parseQuestId(ql);
+      const prefix = parsed?.prefix?.toLowerCase() || '';
+      if (cid.includes('python')) return prefix.includes('python') || ql.includes('python') || ql.startsWith('py-');
+      if (cid.includes('react')) return prefix.includes('react') || ql.includes('react') || ql.includes('jsx');
+      if (cid.includes('node')) return prefix.includes('node') || ql.includes('node') || ql.includes('express');
+      if (cid.includes('java')) return prefix.includes('java') || ql.includes('java');
+      if (cid.includes('cloud')) return prefix.includes('cloud') || ql.includes('cloud') || ql.includes('aws') || ql.includes('docker');
+      if (cid.includes('bcom') || cid.includes('accounting')) return prefix.includes('bcom') || prefix.includes('accounting') || ql.includes('accounting');
+      if (prefix && (cid.includes(prefix) || prefix.includes(cid.replace('course-', '')))) return true;
+      return false;
+    });
+  };
+
+  const getDistinctDaysCount = (matchedQuests: string[]): number => {
+    const days = new Set<number>();
+    let nonParsedCount = 0;
+    for (const q of matchedQuests) {
+      const parsed = parseQuestId(q);
+      if (parsed) {
+        days.add(parsed.dayNum);
+      } else {
+        nonParsedCount++;
+      }
+    }
+    return Math.max(days.size, Math.min(nonParsedCount, 30));
+  };
+
   // ── TASK 2 & 3: PATHWAY METRICS & GATING INVARIANTS ──────────────────────────
   // Active definition: user completed at least 1 day of work
   // Milestone definition: user completed at least 3 quests or 25% progress or admin/teacher
   
   // 1. Certification Track Metrics
-  const certCompletedDays = completedCount;
+  const certMatchedQuests = getCourseCompletedQuests(activeCourse.id, completedQuests);
+  const certCompletedDays = Math.max(getDistinctDaysCount(certMatchedQuests), completedCount > 0 ? 1 : 0);
   const certActive = certCompletedDays >= 1;
   const certMilestoneReached = certCompletedDays >= 3 || progressPercent >= 25 || user?.role === 'admin' || user?.role === 'teacher';
 
@@ -452,9 +530,10 @@ function ProjectsPageContent() {
   const roadmapActive = roadmapCompletedDays >= 1;
   const roadmapMilestoneReached = roadmapCompletedDays >= 3 || user?.role === 'admin' || user?.role === 'teacher';
 
-  // 3. Standalone Course Track Metrics
-  const standaloneCustomDays = completedQuests ? completedQuests.filter(q => q.includes('standalone') || q.includes('crash') || q.includes('python-d') || q.includes('fast-')).length : 0;
-  const standaloneCompletedDays = standaloneCustomDays > 0 ? standaloneCustomDays : (completedCount > 0 && (selectedCourseId.includes('standalone') || selectedCourseId.includes('crash')) ? completedCount : 0);
+  // 3. Standalone Course Track Metrics (e.g. Python 30-Day crash course)
+  const standaloneTargetId = selectedCourseId || 'course-python-backend';
+  const standaloneMatchedQuests = getCourseCompletedQuests(standaloneTargetId, completedQuests);
+  const standaloneCompletedDays = getDistinctDaysCount(standaloneMatchedQuests);
   const standaloneActive = standaloneCompletedDays >= 1;
   const standaloneMilestoneReached = standaloneCompletedDays >= 3 || user?.role === 'admin' || user?.role === 'teacher';
 
@@ -478,53 +557,55 @@ function ProjectsPageContent() {
 
   const isUnlocked = isPathwayMilestoneReached;
 
-  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects. This page used to
-  // read `.projects`, which nothing writes, so projects vanished on reload.
+  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects.
   const answerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.portfolio_projects;
   const legacyAnswerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.projects;
 
   useEffect(() => {
     const source: SavedProjectsSource = { portfolio_projects: answerProjects, projects: legacyAnswerProjects };
     const saved = getSavedCareerProjects(source);
-    if (saved.length > 0) {
+
+    // Guard: Verify if saved templates actually belong to current activeCourse
+    const isMatchingCourse = (projs: Project[], targetCourseId: string) => {
+      const templates = projs.filter(p => p.isTemplate && !p.id.startsWith('custom_proj_'));
+      if (templates.length === 0) return true; // only custom projects
+      const cid = targetCourseId.toLowerCase();
+      return templates.some(p => {
+        if (p.courseId && p.courseId === targetCourseId) return true;
+        const stack = (p.techStack || '').toLowerCase();
+        const name = (p.name || '').toLowerCase();
+        if (cid.includes('python')) return stack.includes('python') || name.includes('python');
+        if (cid.includes('java')) return stack.includes('java') || name.includes('java');
+        if (cid.includes('react')) return stack.includes('react') || name.includes('react');
+        if (cid.includes('node')) return stack.includes('node') || name.includes('node');
+        if (cid.includes('cloud')) return stack.includes('aws') || stack.includes('docker') || stack.includes('kubernetes');
+        if (cid.includes('accounting') || cid.includes('bcom')) return stack.includes('accounting') || stack.includes('tally') || name.includes('ledger');
+        return false;
+      });
+    };
+
+    if (saved.length > 0 && isMatchingCourse(saved, activeCourse.id)) {
       setProjects(saved);
-      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
+      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed') || saved[0];
       if (active) setSelectedGuideProject(active);
       // Projects saved under the legacy key move to the key the rest of the app reads.
       if (needsProjectKeyMigration(source)) saveCareerProjects(saved);
-    } else if (typeof window !== 'undefined' && user?.id) {
-      const cached = localStorage.getItem(`pinit_${user.id}_career_projects`);
-      if (cached) {
-        try {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setProjects(parsed);
-            const active = parsed.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
-            if (active) setSelectedGuideProject(active);
-            // Reconcile and persist to Supabase if DB didn't have it yet
-            saveCareerProjects(parsed);
-          }
-        } catch {
-          // Ignore corrupt localStorage cache
-        }
-      }
-    }
-
-    // Auto-seed projects for active course if still empty
-    if (saved.length === 0) {
-      const initialProjects = getDomainFallback(
+    } else {
+      // Empty or stale templates from another course: generate fresh capstones for active course, keeping custom projects
+      const customProjects = saved.filter((p: Project) => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'));
+      const freshCourseProjects = getDomainFallback(
         selectedGoal,
         [],
-        'Undergraduate',
+        degree || 'Undergraduate',
         activeCourse.id
-      );
-      if (initialProjects && initialProjects.length > 0) {
-        setProjects(initialProjects as Project[]);
-        setSelectedGuideProject(initialProjects[0] as Project);
-        saveCareerProjects(initialProjects);
-      }
+      ) as Project[];
+      const merged = [...customProjects, ...freshCourseProjects];
+      setProjects(merged);
+      const active = merged.find(p => p.status === 'In Progress') || freshCourseProjects[0] || merged[0];
+      if (active) setSelectedGuideProject(active);
+      saveCareerProjects(merged);
     }
-  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal]);
+  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal, degree]);
 
   // Roadmap journey certificate: the server re-verifies roadmap, capstone and interview, then issues it.
   const [issuingCertificate, setIssuingCertificate] = useState(false);
@@ -1172,7 +1253,7 @@ function ProjectsPageContent() {
       </div>
 
       {/* ── ACTIVE TRACK SELECTOR (FOR CERTIFICATION PATHWAY) ── */}
-      {selectedPathway === 'certification' && (
+      {(selectedPathway === 'certification' || selectedPathway === 'standalone') && (
         <div
           style={{
             display: 'flex',
@@ -1203,7 +1284,7 @@ function ProjectsPageContent() {
                 fontFamily: 'var(--font-mono, monospace)'
               }}
             >
-              Active Learning Track
+              {selectedPathway === 'certification' ? 'Active Certification Track' : 'Active Standalone Course'}
             </span>
             <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
             <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
@@ -1212,7 +1293,7 @@ function ProjectsPageContent() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <label htmlFor="course-track-selector" style={{ fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
-              Switch Track / Course:
+              {selectedPathway === 'certification' ? 'Switch Degree Track:' : 'Switch Standalone Skill:'}
             </label>
             <select
               id="course-track-selector"
@@ -1470,7 +1551,10 @@ function ProjectsPageContent() {
               
               {/* Left Column: Projects lists */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {projects.map((p) => {
+                {(selectedPathway === 'independent'
+                  ? projects.filter(p => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'))
+                  : projects
+                ).map((p) => {
                   const isActiveGuide = selectedGuideProject?.id === p.id;
                   const borderColors = {
                     'Beginner': 'var(--teal)',
