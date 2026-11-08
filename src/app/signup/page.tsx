@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -36,7 +37,7 @@ export default function SignupPage() {
 
   const isDark = theme === 'dark';
 
-  // ─── Mode & Form State (Task 1: Full Name, College Name, Branch) ───
+  // ─── Form & Verification State ───
   const [idMode, setIdMode] = useState<'college' | 'global'>('college');
   const [studentName, setStudentName] = useState('Vinay N');
   const [collegeName, setCollegeName] = useState('BGS Institute of Management');
@@ -278,7 +279,7 @@ export default function SignupPage() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '32px 20px',
+        padding: '36px 20px',
         background: isDark
           ? '#0c0d10'
           : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%)',
@@ -291,25 +292,39 @@ export default function SignupPage() {
     >
       {/* ─── Ultra-Cool CSS Animations & Keyframes ─── */}
       <style>{`
-        @keyframes floatCardDark {
+        /* Task 1: Symmetric card levitation (Zero perspective skewing, purely parallel edges) */
+        @keyframes symmetricLevitateDark {
           0% {
-            transform: perspective(1200px) rotate(-7.5deg) rotateX(7deg) rotateY(-5deg) translateY(0px);
+            transform: rotate(-5.5deg) translateY(0px);
           }
           50% {
-            transform: perspective(1200px) rotate(-6deg) rotateX(4deg) rotateY(-3deg) translateY(-16px);
+            transform: rotate(-5.5deg) translateY(-14px);
           }
           100% {
-            transform: perspective(1200px) rotate(-7.5deg) rotateX(7deg) rotateY(-5deg) translateY(0px);
+            transform: rotate(-5.5deg) translateY(0px);
+          }
+        }
+
+        /* Task 4: Aerodynamic flight levitation in Light Mode */
+        @keyframes aeroLevitationLight {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0px);
           }
         }
 
         @keyframes laserPulseGlow {
           0%, 100% {
-            box-shadow: 0 0 35px rgba(16, 185, 129, 0.4), inset 0 0 25px rgba(16, 185, 129, 0.15), 0 25px 50px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.38), inset 0 0 25px rgba(16, 185, 129, 0.12), 0 20px 45px rgba(0, 0, 0, 0.8);
             border-color: #10b981;
           }
           50% {
-            box-shadow: 0 0 60px rgba(52, 211, 153, 0.65), inset 0 0 35px rgba(52, 211, 153, 0.25), 0 30px 60px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 55px rgba(52, 211, 153, 0.6), inset 0 0 32px rgba(52, 211, 153, 0.22), 0 26px 52px rgba(0, 0, 0, 0.85);
             border-color: #34d399;
           }
         }
@@ -320,13 +335,13 @@ export default function SignupPage() {
             opacity: 0;
           }
           20% {
-            opacity: 0.6;
+            opacity: 0.5;
           }
           50% {
-            opacity: 0.8;
+            opacity: 0.75;
           }
           80% {
-            opacity: 0.6;
+            opacity: 0.5;
           }
           100% {
             transform: translateX(240%) rotate(25deg);
@@ -336,11 +351,11 @@ export default function SignupPage() {
 
         @keyframes scanBeam {
           0%, 100% {
-            top: 4px;
-            opacity: 0.4;
+            top: 3px;
+            opacity: 0.3;
           }
           50% {
-            top: 24px;
+            top: 22px;
             opacity: 1;
           }
         }
@@ -352,27 +367,18 @@ export default function SignupPage() {
           }
           50% {
             top: 92%;
-            opacity: 0.9;
+            opacity: 0.95;
           }
         }
 
         @keyframes shadowBreathe {
           0%, 100% {
             transform: scale(0.96) translateY(0px);
-            opacity: 0.4;
+            opacity: 0.45;
           }
           50% {
-            transform: scale(1.1) translateY(8px);
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes floatCardLight {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
+            transform: scale(1.08) translateY(8px);
+            opacity: 0.75;
           }
         }
 
@@ -384,6 +390,16 @@ export default function SignupPage() {
           50% {
             opacity: 0.4;
             transform: scale(0.85);
+          }
+        }
+
+        /* Task 4: Aerodynamic supersonic pulse on climbing arrow */
+        @keyframes aeroJetStream {
+          0% {
+            stroke-dashoffset: 24;
+          }
+          100% {
+            stroke-dashoffset: 0;
           }
         }
 
@@ -450,7 +466,7 @@ export default function SignupPage() {
         </>
       ) : (
         <>
-          {/* Task 2: Rich Multi-Layer Pastel Mesh Shades in Light Mode */}
+          {/* Task 4: Rich Multi-Layer Pastel Mesh Shades in Light Mode */}
           <div
             style={{
               position: 'fixed',
@@ -581,27 +597,26 @@ export default function SignupPage() {
         {/* ══════════════════════════════════════════════════════════
             LEFT COLUMN: THE SIGNATURE VISUAL HERO
         ══════════════════════════════════════════════════════════ */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 36, padding: '12px 6px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 32, padding: '12px 6px' }}>
           {isDark ? (
             /* ──────────────────────────────────────────────────────────
                DARK MODE LEFT HERO:
-               - Ultra-Cool 3D Floating Holographic Card (-7.5deg)
-               - Sweeping Holographic Light Sheen Across Glass
-               - Golden/Laser Microchip + Animated Fingerprint Laser
-               - Telemetry HUD with Pulsing Data Nodes
+               - Task 1: 100% Symmetrical Card (clean affine 2D angle, zero trapezoidal skew)
+               - Task 2: High-Tech Aerospace Telemetry HUD (replacing crude sine box)
+               - Task 3: Real Brand Logo Lockup & Zero Emojis
             ────────────────────────────────────────────────────────── */
             <>
-              {/* Floating Holographic Student ID Card */}
-              <div style={{ perspective: 1200, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+              {/* Task 1: 100% Symmetrical Floating Holographic Student ID Card */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
                 {/* Breathing Neon Green Shadow Underneath Floating Card */}
                 <div
                   style={{
                     position: 'absolute',
-                    width: '88%',
-                    height: 44,
-                    bottom: -20,
+                    width: '85%',
+                    height: 40,
+                    bottom: -16,
                     background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.5) 0%, transparent 70%)',
-                    filter: 'blur(26px)',
+                    filter: 'blur(24px)',
                     animation: 'shadowBreathe 4.5s ease-in-out infinite',
                     pointerEvents: 'none',
                     zIndex: 1,
@@ -612,15 +627,21 @@ export default function SignupPage() {
                   style={{
                     width: '100%',
                     maxWidth: 420,
-                    borderRadius: 22,
+                    aspectRatio: '1.586 / 1', // CR80 standard card ratio
+                    borderRadius: 20,
                     background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(12, 16, 22, 0.94) 50%, rgba(16, 185, 129, 0.06) 100%)',
                     border: '1.5px solid #10b981',
                     backdropFilter: 'blur(20px)',
-                    padding: '26px 28px',
+                    padding: '24px 26px',
                     position: 'relative',
                     zIndex: 2,
                     overflow: 'hidden',
-                    animation: 'floatCardDark 4.5s ease-in-out infinite, laserPulseGlow 3.5s ease-in-out infinite',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxSizing: 'border-box',
+                    // Task 1: Clean parallel edges without trapezoidal 3D perspective distortion
+                    animation: 'symmetricLevitateDark 4.5s ease-in-out infinite, laserPulseGlow 3.5s ease-in-out infinite',
                     transition: 'box-shadow 0.3s ease',
                   }}
                 >
@@ -650,7 +671,7 @@ export default function SignupPage() {
                             animation: 'beaconBlink 2s ease-in-out infinite',
                           }}
                         />
-                        <span style={{ fontSize: 10.5, fontWeight: 700, color: '#6ee7b7', letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                        <span style={{ fontSize: 10, fontWeight: 700, color: '#6ee7b7', letterSpacing: 1.2, textTransform: 'uppercase' }}>
                           Institutional Identity Badge
                         </span>
                       </div>
@@ -660,7 +681,7 @@ export default function SignupPage() {
                           fontWeight: 800,
                           color: '#ffffff',
                           letterSpacing: 0.8,
-                          marginTop: 5,
+                          marginTop: 4,
                           fontFamily: 'Consolas, "Roboto Mono", monospace',
                           textShadow: '0 0 12px rgba(16, 185, 129, 0.5)',
                         }}
@@ -669,17 +690,21 @@ export default function SignupPage() {
                       </div>
                     </div>
 
-                    {/* PinIT Logo + Golden Microchip Graphic */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
-                      <span style={{ fontSize: 13.5, fontWeight: 800, color: '#f8fafc', letterSpacing: 0.8 }}>
-                        PinIT
-                      </span>
-                      {/* Detailed Microchip SVG with Circuit Traces */}
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5">
+                    {/* Task 3: Real Brand Mark & Microchip Graphic */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
+                      <Image
+                        src="/brand/pinit-career-logo-clear.png"
+                        alt="PinIT"
+                        width={65}
+                        height={18}
+                        style={{ height: '18px', width: 'auto', objectFit: 'contain' }}
+                        priority
+                      />
+                      {/* Microchip SVG */}
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5">
                         <rect x="5" y="5" width="14" height="14" rx="2.5" stroke="#10b981" strokeWidth="1.5" />
                         <rect x="8.5" y="8.5" width="7" height="7" fill="#10b981" fillOpacity="0.28" stroke="#34d399" strokeWidth="1.2" />
                         <circle cx="12" cy="12" r="1.5" fill="#34d399" />
-                        {/* Pin connectors */}
                         <line x1="8" y1="1.5" x2="8" y2="5" strokeWidth="1.4" />
                         <line x1="12" y1="1.5" x2="12" y2="5" strokeWidth="1.4" />
                         <line x1="16" y1="1.5" x2="16" y2="5" strokeWidth="1.4" />
@@ -696,37 +721,44 @@ export default function SignupPage() {
                     </div>
                   </div>
 
-                  {/* Task 1: Student Full Name, College Name, and Branch on Card */}
-                  <div style={{ marginTop: 18, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 14, position: 'relative', zIndex: 4 }}>
-                    <div style={{ fontSize: 19, fontWeight: 800, color: '#ffffff', letterSpacing: -0.2 }}>
+                  {/* Task 1 & Task 3: Symmetric Student Name + SVG Vector Icons (No Emojis) */}
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 12, position: 'relative', zIndex: 4 }}>
+                    <div style={{ fontSize: 18.5, fontWeight: 800, color: '#ffffff', letterSpacing: -0.2 }}>
                       {studentName || 'Student Name'}
                     </div>
-                    <div style={{ fontSize: 12.5, fontWeight: 600, color: '#34d399', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <span>🏛️</span> {collegeName || 'Campus Institution'}
+                    <div style={{ fontSize: 12, fontWeight: 600, color: '#34d399', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+                      </svg>
+                      {collegeName || 'Campus Institution'}
                     </div>
-                    <div style={{ fontSize: 11.5, color: '#94a3b8', marginTop: 3 }}>
-                      🎓 {branch || 'Academic Stream'}
+                    <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                      </svg>
+                      {branch || 'Academic Stream'}
                     </div>
                   </div>
 
                   {/* Card Footer: Verified Badge + Fingerprint Scanner */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 22, position: 'relative', zIndex: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative', zIndex: 4 }}>
                     <div
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 7,
-                        padding: '6px 14px',
+                        gap: 6,
+                        padding: '5px 12px',
                         borderRadius: 9999,
                         background: 'rgba(16, 185, 129, 0.18)',
                         border: '1px solid rgba(16, 185, 129, 0.5)',
                         color: '#34d399',
-                        fontSize: 11.5,
+                        fontSize: 11,
                         fontWeight: 700,
                         boxShadow: '0 0 15px rgba(16, 185, 129, 0.25)',
                       }}
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         <path d="m9 12 2 2 4-4" />
                       </svg>
@@ -734,7 +766,7 @@ export default function SignupPage() {
                     </div>
 
                     {/* Biometric Fingerprint Scanner with Animated Laser Beam */}
-                    <div style={{ position: 'relative', width: 28, height: 28 }}>
+                    <div style={{ position: 'relative', width: 26, height: 26 }}>
                       <div
                         style={{
                           position: 'absolute',
@@ -747,7 +779,7 @@ export default function SignupPage() {
                           zIndex: 5,
                         }}
                       />
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.4" opacity="0.9">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.4" opacity="0.9">
                         <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4" />
                         <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 11.3-2.8" />
                         <path d="M12 10a2 2 0 0 0-2 2c0 4 1 6.5 2 9" />
@@ -760,194 +792,185 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              {/* Title & Telemetry Waveform HUD */}
-              <div style={{ marginTop: 6 }}>
-                <h1
-                  style={{
-                    fontSize: 34,
-                    fontWeight: 900,
-                    margin: 0,
-                    color: '#ffffff',
-                    letterSpacing: '-0.8px',
-                    lineHeight: 1.15,
-                  }}
-                >
-                  PinIT <span style={{ color: '#10b981', textShadow: '0 0 20px rgba(16, 185, 129, 0.4)' }}>Career OS</span>
-                </h1>
-                <p
-                  style={{
-                    margin: '8px 0 18px',
-                    fontSize: 13,
-                    color: '#94a3b8',
-                    lineHeight: 1.5,
-                    maxWidth: 400,
-                  }}
-                >
-                  Fine-line career progression metrics for future deployment typography.
-                </p>
-
-                {/* Telemetry Metrics Header Row */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    fontSize: 10,
-                    color: '#64748b',
-                    fontFamily: 'monospace',
-                    marginBottom: 6,
-                    borderBottom: '1px solid rgba(255,255,255,0.06)',
-                    paddingBottom: 5,
-                  }}
-                >
-                  <span>Career Progression</span>
-                  <span>18% College Student</span>
-                  <span>56% Parent</span>
-                  <span style={{ color: '#10b981', fontWeight: 700 }}>+8.931 60.20%</span>
-                  <span style={{ color: '#34d399', fontWeight: 700 }}>+29.58%</span>
+              {/* Task 2: Ultra-Cool Aerospace Telemetry HUD (Replacing crude sine wave box) */}
+              <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {/* Brand Lockup: Real Logo + Subtitle */}
+                <div>
+                  <Image
+                    src="/brand/pinit-career-logo-clear.png"
+                    alt="PinIT Career OS"
+                    width={170}
+                    height={38}
+                    style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
+                    priority
+                  />
+                  <p
+                    style={{
+                      margin: '8px 0 0',
+                      fontSize: 12.5,
+                      color: '#94a3b8',
+                      lineHeight: 1.5,
+                      maxWidth: 410,
+                    }}
+                  >
+                    Next-generation institutional identity, real-time campus telemetry, and autonomous AI career acceleration.
+                  </p>
                 </div>
 
-                {/* Fine-line Sparkline Waveform SVG with Data Nodes */}
+                {/* Aerospace Telemetry Strip with Fine-Line Spectrum HUD */}
                 <div
                   style={{
-                    width: '100%',
-                    height: 78,
-                    position: 'relative',
-                    background: 'rgba(0,0,0,0.3)',
-                    borderRadius: 10,
-                    border: '1px solid rgba(255,255,255,0.06)',
-                    padding: '8px 12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.5)',
+                    borderRadius: 14,
+                    background: 'rgba(16, 20, 28, 0.65)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(12px)',
+                    padding: '14px 16px',
+                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
                   }}
                 >
-                  <svg width="100%" height="58" viewBox="0 0 380 58" fill="none" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="hudGlow" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.32" />
-                        <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
-                    <line x1="0" y1="14" x2="380" y2="14" stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
-                    <line x1="0" y1="32" x2="380" y2="32" stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
-                    <line x1="0" y1="46" x2="380" y2="46" stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
+                  {/* Status Indicator Bar */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                      <span style={{ fontSize: 10, fontWeight: 700, color: '#34d399', letterSpacing: 1, fontFamily: 'monospace' }}>
+                        LIVE CAREER VELOCITY
+                      </span>
+                    </div>
+                    <span style={{ fontSize: 10.5, fontWeight: 700, color: '#10b981', fontFamily: 'monospace' }}>
+                      +29.58% ACCELERATION
+                    </span>
+                  </div>
 
-                    <path
-                      d="M0,42 Q35,43 70,39 T140,33 T190,43 T225,18 T260,35 T300,26 T340,37 T380,16 L380,58 L0,58 Z"
-                      fill="url(#hudGlow)"
-                    />
-                    <path
-                      d="M0,42 Q35,43 70,39 T140,33 T190,43 T225,18 T260,35 T300,26 T340,37 T380,16"
-                      stroke="#10b981"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
+                  {/* High-Precision Cyber Waveform Spectrum */}
+                  <div style={{ position: 'relative', width: '100%', height: 44 }}>
+                    <svg width="100%" height="44" viewBox="0 0 380 44" fill="none" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="cyberFade" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+                      {/* Technical Grid lines */}
+                      <line x1="0" y1="11" x2="380" y2="11" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
+                      <line x1="0" y1="22" x2="380" y2="22" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
+                      <line x1="0" y1="33" x2="380" y2="33" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
 
-                    {/* Data Node Dots at Peaks */}
-                    <circle cx="225" cy="18" r="3" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
-                    <circle cx="300" cy="26" r="2.5" fill="#10b981" />
-                    <circle cx="380" cy="16" r="3" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
-                  </svg>
+                      {/* Smooth Cyber Waveform */}
+                      <path
+                        d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10 L380,44 L0,44 Z"
+                        fill="url(#cyberFade)"
+                      />
+                      <path
+                        d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10"
+                        stroke="#10b981"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                      />
+
+                      {/* Coordinates Nodes */}
+                      <circle cx="210" cy="12" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
+                      <circle cx="290" cy="18" r="2" fill="#10b981" />
+                      <circle cx="380" cy="10" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
+                    </svg>
+                  </div>
+
+                  {/* Telemetry Metrics Row */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginTop: 8,
+                      fontSize: 9.5,
+                      color: '#64748b',
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    <span>SYS: ONLINE</span>
+                    <span>CONFIDENCE: 99.4%</span>
+                    <span>LATENCY: 14ms</span>
+                    <span style={{ color: '#94a3b8' }}>ID: VERIFIED</span>
+                  </div>
                 </div>
               </div>
             </>
           ) : (
             /* ──────────────────────────────────────────────────────────
                LIGHT MODE LEFT HERO:
-               - Modern Clean SaaS Elevation & Shading
-               - 3-Layer Stacked 3D White Cards with Gentle Float
-               - Student Name, College Name, Branch, PinIT ID
-               - Ascending Climbing Royal Blue Vector Line (↗)
+               - Task 3: Official Real Brand Logo Lockup (/brand/pinit-career-logo-clear.png)
+               - Task 4: Aerodynamic Supersonic Vector Curve & Airflow Jetstreams
+               - Symmetrical 3D Apple-Grade Stacked Deck
             ────────────────────────────────────────────────────────── */
             <>
-              {/* Header Lockup: Cobalt 'P' Icon + Title */}
+              {/* Task 3: Header Lockup with Real Brand Logo */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 14,
-                    background: 'linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 10px 25px rgba(79, 70, 229, 0.38)',
-                    color: '#ffffff',
-                    fontWeight: 900,
-                    fontSize: 24,
-                  }}
-                >
-                  P
-                </div>
-                <h1
-                  style={{
-                    fontSize: 30,
-                    fontWeight: 900,
-                    margin: 0,
-                    color: '#0f172a',
-                    letterSpacing: '-0.6px',
-                  }}
-                >
-                  PinIT Career OS
-                </h1>
+                <Image
+                  src="/brand/pinit-career-logo-clear.png"
+                  alt="PinIT Career OS"
+                  width={180}
+                  height={42}
+                  style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
+                  priority
+                />
               </div>
 
-              {/* 3D Stacked Floating White Cards with Rich Apple/Stripe Shades */}
+              {/* Task 1 & Task 4: 100% Symmetrical 3D Stacked Aerodynamic Cards */}
               <div style={{ display: 'flex', justifyContent: 'center', padding: '16px 8px 24px' }}>
                 <div
                   style={{
                     position: 'relative',
                     width: '100%',
                     maxWidth: 420,
-                    animation: 'floatCardLight 5s ease-in-out infinite',
+                    aspectRatio: '1.586 / 1', // Symmetrical physical card aspect ratio
+                    animation: 'aeroLevitationLight 4.5s ease-in-out infinite',
                   }}
                 >
                   {/* Layer 3 (Bottom Stack Shade) */}
                   <div
                     style={{
                       position: 'absolute',
-                      top: 22,
-                      left: 18,
-                      right: 18,
-                      height: 236,
-                      borderRadius: 24,
+                      inset: 0,
+                      borderRadius: 22,
                       background: 'linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)',
-                      opacity: 0.6,
+                      opacity: 0.55,
                       boxShadow: '0 14px 30px -6px rgba(0, 0, 0, 0.06), 0 0 0 1px #cbd5e1',
-                      transform: 'translateY(12px) scale(0.93)',
+                      transform: 'translateY(16px) scale(0.92)',
                     }}
                   />
                   {/* Layer 2 (Middle Stack Shade) */}
                   <div
                     style={{
                       position: 'absolute',
-                      top: 11,
-                      left: 9,
-                      right: 9,
-                      height: 236,
-                      borderRadius: 24,
+                      inset: 0,
+                      borderRadius: 22,
                       background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
                       border: '1px solid #e2e8f0',
-                      transform: 'translateY(6px) scale(0.96)',
+                      transform: 'translateY(8px) scale(0.96)',
                       boxShadow: '0 20px 40px -8px rgba(0, 0, 0, 0.08), 0 0 0 1px #e2e8f0',
                     }}
                   />
-                  {/* Main Top Card with Multi-Layer Apple/Stripe-Grade Elevation Shades */}
+                  {/* Main Top Card with Aerodynamic Elevation & Shading */}
                   <div
                     style={{
                       position: 'relative',
-                      borderRadius: 24,
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: 22,
                       background: '#ffffff',
                       border: '1px solid rgba(226, 232, 240, 0.95)',
                       boxShadow:
                         '0 30px 60px -15px rgba(99, 102, 241, 0.18), 0 14px 28px -6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(241, 245, 249, 0.8)',
-                      padding: '26px 28px 22px',
+                      padding: '24px 26px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      boxSizing: 'border-box',
                     }}
                   >
+                    {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div>
-                        <span style={{ fontSize: 10.5, fontWeight: 700, color: '#64748b', letterSpacing: 0.8, textTransform: 'uppercase' }}>
+                        <span style={{ fontSize: 10, fontWeight: 700, color: '#64748b', letterSpacing: 0.8, textTransform: 'uppercase' }}>
                           College Student ID
                         </span>
                         <div
@@ -985,36 +1008,83 @@ export default function SignupPage() {
                       </span>
                     </div>
 
-                    {/* Task 1: Student Name, College & Branch on Card */}
-                    <div style={{ marginTop: 16, borderTop: '1px solid #f1f5f9', paddingTop: 12 }}>
-                      <div style={{ fontSize: 19, fontWeight: 800, color: '#0f172a' }}>
+                    {/* Task 1 & Task 3: Symmetrical Student Details with Vector Icons (No Emojis) */}
+                    <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10 }}>
+                      <div style={{ fontSize: 18.5, fontWeight: 800, color: '#0f172a' }}>
                         {studentName || 'Student Name'}
                       </div>
-                      <div style={{ fontSize: 12.5, fontWeight: 600, color: '#4f46e5', marginTop: 3 }}>
-                        🏛️ {collegeName || 'Campus Institution'}
+                      <div style={{ fontSize: 12, fontWeight: 600, color: '#4f46e5', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+                        </svg>
+                        {collegeName || 'Campus Institution'}
                       </div>
-                      <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 2 }}>
-                        🎓 {branch || 'Academic Stream'}
+                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                          <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                        </svg>
+                        {branch || 'Academic Stream'}
                       </div>
                     </div>
 
-                    <div style={{ marginTop: 14, fontSize: 12.5, fontWeight: 600, color: '#64748b' }}>
-                      Career progression
-                    </div>
+                    {/* Task 4: Aerodynamic Supersonic Vector Line with Jetstream Airflow Trails */}
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5, fontWeight: 700, color: '#64748b', marginBottom: 2 }}>
+                        <span>Career progression</span>
+                        <span style={{ color: '#4f46e5', fontSize: 11 }}>AERODYNAMIC TRAJECTORY // +29.58%</span>
+                      </div>
 
-                    {/* Climbing Vector Line with Arrowhead (↗) */}
-                    <div style={{ width: '100%', height: 78, marginTop: 2 }}>
-                      <svg width="100%" height="78" viewBox="0 0 260 78" fill="none" preserveAspectRatio="none">
-                        <defs>
-                          <linearGradient id="blueGlow" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.16" />
-                            <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.0" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M10,68 L55,48 L95,58 L145,35 L180,48 L236,15 L236,78 L10,78 Z" fill="url(#blueGlow)" />
-                        <path d="M10,68 L55,48 L95,58 L145,35 L180,48 L236,15" stroke="#4338ca" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                        <polygon points="220,13 242,12 238,32" fill="#4338ca" />
-                      </svg>
+                      <div style={{ width: '100%', height: 68 }}>
+                        <svg width="100%" height="68" viewBox="0 0 300 68" fill="none" preserveAspectRatio="none">
+                          <defs>
+                            <linearGradient id="aeroJetGradient" x1="0" y1="0" x2="1" y2="0">
+                              <stop offset="0%" stopColor="#4338ca" />
+                              <stop offset="60%" stopColor="#4f46e5" />
+                              <stop offset="100%" stopColor="#38bdf8" />
+                            </linearGradient>
+                            <linearGradient id="aeroMeshFade" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.18" />
+                              <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.0" />
+                            </linearGradient>
+                          </defs>
+
+                          {/* Aerodynamic Area Fill */}
+                          <path
+                            d="M10,58 C60,54 110,48 160,34 C210,20 250,12 282,8 L282,68 L10,68 Z"
+                            fill="url(#aeroMeshFade)"
+                          />
+
+                          {/* Jetstream Airflow Trail 1 (Faint upper dashed line) */}
+                          <path
+                            d="M10,54 C60,50 110,44 160,30 C210,16 250,9 276,6"
+                            stroke="#818cf8"
+                            strokeWidth="1.2"
+                            strokeDasharray="4 4"
+                            opacity="0.6"
+                          />
+
+                          {/* Jetstream Airflow Trail 2 (Lower dashed trail) */}
+                          <path
+                            d="M20,62 C70,58 120,52 170,38 C215,24 255,16 280,12"
+                            stroke="#38bdf8"
+                            strokeWidth="1.2"
+                            strokeDasharray="3 4"
+                            opacity="0.5"
+                          />
+
+                          {/* Main Aerodynamic Supersonic Flight Path */}
+                          <path
+                            d="M10,58 C60,54 110,48 160,34 C210,20 250,12 282,8"
+                            stroke="url(#aeroJetGradient)"
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                          />
+
+                          {/* Supersonic Delta Arrowhead at Peak */}
+                          <polygon points="266,7 286,7 283,23" fill="#4338ca" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1160,7 +1230,6 @@ export default function SignupPage() {
                   overflow: 'hidden',
                 }}
               >
-                {/* 4 Laser Targeting Corners in Neon Emerald */}
                 <span style={{ position: 'absolute', top: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┌</span>
                 <span style={{ position: 'absolute', top: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┐</span>
                 <span style={{ position: 'absolute', bottom: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>└</span>
@@ -1261,7 +1330,7 @@ export default function SignupPage() {
               </div>
             )}
 
-            {/* 3. Task 1: Complete Form Inputs (Full Name, College, Branch, Identifier, Password) */}
+            {/* 3. Task 1: Complete Symmetrical Form Inputs (No squished columns) */}
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {/* Field 1: Student Full Name with User Icon */}
               <div style={{ position: 'relative' }}>
@@ -1292,65 +1361,66 @@ export default function SignupPage() {
                 />
               </div>
 
-              {/* Field 2 & 3: College Name & Branch (in College ID Mode) */}
+              {/* Field 2: College Name (Full Width, No Truncation) */}
               {idMode === 'college' && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                  <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#34d399' : '#4f46e5', pointerEvents: 'none' }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
-                      </svg>
-                    </span>
-                    <input
-                      type="text"
-                      value={collegeName}
-                      onChange={(e) => setCollegeName(e.target.value)}
-                      placeholder="College Name"
-                      title="College Name"
-                      className={isDark ? 'input-glow' : 'input-glow-light'}
-                      style={{
-                        width: '100%',
-                        padding: '12px 10px 12px 34px',
-                        borderRadius: 12,
-                        background: isDark ? '#181b22' : '#ffffff',
-                        border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                        color: isDark ? '#ffffff' : '#0f172a',
-                        fontSize: 12.5,
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                        transition: 'border-color 0.2s, box-shadow 0.2s',
-                      }}
-                    />
-                  </div>
+                <div style={{ position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#34d399' : '#4f46e5', pointerEvents: 'none' }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+                    </svg>
+                  </span>
+                  <input
+                    type="text"
+                    value={collegeName}
+                    onChange={(e) => setCollegeName(e.target.value)}
+                    placeholder="College / Campus (e.g. BGS Institute of Management)"
+                    title="College Name"
+                    className={isDark ? 'input-glow' : 'input-glow-light'}
+                    style={{
+                      width: '100%',
+                      padding: '12px 14px 12px 40px',
+                      borderRadius: 12,
+                      background: isDark ? '#181b22' : '#ffffff',
+                      border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                      color: isDark ? '#ffffff' : '#0f172a',
+                      fontSize: 13,
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                    }}
+                  />
+                </div>
+              )}
 
-                  <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#34d399' : '#4f46e5', pointerEvents: 'none' }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                      </svg>
-                    </span>
-                    <input
-                      type="text"
-                      value={branch}
-                      onChange={(e) => setBranch(e.target.value)}
-                      placeholder="Branch (e.g. BCA)"
-                      title="Branch / Stream"
-                      className={isDark ? 'input-glow' : 'input-glow-light'}
-                      style={{
-                        width: '100%',
-                        padding: '12px 10px 12px 34px',
-                        borderRadius: 12,
-                        background: isDark ? '#181b22' : '#ffffff',
-                        border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                        color: isDark ? '#ffffff' : '#0f172a',
-                        fontSize: 12.5,
-                        outline: 'none',
-                        boxSizing: 'border-box',
-                        transition: 'border-color 0.2s, box-shadow 0.2s',
-                      }}
-                    />
-                  </div>
+              {/* Field 3: Branch / Stream (Full Width, No Truncation) */}
+              {idMode === 'college' && (
+                <div style={{ position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#34d399' : '#4f46e5', pointerEvents: 'none' }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                      <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                  </span>
+                  <input
+                    type="text"
+                    value={branch}
+                    onChange={(e) => setBranch(e.target.value)}
+                    placeholder="Branch / Stream (e.g. BCA • Computer Applications)"
+                    title="Branch / Stream"
+                    className={isDark ? 'input-glow' : 'input-glow-light'}
+                    style={{
+                      width: '100%',
+                      padding: '12px 14px 12px 40px',
+                      borderRadius: 12,
+                      background: isDark ? '#181b22' : '#ffffff',
+                      border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                      color: isDark ? '#ffffff' : '#0f172a',
+                      fontSize: 13,
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                    }}
+                  />
                 </div>
               )}
 
