@@ -1109,14 +1109,15 @@ function ProjectsPageContent() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 6,
+          gap: 8,
           padding: '6px',
-          borderRadius: 12,
-          background: 'var(--card)',
-          border: '1px solid var(--border)',
-          marginBottom: 16,
+          borderRadius: 14,
+          background: 'rgba(13, 18, 30, 0.85)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          marginBottom: 20,
           overflowX: 'auto',
-          boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04))'
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
         }}
       >
         {/* Sub-Tab 1: Certification Course */}
@@ -2472,13 +2473,15 @@ function ProjectsPageContent() {
         >
           <div
             style={{
-              background: 'var(--card)',
-              border: '1px solid var(--border)',
-              borderRadius: 20,
+              background: 'linear-gradient(145deg, rgba(17, 24, 39, 0.98) 0%, rgba(11, 15, 26, 0.98) 100%)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.22)',
+              borderRadius: 22,
               maxWidth: 580,
               width: '100%',
-              padding: 28,
-              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+              padding: '32px 36px',
+              boxShadow: '0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(99, 102, 241, 0.2)',
+              backdropFilter: 'blur(20px)',
               position: 'relative'
             }}
           >
@@ -2582,13 +2585,15 @@ function ProjectsPageContent() {
                       onChange={(e) => setOwnProjectName(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: 10,
-                        background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
+                        padding: '12px 16px',
+                        borderRadius: 12,
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         color: 'var(--t1)',
                         fontSize: 14,
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        outline: 'none',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                       }}
                     />
                   </div>
@@ -2605,13 +2610,15 @@ function ProjectsPageContent() {
                       onChange={(e) => setOwnProjectRepoUrl(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: 10,
-                        background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
+                        padding: '12px 16px',
+                        borderRadius: 12,
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         color: 'var(--t1)',
                         fontSize: 14,
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        outline: 'none',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                       }}
                     />
                     <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>
@@ -2630,13 +2637,15 @@ function ProjectsPageContent() {
                       onChange={(e) => setOwnProjectTechStack(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: 10,
-                        background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
+                        padding: '12px 16px',
+                        borderRadius: 12,
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         color: 'var(--t1)',
                         fontSize: 14,
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        outline: 'none',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                       }}
                     />
                   </div>
@@ -2652,14 +2661,16 @@ function ProjectsPageContent() {
                       onChange={(e) => setOwnProjectDesc(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '10px 14px',
-                        borderRadius: 10,
-                        background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
+                        padding: '12px 16px',
+                        borderRadius: 12,
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         color: 'var(--t1)',
                         fontSize: 13.5,
                         boxSizing: 'border-box',
-                        resize: 'vertical'
+                        resize: 'vertical',
+                        outline: 'none',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                       }}
                     />
                   </div>
