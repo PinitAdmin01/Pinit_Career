@@ -39,20 +39,25 @@ function formatStudentName(u: any): string {
     const lastDigits = reg.match(/(\d+)$/)?.[1];
     const deptMatch = reg.match(/PIN-[A-Z]+-([A-Z]+)-/i)?.[1];
     if (lastDigits && deptMatch) {
-      return `Student (${deptMatch} #${lastDigits})`;
+      return `Peer (${deptMatch} #${lastDigits})`;
     }
     if (lastDigits) {
-      return `Student Peer #${lastDigits}`;
+      return `Peer #${lastDigits}`;
     }
   }
 
-  // Distinguish by track role & ID
+  // Distinguish by track role & ID snippet
   const role = u.target_role || u.career_goal;
   const shortId = (u.id || '').replace(/-/g, '').slice(0, 4).toUpperCase();
   if (role) {
+    const roleStr = String(role).toLowerCase();
+    if (roleStr.includes('full') || roleStr.includes('stack')) return `Full-Stack Peer #${shortId}`;
+    if (roleStr.includes('ai') || roleStr.includes('llm') || roleStr.includes('data')) return `AI/ML Peer #${shortId}`;
+    if (roleStr.includes('cyber')) return `Cybersecurity Peer #${shortId}`;
+    if (roleStr.includes('cloud') || roleStr.includes('devops')) return `DevOps Peer #${shortId}`;
     const cleanRole = role.replace(/_/g, ' ').replace(/\b(developer|engineer)\b/i, '').trim();
-    const capitalizedRole = cleanRole.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    return `${capitalizedRole || 'Campus'} Peer #${shortId}`;
+    const capitalized = cleanRole.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    return `${capitalized || 'Campus'} Peer #${shortId}`;
   }
 
   return `Campus Peer #${shortId || '01'}`;
