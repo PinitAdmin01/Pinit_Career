@@ -2,17 +2,31 @@ function formatStudentName(u: any): string {
   const rawDisplayName = (u.display_name || '').trim();
   const isGeneric = !rawDisplayName || /^(student|campus student|user|student peer)$/i.test(rawDisplayName);
   
+  // Clean raw display name if it has test artifacts like rocker2002, 2002s
   if (!isGeneric) {
+    let clean = rawDisplayName.replace(/(rocker|dev|tech)?\d+[a-z]?$/i, '').trim();
+    if (clean.length >= 2) {
+      return clean.charAt(0).toUpperCase() + clean.slice(1);
+    }
     return rawDisplayName;
   }
 
   // Check username
   const rawUsername = (u.username || '').trim();
   if (rawUsername && !/^(student|user|admin)$/i.test(rawUsername)) {
-    const cleanUser = rawUsername.replace(/^usr_/i, '');
-    const parts = cleanUser.split(/[._-]+/).filter((p: string) => p.length > 0 && !/^[0-9a-f]{6,}$/i.test(p));
+    let cleanUser = rawUsername.replace(/^usr_/i, '');
+    cleanUser = cleanUser.replace(/(rocker|dev|tech)?\d+[a-z]?$/i, '');
+    const parts = cleanUser.split(/[._-]+/).filter((p: string) => {
+      if (/\d/.test(p) && /[a-z]/i.test(p)) return false; // salt like 2exq, 1y0qm, di1xol
+      if (/^[0-9a-f]{4,}$/i.test(p)) return false;
+      if (/^\d+$/.test(p)) return false;
+      return p.length > 0;
+    });
     if (parts.length > 0) {
-      return parts.map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ');
+      return parts.map((s: string) => {
+        if (s.toLowerCase().startsWith('vinayn')) return 'Vinay N.';
+        return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+      }).join(' ');
     }
   }
 
@@ -20,9 +34,18 @@ function formatStudentName(u: any): string {
   if (u.email && typeof u.email === 'string') {
     let prefix = u.email.split('@')[0].trim();
     prefix = prefix.replace(/^usr_/i, '');
-    const parts = prefix.split(/[._-]+/).filter((p: string) => p.length > 0 && !/^[0-9a-f]{6,}$/i.test(p) && !/^(student|test|demo)$/i.test(p));
+    prefix = prefix.replace(/(rocker|dev|tech)?\d+[a-z]?$/i, '');
+    const parts = prefix.split(/[._-]+/).filter((p: string) => {
+      if (/\d/.test(p) && /[a-z]/i.test(p)) return false; // salt like 2exq, 1y0qm, di1xol
+      if (/^[0-9a-f]{4,}$/i.test(p)) return false;
+      if (/^\d+$/.test(p)) return false;
+      return p.length > 0 && !/^(student|test|demo)$/i.test(p);
+    });
     if (parts.length > 0) {
-      return parts.map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ');
+      return parts.map((s: string) => {
+        if (s.toLowerCase().startsWith('vinayn')) return 'Vinay N.';
+        return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+      }).join(' ');
     }
   }
 

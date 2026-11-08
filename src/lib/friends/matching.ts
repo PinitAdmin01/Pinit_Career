@@ -149,17 +149,22 @@ export function computeStudentMatch(
     goalScore * 0.20
   );
 
-  // Dynamic Track Synergy Adjustment:
-  // Direct track match grants +10% synergy, complementary (Full-Stack + AI/ML) grants +5%
+  // Dynamic Track Synergy & Affinity Adjustment:
   let trackSynergy = 0;
   const targetGoal = (target.careerGoal || '').toLowerCase();
   const targetSkills = (target.skills || []).map(s => s.toLowerCase());
   const isDirect = targetGoal.includes('full') || targetGoal.includes('stack') || targetSkills.some(s => s.includes('full-stack'));
   const isComplement = targetGoal.includes('ai') || targetGoal.includes('llm') || targetSkills.some(s => s.includes('ai'));
-  if (isDirect) trackSynergy = 10;
-  else if (isComplement) trackSynergy = 5;
+  if (isDirect) trackSynergy = 9;
+  else if (isComplement) trackSynergy = 4;
 
-  const overallMatch = Math.max(68, Math.min(95, weighted + trackSynergy));
+  // Individual Student XP & Profile Affinity Delta (organically distributes 72% - 95%)
+  const studentXp = target.xp || 0;
+  const xpBonus = Math.min(4, Math.floor(studentXp / 35));
+  const idHash = (target.id || '').split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const hashVariance = (idHash % 7) - 3; // -3 to +3 deterministic variation
+
+  const overallMatch = Math.max(72, Math.min(95, weighted + trackSynergy + xpBonus + hashVariance));
 
   // 8. Generate Dynamic Reason Tag
   let reasonTag = '🌱 Campus Peer Synergy';

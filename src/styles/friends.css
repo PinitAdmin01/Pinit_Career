@@ -2366,3 +2366,431 @@ body.light .friends-empty-state-card,
   border: 1px solid #c7d2fe;
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
 }
+
+/* ==========================================================================
+   PINIT CAREER OS — HEAVEN DESIGN SYSTEM POLISH (PEER CARDS, HERO & SIDEBAR)
+   ========================================================================== */
+.friends-hero-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  color: #a5b4fc;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #818cf8;
+  box-shadow: 0 0 8px #818cf8;
+  animation: beaconPulse 2s infinite;
+}
+
+.hero-stats-badge-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 18px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.hero-stats-badge-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  line-height: 1;
+}
+
+.hero-stats-badge-lbl {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.hero-stats-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #34d399;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.online-beacon-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: beaconPulse 2s infinite;
+}
+
+/* ── Dynamic Match Badges ── */
+.match-percentage-badge.match-badge-emerald {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(5, 150, 105, 0.24) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+}
+.match-percentage-badge.match-badge-emerald .match-percentage-val {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.match-percentage-badge.match-badge-emerald .match-percentage-label {
+  color: #6ee7b7;
+}
+
+.match-percentage-badge.match-badge-indigo {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.16) 0%, rgba(139, 92, 246, 0.24) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.2);
+}
+.match-percentage-badge.match-badge-indigo .match-percentage-val {
+  background: linear-gradient(135deg, #818cf8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.match-percentage-badge.match-badge-indigo .match-percentage-label {
+  color: #c7d2fe;
+}
+
+.match-percentage-badge.match-badge-cyan {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(14, 165, 233, 0.24) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.2);
+}
+.match-percentage-badge.match-badge-cyan .match-percentage-val {
+  background: linear-gradient(135deg, #38bdf8, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.match-percentage-badge.match-badge-cyan .match-percentage-label {
+  color: #bae6fd;
+}
+
+/* ── Suggested Peer Card Perfection ── */
+.suggested-peer-card {
+  border-radius: 16px !important;
+  padding: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: linear-gradient(145deg, rgba(22, 30, 52, 0.88) 0%, rgba(13, 20, 38, 0.96) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.suggested-peer-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(129, 140, 248, 0.45) !important;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.65), 0 0 24px rgba(99, 102, 241, 0.2) !important;
+  background: linear-gradient(145deg, rgba(28, 38, 66, 0.94) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+}
+
+.suggested-avatar-box {
+  width: 46px !important;
+  height: 46px !important;
+  border: 2px solid rgba(129, 140, 248, 0.35) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.2) !important;
+}
+
+.suggested-peer-name {
+  font-size: 15.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 3px !important;
+}
+
+.suggested-peer-degree {
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  margin-bottom: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.degree-icon {
+  font-size: 13px !important;
+  flex-shrink: 0;
+}
+
+.mini-skill-pill {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 3px 9px !important;
+  border-radius: 20px !important;
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: #c7d2fe !important;
+  border: 1px solid rgba(129, 140, 248, 0.3) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.mini-skill-pill:hover {
+  background: rgba(99, 102, 241, 0.25) !important;
+  border-color: rgba(129, 140, 248, 0.5) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.suggested-card-btn-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+  margin-top: auto !important;
+  padding-top: 10px !important;
+}
+
+.friends-btn-secondary {
+  padding: 8px 12px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #f1f5f9 !important;
+  transition: all 0.2s ease !important;
+}
+
+.friends-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.friends-btn-primary {
+  padding: 8px 12px !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+.friends-btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55) !important;
+  filter: brightness(1.1) !important;
+}
+
+/* ── Quick Action Tiles & Sidebar Cards ── */
+.ref-sidebar-card {
+  border-radius: 16px !important;
+  padding: 16px 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.network-stat-box {
+  border-radius: 12px !important;
+  padding: 10px 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+.network-stat-box:hover {
+  background: rgba(99, 102, 241, 0.14) !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+.quick-action-tile {
+  padding: 11px 12px !important;
+  border-radius: 12px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.quick-action-tile:hover {
+  transform: translateY(-2px) !important;
+  filter: brightness(1.15) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ── Light Mode Masterclass Styles ── */
+:root.light .friends-hero-ref,
+html.light .friends-hero-ref,
+body.light .friends-hero-ref,
+[data-theme='light'] .friends-hero-ref {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%) !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light .friends-hero-title-ref,
+html.light .friends-hero-title-ref,
+body.light .friends-hero-title-ref,
+[data-theme='light'] .friends-hero-title-ref {
+  color: #0f172a !important;
+}
+
+:root.light .friends-hero-subtitle-ref,
+html.light .friends-hero-subtitle-ref,
+body.light .friends-hero-subtitle-ref,
+[data-theme='light'] .friends-hero-subtitle-ref {
+  color: #64748b !important;
+}
+
+:root.light .hero-stats-badge-card,
+html.light .hero-stats-badge-card,
+body.light .hero-stats-badge-card,
+[data-theme='light'] .hero-stats-badge-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+:root.light .hero-stats-badge-val,
+html.light .hero-stats-badge-val,
+body.light .hero-stats-badge-val,
+[data-theme='light'] .hero-stats-badge-val {
+  color: #0f172a !important;
+}
+
+:root.light .friends-tabs-bar-ref,
+html.light .friends-tabs-bar-ref,
+body.light .friends-tabs-bar-ref,
+[data-theme='light'] .friends-tabs-bar-ref {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+:root.light .friends-tab-pill,
+html.light .friends-tab-pill,
+body.light .friends-tab-pill,
+[data-theme='light'] .friends-tab-pill {
+  color: #64748b !important;
+}
+
+:root.light .friends-tab-pill:hover,
+html.light .friends-tab-pill:hover,
+body.light .friends-tab-pill:hover,
+[data-theme='light'] .friends-tab-pill:hover {
+  color: #0f172a !important;
+  background: #ffffff !important;
+}
+
+:root.light .friends-tab-pill.active,
+html.light .friends-tab-pill.active,
+body.light .friends-tab-pill.active,
+[data-theme='light'] .friends-tab-pill.active {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3) !important;
+}
+
+:root.light .friends-live-search-input,
+html.light .friends-live-search-input,
+body.light .friends-live-search-input,
+[data-theme='light'] .friends-live-search-input {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root.light .suggested-peer-card,
+html.light .suggested-peer-card,
+body.light .suggested-peer-card,
+[data-theme='light'] .suggested-peer-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light .suggested-peer-card:hover,
+html.light .suggested-peer-card:hover,
+body.light .suggested-peer-card:hover,
+[data-theme='light'] .suggested-peer-card:hover {
+  background: #ffffff !important;
+  border-color: #818cf8 !important;
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.12) !important;
+  transform: translateY(-4px) !important;
+}
+
+:root.light .suggested-peer-name,
+html.light .suggested-peer-name,
+body.light .suggested-peer-name,
+[data-theme='light'] .suggested-peer-name {
+  color: #0f172a !important;
+}
+
+:root.light .suggested-peer-degree,
+html.light .suggested-peer-degree,
+body.light .suggested-peer-degree,
+[data-theme='light'] .suggested-peer-degree {
+  color: #64748b !important;
+}
+
+:root.light .mini-skill-pill,
+html.light .mini-skill-pill,
+body.light .mini-skill-pill,
+[data-theme='light'] .mini-skill-pill {
+  background: #eef2ff !important;
+  border: 1px solid #c7d2fe !important;
+  color: #4338ca !important;
+}
+
+:root.light .friends-btn-secondary,
+html.light .friends-btn-secondary,
+body.light .friends-btn-secondary,
+[data-theme='light'] .friends-btn-secondary {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+:root.light .ref-sidebar-card,
+html.light .ref-sidebar-card,
+body.light .ref-sidebar-card,
+[data-theme='light'] .ref-sidebar-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light .network-stat-box,
+html.light .network-stat-box,
+body.light .network-stat-box,
+[data-theme='light'] .network-stat-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+:root.light .network-stat-num,
+html.light .network-stat-num,
+body.light .network-stat-num,
+[data-theme='light'] .network-stat-num {
+  color: #0f172a !important;
+}
+
+:root.light .ref-sidebar-header,
+html.light .ref-sidebar-header,
+body.light .ref-sidebar-header,
+[data-theme='light'] .ref-sidebar-header {
+  color: #0f172a !important;
+}
