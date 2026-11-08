@@ -433,7 +433,7 @@ export class VRoidAvatarEngine {
           settled = true;
           console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
           loadAttempt(idx + 1).then(resolve).catch(reject);
-        }, 12000);
+        }, 3500);
 
         console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
         try {
