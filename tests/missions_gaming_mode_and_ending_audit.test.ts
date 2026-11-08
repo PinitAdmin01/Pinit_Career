@@ -31,7 +31,7 @@ describe('MISSIONS GAMING MODE & SESSION CONCLUSION AUDIT', () => {
       });
 
       assert.strictEqual(res1.isEnded, false, 'Turn 1 should not end the session');
-      assert.ok(res1.choices && res1.choices.length === 3, 'Turn 1 must provide 3 next choices');
+      assert.ok(res1.choices && res1.choices.length === 4, 'Turn 1 must provide 4 next choices');
 
       // Check turn 5
       const turn5History: any[] = [];
@@ -48,7 +48,7 @@ describe('MISSIONS GAMING MODE & SESSION CONCLUSION AUDIT', () => {
         history: turn5History,
       });
       assert.strictEqual(res5.isEnded, false, 'Turn 5 should still be active');
-      assert.ok(res5.choices && res5.choices.length === 3, 'Turn 5 must provide 3 next choices');
+      assert.ok(res5.choices && res5.choices.length === 4, 'Turn 5 must provide 4 next choices');
     });
 
     it('ends reliably after 10 turns (nodeCount = 10) for 15-minute simulation', async () => {
