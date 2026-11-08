@@ -812,6 +812,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         registerNumber:  resolvedId,
         register_number: resolvedId,
         pinit_id:        resolvedId,
+        ...(data.collegeInfo ? {
+          college_name: data.collegeInfo.collegeName || '',
+          university: data.collegeInfo.collegeName || '',
+          department: data.collegeInfo.department || data.collegeInfo.branch || '',
+          branch: data.collegeInfo.branch || data.collegeInfo.department || '',
+          roll_number: data.collegeInfo.rollNumber || data.registerNumber || '',
+        } : {}),
       };
 
       // Await profile creation on signup to prevent broken state (Task 3.2)

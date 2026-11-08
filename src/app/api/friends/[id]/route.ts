@@ -117,10 +117,11 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       }
 
       const ob = user.onboarding_answers || {};
+      // ZERO DUMMY SKILLS INVARIANT:
       const rawSkills: any[] = Array.isArray(user.skill_tags) && user.skill_tags.length > 0
         ? user.skill_tags
-        : (typeof ob.skills === 'string' && ob.skills.trim().length > 0
-            ? [ob.skills]
+        : (Array.isArray(user.skills) && user.skills.length > 0
+            ? user.skills
             : []);
 
       // Sanitize skills: strip "Skills:" prefix, split on comma/semicolon/newline (preserve Next.js, Node.js)

@@ -1,9 +1,11 @@
 'use client';
 /**
- * PinIT College ID Scanner Engine v2.1
- * - Dual Engine: Gemini Flash Vision + Client Tesseract.js fallback
- * - Offscreen HTML5 Canvas Grayscale & 1.35x Contrast Enhancement
- * - Strict Department & Degree Normalization (No 2-letter false positives)
+ * PinIT College ID Scanner Engine v2.2
+ * - Dual Engine: Groq Vision / Gemini Flash Vision + Client Tesseract.js fallback
+ * - Dark Mode (Minimalist Precision): HUD Laser Targeting Corners (┌ ┐ └ ┘)
+ * - Light Mode (Modern Clean SaaS): Apple/Stripe-Grade Elevation & Dashed Card
+ * - Interactive Segmented Control: [ Global PinIT ID ] | [ College Student ID ]
+ * - Strict Department & Degree Normalization
  * - Real-Time Institutional PinIT ID Generation & Duplicate Collision Guard
  */
 
@@ -22,6 +24,7 @@ interface Props {
   onIdGenerated: (id: string, mode: 'college' | 'global', metadata?: CollegeMetadata, file?: File | null) => void;
   onNameExtracted?: (extractedName: string) => void;
   onStoragePathExtracted?: (path: string) => void;
+  theme?: 'dark' | 'light';
 }
 
 function preprocessImageForOcr(file: File): Promise<string | File> {
@@ -88,7 +91,7 @@ async function runClientOcr(file: File): Promise<string> {
     const Tesseract = (window as any).Tesseract;
     if (!Tesseract || typeof Tesseract.recognize !== 'function') return '';
 
-    // First attempt: Direct recognition on raw File for uncorrupted native color and text fidelity
+    // First attempt: Direct recognition on raw File
     try {
       const res = await Tesseract.recognize(file, 'eng');
       const text = res?.data?.text || '';
@@ -99,7 +102,7 @@ async function runClientOcr(file: File): Promise<string> {
       console.warn('[CollegeIdScanner] Raw OCR attempt note:', rawOcrErr);
     }
 
-    // Second attempt: Fallback to canvas preprocessing if raw image produced minimal text
+    // Second attempt: Fallback to canvas preprocessing
     const preprocessed = await preprocessImageForOcr(file);
     const resFallback = await Tesseract.recognize(preprocessed, 'eng');
     return resFallback?.data?.text || '';
@@ -115,9 +118,12 @@ export default function CollegeIdScanner({
   onIdGenerated,
   onNameExtracted,
   onStoragePathExtracted,
+  theme = 'dark',
 }: Props) {
-  // By default, system creates a Global ID
-  const [mode, setMode] = useState<'global' | 'college'>('global');
+  const isDark = theme === 'dark';
+
+  // ID Mode: 'global' vs 'college' (Default to 'college' to showcase scanner prominently)
+  const [mode, setMode] = useState<'global' | 'college'>('college');
   const [globalId, setGlobalId] = useState<string>('');
 
   // College ID state
@@ -127,9 +133,8 @@ export default function CollegeIdScanner({
   const [scanProgress, setScanProgress] = useState<number>(0);
   const [scanStatus, setScanStatus] = useState<string>('');
   const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | null>(null);
-  const [isEditingDetails, setIsEditingDetails] = useState<boolean>(false);
 
-  // Extracted details (Auto-filled on upload)
+  // Extracted details
   const [collegeCode, setCollegeCode] = useState<string>('');
   const [deptCode, setDeptCode] = useState<string>('');
   const [rollNumber, setRollNumber] = useState<string>('');
@@ -152,7 +157,7 @@ export default function CollegeIdScanner({
     onStoragePathExtractedRef.current = onStoragePathExtracted;
   });
 
-  // Race condition sequence guard & memory leak object URL tracking
+  // Race condition sequence guard & memory cleanup
   const scanSequenceRef = useRef<number>(0);
   const previewUrlRef = useRef<string>('');
 
@@ -178,9 +183,9 @@ export default function CollegeIdScanner({
   useEffect(() => {
     if (mode === 'college') {
       const cid = generateCollegePinItId({
-        collegeCode: collegeCode || 'COLLEGE',
-        departmentCode: deptCode || 'GEN',
-        rollNumber: rollNumber || '001',
+        collegeCode: collegeCode || 'BGS',
+        departmentCode: deptCode || 'BCA',
+        rollNumber: rollNumber || '726',
       });
       setPreviewId(cid);
       onIdGeneratedRef.current(cid, 'college', collegeMeta || undefined, uploadedFile);
@@ -197,7 +202,7 @@ export default function CollegeIdScanner({
   const processUploadedFile = async (file: File) => {
     const currentScanId = ++scanSequenceRef.current;
 
-    // 0. Reset all previous card extraction state immediately to prevent state pollution
+    // Reset state
     setUploadedFile(file);
     setCollegeMeta(null);
     setEditableStudentName('');
@@ -209,18 +214,15 @@ export default function CollegeIdScanner({
     setScanProgress(20);
     setScanStatus('Reading student ID card image...');
 
-    // Clear display name on parent signup form while scanning new card
     if (onNameExtractedRef.current) {
       onNameExtractedRef.current('');
     }
 
-    // Revoke previous blob URL to prevent browser memory leaks
     if (previewUrlRef.current) {
       try { URL.revokeObjectURL(previewUrlRef.current); } catch {}
       previewUrlRef.current = '';
     }
 
-    // Generate instant client preview thumbnail
     try {
       const localUrl = URL.createObjectURL(file);
       previewUrlRef.current = localUrl;
@@ -234,7 +236,6 @@ export default function CollegeIdScanner({
       setScanProgress(45);
       setScanStatus('Analyzing layout & server archival...');
 
-      // 1. Call server API route (/api/auth/scan-id-card)
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fallbackName', displayName);
@@ -244,7 +245,7 @@ export default function CollegeIdScanner({
         body: formData,
       });
 
-      if (scanSequenceRef.current !== currentScanId) return; // Drop stale async responses
+      if (scanSequenceRef.current !== currentScanId) return;
 
       if (res.ok) {
         const json = await res.json();
@@ -259,7 +260,7 @@ export default function CollegeIdScanner({
 
     if (scanSequenceRef.current !== currentScanId) return;
 
-    // 2. Client-side OCR fallback if server vision wasn't available
+    // Client-side OCR fallback
     if (!extracted) {
       setScanProgress(70);
       setScanStatus('Scanning institutional credentials via optical OCR...');
@@ -276,7 +277,7 @@ export default function CollegeIdScanner({
 
     if (scanSequenceRef.current !== currentScanId) return;
 
-    // 3. Client-side heuristic fallback if OCR didn't catch text
+    // Client heuristic fallback
     if (!extracted) {
       setScanProgress(90);
       setScanStatus('Synthesizing institutional contours...');
@@ -293,7 +294,7 @@ export default function CollegeIdScanner({
     setScanProgress(100);
     setScanStatus('✓ Verified student identity card parsed successfully');
 
-    // AUTO-FILL ALL DETAILS
+    // Auto-fill extracted values
     if (extracted) {
       setCollegeMeta(extracted);
       setCollegeCode(extracted.collegeCode);
@@ -307,7 +308,6 @@ export default function CollegeIdScanner({
           onNameExtractedRef.current(extractedName);
         }
       } else {
-        // Explicitly clear when name is not visible on card
         setEditableStudentName('');
         if (onNameExtractedRef.current) {
           onNameExtractedRef.current('');
@@ -353,7 +353,6 @@ export default function CollegeIdScanner({
     setCollegeCode('');
     setDeptCode('');
     setRollNumber('');
-    setIsEditingDetails(false);
   };
 
   return (
@@ -362,190 +361,233 @@ export default function CollegeIdScanner({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 12,
-        padding: '16px',
-        borderRadius: 14,
-        background: 'var(--dash-card, rgba(15, 23, 42, 0.6))',
-        border: '1.5px solid var(--dash-border, rgba(255, 255, 255, 0.08))',
-        marginTop: 4,
+        gap: 14,
+        marginTop: 2,
       }}
     >
-      {/* ─── CASE 1: GLOBAL ID MODE (DEFAULT) ─── */}
+      {/* ─── SEGMENTED CONTROL: [ Global PinIT ID ] | [ College Student ID ] (Mockup 3 & 4) ─── */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 6,
+          padding: '4px',
+          background: isDark ? '#0c0e12' : '#f1f5f9',
+          borderRadius: 12,
+          border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #e2e8f0',
+        }}
+      >
+        <button
+          type="button"
+          onClick={switchToGlobalMode}
+          style={{
+            padding: '8px 14px',
+            borderRadius: 8,
+            border: 'none',
+            background: mode === 'global' ? (isDark ? '#222630' : '#ffffff') : 'transparent',
+            color: mode === 'global' ? (isDark ? '#f8fafc' : '#0f172a') : (isDark ? '#64748b' : '#64748b'),
+            fontWeight: 800,
+            fontSize: 12,
+            cursor: 'pointer',
+            boxShadow: mode === 'global' ? (isDark ? '0 1px 3px rgba(0,0,0,0.5)' : '0 1px 3px rgba(0,0,0,0.08)') : 'none',
+            transition: 'all 0.15s ease',
+          }}
+        >
+          Global PinIT ID
+        </button>
+        <button
+          type="button"
+          data-testid="btn-select-college-mode"
+          onClick={switchToCollegeMode}
+          style={{
+            padding: '8px 14px',
+            borderRadius: 8,
+            border: 'none',
+            background: mode === 'college' ? (isDark ? '#222630' : '#ffffff') : 'transparent',
+            color: mode === 'college' ? (isDark ? '#10b981' : '#0f172a') : (isDark ? '#64748b' : '#64748b'),
+            fontWeight: 800,
+            fontSize: 12,
+            cursor: 'pointer',
+            boxShadow: mode === 'college' ? (isDark ? '0 1px 3px rgba(0,0,0,0.5)' : '0 1px 3px rgba(0,0,0,0.08)') : 'none',
+            transition: 'all 0.15s ease',
+          }}
+        >
+          College Student ID
+        </button>
+      </div>
+
+      {/* ─── CASE 1: GLOBAL ID MODE ─── */}
       {mode === 'global' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {/* Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <span style={{ fontSize: 10, fontWeight: 900, fontFamily: 'var(--font-mono)', color: 'var(--accent)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                PinIT Identity System
-              </span>
-              <h4 style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)', margin: '2px 0 0' }}>
-                Your Assigned Student PinIT ID
-              </h4>
+        <div
+          data-testid="global-id-preview-box"
+          style={{
+            padding: '16px 18px',
+            borderRadius: 14,
+            background: isDark ? 'rgba(99, 102, 241, 0.08)' : '#f8fafc',
+            border: isDark ? '1px dashed rgba(99, 102, 241, 0.35)' : '1.5px dashed #cbd5e1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <div style={{ fontSize: 11, color: isDark ? '#94a3b8' : '#64748b', fontWeight: 700 }}>
+              Global Student PinIT ID:
             </div>
-            <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.18)', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
-              Global ID
-            </span>
-          </div>
-
-          {/* Global ID Badge Box */}
-          <div
-            data-testid="global-id-preview-box"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px 14px',
-              borderRadius: 10,
-              background: 'rgba(99, 102, 241, 0.08)',
-              border: '1px dashed rgba(99, 102, 241, 0.3)',
-            }}
-          >
-            <div>
-              <div style={{ fontSize: 11, color: 'var(--t2)', marginBottom: 2 }}>
-                Default Memorable Student Handle:
-              </div>
-              <div
-                data-testid="generated-global-pinit-id"
-                style={{
-                  fontSize: 16,
-                  fontWeight: 900,
-                  color: 'var(--accent)',
-                  fontFamily: 'var(--font-mono)',
-                  letterSpacing: '0.8px',
-                }}
-              >
-                {globalId}
-              </div>
+            <div
+              data-testid="generated-global-pinit-id"
+              style={{
+                fontSize: 18,
+                fontWeight: 900,
+                color: isDark ? '#38bdf8' : '#4f46e5',
+                fontFamily: 'var(--font-mono, monospace)',
+                letterSpacing: '1px',
+                marginTop: 2,
+              }}
+            >
+              {globalId || 'PIN-GLB-STUDENT-001'}
             </div>
           </div>
-
-          {/* Prompt Button to Select College ID */}
-          <button
-            type="button"
-            data-testid="btn-select-college-mode"
-            onClick={switchToCollegeMode}
+          <span
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px 14px',
-              borderRadius: 10,
-              background: 'rgba(16, 185, 129, 0.06)',
-              border: '1.5px solid rgba(16, 185, 129, 0.28)',
-              color: 'var(--t1)',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'all 0.2s ease',
+              fontSize: 11,
+              fontWeight: 800,
+              padding: '4px 10px',
+              borderRadius: 6,
+              background: isDark ? 'rgba(56, 189, 248, 0.15)' : '#e0e7ff',
+              color: isDark ? '#38bdf8' : '#4f46e5',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 22 }}>🏛️</span>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981' }}>
-                  Are you enrolled in a College / University?
-                </div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
-                  Click to upload College ID for campus verification & placement drives
-                </div>
-              </div>
-            </div>
-            <span style={{ fontSize: 12, fontWeight: 900, color: '#10b981' }}>
-              Link College ID &rarr;
-            </span>
-          </button>
+            Universal ID
+          </span>
         </div>
       )}
 
-      {/* ─── CASE 2: COLLEGE ID MODE (BUTTON PRESSED) ─── */}
+      {/* ─── CASE 2: COLLEGE STUDENT ID MODE ─── */}
       {mode === 'college' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {/* Header with Switch back to Global button */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <span style={{ fontSize: 10, fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#10b981', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                Institutional Verification
-              </span>
-              <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: '2px 0 0' }}>
-                Official College Student ID
-              </h4>
-            </div>
-
-            <button
-              type="button"
-              onClick={switchToGlobalMode}
-              style={{
-                fontSize: 11.5,
-                fontWeight: 700,
-                color: 'var(--t3)',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                textDecoration: 'underline',
-              }}
-            >
-              Use standard Global ID instead
-            </button>
-          </div>
-
-          {/* Sub-step 2A: Card NOT yet uploaded -> Ask to upload Student ID */}
+          {/* Sub-step 2A: Card NOT yet uploaded -> Show Dropzone Box */}
           {!uploadedFile && (
-            <div
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '24px 16px',
-                borderRadius: 12,
-                background: 'rgba(16, 185, 129, 0.04)',
-                border: '2px dashed rgba(16, 185, 129, 0.45)',
-                cursor: 'pointer',
-                textAlign: 'center',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*,.pdf"
-                data-testid="college-id-file-input"
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-              />
-              <span style={{ fontSize: 32, marginBottom: 6 }}>🪪</span>
-              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
-                Upload Your Student ID Card
-              </div>
-              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4, maxWidth: 320 }}>
-                Drop image here or click to browse. We will automatically extract your college name, your name, degree, and roll number.
-              </div>
-              <button
-                type="button"
-                style={{
-                  marginTop: 12,
-                  padding: '7px 16px',
-                  borderRadius: 8,
-                  background: '#10b981',
-                  color: '#000000',
-                  border: 'none',
-                  fontSize: 12,
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                }}
-              >
-                Choose ID Card Photo
-              </button>
+            <div>
+              {/* DARK MODE: High-Tech HUD Box with Laser Targeting Corners (Mockup 3) */}
+              {isDark ? (
+                <div
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '22px 24px',
+                    borderRadius: 14,
+                    background: 'rgba(18, 22, 28, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  {/* Laser Targeting Green Bracket Corners (┌ ┐ └ ┘) */}
+                  <div style={{ position: 'absolute', top: 7, left: 7, width: 14, height: 14, borderTop: '2px solid #10b981', borderLeft: '2px solid #10b981', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', top: 7, right: 7, width: 14, height: 14, borderTop: '2px solid #10b981', borderRight: '2px solid #10b981', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', bottom: 7, left: 7, width: 14, height: 14, borderBottom: '2px solid #10b981', borderLeft: '2px solid #10b981', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', bottom: 7, right: 7, width: 14, height: 14, borderBottom: '2px solid #10b981', borderRight: '2px solid #10b981', pointerEvents: 'none' }} />
+
+                  {/* Left Text */}
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: '#f8fafc' }}>
+                      Student ID badge scanner
+                    </div>
+                    <div style={{ fontSize: 11, color: '#64748b', marginTop: 3 }}>
+                      Fine laser targeting corners &bull; Drop card here
+                    </div>
+                  </div>
+
+                  {/* Right Glowing QR Code */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5">
+                      <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" />
+                      <rect x="7" y="7" width="4" height="4" rx="0.5" fill="#10b981" />
+                      <rect x="13" y="7" width="4" height="4" rx="0.5" fill="#10b981" />
+                      <rect x="7" y="13" width="4" height="4" rx="0.5" fill="#10b981" />
+                      <rect x="14" y="14" width="3" height="3" fill="#10b981" />
+                    </svg>
+                    <span style={{ fontSize: 9.5, color: '#64748b', fontWeight: 700 }}>
+                      Instant Verification Preview
+                    </span>
+                  </div>
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*,.pdf"
+                    data-testid="college-id-file-input"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                </div>
+              ) : (
+                /* LIGHT MODE: Modern Clean SaaS Dashed Dropzone (Mockup 4) */
+                <div
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '24px 16px',
+                    borderRadius: 14,
+                    background: '#ffffff',
+                    border: '1.5px dashed #cbd5e1',
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0f172a" strokeWidth="1.6" style={{ marginBottom: 6 }}>
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" />
+                    <rect x="7" y="7" width="4" height="4" rx="0.5" fill="#0f172a" />
+                    <rect x="13" y="7" width="4" height="4" rx="0.5" fill="#0f172a" />
+                    <rect x="7" y="13" width="4" height="4" rx="0.5" fill="#0f172a" />
+                    <rect x="14" y="14" width="3" height="3" fill="#0f172a" />
+                  </svg>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#0f172a' }}>
+                    Instant Verification Preview
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 3 }}>
+                    Drop student ID card photo or click to upload
+                  </div>
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*,.pdf"
+                    data-testid="college-id-file-input"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                </div>
+              )}
             </div>
           )}
 
           {/* Scanner Progress Animation */}
           {isScanning && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '12px 14px', borderRadius: 10, background: 'var(--bg3)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontFamily: 'var(--font-mono)', color: '#10b981', fontWeight: 800 }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 6,
+                padding: '14px 16px',
+                borderRadius: 12,
+                background: isDark ? '#0c0e12' : '#f1f5f9',
+                border: isDark ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid #e2e8f0',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontFamily: 'monospace', color: '#10b981', fontWeight: 800 }}>
                 <span>{scanStatus}</span>
                 <span>{scanProgress}%</span>
               </div>
@@ -555,7 +597,7 @@ export default function CollegeIdScanner({
             </div>
           )}
 
-          {/* Sub-step 2B: Card Uploaded & Details Extracted -> Fill All Details */}
+          {/* Sub-step 2B: Card Uploaded & Details Extracted */}
           {uploadedFile && !isScanning && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {/* Verified Student Profile Card */}
@@ -566,8 +608,8 @@ export default function CollegeIdScanner({
                   gap: 10,
                   padding: '14px',
                   borderRadius: 12,
-                  background: 'rgba(16, 185, 129, 0.08)',
-                  border: '1.5px solid rgba(16, 185, 129, 0.4)',
+                  background: isDark ? 'rgba(16, 185, 129, 0.08)' : 'rgba(16, 185, 129, 0.05)',
+                  border: isDark ? '1.5px solid rgba(16, 185, 129, 0.4)' : '1.5px solid rgba(16, 185, 129, 0.35)',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -585,8 +627,8 @@ export default function CollegeIdScanner({
                       src={imagePreviewUrl}
                       alt="Student ID Preview"
                       style={{
-                        width: 64,
-                        height: 64,
+                        width: 60,
+                        height: 60,
                         borderRadius: 8,
                         objectFit: 'cover',
                         border: '1.5px solid rgba(16, 185, 129, 0.6)',
@@ -594,25 +636,25 @@ export default function CollegeIdScanner({
                       }}
                     />
                   )}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 12, color: 'var(--t1)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2.5, fontSize: 12, color: isDark ? '#f8fafc' : '#0f172a' }}>
                     <div>
-                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Student: </span>
+                      <span style={{ color: '#64748b', fontWeight: 700 }}>Student: </span>
                       {editableStudentName ? (
-                        <strong style={{ color: '#ffffff' }}>{editableStudentName}</strong>
+                        <strong style={{ color: isDark ? '#ffffff' : '#0f172a' }}>{editableStudentName}</strong>
                       ) : (
                         <span style={{ color: '#f59e0b', fontWeight: 800 }}>⚠️ User name is not visible on card</span>
                       )}
                     </div>
                     <div>
-                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>College: </span>
+                      <span style={{ color: '#64748b', fontWeight: 700 }}>College: </span>
                       <span>{collegeMeta?.collegeName || 'Accredited Institution'} ({collegeCode})</span>
                     </div>
                     <div>
-                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Department: </span>
+                      <span style={{ color: '#64748b', fontWeight: 700 }}>Department: </span>
                       <span>{deptCode} ({collegeMeta?.department || 'General Studies'})</span>
                     </div>
                     <div>
-                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Roll / USN: </span>
+                      <span style={{ color: '#64748b', fontWeight: 700 }}>Roll / USN: </span>
                       <span>{rollNumber}</span>
                     </div>
                   </div>
@@ -626,15 +668,12 @@ export default function CollegeIdScanner({
                       borderRadius: 8,
                       background: 'rgba(245, 158, 11, 0.12)',
                       border: '1.5px solid rgba(245, 158, 11, 0.45)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
                       fontSize: 12,
                       color: '#f59e0b',
                       fontWeight: 700,
                     }}
                   >
-                    <span>⚠️ User name is not visible on card — please enter name below</span>
+                    ⚠️ User name is not visible on card — please enter name below
                   </div>
                 )}
 
@@ -647,13 +686,13 @@ export default function CollegeIdScanner({
                     justifyContent: 'space-between',
                     padding: '10px 14px',
                     borderRadius: 10,
-                    background: 'rgba(0,0,0,0.3)',
-                    border: '1px solid rgba(16, 185, 129, 0.3)',
-                    marginTop: 4,
+                    background: isDark ? 'rgba(0,0,0,0.3)' : '#ffffff',
+                    border: isDark ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid #e2e8f0',
+                    marginTop: 2,
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: 9.5, fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#10b981' }}>
+                    <div style={{ fontSize: 9.5, fontWeight: 900, fontFamily: 'monospace', color: '#10b981' }}>
                       INSTITUTIONAL PINIT ID (AUTO-GENERATED)
                     </div>
                     <div
@@ -661,8 +700,8 @@ export default function CollegeIdScanner({
                       style={{
                         fontSize: 16,
                         fontWeight: 900,
-                        color: '#ffffff',
-                        fontFamily: 'var(--font-mono)',
+                        color: isDark ? '#ffffff' : '#0f172a',
+                        fontFamily: 'monospace',
                         letterSpacing: '1px',
                         marginTop: 2,
                       }}
@@ -670,13 +709,13 @@ export default function CollegeIdScanner({
                       {previewId || 'PIN-COLLEGE-DEPT-001'}
                     </div>
                   </div>
-                  <span style={{ fontSize: 10.5, padding: '3px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.2)', color: '#10b981', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
+                  <span style={{ fontSize: 10.5, padding: '3px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.18)', color: '#10b981', fontFamily: 'monospace', fontWeight: 800 }}>
                     Campus Linked
                   </span>
                 </div>
               </div>
 
-              {/* Editable Fields: Direct, Clean, and Real-Time Synchronized */}
+              {/* Editable Fields for manual corrections */}
               <div
                 style={{
                   display: 'grid',
@@ -684,13 +723,13 @@ export default function CollegeIdScanner({
                   gap: 10,
                   padding: '12px',
                   borderRadius: 10,
-                  background: 'rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(16, 185, 129, 0.25)',
+                  background: isDark ? 'rgba(0,0,0,0.25)' : '#f8fafc',
+                  border: isDark ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid #e2e8f0',
                 }}
               >
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: !editableStudentName ? '#f59e0b' : 'var(--t3)' }}>
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: !editableStudentName ? '#f59e0b' : '#64748b' }}>
                   <span>
-                    Student Name {!editableStudentName && <span style={{ color: '#f59e0b', fontWeight: 800 }}>(Required)</span>}
+                    Student Name {!editableStudentName && <span style={{ color: '#f59e0b' }}>(Required)</span>}
                   </span>
                   <input
                     className="form-input"
@@ -701,7 +740,7 @@ export default function CollegeIdScanner({
                       setEditableStudentName(val);
                       if (onNameExtractedRef.current) onNameExtractedRef.current(val);
                     }}
-                    placeholder={!editableStudentName ? "User name not visible on card — enter name here" : "e.g. Vinay N"}
+                    placeholder={!editableStudentName ? "Enter student name" : "e.g. Vinay N"}
                     style={{
                       padding: '6px 10px',
                       fontSize: 12.5,
@@ -711,19 +750,19 @@ export default function CollegeIdScanner({
                   />
                 </label>
 
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: '#64748b' }}>
                   College Code
                   <input
                     className="form-input"
                     data-testid="input-college-code"
                     value={collegeCode}
                     onChange={(e) => setCollegeCode(e.target.value.toUpperCase())}
-                    placeholder="e.g. BGS, SVCE, RVCE"
-                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                    placeholder="e.g. BGS, RVCE"
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'monospace', fontWeight: 800 }}
                   />
                 </label>
 
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: '#64748b' }}>
                   Branch / Dept
                   <input
                     className="form-input"
@@ -731,11 +770,11 @@ export default function CollegeIdScanner({
                     value={deptCode}
                     onChange={(e) => setDeptCode(e.target.value.toUpperCase())}
                     placeholder="e.g. BCA, CSE"
-                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'monospace', fontWeight: 800 }}
                   />
                 </label>
 
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: '#64748b' }}>
                   Roll Suffix / USN
                   <input
                     className="form-input"
@@ -743,13 +782,13 @@ export default function CollegeIdScanner({
                     value={rollNumber}
                     onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
                     placeholder="e.g. 726, 045"
-                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'monospace', fontWeight: 800 }}
                   />
                 </label>
               </div>
 
-              {/* Action Buttons: Replace Card */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontSize: 11.5 }}>
+              {/* Replace Card Button */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', fontSize: 11.5 }}>
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}

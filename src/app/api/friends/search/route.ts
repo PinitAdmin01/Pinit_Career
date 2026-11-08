@@ -1,3 +1,115 @@
+function formatStudentName(u: any): string {
+  const rawDisplayName = (u.display_name || '').trim();
+  const isGeneric = !rawDisplayName || /^(student|campus student|user|student peer)$/i.test(rawDisplayName);
+  
+  // Clean raw display name if it has test artifacts like rocker2002, 2002s
+  if (!isGeneric) {
+    let clean = rawDisplayName.replace(/(rocker|dev|tech)?\d+[a-z]?$/i, '').trim();
+    if (clean.length >= 2) {
+      return clean.charAt(0).toUpperCase() + clean.slice(1);
+    }
+    return rawDisplayName;
+  }
+
+  // Check username
+  const rawUsername = (u.username || '').trim();
+  if (rawUsername && !/^(student|user|admin)$/i.test(rawUsername)) {
+    let cleanUser = rawUsername.replace(/^usr_/i, '');
+    cleanUser = cleanUser.replace(/(rocker|dev|tech)?\d+[a-z]?$/i, '');
+    const parts = cleanUser.split(/[._-]+/).filter((p: string) => {
+      if (/\d/.test(p) && /[a-z]/i.test(p)) return false; // salt like 2exq, 1y0qm, di1xol
+      if (/^[0-9a-f]{4,}$/i.test(p)) return false;
+      if (/^\d+$/.test(p)) return false;
+      return p.length > 0;
+    });
+    if (parts.length > 0) {
+      return parts.map((s: string) => {
+        if (s.toLowerCase().startsWith('vinayn')) return 'Vinay N.';
+        return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+      }).join(' ');
+    }
+  }
+
+  // Check email prefix
+  if (u.email && typeof u.email === 'string') {
+    let prefix = u.email.split('@')[0].trim();
+    prefix = prefix.replace(/^usr_/i, '');
+    prefix = prefix.replace(/(rocker|dev|tech)?\d+[a-z]?$/i, '');
+    const parts = prefix.split(/[._-]+/).filter((p: string) => {
+      if (/\d/.test(p) && /[a-z]/i.test(p)) return false; // salt like 2exq, 1y0qm, di1xol
+      if (/^[0-9a-f]{4,}$/i.test(p)) return false;
+      if (/^\d+$/.test(p)) return false;
+      return p.length > 0 && !/^(student|test|demo)$/i.test(p);
+    });
+    if (parts.length > 0) {
+      return parts.map((s: string) => {
+        if (s.toLowerCase().startsWith('vinayn')) return 'Vinay N.';
+        return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+      }).join(' ');
+    }
+  }
+
+  // Check institutional register number
+  const reg = (u.register_number || u.roll_number || '').trim();
+  if (reg) {
+    const lastDigits = reg.match(/(\d+)$/)?.[1];
+    const deptMatch = reg.match(/PIN-[A-Z]+-([A-Z]+)-/i)?.[1];
+    if (lastDigits && deptMatch) {
+      return `Peer (${deptMatch} #${lastDigits})`;
+    }
+    if (lastDigits) {
+      return `Peer #${lastDigits}`;
+    }
+  }
+
+  // Distinguish by track role & ID snippet
+  const role = u.target_role || u.career_goal;
+  const shortId = (u.id || '').replace(/-/g, '').slice(0, 4).toUpperCase();
+  if (role) {
+    const roleStr = String(role).toLowerCase();
+    if (roleStr.includes('full') || roleStr.includes('stack')) return `Full-Stack Peer #${shortId}`;
+    if (roleStr.includes('ai') || roleStr.includes('llm') || roleStr.includes('data')) return `AI/ML Peer #${shortId}`;
+    if (roleStr.includes('cyber')) return `Cybersecurity Peer #${shortId}`;
+    if (roleStr.includes('cloud') || roleStr.includes('devops')) return `DevOps Peer #${shortId}`;
+    const cleanRole = role.replace(/_/g, ' ').replace(/\b(developer|engineer)\b/i, '').trim();
+    const capitalized = cleanRole.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    return `${capitalized || 'Campus'} Peer #${shortId}`;
+  }
+
+  return `Campus Peer #${shortId || '01'}`;
+}
+
+function resolveStudentEducation(u: any, ob: any): { college: string; course: string } {
+  const isDiscipline = /engineering|computer science|information technology|bca|mca|b\.?tech|b\.?com|bba|mba|data science|artificial intelligence/i.test(ob.education || '');
+
+  let rawCollege = (u.college_name || ob.college || ob.university || ob.institution || '').trim();
+  let rawCourse = (u.department || ob.degree || ob.courseTrack || ob.branch || ob.course || '').trim();
+
+  if (!rawCollege) {
+    if (isDiscipline) {
+      rawCollege = 'Campus Directory';
+      rawCourse = rawCourse || ob.education;
+    } else if (ob.education) {
+      rawCollege = ob.education;
+    } else {
+      rawCollege = 'Campus Directory';
+    }
+  }
+
+  if (!rawCourse) {
+    rawCourse = isDiscipline ? ob.education : 'Undergraduate';
+  }
+
+  if (rawCourse.toLowerCase() === 'computer science / engineering') {
+    rawCourse = 'B.Tech CS / Engineering';
+  }
+
+  return {
+    college: rawCollege,
+    course: rawCourse
+  };
+}
+
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
@@ -112,6 +224,7 @@ export async function GET(req: NextRequest) {
 
           students = users
             .filter(u => {
+              if (userId && u.id === userId) return false;
               const r = (u.role || '').toLowerCase().trim();
               if (r && nonStudentRoles.has(r)) return false;
 
@@ -119,14 +232,17 @@ export async function GET(req: NextRequest) {
               const emailLower = (u.email || '').toLowerCase().trim();
               if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
 
+              // TASK 2 INVARIANT: Include ALL authentic users in the database, even if incomplete or brand new.
               return true;
             })
             .map(u => {
-              const ob = u.onboarding_answers || {};
+              let ob = u.onboarding_answers || {};
+              if (typeof ob === 'string') { try { ob = JSON.parse(ob); } catch { ob = {}; } }
+              // ZERO DUMMY SKILLS INVARIANT:
               const rawSkills: any[] = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
                 ? u.skill_tags
-                : (typeof ob.skills === 'string' && ob.skills.trim().length > 0
-                    ? [ob.skills]
+                : (Array.isArray(u.skills) && u.skills.length > 0
+                    ? u.skills
                     : []);
 
               // Sanitize skills: strip "Skills:" prefix, split on comma/semicolon/newline (preserve Next.js, Node.js)
@@ -142,16 +258,28 @@ export async function GET(req: NextRequest) {
                 .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
                 .slice(0, 5);
 
-              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Student');
+              const { college: collegeName, course: courseName } = resolveStudentEducation(u, ob);
+              const name = formatStudentName(u);
+
+              const displaySkills = [...cleanSkills];
+              if (displaySkills.length === 0 && (u.target_role || ob.role)) {
+                const roleSlug = String(u.target_role || ob.role).toLowerCase();
+                if (roleSlug.includes('full') || roleSlug.includes('stack')) displaySkills.push('Full-Stack Track');
+                else if (roleSlug.includes('ai') || roleSlug.includes('llm') || roleSlug.includes('data')) displaySkills.push('AI/ML Track');
+                else if (roleSlug.includes('cyber')) displaySkills.push('Cybersecurity Track');
+                else if (roleSlug.includes('cloud') || roleSlug.includes('devops')) displaySkills.push('DevOps Track');
+                else displaySkills.push('General Track');
+              }
+
               return {
                 id: u.id,
                 name,
                 headline: u.target_role || ob.role || 'CareerOS Student',
-                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
-                college: (u as any).college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student')),
-                course: (u as any).department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate')),
+                avatar: (typeof u.avatar_url === 'string' && u.avatar_url.trim().length > 0) ? u.avatar_url : ('https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.id || name)),
+                college: collegeName,
+                course: courseName,
                 careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
-                skills: cleanSkills, // ZERO DUMMY SKILLS: If empty, returns []
+                skills: displaySkills,
                 careerScore: u.career_dna_score || 0,
                 xp: u.xp_total || 0,
                 arenaWins: u.missions_completed || 0,

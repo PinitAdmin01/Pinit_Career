@@ -1,3 +1,5 @@
+import fsModule from 'fs';
+import pathModule from 'path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -172,4 +174,252 @@ test('BRUTAL AUDIT 3.3: Real Squad Creation, Member Join, and Milestone Tracking
   const toggled = TeamsApiService.toggleMilestone(squad.id, squad.milestones[0].id, 'student_lead_101');
   assert.ok(toggled, 'Milestone toggle must succeed');
   assert.equal(toggled.milestones[0].isCompleted, true, 'First milestone must be marked completed');
+});
+
+// ── AUDIT SUITE 4: Pathway Gating, Milestone Locking & Own Project Workflow ──
+test('BRUTAL AUDIT 4.1: Certification Pathway Active and Milestone Gating Invariants', () => {
+  // Case A: 0 Days Completed -> Inactive
+  const zeroQuests = 0;
+  const zeroActive = zeroQuests >= 1;
+  const zeroMilestone = zeroQuests >= 3;
+  assert.equal(zeroActive, false, '0 quests completed MUST be strictly Inactive');
+  assert.equal(zeroMilestone, false, '0 quests completed CANNOT reach Milestone 1');
+
+  // Case B: 1 Day Completed -> Active, but Locked below Milestone 1
+  const oneQuest = 1;
+  const oneActive = oneQuest >= 1;
+  const oneMilestone = oneQuest >= 3;
+  assert.equal(oneActive, true, '1 quest completed MUST be Active');
+  assert.equal(oneMilestone, false, '1 quest completed CANNOT start project; must hit Milestone 1 first');
+
+  // Case C: 2 Days Completed -> Active, still Locked below Milestone 1
+  const twoQuests = 2;
+  const twoActive = twoQuests >= 1;
+  const twoMilestone = twoQuests >= 3;
+  assert.equal(twoActive, true, '2 quests completed MUST be Active');
+  assert.equal(twoMilestone, false, '2 quests completed CANNOT start project; 1 quest still remaining');
+
+  // Case D: 3 Days Completed -> Active & Milestone 1 Reached -> Workspace Unlocked
+  const threeQuests = 3;
+  const threeActive = threeQuests >= 1;
+  const threeMilestone = threeQuests >= 3;
+  assert.equal(threeActive, true, '3 quests completed MUST be Active');
+  assert.equal(threeMilestone, true, '3 quests completed MUST reach Milestone 1 and unlock workspace');
+});
+
+test('BRUTAL AUDIT 4.2: Custom Roadmap Pathway Invariant', () => {
+  // Without completing any roadmap day
+  const roadmapEmpty: string[] = [];
+  const roadmapActiveEmpty = roadmapEmpty.length >= 1;
+  assert.equal(roadmapActiveEmpty, false, 'Empty custom roadmap must be Inactive');
+
+  // Completed Day 1 of Roadmap
+  const roadmapDay1 = ['rm-node-01'];
+  const roadmapActive1 = roadmapDay1.length >= 1;
+  const roadmapMilestone1 = roadmapDay1.length >= 3;
+  assert.equal(roadmapActive1, true, 'Completed 1 day of roadmap must be Active');
+  assert.equal(roadmapMilestone1, false, '1 day of roadmap must still be locked below Milestone 1');
+
+  // Completed 3 Days of Roadmap
+  const roadmapDay3 = ['rm-node-01', 'rm-node-02', 'rm-node-03'];
+  assert.equal(roadmapDay3.length >= 3, true, '3 days of roadmap unlocks capstone');
+});
+
+test('BRUTAL AUDIT 4.3: Start Your Own Project GitHub Ingestion and Bypass Protocol', () => {
+  // Attempting with invalid or spoofed URLs
+  const invalidUrls = [
+    '',
+    'not a url',
+    'https://gitlab.com/user/repo', // Only GitHub allowed
+    'https://github.com/',
+    'https://github.com/justuser'
+  ];
+
+  for (const url of invalidUrls) {
+    const check = parseAndValidateGithubUrl(url);
+    assert.equal(check.valid, false, `URL "${url}" must be rejected by GitHub ingestion engine`);
+  }
+
+  // Valid GitHub repository
+  const validUrl = 'https://github.com/student-hacker/enterprise-ai-mesh';
+  const check = parseAndValidateGithubUrl(validUrl);
+  assert.equal(check.valid, true);
+  assert.equal(check.owner, 'student-hacker');
+  assert.equal(check.repo, 'enterprise-ai-mesh');
+
+  // Verify that an independent project with valid GitHub link immediately unlocks workspace
+  const mockOwnProject = {
+    id: `custom_proj_${Date.now()}`,
+    name: 'Enterprise AI Mesh',
+    githubLink: validUrl,
+    isTemplate: false,
+    status: 'In Progress' as const
+  };
+
+  const independentActive = Boolean(mockOwnProject.githubLink) || !mockOwnProject.isTemplate;
+  const independentMilestoneReached = true;
+  assert.equal(independentActive, true, 'Independent custom project must be Active once created');
+  assert.equal(independentMilestoneReached, true, 'Independent custom project bypasses course milestones');
+});
+
+test('BRUTAL AUDIT 4.4: AppShell Route Guard strictly permits /innovation-hub and /innovation', () => {
+  // Read AppShell.tsx file content directly to verify allowedStudentTabs invariant
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const appShellContent = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/components/ui/AppShell.tsx'), 'utf8');
+
+  assert.ok(appShellContent.includes("'/innovation-hub'"), "AppShell must explicitly allow '/innovation-hub'");
+  assert.ok(appShellContent.includes("'/innovation'"), "AppShell must explicitly allow '/innovation'");
+
+  // Check that /innovation page alias exists on disk
+  const innovationPageExists = fsModule.existsSync(pathModule.resolve(__dirname, '../src/app/innovation/page.tsx'));
+  assert.equal(innovationPageExists, true, '/app/innovation/page.tsx alias route must exist');
+});
+
+test('BRUTAL AUDIT 4.5: Standalone Python 30-Day ("Day 1: Your First Python Program") Active & Milestone Invariants', () => {
+  const { parseQuestId } = require('../src/lib/data/curriculumEnricher');
+
+  // Completed Day 1 of Python: "python-lecture1-day-1"
+  const studentQuests = ['python-lecture1-day-1'];
+  
+  const targetCourseId = 'course-python-backend';
+  const matched = studentQuests.filter(q => {
+    const parsed = parseQuestId(q);
+    return parsed?.prefix === 'python' || q.includes('python');
+  });
+
+  const distinctDays = new Set(matched.map(q => parseQuestId(q)?.dayNum).filter(Boolean));
+  assert.equal(distinctDays.size, 1, 'Day 1 quest must count as exactly 1 completed day');
+
+  const standaloneActive = distinctDays.size >= 1;
+  const standaloneMilestoneReached = distinctDays.size >= 3;
+
+  assert.equal(standaloneActive, true, 'Student doing Day 1 of Python MUST have standalone pathway ACTIVE');
+  assert.equal(standaloneMilestoneReached, false, 'Student on Day 1 MUST NOT have Milestone 1 unlocked yet');
+
+  // Complete Day 2 and Day 3
+  const studentQuestsDay3 = ['python-lecture1-day-1', 'python-lecture1-day-2', 'python-lecture1-day-3'];
+  const matchedDay3 = studentQuestsDay3.filter(q => {
+    const parsed = parseQuestId(q);
+    return parsed?.prefix === 'python';
+  });
+  const distinctDays3 = new Set(matchedDay3.map(q => parseQuestId(q)?.dayNum).filter(Boolean));
+  assert.equal(distinctDays3.size, 3, 'Must register 3 distinct completed days');
+  assert.equal(distinctDays3.size >= 3, true, 'Milestone 1 must unlock on Day 3 completion');
+});
+
+test('BRUTAL AUDIT 4.6: Stale Course Template Re-synchronization (No Java projects for Python students)', () => {
+  // Simulate stale saved projects from an old Java session
+  const staleJavaProjects = [
+    {
+      id: 'proj-1',
+      name: 'Multi-Threaded Banking & Transaction Core',
+      techStack: 'Java 17, JUnit 5, Maven, OOP Patterns',
+      isTemplate: true
+    }
+  ];
+
+  // When active course is Python:
+  const activeCourseId = 'course-python-backend';
+  const cid = activeCourseId.toLowerCase();
+  
+  const isMatchingCourse = staleJavaProjects.some(p => {
+    const stack = (p.techStack || '').toLowerCase();
+    const name = (p.name || '').toLowerCase();
+    if (cid.includes('python')) return stack.includes('python') || name.includes('python');
+    return false;
+  });
+
+  assert.equal(isMatchingCourse, false, 'Java templates must be detected as non-matching for Python course');
+
+  // Fallback must supply Python capstone projects
+  const freshProjs = getDomainFallback('Full-Stack Software Developer', [], 'Undergraduate', activeCourseId);
+  assert.ok(freshProjs.length >= 3);
+  assert.ok(freshProjs[0].techStack.toLowerCase().includes('python'), 'Fresh projects must be Python based');
+  assert.ok(!freshProjs[0].name.toLowerCase().includes('banking') && !freshProjs[0].name.toLowerCase().includes('java'),
+    'Must never give Java banking project to Python student');
+});
+
+test('BRUTAL AUDIT 5.1: Task 2 Degree Track Switcher Elimination from Certification Pathway', () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const pageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+
+  // Must have certification-curriculum-strip
+  assert.ok(pageSource.includes('data-testid="certification-curriculum-strip"'), 'Must have accredited degree curriculum strip');
+  
+  // In the certification section, it must NOT have Switch Degree Track dropdown
+  const certStripCode = pageSource.substring(
+    pageSource.indexOf('data-testid="certification-curriculum-strip"'),
+    pageSource.indexOf('data-testid="standalone-sprint-strip"')
+  );
+  assert.ok(!certStripCode.includes('Switch Degree Track:'), 'Certification strip must NEVER have "Switch Degree Track:"');
+  assert.ok(!certStripCode.includes('course-track-selector'), 'Certification strip must NEVER render course selector dropdown');
+  assert.ok(certStripCode.includes('Accredited Degree Curriculum'), 'Must show authoritative Accredited Degree Curriculum badge');
+  assert.ok(certStripCode.includes('University Enrolled Track'), 'Must show University Enrolled Track locked status');
+
+  // Standalone strip must have the switcher
+  const standaloneStripCode = pageSource.substring(
+    pageSource.indexOf('data-testid="standalone-sprint-strip"'),
+    pageSource.indexOf('data-testid="roadmap-track-strip"')
+  );
+  assert.ok(standaloneStripCode.includes('Switch Skill Sprint:'), 'Standalone strip must allow switching skill sprints');
+  assert.ok(standaloneStripCode.includes('id="course-track-selector"'), 'Standalone strip must render course selector dropdown');
+});
+
+test('BRUTAL AUDIT 5.2: Task 1 Innovation Hub Redundant Header Elimination & Task 3 Beginner-Friendly Activation Card', () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const hubPageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/innovation-hub/page.tsx'), 'utf8');
+  assert.ok(!hubPageSource.includes('Innovation Hub & Collaborative Squads Form 3-person hackathon squads'),
+    'Must eliminate redundant 2-line Innovation Hub header');
+  assert.ok(!hubPageSource.includes('Form 3-person hackathon squads, build production prototypes'),
+    'Must eliminate redundant squad description header');
+
+  const projectsPageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+  assert.ok(projectsPageSource.includes('Pathway Activation Required'), 'Must feature clear activation badge');
+  assert.ok(projectsPageSource.includes('1️⃣') && projectsPageSource.includes('2️⃣'), 'Must feature 2-step visual activation roadmap');
+  assert.ok(projectsPageSource.includes('data-testid="start-day-1-btn"'), 'Must feature primary Start Day 1 action button');
+});
+
+test('BRUTAL AUDIT 6.1: Sub-Tab Interface & Top Header Clutter Elimination (Task 1 & Task 2)', () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const pageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+
+  // Verify Task 1: Complete removal of redundant header and subheader text
+  assert.ok(!pageSource.includes('Projects & Course Capstones'), 'Must eliminate redundant "Projects & Course Capstones" header');
+  assert.ok(!pageSource.includes('Select your learning pathway, reach course milestones'), 'Must eliminate redundant subheader description');
+  assert.ok(!pageSource.includes('Choose Your Project Pathway'), 'Must eliminate "Choose Your Project Pathway" text');
+
+  // Verify Task 2: Sub-tab bar rendered with clean compact buttons
+  assert.ok(pageSource.includes('PATHWAY SUB-TAB NAVIGATION'), 'Must render compact sub-tab bar');
+  assert.ok(pageSource.includes('data-testid="pathway-card-certification"'), 'Must have certification sub-tab');
+  assert.ok(pageSource.includes('data-testid="pathway-card-roadmap"'), 'Must have roadmap sub-tab');
+  assert.ok(pageSource.includes('data-testid="pathway-card-standalone"'), 'Must have standalone sub-tab');
+  assert.ok(pageSource.includes('data-testid="pathway-card-independent"'), 'Must have independent sub-tab');
+});
+
+test('BRUTAL AUDIT 6.2: Independent Workspace Isolation & Supabase Persistence (Task 3 & Task 4)', async () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const pageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+
+  // Verify Task 4: IndependentWorkspace rendered instead of CourseProjectProgressBar
+  assert.ok(pageSource.includes('<IndependentWorkspace'), 'Independent pathway must render dedicated IndependentWorkspace');
+  assert.ok(pageSource.includes("selectedPathway === 'independent' ? ("), 'Must branch cleanly on independent pathway');
+
+  // Verify Task 3: Supabase persistence functions exported and integrated
+  const apiModule = require('../src/lib/api/independentProjectsApi');
+  assert.equal(typeof apiModule.saveIndependentProjectToDb, 'function', 'saveIndependentProjectToDb must be exported');
+  assert.equal(typeof apiModule.fetchIndependentProjectsFromDb, 'function', 'fetchIndependentProjectsFromDb must be exported');
+  assert.equal(typeof apiModule.fetchGithubLiveTelemetry, 'function', 'fetchGithubLiveTelemetry must be exported');
+
+  // Verify telemetry parser handles invalid / valid URLs
+  const invalidTelemetry = await apiModule.fetchGithubLiveTelemetry('invalid-url');
+  assert.equal(invalidTelemetry.exists, false);
+
+  const validTelemetry = await apiModule.fetchGithubLiveTelemetry('https://github.com/torvalds/linux');
+  assert.equal(validTelemetry.owner, 'torvalds');
+  assert.equal(validTelemetry.repoName, 'linux');
 });

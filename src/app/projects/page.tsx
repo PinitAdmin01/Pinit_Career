@@ -9,6 +9,7 @@ import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
+import { parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getDomainFallback } from '@/lib/projects/projectCatalog';
 import { getSavedCareerProjects, needsProjectKeyMigration, SavedProjectsSource } from '@/lib/projects/savedProjects';
 import {
@@ -23,12 +24,16 @@ import { api, ApiError } from '@/lib/api/client';
 import { CapstoneNextStep } from './CapstoneNextStep';
 import { CourseProjectProgressBar } from '@/components/projects/CourseProjectProgressBar';
 import { InnovationHub } from '@/components/projects/InnovationHub';
+import { IndependentWorkspace } from '@/components/projects/IndependentWorkspace';
+import { saveIndependentProjectToDb, fetchIndependentProjectsFromDb } from '@/lib/api/independentProjectsApi';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
   TeamsApiService,
   HackathonSquad,
   TeamRole
 } from '@/lib/api/teamsApi';
+
+export type ProjectPathway = 'certification' | 'roadmap' | 'standalone' | 'independent';
 
 function ProjectsPageContent() {
   const router = useRouter();
@@ -57,6 +62,126 @@ function ProjectsPageContent() {
   const [submittingLiveUrl, setSubmittingLiveUrl] = useState<string>('');
   const [isSubmittingProject, setIsSubmittingProject] = useState<boolean>(false);
 
+  // ── TASK 2 & 3: PATHWAY SELECTION & OWN PROJECT STATE ────────────────────────
+  const [selectedPathway, setSelectedPathway] = useState<ProjectPathway>('certification');
+
+  // Load saved pathway choice
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem('pinit_selected_project_pathway') as ProjectPathway | null;
+      if (saved && ['certification', 'roadmap', 'standalone', 'independent'].includes(saved)) {
+        setSelectedPathway(saved);
+      }
+    } catch {}
+  }, []);
+
+  const handleSelectPathway = (p: ProjectPathway) => {
+    setSelectedPathway(p);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('pinit_selected_project_pathway', p);
+      } catch {}
+    }
+
+    if (p === 'standalone') {
+      // Honors active standalone course (defaults to Python 30-Day crash)
+      const standaloneId = 'course-python-backend';
+      setSelectedCourseId(standaloneId);
+      const projs = getDomainFallback(selectedGoal, [], degree || 'Undergraduate', standaloneId);
+      if (projs && projs.length > 0) {
+        setProjects(projs as Project[]);
+        setSelectedGuideProject(projs[0] as Project);
+      }
+    } else if (p === 'certification') {
+      const certId = cOsCourseId || (onboardingAnswers as any)?.activeCourseId || selectedCourseId || 'course-python-backend';
+      setSelectedCourseId(certId);
+      const projs = getDomainFallback(selectedGoal, [], degree || 'Undergraduate', certId);
+      if (projs && projs.length > 0) {
+        setProjects(projs as Project[]);
+        setSelectedGuideProject(projs[0] as Project);
+      }
+    } else if (p === 'roadmap') {
+      if (roadmapCtx) {
+        const found = findRoadmapCapstone(projects, roadmapCtx);
+        if (found) setSelectedGuideProject(found);
+      }
+    } else if (p === 'independent') {
+      const indep = projects.filter(proj => !proj.isTemplate || Boolean(proj.githubLink) || proj.id.startsWith('custom_proj_'));
+      if (indep.length > 0) {
+        setSelectedGuideProject(indep[0]);
+      } else {
+        setOwnProjectStep('confirm');
+        setShowOwnProjectModal(true);
+      }
+    }
+  };
+
+
+
+  // Own Project Modal State
+  const [showOwnProjectModal, setShowOwnProjectModal] = useState<boolean>(false);
+  const [ownProjectStep, setOwnProjectStep] = useState<'confirm' | 'form'>('confirm');
+  const [ownProjectName, setOwnProjectName] = useState<string>('');
+  const [ownProjectRepoUrl, setOwnProjectRepoUrl] = useState<string>('');
+  const [ownProjectTechStack, setOwnProjectTechStack] = useState<string>('Python, FastAPI, Docker, Pytest');
+  const [ownProjectDesc, setOwnProjectDesc] = useState<string>('');
+
+  const handleCreateOwnProject = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!ownProjectName.trim()) {
+      toast.error('Project Name Required', 'Please enter a name for your independent project.');
+      return;
+    }
+    if (!ownProjectRepoUrl.trim()) {
+      toast.error('Repository URL Required', 'Please enter your GitHub repository URL.');
+      return;
+    }
+
+    const check = parseAndValidateGithubUrl(ownProjectRepoUrl.trim());
+    if (!check.valid) {
+      toast.error('Invalid GitHub Repository', check.error || 'Please enter a valid GitHub repository URL.');
+      return;
+    }
+
+    const newCustomProject: Project = {
+      id: `custom_proj_${Date.now()}`,
+      name: ownProjectName.trim(),
+      level: 'Beginner',
+      description: ownProjectDesc.trim() || 'Custom independent project authored outside standard curriculum milestones.',
+      techStack: ownProjectTechStack.trim() || 'Custom Stack',
+      problem: 'Independent software design challenge implemented directly by student.',
+      deliverable: 'Production GitHub repository with automated tests and CI deployment.',
+      xpReward: 350,
+      status: 'In Progress',
+      githubLink: ownProjectRepoUrl.trim(),
+      guideSteps: [
+        'Initialize local git repository and connect remote GitHub origin.',
+        'Implement architecture baseline and verify local test suite.',
+        'Push commits to GitHub and verify evidence report.'
+      ],
+      tips: ['Maintain clear commit messages and tag stable releases with semantic versioning.'],
+      verificationReqs: [
+        'Must contain valid GitHub repository URL.',
+        'Must contain non-empty commits and readable README.md.'
+      ],
+      minScore: 80,
+      isTemplate: false,
+    };
+
+    const updated = [newCustomProject, ...projects];
+    saveProjects(updated);
+    saveIndependentProjectToDb(studentId, newCustomProject).catch(() => {});
+    setSelectedGuideProject(newCustomProject);
+    setSelectedPathway('independent');
+    setShowOwnProjectModal(false);
+    setOwnProjectStep('confirm');
+    setOwnProjectName('');
+    setOwnProjectRepoUrl('');
+    setOwnProjectDesc('');
+    toast.success('Custom Project Linked! 🚀', `Linked ${newCustomProject.name} to GitHub.`);
+  };
+
   // PR-UX-01 FIX: Interactive milestone checklist state with persistent storage
   const [completedMilestones, setCompletedMilestones] = useState<Record<string, number[]>>({});
 
@@ -80,6 +205,7 @@ function ProjectsPageContent() {
     setActiveCourseId: cOsSetActiveCourseId
   } = cOS;
 
+  const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
   const educationStr = String(user?.education || (onboardingAnswers as any)?.education || 'B.Tech in Computer Science');
   const degree = educationStr.split(' at ')[0] || 'B.Tech';
 
@@ -327,6 +453,52 @@ function ProjectsPageContent() {
   const [selectedGoal, setSelectedGoal] = useState<string>(onboardingAnswers?.role || 'AI Engineer');
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedGuideProject, setSelectedGuideProject] = useState<Project | null>(null);
+
+  // Initial Pathway Auto-Detection: If user has never selected a pathway, honor their active course/track
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem('pinit_selected_project_pathway');
+      if (!saved) {
+        const crashRaw = localStorage.getItem('pinit_active_crash_enrollment');
+        const hasPythonProgress = completedQuests?.some((q: string) => q.toLowerCase().includes('python'));
+        const hasRoadmapProgress = completedQuests?.some((q: string) => q.startsWith('rm-') || q.startsWith('custom-') || q.startsWith('roadmap-'));
+        if (crashRaw || hasPythonProgress) {
+          setSelectedPathway('standalone');
+          handleSelectPathway('standalone');
+        } else if (hasRoadmapProgress || Boolean(roadmapCtx)) {
+          setSelectedPathway('roadmap');
+          handleSelectPathway('roadmap');
+        }
+      }
+    } catch {}
+  }, [completedQuests, roadmapCtx]);
+
+  // Hydrate independent projects from Supabase portfolio_items & cache
+  useEffect(() => {
+    if (!studentId) return;
+    fetchIndependentProjectsFromDb(studentId).then((dbProjs) => {
+      if (dbProjs && dbProjs.length > 0) {
+        setProjects((prev) => {
+          const merged = [...prev];
+          for (const dbp of dbProjs) {
+            if (!merged.some(p => p.id === dbp.id || (p.githubLink && p.githubLink === dbp.githubLink))) {
+              merged.unshift(dbp);
+            }
+          }
+          return merged;
+        });
+      }
+    }).catch(() => {});
+  }, [studentId]);
+
+  // Edge Case Guard: Ensure selectedGuideProject is safely bound whenever projects change
+  useEffect(() => {
+    if (!selectedGuideProject && projects.length > 0) {
+      const active = projects.find(p => p.status === 'In Progress') || projects[0];
+      setSelectedGuideProject(active);
+    }
+  }, [selectedGuideProject, projects]);
   
   // Workspace tabs: 'overview' | 'guide' | 'reqs' | 'resources' | 'submit'
   const [activeWorkspaceTab, setActiveWorkspaceTab] = useState<'overview' | 'guide' | 'reqs' | 'resources' | 'submit'>('overview');
@@ -349,56 +521,134 @@ function ProjectsPageContent() {
 
   // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
   // A finished custom roadmap (recorded by the quests page) hands the student their capstone project.
-  const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
-  const isUnlocked = progressPercent >= 25 || completedCount >= 3 || user?.role === 'admin' || user?.role === 'teacher' || projects.length > 0 || Boolean(roadmapCtx);
+  // roadmapCtx is declared above near cOS destructure
 
-  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects. This page used to
-  // read `.projects`, which nothing writes, so projects vanished on reload.
+  // Helper to resolve completed quests and distinct days for a specific course
+  const getCourseCompletedQuests = (courseId: string, questsList: string[] = []): string[] => {
+    if (!questsList || questsList.length === 0) return [];
+    const cid = courseId.toLowerCase();
+    return questsList.filter(q => {
+      const ql = q.toLowerCase();
+      const parsed = parseQuestId(ql);
+      const prefix = parsed?.prefix?.toLowerCase() || '';
+      if (cid.includes('python')) return prefix.includes('python') || ql.includes('python') || ql.startsWith('py-');
+      if (cid.includes('react')) return prefix.includes('react') || ql.includes('react') || ql.includes('jsx');
+      if (cid.includes('node')) return prefix.includes('node') || ql.includes('node') || ql.includes('express');
+      if (cid.includes('java')) return prefix.includes('java') || ql.includes('java');
+      if (cid.includes('cloud')) return prefix.includes('cloud') || ql.includes('cloud') || ql.includes('aws') || ql.includes('docker');
+      if (cid.includes('bcom') || cid.includes('accounting')) return prefix.includes('bcom') || prefix.includes('accounting') || ql.includes('accounting');
+      if (prefix && (cid.includes(prefix) || prefix.includes(cid.replace('course-', '')))) return true;
+      return false;
+    });
+  };
+
+  const getDistinctDaysCount = (matchedQuests: string[]): number => {
+    const days = new Set<number>();
+    let nonParsedCount = 0;
+    for (const q of matchedQuests) {
+      const parsed = parseQuestId(q);
+      if (parsed) {
+        days.add(parsed.dayNum);
+      } else {
+        nonParsedCount++;
+      }
+    }
+    return Math.max(days.size, Math.min(nonParsedCount, 30));
+  };
+
+  // ── TASK 2 & 3: PATHWAY METRICS & GATING INVARIANTS ──────────────────────────
+  // Active definition: user completed at least 1 day of work
+  // Milestone definition: user completed at least 3 quests or 25% progress or admin/teacher
+  
+  // 1. Certification Track Metrics
+  const certMatchedQuests = getCourseCompletedQuests(activeCourse.id, completedQuests);
+  const certCompletedDays = getDistinctDaysCount(certMatchedQuests);
+  const certActive = certCompletedDays >= 1;
+  const certCoursePercent = Math.min(100, Math.round((certMatchedQuests.length / Math.max(totalQuestsCount, 1)) * 100));
+  const certMilestoneReached = certCompletedDays >= 3 || certCoursePercent >= 25 || user?.role === 'admin' || user?.role === 'teacher';
+
+  // 2. Custom Roadmap Track Metrics
+  const roadmapCustomDays = completedQuests ? completedQuests.filter(q => q.startsWith('rm-') || q.startsWith('custom-') || q.startsWith('roadmap-')).length : 0;
+  const roadmapCompletedDays = roadmapCustomDays > 0 ? roadmapCustomDays : (Boolean(roadmapCtx) ? 1 : 0);
+  const roadmapActive = roadmapCompletedDays >= 1;
+  const roadmapMilestoneReached = roadmapCompletedDays >= 3 || user?.role === 'admin' || user?.role === 'teacher';
+
+  // 3. Standalone Course Track Metrics (e.g. Python 30-Day crash course)
+  const standaloneTargetId = selectedCourseId || 'course-python-backend';
+  const standaloneMatchedQuests = getCourseCompletedQuests(standaloneTargetId, completedQuests);
+  const standaloneCompletedDays = getDistinctDaysCount(standaloneMatchedQuests);
+  const standaloneActive = standaloneCompletedDays >= 1;
+  const standaloneMilestoneReached = standaloneCompletedDays >= 3 || user?.role === 'admin' || user?.role === 'teacher';
+
+  // 4. Independent Track Metrics
+  const independentProjects = projects.filter(p => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'));
+  const independentActive = independentProjects.length > 0;
+  const independentMilestoneReached = true;
+
+  // Active Pathway Status Resolution
+  const isPathwayActive =
+    selectedPathway === 'certification' ? certActive :
+    selectedPathway === 'roadmap' ? roadmapActive :
+    selectedPathway === 'standalone' ? standaloneActive :
+    independentActive;
+
+  const isPathwayMilestoneReached =
+    selectedPathway === 'certification' ? certMilestoneReached :
+    selectedPathway === 'roadmap' ? roadmapMilestoneReached :
+    selectedPathway === 'standalone' ? standaloneMilestoneReached :
+    independentMilestoneReached;
+
+  const isUnlocked = isPathwayMilestoneReached;
+
+  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects.
   const answerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.portfolio_projects;
   const legacyAnswerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.projects;
 
   useEffect(() => {
     const source: SavedProjectsSource = { portfolio_projects: answerProjects, projects: legacyAnswerProjects };
     const saved = getSavedCareerProjects(source);
-    if (saved.length > 0) {
+
+    // Guard: Verify if saved templates actually belong to current activeCourse
+    const isMatchingCourse = (projs: Project[], targetCourseId: string) => {
+      const templates = projs.filter(p => p.isTemplate && !p.id.startsWith('custom_proj_'));
+      if (templates.length === 0) return true; // only custom projects
+      const cid = targetCourseId.toLowerCase();
+      return templates.some(p => {
+        if (p.courseId && p.courseId === targetCourseId) return true;
+        const stack = (p.techStack || '').toLowerCase();
+        const name = (p.name || '').toLowerCase();
+        if (cid.includes('python')) return stack.includes('python') || name.includes('python');
+        if (cid.includes('java')) return stack.includes('java') || name.includes('java');
+        if (cid.includes('react')) return stack.includes('react') || name.includes('react');
+        if (cid.includes('node')) return stack.includes('node') || name.includes('node');
+        if (cid.includes('cloud')) return stack.includes('aws') || stack.includes('docker') || stack.includes('kubernetes');
+        if (cid.includes('accounting') || cid.includes('bcom')) return stack.includes('accounting') || stack.includes('tally') || name.includes('ledger');
+        return false;
+      });
+    };
+
+    if (saved.length > 0 && isMatchingCourse(saved, activeCourse.id)) {
       setProjects(saved);
-      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
+      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed') || saved[0];
       if (active) setSelectedGuideProject(active);
       // Projects saved under the legacy key move to the key the rest of the app reads.
       if (needsProjectKeyMigration(source)) saveCareerProjects(saved);
-    } else if (typeof window !== 'undefined' && user?.id) {
-      const cached = localStorage.getItem(`pinit_${user.id}_career_projects`);
-      if (cached) {
-        try {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setProjects(parsed);
-            const active = parsed.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
-            if (active) setSelectedGuideProject(active);
-            // Reconcile and persist to Supabase if DB didn't have it yet
-            saveCareerProjects(parsed);
-          }
-        } catch {
-          // Ignore corrupt localStorage cache
-        }
-      }
-    }
-
-    // Auto-seed projects for active course if still empty
-    if (saved.length === 0) {
-      const initialProjects = getDomainFallback(
+    } else {
+      // Empty or stale templates from another course: generate fresh capstones for active course, keeping custom projects
+      const customProjects = saved.filter((p: Project) => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'));
+      const freshCourseProjects = getDomainFallback(
         selectedGoal,
         [],
-        'Undergraduate',
+        degree || 'Undergraduate',
         activeCourse.id
-      );
-      if (initialProjects && initialProjects.length > 0) {
-        setProjects(initialProjects as Project[]);
-        setSelectedGuideProject(initialProjects[0] as Project);
-        saveCareerProjects(initialProjects);
-      }
+      ) as Project[];
+      const merged = [...customProjects, ...freshCourseProjects];
+      setProjects(merged);
+      const active = merged.find(p => p.status === 'In Progress') || freshCourseProjects[0] || merged[0];
+      if (active) setSelectedGuideProject(active);
+      saveCareerProjects(merged);
     }
-  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal]);
+  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal, degree]);
 
   // Roadmap journey certificate: the server re-verifies roadmap, capstone and interview, then issues it.
   const [issuingCertificate, setIssuingCertificate] = useState(false);
@@ -854,111 +1104,732 @@ function ProjectsPageContent() {
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
       
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.3px' }}>Projects & Course Capstones</h1>
-          <p style={{ margin: '4px 0 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
-            Build individual GitHub-verified Capstones to earn accredited industry credential certifications.
-          </p>
-        </div>
-      </div>
-
-      {/* ── PROJECT WORKSPACE & COURSE CAPSTONES ──────────────────── */}
-      <div>
-          {/* Active Course & Track Selector Bar */}
-          <div
+      {/* ── PATHWAY SUB-TAB NAVIGATION (SLENDER COMPACT INTERFACE) ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          padding: '6px',
+          borderRadius: 12,
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          marginBottom: 16,
+          overflowX: 'auto',
+          boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04))'
+        }}
+      >
+        {/* Sub-Tab 1: Certification Course */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('certification')}
+          data-testid="pathway-card-certification"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'certification' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'certification' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'certification' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'certification' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>🎓</span>
+          <span>Certification Course</span>
+          <span
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 12,
-              marginBottom: 16,
-              padding: '12px 18px',
-              borderRadius: 14,
-              background: 'var(--card)',
-              border: '1px solid var(--border)',
-              boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: certActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: certActive ? '#10b981' : 'var(--t3)'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <span
+            {certActive ? '● Active' : '○ Inactive'}
+          </span>
+        </button>
+
+        {/* Sub-Tab 2: Custom Roadmap */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('roadmap')}
+          data-testid="pathway-card-roadmap"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'roadmap' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'roadmap' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'roadmap' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'roadmap' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>🗺️</span>
+          <span>Custom Roadmap</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: roadmapActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: roadmapActive ? '#10b981' : 'var(--t3)'
+            }}
+          >
+            {roadmapActive ? '● Active' : '○ Inactive'}
+          </span>
+        </button>
+
+        {/* Sub-Tab 3: Standalone Course */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('standalone')}
+          data-testid="pathway-card-standalone"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'standalone' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'standalone' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'standalone' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'standalone' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>⚡</span>
+          <span>Standalone Course</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: standaloneActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: standaloneActive ? '#10b981' : 'var(--t3)'
+            }}
+          >
+            {standaloneActive ? '● Active' : '○ Inactive'}
+          </span>
+        </button>
+
+        {/* Sub-Tab 4: Independent Project */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('independent')}
+          data-testid="pathway-card-independent"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'independent' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'independent' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'independent' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'independent' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>🛠️</span>
+          <span>Independent Project</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: independentActive ? 'rgba(59, 130, 246, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: independentActive ? '#3b82f6' : 'var(--t3)'
+            }}
+          >
+            {independentActive ? `${independentProjects.length} Custom` : 'Custom'}
+          </span>
+        </button>
+      </div>
+
+      {/* ── PATHWAY CONTEXT BANNER ── */}
+      {selectedPathway === 'certification' && (
+        <div
+          data-testid="certification-curriculum-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#10b981',
+                background: 'rgba(16, 185, 129, 0.12)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              🎓 Accredited Degree Curriculum
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 600 }}>
+              {degree || 'Computer Science & Engineering'}
+            </span>
+            <span style={{ color: 'var(--border2)' }}>•</span>
+            <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>({activeCourse.difficulty} • {activeCourse.durationWeeks} Weeks)</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: 'var(--t3)',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                padding: '4px 12px',
+                borderRadius: 20,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5
+              }}
+              title="This curriculum is locked to your enrolled degree syllabus"
+            >
+              <span>🔒</span> University Enrolled Track
+            </span>
+          </div>
+        </div>
+      )}
+
+      {selectedPathway === 'standalone' && (
+        <div
+          data-testid="standalone-sprint-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: 'var(--accent)',
+                background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
+                border: '1px solid var(--border2)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              ⚡ Focused Skill Sprint
+            </span>
+            <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>({activeCourse.difficulty} • {activeCourse.durationWeeks} Weeks)</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            <label htmlFor="course-track-selector" style={{ fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
+              Switch Skill Sprint:
+            </label>
+            <select
+              id="course-track-selector"
+              value={activeCourse.id}
+              onChange={(e) => {
+                const newId = e.target.value;
+                setSelectedCourseId(newId);
+                cOsSetActiveCourseId?.(newId);
+                if (typeof window !== 'undefined') {
+                  try {
+                    localStorage.setItem(`pinit_${studentId}_active_course_id`, newId);
+                  } catch {}
+                }
+                const courseObj = COURSES_CATALOG.find(c => c.id === newId);
+                const newProjs = getDomainFallback(selectedGoal, [], degree, newId);
+                if (newProjs && newProjs.length > 0) {
+                  setProjects(newProjs as Project[]);
+                  setSelectedGuideProject(newProjs[0] as Project);
+                  saveCareerProjects(newProjs);
+                  toast.success('Sprint Switched 🎯', `Now viewing capstones for ${courseObj?.title || newId}`);
+                }
+              }}
+              style={{
+                padding: '7px 14px',
+                borderRadius: 10,
+                background: 'var(--bg2)',
+                border: '1px solid var(--border2)',
+                color: 'var(--t1)',
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
+                outline: 'none',
+                fontFamily: 'inherit'
+              }}
+            >
+              {COURSES_CATALOG.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.icon} {c.title} ({c.difficulty})
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedPathway === 'roadmap' && (
+        <div
+          data-testid="roadmap-track-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#8b5cf6',
+                background: 'rgba(139, 92, 246, 0.12)',
+                border: '1px solid rgba(139, 92, 246, 0.25)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              🗺️ Personalized AI Roadmap
+            </span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{selectedGoal || 'Full-Stack Software Developer'}</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>(3-Stage Architecture Progression)</span>
+          </div>
+          <div style={{ fontSize: 12.5, color: 'var(--t3)', fontWeight: 600 }}>
+            Tailored to your DNA Score & Target Role
+          </div>
+        </div>
+      )}
+
+      {selectedPathway === 'independent' && (
+        <div
+          data-testid="independent-track-strip"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+            marginBottom: 20,
+            padding: '14px 20px',
+            borderRadius: 14,
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: '#3b82f6',
+                background: 'rgba(59, 130, 246, 0.12)',
+                border: '1px solid rgba(59, 130, 246, 0.25)',
+                padding: '4px 10px',
+                borderRadius: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}
+            >
+              🛠️ Custom Software Repository
+            </span>
+            <strong style={{ fontSize: 15, color: 'var(--t1)' }}>Self-Authored Production Project</strong>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>(Direct GitHub Verification)</span>
+          </div>
+          <button
+            onClick={() => {
+              setOwnProjectStep('confirm');
+              setShowOwnProjectModal(true);
+            }}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 8,
+              background: 'var(--bg2)',
+              border: '1px solid var(--border2)',
+              color: 'var(--accent)',
+              fontSize: 12.5,
+              fontWeight: 800,
+              cursor: 'pointer'
+            }}
+          >
+            + Link Another GitHub Repo
+          </button>
+        </div>
+      )}
+
+      {/* ── PATHWAY STATUS & GATING (OPTIMIZED BEGINNER-FRIENDLY UI/UX) ── */}
+      {!isPathwayActive ? (
+        /* INACTIVE PATHWAY VIEW */
+        <div
+          data-testid="inactive-pathway-card"
+          style={{
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            borderLeft: '4px solid #f59e0b',
+            borderRadius: 16,
+            padding: '28px 32px',
+            margin: '20px 0',
+            boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.08)'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, maxWidth: 760 }}>
+              <div
                 style={{
-                  fontSize: 11,
-                  fontWeight: 800,
-                  color: 'var(--accent)',
-                  background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
-                  border: '1px solid var(--border2)',
-                  padding: '3px 8px',
-                  borderRadius: 6,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
-                  fontFamily: 'var(--font-mono, monospace)'
+                  width: 52,
+                  height: 52,
+                  borderRadius: 14,
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  border: '1px solid rgba(245, 158, 11, 0.28)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 26,
+                  flexShrink: 0
                 }}
               >
-                Active Learning Track
-              </span>
-              <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
-              <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
-              <span style={{ fontSize: 12, color: 'var(--t3)' }}>({activeCourse.difficulty} • {activeCourse.durationWeeks} Weeks)</span>
+                ⏳
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: '#f59e0b',
+                      background: 'rgba(245, 158, 11, 0.12)',
+                      border: '1px solid rgba(245, 158, 11, 0.25)',
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.4px'
+                    }}
+                  >
+                    Pathway Activation Required
+                  </span>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>• 1 Day of Quests Needed</span>
+                </div>
+                <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0', letterSpacing: '-0.2px' }}>
+                  {selectedPathway === 'certification' ? 'Certification Course Pathway Inactive' :
+                   selectedPathway === 'roadmap' ? 'Custom Roadmap Inactive' :
+                   selectedPathway === 'standalone' ? 'Standalone Course Inactive' : 'No Independent Project Configured'}
+                </h2>
+                <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: '0 0 16px 0', lineHeight: 1.55 }}>
+                  {selectedPathway === 'certification' ? `You have not completed any coursework for ${activeCourse.title} yet. To activate this pathway and unlock capstones, complete at least Day 1 of coursework in Quests.` :
+                   selectedPathway === 'roadmap' ? 'You have not completed any quests on your personalized AI roadmap yet. Complete at least Day 1 in Quests to activate this track.' :
+                   selectedPathway === 'standalone' ? `No active progress detected for ${activeCourse.title}. Complete at least Day 1 of this skill sprint in Quests to activate.` :
+                   'You have not initialized an independent project yet. Connect your GitHub repository to link custom code and bypass course milestones.'}
+                </p>
+
+                {/* 2-Step Activation Roadmap */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', fontSize: 12.5 }}>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '6px 12px',
+                    borderRadius: 8,
+                    background: 'var(--bg2)',
+                    border: '1px solid var(--border)',
+                    fontWeight: 700,
+                    color: 'var(--t1)'
+                  }}>
+                    <span style={{ color: '#f59e0b' }}>1️⃣</span> Complete Day 1 in Quests
+                    <span style={{ color: 'var(--t3)', fontWeight: 500 }}>(Activates Track)</span>
+                  </div>
+                  <span style={{ color: 'var(--t3)', fontSize: 14 }}>➔</span>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '6px 12px',
+                    borderRadius: 8,
+                    background: 'var(--bg2)',
+                    border: '1px solid var(--border)',
+                    fontWeight: 700,
+                    color: 'var(--t1)'
+                  }}>
+                    <span style={{ color: '#6366f1' }}>2️⃣</span> Reach 3 Quests (Milestone 1)
+                    <span style={{ color: 'var(--t3)', fontWeight: 500 }}>(Unlocks Capstone Build)</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              <label htmlFor="course-track-selector" style={{ fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
-                Switch Track / Course:
-              </label>
-              <select
-                id="course-track-selector"
-                value={activeCourse.id}
-                onChange={(e) => {
-                  const newId = e.target.value;
-                  setSelectedCourseId(newId);
-                  cOsSetActiveCourseId?.(newId);
-                  if (typeof window !== 'undefined') {
-                    try {
-                      localStorage.setItem(`pinit_${studentId}_active_course_id`, newId);
-                    } catch {}
-                  }
-                  const courseObj = COURSES_CATALOG.find(c => c.id === newId);
-                  const newProjs = getDomainFallback(selectedGoal, [], degree, newId);
-                  if (newProjs && newProjs.length > 0) {
-                    setProjects(newProjs as Project[]);
-                    setSelectedGuideProject(newProjs[0] as Project);
-                    saveCareerProjects(newProjs);
-                    toast.success('Track Switched 🎯', `Now viewing capstones for ${courseObj?.title || newId}`);
+            {/* Action Buttons Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 220, alignSelf: 'center' }}>
+              <button
+                onClick={() => {
+                  if (selectedPathway === 'independent') {
+                    setOwnProjectStep('confirm');
+                    setShowOwnProjectModal(true);
+                  } else {
+                    router.push('/quests');
                   }
                 }}
+                data-testid="start-day-1-btn"
                 style={{
-                  padding: '6px 12px',
-                  borderRadius: 8,
-                  background: 'var(--bg3)',
-                  border: '1px solid var(--border2)',
-                  color: 'var(--t1)',
-                  fontSize: 13,
-                  fontWeight: 700,
+                  padding: '13px 24px',
+                  borderRadius: 12,
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  color: '#fff',
+                  fontSize: 14.5,
+                  fontWeight: 800,
+                  border: 'none',
                   cursor: 'pointer',
-                  outline: 'none',
-                  fontFamily: 'inherit'
+                  boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.15s ease'
                 }}
               >
-                {COURSES_CATALOG.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.icon} {c.title} ({c.difficulty})
-                  </option>
-                ))}
-              </select>
+                {selectedPathway === 'independent' ? '🛠️ Link GitHub Repository' : '🚀 Start Day 1 in Quests'}
+              </button>
+
+              {selectedPathway !== 'independent' && (
+                <button
+                  onClick={() => {
+                    setOwnProjectStep('confirm');
+                    setShowOwnProjectModal(true);
+                  }}
+                  style={{
+                    padding: '9px 16px',
+                    borderRadius: 10,
+                    background: 'transparent',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t2)',
+                    fontSize: 12.5,
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  Or link GitHub repository directly →
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : !isPathwayMilestoneReached ? (
+        /* ACTIVE BUT BELOW MILESTONE VIEW */
+        <div
+          data-testid="milestone-locked-card"
+          style={{
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            borderRadius: 20,
+            padding: '36px 28px',
+            margin: '20px 0',
+            boxShadow: 'var(--shadow-sm)'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
+            <span style={{
+              fontSize: 12,
+              fontWeight: 800,
+              padding: '4px 10px',
+              borderRadius: 8,
+              background: 'rgba(245, 158, 11, 0.15)',
+              color: '#f59e0b',
+              border: '1px solid rgba(245, 158, 11, 0.3)'
+            }}>
+              ● Pathway Active • Milestone 1 In Progress
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>
+              {selectedPathway === 'certification' ? `${certCompletedDays} of 3 Quests Completed` :
+               selectedPathway === 'roadmap' ? `${roadmapCompletedDays} of 3 Quests Completed` :
+               `${standaloneCompletedDays} of 3 Quests Completed`}
+            </span>
+          </div>
+
+          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>
+            Milestone 1 Required to Unlock Project Workspace
+          </h2>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', maxWidth: 650, margin: '0 0 24px', lineHeight: 1.6 }}>
+            You have successfully activated this learning pathway! However, to ensure you have the architectural foundation required to build, the hands-on project workspace unlocks at <strong>Milestone 1 (3 Quests Completed)</strong>.
+          </p>
+
+          {/* Milestone Stepper */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, marginBottom: 28 }}>
+            <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg2)', border: '1px solid #10b981' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>✓ DAY 1 • COMPLETED</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>Pathway Activated</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Core syntax & baseline environment setup</div>
+            </div>
+            <div style={{
+              padding: 14,
+              borderRadius: 12,
+              background: 'var(--bg2)',
+              border: (selectedPathway === 'certification' ? certCompletedDays : selectedPathway === 'roadmap' ? roadmapCompletedDays : standaloneCompletedDays) >= 2 ? '1px solid #10b981' : '1px solid var(--border)'
+            }}>
+              <div style={{
+                fontSize: 12,
+                fontWeight: 800,
+                color: (selectedPathway === 'certification' ? certCompletedDays : selectedPathway === 'roadmap' ? roadmapCompletedDays : standaloneCompletedDays) >= 2 ? '#10b981' : 'var(--accent)',
+                marginBottom: 4
+              }}>
+                {(selectedPathway === 'certification' ? certCompletedDays : selectedPathway === 'roadmap' ? roadmapCompletedDays : standaloneCompletedDays) >= 2 ? '✓ DAY 2 • COMPLETED' : '⏳ DAY 2 • IN PROGRESS'}
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>System Architecture</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Data flow, abstractions & API structures</div>
+            </div>
+            <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg2)', border: '1.5px dashed var(--border)' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t3)', marginBottom: 4 }}>🔒 DAY 3 • MILESTONE 1</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>Capstone Workspace Unlock</div>
+              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>Unlocks full repository testing & submission</div>
             </div>
           </div>
 
-          {/* Task 9: Course & Certificate Project Progress Bar */}
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+            <button
+              onClick={() => router.push('/quests')}
+              data-testid="continue-quests-btn"
+              style={{
+                padding: '12px 24px',
+                borderRadius: 12,
+                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                color: '#fff',
+                fontSize: 14.5,
+                fontWeight: 800,
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)'
+              }}
+            >
+              ⚡ Continue Quests to Reach Milestone 1
+            </button>
+            <button
+              onClick={() => {
+                setOwnProjectStep('confirm');
+                setShowOwnProjectModal(true);
+              }}
+              style={{
+                padding: '12px 20px',
+                borderRadius: 12,
+                background: 'transparent',
+                color: 'var(--t2)',
+                fontSize: 14,
+                fontWeight: 700,
+                border: '1px solid var(--border)',
+                cursor: 'pointer'
+              }}
+            >
+              Or Start Your Own Independent Project →
+            </button>
+          </div>
+
+          {/* Locked Capstone Previews */}
+          <div style={{ marginTop: 32, borderTop: '1px solid var(--border)', paddingTop: 24 }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 12 }}>
+              Upcoming Capstone Projects You Will Unlock
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
+              {projects.slice(0, 3).map((p, idx) => (
+                <div key={p.id || idx} style={{ padding: 16, borderRadius: 14, background: 'var(--bg2)', border: '1px solid var(--border)', opacity: 0.85 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>{p.level}</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>🔒 Milestone 1</span>
+                  </div>
+                  <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>{p.name}</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.4, marginBottom: 8 }}>{p.problem || p.description}</div>
+                  <div style={{ fontSize: 11, fontFamily: 'monospace', color: 'var(--t2)' }}>{p.techStack}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : selectedPathway === 'independent' ? (
+        /* INDEPENDENT SOFTWARE WORKSPACE (DEDICATED GITHUB TELEMETRY & JURY DEFENSE) */
+        <IndependentWorkspace
+          project={selectedGuideProject || independentProjects[0] || projects[0]}
+          onLinkAnother={() => {
+            setOwnProjectStep('confirm');
+            setShowOwnProjectModal(true);
+          }}
+          onSelectProject={(p) => {
+            setSelectedGuideProject(p);
+          }}
+          allProjects={projects}
+        />
+      ) : (
+        /* UNLOCKED FULL PROJECT WORKSPACE */
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {/* Course Project Progress Bar */}
           <CourseProjectProgressBar
             courseName={activeCourse?.title || 'Cloud & Distributed Systems Engineering'}
             careerGoal={selectedGoal}
             projects={projects}
             courseProgressPercent={progressPercent}
             onStartCustomProject={() => {
-              handleGenerate();
+              setOwnProjectStep('confirm');
+              setShowOwnProjectModal(true);
             }}
             onSelectProject={(proj) => {
               setSelectedGuideProject(proj);
@@ -973,92 +1844,7 @@ function ProjectsPageContent() {
             onViewCertificate={(id) => router.push(`/verify/${encodeURIComponent(id)}`)}
             issuing={issuingCertificate}
           />
-
-          {/* Lock Screen */}
-          {!isUnlocked ? (
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.01)',
-              border: '1.5px dashed var(--border)',
-              borderRadius: 20, padding: '60px 24px', textAlign: 'center', margin: '40px auto', maxWidth: 640
-            }}>
-              <div style={{ fontSize: 70.5, marginBottom: 20 }}>🔒</div>
-              <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>Projects Workspace Locked</h2>
-          <p style={{ fontSize: 15.5, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
-            To ensure foundational skills are solid before building, the Projects tab unlocks after completing **25%** of your active course quests (or completing 3 quests).
-          </p>
-
-          <div style={{ maxWidth: 400, margin: '0 auto 30px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
-              <span>{activeCourse.title} Progress</span>
-              <span>{progressPercent}%</span>
-            </div>
-            <div style={{ height: 10, background: 'var(--bg3)', borderRadius: 5, overflow: 'hidden', border: '1px solid var(--border)' }}>
-              <div style={{ height: '100%', width: `${progressPercent}%`, background: 'linear-gradient(90deg, var(--accent), var(--purple))', transition: 'width 0.5s' }} />
-            </div>
-            <div style={{ marginTop: 10, fontSize: 13, color: 'var(--t3)' }}>
-              {completedCount} of {totalQuestsCount} quests completed.
-            </div>
-          </div>
-        </div>
-      ) : (
-        /* Workspace interface */
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          
-          {/* AI Generator Control */}
-          <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div>
-              <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>AI Dynamic Portfolio Generator</h3>
-              <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
-                Constructs 5 real-world projects utilizing target parameters: `projects = quests + academic degree + DNA score + career goal`.
-              </p>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 14, alignItems: 'center' }}>
-              <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Academic Course / Degree</span>
-                <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>{degree}</div>
-              </div>
-              <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Quests Completed</span>
-                <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>{completedCount} Quests</div>
-              </div>
-              <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Overall DNA Score</span>
-                <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--accent)', marginTop: 4 }}>{Math.min(95, 60 + (completedCount * 1.5))}/100</div>
-              </div>
-              <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>Target Career Goal</span>
-                <select
-                  value={selectedGoal}
-                  onChange={e => setSelectedGoal(e.target.value)}
-                  className="form-input"
-                  style={{ width: '100%', fontSize: 13, padding: '6px 8px', marginTop: 4 }}
-                >
-                  {selectedGoal && !['AI Engineer', 'Backend Engineer', 'Cybersecurity Engineer', 'Full Stack Developer', 'Frontend Developer', 'Cloud & DevOps Engineer', 'Data Scientist / ML Engineer'].includes(selectedGoal) && (
-                    <option value={selectedGoal}>{selectedGoal}</option>
-                  )}
-                  <option value="AI Engineer">AI Engineer</option>
-                  <option value="Full Stack Developer">Full Stack Developer</option>
-                  <option value="Frontend Developer">Frontend Developer</option>
-                  <option value="Backend Engineer">Backend Engineer</option>
-                  <option value="Cybersecurity Engineer">Cybersecurity Engineer</option>
-                  <option value="Cloud & DevOps Engineer">Cloud & DevOps Engineer</option>
-                  <option value="Data Scientist / ML Engineer">Data Scientist / ML Engineer</option>
-                </select>
-              </div>
-            </div>
-
-            <button
-              onClick={() => handleGenerate()}
-              disabled={generating}
-              className="btn-primary"
-              style={{ padding: '12px 0', fontSize: 14.5, fontWeight: 800, justifyContent: 'center', marginTop: 8 }}
-            >
-              {generating ? '🧬 Simulating Career Optimization Formula...' : '⚡ Generate My Personalised Career Projects'}
-            </button>
-          </div>
-
-          {/* Project Workspace Content Layout */}
+{/* Project Workspace Content Layout */}
           {projects.length > 0 && (
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.5fr', gap: 20, alignItems: 'start' }}>
               
@@ -1667,6 +2453,258 @@ function ProjectsPageContent() {
         </div>
       )}
 
+      {/* ── MODAL: START YOUR OWN PROJECT (CONFIRMATION & GITHUB LINK) ── */}
+      {showOwnProjectModal && (
+        <div
+          data-testid="own-project-modal"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: 20
+          }}
+        >
+          <div
+            style={{
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
+              borderRadius: 20,
+              maxWidth: 580,
+              width: '100%',
+              padding: 28,
+              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+              position: 'relative'
+            }}
+          >
+            {ownProjectStep === 'confirm' ? (
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+                  <span style={{ fontSize: 28 }}>⚠️</span>
+                  <h3 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: 'var(--t1)' }}>
+                    Start Independent Custom Project?
+                  </h3>
+                </div>
+
+                <div
+                  style={{
+                    background: 'rgba(245, 158, 11, 0.1)',
+                    border: '1px solid rgba(245, 158, 11, 0.3)',
+                    borderRadius: 12,
+                    padding: '14px 16px',
+                    marginBottom: 20,
+                    fontSize: 14,
+                    color: 'var(--t1)',
+                    lineHeight: 1.5
+                  }}
+                >
+                  <strong style={{ color: '#f59e0b', display: 'block', marginBottom: 4 }}>
+                    Academic Milestone Notice
+                  </strong>
+                  Are you sure you want to start an independent project leaving all standard course and certificate milestones?
+                  Independent projects provide complete creative freedom and live GitHub evidence tracking, but they do <strong>not automatically grant accredited university degree credits</strong> or official course certificates until defended before faculty.
+                </div>
+
+                <p style={{ fontSize: 14, color: 'var(--t2)', marginBottom: 24, lineHeight: 1.5 }}>
+                  If you proceed, you will link your public GitHub repository to PinIT. Our automated CI ingestion engine will inspect your commit signatures, code architecture, and automated tests.
+                </p>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowOwnProjectModal(false)}
+                    style={{
+                      padding: '10px 18px',
+                      borderRadius: 10,
+                      background: 'transparent',
+                      border: '1px solid var(--border)',
+                      color: 'var(--t2)',
+                      fontSize: 14,
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel / Stay on Course
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="confirm-own-project-btn"
+                    onClick={() => setOwnProjectStep('form')}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: 10,
+                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                      border: 'none',
+                      color: '#fff',
+                      fontSize: 14,
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)'
+                    }}
+                  >
+                    Yes, I Understand → Link GitHub
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleCreateOwnProject}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ fontSize: 24 }}>🔗</span>
+                    <h3 style={{ margin: 0, fontSize: 19, fontWeight: 900, color: 'var(--t1)' }}>
+                      Link GitHub Repository & Configure Project
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowOwnProjectModal(false)}
+                    style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+                      Project Title *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Autonomous Financial Risk Engine"
+                      value={ownProjectName}
+                      onChange={(e) => setOwnProjectName(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '10px 14px',
+                        borderRadius: 10,
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 14,
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+                      GitHub Repository URL *
+                    </label>
+                    <input
+                      type="url"
+                      required
+                      placeholder="https://github.com/username/repository"
+                      value={ownProjectRepoUrl}
+                      onChange={(e) => setOwnProjectRepoUrl(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '10px 14px',
+                        borderRadius: 10,
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 14,
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>
+                      Must be a valid, public GitHub repository (e.g. https://github.com/owner/repo)
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+                      Primary Tech Stack
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Python, FastAPI, Docker, PostgreSQL"
+                      value={ownProjectTechStack}
+                      onChange={(e) => setOwnProjectTechStack(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '10px 14px',
+                        borderRadius: 10,
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 14,
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
+                      Project Problem & Deliverables
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder="Describe what problem this project solves and the expected deliverable..."
+                      value={ownProjectDesc}
+                      onChange={(e) => setOwnProjectDesc(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '10px 14px',
+                        borderRadius: 10,
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 13.5,
+                        boxSizing: 'border-box',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
+                  <button
+                    type="button"
+                    onClick={() => setOwnProjectStep('confirm')}
+                    style={{
+                      padding: '10px 18px',
+                      borderRadius: 10,
+                      background: 'transparent',
+                      border: '1px solid var(--border)',
+                      color: 'var(--t2)',
+                      fontSize: 14,
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    type="submit"
+                    data-testid="submit-own-project-btn"
+                    style={{
+                      padding: '10px 22px',
+                      borderRadius: 10,
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      border: 'none',
+                      color: '#fff',
+                      fontSize: 14,
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)'
+                    }}
+                  >
+                    🚀 Link GitHub & Start Project
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Dynamic Certificate Modal (Mirroring the gold/navy design image) */}
       {activeCertificate && (
         <div style={{
@@ -1902,8 +2940,6 @@ function ProjectsPageContent() {
           </div>
         </div>
       )}
-      </div>
-
     </div>
   );
 }

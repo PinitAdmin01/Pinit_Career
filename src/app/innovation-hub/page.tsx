@@ -18,18 +18,6 @@ function InnovationHubPageContent() {
 
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.3px' }}>
-            Innovation Hub & Collaborative Squads
-          </h1>
-          <p style={{ margin: '6px 0 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
-            Form 3-person hackathon squads, build production prototypes, and submit verified repositories for jury evaluation.
-          </p>
-        </div>
-      </div>
-
       <InnovationHub
         studentId={studentId}
         studentName={studentName}

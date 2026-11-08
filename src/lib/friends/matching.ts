@@ -108,39 +108,66 @@ export function computeStudentMatch(
   if (currentCourse && targetCourse && currentCourse === targetCourse) {
     courseScore = 95;
   } else if (
-    (currentCourse.includes('bca') && targetCourse.includes('b.tech')) ||
-    (currentCourse.includes('b.tech') && targetCourse.includes('bca'))
+    (currentCourse.includes('bca') || currentCourse.includes('b.tech') || currentCourse.includes('cs') || currentCourse.includes('engineering')) &&
+    (targetCourse.includes('bca') || targetCourse.includes('b.tech') || targetCourse.includes('cs') || targetCourse.includes('engineering'))
   ) {
-    courseScore = 75; // Tech degrees
+    courseScore = 85; // Computing & Tech degree synergy
   }
 
-  // 5. Skill Compatibility Score
+  // 5. Skill Compatibility Score (with authentic Track Focus fallback)
   const currentSkillsCount = Array.isArray(current.skills) ? current.skills.length : 0;
   const overlapRatio = currentSkillsCount > 0 ? commonSkills.length / Math.min(currentSkillsCount, 4) : 0;
   const compBonus = Math.min(complementarySkills.length * 15, 30);
-  const skillScore = Math.min(Math.round(overlapRatio * 70 + compBonus), 100);
+  let skillScore = Math.min(Math.round(overlapRatio * 70 + compBonus), 100);
+
+  // If explicit skill tags are empty, assess declared track synergy
+  if (commonSkills.length === 0 && complementarySkills.length === 0) {
+    const targetSkills = (target.skills || []).map(s => s.toLowerCase());
+    const targetGoal = (target.careerGoal || '').toLowerCase();
+    const isDirectTrack = targetGoal.includes('full') || targetGoal.includes('stack') || targetSkills.some(s => s.includes('full-stack'));
+    const isComplementTrack = targetGoal.includes('ai') || targetGoal.includes('ml') || targetGoal.includes('data') || targetSkills.some(s => s.includes('ai'));
+    if (isDirectTrack) skillScore = 75;
+    else if (isComplementTrack) skillScore = 60;
+    else skillScore = 40;
+  }
 
   // 6. Career Goal Synergy
   let goalScore = 60;
   if (current.careerGoal && target.careerGoal) {
-    const currGoalTokens = current.careerGoal.toLowerCase().split(/\s+/);
-    const targetGoalTokens = target.careerGoal.toLowerCase().split(/\s+/);
+    const currGoalTokens = current.careerGoal.toLowerCase().split(/[\s_/-]+/);
+    const targetGoalTokens = target.careerGoal.toLowerCase().split(/[\s_/-]+/);
     const commonTokens = currGoalTokens.filter(t => targetGoalTokens.includes(t) && t.length > 3);
     if (commonTokens.length > 0) goalScore = 90;
     else if (target.careerGoal.toLowerCase().includes('developer') || target.careerGoal.toLowerCase().includes('engineer')) goalScore = 75;
   }
 
-  // 7. Weighted Total Score (65 - 96%)
+  // 7. Weighted Total Score (68 - 95%)
   const weighted = Math.round(
     skillScore * 0.35 +
     collegeScore * 0.25 +
     courseScore * 0.20 +
     goalScore * 0.20
   );
-  const overallMatch = Math.max(68, Math.min(96, weighted));
+
+  // Dynamic Track Synergy & Affinity Adjustment:
+  let trackSynergy = 0;
+  const targetGoal = (target.careerGoal || '').toLowerCase();
+  const targetSkills = (target.skills || []).map(s => s.toLowerCase());
+  const isDirect = targetGoal.includes('full') || targetGoal.includes('stack') || targetSkills.some(s => s.includes('full-stack'));
+  const isComplement = targetGoal.includes('ai') || targetGoal.includes('llm') || targetSkills.some(s => s.includes('ai'));
+  if (isDirect) trackSynergy = 9;
+  else if (isComplement) trackSynergy = 4;
+
+  // Individual Student XP & Profile Affinity Delta (organically distributes 72% - 95%)
+  const studentXp = target.xp || 0;
+  const xpBonus = Math.min(4, Math.floor(studentXp / 35));
+  const idHash = (target.id || '').split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const hashVariance = (idHash % 7) - 3; // -3 to +3 deterministic variation
+
+  const overallMatch = Math.max(72, Math.min(95, weighted + trackSynergy + xpBonus + hashVariance));
 
   // 8. Generate Dynamic Reason Tag
-  let reasonTag = '⚡ Common Engineering Interests';
+  let reasonTag = '🌱 Campus Peer Synergy';
   if (collegeScore === 100 && commonSkills.length > 0) {
     reasonTag = `🏫 Same College • ${commonSkills.length} shared skill${commonSkills.length > 1 ? 's' : ''}`;
   } else if (courseScore >= 90 && commonSkills.length > 0) {
@@ -156,11 +183,13 @@ export function computeStudentMatch(
   }
 
   // 9. Conversational Icebreakers
-  const safeTargetName = (target.name || 'Student Peer').split(' ')[0];
-  const targetFirstSkill = (Array.isArray(target.skills) && target.skills[0]) || 'software engineering';
+  const rawTargetName = (target.name || '').trim();
+  const isGenericName = !rawTargetName || /^(student|campus student|user)$/i.test(rawTargetName);
+  const safeTargetName = isGenericName ? 'there' : rawTargetName.split(' ')[0];
+  const targetFirstSkill = (Array.isArray(target.skills) && target.skills[0]) || '';
   const icebreakers: string[] = [
-    `Hey ${safeTargetName}, I noticed you're exploring ${targetFirstSkill}. Want to collaborate?`,
-    `Would you be up for a 1v1 Arena challenge on ${commonSkills[0] || targetFirstSkill || 'algorithms'}?`
+    targetFirstSkill ? `Hey ${safeTargetName}, I noticed you're exploring ${targetFirstSkill}. Want to collaborate?` : `Hey ${safeTargetName}, great to connect with you on Campus Network!`,
+    `Would you be up for a friendly 1v1 Arena challenge or study session?`
   ];
   if (commonSkills.length > 0) {
     icebreakers.push(`Saw your experience in ${commonSkills.join(' & ')}! Are you building any squad projects right now?`);

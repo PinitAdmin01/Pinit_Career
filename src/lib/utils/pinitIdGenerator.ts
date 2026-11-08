@@ -101,6 +101,42 @@ function isBoilerplateInstruction(line: string): boolean {
 }
 
 /**
+ * Master blacklist of non-person entities: institutions, addresses, boards, credentials, roles, mottos
+ */
+export const NON_PERSON_NAME_PATTERN = /(?:college|institut[a-z]*|universit[a-z]*|polytechnic|school|academy|vidyalaya|vidyapeeth|shishu|mandir|kendra|management|autonomous|approved|affiliated|recogni[sz]ed?|accredited|society|trust|foundation|mission|parishad|sangh|board|cbse|icse|state\s*board|council|education|educational|government|govt|gow|state|national|international|public|model|senior|secondary|primary|grammar|campus|office|admin|admission|address|nagar|road|street|cross|lane|gali|mohalla|colony|vihar|sector|layout|complex|building|opp|opposite|near|behind|beside|dist|district|post|pin|pincode|taluk|tehsil|state|city|india|ph|phone|mobile|cell|contact|tel|emergency|help|email|www|http|website|web|valid|issued|issue|expiry|expires|exp|date|birth|dob|blood|group|roll|reg|usn|idno|id\s*no|card|identity|student|candidate|father|mother|parent|guardian|husband|teacher|lecturer|professor|instructor|staff|hod|principal|headmaster|headmistress|director|dean|officer|guard|assistant|librarian|employee|holder|signature|sign|course|branch|dept|department|oepsriment|faculty|discipline|semester|sem|year|class|sec|section|div|division|batch|session|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|\bnursing\b|finance|f\/hr|adarsh|sunrise|welcome|satyamev|gurudev|om\s*shanti|specimen|duplicate|sample|void)/i;
+
+export function isInvalidStudentName(name: string): boolean {
+  if (!name || typeof name !== 'string') return true;
+  const clean = name.trim();
+  if (clean.length < 2 || clean.length > 35) return true;
+
+  // 1. Blacklist check (institutions, localities, roles, etc.)
+  if (NON_PERSON_NAME_PATTERN.test(clean)) return true;
+
+  // 2. Reject obvious AI placeholders
+  if (/^(?:student|candidate|name|none|n\/a|unknown|null|undefined|na|nil|person)$/i.test(clean)) return true;
+
+  // 3. Reject OCR gibberish with 3+ repeated characters
+  if (/(.)\1{2,}/i.test(clean)) return true;
+
+  // 4. Reject URLs, emails, numbers
+  if (/@|\.com\b|\.org\b|\.in\b|www\./i.test(clean)) return true;
+  if (/\d/.test(clean)) return true;
+
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (words.length === 0 || words.length > 4) return true;
+
+  // 5. Must have at least one meaningful word (>= 3 letters)
+  if (!words.some(w => w.replace(/[^a-zA-Z]/g, '').length >= 3)) return true;
+
+  // 6. In multi-word names, reject if 2 or more words are tiny <= 2 letter tokens without initials dot (e.g. "Aanyadas Ig Ii")
+  const shortNonInitials = words.filter(w => w.replace(/\./g, '').length <= 2 && !w.includes('.'));
+  if (shortNonInitials.length >= 2) return true;
+
+  return false;
+}
+
+/**
  * Generate a clean, 3-digit deterministic hash from a string.
  */
 function hashTo3Digits(input: string): string {
@@ -392,7 +428,7 @@ export function parseCollegeCardFromText(
         .replace(/\s+(?:idno|id\s*no|roll|reg|branch|course|batch|dob|date|valid).*$/i, '')
         .replace(/^[^a-zA-Z]+/, '')
         .trim();
-      if (cleanVal.length >= 2 && !/(?:college|institute|university|school|card|identity|student)/i.test(cleanVal)) {
+      if (cleanVal.length >= 2 && !isInvalidStudentName(cleanVal)) {
         studentName = cleanVal;
         break;
       }
@@ -406,8 +442,7 @@ export function parseCollegeCardFromText(
       for (let k = fatherIdx - 1; k >= 0; k--) {
         const prevCandidate = rawLines[k].replace(/[^A-Za-z\s.]/g, ' ').trim();
         const prevWords = prevCandidate.split(/\s+/).filter(Boolean);
-        const isHeader = /(?:college|institute|university|school|dept|jammu|kashmir|govt|affiliated|recognized|autonomous|instructions)/i.test(prevCandidate);
-        if (!isHeader && prevWords.length >= 1 && prevWords.length <= 4 && prevCandidate.length >= 3) {
+        if (!isInvalidStudentName(prevCandidate) && prevWords.length >= 1 && prevWords.length <= 4 && prevCandidate.length >= 3) {
           studentName = prevCandidate;
           break;
         }
@@ -430,7 +465,7 @@ export function parseCollegeCardFromText(
       const words = cleanCandidate.split(/\s+/).filter(Boolean);
       const isForbidden = /(?:college|institute|university|polytechnic|school|academy|vidyalaya|vidyapeeth|shishu|mandir|kendra|management|autonomous|approved|affiliated|recogni[sz]ed?|accredited|society|trust|foundation|mission|parishad|sangh|board|cbse|icse|state\s*board|council|education|educational|government|govt|gow|state|national|international|public|model|senior|secondary|primary|grammar|campus|office|admin|admission|address|nagar|road|street|cross|lane|gali|mohalla|colony|vihar|sector|layout|complex|building|opp|opposite|near|behind|beside|dist|district|post|pin|pincode|taluk|tehsil|state|city|india|ph|phone|mobile|cell|contact|tel|emergency|help|email|www|http|website|web|valid|issued|issue|expiry|expires|exp|date|birth|dob|blood|group|roll|reg|usn|idno|card|identity|student|candidate|father|mother|parent|guardian|husband|teacher|lecturer|professor|instructor|staff|hod|principal|headmaster|headmistress|director|dean|officer|guard|assistant|librarian|employee|holder|signature|sign|course|branch|dept|department|oepsriment|faculty|discipline|semester|sem|year|class|sec|section|div|division|batch|session|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|\bnursing\b|finance|f\/hr)/i.test(cleanCandidate);
 
-      if (!isForbidden && words.length >= 1 && words.length <= 4 && cleanCandidate.length >= 3) {
+      if (!isForbidden && !isInvalidStudentName(cleanCandidate) && words.length >= 1 && words.length <= 4 && cleanCandidate.length >= 3) {
         studentName = cleanCandidate;
         break;
       }
@@ -522,13 +557,21 @@ export function parseCollegeCardFromText(
   }
 
   if (studentName) {
-    studentName = studentName
-      .replace(/^[a-z]\s+([a-z]{3,})/i, '$1')
-      .replace(/^([a-z])\.([a-z])/i, '$1. $2')
-      .toLowerCase()
-      .split(/\s+/)
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(' ');
+    if (isInvalidStudentName(studentName)) {
+      studentName = fallbackDisplayName || '';
+    } else {
+      studentName = studentName
+        .replace(/^[a-z]\s+([a-z]{3,})/i, '$1')
+        .replace(/^([a-z])\.([a-z])/i, '$1. $2')
+        .toLowerCase()
+        .split(/\s+/)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+
+      if (isInvalidStudentName(studentName)) {
+        studentName = fallbackDisplayName || '';
+      }
+    }
   } else {
     studentName = fallbackDisplayName || '';
   }

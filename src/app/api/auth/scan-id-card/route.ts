@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
-import { parseCollegeCardFromText, generateCollegePinItId, CollegeMetadata } from '@/lib/utils/pinitIdGenerator';
+import { parseCollegeCardFromText, generateCollegePinItId, CollegeMetadata, isInvalidStudentName } from '@/lib/utils/pinitIdGenerator';
 
 const VISION_SYSTEM_PROMPT = `You are a specialist Document AI OCR vision model analyzing university, college, and school identity cards.
 Carefully examine the visual layout of this student ID card.
@@ -26,8 +26,8 @@ function sanitizeAiOutput(parsed: any, rawReply: string): CollegeMetadata | null
   if (!parsed.collegeCode && !parsed.studentName && !parsed.rollNumber) return null;
 
   let sName = (parsed.studentName || '').trim();
-  // Filter obvious AI hallucinations or placeholders
-  if (/^(?:student|candidate|name|none|n\/a|unknown|null|undefined)$/i.test(sName)) {
+  // Filter non-person entities, institution titles, addresses, OCR noise or AI placeholders
+  if (isInvalidStudentName(sName)) {
     sName = '';
   }
 
@@ -59,7 +59,7 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.2-11b-vision-preview',
+        model: 'qwen/qwen3.8-27b',
         messages: [
           {
             role: 'user',
@@ -75,6 +75,7 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
           },
         ],
         temperature: 0.1,
+        max_tokens: 500,
         response_format: { type: 'json_object' },
       }),
       signal: AbortSignal.timeout(8000),

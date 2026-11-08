@@ -366,20 +366,26 @@ function FriendsContent() {
           {/* Hero Banner with Custom Lettering & Graphic */}
           <div className="friends-hero-ref">
             <div className="friends-hero-text-wrap">
+              <div className="friends-hero-badge-pill">
+                <span className="hero-badge-dot" />
+                <span>PINIT CAMPUS NETWORK</span>
+              </div>
               <h1 className="friends-hero-title-ref">
-                My <span>Network</span>
+                Connect & Collaborate with <span>Tech Peers</span>
               </h1>
               <p className="friends-hero-subtitle-ref">
-                Connect with peers, collaborate on engineering projects, and build institutional connections.
+                Discover fellow engineers, form hack squads, compete in 1v1 arenas, and unlock shared milestones together.
               </p>
             </div>
 
             <div className="friends-hero-graphic-wrap">
-              <div className="hero-cursive-quote">Good Friends Better Future</div>
-              <div className="hero-tagline-caps">
-                SAME LEARNING<br />
-                DIFFERENT PATHS<br />
-                GREATER TOGETHER
+              <div className="hero-stats-badge-card">
+                <div className="hero-stats-badge-val">⚡ {activeSuggested.length > 0 ? activeSuggested.length + '+' : '10+'}</div>
+                <div className="hero-stats-badge-lbl">Active Campus Peers</div>
+                <div className="hero-stats-badge-status">
+                  <span className="online-beacon-dot" />
+                  <span>AI Synergy Matched</span>
+                </div>
               </div>
             </div>
           </div>
@@ -394,7 +400,7 @@ function FriendsContent() {
             <button
               className={`friends-tab-pill ${activeTab === 'network' ? 'active' : ''}`} onClick={() => setActiveTab('network')}
             >
-              My Network
+              <span>👥</span> My Network
               {networkStats.friendsCount > 0 && (
                 <span className="tab-counter-badge">{networkStats.friendsCount}</span>
               )}
@@ -402,7 +408,7 @@ function FriendsContent() {
             <button
               className={`friends-tab-pill ${activeTab === 'requests' ? 'active' : ''}`} onClick={() => setActiveTab('requests')}
             >
-              <span>👤+</span> Requests
+              <span>📨</span> Requests
               {networkStats.pendingCount > 0 && (
                 <span className="tab-counter-badge" style={{ background: '#ef4444' }}>{networkStats.pendingCount}</span>
               )}
@@ -410,17 +416,17 @@ function FriendsContent() {
             <button
               className={`friends-tab-pill ${activeTab === 'messages' ? 'active' : ''}`} onClick={() => setActiveTab('messages')}
             >
-              Messages
+              <span>💬</span> Messages
             </button>
             <button
               className={`friends-tab-pill ${activeTab === 'challenges' ? 'active' : ''}`} onClick={() => setActiveTab('challenges')}
             >
-              Challenges
+              <span>⚔️</span> Challenges
             </button>
             <button
               className={`friends-tab-pill ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}
             >
-              Group Projects
+              <span>🚀</span> Group Projects
             </button>
             <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', paddingRight: 4 }}>
               <button
@@ -534,69 +540,97 @@ function FriendsContent() {
                   </div>
                 ) : (
                   <div className="suggested-cards-grid">
-                    {activeSuggested.slice(0, 6).map((peer) => (
-                      <div key={peer.id} className="suggested-peer-card">
-                        <div className="suggested-card-top">
-                          <div
-                            className="suggested-avatar-box"
-                            style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(peer.id)}
-                            title={`View ${peer.name}'s Profile`}
-                          >
-                            <img src={peer.avatar} alt={peer.name} />
-                            {peer.online && <span className="online-beacon" />}
-                          </div>
-                          <div
-                            className="match-percentage-badge"
-                            style={{ cursor: 'pointer' }}
-                            title="Click for AI Affinity Breakdown" onClick={() => handleOpenSmartMatch(peer)}
-                          >
-                            <span className="match-percentage-val">{peer.matchPct}%</span>
-                            <span className="match-percentage-label">Match</span>
-                          </div>
-                        </div>
+                    {activeSuggested.slice(0, 6).map((peer) => {
+                      const matchPct = peer.matchPct || 75;
+                      const matchBadgeClass = matchPct >= 90
+                        ? 'match-badge-emerald'
+                        : matchPct >= 80
+                          ? 'match-badge-indigo'
+                          : 'match-badge-cyan';
 
-                        <div
-                          className="suggested-peer-name"
-                          title={peer.name}
-                          style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(peer.id)}
-                        >
-                          {peer.name}
-                        </div>
-                        <div className="suggested-peer-degree">{peer.course} • {peer.college}</div>
-
-                        <div className="suggested-skills-pills" style={{ minHeight: 28 }}>
-                          {Array.isArray(peer.skills) && peer.skills.length > 0
-                            ? peer.skills.map((s, i) => (
-                                <span key={i} className="mini-skill-pill">
-                                  {typeof s === 'string' ? s.replace(/^skills?[\s:-]+/i, '') : s}
-                                </span>
-                              ))
-                            : null}
-                        </div>
-
-                        <div className="suggested-card-btn-row">
-                          <button
-                            className="friends-btn friends-btn-secondary" onClick={() => setSelectedStudent(peer)}
-                            
-                          >
-                            View Profile
-                          </button>
-                          {sentRequests[peer.id] ? (
-                            <button
-                              className="friends-btn friends-btn-pending" disabled>
-                              ✓ Sent
-                            </button>
-                          ) : (
-                            <button
-                              className="friends-btn friends-btn-primary" onClick={() => handleAddFriend(peer.id, peer.name)}
-                              
+                      return (
+                        <div key={peer.id} className="suggested-peer-card">
+                          <div className="suggested-card-top">
+                            <div
+                              className="suggested-avatar-box"
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => handleNavigateToProfile(peer.id)}
+                              title={`View ${peer.name}'s Profile`}
                             >
-                              + Add Friend
+                              <img src={peer.avatar} alt={peer.name} />
+                              {peer.online && <span className="online-beacon" />}
+                            </div>
+                            <div
+                              className={`match-percentage-badge ${matchBadgeClass}`}
+                              style={{ cursor: 'pointer' }}
+                              title="Click for AI Affinity Breakdown"
+                              onClick={() => handleOpenSmartMatch(peer)}
+                            >
+                              <span className="match-percentage-val">{matchPct}%</span>
+                              <span className="match-percentage-label">Match</span>
+                            </div>
+                          </div>
+
+                          <div
+                            className="suggested-peer-name"
+                            title={peer.name}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleNavigateToProfile(peer.id)}
+                          >
+                            {peer.name}
+                          </div>
+                          <div className="suggested-peer-degree" title={`${peer.course} • ${peer.college}`}>
+                            <span className="degree-icon">🎓</span> {peer.course} • {peer.college}
+                          </div>
+
+                          <div className="suggested-skills-pills" style={{ minHeight: 28 }}>
+                            {Array.isArray(peer.skills) && peer.skills.length > 0
+                              ? peer.skills.map((s, i) => {
+                                  const skillStr = typeof s === 'string' ? s.replace(/^skills?[\s:-]+/i, '') : String(s);
+                                  const icon = skillStr.toLowerCase().includes('full') || skillStr.toLowerCase().includes('stack')
+                                    ? '⚡'
+                                    : skillStr.toLowerCase().includes('ai') || skillStr.toLowerCase().includes('ml')
+                                      ? '🧠'
+                                      : skillStr.toLowerCase().includes('cyber')
+                                        ? '🛡️'
+                                        : skillStr.toLowerCase().includes('devops') || skillStr.toLowerCase().includes('cloud')
+                                          ? '☁️'
+                                          : '✦';
+                                  return (
+                                    <span key={i} className="mini-skill-pill">
+                                      <span>{icon}</span> {skillStr}
+                                    </span>
+                                  );
+                                })
+                              : null}
+                          </div>
+
+                          <div className="suggested-card-btn-row">
+                            <button
+                              className="friends-btn friends-btn-secondary"
+                              onClick={() => setSelectedStudent(peer)}
+                            >
+                              View Profile
                             </button>
-                          )}
+                            {sentRequests[peer.id] ? (
+                              <button
+                                className="friends-btn friends-btn-pending"
+                                disabled
+                              >
+                                ✓ Sent
+                              </button>
+                            ) : (
+                              <button
+                                className="friends-btn friends-btn-primary"
+                                onClick={() => handleAddFriend(peer.id, peer.name)}
+                              >
+                                + Add Friend
+                              </button>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -643,9 +677,11 @@ function FriendsContent() {
                           </div>
 
                           <div className="student-list-skills">
-                            {student.skills.map((sk, idx) => (
-                              <span key={idx} className="mini-skill-pill">{sk}</span>
-                            ))}
+                            {Array.isArray(student.skills) && student.skills.length > 0
+                              ? student.skills.map((sk, idx) => (
+                                  <span key={idx} className="mini-skill-pill">{sk}</span>
+                                ))
+                              : null}
                           </div>
 
                           <div className="student-list-actions">
@@ -693,9 +729,11 @@ function FriendsContent() {
                           </div>
                           <div className="suggested-peer-degree">{student.course} • {student.college}</div>
                           <div className="suggested-skills-pills">
-                            {student.skills.map((s, i) => (
-                              <span key={i} className="mini-skill-pill">{s}</span>
-                            ))}
+                            {Array.isArray(student.skills) && student.skills.length > 0
+                              ? student.skills.map((s, i) => (
+                                  <span key={i} className="mini-skill-pill">{s}</span>
+                                ))
+                              : null}
                           </div>
                           <div className="suggested-card-btn-row">
                             <button
