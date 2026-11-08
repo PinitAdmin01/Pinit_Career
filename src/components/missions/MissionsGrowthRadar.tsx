@@ -50,7 +50,7 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
   const commVal = isCalibrated ? safeNum(rawComm, 75) : 0;
   const execVal = isCalibrated ? safeNum(rawExec, 75) : 0;
   const leadVal = isCalibrated ? safeNum(rawLead, 75) : 0;
-  const streakVal = isCalibrated ? Math.min(100, Math.max(10, (rawStreak / 7) * 100 + 40 || 10)) : 0;
+  const streakVal = isCalibrated ? Math.round(Math.min(100, Math.max(10, (rawStreak / 7) * 100 + 40 || 10))) : 0;
 
   const metrics = [
     {

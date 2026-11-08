@@ -30,10 +30,11 @@ describe('BRUTAL VALIDATION — SOCRATIC ROLEPLAY SIMPLE ENGLISH (Task 3)', () =
       assert.ok(!node.message.toLowerCase().includes('algo drift'), 'Must not contain "algo drift"');
       assert.ok(!node.message.toLowerCase().includes('fifo fallback'), 'Must not contain "fifo fallback"');
 
-      // Verify 3 distinct, simple choices
-      assert.equal(node.choices.length, 3, 'Must have 3 choices');
+      // Verify 4 distinct, simple choices
+      assert.equal(node.choices.length, 4, 'Must have 4 choices');
       const deltas = node.choices.map((c) => c.delta);
       assert.ok(deltas.includes(4), 'Must include high-ownership choice (+4)');
+      assert.ok(deltas.includes(2), 'Must include tactical mitigation choice (+2)');
       assert.ok(deltas.includes(-2), 'Must include shortcut trap choice (-2)');
       assert.ok(deltas.includes(-4), 'Must include blame-shifting choice (-4)');
 
@@ -67,7 +68,7 @@ describe('BRUTAL VALIDATION — SOCRATIC ROLEPLAY SIMPLE ENGLISH (Task 3)', () =
     if ('message' in node) {
       assert.ok(node.message.length > 30, 'Message must be non-empty');
       assert.ok(!node.message.toLowerCase().includes('blast radius'), 'Must not contain "blast radius"');
-      assert.equal(node.choices.length, 3, 'Must have 3 choices');
+      assert.equal(node.choices.length, 4, 'Must have 4 choices');
     } else {
       assert.fail('Expected RoleplayNode');
     }

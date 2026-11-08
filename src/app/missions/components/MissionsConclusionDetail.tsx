@@ -20,6 +20,29 @@ interface MissionsConclusionDetailProps {
 export default function MissionsConclusionDetail({ theme, record, onBack }: MissionsConclusionDetailProps) {
   if (!record) return null;
 
+  // Clean structured parser for report sections
+  const parseReportSections = (report: string) => {
+    if (!report) return [];
+    const sections: { title: string; lines: string[] }[] = [];
+    let cur: { title: string; lines: string[] } | null = null;
+
+    report.split('\n').forEach((line) => {
+      const trimmed = line.trim();
+      if (trimmed.startsWith('### ') || trimmed.startsWith('## ') || trimmed.startsWith('#### ')) {
+        if (cur) sections.push(cur);
+        cur = { title: trimmed.replace(/^#+\s*/, ''), lines: [] };
+      } else if (cur) {
+        if (trimmed) cur.lines.push(trimmed);
+      } else if (trimmed) {
+        cur = { title: 'Executive Summary', lines: [trimmed] };
+      }
+    });
+    if (cur) sections.push(cur);
+    return sections;
+  };
+
+  const reportSections = record.report ? parseReportSections(record.report) : [];
+
   return (
     <div
       style={{
@@ -37,24 +60,27 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
           justifyContent: 'space-between',
           alignItems: 'center',
           borderBottom: `1px solid ${theme.border}`,
-          paddingBottom: 12,
-          marginBottom: 16,
+          paddingBottom: 14,
+          marginBottom: 18,
+          flexWrap: 'wrap',
+          gap: 10,
         }}
       >
         <button
           onClick={onBack}
           style={{
             background: theme.bgInside,
-            border: `1px solid ${theme.border}`,
-            padding: '8px 14px',
+            border: `1.5px solid ${theme.border}`,
+            padding: '8px 16px',
             borderRadius: 10,
             fontSize: 13,
-            fontWeight: 700,
+            fontWeight: 800,
             cursor: 'pointer',
             color: theme.tPrimary,
             display: 'inline-flex',
             alignItems: 'center',
             gap: 6,
+            transition: 'all 0.2s',
           }}
         >
           ← Back to History Timeline
@@ -67,7 +93,7 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
         <span
           style={{
-            padding: '5px 12px',
+            padding: '6px 14px',
             borderRadius: 8,
             fontSize: 12,
             fontWeight: 800,
@@ -95,14 +121,14 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
           {record.type === 'corporate_comm'
             ? '🎙️ Corporate Comm Session'
             : record.type === 'daily_mission'
-            ? '📅 Daily Mission Proof'
-            : `🧬 Archetype: ${record.mindsetArchetype || 'Pattern Hunter'}`}
+            ? '📋 Daily Mission Proof'
+            : `🧠 Archetype: ${record.mindsetArchetype || 'Pattern Hunter'}`}
         </span>
 
         {record.score && (
           <span
             style={{
-              padding: '5px 12px',
+              padding: '6px 14px',
               borderRadius: 8,
               fontSize: 12,
               fontWeight: 800,
@@ -118,11 +144,11 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
         {record.qt2Delta !== undefined && (
           <span
             style={{
-              padding: '5px 12px',
+              padding: '6px 14px',
               borderRadius: 8,
               fontSize: 12,
               fontWeight: 800,
-              background: record.qt2Delta >= 0 ? 'rgba(var(--accent-teal-rgb), 0.1)' : 'rgba(var(--danger-rgb), 0.1)',
+              background: record.qt2Delta >= 0 ? 'rgba(var(--accent-teal-rgb), 0.12)' : 'rgba(var(--danger-rgb), 0.12)',
               color: record.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)',
               border: `1px solid ${
                 record.qt2Delta >= 0 ? 'rgba(var(--accent-teal-rgb), 0.25)' : 'rgba(var(--danger-rgb), 0.25)'
@@ -136,78 +162,170 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
 
       <h2
         style={{
-          fontSize: 21,
+          fontSize: 22,
           fontWeight: 900,
           color: theme.tPrimary,
-          margin: '0 0 14px',
+          margin: '0 0 16px',
           fontFamily: 'var(--font-display)',
         }}
       >
         {record.title}
       </h2>
 
+      {/* Structured Socratic Report Container */}
       <div
         style={{
           background: theme.bgInside,
-          border: `1px solid ${theme.border}`,
+          border: `1.5px solid ${theme.border}`,
           borderRadius: 18,
           padding: 20,
-          fontSize: 14.5,
+          fontSize: 14,
           lineHeight: 1.65,
           color: theme.tSecondary,
-          maxHeight: 520,
+          maxHeight: 640,
           overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
         }}
       >
-        {record.report ? (
-          record.report.split('\n').map((line: string, idx: number) => {
-            if (line.startsWith('### ')) {
+        {reportSections.length > 0 ? (
+          reportSections.map((sec, idx) => {
+            const isVerdict = /VERDICT/i.test(sec.title);
+            const isStrengths = /STRENGTHS|HANDLED WELL/i.test(sec.title);
+            const isBlindspots = /BLIND SPOTS|WENT WRONG/i.test(sec.title);
+            const isTakeaway = /TAKEAWAY|LEADERSHIP/i.test(sec.title);
+
+            if (isVerdict) {
               return (
-                <h4
+                <div
                   key={idx}
                   style={{
-                    margin: '16px 0 6px',
-                    color: 'var(--accent)',
-                    fontWeight: 800,
-                    fontSize: 15,
-                    textTransform: 'uppercase',
-                    fontFamily: 'var(--font-mono)',
+                    background: 'linear-gradient(135deg, rgba(20,184,166,0.12) 0%, rgba(99,102,241,0.08) 100%)',
+                    border: '1.5px solid rgba(20,184,166,0.3)',
+                    borderRadius: 14,
+                    padding: 16,
                   }}
                 >
-                  {line.replace('### ', '')}
-                </h4>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                    <span style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--teal)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+                      🏆 Executive Verdict & Score
+                    </span>
+                    <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--teal)', background: 'rgba(20,184,166,0.15)', padding: '3px 10px', borderRadius: 999 }}>
+                      Score: {record.qt2Delta >= 0 ? `+${record.qt2Delta}` : record.qt2Delta} pts
+                    </span>
+                  </div>
+                  {sec.lines.map((l, lIdx) => (
+                    <p key={lIdx} style={{ margin: '0 0 6px', fontSize: 13.5, color: theme.tPrimary, fontWeight: 600 }}>
+                      {l.replace(/\*\*/g, '')}
+                    </p>
+                  ))}
+                </div>
               );
             }
-            if (line.startsWith('## ')) {
+
+            if (isStrengths) {
               return (
-                <h3 key={idx} style={{ margin: '20px 0 8px', color: theme.tPrimary, fontWeight: 800, fontSize: 16.5 }}>
-                  {line.replace('## ', '')}
-                </h3>
+                <div
+                  key={idx}
+                  style={{
+                    background: 'rgba(16,185,129,0.08)',
+                    border: '1px solid rgba(16,185,129,0.25)',
+                    borderRadius: 14,
+                    padding: 16,
+                  }}
+                >
+                  <h4 style={{ margin: '0 0 10px', fontSize: 14, fontWeight: 800, color: '#10b981', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    🟢 Key Strengths (What You Handled Well)
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {sec.lines.map((l, lIdx) => (
+                      <div key={lIdx} style={{ fontSize: 13.5, lineHeight: 1.55, color: theme.tPrimary }}>
+                        {l.replace(/^[•\s*-]+\s*/, '✔ ').replace(/\*\*/g, '')}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               );
             }
-            if (line.startsWith('* ')) {
+
+            if (isBlindspots) {
               return (
-                <li key={idx} style={{ marginLeft: 16, marginBottom: 4, color: theme.tPrimary }}>
-                  {line.replace('* ', '')}
-                </li>
+                <div
+                  key={idx}
+                  style={{
+                    background: 'rgba(239,68,68,0.08)',
+                    border: '1px solid rgba(239,68,68,0.25)',
+                    borderRadius: 14,
+                    padding: 16,
+                  }}
+                >
+                  <h4 style={{ margin: '0 0 10px', fontSize: 14, fontWeight: 800, color: '#ef4444', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    🔴 Blind Spots & What Went Wrong
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {sec.lines.map((l, lIdx) => (
+                      <div key={lIdx} style={{ fontSize: 13.5, lineHeight: 1.55, color: theme.tPrimary }}>
+                        {l.replace(/^[•\s*-]+\s*/, '⚠ ').replace(/\*\*/g, '')}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               );
             }
+
+            if (isTakeaway) {
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    background: 'rgba(99,102,241,0.08)',
+                    border: '1px solid rgba(99,102,241,0.25)',
+                    borderRadius: 14,
+                    padding: 16,
+                  }}
+                >
+                  <h4 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 800, color: '#818cf8', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    🎯 Senior Leadership Takeaway
+                  </h4>
+                  <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.6, color: theme.tPrimary, fontWeight: 600 }}>
+                    {sec.lines.join(' ').replace(/\*\*/g, '')}
+                  </p>
+                </div>
+              );
+            }
+
             return (
-              <p key={idx} style={{ margin: '0 0 10px' }}>
-                {line}
-              </p>
+              <div
+                key={idx}
+                style={{
+                  background: 'rgba(255,255,255,0.02)',
+                  border: `1px solid ${theme.border}`,
+                  borderRadius: 14,
+                  padding: 14,
+                }}
+              >
+                <h4 style={{ margin: '0 0 8px', fontSize: 13.5, fontWeight: 800, color: theme.tSecondary, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+                  {sec.title}
+                </h4>
+                {sec.lines.map((l, lIdx) => (
+                  <div key={lIdx} style={{ fontSize: 13, color: theme.tPrimary, margin: '4px 0' }}>
+                    {l.replace(/\*\*/g, '')}
+                  </div>
+                ))}
+              </div>
             );
           })
         ) : record.userSubmission ? (
           <div>
             <h4
               style={{
-                fontSize: 13,
+                fontSize: 13.5,
                 fontWeight: 800,
                 color: 'var(--accent)',
                 textTransform: 'uppercase',
                 fontFamily: 'var(--font-mono)',
-                margin: '0 0 6px',
+                margin: '0 0 8px',
               }}
             >
               Candidate Submission Proof:

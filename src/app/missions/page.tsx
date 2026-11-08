@@ -136,6 +136,7 @@ function MissionsPageInner() {
         updateRoleplayActive={updateRoleplayActive}
         setEvaluationReport={setEvaluationReport}
         triggerEvaluation={triggerEvaluation}
+        setActiveTab={setActiveTab}
       />
     );
   }
@@ -250,7 +251,8 @@ function MissionsPageInner() {
         )}
       </div>
 
-      {/* Downstairs Analysis Section ("rest analisis will be down") */}
+      {/* Downstairs Analysis Section - Strictly only shown on Evolve tab */}
+      {activeTab === 'evolve' && (
       <div style={{ marginTop: 32 }}>
         <div
           style={{
@@ -337,6 +339,7 @@ function MissionsPageInner() {
           hasCompletedAnyMission={hasCompletedAnyMission}
         />
       </div>
+      )}
     </div>
   );
 }

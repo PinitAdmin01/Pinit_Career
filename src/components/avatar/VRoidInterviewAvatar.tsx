@@ -28,7 +28,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     const safetyTimer = setTimeout(() => {
       setHasWebGLError(true);
       setIsLoading(false);
-    }, 8000);
+    }, 3000);
 
     scene.onReady = () => {
       clearTimeout(safetyTimer);
@@ -104,6 +104,16 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     }
   }, [paused, visible]);
 
+  const avatarEmoji =
+    teacherId === 'priya' ? '👩‍💼'
+    : teacherId === 'rohan' ? '👨‍💻'
+    : teacherId === 'vikram' ? '👨‍⚖️'
+    : teacherId === 'rajesh' ? '👨‍💼'
+    : teacherId === 'sneha' ? '👩‍💻'
+    : teacherId === 'abhijit' ? '👨‍🏫'
+    : teacherId === 'kashyap' ? '👨‍🔬'
+    : '👩‍🏫';
+
   if (hasWebGLError) {
     return (
       <div style={{
@@ -113,10 +123,10 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
         color: '#fff', textAlign: 'center', padding: 20
       }}>
         <div style={{ fontSize: 70.5, marginBottom: 12, filter: 'drop-shadow(0 4px 12px rgba(99,102,241,0.4))' }}>
-          {teacherId === 'priya' ? '👩‍💼' : teacherId === 'rohan' ? '👨‍💻' : teacherId === 'vikram' ? '👨‍⚖️' : '👩‍🏫'}
+          {avatarEmoji}
         </div>
         <div style={{ fontSize: 17.5, fontWeight: 900, textTransform: 'capitalize' }}>
-          {teacherId} (AI Interviewer)
+          {teacherId} (AI Mentor)
         </div>
         <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 4 }}>
           2D Mode Active • Audio Vocal Track Connected
@@ -137,31 +147,37 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'radial-gradient(circle at center, rgba(15, 23, 42, 0.7) 0%, rgba(2, 6, 23, 0.9) 100%)',
-            backdropFilter: 'blur(4px)',
+            background: 'linear-gradient(135deg, rgba(30,27,75,0.88) 0%, rgba(15,23,42,0.94) 100%)',
             zIndex: 10,
-            pointerEvents: 'none',
           }}
         >
-          <div
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: '50%',
-              border: '3px solid rgba(99, 102, 241, 0.2)',
-              borderTopColor: '#818cf8',
-              animation: 'vroid-avatar-spin 0.85s linear infinite',
-            }}
-          />
+          <div style={{ fontSize: 56, marginBottom: 8, filter: 'drop-shadow(0 4px 12px rgba(99,102,241,0.4))' }}>
+            {avatarEmoji}
+          </div>
+          <div style={{ fontSize: 16, fontWeight: 900, textTransform: 'capitalize', color: '#fff' }}>
+            {teacherId} (AI Mentor)
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 10 }}>
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: '50%',
+                border: '2px solid rgba(99, 102, 241, 0.3)',
+                borderTopColor: '#818cf8',
+                animation: 'vroid-avatar-spin 0.85s linear infinite',
+              }}
+            />
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', letterSpacing: '0.05em' }}>
+              CONNECTING 3D MENTOR FEED...
+            </span>
+          </div>
           <style>{`
             @keyframes vroid-avatar-spin {
               from { transform: rotate(0deg); }
               to { transform: rotate(360deg); }
             }
           `}</style>
-          <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginTop: 12, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Synthesizing 3D Mentor...
-          </div>
         </div>
       )}
     </div>

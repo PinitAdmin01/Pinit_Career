@@ -123,6 +123,15 @@ function pick<T>(rng: () => number, list: T[], avoid?: T): T {
   return item;
 }
 
+function shuffleChoices(choices: RoleplayChoice[], rng: () => number): RoleplayChoice[] {
+  const arr = [...choices];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function sessionSeed(req: RoleplayRequest): number {
   return hashString([
     req.userId || 'anon',
@@ -235,23 +244,28 @@ function generateInitializeNode(req: RoleplayRequest): RoleplayNode {
     avatarName: cast.name,
     avatarRole: cast.role,
     message: lines[avatar],
-    choices: [
+    choices: shuffleChoices([
       {
-        text: `Be honest and take ownership: calmly explain what broke, do not hide errors with quick fake patches, and give an honest time estimate to fix it safely.`,
+        text: `Stay calm and isolate the failing component: check live error logs, enable read-only cache fallback, and post an honest update in 15 minutes.`,
         delta: 4,
-        rationale: 'Honest ownership under pressure',
+        rationale: 'Calm, methodical containment and transparent ownership',
       },
       {
-        text: `Apply a quick cosmetic patch to hide the error message so the screen looks normal for now, and investigate the real problem later.`,
+        text: `Temporarily shed non-critical background jobs to free up server CPU while we inspect the login bottleneck.`,
+        delta: 2,
+        rationale: 'Tactical load shedding to preserve core user flow',
+      },
+      {
+        text: `Immediately trigger a full emergency rollback of all recent deployments before checking if the new code was even the cause.`,
         delta: -2,
-        rationale: 'Risky shortcut trap',
+        rationale: 'Premature panic rollback that rolls back unrelated valid changes',
       },
       {
-        text: `Blame ${other.name} for the mistake and refuse to help until someone else admits fault.`,
+        text: `Apply a quick cosmetic patch to hide the error message from users and investigate the real problem later.`,
         delta: -4,
-        rationale: 'Blaming others and avoiding responsibility',
+        rationale: 'Superficial cosmetic fix that masks root causes',
       },
-    ],
+    ], rng),
     isEnded: false,
     source: 'generated',
   };
@@ -328,93 +342,118 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
   const phaseChoices: Record<number, RoleplayChoice[]> = {
     1: [
       {
-        text: `Stay calm and verify the logs: isolate the affected service, check error rates, and communicate calmly to the team.`,
+        text: `Methodically inspect error logs, isolate the affected service container, and share a verified status update with the team.`,
         delta: 4,
         rationale: 'Calm, methodical triage and transparent communication',
       },
       {
-        text: `Hit panic restart on all production servers immediately without checking what caused the error.`,
-        delta: -2,
-        rationale: 'Rushed impulsive action that risks data corruption',
+        text: `Route incoming traffic to healthy backup instances while keeping write operations in safe queue mode.`,
+        delta: 2,
+        rationale: 'Pragmatic traffic preservation and failure isolation',
       },
       {
-        text: `Dismiss the alarms as a false positive and tell complaining users to simply refresh their browsers.`,
+        text: `Restart all production cluster nodes at once without verifying if restart will drop in-flight transactions.`,
+        delta: -2,
+        rationale: 'Impulsive restart that risks losing user session data',
+      },
+      {
+        text: `Dismiss the alert as a temporary network blip and tell complaining customers to just refresh their browsers.`,
         delta: -4,
-        rationale: 'Denial and brushing off customer impact',
+        rationale: 'Denial and ignoring actual operational telemetry',
       },
     ],
     2: [
       {
-        text: `Reject the quick hack: explain that hiding the error will cause worse data loss, and stick to the verified fix.`,
+        text: `Reject the quick hack: explain that hiding the error will corrupt data, and stick to the verified containment fix.`,
         delta: 4,
         rationale: 'Courage to uphold safety standards under acute pressure',
       },
       {
-        text: `Silently push the untested hack to hide the red dashboard indicators before management notices.`,
-        delta: -2,
-        rationale: 'Superficial cosmetic fix that hides systemic failure',
+        text: `Apply a rate-limiter on client requests to stabilize database connections while the core patch is being reviewed.`,
+        delta: 2,
+        rationale: 'Pragmatic backpressure management to prevent cascade crashes',
       },
       {
-        text: `Blame the junior engineer who merged the PR and refuse to take responsibility until they apologize.`,
+        text: `Quietly turn off non-essential telemetry and logging alerts to make the dashboard look green for management.`,
+        delta: -2,
+        rationale: 'Superficial cosmetic masking that hides active degradation',
+      },
+      {
+        text: `Silently push an untested branch patch into production without code review to stop the alarms immediately.`,
         delta: -4,
-        rationale: 'Toxic blame culture and dodging accountability',
+        rationale: 'Bypassing verification protocols under panic',
       },
     ],
     3: [
       {
-        text: `Safely roll back to the last known stable release with peer review, and verify database integrity before re-enabling traffic.`,
+        text: `Safely roll back to the last verified release build with peer review, and verify database integrity.`,
         delta: 4,
-        rationale: 'Safe containment, rollback hygiene, and verified data safety',
+        rationale: 'Controlled rollback hygiene and data consistency verification',
+      },
+      {
+        text: `Enable a safe circuit breaker on the failing endpoint so unaffected features keep running for active users.`,
+        delta: 2,
+        rationale: 'Defensive isolation to minimize blast radius',
+      },
+      {
+        text: `Pause all deployments company-wide for the rest of the week out of fear, without identifying the root cause.`,
+        delta: -2,
+        rationale: 'Excessive organizational paralysis over-reacting to a single bug',
       },
       {
         text: `Directly edit live production database values using manual SQL queries without taking a backup.`,
-        delta: -2,
-        rationale: 'High-risk cowboy troubleshooting in a live environment',
-      },
-      {
-        text: `Argue with the team over who wrote the code instead of taking action to stop the memory leak.`,
         delta: -4,
-        rationale: 'Wasting critical incident time on unproductive infighting',
+        rationale: 'High-risk unhedged cowboy intervention in production',
       },
     ],
     4: [
       {
-        text: `Deliver an honest, professional status update: state the current customer impact, immediate mitigation in progress, and the next checkpoint in 15 minutes.`,
+        text: `Deliver an honest executive update: state exact customer impact, immediate mitigation underway, and next checkpoint in 15 minutes.`,
         delta: 4,
         rationale: 'Executive communication anchor: impact, action, timeline',
       },
       {
-        text: `Make an unrealistic promise that everything will be 100% resolved in 2 minutes just to get leadership off the call.`,
-        delta: -2,
-        rationale: 'Over-promising trap that destroys trust when missed',
+        text: `Brief the customer support team with clear talking points and realistic expectations while keeping engineering focused.`,
+        delta: 2,
+        rationale: 'Proactive cross-functional alignment and stakeholder management',
       },
       {
-        text: `Confront the leadership angrily and tell them to stop bothering engineers while they are trying to work.`,
+        text: `Refuse to give any status updates to client relations until the entire issue is 100% resolved hours later.`,
+        delta: -2,
+        rationale: 'Information blackout that breeds panic and mistrust',
+      },
+      {
+        text: `Make an unrealistic promise that everything will be 100% resolved in 2 minutes just to get leadership off the call.`,
         delta: -4,
-        rationale: 'Hostile communication and loss of professional composure',
+        rationale: 'Over-promising trap that destroys executive credibility',
       },
     ],
     5: [
       {
-        text: `Verify 100% traffic stability, write automated regression tests to prevent repeats, and schedule a blameless post-mortem with actionable takeaways.`,
+        text: `Verify 100% traffic stability, write automated regression tests to prevent repeats, and schedule a blameless post-mortem.`,
         delta: 4,
-        rationale: 'Long-term engineering excellence and blameless learning culture',
+        rationale: 'Long-term engineering excellence and blameless retrospective culture',
       },
       {
-        text: `Close the war room immediately and go home without verifying data integrity or writing any documentation.`,
+        text: `Document the step-by-step incident recovery in the internal team wiki and calibrate alert thresholds for early warning.`,
+        delta: 2,
+        rationale: 'Institutional memory and operational hardening',
+      },
+      {
+        text: `Mark the incident ticket as resolved immediately without running any post-deployment verification tests.`,
         delta: -2,
-        rationale: 'Cutting corners at the finish line without safety verification',
+        rationale: 'Premature closure without verifying end-to-end telemetry',
       },
       {
-        text: `Write an incident email publicly criticizing other teams for causing the outage.`,
+        text: `Close the war room and log off immediately without writing documentation, assuming someone else will clean up.`,
         delta: -4,
-        rationale: 'Sabotaging cross-team trust and toxic retrospective culture',
+        rationale: 'Abandoning post-incident stewardship and accountability',
       },
     ],
   };
 
   const message = phaseBeats[phase]?.[avatar] || `${name}, you chose to: "${choice}". Let's take the next measured step to protect the system and our team.`;
-  const choices = phaseChoices[phase] || phaseChoices[1];
+  const choices = shuffleChoices(phaseChoices[phase] || phaseChoices[1], rng);
 
   return {
     ok: true,
@@ -454,14 +493,78 @@ function generateEvaluate(req: RoleplayRequest): RoleplayEval {
   const history = req.history || [];
   const stats = deltasFromHistory(history);
   const name = firstName(req.studentName);
-  const owned = stats.finalDelta >= 0;
-  const quotes = history.filter(h => h.role === 'user').slice(0, 3).map(h => `- "${h.content.slice(0, 140)}"`).join('\n') || '- (no recorded choice)';
+  const delta = stats.finalDelta;
+
+  const userMoves = history.filter(h => h.role === 'user');
+  const hasShortcut = userMoves.some(m => /cosmetic|untested|silently|panic|dismiss|blame|manual sql|hack/i.test(m.content));
+  const hasOwnership = userMoves.some(m => /honest|isolate|calm|verify|rollback|post-mortem|ownership|rate-limiter|circuit breaker/i.test(m.content));
+
+  const verdictRating =
+    delta >= 12 ? 'Exceptional Incident Leadership' :
+    delta >= 6 ? 'Solid Systemic Ownership' :
+    delta >= 0 ? 'Pragmatic Incident Response' :
+    delta >= -6 ? 'Vulnerable to Shortcut Traps' :
+    'Critical Incident Breakdown';
+
+  const grade =
+    delta >= 12 ? 'Grade A+ (Calm Leadership)' :
+    delta >= 6 ? 'Grade A (Disciplined Ownership)' :
+    delta >= 0 ? 'Grade B (Pragmatic Execution)' :
+    delta >= -6 ? 'Grade C (High Panic Risk)' :
+    'Grade D (Avoided Accountability)';
+
+  const strengths: string[] = [];
+  if (hasOwnership || delta >= 0) {
+    strengths.push('• **Systemic Integrity:** You took direct personal ownership of system stability and resisted dangerous quick-fix cover-ups.');
+    strengths.push('• **Transparent Communication:** You prioritized honest, realistic timeframes with team leads instead of hiding operational failures.');
+    strengths.push('• **Disciplined Verification:** You kept your cool under severe time crunch, ensuring diagnostics and safety checks were maintained.');
+  } else {
+    strengths.push('• **Rapid Engagement:** You engaged with the crisis immediately without abandoning the war room.');
+    strengths.push('• **Triage Awareness:** You recognized the urgency and stakeholder pressure surrounding production outages.');
+  }
+
+  const blindspots: string[] = [];
+  if (hasShortcut || delta < 6) {
+    blindspots.push('• **Temptation by Expedient Workarounds:** You were inclined toward quick cosmetic patches or unverified restarts. In production, cosmetic fixes mask root causes while silent data corruption accumulates.');
+    blindspots.push('• **Pressure Vulnerability:** When executives or teammates applied time pressure, you risked bypassing peer review and verification protocols.');
+  } else {
+    blindspots.push('• **Zero Critical Blind Spots:** You maintained disciplined System 2 engineering rigor throughout all 5 escalation phases.');
+  }
+
+  const takeaway = delta >= 6
+    ? 'Rule of Thumb: In high-stakes production outages, transparent communication buys engineering team time; verified containment always beats hasty guesswork.'
+    : 'Rule of Thumb: Never apply cosmetic bypasses to silence active alarms. Real corporate leadership is built on owning the truth, isolating the failure, and communicating reality.';
+
+  const timeline = userMoves.map((m, idx) => {
+    return `${idx + 1}. Turn ${idx + 1}: "${m.content.slice(0, 120)}${m.content.length > 120 ? '...' : ''}"`;
+  }).join('\n') || '1. Turn 1: Initial Containment Action Logged';
+
+  const report = [
+    `### EXECUTIVE VERDICT & SCORE`,
+    `**Candidate:** ${name}`,
+    `**Rating:** ${verdictRating} (${delta >= 0 ? '+' : ''}${delta} pts)`,
+    `**Grade:** ${grade} • Archetype: ${stats.mindset_archetype}`,
+    `**Summary:** ${delta >= 0 ? 'You demonstrated reliable engineering maturity, prioritizing data safety and cross-team trust.' : 'You struggled under high-stress stakeholder pressure, falling into shortcut traps that increase systemic risk.'}`,
+    ``,
+    `### 🟢 WHAT YOU HANDLED WELL (STRENGTHS)`,
+    strengths.join('\n'),
+    ``,
+    `### 🔴 WHAT WENT WRONG & BLIND SPOTS`,
+    blindspots.join('\n'),
+    ``,
+    `### 🎯 SENIOR LEADERSHIP TAKEAWAY`,
+    takeaway,
+    ``,
+    `### 📋 DECISION TIMELINE`,
+    timeline
+  ].join('\n');
+
   return {
     ok: true,
-    report: `### Socratic Persona Evolution Summary\n\n**Candidate:** ${name}  \n**Mindset Score Delta:** ${stats.finalDelta >= 0 ? '+' : ''}${stats.finalDelta} pts  \n**Mindset Archetype:** ${stats.mindset_archetype}\n\n#### Decisions You Made\n${quotes}\n\n#### How You Handled It\n- **Honesty & Ownership:** ${owned ? 'You stayed calm and took personal ownership instead of blaming others.' : 'You looked for quick shortcuts or tried to avoid blame under pressure.'}\n- **Dealing with Stress:** ${owned ? 'You communicated realistic timelines and refused unsafe cover-ups.' : 'You were tempted by quick patches that could cause bigger problems later.'}\n- **Clear Communication:** ${owned ? 'You kept the team informed with truthful, clear updates.' : 'You hesitated or argued when asked for status.'}\n\n> Ready for another challenge? Each session tests a new real-world scenario.`,
-    spokenConclusion: owned
-      ? `${name}, great job! You stayed calm, told the truth, and took full ownership. That is how real professionals solve problems under pressure.`
-      : `${name}, you fell for a quick shortcut when the pressure rose. In a real job, always be honest, stay calm, and don't try to hide problems.`,
+    report,
+    spokenConclusion: delta >= 0
+      ? `${name}, outstanding work holding the line. You stayed calm, told the truth, and took full ownership. That is how real senior engineers solve problems under pressure.`
+      : `${name}, you fell for a quick shortcut when the pressure spiked. In a production crisis, always be honest, protect data safety, and never try to hide problems.`,
     ...stats,
     source: 'generated',
   };
@@ -483,10 +586,11 @@ CRITICAL INSTRUCTION - SIMPLE ENGLISH:
 - Write in SIMPLE, CLEAR, EVERYDAY ENGLISH that any college student can easily understand (Grade 6-8 reading level).
 - NEVER use obscure corporate techno-jargon like "blast radius", "freeze writes", "postmortem", "algo drift", "FIFO fallback".
 - Create a relatable student or junior workplace situation (e.g., website login broken before exam, project database stopped saving, student grades showing in reverse order, cloud bill spike).
-- Provide 3 distinct, crystal-clear choices:
-  Choice 1: Calm, honest, responsible ownership (+4 delta)
-  Choice 2: Quick, rushed visual patch to hide the error (-2 delta)
-  Choice 3: Blaming someone else or refusing to help (-4 delta)
+- Provide 4 distinct, realistic, professional choices testing real technical/operational trade-offs:
+  Choice 1: Calm, honest, systemic ownership (+4 delta)
+  Choice 2: Tactical load shedding / pragmatic mitigation (+2 delta)
+  Choice 3: Conservative rollback / safe quarantine (-2 delta)
+  Choice 4: Rushed expedient cosmetic bypass / unverified patch (-4 delta)
 
 Do NOT reuse these plots or phrases: ${banned}
 
@@ -521,7 +625,7 @@ CRITICAL INSTRUCTION - SIMPLE ENGLISH:
 - Keep the dialogue direct, clear, and easy to understand.
 - Absolutely NO jargon, technical acronyms, or complex buzzwords.
 - If isFinalNode (Turn >= 10), choices MUST be [] and isEnded true. Conclude the simulation warmly and acknowledge how the team resolved the incident.
-- Otherwise, provide 3 simple, realistic, easy-to-understand choices:
+- Otherwise, provide 4 distinct, realistic, professional choices testing operational trade-offs:
   1. A calm, mature, responsible decision (+4 delta)
   2. A panicked quick shortcut or over-promising trap (-2 delta)
   3. An emotional, defensive, or blaming response (-4 delta)
