@@ -1817,6 +1817,7 @@ function ProjectsPageContent() {
             setSelectedGuideProject(p);
           }}
           allProjects={projects}
+          userId={user?.id || 'demo_student_01'}
         />
       ) : (
         /* UNLOCKED FULL PROJECT WORKSPACE */

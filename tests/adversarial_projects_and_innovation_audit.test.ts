@@ -423,3 +423,41 @@ test('BRUTAL AUDIT 6.2: Independent Workspace Isolation & Supabase Persistence (
   assert.equal(validTelemetry.owner, 'torvalds');
   assert.equal(validTelemetry.repoName, 'linux');
 });
+
+test('BRUTAL AUDIT 6.3: Student Protocol, Code Correctness AI Engine & Jury Defense Flow', async () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const workspaceSource = fsModule.readFileSync(
+    pathModule.resolve(__dirname, '../src/components/projects/IndependentWorkspace.tsx'),
+    'utf8'
+  );
+
+  // 1. Verify Student Engineering Protocol is present
+  assert.ok(workspaceSource.includes('Student Engineering Protocol'), 'Must render Student Engineering Protocol header');
+  assert.ok(workspaceSource.includes('Step 1: Write Code'), 'Must render Step 1: Write Code');
+  assert.ok(workspaceSource.includes('Step 2: Push Changes'), 'Must render Step 2: Push Changes');
+  assert.ok(workspaceSource.includes('Step 3: Verification'), 'Must render Step 3: Verification');
+  assert.ok(workspaceSource.includes('Step 4: Certification'), 'Must render Step 4: Certification');
+  assert.ok(workspaceSource.includes('Code in Web Editor'), 'Must have 1-click web editor link');
+
+  // 2. Verify AI Logic & Code Correctness Audit integration
+  assert.ok(workspaceSource.includes('Run AI Logic & Correctness Audit'), 'Must render AI logic audit trigger button');
+  assert.ok(workspaceSource.includes('auditProjectCodeLogic'), 'Must call auditProjectCodeLogic');
+  assert.ok(workspaceSource.includes('Algorithmic Complexity'), 'Must display Algorithmic Complexity analysis');
+
+  // 3. Verify Jury Defense submission & Viva Deep-link
+  assert.ok(workspaceSource.includes('Submit Project for Faculty Review'), 'Must render faculty submission button');
+  assert.ok(workspaceSource.includes('/interview?mode=project_viva'), 'Must deep-link to AI voice viva defense');
+  assert.ok(workspaceSource.includes('/innovation-hub?repo='), 'Must deep-link to squad creation with repo prefilled');
+
+  // 4. Verify API exports
+  const apiModule = require('../src/lib/api/independentProjectsApi');
+  assert.equal(typeof apiModule.auditProjectCodeLogic, 'function', 'auditProjectCodeLogic must be exported');
+  assert.equal(typeof apiModule.submitProjectForJuryReview, 'function', 'submitProjectForJuryReview must be exported');
+
+  // 5. Test Jury Submission Receipt generation
+  const mockProject = { id: 'test_proj', name: 'Traffic Router', githubLink: 'https://github.com/test/router' };
+  const juryRes = await apiModule.submitProjectForJuryReview('test_student', mockProject, 'PIN-GH-A1B2');
+  assert.equal(juryRes.success, true);
+  assert.ok(juryRes.receiptId.startsWith('JURY-'), 'Receipt ID must start with JURY-');
+});
