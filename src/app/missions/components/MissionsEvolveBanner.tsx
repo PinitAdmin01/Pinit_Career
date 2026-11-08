@@ -192,6 +192,8 @@ export default function MissionsEvolveBanner({
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <span
@@ -219,6 +221,8 @@ export default function MissionsEvolveBanner({
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <span
@@ -246,6 +250,8 @@ export default function MissionsEvolveBanner({
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <span
@@ -269,8 +275,10 @@ export default function MissionsEvolveBanner({
           {/* Right Column: Launch Station Action Box */}
           <div
             style={{
-              background: 'rgba(0, 0, 0, 0.22)',
-              border: '1.5px solid rgba(168,85,247,0.25)',
+              background: 'rgba(15, 23, 42, 0.45)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1.5px solid rgba(168,85,247,0.3)',
               borderRadius: 20,
               padding: '28px 24px',
               textAlign: 'center',
@@ -278,7 +286,7 @@ export default function MissionsEvolveBanner({
               flexDirection: 'column',
               gap: 16,
               alignItems: 'center',
-              boxShadow: 'var(--shadow-sm)',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -314,6 +322,16 @@ export default function MissionsEvolveBanner({
                 gap: 10,
                 cursor: roleplayLoading || isUnlocking ? 'not-allowed' : 'pointer',
                 transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+              onMouseEnter={(e) => {
+                if (!roleplayLoading && !isUnlocking) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 28px rgba(168,85,247,0.55)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = '0 6px 22px rgba(168,85,247,0.38)';
               }}
             >
               {roleplayLoading || isUnlocking ? '⚡ Compiling Parameters...' : '⚡ Launch Simulator Session (5 Pins)'}

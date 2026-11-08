@@ -157,42 +157,54 @@ function MissionsPageInner() {
       {/* Top Section: Tab navigation & Main Hero Interactive Area (Full Width) */}
       <div style={{ width: '100%', marginBottom: 36 }}>
 
-        {/* Sub-Tabs Split System */}
+        {/* Sub-Tabs Split System - God-Level Segmented Navigation */}
         <div
           style={{
-            display: 'flex',
-            gap: 12,
-            marginBottom: 20,
-            borderBottom: `1px solid ${theme.border}`,
-            paddingBottom: 12,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            marginBottom: 24,
+            padding: '6px',
+            background: 'rgba(255, 255, 255, 0.03)',
+            border: `1.5px solid ${theme.border}`,
+            borderRadius: 16,
+            boxShadow: 'var(--shadow-sm)',
+            flexWrap: 'wrap',
           }}
         >
-          {(['evolve', 'language', 'history'] as const).map((tKey) => (
-            <button
-              key={tKey}
-              onClick={() => {
-                setActiveTab(tKey);
-                stopSpeaking();
-                updateRoleplayActive(false);
-                if (tKey === 'history') setSelectedHistoryRecord(null);
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: '8px 16px',
-                fontSize: 15.5,
-                fontWeight: activeTab === tKey ? 800 : 500,
-                color: activeTab === tKey ? 'var(--accent)' : theme.tTertiary,
-                borderBottom: activeTab === tKey ? '3px solid var(--accent)' : '3px solid transparent',
-                cursor: 'pointer',
-                transition: 'all 0.15s',
-              }}
-            >
-              {tKey === 'evolve' && '🧬 Evolve Yourself'}
-              {tKey === 'language' && '🎙️ Career Communication Lab'}
-              {tKey === 'history' && '📋 Conclusion History'}
-            </button>
-          ))}
+          {(['evolve', 'language', 'history'] as const).map((tKey) => {
+            const isActive = activeTab === tKey;
+            return (
+              <button
+                key={tKey}
+                onClick={() => {
+                  setActiveTab(tKey);
+                  stopSpeaking();
+                  updateRoleplayActive(false);
+                  if (tKey === 'history') setSelectedHistoryRecord(null);
+                }}
+                style={{
+                  background: isActive ? 'rgba(20, 184, 166, 0.14)' : 'transparent',
+                  border: `1px solid ${isActive ? 'rgba(20, 184, 166, 0.35)' : 'transparent'}`,
+                  borderRadius: 12,
+                  padding: '9px 18px',
+                  fontSize: 14.5,
+                  fontWeight: isActive ? 800 : 600,
+                  color: isActive ? 'var(--teal)' : theme.tSecondary,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  boxShadow: isActive ? '0 2px 10px rgba(20, 184, 166, 0.2)' : 'none',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
+              >
+                {tKey === 'evolve' && <span>🧬 Evolve Yourself</span>}
+                {tKey === 'language' && <span>🎙️ Career Communication Lab</span>}
+                {tKey === 'history' && <span>📋 Conclusion History</span>}
+              </button>
+            );
+          })}
         </div>
 
         {/* Tab Content Rendered at 100% Full Width */}
