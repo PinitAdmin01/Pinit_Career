@@ -1,3 +1,87 @@
+function formatStudentName(u: any): string {
+  const rawDisplayName = (u.display_name || '').trim();
+  const isGeneric = !rawDisplayName || /^(student|campus student|user|student peer)$/i.test(rawDisplayName);
+  
+  if (!isGeneric) {
+    return rawDisplayName;
+  }
+
+  // Check username
+  const rawUsername = (u.username || '').trim();
+  if (rawUsername && !/^(student|user|admin)$/i.test(rawUsername)) {
+    const cleanUser = rawUsername.replace(/^usr_/i, '');
+    const parts = cleanUser.split(/[._-]+/).filter((p: string) => p.length > 0 && !/^[0-9a-f]{6,}$/i.test(p));
+    if (parts.length > 0) {
+      return parts.map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ');
+    }
+  }
+
+  // Check email prefix
+  if (u.email && typeof u.email === 'string') {
+    let prefix = u.email.split('@')[0].trim();
+    prefix = prefix.replace(/^usr_/i, '');
+    const parts = prefix.split(/[._-]+/).filter((p: string) => p.length > 0 && !/^[0-9a-f]{6,}$/i.test(p) && !/^(student|test|demo)$/i.test(p));
+    if (parts.length > 0) {
+      return parts.map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ');
+    }
+  }
+
+  // Check institutional register number
+  const reg = (u.register_number || u.roll_number || '').trim();
+  if (reg) {
+    const lastDigits = reg.match(/(\d+)$/)?.[1];
+    const deptMatch = reg.match(/PIN-[A-Z]+-([A-Z]+)-/i)?.[1];
+    if (lastDigits && deptMatch) {
+      return `Student (${deptMatch} #${lastDigits})`;
+    }
+    if (lastDigits) {
+      return `Student Peer #${lastDigits}`;
+    }
+  }
+
+  // Distinguish by track role & ID
+  const role = u.target_role || u.career_goal;
+  const shortId = (u.id || '').replace(/-/g, '').slice(0, 4).toUpperCase();
+  if (role) {
+    const cleanRole = role.replace(/_/g, ' ').replace(/\b(developer|engineer)\b/i, '').trim();
+    const capitalizedRole = cleanRole.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    return `${capitalizedRole || 'Campus'} Peer #${shortId}`;
+  }
+
+  return `Campus Peer #${shortId || '01'}`;
+}
+
+function resolveStudentEducation(u: any, ob: any): { college: string; course: string } {
+  const isDiscipline = /engineering|computer science|information technology|bca|mca|b\.?tech|b\.?com|bba|mba|data science|artificial intelligence/i.test(ob.education || '');
+
+  let rawCollege = (u.college_name || ob.college || ob.university || ob.institution || '').trim();
+  let rawCourse = (u.department || ob.degree || ob.courseTrack || ob.branch || ob.course || '').trim();
+
+  if (!rawCollege) {
+    if (isDiscipline) {
+      rawCollege = 'Campus Directory';
+      rawCourse = rawCourse || ob.education;
+    } else if (ob.education) {
+      rawCollege = ob.education;
+    } else {
+      rawCollege = 'Campus Directory';
+    }
+  }
+
+  if (!rawCourse) {
+    rawCourse = isDiscipline ? ob.education : 'Undergraduate';
+  }
+
+  if (rawCourse.toLowerCase() === 'computer science / engineering') {
+    rawCourse = 'B.Tech CS / Engineering';
+  }
+
+  return {
+    college: rawCollege,
+    course: rawCourse
+  };
+}
+
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
@@ -146,16 +230,28 @@ export async function GET(req: NextRequest) {
                 .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
                 .slice(0, 5);
 
-              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Campus Peer');
+              const { college: collegeName, course: courseName } = resolveStudentEducation(u, ob);
+              const name = formatStudentName(u);
+
+              const displaySkills = [...cleanSkills];
+              if (displaySkills.length === 0 && (u.target_role || ob.role)) {
+                const roleSlug = String(u.target_role || ob.role).toLowerCase();
+                if (roleSlug.includes('full') || roleSlug.includes('stack')) displaySkills.push('Full-Stack Track');
+                else if (roleSlug.includes('ai') || roleSlug.includes('llm') || roleSlug.includes('data')) displaySkills.push('AI/ML Track');
+                else if (roleSlug.includes('cyber')) displaySkills.push('Cybersecurity Track');
+                else if (roleSlug.includes('cloud') || roleSlug.includes('devops')) displaySkills.push('DevOps Track');
+                else displaySkills.push('General Track');
+              }
+
               return {
                 id: u.id,
                 name,
                 headline: u.target_role || ob.role || 'CareerOS Student',
                 avatar: (typeof u.avatar_url === 'string' && u.avatar_url.trim().length > 0) ? u.avatar_url : ('https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.id || name)),
-                college: (u as any).college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student')),
-                course: (u as any).department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate')),
+                college: collegeName,
+                course: courseName,
                 careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
-                skills: cleanSkills, // ZERO DUMMY SKILLS: If empty, returns []
+                skills: displaySkills,
                 careerScore: u.career_dna_score || 0,
                 xp: u.xp_total || 0,
                 arenaWins: u.missions_completed || 0,

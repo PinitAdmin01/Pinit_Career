@@ -202,6 +202,7 @@ function ProjectsPageContent() {
     setActiveCourseId: cOsSetActiveCourseId
   } = cOS;
 
+  const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
   const educationStr = String(user?.education || (onboardingAnswers as any)?.education || 'B.Tech in Computer Science');
   const degree = educationStr.split(' at ')[0] || 'B.Tech';
 
@@ -450,6 +451,26 @@ function ProjectsPageContent() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedGuideProject, setSelectedGuideProject] = useState<Project | null>(null);
 
+  // Initial Pathway Auto-Detection: If user has never selected a pathway, honor their active course/track
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem('pinit_selected_project_pathway');
+      if (!saved) {
+        const crashRaw = localStorage.getItem('pinit_active_crash_enrollment');
+        const hasPythonProgress = completedQuests?.some((q: string) => q.toLowerCase().includes('python'));
+        const hasRoadmapProgress = completedQuests?.some((q: string) => q.startsWith('rm-') || q.startsWith('custom-') || q.startsWith('roadmap-'));
+        if (crashRaw || hasPythonProgress) {
+          setSelectedPathway('standalone');
+          handleSelectPathway('standalone');
+        } else if (hasRoadmapProgress || Boolean(roadmapCtx)) {
+          setSelectedPathway('roadmap');
+          handleSelectPathway('roadmap');
+        }
+      }
+    } catch {}
+  }, [completedQuests, roadmapCtx]);
+
   // Edge Case Guard: Ensure selectedGuideProject is safely bound whenever projects change
   useEffect(() => {
     if (!selectedGuideProject && projects.length > 0) {
@@ -479,7 +500,7 @@ function ProjectsPageContent() {
 
   // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
   // A finished custom roadmap (recorded by the quests page) hands the student their capstone project.
-  const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
+  // roadmapCtx is declared above near cOS destructure
 
   // Helper to resolve completed quests and distinct days for a specific course
   const getCourseCompletedQuests = (courseId: string, questsList: string[] = []): string[] => {
@@ -520,9 +541,10 @@ function ProjectsPageContent() {
   
   // 1. Certification Track Metrics
   const certMatchedQuests = getCourseCompletedQuests(activeCourse.id, completedQuests);
-  const certCompletedDays = Math.max(getDistinctDaysCount(certMatchedQuests), completedCount > 0 ? 1 : 0);
+  const certCompletedDays = getDistinctDaysCount(certMatchedQuests);
   const certActive = certCompletedDays >= 1;
-  const certMilestoneReached = certCompletedDays >= 3 || progressPercent >= 25 || user?.role === 'admin' || user?.role === 'teacher';
+  const certCoursePercent = Math.min(100, Math.round((certMatchedQuests.length / Math.max(totalQuestsCount, 1)) * 100));
+  const certMilestoneReached = certCompletedDays >= 3 || certCoursePercent >= 25 || user?.role === 'admin' || user?.role === 'teacher';
 
   // 2. Custom Roadmap Track Metrics
   const roadmapCustomDays = completedQuests ? completedQuests.filter(q => q.startsWith('rm-') || q.startsWith('custom-') || q.startsWith('roadmap-')).length : 0;
