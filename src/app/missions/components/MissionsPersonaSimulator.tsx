@@ -241,7 +241,7 @@ export default function MissionsPersonaSimulator({
                 <div
                   style={{
                     height: '100%',
-                    width: `${(timerCount / 25) * 100}%`,
+                    width: `${Math.min(100, Math.max(0, (timerCount / 45) * 100))}%`,
                     background: timerCount < 8 ? 'var(--red)' : 'var(--accent)',
                     transition: 'width 1s linear',
                   }}
