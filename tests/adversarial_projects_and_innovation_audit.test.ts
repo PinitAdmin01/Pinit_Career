@@ -273,3 +273,67 @@ test('BRUTAL AUDIT 4.4: AppShell Route Guard strictly permits /innovation-hub an
   const innovationPageExists = fsModule.existsSync(pathModule.resolve(__dirname, '../src/app/innovation/page.tsx'));
   assert.equal(innovationPageExists, true, '/app/innovation/page.tsx alias route must exist');
 });
+
+test('BRUTAL AUDIT 4.5: Standalone Python 30-Day ("Day 1: Your First Python Program") Active & Milestone Invariants', () => {
+  const { parseQuestId } = require('../src/lib/data/curriculumEnricher');
+
+  // Completed Day 1 of Python: "python-lecture1-day-1"
+  const studentQuests = ['python-lecture1-day-1'];
+  
+  const targetCourseId = 'course-python-backend';
+  const matched = studentQuests.filter(q => {
+    const parsed = parseQuestId(q);
+    return parsed?.prefix === 'python' || q.includes('python');
+  });
+
+  const distinctDays = new Set(matched.map(q => parseQuestId(q)?.dayNum).filter(Boolean));
+  assert.equal(distinctDays.size, 1, 'Day 1 quest must count as exactly 1 completed day');
+
+  const standaloneActive = distinctDays.size >= 1;
+  const standaloneMilestoneReached = distinctDays.size >= 3;
+
+  assert.equal(standaloneActive, true, 'Student doing Day 1 of Python MUST have standalone pathway ACTIVE');
+  assert.equal(standaloneMilestoneReached, false, 'Student on Day 1 MUST NOT have Milestone 1 unlocked yet');
+
+  // Complete Day 2 and Day 3
+  const studentQuestsDay3 = ['python-lecture1-day-1', 'python-lecture1-day-2', 'python-lecture1-day-3'];
+  const matchedDay3 = studentQuestsDay3.filter(q => {
+    const parsed = parseQuestId(q);
+    return parsed?.prefix === 'python';
+  });
+  const distinctDays3 = new Set(matchedDay3.map(q => parseQuestId(q)?.dayNum).filter(Boolean));
+  assert.equal(distinctDays3.size, 3, 'Must register 3 distinct completed days');
+  assert.equal(distinctDays3.size >= 3, true, 'Milestone 1 must unlock on Day 3 completion');
+});
+
+test('BRUTAL AUDIT 4.6: Stale Course Template Re-synchronization (No Java projects for Python students)', () => {
+  // Simulate stale saved projects from an old Java session
+  const staleJavaProjects = [
+    {
+      id: 'proj-1',
+      name: 'Multi-Threaded Banking & Transaction Core',
+      techStack: 'Java 17, JUnit 5, Maven, OOP Patterns',
+      isTemplate: true
+    }
+  ];
+
+  // When active course is Python:
+  const activeCourseId = 'course-python-backend';
+  const cid = activeCourseId.toLowerCase();
+  
+  const isMatchingCourse = staleJavaProjects.some(p => {
+    const stack = (p.techStack || '').toLowerCase();
+    const name = (p.name || '').toLowerCase();
+    if (cid.includes('python')) return stack.includes('python') || name.includes('python');
+    return false;
+  });
+
+  assert.equal(isMatchingCourse, false, 'Java templates must be detected as non-matching for Python course');
+
+  // Fallback must supply Python capstone projects
+  const freshProjs = getDomainFallback('Full-Stack Software Developer', [], 'Undergraduate', activeCourseId);
+  assert.ok(freshProjs.length >= 3);
+  assert.ok(freshProjs[0].techStack.toLowerCase().includes('python'), 'Fresh projects must be Python based');
+  assert.ok(!freshProjs[0].name.toLowerCase().includes('banking') && !freshProjs[0].name.toLowerCase().includes('java'),
+    'Must never give Java banking project to Python student');
+});

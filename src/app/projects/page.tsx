@@ -9,6 +9,7 @@ import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
+import { parseQuestId } from '@/lib/data/curriculumEnricher';
 import { getDomainFallback } from '@/lib/projects/projectCatalog';
 import { getSavedCareerProjects, needsProjectKeyMigration, SavedProjectsSource } from '@/lib/projects/savedProjects';
 import {
@@ -479,12 +480,47 @@ function ProjectsPageContent() {
   // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
   // A finished custom roadmap (recorded by the quests page) hands the student their capstone project.
   const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
+
+  // Helper to resolve completed quests and distinct days for a specific course
+  const getCourseCompletedQuests = (courseId: string, questsList: string[] = []): string[] => {
+    if (!questsList || questsList.length === 0) return [];
+    const cid = courseId.toLowerCase();
+    return questsList.filter(q => {
+      const ql = q.toLowerCase();
+      const parsed = parseQuestId(ql);
+      const prefix = parsed?.prefix?.toLowerCase() || '';
+      if (cid.includes('python')) return prefix.includes('python') || ql.includes('python') || ql.startsWith('py-');
+      if (cid.includes('react')) return prefix.includes('react') || ql.includes('react') || ql.includes('jsx');
+      if (cid.includes('node')) return prefix.includes('node') || ql.includes('node') || ql.includes('express');
+      if (cid.includes('java')) return prefix.includes('java') || ql.includes('java');
+      if (cid.includes('cloud')) return prefix.includes('cloud') || ql.includes('cloud') || ql.includes('aws') || ql.includes('docker');
+      if (cid.includes('bcom') || cid.includes('accounting')) return prefix.includes('bcom') || prefix.includes('accounting') || ql.includes('accounting');
+      if (prefix && (cid.includes(prefix) || prefix.includes(cid.replace('course-', '')))) return true;
+      return false;
+    });
+  };
+
+  const getDistinctDaysCount = (matchedQuests: string[]): number => {
+    const days = new Set<number>();
+    let nonParsedCount = 0;
+    for (const q of matchedQuests) {
+      const parsed = parseQuestId(q);
+      if (parsed) {
+        days.add(parsed.dayNum);
+      } else {
+        nonParsedCount++;
+      }
+    }
+    return Math.max(days.size, Math.min(nonParsedCount, 30));
+  };
+
   // ── TASK 2 & 3: PATHWAY METRICS & GATING INVARIANTS ──────────────────────────
   // Active definition: user completed at least 1 day of work
   // Milestone definition: user completed at least 3 quests or 25% progress or admin/teacher
   
   // 1. Certification Track Metrics
-  const certCompletedDays = completedCount;
+  const certMatchedQuests = getCourseCompletedQuests(activeCourse.id, completedQuests);
+  const certCompletedDays = Math.max(getDistinctDaysCount(certMatchedQuests), completedCount > 0 ? 1 : 0);
   const certActive = certCompletedDays >= 1;
   const certMilestoneReached = certCompletedDays >= 3 || progressPercent >= 25 || user?.role === 'admin' || user?.role === 'teacher';
 
@@ -494,9 +530,10 @@ function ProjectsPageContent() {
   const roadmapActive = roadmapCompletedDays >= 1;
   const roadmapMilestoneReached = roadmapCompletedDays >= 3 || user?.role === 'admin' || user?.role === 'teacher';
 
-  // 3. Standalone Course Track Metrics
-  const standaloneCustomDays = completedQuests ? completedQuests.filter(q => q.includes('standalone') || q.includes('crash') || q.includes('python-d') || q.includes('fast-')).length : 0;
-  const standaloneCompletedDays = standaloneCustomDays > 0 ? standaloneCustomDays : (completedCount > 0 && (selectedCourseId.includes('standalone') || selectedCourseId.includes('crash')) ? completedCount : 0);
+  // 3. Standalone Course Track Metrics (e.g. Python 30-Day crash course)
+  const standaloneTargetId = selectedCourseId || 'course-python-backend';
+  const standaloneMatchedQuests = getCourseCompletedQuests(standaloneTargetId, completedQuests);
+  const standaloneCompletedDays = getDistinctDaysCount(standaloneMatchedQuests);
   const standaloneActive = standaloneCompletedDays >= 1;
   const standaloneMilestoneReached = standaloneCompletedDays >= 3 || user?.role === 'admin' || user?.role === 'teacher';
 
@@ -520,53 +557,55 @@ function ProjectsPageContent() {
 
   const isUnlocked = isPathwayMilestoneReached;
 
-  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects. This page used to
-  // read `.projects`, which nothing writes, so projects vanished on reload.
+  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects.
   const answerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.portfolio_projects;
   const legacyAnswerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.projects;
 
   useEffect(() => {
     const source: SavedProjectsSource = { portfolio_projects: answerProjects, projects: legacyAnswerProjects };
     const saved = getSavedCareerProjects(source);
-    if (saved.length > 0) {
+
+    // Guard: Verify if saved templates actually belong to current activeCourse
+    const isMatchingCourse = (projs: Project[], targetCourseId: string) => {
+      const templates = projs.filter(p => p.isTemplate && !p.id.startsWith('custom_proj_'));
+      if (templates.length === 0) return true; // only custom projects
+      const cid = targetCourseId.toLowerCase();
+      return templates.some(p => {
+        if (p.courseId && p.courseId === targetCourseId) return true;
+        const stack = (p.techStack || '').toLowerCase();
+        const name = (p.name || '').toLowerCase();
+        if (cid.includes('python')) return stack.includes('python') || name.includes('python');
+        if (cid.includes('java')) return stack.includes('java') || name.includes('java');
+        if (cid.includes('react')) return stack.includes('react') || name.includes('react');
+        if (cid.includes('node')) return stack.includes('node') || name.includes('node');
+        if (cid.includes('cloud')) return stack.includes('aws') || stack.includes('docker') || stack.includes('kubernetes');
+        if (cid.includes('accounting') || cid.includes('bcom')) return stack.includes('accounting') || stack.includes('tally') || name.includes('ledger');
+        return false;
+      });
+    };
+
+    if (saved.length > 0 && isMatchingCourse(saved, activeCourse.id)) {
       setProjects(saved);
-      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
+      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed') || saved[0];
       if (active) setSelectedGuideProject(active);
       // Projects saved under the legacy key move to the key the rest of the app reads.
       if (needsProjectKeyMigration(source)) saveCareerProjects(saved);
-    } else if (typeof window !== 'undefined' && user?.id) {
-      const cached = localStorage.getItem(`pinit_${user.id}_career_projects`);
-      if (cached) {
-        try {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setProjects(parsed);
-            const active = parsed.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
-            if (active) setSelectedGuideProject(active);
-            // Reconcile and persist to Supabase if DB didn't have it yet
-            saveCareerProjects(parsed);
-          }
-        } catch {
-          // Ignore corrupt localStorage cache
-        }
-      }
-    }
-
-    // Auto-seed projects for active course if still empty
-    if (saved.length === 0) {
-      const initialProjects = getDomainFallback(
+    } else {
+      // Empty or stale templates from another course: generate fresh capstones for active course, keeping custom projects
+      const customProjects = saved.filter((p: Project) => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'));
+      const freshCourseProjects = getDomainFallback(
         selectedGoal,
         [],
-        'Undergraduate',
+        degree || 'Undergraduate',
         activeCourse.id
-      );
-      if (initialProjects && initialProjects.length > 0) {
-        setProjects(initialProjects as Project[]);
-        setSelectedGuideProject(initialProjects[0] as Project);
-        saveCareerProjects(initialProjects);
-      }
+      ) as Project[];
+      const merged = [...customProjects, ...freshCourseProjects];
+      setProjects(merged);
+      const active = merged.find(p => p.status === 'In Progress') || freshCourseProjects[0] || merged[0];
+      if (active) setSelectedGuideProject(active);
+      saveCareerProjects(merged);
     }
-  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal]);
+  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal, degree]);
 
   // Roadmap journey certificate: the server re-verifies roadmap, capstone and interview, then issues it.
   const [issuingCertificate, setIssuingCertificate] = useState(false);

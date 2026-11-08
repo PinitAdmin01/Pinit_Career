@@ -25,6 +25,7 @@ export interface Project {
   /** Set when the project was handed out for a finished custom roadmap. */
   origin?: 'roadmap';
   roadmapCourseId?: string;
+  courseId?: string;
   /** Latest capstone interview result for a roadmap capstone (a pass is kept). */
   capstoneInterview?: {
     score: number;
