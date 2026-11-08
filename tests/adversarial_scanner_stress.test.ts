@@ -231,3 +231,25 @@ test('ADVERSARIAL 12: Option 2 Spatial & Locality Invariants (The Adarsh Model, 
     );
   }
 });
+
+test('ADVERSARIAL 13: Brutal Multi-Vector Safety Gate (Father Proximity & Labeled False Names)', () => {
+  const attackVectors = [
+    { name: 'Father Name proximity with locality address', text: 'ST. XAVIER SCHOOL\nAshok Nagar, New Delhi\nFather\'s Name: Ram Lal\nRoll: 401', expected: '' },
+    { name: 'Father Name proximity with board recognition', text: 'MODEL SCHOOL\nGow. Recognised\nFather\'s Name: Ram Lal\nRoll: 402', expected: '' },
+    { name: 'Father Name proximity with institution header', text: 'THE ADARSH MODEL\nFather\'s Name: Ram Lal\nRoll: 403', expected: '' },
+    { name: 'Father Name proximity with OCR noise syllables', text: 'THE SCHOOL\nAanyadas Ig Ii\nFather\'s Name: Ram Lal\nRoll: 404', expected: '' },
+    { name: 'Labeled Name with school qualifier', text: 'Name: The Adarsh Model\nClass: 10\nRoll: 405', expected: '' },
+    { name: 'Labeled Name with address', text: 'Name: Ashok Nagar\nRoll: 406', expected: '' },
+    { name: 'Legitimate Student Name with Father Name', text: 'ST. XAVIER SCHOOL\nVinay N\nFather\'s Name: Ram Lal\nRoll: 407', expected: 'Vinay N' },
+    { name: 'Legitimate Labeled Student Name', text: 'Name: Seema Sharma\nClass: 10\nRoll: 408', expected: 'Seema Sharma' },
+  ];
+
+  for (const v of attackVectors) {
+    const res = parseCollegeCardFromText(v.text);
+    assert.strictEqual(
+      res.studentName,
+      v.expected,
+      `Vector "${v.name}" failed: expected "${v.expected}", got "${res.studentName}"`
+    );
+  }
+});

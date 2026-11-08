@@ -300,7 +300,7 @@ export default function SignupPage() {
           width: '100%',
           maxWidth: 1220,
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
           gap: 44,
           alignItems: 'center',
           zIndex: 1,
