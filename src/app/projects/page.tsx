@@ -24,6 +24,8 @@ import { api, ApiError } from '@/lib/api/client';
 import { CapstoneNextStep } from './CapstoneNextStep';
 import { CourseProjectProgressBar } from '@/components/projects/CourseProjectProgressBar';
 import { InnovationHub } from '@/components/projects/InnovationHub';
+import { IndependentWorkspace } from '@/components/projects/IndependentWorkspace';
+import { saveIndependentProjectToDb, fetchIndependentProjectsFromDb } from '@/lib/api/independentProjectsApi';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
   TeamsApiService,
@@ -169,6 +171,7 @@ function ProjectsPageContent() {
 
     const updated = [newCustomProject, ...projects];
     saveProjects(updated);
+    saveIndependentProjectToDb(studentId, newCustomProject).catch(() => {});
     setSelectedGuideProject(newCustomProject);
     setSelectedPathway('independent');
     setShowOwnProjectModal(false);
@@ -470,6 +473,24 @@ function ProjectsPageContent() {
       }
     } catch {}
   }, [completedQuests, roadmapCtx]);
+
+  // Hydrate independent projects from Supabase portfolio_items & cache
+  useEffect(() => {
+    if (!studentId) return;
+    fetchIndependentProjectsFromDb(studentId).then((dbProjs) => {
+      if (dbProjs && dbProjs.length > 0) {
+        setProjects((prev) => {
+          const merged = [...prev];
+          for (const dbp of dbProjs) {
+            if (!merged.some(p => p.id === dbp.id || (p.githubLink && p.githubLink === dbp.githubLink))) {
+              merged.unshift(dbp);
+            }
+          }
+          return merged;
+        });
+      }
+    }).catch(() => {});
+  }, [studentId]);
 
   // Edge Case Guard: Ensure selectedGuideProject is safely bound whenever projects change
   useEffect(() => {
@@ -1083,195 +1104,168 @@ function ProjectsPageContent() {
   return (
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
       
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 16 }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.3px' }}>Projects & Course Capstones</h1>
-          <p style={{ margin: '4px 0 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
-            Select your learning pathway, reach course milestones, or connect your own GitHub repository for automated evidence verification.
-          </p>
-        </div>
+      {/* ── PATHWAY SUB-TAB NAVIGATION (SLENDER COMPACT INTERFACE) ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          padding: '6px',
+          borderRadius: 12,
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          marginBottom: 16,
+          overflowX: 'auto',
+          boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04))'
+        }}
+      >
+        {/* Sub-Tab 1: Certification Course */}
         <button
-          onClick={() => {
-            setOwnProjectStep('confirm');
-            setShowOwnProjectModal(true);
-          }}
-          data-testid="start-own-project-btn"
+          type="button"
+          onClick={() => handleSelectPathway('certification')}
+          data-testid="pathway-card-certification"
           style={{
-            padding: '10px 20px',
-            borderRadius: 12,
-            background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-            color: '#fff',
-            fontSize: 14,
-            fontWeight: 800,
-            border: 'none',
-            cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'certification' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'certification' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'certification' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'certification' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>🎓</span>
+          <span>Certification Course</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: certActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: certActive ? '#10b981' : 'var(--t3)'
+            }}
+          >
+            {certActive ? '● Active' : '○ Inactive'}
+          </span>
+        </button>
+
+        {/* Sub-Tab 2: Custom Roadmap */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('roadmap')}
+          data-testid="pathway-card-roadmap"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'roadmap' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'roadmap' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'roadmap' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'roadmap' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>🗺️</span>
+          <span>Custom Roadmap</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: roadmapActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: roadmapActive ? '#10b981' : 'var(--t3)'
+            }}
+          >
+            {roadmapActive ? '● Active' : '○ Inactive'}
+          </span>
+        </button>
+
+        {/* Sub-Tab 3: Standalone Course */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('standalone')}
+          data-testid="pathway-card-standalone"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'standalone' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'standalone' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'standalone' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'standalone' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>⚡</span>
+          <span>Standalone Course</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: standaloneActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: standaloneActive ? '#10b981' : 'var(--t3)'
+            }}
+          >
+            {standaloneActive ? '● Active' : '○ Inactive'}
+          </span>
+        </button>
+
+        {/* Sub-Tab 4: Independent Project */}
+        <button
+          type="button"
+          onClick={() => handleSelectPathway('independent')}
+          data-testid="pathway-card-independent"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 16px',
+            borderRadius: 9,
+            background: selectedPathway === 'independent' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            border: selectedPathway === 'independent' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: selectedPathway === 'independent' ? 'var(--t1)' : 'var(--t2)',
+            fontSize: 13.5,
+            fontWeight: selectedPathway === 'independent' ? 800 : 600,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
             transition: 'all 0.15s ease'
           }}
         >
           <span>🛠️</span>
-          <span>+ Start Your Own Project</span>
+          <span>Independent Project</span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              padding: '2px 7px',
+              borderRadius: 12,
+              background: independentActive ? 'rgba(59, 130, 246, 0.15)' : 'rgba(148, 163, 184, 0.15)',
+              color: independentActive ? '#3b82f6' : 'var(--t3)'
+            }}
+          >
+            {independentActive ? `${independentProjects.length} Custom` : 'Custom'}
+          </span>
         </button>
-      </div>
-
-      {/* ── PATHWAY SELECTOR: 4 PATHWAYS ── */}
-      <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 10 }}>
-          Choose Your Project Pathway
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
-          {/* Card 1: Certification Course */}
-          <div
-            onClick={() => handleSelectPathway('certification')}
-            data-testid="pathway-card-certification"
-            style={{
-              padding: 16,
-              borderRadius: 16,
-              cursor: 'pointer',
-              background: selectedPathway === 'certification' ? 'var(--card)' : 'var(--bg2)',
-              border: selectedPathway === 'certification' ? '2px solid var(--accent)' : '1px solid var(--border)',
-              boxShadow: selectedPathway === 'certification' ? '0 0 0 3px rgba(99, 102, 241, 0.15)' : 'none',
-              transition: 'all 0.2s ease',
-              position: 'relative'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <span style={{ fontSize: 24 }}>🎓</span>
-              <span style={{
-                fontSize: 11,
-                fontWeight: 800,
-                padding: '2px 8px',
-                borderRadius: 20,
-                background: certActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-                color: certActive ? '#10b981' : 'var(--t3)'
-              }}>
-                {certActive ? '● Active' : '○ Inactive'}
-              </span>
-            </div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>Certification Course</div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 10, lineHeight: 1.4 }}>
-              Accredited degree curriculum ({activeCourse.title})
-            </div>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: certMilestoneReached ? '#10b981' : 'var(--t2)' }}>
-              {certMilestoneReached ? '✓ Milestone 1 Met' : `${certCompletedDays}/3 Quests to Milestone 1`}
-            </div>
-          </div>
-
-          {/* Card 2: Custom Roadmap */}
-          <div
-            onClick={() => handleSelectPathway('roadmap')}
-            data-testid="pathway-card-roadmap"
-            style={{
-              padding: 16,
-              borderRadius: 16,
-              cursor: 'pointer',
-              background: selectedPathway === 'roadmap' ? 'var(--card)' : 'var(--bg2)',
-              border: selectedPathway === 'roadmap' ? '2px solid var(--accent)' : '1px solid var(--border)',
-              boxShadow: selectedPathway === 'roadmap' ? '0 0 0 3px rgba(99, 102, 241, 0.15)' : 'none',
-              transition: 'all 0.2s ease',
-              position: 'relative'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <span style={{ fontSize: 24 }}>🗺️</span>
-              <span style={{
-                fontSize: 11,
-                fontWeight: 800,
-                padding: '2px 8px',
-                borderRadius: 20,
-                background: roadmapActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-                color: roadmapActive ? '#10b981' : 'var(--t3)'
-              }}>
-                {roadmapActive ? '● Active' : '○ Inactive'}
-              </span>
-            </div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>Custom Roadmap</div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 10, lineHeight: 1.4 }}>
-              Personalized AI skill progression track
-            </div>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: roadmapMilestoneReached ? '#10b981' : 'var(--t2)' }}>
-              {roadmapMilestoneReached ? '✓ Milestone 1 Met' : `${roadmapCompletedDays}/3 Quests to Milestone 1`}
-            </div>
-          </div>
-
-          {/* Card 3: Standalone Course */}
-          <div
-            onClick={() => handleSelectPathway('standalone')}
-            data-testid="pathway-card-standalone"
-            style={{
-              padding: 16,
-              borderRadius: 16,
-              cursor: 'pointer',
-              background: selectedPathway === 'standalone' ? 'var(--card)' : 'var(--bg2)',
-              border: selectedPathway === 'standalone' ? '2px solid var(--accent)' : '1px solid var(--border)',
-              boxShadow: selectedPathway === 'standalone' ? '0 0 0 3px rgba(99, 102, 241, 0.15)' : 'none',
-              transition: 'all 0.2s ease',
-              position: 'relative'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <span style={{ fontSize: 24 }}>⚡</span>
-              <span style={{
-                fontSize: 11,
-                fontWeight: 800,
-                padding: '2px 8px',
-                borderRadius: 20,
-                background: standaloneActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-                color: standaloneActive ? '#10b981' : 'var(--t3)'
-              }}>
-                {standaloneActive ? '● Active' : '○ Inactive'}
-              </span>
-            </div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>Standalone Course</div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 10, lineHeight: 1.4 }}>
-              Focused skill sprint (Python, Docker, Web)
-            </div>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: standaloneMilestoneReached ? '#10b981' : 'var(--t2)' }}>
-              {standaloneMilestoneReached ? '✓ Milestone 1 Met' : `${standaloneCompletedDays}/3 Quests to Milestone 1`}
-            </div>
-          </div>
-
-          {/* Card 4: Independent Project */}
-          <div
-            onClick={() => handleSelectPathway('independent')}
-            data-testid="pathway-card-independent"
-            style={{
-              padding: 16,
-              borderRadius: 16,
-              cursor: 'pointer',
-              background: selectedPathway === 'independent' ? 'var(--card)' : 'var(--bg2)',
-              border: selectedPathway === 'independent' ? '2px solid var(--accent)' : '1px solid var(--border)',
-              boxShadow: selectedPathway === 'independent' ? '0 0 0 3px rgba(99, 102, 241, 0.15)' : 'none',
-              transition: 'all 0.2s ease',
-              position: 'relative'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <span style={{ fontSize: 24 }}>🛠️</span>
-              <span style={{
-                fontSize: 11,
-                fontWeight: 800,
-                padding: '2px 8px',
-                borderRadius: 20,
-                background: independentActive ? 'rgba(99, 102, 241, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-                color: independentActive ? 'var(--accent)' : 'var(--t3)'
-              }}>
-                {independentActive ? `${independentProjects.length} Custom` : 'Custom'}
-              </span>
-            </div>
-            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>Independent Project</div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 10, lineHeight: 1.4 }}>
-              Custom software with direct GitHub link
-            </div>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--accent)' }}>
-              Bypass Course Milestones
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* ── PATHWAY CONTEXT BANNER ── */}
@@ -1811,6 +1805,19 @@ function ProjectsPageContent() {
             </div>
           </div>
         </div>
+      ) : selectedPathway === 'independent' ? (
+        /* INDEPENDENT SOFTWARE WORKSPACE (DEDICATED GITHUB TELEMETRY & JURY DEFENSE) */
+        <IndependentWorkspace
+          project={selectedGuideProject || independentProjects[0] || projects[0]}
+          onLinkAnother={() => {
+            setOwnProjectStep('confirm');
+            setShowOwnProjectModal(true);
+          }}
+          onSelectProject={(p) => {
+            setSelectedGuideProject(p);
+          }}
+          allProjects={projects}
+        />
       ) : (
         /* UNLOCKED FULL PROJECT WORKSPACE */
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -1843,10 +1850,7 @@ function ProjectsPageContent() {
               
               {/* Left Column: Projects lists */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {(selectedPathway === 'independent'
-                  ? projects.filter(p => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'))
-                  : projects
-                ).map((p) => {
+                {projects.map((p) => {
                   const isActiveGuide = selectedGuideProject?.id === p.id;
                   const borderColors = {
                     'Beginner': 'var(--teal)',

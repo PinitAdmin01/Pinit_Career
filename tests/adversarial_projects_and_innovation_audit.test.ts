@@ -381,3 +381,45 @@ test('BRUTAL AUDIT 5.2: Task 1 Innovation Hub Redundant Header Elimination & Tas
   assert.ok(projectsPageSource.includes('1️⃣') && projectsPageSource.includes('2️⃣'), 'Must feature 2-step visual activation roadmap');
   assert.ok(projectsPageSource.includes('data-testid="start-day-1-btn"'), 'Must feature primary Start Day 1 action button');
 });
+
+test('BRUTAL AUDIT 6.1: Sub-Tab Interface & Top Header Clutter Elimination (Task 1 & Task 2)', () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const pageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+
+  // Verify Task 1: Complete removal of redundant header and subheader text
+  assert.ok(!pageSource.includes('Projects & Course Capstones'), 'Must eliminate redundant "Projects & Course Capstones" header');
+  assert.ok(!pageSource.includes('Select your learning pathway, reach course milestones'), 'Must eliminate redundant subheader description');
+  assert.ok(!pageSource.includes('Choose Your Project Pathway'), 'Must eliminate "Choose Your Project Pathway" text');
+
+  // Verify Task 2: Sub-tab bar rendered with clean compact buttons
+  assert.ok(pageSource.includes('PATHWAY SUB-TAB NAVIGATION'), 'Must render compact sub-tab bar');
+  assert.ok(pageSource.includes('data-testid="pathway-card-certification"'), 'Must have certification sub-tab');
+  assert.ok(pageSource.includes('data-testid="pathway-card-roadmap"'), 'Must have roadmap sub-tab');
+  assert.ok(pageSource.includes('data-testid="pathway-card-standalone"'), 'Must have standalone sub-tab');
+  assert.ok(pageSource.includes('data-testid="pathway-card-independent"'), 'Must have independent sub-tab');
+});
+
+test('BRUTAL AUDIT 6.2: Independent Workspace Isolation & Supabase Persistence (Task 3 & Task 4)', async () => {
+  const fsModule = require('fs');
+  const pathModule = require('path');
+  const pageSource = fsModule.readFileSync(pathModule.resolve(__dirname, '../src/app/projects/page.tsx'), 'utf8');
+
+  // Verify Task 4: IndependentWorkspace rendered instead of CourseProjectProgressBar
+  assert.ok(pageSource.includes('<IndependentWorkspace'), 'Independent pathway must render dedicated IndependentWorkspace');
+  assert.ok(pageSource.includes("selectedPathway === 'independent' ? ("), 'Must branch cleanly on independent pathway');
+
+  // Verify Task 3: Supabase persistence functions exported and integrated
+  const apiModule = require('../src/lib/api/independentProjectsApi');
+  assert.equal(typeof apiModule.saveIndependentProjectToDb, 'function', 'saveIndependentProjectToDb must be exported');
+  assert.equal(typeof apiModule.fetchIndependentProjectsFromDb, 'function', 'fetchIndependentProjectsFromDb must be exported');
+  assert.equal(typeof apiModule.fetchGithubLiveTelemetry, 'function', 'fetchGithubLiveTelemetry must be exported');
+
+  // Verify telemetry parser handles invalid / valid URLs
+  const invalidTelemetry = await apiModule.fetchGithubLiveTelemetry('invalid-url');
+  assert.equal(invalidTelemetry.exists, false);
+
+  const validTelemetry = await apiModule.fetchGithubLiveTelemetry('https://github.com/torvalds/linux');
+  assert.equal(validTelemetry.owner, 'torvalds');
+  assert.equal(validTelemetry.repoName, 'linux');
+});
