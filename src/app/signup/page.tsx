@@ -253,20 +253,23 @@ export default function SignupPage() {
       // In-Browser Tesseract.js OCR Direct Extraction
       try {
         setScanStatus('Scanning badge via in-browser OCR...');
-        const Tesseract = (await import('tesseract.js')).default;
-        const { data } = await Tesseract.recognize(file, 'eng');
-        const rawText = data?.text?.trim() || '';
-        if (rawText && rawText.length >= 5) {
-          const parsed = parseCollegeCardFromText(rawText);
-          if (parsed.studentName) setStudentName(parsed.studentName);
-          if (parsed.collegeName) setCollegeName(parsed.collegeName);
-          if (parsed.department) setBranch(parsed.department);
-          if (parsed.rollNumber) setIdentifier(parsed.rollNumber);
-          const generated = generateCollegePinItId(parsed);
-          if (generated) setPinitId(generated);
-          setCollegeMeta(parsed);
-          setScanStatus('Badge Verified & Synced!');
-          return;
+        // @ts-ignore - optional dynamic client-side OCR import
+        const Tesseract = (typeof window !== 'undefined' && (window as any).Tesseract) || (await import(/* webpackIgnore: true */ 'tesseract.js').catch(() => null))?.default;
+        if (Tesseract && typeof Tesseract.recognize === 'function') {
+          const { data } = await Tesseract.recognize(file, 'eng');
+          const rawText = data?.text?.trim() || '';
+          if (rawText && rawText.length >= 5) {
+            const parsed = parseCollegeCardFromText(rawText);
+            if (parsed.studentName) setStudentName(parsed.studentName);
+            if (parsed.collegeName) setCollegeName(parsed.collegeName);
+            if (parsed.department) setBranch(parsed.department);
+            if (parsed.rollNumber) setIdentifier(parsed.rollNumber);
+            const generated = generateCollegePinItId(parsed);
+            if (generated) setPinitId(generated);
+            setCollegeMeta(parsed);
+            setScanStatus('Badge Verified & Synced!');
+            return;
+          }
         }
       } catch (clientOcrErr) {
         console.warn('[Signup] Client OCR note:', clientOcrErr);

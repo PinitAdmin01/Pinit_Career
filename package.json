@@ -48,6 +48,7 @@
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-markdown": "^9.0.1",
+    "tesseract.js": "^7.0.0",
     "three": "^0.185.0",
     "ws": "8.18.0",
     "zod": "^4.5.4",
