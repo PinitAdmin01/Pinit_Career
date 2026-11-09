@@ -55,6 +55,18 @@ interface AppState {
   clearExam:     () => void;
 }
 
+const getInitialTheme = (): 'dark' | 'light' => {
+  if (typeof window !== 'undefined') {
+    try {
+      const saved = localStorage.getItem('pc_theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      const attr = document.documentElement.getAttribute('data-theme');
+      if (attr === 'light' || attr === 'dark') return attr;
+    } catch {}
+  }
+  return 'dark';
+};
+
 export const useAppStore = create<AppState>((set) => ({
   // UI
   sidebarOpen:    true,
@@ -63,7 +75,7 @@ export const useAppStore = create<AppState>((set) => ({
   setActiveTab:   (tab)    => set({ activeTab: tab }),
 
   // Global Theme & Focus Mode
-  theme:          'dark',
+  theme:          getInitialTheme(),
   focusMode:      false,
   setTheme:       (theme) => {
     if (typeof window !== 'undefined') {

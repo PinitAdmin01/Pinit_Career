@@ -50,6 +50,16 @@ export function getStudentCurriculumTier(
     'comp_systems_consistent_hashing_ring_l3',
     'comp_stack_basic_calculator_ast_l3',
     'comp_dp_2d_maximal_square_l3',
+    'comp_cache_lfu_o1_frequency_l3',
+    'comp_dp_wildcard_matching_ast_l3',
+    'comp_dp_interval_burst_balloons_l3',
+    'comp_backtracking_bitmask_n_queens_l3',
+    'comp_dp_regex_matching_kleene_star_l3',
+    'comp_matrix_monotonic_maximal_rectangle_l3',
+    'comp_graph_dijkstra_network_delay_l3',
+    'comp_string_kmp_shortest_palindrome_l3',
+    'comp_binary_search_bfs_swim_rising_water_l3',
+    'comp_trees_post_order_max_path_sum_l3',
   ]);
   const intComps = new Set([
     'comp_stack_brackets_l2',
@@ -82,6 +92,16 @@ export function getStudentCurriculumTier(
     'comp_greedy_intervals_partition_labels_l2',
     'comp_prefix_sum_hash_mod_l2',
     'comp_trees_bfs_right_side_view_l2',
+    'comp_greedy_gas_station_circuit_l2',
+    'comp_binary_search_koko_eating_rate_l2',
+    'comp_string_longest_palindromic_substring_l2',
+    'comp_dp_circular_house_robber_ii_l2',
+    'comp_stack_monotonic_circular_next_greater_l2',
+    'comp_bfs_multi_source_rotting_oranges_l2',
+    'comp_sliding_window_anagram_fingerprint_l2',
+    'comp_matrix_backtracking_word_search_l2',
+    'comp_monotonic_stack_car_fleet_l2',
+    'comp_heap_greedy_reorganize_string_l2',
   ]);
 
   for (const comp of verifiedCompetencies) {

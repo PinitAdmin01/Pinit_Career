@@ -5,6 +5,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
+import { useAppStore } from '@/lib/store/useAppStore';
+import DynamicSkyCanvas from '@/components/effects/DynamicSkyCanvas';
+import GearAudioHub from '@/components/nav/GearAudioHub';
+import AmbientAudioToggle from '@/components/effects/AmbientAudioToggle';
 import {
   generateMemorableGlobalId,
   generateCollegePinItId,
@@ -16,26 +20,31 @@ export default function SignupPage() {
   const { signup, login } = useAuth();
   const router = useRouter();
 
-  // ─── Theme State: 'dark' (Signature Cyber) vs 'light' (Clean Studio Precision) ───
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  // ─── Global App Store Theme Synchronization ───
+  const storeTheme = useAppStore((s) => s.theme);
+  const setStoreTheme = useAppStore((s) => s.setTheme);
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
+  const isDark = storeTheme === 'dark';
 
   useEffect(() => {
+    // 1. Sync theme on mount from canonical pc_theme or data-theme
     try {
-      const savedTheme = localStorage.getItem('pinit_signup_theme') as 'dark' | 'light';
-      if (savedTheme === 'light' || savedTheme === 'dark') {
-        setTheme(savedTheme);
+      const saved = (localStorage.getItem('pc_theme') as 'dark' | 'light' | null) ||
+        (document.documentElement.getAttribute('data-theme') as 'dark' | 'light' | null);
+      if (saved && (saved === 'dark' || saved === 'light') && saved !== storeTheme) {
+        setStoreTheme(saved);
       }
     } catch {}
-  }, []);
 
-  const toggleTheme = (newTheme: 'dark' | 'light') => {
-    setTheme(newTheme);
-    try {
-      localStorage.setItem('pinit_signup_theme', newTheme);
-    } catch {}
-  };
-
-  const isDark = theme === 'dark';
+    // 2. Cross-component event listener for pc_theme_toggled
+    const handleThemeEvent = (e: any) => {
+      if (e.detail?.theme && (e.detail.theme === 'dark' || e.detail.theme === 'light')) {
+        setStoreTheme(e.detail.theme);
+      }
+    };
+    window.addEventListener('pc_theme_toggled', handleThemeEvent);
+    return () => window.removeEventListener('pc_theme_toggled', handleThemeEvent);
+  }, [setStoreTheme, storeTheme]);
 
   // ─── Form & Verification State (Clean Unhardcoded Initial State) ───
   const [idMode, setIdMode] = useState<'college' | 'global'>('college');
@@ -477,7 +486,7 @@ export default function SignupPage() {
         justifyContent: 'center',
         padding: '36px 20px',
         background: isDark
-          ? '#0c0d10'
+          ? '#060813'
           : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)',
         color: isDark ? '#f8fafc' : '#0f172a',
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -576,6 +585,33 @@ export default function SignupPage() {
           }
         }
 
+        /* Universal Dark/Light Mode Autofill Override */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 1000px ${isDark ? '#181b22' : '#ffffff'} inset !important;
+          -webkit-text-fill-color: ${isDark ? '#ffffff' : '#0f172a'} !important;
+          caret-color: ${isDark ? '#ffffff' : '#0f172a'} !important;
+          transition: background-color 5000s ease-in-out 0s;
+        }
+
+        input:-internal-autofill-selected {
+          background-color: ${isDark ? '#181b22' : '#ffffff'} !important;
+          color: ${isDark ? '#ffffff' : '#0f172a'} !important;
+          -webkit-text-fill-color: ${isDark ? '#ffffff' : '#0f172a'} !important;
+        }
+
+        input:autofill {
+          background-color: ${isDark ? '#181b22' : '#ffffff'} !important;
+          color: ${isDark ? '#ffffff' : '#0f172a'} !important;
+        }
+
+        ::placeholder {
+          color: ${isDark ? '#64748b' : '#94a3b8'} !important;
+          opacity: 1;
+        }
+
         .input-glow:focus {
           border-color: #3b82f6 !important;
           box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
@@ -592,6 +628,9 @@ export default function SignupPage() {
         }
       `}</style>
 
+      {/* ─── Universal Ambient Sky Canvas (Landing Page Continuity: Zero Sun & Meteors) ─── */}
+      <DynamicSkyCanvas theme={storeTheme} disableMeteors disableSun immediate />
+
       {/* ─── Ambient Glows, Technical Grid & Reticles (Used across both themes) ─── */}
       <div
         style={{
@@ -602,6 +641,23 @@ export default function SignupPage() {
             ? 'radial-gradient(rgba(255,255,255,0.06) 1.2px, transparent 1.2px)'
             : 'radial-gradient(rgba(100, 116, 139, 0.14) 1.2px, transparent 1.2px)',
           backgroundSize: '28px 28px',
+          zIndex: 1,
+        }}
+      />
+      {/* Cosmic Deep Space Ambient Glow (Matching Landing Page Hero Halo) */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '20%',
+          left: '15%',
+          width: 700,
+          height: 700,
+          borderRadius: '50%',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(0, 163, 255, 0.22) 0%, rgba(56, 189, 248, 0.08) 45%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(251, 146, 60, 0.05) 45%, transparent 70%)',
+          filter: 'blur(65px)',
+          pointerEvents: 'none',
           zIndex: 0,
         }}
       />
@@ -633,77 +689,105 @@ export default function SignupPage() {
       </div>
       <span style={{ position: 'fixed', bottom: 20, right: 24, color: isDark ? '#38bdf8' : '#2563eb', opacity: isDark ? 0.65 : 0.75, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
 
-      {/* ─── Floating Top Bar: Theme Switcher ─── */}
+      {/* ─── Floating Top Bar: Brand Home Link (Left) & Actions Hub (Right) ─── */}
       <div
         style={{
           position: 'absolute',
           top: 22,
-          right: 32,
-          zIndex: 40,
+          left: 32,
+          zIndex: 50,
           display: 'flex',
           alignItems: 'center',
           gap: 12,
         }}
       >
-        <div
+        <Link
+          href="/"
           style={{
             display: 'flex',
             alignItems: 'center',
-            padding: '3px 4px',
-            borderRadius: 9999,
-            background: isDark ? 'rgba(25, 28, 35, 0.92)' : 'rgba(255, 255, 255, 0.95)',
-            border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(203, 213, 225, 0.9)'}`,
-            backdropFilter: 'blur(12px)',
-            boxShadow: isDark
-              ? '0 6px 20px rgba(0,0,0,0.5)'
-              : '0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.05)',
-            transition: 'all 0.3s ease',
+            gap: 10,
+            textDecoration: 'none',
+            color: isDark ? '#ffffff' : '#0f172a',
+            transition: 'opacity 0.2s',
+          }}
+          title="Return to PinIT Career OS Home"
+        >
+          <Image
+            src="/brand/pinit-career-mark.png"
+            alt="PinIT Career"
+            width={32}
+            height={32}
+            style={{ width: 28, height: 28, objectFit: 'contain' }}
+            priority
+          />
+          <span style={{ fontSize: 14.5, fontWeight: 800, letterSpacing: -0.3 }}>
+            PinIT <span style={{ color: isDark ? '#38bdf8' : '#0284c7' }}>Career</span>
+          </span>
+        </Link>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          top: 22,
+          right: 32,
+          zIndex: 50,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        <Link
+          href="/login"
+          style={{
+            padding: '7px 14px',
+            fontSize: '13px',
+            fontWeight: 700,
+            textDecoration: 'none',
+            borderRadius: '8px',
+            border: isDark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+            color: isDark ? '#f8fafc' : '#0f172a',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'transparent',
+            transition: 'all 0.2s ease',
           }}
         >
-          <button
-            type="button"
-            onClick={() => toggleTheme('dark')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 14px',
-              borderRadius: 9999,
-              border: 'none',
-              fontSize: 12.5,
-              fontWeight: 700,
-              cursor: 'pointer',
-              background: isDark ? '#2563eb' : 'transparent',
-              color: isDark ? '#ffffff' : '#64748b',
-              boxShadow: isDark ? '0 0 16px rgba(37, 99, 235, 0.6)' : 'none',
-              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-          >
-            <span>🌙</span> Dark
-          </button>
-          <button
-            type="button"
-            onClick={() => toggleTheme('light')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 14px',
-              borderRadius: 9999,
-              border: 'none',
-              fontSize: 12.5,
-              fontWeight: 700,
-              cursor: 'pointer',
-              background: !isDark ? '#2563eb' : 'transparent',
-              color: !isDark ? '#ffffff' : '#94a3b8',
-              boxShadow: !isDark ? '0 0 16px rgba(37, 99, 235, 0.5)' : 'none',
-              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-          >
-            <span>☀️</span> Light
-          </button>
-        </div>
+          Sign In
+        </Link>
+
+        {/* 1-Click Sun / Moon Direct Theme Toggle (Matching Landing Page) */}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          style={{
+            background: 'transparent',
+            border: isDark ? '1px solid rgba(255,255,255,0.14)' : '1px solid rgba(0,0,0,0.14)',
+            borderRadius: '50%',
+            width: '36px',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '17px',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            color: isDark ? '#ffffff' : '#0f172a',
+          }}
+          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          aria-label="Toggle Theme"
+        >
+          {isDark ? '☀️' : '🌙'}
+        </button>
+
+        {/* ⚙️ Universal Gear Audio & Settings Hub */}
+        <GearAudioHub theme={storeTheme} />
       </div>
+
+      {/* ─── Persistent Floating Ambient Audio Toggle (Matching Landing Page) ─── */}
+      <AmbientAudioToggle />
 
       {/* ─── Main Two-Column Viewport Container ─── */}
       <div
@@ -1133,8 +1217,8 @@ export default function SignupPage() {
           <div
             style={{
               width: '100%',
-              maxWidth: 540, // Task 2: 20% bigger (450 * 1.2 = 540px)
-              transform: 'translateX(0%)', // Moved 10% toward right side
+              maxWidth: 540, // Stable fixed width
+              transform: 'translateX(0%)',
               borderRadius: 28,
               background: isDark ? '#15171d' : '#ffffff',
               border: `1px solid ${isDark ? '#262933' : '#e2e8f0'}`,
@@ -1145,8 +1229,9 @@ export default function SignupPage() {
               display: 'flex',
               flexDirection: 'column',
               gap: 18,
+              minHeight: 575, // Task 1: Zero height jump between tabs
               boxSizing: 'border-box',
-              transition: 'all 0.25s ease',
+              transition: 'border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease',
             }}
           >
             {/* 1. Mode Pill Toggle: [ Global PinIT ID | College Student ID ] */}
@@ -1342,6 +1427,7 @@ export default function SignupPage() {
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   placeholder="Student Full Name (e.g. Vinay N)"
+                  autoComplete="off"
                   className="input-glow"
                   style={{
                     width: '100%',
@@ -1358,8 +1444,8 @@ export default function SignupPage() {
                 />
               </div>
 
-              {/* Field 2 & 3: College Name & Branch (Symmetrical 2-Column Grid matching Screenshot 3) */}
-              {idMode === 'college' && (
+              {/* Field 2 & 3: College Name & Branch (or Global Enclave Badge to preserve 100% height stability) */}
+              {idMode === 'college' ? (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
                   <div style={{ position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#38bdf8' : '#2563eb', pointerEvents: 'none' }}>
@@ -1373,18 +1459,19 @@ export default function SignupPage() {
                       onChange={(e) => setCollegeName(e.target.value)}
                       placeholder="College / Campus"
                       title={collegeName || 'College Name'}
+                      autoComplete="off"
                       className="input-glow"
                       style={{
                         width: '100%',
                         padding: '12px 10px 12px 34px',
                         borderRadius: 12,
                         background: isDark ? '#181b22' : '#ffffff',
-                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                    color: isDark ? '#ffffff' : '#0f172a',
+                        border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                        color: isDark ? '#ffffff' : '#0f172a',
                         fontSize: 12.5,
                         outline: 'none',
                         boxSizing: 'border-box',
-                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                        transition: 'border-color 0.2s, box-shadow 0.2s, background-color 0.2s',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                       }}
@@ -1404,23 +1491,46 @@ export default function SignupPage() {
                       onChange={(e) => setBranch(e.target.value)}
                       placeholder="Branch / Stream"
                       title={branch || 'Branch / Stream'}
+                      autoComplete="off"
                       className="input-glow"
                       style={{
                         width: '100%',
                         padding: '12px 10px 12px 34px',
                         borderRadius: 12,
                         background: isDark ? '#181b22' : '#ffffff',
-                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                    color: isDark ? '#ffffff' : '#0f172a',
+                        border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                        color: isDark ? '#ffffff' : '#0f172a',
                         fontSize: 12.5,
                         outline: 'none',
                         boxSizing: 'border-box',
-                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                        transition: 'border-color 0.2s, box-shadow 0.2s, background-color 0.2s',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                       }}
                     />
                   </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    height: 45,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '0 14px',
+                    borderRadius: 12,
+                    background: isDark ? 'rgba(56, 189, 248, 0.06)' : 'rgba(37, 99, 235, 0.05)',
+                    border: `1px dashed ${isDark ? 'rgba(56, 189, 248, 0.25)' : 'rgba(37, 99, 235, 0.25)'}`,
+                    color: isDark ? '#38bdf8' : '#2563eb',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  <span style={{ fontSize: 16 }}>🌐</span>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    Global PinIT Identity Enclave · Universal Access
+                  </span>
                 </div>
               )}
 
@@ -1441,6 +1551,7 @@ export default function SignupPage() {
                       ? 'Student ID or Campus Email'
                       : 'Global PinIT ID or Email'
                   }
+                  autoComplete="off"
                   className="input-glow"
                   style={{
                     width: '100%',
@@ -1470,6 +1581,7 @@ export default function SignupPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
+                  autoComplete="new-password"
                   className="input-glow"
                   style={{
                     width: '100%',

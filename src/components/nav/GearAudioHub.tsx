@@ -143,7 +143,8 @@ export default function GearAudioHub({
     setTimeout(() => setCacheCleared(false), 2500);
   };
 
-  const isDark = theme === 'dark';
+  const activeTheme = storeTheme || theme || 'dark';
+  const isDark = activeTheme === 'dark';
   const buttonSize = size === 'sm' ? '32px' : size === 'lg' ? '40px' : '36px';
   const iconSize = size === 'sm' ? 16 : size === 'lg' ? 20 : 18;
 

@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled } from '@/lib/demoAuth';
 import GearAudioHub from '@/components/nav/GearAudioHub';
+import { useAppStore } from '@/lib/store/useAppStore';
 
 interface PublicNavbarProps {
   onLoginClick?: () => void;
@@ -16,26 +17,24 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { loginWithVaultSession } = useAuth();
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const storeTheme = useAppStore((s) => s.theme);
+  const storeToggle = useAppStore((s) => s.toggleTheme);
+  const storeSet = useAppStore((s) => s.setTheme);
+  const theme = storeTheme;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isHubDropdownOpen, setIsHubDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('pc_theme') as 'dark' | 'light' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
+    const savedTheme = (localStorage.getItem('pc_theme') as 'dark' | 'light' | null) ||
+      (document.documentElement.getAttribute('data-theme') as 'dark' | 'light' | null);
+    if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light') && savedTheme !== storeTheme) {
+      storeSet(savedTheme);
       document.documentElement.setAttribute('data-theme', savedTheme);
     }
-  }, []);
+  }, [storeSet, storeTheme]);
 
   const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    localStorage.setItem('pc_theme', nextTheme);
-    document.documentElement.setAttribute('data-theme', nextTheme);
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme: nextTheme, time: Date.now() } }));
-    }
+    storeToggle();
   };
 
   const handleDevModeClick = async () => {
