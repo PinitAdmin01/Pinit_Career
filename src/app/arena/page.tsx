@@ -3117,7 +3117,7 @@ function ArenaContent() {
                   <strong style={{ color: '#a855f7', fontSize: 14.5 }}>Rule 6: Rating Safety Floor</strong>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  Students are protected by a minimum rating floor of <strong>1000 Elo</strong>. You will never drop below the cadet baseline regardless of match outcomes.
+                  Students are protected by a minimum rating floor of <strong>100 Elo</strong>. You will never drop below the cadet baseline regardless of match outcomes.
                 </div>
               </div>
             </div>
