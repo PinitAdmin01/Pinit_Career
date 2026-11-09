@@ -131,24 +131,19 @@ export default function SignupPage() {
 
       if (res.ok) {
         const data = await res.json();
-        if (data.studentName) {
-          setStudentName(data.studentName);
-        }
-        if (data.collegeName) {
-          setCollegeName(data.collegeName);
-        }
-        if (data.department) {
-          setBranch(data.department);
-        }
-        if (data.rollNumber) {
-          setIdentifier(data.rollNumber);
-        }
-        if (data.collegeMeta) {
-          setCollegeMeta(data.collegeMeta);
-        }
-        if (data.pinitId) {
-          setPinitId(data.pinitId);
-        }
+        const meta = data.metadata || data.collegeMeta || data;
+        const nameVal = meta.studentName || data.studentName;
+        const colVal = meta.collegeName || data.collegeName;
+        const deptVal = meta.department || data.department;
+        const rollVal = meta.rollNumber || data.rollNumber;
+        const idVal = data.pinitId || meta.pinitId;
+
+        if (nameVal) setStudentName(nameVal);
+        if (colVal) setCollegeName(colVal);
+        if (deptVal) setBranch(deptVal);
+        if (rollVal) setIdentifier(rollVal);
+        if (idVal) setPinitId(idVal);
+        if (meta) setCollegeMeta(meta);
         setScanStatus('Badge Verified & Synced!');
       } else {
         throw new Error('No metadata');
@@ -164,6 +159,7 @@ export default function SignupPage() {
         if (parsed.rollNumber) setIdentifier(parsed.rollNumber);
         const generated = generateCollegePinItId(parsed);
         if (generated) setPinitId(generated);
+        setCollegeMeta(parsed);
         setScanStatus('Badge Synced!');
       } catch {
         setScanStatus('Card Synced');
@@ -223,6 +219,9 @@ export default function SignupPage() {
         ...existingParsed,
         ...studentProfilePayload,
       }));
+      if (finalCollege && finalCollege.trim().length > 1) {
+        localStorage.setItem('pinit_connected_college', finalCollege.trim());
+      }
     } catch {}
 
     let authenticatedUser: any = null;

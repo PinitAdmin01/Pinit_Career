@@ -221,6 +221,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       metadata: extractedMeta,
+      collegeMeta: extractedMeta,
+      studentName: extractedMeta.studentName,
+      collegeName: extractedMeta.collegeName,
+      collegeCode: extractedMeta.collegeCode,
+      department: extractedMeta.department,
+      departmentCode: extractedMeta.departmentCode,
+      rollNumber: extractedMeta.rollNumber,
       pinitId,
       storagePath,
       source: extractionSource,

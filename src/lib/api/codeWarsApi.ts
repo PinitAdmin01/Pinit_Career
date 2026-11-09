@@ -410,6 +410,7 @@ export class CodeWarsApiService {
     code: string;
     language: string;
     timeSpentSeconds: number;
+    problemId?: string;
   }): Promise<{
     passed: boolean;
     score: number;
@@ -421,15 +422,29 @@ export class CodeWarsApiService {
     xpAwarded?: number;
     newXp?: number;
   }> {
-    const { matchId, studentId, code, language, timeSpentSeconds } = params;
+    const { matchId, studentId, code, language, timeSpentSeconds, problemId: paramProblemId } = params;
     const matches = this.getStudentMatches(studentId);
-    const match = matches.find(m => m.id === matchId);
+    let match = matches.find(m => m.id === matchId);
     if (!match) {
-      throw new Error(`Match not found: ${matchId}`);
+      // Dynamic fallback for PvP rooms, test executions, or direct runs
+      const resolvedProblemId = paramProblemId || CODE_WARS_PROBLEMS_CATALOG[0].id;
+      const syntheticMatch: BattleMatch = {
+        id: matchId,
+        studentId,
+        problemId: resolvedProblemId,
+        mode: '1v1_duel',
+        status: 'active',
+        startedAt: Date.now() - Math.max(0, timeSpentSeconds * 1000),
+        timeSpentSeconds,
+      };
+      matches.unshift(syntheticMatch);
+      this.saveStudentMatches(studentId, matches);
+      match = syntheticMatch;
     }
+    const currentMatch: BattleMatch = match;
 
     // Authoritative execution against the full test suite including hidden test cases
-    const problem = this.getAuthoritativeProblem(match.problemId) || CODE_WARS_PROBLEMS_CATALOG[0];
+    const problem = this.getAuthoritativeProblem(paramProblemId || currentMatch.problemId) || CODE_WARS_PROBLEMS_CATALOG[0];
 
     // Deterministic validation & execution against real test fixtures
     let testsPassed = 0;
@@ -521,14 +536,14 @@ export class CodeWarsApiService {
     let evidenceRecordId: string | undefined;
 
     if (passed) {
-      match.status = 'victory';
-      match.score = score;
-      match.timeSpentSeconds = timeSpentSeconds;
-      match.executionLogs = logs;
+      currentMatch.status = 'victory';
+      currentMatch.score = score;
+      currentMatch.timeSpentSeconds = timeSpentSeconds;
+      currentMatch.executionLogs = logs;
 
       // Record authentic evidence record into PathwayApiService
       const evResult = await PathwayApiService.recordEvidence({
-        id: `ev_codewar_${match.id}`,
+        id: `ev_codewar_${currentMatch.id}`,
         competencyId: problem.competencyId,
         competencyVersion: '1.0.0',
         studentId,
@@ -537,7 +552,7 @@ export class CodeWarsApiService {
         difficulty: problem.difficulty as EvidenceDifficulty,
         evidenceFamilyId: `codewars_${problem.id}`,
         sourceType: 'quest',
-        sourceId: `codewar_match_${match.id}`,
+        sourceId: `codewar_match_${currentMatch.id}`,
         attemptId: `att_duel_01`,
         score,
         evaluatorType: 'deterministic',
@@ -550,12 +565,12 @@ export class CodeWarsApiService {
       });
 
       evidenceRecordId = evResult.evidenceRecord.id;
-      match.evidenceRecordId = evidenceRecordId;
+      currentMatch.evidenceRecordId = evidenceRecordId;
     } else {
-      match.status = 'defeat';
-      match.score = score;
-      match.timeSpentSeconds = timeSpentSeconds;
-      match.executionLogs = logs;
+      currentMatch.status = 'defeat';
+      currentMatch.score = score;
+      currentMatch.timeSpentSeconds = timeSpentSeconds;
+      currentMatch.executionLogs = logs;
     }
 
     this.saveStudentMatches(studentId, matches);

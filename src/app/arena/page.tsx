@@ -491,6 +491,7 @@ function ArenaContent() {
         code,
         language,
         timeSpentSeconds: (activeRoom?.timeLimitSeconds || 600) - timeRemaining,
+        problemId: activeProblem.id,
       });
       setTestResult(result);
 
@@ -568,6 +569,7 @@ function ArenaContent() {
         code,
         language,
         timeSpentSeconds: (activeRoom?.timeLimitSeconds || 600) - timeRemaining,
+        problemId: activeProblem.id,
       });
       setTestResult(result);
 
