@@ -4,8 +4,8 @@ import { CODE_WARS_PROBLEMS_CATALOG } from '../src/lib/api/codeWarsApi';
 import { CODEWARS_PROBLEM_REGISTRY } from '../src/lib/server/codeWarsSandbox';
 import { judgeCodeWarsSubmission } from '../src/lib/server/codeWarsJudge';
 
-// 60 REFERENCE SOLUTIONS IN TYPESCRIPT
-const TS_SOLUTIONS: Record<string, string> = {
+// 120 REFERENCE SOLUTIONS IN TYPESCRIPT
+export const TS_SOLUTIONS: Record<string, string> = {
   // 1-30 existing
   war_two_sum_01: `
     function twoSum(nums: number[], target: number): number[] {
@@ -2089,7 +2089,7 @@ function maxPathSum(rootArr: (number | null)[]): number {
   `,
 };
 
-const PY_SOLUTIONS: Record<string, string> = {
+export const PY_SOLUTIONS: Record<string, string> = {
   // 1-30 existing
   war_two_sum_01: `
 def two_sum(nums, target):
