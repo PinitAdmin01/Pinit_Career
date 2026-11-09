@@ -5503,6 +5503,1287 @@ for idx, (r, expected) in enumerate(cases):
     assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
 `,
   },
+
+  // --- EXPANSION TO 150 QUESTIONS (30 MORE UNIVERSAL & INTERVIEW QUESTIONS) ---
+  // [BASIC] Counting Bits (Hardware Popcount Array)
+  war_counting_bits_41: {
+    functionName: 'countBits',
+    pythonFunctionName: 'count_bits',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { n: 2, expected: [0,1,1] },
+        { n: 5, expected: [0,1,1,2,1,2] },
+        { n: 0, expected: [0] },
+        { n: 8, expected: [0,1,1,2,1,2,2,3,1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = countBits(cases[i].n);
+          if (Array.isArray(res) && res.join(',') === cases[i].expected.join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('count_bits') or globals().get('countBits')
+assert fn is not None, "Function count_bits not found"
+cases = [
+    (2, [0,1,1]),
+    (5, [0,1,1,2,1,2]),
+    (0, [0]),
+    (8, [0,1,1,2,1,2,2,3,1])
+]
+for idx, (n, expected) in enumerate(cases):
+    ans = fn(n)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Reverse Vowels of a String (Speech Obfuscator)
+  war_reverse_vowels_42: {
+    functionName: 'reverseVowels',
+    pythonFunctionName: 'reverse_vowels',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "hello", expected: "holle" },
+        { s: "leetcode", expected: "leotcede" },
+        { s: "aA", expected: "Aa" },
+        { s: "rhythm", expected: "rhythm" }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = reverseVowels(cases[i].s);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('reverse_vowels') or globals().get('reverseVowels')
+assert fn is not None, "Function reverse_vowels not found"
+cases = [
+    ("hello", "holle"),
+    ("leetcode", "leotcede"),
+    ("aA", "Aa"),
+    ("rhythm", "rhythm")
+]
+for idx, (s, expected) in enumerate(cases):
+    ans = fn(s)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Summary Ranges (Database Interval Compactor)
+  war_summary_ranges_43: {
+    functionName: 'summaryRanges',
+    pythonFunctionName: 'summary_ranges',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [0,1,2,4,5,7], expected: ["0->2","4->5","7"] },
+        { nums: [0,2,3,4,6,8,9], expected: ["0","2->4","6","8->9"] },
+        { nums: [], expected: [] },
+        { nums: [-1], expected: ["-1"] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = summaryRanges(cases[i].nums.slice());
+          if (Array.isArray(res) && res.join(',') === cases[i].expected.join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('summary_ranges') or globals().get('summaryRanges')
+assert fn is not None, "Function summary_ranges not found"
+cases = [
+    ([0,1,2,4,5,7], ["0->2","4->5","7"]),
+    ([0,2,3,4,6,8,9], ["0","2->4","6","8->9"]),
+    ([], []),
+    ([-1], ["-1"])
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Is Subsequence (Stream Audit Sequence Checker)
+  war_is_subsequence_44: {
+    functionName: 'isSubsequence',
+    pythonFunctionName: 'is_subsequence',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "abc", t: "ahbgdc", expected: true },
+        { s: "axc", t: "ahbgdc", expected: false },
+        { s: "", t: "ahbgdc", expected: true },
+        { s: "b", t: "c", expected: false }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = isSubsequence(cases[i].s, cases[i].t);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('is_subsequence') or globals().get('isSubsequence')
+assert fn is not None, "Function is_subsequence not found"
+cases = [
+    ("abc", "ahbgdc", True),
+    ("axc", "ahbgdc", False),
+    ("", "ahbgdc", True),
+    ("b", "c", False)
+]
+for idx, (s, t, expected) in enumerate(cases):
+    ans = fn(s, t)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Find All Numbers Disappeared in an Array (In-Place Index Sign Negation)
+  war_find_disappeared_numbers_45: {
+    functionName: 'findDisappearedNumbers',
+    pythonFunctionName: 'find_disappeared_numbers',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [4,3,2,7,8,2,3,1], expected: [5,6] },
+        { nums: [1,1], expected: [2] },
+        { nums: [1], expected: [] },
+        { nums: [2,2], expected: [1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findDisappearedNumbers(cases[i].nums.slice());
+          if (Array.isArray(res) && res.slice().sort().join(',') === cases[i].expected.slice().sort().join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_disappeared_numbers') or globals().get('findDisappearedNumbers')
+assert fn is not None, "Function find_disappeared_numbers not found"
+cases = [
+    ([4,3,2,7,8,2,3,1], [5,6]),
+    ([1,1], [2]),
+    ([1], []),
+    ([2,2], [1])
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert sorted(ans) == sorted(expected), f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Maximum Product of Three Numbers (Risk Hedging Volatility Triple)
+  war_maximum_product_three_46: {
+    functionName: 'maximumProduct',
+    pythonFunctionName: 'maximum_product',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,2,3], expected: 6 },
+        { nums: [1,2,3,4], expected: 24 },
+        { nums: [-1,-2,-3], expected: -6 },
+        { nums: [-100,-98,1,2,3,4], expected: 39200 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = maximumProduct(cases[i].nums.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('maximum_product') or globals().get('maximumProduct')
+assert fn is not None, "Function maximum_product not found"
+cases = [
+    ([1,2,3], 6),
+    ([1,2,3,4], 24),
+    ([-1,-2,-3], -6),
+    ([-100,-98,1,2,3,4], 39200)
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Base 7 Conversion (Hardware Bus Radix Transcoder)
+  war_base_7_conversion_47: {
+    functionName: 'convertToBase7',
+    pythonFunctionName: 'convert_to_base7',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { num: 100, expected: "202" },
+        { num: -7, expected: "-10" },
+        { num: 0, expected: "0" },
+        { num: 49, expected: "100" }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = convertToBase7(cases[i].num);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('convert_to_base7') or globals().get('convertToBase7')
+assert fn is not None, "Function convert_to_base7 not found"
+cases = [
+    (100, "202"),
+    (-7, "-10"),
+    (0, "0"),
+    (49, "100")
+]
+for idx, (num, expected) in enumerate(cases):
+    ans = fn(num)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Keyboard Row (Input Ergonomics Sanitizer)
+  war_keyboard_row_48: {
+    functionName: 'findWords',
+    pythonFunctionName: 'find_words',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { words: ["Hello","Alaska","Dad","Peace"], expected: ["Alaska","Dad"] },
+        { words: ["omk"], expected: [] },
+        { words: ["adsdf","sfd"], expected: ["adsdf","sfd"] },
+        { words: ["a","b"], expected: ["a","b"] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findWords(cases[i].words.slice());
+          if (Array.isArray(res) && res.join(',') === cases[i].expected.join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_words') or globals().get('findWords')
+assert fn is not None, "Function find_words not found"
+cases = [
+    (["Hello","Alaska","Dad","Peace"], ["Alaska","Dad"]),
+    (["omk"], []),
+    (["adsdf","sfd"], ["adsdf","sfd"]),
+    (["a","b"], ["a","b"])
+]
+for idx, (words, expected) in enumerate(cases):
+    ans = fn(list(words))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Assign Cookies (Greedy Spot-Instance Dispatcher)
+  war_assign_cookies_49: {
+    functionName: 'findContentChildren',
+    pythonFunctionName: 'find_content_children',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { g: [1,2,3], s: [1,1], expected: 1 },
+        { g: [1,2], s: [1,2,3], expected: 2 },
+        { g: [3,4], s: [1,2], expected: 0 },
+        { g: [10,9,8,7], s: [5,6,7,8], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findContentChildren(cases[i].g.slice(), cases[i].s.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_content_children') or globals().get('findContentChildren')
+assert fn is not None, "Function find_content_children not found"
+cases = [
+    ([1,2,3], [1,1], 1),
+    ([1,2], [1,2,3], 2),
+    ([3,4], [1,2], 0),
+    ([10,9,8,7], [5,6,7,8], 2)
+]
+for idx, (g, s, expected) in enumerate(cases):
+    ans = fn(list(g), list(s))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Relative Sort Array (Custom Priority Dispatcher)
+  war_relative_sort_array_50: {
+    functionName: 'relativeSortArray',
+    pythonFunctionName: 'relative_sort_array',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { a1: [2,3,1,3,2,4,6,7,9,2,19], a2: [2,1,4,3,9,6], expected: [2,2,2,1,4,3,3,9,6,7,19] },
+        { a1: [28,6,22,8,44,17], a2: [22,28,8,6], expected: [22,28,8,6,17,44] },
+        { a1: [1,2,3], a2: [3,2,1], expected: [3,2,1] },
+        { a1: [5,4,3], a2: [], expected: [3,4,5] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = relativeSortArray(cases[i].a1.slice(), cases[i].a2.slice());
+          if (Array.isArray(res) && res.join(',') === cases[i].expected.join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('relative_sort_array') or globals().get('relativeSortArray')
+assert fn is not None, "Function relative_sort_array not found"
+cases = [
+    ([2,3,1,3,2,4,6,7,9,2,19], [2,1,4,3,9,6], [2,2,2,1,4,3,3,9,6,7,19]),
+    ([28,6,22,8,44,17], [22,28,8,6], [22,28,8,6,17,44]),
+    ([1,2,3], [3,2,1], [3,2,1]),
+    ([5,4,3], [], [3,4,5])
+]
+for idx, (a1, a2, expected) in enumerate(cases):
+    ans = fn(list(a1), list(a2))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Find Peak Element (Logarithmic Unimodal Peak Locator)
+  war_find_peak_element_44: {
+    functionName: 'findPeakElement',
+    pythonFunctionName: 'find_peak_element',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,2,3,1], valid: [2] },
+        { nums: [1,2,1,3,5,6,4], valid: [1, 5] },
+        { nums: [1], valid: [0] },
+        { nums: [2,1], valid: [0] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findPeakElement(cases[i].nums.slice());
+          if (cases[i].valid.indexOf(res) !== -1) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: returned invalid peak index ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_peak_element') or globals().get('findPeakElement')
+assert fn is not None, "Function find_peak_element not found"
+cases = [
+    ([1,2,3,1], [2]),
+    ([1,2,1,3,5,6,4], [1, 5]),
+    ([1], [0]),
+    ([2,1], [0])
+]
+for idx, (nums, valid) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans in valid, f"Test case {idx+1} failed: returned invalid peak index {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Combination Sum (Currency Denominational Payout Engine)
+  war_combination_sum_45: {
+    functionName: 'combinationSum',
+    pythonFunctionName: 'combination_sum',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { c: [2,3,6,7], t: 7, expected: [[2,2,3],[7]] },
+        { c: [2,3,5], t: 8, expected: [[2,2,2,2],[2,3,3],[3,5]] },
+        { c: [2], t: 1, expected: [] },
+        { c: [1], t: 2, expected: [[1,1]] }
+      ];
+      function canonicalize(arr) {
+        return arr.map(function(item){ return item.slice().sort(function(a,b){return a-b;}).join(','); }).sort().join('|');
+      }
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = combinationSum(cases[i].c.slice(), cases[i].t);
+          if (canonicalize(res) === canonicalize(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('combination_sum') or globals().get('combinationSum')
+assert fn is not None, "Function combination_sum not found"
+def canonicalize(arr):
+    return sorted([sorted(x) for x in arr])
+cases = [
+    ([2,3,6,7], 7, [[2,2,3],[7]]),
+    ([2,3,5], 8, [[2,2,2,2],[2,3,3],[3,5]]),
+    ([2], 1, []),
+    ([1], 2, [[1,1]])
+]
+for idx, (c, t, expected) in enumerate(cases):
+    ans = fn(list(c), t)
+    assert canonicalize(ans) == canonicalize(expected), f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Partition Equal Subset Sum (Cluster Dual-Node Load Balancer)
+  war_partition_equal_subset_sum_46: {
+    functionName: 'canPartition',
+    pythonFunctionName: 'can_partition',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,5,11,5], expected: true },
+        { nums: [1,2,3,5], expected: false },
+        { nums: [2,2], expected: true },
+        { nums: [1,2,5], expected: false }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = canPartition(cases[i].nums.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('can_partition') or globals().get('canPartition')
+assert fn is not None, "Function can_partition not found"
+cases = [
+    ([1,5,11,5], True),
+    ([1,2,3,5], False),
+    ([2,2], True),
+    ([1,2,5], False)
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Sort Colors (Line-Rate 3-Tier Packet Triage)
+  war_sort_colors_47: {
+    functionName: 'sortColors',
+    pythonFunctionName: 'sort_colors',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [2,0,2,1,1,0], expected: [0,0,1,1,2,2] },
+        { nums: [2,0,1], expected: [0,1,2] },
+        { nums: [0], expected: [0] },
+        { nums: [1,2,0], expected: [0,1,2] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = sortColors(cases[i].nums.slice());
+          if (Array.isArray(res) && res.join(',') === cases[i].expected.join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('sort_colors') or globals().get('sortColors')
+assert fn is not None, "Function sort_colors not found"
+cases = [
+    ([2,0,2,1,1,0], [0,0,1,1,2,2]),
+    ([2,0,1], [0,1,2]),
+    ([0], [0]),
+    ([1,2,0], [0,1,2])
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Target Sum (Net Financial Exposure Pathways)
+  war_target_sum_48: {
+    functionName: 'findTargetSumWays',
+    pythonFunctionName: 'find_target_sum_ways',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,1,1,1,1], target: 3, expected: 5 },
+        { nums: [1], target: 1, expected: 1 },
+        { nums: [1], target: 2, expected: 0 },
+        { nums: [1,0], target: 1, expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findTargetSumWays(cases[i].nums.slice(), cases[i].target);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_target_sum_ways') or globals().get('findTargetSumWays')
+assert fn is not None, "Function find_target_sum_ways not found"
+cases = [
+    ([1,1,1,1,1], 3, 5),
+    ([1], 1, 1),
+    ([1], 2, 0),
+    ([1,0], 1, 2)
+]
+for idx, (nums, target, expected) in enumerate(cases):
+    ans = fn(list(nums), target)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Non-overlapping Intervals (Satellite Downlink Transponder Scheduler)
+  war_non_overlapping_intervals_49: {
+    functionName: 'eraseOverlapIntervals',
+    pythonFunctionName: 'erase_overlap_intervals',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { int: [[1,2],[2,3],[3,4],[1,3]], expected: 1 },
+        { int: [[1,2],[1,2],[1,2]], expected: 2 },
+        { int: [[1,2],[2,3]], expected: 0 },
+        { int: [[1,100],[11,22],[1,11],[2,12]], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var inputCopy = cases[i].int.map(function(item){ return item.slice(); });
+          var res = eraseOverlapIntervals(inputCopy);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('erase_overlap_intervals') or globals().get('eraseOverlapIntervals')
+assert fn is not None, "Function erase_overlap_intervals not found"
+cases = [
+    ([[1,2],[2,3],[3,4],[1,3]], 1),
+    ([[1,2],[1,2],[1,2]], 2),
+    ([[1,2],[2,3]], 0),
+    ([[1,100],[11,22],[1,11],[2,12]], 2)
+]
+for idx, (intervals, expected) in enumerate(cases):
+    ans = fn([list(x) for x in intervals])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Path Sum II (Call Stack Memory Diagnostics Trace)
+  war_path_sum_ii_50: {
+    functionName: 'pathSum',
+    pythonFunctionName: 'path_sum',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { r: [5,4,8,11,null,13,4,7,2,null,null,5,1], t: 22, expected: [[5,4,11,2],[5,8,4,5]] },
+        { r: [1,2,3], t: 5, expected: [] },
+        { r: [1,2], t: 0, expected: [] },
+        { r: [1], t: 1, expected: [[1]] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = pathSum(cases[i].r.slice(), cases[i].t);
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('path_sum') or globals().get('pathSum')
+assert fn is not None, "Function path_sum not found"
+cases = [
+    ([5,4,8,11,None,13,4,7,2,None,None,5,1], 22, [[5,4,11,2],[5,8,4,5]]),
+    ([1,2,3], 5, []),
+    ([1,2], 0, []),
+    ([1], 1, [[1]])
+]
+for idx, (r, t, expected) in enumerate(cases):
+    ans = fn(list(r), t)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Cheapest Flights Within K Stops (Microservice SLA Hop Router)
+  war_cheapest_flights_k_stops_51: {
+    functionName: 'findCheapestPrice',
+    pythonFunctionName: 'find_cheapest_price',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { n: 4, flights: [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src: 0, dst: 3, k: 1, expected: 700 },
+        { n: 3, flights: [[0,1,100],[1,2,100],[0,2,500]], src: 0, dst: 2, k: 1, expected: 200 },
+        { n: 3, flights: [[0,1,100],[1,2,100],[0,2,500]], src: 0, dst: 2, k: 0, expected: 500 },
+        { n: 2, flights: [[0,1,100]], src: 0, dst: 1, k: 0, expected: 100 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var fCopy = cases[i].flights.map(function(item){ return item.slice(); });
+          var res = findCheapestPrice(cases[i].n, fCopy, cases[i].src, cases[i].dst, cases[i].k);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_cheapest_price') or globals().get('findCheapestPrice')
+assert fn is not None, "Function find_cheapest_price not found"
+cases = [
+    (4, [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], 0, 3, 1, 700),
+    (3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2, 1, 200),
+    (3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2, 0, 500),
+    (2, [[0,1,100]], 0, 1, 0, 100)
+]
+for idx, (n, flights, src, dst, k, expected) in enumerate(cases):
+    ans = fn(n, [list(x) for x in flights], src, dst, k)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Kth Smallest Element in a BST (B-Tree Rank Index Optimizer)
+  war_kth_smallest_bst_52: {
+    functionName: 'kthSmallest',
+    pythonFunctionName: 'kth_smallest',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { r: [3,1,4,null,2], k: 1, expected: 1 },
+        { r: [5,3,6,2,4,null,null,1], k: 3, expected: 3 },
+        { r: [2,1,3], k: 2, expected: 2 },
+        { r: [1], k: 1, expected: 1 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = kthSmallest(cases[i].r.slice(), cases[i].k);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('kth_smallest') or globals().get('kthSmallest')
+assert fn is not None, "Function kth_smallest not found"
+cases = [
+    ([3,1,4,None,2], 1, 1),
+    ([5,3,6,2,4,None,None,1], 3, 3),
+    ([2,1,3], 2, 2),
+    ([1], 1, 1)
+]
+for idx, (r, k, expected) in enumerate(cases):
+    ans = fn(list(r), k)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Surrounded Regions (Silicon Wafer Micro-Defect Isolation)
+  war_surrounded_regions_53: {
+    functionName: 'solveRegions',
+    pythonFunctionName: 'solve_regions',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { b: [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]], expected: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]] },
+        { b: [["X"]], expected: [["X"]] },
+        { b: [["O","O"],["O","O"]], expected: [["O","O"],["O","O"]] },
+        { b: [["X","O","X"],["X","O","X"],["X","O","X"]], expected: [["X","O","X"],["X","O","X"],["X","O","X"]] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var bCopy = cases[i].b.map(function(r){ return r.slice(); });
+          var res = solveRegions(bCopy);
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('solve_regions') or globals().get('solveRegions')
+assert fn is not None, "Function solve_regions not found"
+cases = [
+    ([["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]], [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]),
+    ([["X"]], [["X"]]),
+    ([["O","O"],["O","O"]], [["O","O"],["O","O"]]),
+    ([["X","O","X"],["X","O","X"],["X","O","X"]], [["X","O","X"],["X","O","X"],["X","O","X"]])
+]
+for idx, (b, expected) in enumerate(cases):
+    ans = fn([list(r) for r in b])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Sliding Window Median (HFT Rolling Volatility Metric)
+  war_sliding_window_median_41: {
+    functionName: 'medianSlidingWindow',
+    pythonFunctionName: 'median_sliding_window',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,3,-1,-3,5,3,6,7], k: 3, expected: [1,-1,-1,3,5,6] },
+        { nums: [1,2,3,4,2,3,1,4,2], k: 3, expected: [2,3,3,3,2,3,2] },
+        { nums: [1,4,2,3], k: 4, expected: [2.5] },
+        { nums: [5], k: 1, expected: [5] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = medianSlidingWindow(cases[i].nums.slice(), cases[i].k);
+          var match = Array.isArray(res) && res.length === cases[i].expected.length && res.every(function(val, idx){
+            return Math.abs(val - cases[i].expected[idx]) < 1e-5;
+          });
+          if (match) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('median_sliding_window') or globals().get('medianSlidingWindow')
+assert fn is not None, "Function median_sliding_window not found"
+cases = [
+    ([1,3,-1,-3,5,3,6,7], 3, [1,-1,-1,3,5,6]),
+    ([1,2,3,4,2,3,1,4,2], 3, [2,3,3,3,2,3,2]),
+    ([1,4,2,3], 4, [2.5]),
+    ([5], 1, [5])
+]
+for idx, (nums, k, expected) in enumerate(cases):
+    ans = fn(list(nums), k)
+    assert len(ans) == len(expected) and all(abs(a - b) < 1e-5 for a, b in zip(ans, expected)), f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] First Missing Positive (In-Place Cyclic Virtual Page Allocator)
+  war_first_missing_positive_42: {
+    functionName: 'firstMissingPositive',
+    pythonFunctionName: 'first_missing_positive',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,2,0], expected: 3 },
+        { nums: [3,4,-1,1], expected: 2 },
+        { nums: [7,8,9,11,12], expected: 1 },
+        { nums: [1], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = firstMissingPositive(cases[i].nums.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('first_missing_positive') or globals().get('firstMissingPositive')
+assert fn is not None, "Function first_missing_positive not found"
+cases = [
+    ([1,2,0], 3),
+    ([3,4,-1,1], 2),
+    ([7,8,9,11,12], 1),
+    ([1], 2)
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Word Search II (Trie + 2D Backtracking Genomic Motif Engine)
+  war_word_search_ii_43: {
+    functionName: 'findWordsII',
+    pythonFunctionName: 'find_words_ii',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { b: [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], w: ["oath","pea","eat","rain"], expected: ["eat","oath"] },
+        { b: [["a","b"],["c","d"]], w: ["abcb"], expected: [] },
+        { b: [["a"]], w: ["a"], expected: ["a"] },
+        { b: [["a","b"],["c","d"]], w: ["ab","ac","bd","ca"], expected: ["ab","ac","bd","ca"] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var bCopy = cases[i].b.map(function(r){ return r.slice(); });
+          var res = findWordsII(bCopy, cases[i].w.slice());
+          if (Array.isArray(res) && res.slice().sort().join(',') === cases[i].expected.slice().sort().join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_words_ii') or globals().get('findWordsII')
+assert fn is not None, "Function find_words_ii not found"
+cases = [
+    ([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"], ["eat","oath"]),
+    ([["a","b"],["c","d"]], ["abcb"], []),
+    ([["a"]], ["a"], ["a"]),
+    ([["a","b"],["c","d"]], ["ab","ac","bd","ca"], ["ab","ac","bd","ca"])
+]
+for idx, (b, w, expected) in enumerate(cases):
+    ans = fn([list(r) for r in b], list(w))
+    assert sorted(ans) == sorted(expected), f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Remove Invalid Parentheses (Fault-Tolerant Compiler AST Recovery)
+  war_remove_invalid_parentheses_44: {
+    functionName: 'removeInvalidParentheses',
+    pythonFunctionName: 'remove_invalid_parentheses',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "()())()", expected: ["(())()","()()()"] },
+        { s: "(a)())()", expected: ["(a())()","(a)()()"] },
+        { s: ")(", expected: [""] },
+        { s: "()", expected: ["()"] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = removeInvalidParentheses(cases[i].s);
+          if (Array.isArray(res) && res.slice().sort().join(',') === cases[i].expected.slice().sort().join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('remove_invalid_parentheses') or globals().get('removeInvalidParentheses')
+assert fn is not None, "Function remove_invalid_parentheses not found"
+cases = [
+    ("()())()", ["(())()","()()()"]),
+    ("(a)())()", ["(a())()","(a)()()"]),
+    (")(", [""]),
+    ("()", ["()"])
+]
+for idx, (s, expected) in enumerate(cases):
+    ans = fn(s)
+    assert sorted(ans) == sorted(expected), f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Russian Doll Envelopes (2D LIS Wafer Fabrication Mask Nesting)
+  war_russian_doll_envelopes_45: {
+    functionName: 'maxEnvelopes',
+    pythonFunctionName: 'max_envelopes',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { e: [[5,4],[6,4],[6,7],[2,3]], expected: 3 },
+        { e: [[1,1],[1,1],[1,1]], expected: 1 },
+        { e: [[4,5],[4,6],[6,7],[2,3],[1,1]], expected: 4 },
+        { e: [[10,20]], expected: 1 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var eCopy = cases[i].e.map(function(item){ return item.slice(); });
+          var res = maxEnvelopes(eCopy);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('max_envelopes') or globals().get('maxEnvelopes')
+assert fn is not None, "Function max_envelopes not found"
+cases = [
+    ([[5,4],[6,4],[6,7],[2,3]], 3),
+    ([[1,1],[1,1],[1,1]], 1),
+    ([[4,5],[4,6],[6,7],[2,3],[1,1]], 4),
+    ([[10,20]], 1)
+]
+for idx, (envelopes, expected) in enumerate(cases):
+    ans = fn([list(x) for x in envelopes])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Tiered Cache Hierarchy Simulator (L1 LRU + L2 LFU Controller)
+  war_hierarchical_cache_simulator_46: {
+    functionName: 'simulateTieredCache',
+    pythonFunctionName: 'simulate_tiered_cache',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { l1: 2, l2: 2, ops: [["put",1,10],["put",2,20],["get",1],["put",3,30],["get",2],["get",1]], expected: [10,20,10] },
+        { l1: 1, l2: 1, ops: [["put",1,100],["put",2,200],["get",1],["get",2]], expected: [100,200] },
+        { l1: 1, l2: 1, ops: [["get",5]], expected: [-1] },
+        { l1: 2, l2: 1, ops: [["put",1,1],["put",2,2],["put",3,3],["put",4,4],["get",1]], expected: [-1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = simulateTieredCache(cases[i].l1, cases[i].l2, cases[i].ops);
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('simulate_tiered_cache') or globals().get('simulateTieredCache')
+assert fn is not None, "Function simulate_tiered_cache not found"
+cases = [
+    (2, 2, [["put",1,10],["put",2,20],["get",1],["put",3,30],["get",2],["get",1]], [10,20,10]),
+    (1, 1, [["put",1,100],["put",2,200],["get",1],["get",2]], [100,200]),
+    (1, 1, [["get",5]], [-1]),
+    (2, 1, [["put",1,1],["put",2,2],["put",3,3],["put",4,4],["get",1]], [-1])
+]
+for idx, (l1, l2, ops, expected) in enumerate(cases):
+    ans = fn(l1, l2, [list(x) for x in ops])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Median of Two Sorted Arrays (Logarithmic Dual Partitioning)
+  war_median_two_sorted_arrays_47: {
+    functionName: 'findMedianSortedArrays',
+    pythonFunctionName: 'find_median_sorted_arrays',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { n1: [1,3], n2: [2], expected: 2.0 },
+        { n1: [1,2], n2: [3,4], expected: 2.5 },
+        { n1: [0,0], n2: [0,0], expected: 0.0 },
+        { n1: [], n2: [1], expected: 1.0 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findMedianSortedArrays(cases[i].n1.slice(), cases[i].n2.slice());
+          if (Math.abs(res - cases[i].expected) < 1e-5) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_median_sorted_arrays') or globals().get('findMedianSortedArrays')
+assert fn is not None, "Function find_median_sorted_arrays not found"
+cases = [
+    ([1,3], [2], 2.0),
+    ([1,2], [3,4], 2.5),
+    ([0,0], [0,0], 0.0),
+    ([], [1], 1.0)
+]
+for idx, (n1, n2, expected) in enumerate(cases):
+    ans = fn(list(n1), list(n2))
+    assert abs(ans - expected) < 1e-5, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Shortest Path Visiting All Nodes (Autonomous Robotics Routing)
+  war_shortest_path_all_nodes_48: {
+    functionName: 'shortestPathLength',
+    pythonFunctionName: 'shortest_path_length',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { g: [[1,2,3],[0],[0],[0]], expected: 4 },
+        { g: [[1],[0,2,4],[1,3,4],[2],[1,2]], expected: 4 },
+        { g: [[]], expected: 0 },
+        { g: [[1],[0]], expected: 1 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var gCopy = cases[i].g.map(function(item){ return item.slice(); });
+          var res = shortestPathLength(gCopy);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('shortest_path_length') or globals().get('shortestPathLength')
+assert fn is not None, "Function shortest_path_length not found"
+cases = [
+    ([[1,2,3],[0],[0],[0]], 4),
+    ([[1],[0,2,4],[1,3,4],[2],[1,2]], 4),
+    ([[]], 0),
+    ([[1],[0]], 1)
+]
+for idx, (g, expected) in enumerate(cases):
+    ans = fn([list(x) for x in g])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Palindrome Pairs (Genomic Hairpin & NLP Token Matcher)
+  war_palindrome_pairs_49: {
+    functionName: 'palindromePairs',
+    pythonFunctionName: 'palindrome_pairs',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { w: ["abcd","dcba","lls","s","sssll"], expected: [[0,1],[1,0],[2,4],[3,2]] },
+        { w: ["bat","tab","cat"], expected: [[0,1],[1,0]] },
+        { w: ["a",""], expected: [[0,1],[1,0]] },
+        { w: ["a","b"], expected: [] }
+      ];
+      function canonicalize(arr) {
+        return arr.map(function(item){ return item.join(','); }).sort().join('|');
+      }
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = palindromePairs(cases[i].w.slice());
+          if (canonicalize(res) === canonicalize(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('palindrome_pairs') or globals().get('palindromePairs')
+assert fn is not None, "Function palindrome_pairs not found"
+def canonicalize(arr):
+    return sorted(arr)
+cases = [
+    (["abcd","dcba","lls","s","sssll"], [[0,1],[1,0],[2,4],[3,2]]),
+    (["bat","tab","cat"], [[0,1],[1,0]]),
+    (["a",""], [[0,1],[1,0]]),
+    (["a","b"], [])
+]
+for idx, (w, expected) in enumerate(cases):
+    ans = fn(list(w))
+    assert canonicalize(ans) == canonicalize(expected), f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Redundant Connection II (Directed Dependency Graph Sanitizer)
+  war_redundant_connection_ii_50: {
+    functionName: 'findRedundantDirectedConnection',
+    pythonFunctionName: 'find_redundant_directed_connection',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { e: [[1,2],[1,3],[2,3]], expected: [2,3] },
+        { e: [[1,2],[2,3],[3,4],[4,1],[1,5]], expected: [4,1] },
+        { e: [[2,1],[3,1],[4,2],[1,4]], expected: [2,1] },
+        { e: [[1,2],[2,3],[3,1]], expected: [3,1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var eCopy = cases[i].e.map(function(item){ return item.slice(); });
+          var res = findRedundantDirectedConnection(eCopy);
+          if (Array.isArray(res) && res.join(',') === cases[i].expected.join(',')) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_redundant_directed_connection') or globals().get('findRedundantDirectedConnection')
+assert fn is not None, "Function find_redundant_directed_connection not found"
+cases = [
+    ([[1,2],[1,3],[2,3]], [2,3]),
+    ([[1,2],[2,3],[3,4],[4,1],[1,5]], [4,1]),
+    ([[2,1],[3,1],[4,2],[1,4]], [2,1]),
+    ([[1,2],[2,3],[3,1]], [3,1])
+]
+for idx, (edges, expected) in enumerate(cases):
+    ans = fn([list(x) for x in edges])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
 };
 
 const EVALUATOR_WORKER_SCRIPT = `

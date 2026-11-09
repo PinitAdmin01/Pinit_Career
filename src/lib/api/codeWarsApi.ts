@@ -4153,6 +4153,1178 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     hint: "Post-order DFS traversal: for each node, compute max gain from left child max(0, leftGain) and right child max(0, rightGain). The best path arching through the current node is node.val + leftGain + rightGain. Update global max, and return node.val + max(leftGain, rightGain) to parent.",
     complexityTarget: "Time: O(N) | Space: O(H)",
   },
+
+  // --- EXPANSION TO 150 QUESTIONS (30 MORE UNIVERSAL & INTERVIEW QUESTIONS) ---
+  {
+    id: 'war_counting_bits_41',
+    title: "Counting Bits (Hardware Popcount Array)",
+    difficulty: 'basic',
+    competencyId: 'comp_bitwise_counting_bits_l1',
+    description: "In embedded microcontroller firmware and network protocol bitmask encoders, engineers pre-compute popcount tables. Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1s in the binary representation of i.",
+    starterCode: {
+      typescript: "function countBits(n: number): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def count_bits(n: int) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "n = 2",
+            "expectedOutput": "[0,1,1]",
+            "explanation": "0: 0, 1: 1, 2: 10 (1 bit)"
+      },
+      {
+            "input": "n = 5",
+            "expectedOutput": "[0,1,1,2,1,2]",
+            "explanation": "Popcounts for 0 through 5."
+      },
+      {
+            "input": "n = 0",
+            "expectedOutput": "[0]",
+            "explanation": "Popcount of 0 is 0."
+      },
+      {
+            "input": "n = 8",
+            "expectedOutput": "[0,1,1,2,1,2,2,3,1]",
+            "explanation": "Powers of 2 have popcount 1."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Bit Manipulation","Dynamic Programming","Hardware Telemetry"],
+    hint: "Use dynamic programming with the least significant bit: ans[i] = ans[i >> 1] + (i & 1).",
+    complexityTarget: "Time: O(N) | Space: O(1) auxiliary",
+  },
+  {
+    id: 'war_reverse_vowels_42',
+    title: "Reverse Vowels of a String (Speech Obfuscator)",
+    difficulty: 'basic',
+    competencyId: 'comp_string_two_pointers_vowels_l1',
+    description: "In linguistic audio compression and phoneme obfuscation streams, engineers invert vocalic resonances while holding consonant framing rigid. Given a string s, reverse only all the vowels in the string and return it. Vowels are a, e, i, o, u in both lowercase and uppercase.",
+    starterCode: {
+      typescript: "function reverseVowels(s: string): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def reverse_vowels(s: string) -> str:\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "s = \"hello\"",
+            "expectedOutput": "\"holle\"",
+            "explanation": "e and o are reversed."
+      },
+      {
+            "input": "s = \"leetcode\"",
+            "expectedOutput": "\"leotcede\"",
+            "explanation": "eeoe reversed to eoe."
+      },
+      {
+            "input": "s = \"aA\"",
+            "expectedOutput": "\"Aa\"",
+            "explanation": "Case-insensitive vowel reversal."
+      },
+      {
+            "input": "s = \"rhythm\"",
+            "expectedOutput": "\"rhythm\"",
+            "explanation": "No vowels, string unchanged."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Two Pointers","String","Audio Engineering"],
+    hint: "Use two pointers from left and right. Advance left until a vowel is found, retreat right until a vowel is found, swap them, and repeat until pointers cross.",
+    complexityTarget: "Time: O(N) | Space: O(N) or O(1) in-place",
+  },
+  {
+    id: 'war_summary_ranges_43',
+    title: "Summary Ranges (Database Interval Compactor)",
+    difficulty: 'basic',
+    competencyId: 'comp_array_summary_ranges_l1',
+    description: "In distributed columnar database engines (such as BigQuery and ClickHouse), partition prune engines compact consecutive unique row IDs into range spans. Given a sorted unique integer array nums, return the smallest sorted list of ranges that cover all the numbers in the array exactly. If a range is a single number a, format as \"a\", otherwise \"a->b\".",
+    starterCode: {
+      typescript: "function summaryRanges(nums: number[]): string[] {\n  // Your solution here\n  return [];\n}",
+      python: "def summary_ranges(nums: list[int]) -> list[str]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "nums = [0,1,2,4,5,7]",
+            "expectedOutput": "[\"0->2\",\"4->5\",\"7\"]",
+            "explanation": "0-2 and 4-5 are contiguous intervals."
+      },
+      {
+            "input": "nums = [0,2,3,4,6,8,9]",
+            "expectedOutput": "[\"0\",\"2->4\",\"6\",\"8->9\"]",
+            "explanation": "Disjoint intervals."
+      },
+      {
+            "input": "nums = []",
+            "expectedOutput": "[]",
+            "explanation": "Empty array produces empty ranges."
+      },
+      {
+            "input": "nums = [-1]",
+            "expectedOutput": "[\"-1\"]",
+            "explanation": "Single negative integer."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","Two Pointers","Database Internals"],
+    hint: "Iterate with two pointers or an index jump: while nums[j + 1] === nums[j] + 1, expand j. Then format nums[i] === nums[j] ? `${nums[i]}` : `${nums[i]}->${nums[j]}`.",
+    complexityTarget: "Time: O(N) | Space: O(1) auxiliary",
+  },
+  {
+    id: 'war_is_subsequence_44',
+    title: "Is Subsequence (Stream Audit Sequence Checker)",
+    difficulty: 'basic',
+    competencyId: 'comp_string_subsequence_checker_l1',
+    description: "In security audit logging, an IDS filter checks whether a sequence of unauthorized command flags s appeared in chronological order within an incoming packet payload stream t. Given strings s and t, return true if s is a subsequence of t, or false otherwise.",
+    starterCode: {
+      typescript: "function isSubsequence(s: string, t: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_subsequence(s: str, t: str) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "s = \"abc\", t = \"ahbgdc\"",
+            "expectedOutput": "true",
+            "explanation": "Characters a, b, c appear in order."
+      },
+      {
+            "input": "s = \"axc\", t = \"ahbgdc\"",
+            "expectedOutput": "false",
+            "explanation": "x does not appear."
+      },
+      {
+            "input": "s = \"\", t = \"ahbgdc\"",
+            "expectedOutput": "true",
+            "explanation": "Empty string is subsequence of anything."
+      },
+      {
+            "input": "s = \"b\", t = \"c\"",
+            "expectedOutput": "false",
+            "explanation": "Single character mismatch."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Strings","Two Pointers","Security Telemetry"],
+    hint: "Use two pointers. Increment the pointer for s only when characters match. If the s pointer reaches s.length, return true.",
+    complexityTarget: "Time: O(T) | Space: O(1)",
+  },
+  {
+    id: 'war_find_disappeared_numbers_45',
+    title: "Find All Numbers Disappeared in an Array (In-Place Index Sign Negation)",
+    difficulty: 'basic',
+    competencyId: 'comp_array_disappeared_numbers_l1',
+    description: "In bare-metal embedded storage controllers with zero allocation overhead, sector usage bitmap tables must be verified. Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums. Solve with O(1) auxiliary memory.",
+    starterCode: {
+      typescript: "function findDisappearedNumbers(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def find_disappeared_numbers(nums: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "nums = [4,3,2,7,8,2,3,1]",
+            "expectedOutput": "[5,6]",
+            "explanation": "5 and 6 are missing from [1, 8]."
+      },
+      {
+            "input": "nums = [1,1]",
+            "expectedOutput": "[2]",
+            "explanation": "2 is missing."
+      },
+      {
+            "input": "nums = [1]",
+            "expectedOutput": "[]",
+            "explanation": "All elements present."
+      },
+      {
+            "input": "nums = [2,2]",
+            "expectedOutput": "[1]",
+            "explanation": "1 is missing."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","Hash Table","Embedded Systems"],
+    hint: "Use the array itself as a hash table: for each value val = Math.abs(nums[i]), negate the element at index val - 1. In a second pass, any positive nums[i] means (i + 1) was missing.",
+    complexityTarget: "Time: O(N) | Space: O(1) auxiliary",
+  },
+  {
+    id: 'war_maximum_product_three_46',
+    title: "Maximum Product of Three Numbers (Risk Hedging Volatility Triple)",
+    difficulty: 'basic',
+    competencyId: 'comp_math_max_product_three_l1',
+    description: "In quantitative financial risk modeling, the maximum product of three return factors indicates peak portfolio risk volatility. Given an integer array nums, find three numbers whose product is maximum and return the maximum product. Note that two large negative numbers multiplied together yield a positive product.",
+    starterCode: {
+      typescript: "function maximumProduct(nums: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def maximum_product(nums: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,2,3]",
+            "expectedOutput": "6",
+            "explanation": "1 * 2 * 3 = 6."
+      },
+      {
+            "input": "nums = [1,2,3,4]",
+            "expectedOutput": "24",
+            "explanation": "2 * 3 * 4 = 24."
+      },
+      {
+            "input": "nums = [-1,-2,-3]",
+            "expectedOutput": "-6",
+            "explanation": "-1 * -2 * -3 = -6."
+      },
+      {
+            "input": "nums = [-100,-98,1,2,3,4]",
+            "expectedOutput": "39200",
+            "explanation": "-100 * -98 * 4 = 39200."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Math","Arrays","FinTech"],
+    hint: "Track the three largest numbers (max1, max2, max3) and the two smallest numbers (min1, min2) in a single pass. Return max(max1 * max2 * max3, max1 * min1 * min2).",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_base_7_conversion_47',
+    title: "Base 7 Conversion (Hardware Bus Radix Transcoder)",
+    difficulty: 'basic',
+    competencyId: 'comp_math_base7_transcoder_l1',
+    description: "In specialized serial telemetry busses, 7-state ternary logic packets are encoded in base-7 string representations. Given an integer num, return a string of its base 7 representation. Handle negative integers and 0 correctly.",
+    starterCode: {
+      typescript: "function convertToBase7(num: number): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def convert_to_base7(num: int) -> str:\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "num = 100",
+            "expectedOutput": "\"202\"",
+            "explanation": "2*49 + 0*7 + 2*1 = 100."
+      },
+      {
+            "input": "num = -7",
+            "expectedOutput": "\"-10\"",
+            "explanation": "-1*7 + 0 = -7."
+      },
+      {
+            "input": "num = 0",
+            "expectedOutput": "\"0\"",
+            "explanation": "Zero in base 7 is 0."
+      },
+      {
+            "input": "num = 49",
+            "expectedOutput": "\"100\"",
+            "explanation": "1*49 + 0*7 + 0 = 49."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Math","Simulation","Hardware Engineering"],
+    hint: "If num === 0 return \"0\". If num < 0, handle sign. Repeatedly extract num % 7, append to digits, and divide num = Math.floor(num / 7). Reverse digits at end.",
+    complexityTarget: "Time: O(log7 N) | Space: O(1)",
+  },
+  {
+    id: 'war_keyboard_row_48',
+    title: "Keyboard Row (Input Ergonomics Sanitizer)",
+    difficulty: 'basic',
+    competencyId: 'comp_string_keyboard_row_l1',
+    description: "In industrial control consoles and single-handed technician data terminals, input words must be verified against allowable physical keyboard rows. Given an array of strings words, return the words that can be typed using alphabet letters of only one row of American keyboard letters (Row 1: \"qwertyuiop\", Row 2: \"asdfghjkl\", Row 3: \"zxcvbnm\").",
+    starterCode: {
+      typescript: "function findWords(words: string[]): string[] {\n  // Your solution here\n  return [];\n}",
+      python: "def find_words(words: list[str]) -> list[str]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "words = [\"Hello\",\"Alaska\",\"Dad\",\"Peace\"]",
+            "expectedOutput": "[\"Alaska\",\"Dad\"]",
+            "explanation": "Alaska and Dad are on row 2."
+      },
+      {
+            "input": "words = [\"omk\"]",
+            "expectedOutput": "[]",
+            "explanation": "Letters on different rows."
+      },
+      {
+            "input": "words = [\"adsdf\",\"sfd\"]",
+            "expectedOutput": "[\"adsdf\",\"sfd\"]",
+            "explanation": "Both only row 2."
+      },
+      {
+            "input": "words = [\"a\",\"b\"]",
+            "expectedOutput": "[\"a\",\"b\"]",
+            "explanation": "Single letters always on 1 row."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Hash Table","Strings","Hardware Input"],
+    hint: "Map each letter to its row index (1, 2, or 3). For each word, check if all characters map to the same row index.",
+    complexityTarget: "Time: O(N * L) | Space: O(1) auxiliary",
+  },
+  {
+    id: 'war_assign_cookies_49',
+    title: "Assign Cookies (Greedy Spot-Instance Dispatcher)",
+    difficulty: 'basic',
+    competencyId: 'comp_greedy_assign_cookies_l1',
+    description: "In cloud compute scheduling, spot-instance dispatcher matching satisfies worker tasks g (minimum memory demands) with available spot VM slices s (capacities). Each worker can take at most one VM, and a VM slice satisfies a worker if its capacity s[j] >= demand g[i]. Return the maximum number of workers you can satisfy.",
+    starterCode: {
+      typescript: "function findContentChildren(g: number[], s: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def find_content_children(g: list[int], s: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "g = [1,2,3], s = [1,1]",
+            "expectedOutput": "1",
+            "explanation": "Only 1 child can be satisfied with size 1 cookie."
+      },
+      {
+            "input": "g = [1,2], s = [1,2,3]",
+            "expectedOutput": "2",
+            "explanation": "Both children satisfied."
+      },
+      {
+            "input": "g = [3,4], s = [1,2]",
+            "expectedOutput": "0",
+            "explanation": "No cookies large enough."
+      },
+      {
+            "input": "g = [10,9,8,7], s = [5,6,7,8]",
+            "expectedOutput": "2",
+            "explanation": "Cookies 7 and 8 satisfy children 7 and 8."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Greedy","Sorting","Resource Dispatcher"],
+    hint: "Sort both arrays g and s in ascending order. Use two pointers i and j. Advance j on every step; whenever s[j] >= g[i], satisfy the child and advance i.",
+    complexityTarget: "Time: O(N log N + M log M) | Space: O(1)",
+  },
+  {
+    id: 'war_relative_sort_array_50',
+    title: "Relative Sort Array (Custom Priority Dispatcher)",
+    difficulty: 'basic',
+    competencyId: 'comp_array_relative_sort_l1',
+    description: "In QoS packet dispatchers, network packets in arr1 must be transmitted following the strict priority order established by schedule list arr2. Elements that do not appear in arr2 must be sorted at the end in ascending order. Return the resulting rearranged array.",
+    starterCode: {
+      typescript: "function relativeSortArray(arr1: number[], arr2: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def relative_sort_array(arr1: list[int], arr2: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]",
+            "expectedOutput": "[2,2,2,1,4,3,3,9,6,7,19]",
+            "explanation": "Elements sorted by arr2 priority order, then rest ascending."
+      },
+      {
+            "input": "arr1 = [28,6,22,8,44,17], arr2 = [22,28,8,6]",
+            "expectedOutput": "[22,28,8,6,17,44]",
+            "explanation": "17 and 44 appended in ascending order."
+      },
+      {
+            "input": "arr1 = [1,2,3], arr2 = [3,2,1]",
+            "expectedOutput": "[3,2,1]",
+            "explanation": "Exact reverse permutation."
+      },
+      {
+            "input": "arr1 = [5,4,3], arr2 = []",
+            "expectedOutput": "[3,4,5]",
+            "explanation": "Empty arr2 defaults to natural ascending."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Sorting","Counting Sort","Network Telemetry"],
+    hint: "Use frequency counting (bucket sort): count frequencies of each number in arr1. Iterate through arr2, placing each number according to its count. Then append remaining non-zero count elements in ascending order.",
+    complexityTarget: "Time: O(N + M) | Space: O(1) auxiliary",
+  },
+  {
+    id: 'war_find_peak_element_44',
+    title: "Find Peak Element (Logarithmic Unimodal Peak Locator)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_binary_search_peak_element_l2',
+    description: "In acoustic signal processing and telemetry waveform monitoring, peak amplitude inflection points must be located in logarithmic time. A peak element is an element that is strictly greater than its neighbors. Given an integer array nums where nums[i] != nums[i + 1] and out-of-bounds values are treated as -Infinity, return the index of any peak element in O(log N) time.",
+    starterCode: {
+      typescript: "function findPeakElement(nums: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def find_peak_element(nums: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,2,3,1]",
+            "expectedOutput": "2",
+            "explanation": "Index 2 (value 3) is strictly greater than neighbors 2 and 1."
+      },
+      {
+            "input": "nums = [1,2,1,3,5,6,4]",
+            "expectedOutput": "5",
+            "explanation": "Index 5 (value 6) is a valid peak (index 1 is also valid)."
+      },
+      {
+            "input": "nums = [1]",
+            "expectedOutput": "0",
+            "explanation": "Single element is greater than -Infinity boundaries."
+      },
+      {
+            "input": "nums = [2,1]",
+            "expectedOutput": "0",
+            "explanation": "Index 0 is peak."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Binary Search","Arrays","Telemetry Signal"],
+    hint: "Use binary search: compare nums[mid] to nums[mid + 1]. If nums[mid] < nums[mid + 1], a peak must lie to the right (l = mid + 1); otherwise, a peak lies at mid or to the left (r = mid).",
+    complexityTarget: "Time: O(log N) | Space: O(1)",
+  },
+  {
+    id: 'war_combination_sum_45',
+    title: "Combination Sum (Currency Denominational Payout Engine)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_backtracking_combination_sum_l2',
+    description: "In financial billing and automated ATM currency dispenser firmware, payouts are fulfilled by finding all unique combinations of distinct candidate coin denominations that sum to target. The same candidate number may be chosen an unlimited number of times. Return the combinations in any order.",
+    starterCode: {
+      typescript: "function combinationSum(candidates: number[], target: number): number[][] {\n  // Your solution here\n  return [];\n}",
+      python: "def combination_sum(candidates: list[int], target: int) -> list[list[int]]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "candidates = [2,3,6,7], target = 7",
+            "expectedOutput": "[[2,2,3],[7]]",
+            "explanation": "2+2+3=7 and 7=7."
+      },
+      {
+            "input": "candidates = [2,3,5], target = 8",
+            "expectedOutput": "[[2,2,2,2],[2,3,3],[3,5]]",
+            "explanation": "Three valid combinations."
+      },
+      {
+            "input": "candidates = [2], target = 1",
+            "expectedOutput": "[]",
+            "explanation": "Target cannot be reached."
+      },
+      {
+            "input": "candidates = [1], target = 2",
+            "expectedOutput": "[[1,1]]",
+            "explanation": "Two 1s sum to 2."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Backtracking","Recursion","FinTech Currency"],
+    hint: "Use backtracking DFS. Sort candidates first. At each recursive step, either choose candidate[i] again (subtracting from target) or advance to i + 1. Backtrack when target becomes 0 or negative.",
+    complexityTarget: "Time: O(N^(T/M)) | Space: O(T/M)",
+  },
+  {
+    id: 'war_partition_equal_subset_sum_46',
+    title: "Partition Equal Subset Sum (Cluster Dual-Node Load Balancer)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_dp_partition_equal_subset_l2',
+    description: "In dual-datacenter distributed cloud architecture, incoming compute workloads with integer CPU core weights nums must be partitioned equally between two symmetric nodes with zero core imbalance. Return true if you can partition the array into two subsets such that the sum of elements in both subsets is equal, or false otherwise.",
+    starterCode: {
+      typescript: "function canPartition(nums: number[]): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def can_partition(nums: list[int]) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,5,11,5]",
+            "expectedOutput": "true",
+            "explanation": "[1, 5, 5] and [11] both sum to 11."
+      },
+      {
+            "input": "nums = [1,2,3,5]",
+            "expectedOutput": "false",
+            "explanation": "Total sum is 11 (odd), cannot partition."
+      },
+      {
+            "input": "nums = [2,2]",
+            "expectedOutput": "true",
+            "explanation": "Both partition to 2."
+      },
+      {
+            "input": "nums = [1,2,5]",
+            "expectedOutput": "false",
+            "explanation": "No equal partition exists."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Dynamic Programming","Knapsack","Distributed Systems"],
+    hint: "If total sum is odd, return false immediately. Otherwise, target = sum / 2. Use a 1D boolean DP array of size target + 1, where dp[j] = dp[j] || dp[j - num], iterated in reverse.",
+    complexityTarget: "Time: O(N * S) | Space: O(S) where S = sum / 2",
+  },
+  {
+    id: 'war_sort_colors_47',
+    title: "Sort Colors (Line-Rate 3-Tier Packet Triage)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_two_pointers_sort_colors_l2',
+    description: "In line-rate network switch ASIC ingress buffers, packets arrive tagged with 3 priority tiers: 0 (Low), 1 (Standard), and 2 (Emergency). Given an array nums with n objects colored 0, 1, or 2, sort them in-place so that objects of the same priority tier are adjacent, in order 0, 1, and 2. You must solve it in a single pass without using library sort.",
+    starterCode: {
+      typescript: "function sortColors(nums: number[]): number[] {\n  // Your solution here\n  return nums;\n}",
+      python: "def sort_colors(nums: list[int]) -> list[int]:\n    # Your solution here\n    return nums",
+    },
+    testCases: [
+      {
+            "input": "nums = [2,0,2,1,1,0]",
+            "expectedOutput": "[0,0,1,1,2,2]",
+            "explanation": "Tri-color partitioned."
+      },
+      {
+            "input": "nums = [2,0,1]",
+            "expectedOutput": "[0,1,2]",
+            "explanation": "3 elements sorted."
+      },
+      {
+            "input": "nums = [0]",
+            "expectedOutput": "[0]",
+            "explanation": "Single element."
+      },
+      {
+            "input": "nums = [1,2,0]",
+            "expectedOutput": "[0,1,2]",
+            "explanation": "Sorted in-place."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Two Pointers","Sorting","Line-Rate Networking"],
+    hint: "Use the Dutch National Flag algorithm with three pointers: low, mid, and high. Swap nums[mid] with nums[low] on 0, with nums[high] on 2, or simply advance mid on 1.",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_target_sum_48',
+    title: "Target Sum (Net Financial Exposure Pathways)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_dp_target_sum_ways_l2',
+    description: "In quantitative financial risk networks, long/short exposure positions across asset tranches nums can be assigned positive (+) or negative (-) signs. Given an integer array nums and integer target, return the number of different expressions that you can build which evaluate to target.",
+    starterCode: {
+      typescript: "function findTargetSumWays(nums: number[], target: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def find_target_sum_ways(nums: list[int], target: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,1,1,1,1], target = 3",
+            "expectedOutput": "5",
+            "explanation": "5 different combinations evaluate to 3."
+      },
+      {
+            "input": "nums = [1], target = 1",
+            "expectedOutput": "1",
+            "explanation": "+1 = 1."
+      },
+      {
+            "input": "nums = [1], target = 2",
+            "expectedOutput": "0",
+            "explanation": "Cannot evaluate to 2."
+      },
+      {
+            "input": "nums = [1,0], target = 1",
+            "expectedOutput": "2",
+            "explanation": "+1+0 and +1-0."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Dynamic Programming","Knapsack","Quantitative Finance"],
+    hint: "Convert to subset sum problem: let P be positive set and N be negative set. sum(P) - sum(N) = target and sum(P) + sum(N) = total. Thus sum(P) = (total + target) / 2. If (total + target) is negative or odd, return 0.",
+    complexityTarget: "Time: O(N * S) | Space: O(S)",
+  },
+  {
+    id: 'war_non_overlapping_intervals_49',
+    title: "Non-overlapping Intervals (Satellite Downlink Transponder Scheduler)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_greedy_non_overlapping_intervals_l2',
+    description: "In orbital satellite ground station management, competing telemetry downlinks request transmission time windows [start, end]. To prevent radio interference, you must eliminate overlapping intervals. Given an array of intervals intervals where intervals[i] = [starti, endi], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.",
+    starterCode: {
+      typescript: "function eraseOverlapIntervals(intervals: number[][]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def erase_overlap_intervals(intervals: list[list[int]]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "intervals = [[1,2],[2,3],[3,4],[1,3]]",
+            "expectedOutput": "1",
+            "explanation": "Remove [1,3] leaves 3 non-overlapping intervals."
+      },
+      {
+            "input": "intervals = [[1,2],[1,2],[1,2]]",
+            "expectedOutput": "2",
+            "explanation": "Remove 2 duplicate intervals."
+      },
+      {
+            "input": "intervals = [[1,2],[2,3]]",
+            "expectedOutput": "0",
+            "explanation": "Already non-overlapping."
+      },
+      {
+            "input": "intervals = [[1,100],[11,22],[1,11],[2,12]]",
+            "expectedOutput": "2",
+            "explanation": "Remove [1,100] and [2,12]."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Greedy","Sorting","Aerospace Telemetry"],
+    hint: "Sort intervals by end time in ascending order (greedy activity selection). Iterate through intervals, keeping the one with earliest end time and incrementing removal count whenever an overlap occurs.",
+    complexityTarget: "Time: O(N log N) | Space: O(1)",
+  },
+  {
+    id: 'war_path_sum_ii_50',
+    title: "Path Sum II (Call Stack Memory Diagnostics Trace)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_trees_path_sum_ii_l2',
+    description: "In runtime APM profilers, microservice execution traces are represented as call trees with serialized node cost values. Given the root of a binary tree (as a level-order array with nulls) and integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum.",
+    starterCode: {
+      typescript: "function pathSum(rootArr: any[], targetSum: number): number[][] {\n  // Your solution here\n  return [];\n}",
+      python: "def path_sum(root_arr: list, target_sum: int) -> list[list[int]]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22",
+            "expectedOutput": "[[5,4,11,2],[5,8,4,5]]",
+            "explanation": "Two paths sum to 22."
+      },
+      {
+            "input": "root = [1,2,3], targetSum = 5",
+            "expectedOutput": "[]",
+            "explanation": "No paths sum to 5."
+      },
+      {
+            "input": "root = [1,2], targetSum = 0",
+            "expectedOutput": "[]",
+            "explanation": "No paths sum to 0."
+      },
+      {
+            "input": "root = [1], targetSum = 1",
+            "expectedOutput": "[[1]]",
+            "explanation": "Single root node matches target."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Trees","Depth-First Search","APM Profiler"],
+    hint: "Deserialize tree, then perform DFS backtracking. Accumulate path array and subtract node value from remaining sum. If at a leaf node and remaining sum === node.val, save path copy.",
+    complexityTarget: "Time: O(N) | Space: O(H)",
+  },
+  {
+    id: 'war_cheapest_flights_k_stops_51',
+    title: "Cheapest Flights Within K Stops (Microservice SLA Hop Router)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_graph_cheapest_flights_bellman_l2',
+    description: "In distributed RPC routing mesh topologies, service calls from source node src to target destination dst must respect SLA latency budgets and cannot exceed k intermediate service hops. Given n nodes, array of flights [u, v, price], src, dst, and integer k, return the cheapest price to reach dst with at most k stops. If no route exists, return -1.",
+    starterCode: {
+      typescript: "function findCheapestPrice(n: number, flights: number[][], src: number, dst: number, k: number): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def find_cheapest_price(n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1",
+            "expectedOutput": "700",
+            "explanation": "Route 0->1->3 has cost 700 with 1 stop."
+      },
+      {
+            "input": "n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1",
+            "expectedOutput": "200",
+            "explanation": "Route 0->1->2 has cost 200."
+      },
+      {
+            "input": "n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 0",
+            "expectedOutput": "500",
+            "explanation": "Direct flight 0->2 has 0 stops, cost 500."
+      },
+      {
+            "input": "n = 2, flights = [[0,1,100]], src = 0, dst = 1, k = 0",
+            "expectedOutput": "100",
+            "explanation": "Direct flight cost 100."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Graph","Bellman-Ford","Microservice Mesh"],
+    hint: "Use Bellman-Ford algorithm with k + 1 iterations. In each iteration, clone the previous distance array so updates strictly consume values from previous hops.",
+    complexityTarget: "Time: O(K * E) | Space: O(V)",
+  },
+  {
+    id: 'war_kth_smallest_bst_52',
+    title: "Kth Smallest Element in a BST (B-Tree Rank Index Optimizer)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_trees_bst_kth_smallest_l2',
+    description: "In relational database B-tree storage engines, rank range queries SELECT ... LIMIT 1 OFFSET k-1 must retrieve the kth smallest key without scanning the entire table. Given the root of a binary search tree (serialized array) and integer k, return the kth smallest value (1-indexed) of all the values in the tree.",
+    starterCode: {
+      typescript: "function kthSmallest(rootArr: any[], k: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def kth_smallest(root_arr: list, k: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "root = [3,1,4,null,2], k = 1",
+            "expectedOutput": "1",
+            "explanation": "Smallest value is 1."
+      },
+      {
+            "input": "root = [5,3,6,2,4,null,null,1], k = 3",
+            "expectedOutput": "3",
+            "explanation": "In-order sequence is 1,2,3,4,5,6; 3rd is 3."
+      },
+      {
+            "input": "root = [2,1,3], k = 2",
+            "expectedOutput": "2",
+            "explanation": "2nd smallest is root 2."
+      },
+      {
+            "input": "root = [1], k = 1",
+            "expectedOutput": "1",
+            "explanation": "Single element."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Binary Search Tree","In-Order Traversal","Database Storage"],
+    hint: "Perform an in-order traversal (Left, Root, Right). In a BST, in-order traversal visits nodes in strictly ascending order. Decrement k on each visit; when k === 0, you have found the target.",
+    complexityTarget: "Time: O(H + K) | Space: O(H)",
+  },
+  {
+    id: 'war_surrounded_regions_53',
+    title: "Surrounded Regions (Silicon Wafer Micro-Defect Isolation)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_matrix_surrounded_regions_bfs_l2',
+    description: "In semiconductor photolithography inspection, contiguous defect voids \"O\" on silicon wafer grids must be sealed with passivating oxide \"X\" if they are completely enclosed by structural boundaries. Given an m x n matrix board containing \"X\" and \"O\", capture all regions that are 4-directionally surrounded by \"X\". A region is captured by flipping all \"O\"s into \"X\"s in that surrounded region.",
+    starterCode: {
+      typescript: "function solveRegions(board: string[][]): string[][] {\n  // Your solution here\n  return board;\n}",
+      python: "def solve_regions(board: list[list[str]]) -> list[list[str]]:\n    # Your solution here\n    return board",
+    },
+    testCases: [
+      {
+            "input": "board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+            "expectedOutput": "[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+            "explanation": "Internal O flipped, bottom-border O preserved."
+      },
+      {
+            "input": "board = [[\"X\"]]",
+            "expectedOutput": "[[\"X\"]]",
+            "explanation": "Single cell."
+      },
+      {
+            "input": "board = [[\"O\",\"O\"],[\"O\",\"O\"]]",
+            "expectedOutput": "[[\"O\",\"O\"],[\"O\",\"O\"]]",
+            "explanation": "All touch border, nothing captured."
+      },
+      {
+            "input": "board = [[\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\"]]",
+            "expectedOutput": "[[\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\"]]",
+            "explanation": "Vertical line touches border."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Matrix","Breadth-First Search","Semiconductor Inspection"],
+    hint: "Any \"O\" connected to the grid boundary can never be surrounded. Run BFS/DFS from all border \"O\" cells marking them as safe (e.g. \"#\"). Then iterate through the entire matrix: flip remaining \"O\" to \"X\", and restore \"#\" to \"O\".",
+    complexityTarget: "Time: O(M * N) | Space: O(M * N)",
+  },
+  {
+    id: 'war_sliding_window_median_41',
+    title: "Sliding Window Median (HFT Rolling Volatility Metric)",
+    difficulty: 'advanced',
+    competencyId: 'comp_heap_sliding_window_median_l3',
+    description: "In quantitative algorithmic high-frequency trading (HFT), real-time volatility filtering requires computing the exact statistical median over a rolling price telemetry window of length k. Given an integer array nums and window size k, return the median array for each window from left to right. Medians with even elements are the average of the two middle values.",
+    starterCode: {
+      typescript: "function medianSlidingWindow(nums: number[], k: number): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def median_sliding_window(nums: list[int], k: int) -> list[float]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+            "expectedOutput": "[1,-1,-1,3,5,6]",
+            "explanation": "Rolling window medians of size 3."
+      },
+      {
+            "input": "nums = [1,2,3,4,2,3,1,4,2], k = 3",
+            "expectedOutput": "[2,3,3,3,2,3,2]",
+            "explanation": "Rolling medians."
+      },
+      {
+            "input": "nums = [1,4,2,3], k = 4",
+            "expectedOutput": "[2.5]",
+            "explanation": "Single window of size 4: sorted [1,2,3,4], median (2+3)/2=2.5."
+      },
+      {
+            "input": "nums = [5], k = 1",
+            "expectedOutput": "[5]",
+            "explanation": "Window size 1."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Sliding Window","Binary Search","High-Frequency Trading"],
+    hint: "Maintain a sorted window array of size k using binary search insertion and deletion (or dual balanced heaps with lazy removal). The median is window[k/2] for odd k, or (window[k/2 - 1] + window[k/2]) / 2 for even k.",
+    complexityTarget: "Time: O(N * log K) | Space: O(K)",
+  },
+  {
+    id: 'war_first_missing_positive_42',
+    title: "First Missing Positive (In-Place Cyclic Virtual Page Allocator)",
+    difficulty: 'advanced',
+    competencyId: 'comp_array_cyclic_sort_first_missing_l3',
+    description: "In kernel virtual memory managers, physical page descriptors nums must be scanned to find the lowest available positive page index. Given an unsorted integer array nums, return the smallest missing positive integer. You must implement an algorithm that runs in O(N) time and uses O(1) auxiliary space.",
+    starterCode: {
+      typescript: "function firstMissingPositive(nums: number[]): number {\n  // Your solution here\n  return 1;\n}",
+      python: "def first_missing_positive(nums: list[int]) -> int:\n    # Your solution here\n    return 1",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,2,0]",
+            "expectedOutput": "3",
+            "explanation": "1 and 2 are present, 3 is lowest missing positive."
+      },
+      {
+            "input": "nums = [3,4,-1,1]",
+            "expectedOutput": "2",
+            "explanation": "1 is present, 2 is missing."
+      },
+      {
+            "input": "nums = [7,8,9,11,12]",
+            "expectedOutput": "1",
+            "explanation": "1 is missing."
+      },
+      {
+            "input": "nums = [1]",
+            "expectedOutput": "2",
+            "explanation": "2 is next positive."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Arrays","Cyclic Sort","Operating Systems Memory"],
+    hint: "Use cyclic sort: place each positive number x in the range [1, n] at index x - 1 by swapping. Then scan the array: the first index i where nums[i] !== i + 1 reveals the answer i + 1.",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_word_search_ii_43',
+    title: "Word Search II (Trie + 2D Backtracking Genomic Motif Engine)",
+    difficulty: 'advanced',
+    competencyId: 'comp_trie_matrix_word_search_ii_l3',
+    description: "In bioinformatics DNA motif extraction and high-speed packet payload pattern matchers, a 2D symbol grid must be scanned simultaneously against a dictionary of words. Given an m x n board of characters and list of strings words, return all words found on the board. Each word must be constructed from letters of sequentially adjacent cells (horizontally or vertically).",
+    starterCode: {
+      typescript: "function findWordsII(board: string[][], words: string[]): string[] {\n  // Your solution here\n  return [];\n}",
+      python: "def find_words_ii(board: list[list[str]], words: list[str]) -> list[str]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+            "expectedOutput": "[\"eat\",\"oath\"]",
+            "explanation": "eat and oath are found on board."
+      },
+      {
+            "input": "board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]",
+            "expectedOutput": "[]",
+            "explanation": "Cannot reuse cells."
+      },
+      {
+            "input": "board = [[\"a\"]], words = [\"a\"]",
+            "expectedOutput": "[\"a\"]",
+            "explanation": "Single character match."
+      },
+      {
+            "input": "board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"ab\",\"ac\",\"bd\",\"ca\"]",
+            "expectedOutput": "[\"ab\",\"ac\",\"bd\",\"ca\"]",
+            "explanation": "Four 2-letter words."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Trie","Backtracking","Bioinformatics"],
+    hint: "Build a Trie from the word list. Perform DFS from each cell on the board, navigating down the Trie. Prune matched words from the Trie to eliminate duplicate traversals.",
+    complexityTarget: "Time: O(M * N * 3^L) | Space: O(Sum(Words))",
+  },
+  {
+    id: 'war_remove_invalid_parentheses_44',
+    title: "Remove Invalid Parentheses (Fault-Tolerant Compiler AST Recovery)",
+    difficulty: 'advanced',
+    competencyId: 'comp_bfs_remove_invalid_parentheses_l3',
+    description: "In fault-tolerant compiler frontends and SQL parser error recovery systems, malformed expression syntax must be repaired by removing the minimum number of invalid parentheses. Given a string s containing parentheses and letters, remove the minimum number of invalid parentheses to make the input string valid. Return all unique results in any order.",
+    starterCode: {
+      typescript: "function removeInvalidParentheses(s: string): string[] {\n  // Your solution here\n  return [];\n}",
+      python: "def remove_invalid_parentheses(s: str) -> list[str]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "s = \"()())()\"",
+            "expectedOutput": "[\"(())()\",\"()()()\"]",
+            "explanation": "One parenthesis removed in two ways."
+      },
+      {
+            "input": "s = \"(a)())()\"",
+            "expectedOutput": "[\"(a())()\",\"(a)()()\"]",
+            "explanation": "Letters preserved."
+      },
+      {
+            "input": "s = \")(\"",
+            "expectedOutput": "[\"\"]",
+            "explanation": "Both removed."
+      },
+      {
+            "input": "s = \"()\"",
+            "expectedOutput": "[\"()\"]",
+            "explanation": "Already valid."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Breadth-First Search","Strings","Compiler Construction"],
+    hint: "Use Breadth-First Search (BFS). Start with queue containing s. Check if any string at current level is valid; if so, collect all valid strings at this level and stop (guaranteeing minimum removals). Otherwise, generate candidates by removing one parenthesis at each index.",
+    complexityTarget: "Time: O(2^N) | Space: O(2^N)",
+  },
+  {
+    id: 'war_russian_doll_envelopes_45',
+    title: "Russian Doll Envelopes (2D LIS Wafer Fabrication Mask Nesting)",
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_russian_doll_envelopes_l3',
+    description: "In semiconductor photolithography and automated logistics packaging, nesting rectangular masks [w, h] requires strictly larger dimensions in both width and height. You are given a 2D array of integers envelopes where envelopes[i] = [wi, hi]. Return the maximum number of envelopes you can Russian doll (nest inside one another).",
+    starterCode: {
+      typescript: "function maxEnvelopes(envelopes: number[][]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def max_envelopes(envelopes: list[list[int]]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "envelopes = [[5,4],[6,4],[6,7],[2,3]]",
+            "expectedOutput": "3",
+            "explanation": "[2,3] => [5,4] => [6,7]."
+      },
+      {
+            "input": "envelopes = [[1,1],[1,1],[1,1]]",
+            "expectedOutput": "1",
+            "explanation": "Cannot nest equal dimensions."
+      },
+      {
+            "input": "envelopes = [[4,5],[4,6],[6,7],[2,3],[1,1]]",
+            "expectedOutput": "4",
+            "explanation": "[1,1] => [2,3] => [4,5] => [6,7]."
+      },
+      {
+            "input": "envelopes = [[10,20]]",
+            "expectedOutput": "1",
+            "explanation": "Single envelope."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Search","Dynamic Programming","Semiconductor Lithography"],
+    hint: "Sort envelopes with width ascending, and for equal widths, sort height descending! Then perform Longest Increasing Subsequence (LIS) on heights using binary search patience sorting in O(N log N).",
+    complexityTarget: "Time: O(N log N) | Space: O(N)",
+  },
+  {
+    id: 'war_hierarchical_cache_simulator_46',
+    title: "Tiered Cache Hierarchy Simulator (L1 LRU + L2 LFU Controller)",
+    difficulty: 'advanced',
+    competencyId: 'comp_systems_tiered_cache_simulator_l3',
+    description: "In storage architecture and modern multi-level CPU caching, memory accesses flow through a 2-tier hierarchy: Level-1 (L1) has capacity l1Cap using LRU eviction, and Level-2 (L2) has capacity l2Cap using LFU eviction. Given operations [\"get\", key] and [\"put\", key, val], simulate memory access: on \"get\", return value (or -1 if missing from both) and promote key to L1 MRU (moving evicted L1 item to L2). Return array of get results.",
+    starterCode: {
+      typescript: "function simulateTieredCache(l1Cap: number, l2Cap: number, ops: any[][]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def simulate_tiered_cache(l1_cap: int, l2_cap: int, ops: list[list]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "l1Cap = 2, l2Cap = 2, operations = [[\"put\",1,10],[\"put\",2,20],[\"get\",1],[\"put\",3,30],[\"get\",2],[\"get\",1]]",
+            "expectedOutput": "[10,20,10]",
+            "explanation": "Keys migrate between L1 and L2."
+      },
+      {
+            "input": "l1Cap = 1, l2Cap = 1, operations = [[\"put\",1,100],[\"put\",2,200],[\"get\",1],[\"get\",2]]",
+            "expectedOutput": "[100,200]",
+            "explanation": "L1 evicted to L2."
+      },
+      {
+            "input": "l1Cap = 1, l2Cap = 1, operations = [[\"get\",5]]",
+            "expectedOutput": "[-1]",
+            "explanation": "Missing key returns -1."
+      },
+      {
+            "input": "l1Cap = 2, l2Cap = 1, operations = [[\"put\",1,1],[\"put\",2,2],[\"put\",3,3],[\"put\",4,4],[\"get\",1]]",
+            "expectedOutput": "[-1]",
+            "explanation": "Key 1 evicted from both tiers."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Design","Hash Table","Computer Architecture"],
+    hint: "Maintain two map/list structures: L1 (LRU ordered map) and L2 (LFU frequency map with recency tie-breaking). On L1 hit, mark accessed. On L1 miss but L2 hit, remove from L2 and insert into L1 (evicting L1 LRU item to L2).",
+    complexityTarget: "Time: O(Q * (L1 + L2)) | Space: O(L1 + L2)",
+  },
+  {
+    id: 'war_median_two_sorted_arrays_47',
+    title: "Median of Two Sorted Arrays (Logarithmic Dual Partitioning)",
+    difficulty: 'advanced',
+    competencyId: 'comp_binary_search_median_two_arrays_l3',
+    description: "In distributed high-throughput log analytics, two sharded sorted time-series streams nums1 and nums2 of size m and n must have their joint median calculated without materializing or merging the full streams. The overall run time complexity should be O(log(min(m, n))).",
+    starterCode: {
+      typescript: "function findMedianSortedArrays(nums1: number[], nums2: number[]): number {\n  // Your solution here\n  return 0.0;\n}",
+      python: "def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:\n    # Your solution here\n    return 0.0",
+    },
+    testCases: [
+      {
+            "input": "nums1 = [1,3], nums2 = [2]",
+            "expectedOutput": "2.0",
+            "explanation": "Merged [1,2,3], median 2.0."
+      },
+      {
+            "input": "nums1 = [1,2], nums2 = [3,4]",
+            "expectedOutput": "2.5",
+            "explanation": "Merged [1,2,3,4], median (2+3)/2 = 2.5."
+      },
+      {
+            "input": "nums1 = [0,0], nums2 = [0,0]",
+            "expectedOutput": "0.0",
+            "explanation": "All zeroes median 0.0."
+      },
+      {
+            "input": "nums1 = [], nums2 = [1]",
+            "expectedOutput": "1.0",
+            "explanation": "One empty array."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Search","Divide and Conquer","Distributed Time-Series"],
+    hint: "Perform binary search on the shorter array to find the partition cut i such that left elements of both arrays are smaller than or equal to right elements of both arrays.",
+    complexityTarget: "Time: O(log(min(M, N))) | Space: O(1)",
+  },
+  {
+    id: 'war_shortest_path_all_nodes_48',
+    title: "Shortest Path Visiting All Nodes (Autonomous Robotics Routing)",
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_bitmask_shortest_path_all_nodes_l3',
+    description: "In autonomous facility cleaning robotics and printed circuit board (PCB) optical inspection scanners, a traversal agent must visit every node in an undirected graph graph in the minimum number of steps. You may start and stop at any node, and revisit nodes and edges multiple times. Return the length of the shortest path that visits every node.",
+    starterCode: {
+      typescript: "function shortestPathLength(graph: number[][]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def shortest_path_length(graph: list[list[int]]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "graph = [[1,2,3],[0],[0],[0]]",
+            "expectedOutput": "4",
+            "explanation": "Path: 1->0->2->0->3 has length 4."
+      },
+      {
+            "input": "graph = [[1],[0,2,4],[1,3,4],[2],[1,2]]",
+            "expectedOutput": "4",
+            "explanation": "Path: 0->1->4->2->3 has length 4."
+      },
+      {
+            "input": "graph = [[]]",
+            "expectedOutput": "0",
+            "explanation": "Single node requires 0 steps."
+      },
+      {
+            "input": "graph = [[1],[0]]",
+            "expectedOutput": "1",
+            "explanation": "0->1 has length 1."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Graph","Bitmask","Robotics Pathing"],
+    hint: "Use Breadth-First Search (BFS) with state (node, visitedMask). Initialize queue with all nodes at step 0 and mask (1 << node). The first state reaching mask === (1 << n) - 1 is guaranteed minimum.",
+    complexityTarget: "Time: O(N^2 * 2^N) | Space: O(N * 2^N)",
+  },
+  {
+    id: 'war_palindrome_pairs_49',
+    title: "Palindrome Pairs (Genomic Hairpin & NLP Token Matcher)",
+    difficulty: 'advanced',
+    competencyId: 'comp_trie_palindrome_pairs_l3',
+    description: "In molecular genetics (detecting hairpin loop structures) and NLP bidirectional token parsing, pairs of words that concatenate into palindromes form regulatory motifs. Given a list of unique words, return all pairs of distinct indices (i, j) such that the concatenation words[i] + words[j] is a palindrome.",
+    starterCode: {
+      typescript: "function palindromePairs(words: string[]): number[][] {\n  // Your solution here\n  return [];\n}",
+      python: "def palindrome_pairs(words: list[str]) -> list[list[int]]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"]",
+            "expectedOutput": "[[0,1],[1,0],[2,4],[3,2]]",
+            "explanation": "abcd+dcba, dcba+abcd, s+lls, lls+sssll are palindromes."
+      },
+      {
+            "input": "words = [\"bat\",\"tab\",\"cat\"]",
+            "expectedOutput": "[[0,1],[1,0]]",
+            "explanation": "bat+tab and tab+bat."
+      },
+      {
+            "input": "words = [\"a\",\"\"]",
+            "expectedOutput": "[[0,1],[1,0]]",
+            "explanation": "Empty string concatenations."
+      },
+      {
+            "input": "words = [\"a\",\"b\"]",
+            "expectedOutput": "[]",
+            "explanation": "No pairs form palindromes."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Trie","Hash Table","Genomics Algorithms"],
+    hint: "Use a hash map of reversed words to their indices. For each word, split into prefix and suffix: if prefix is a palindrome and reversed suffix exists in map, record pair; if suffix is a palindrome and reversed prefix exists, record pair.",
+    complexityTarget: "Time: O(N * K^2) | Space: O(N * K)",
+  },
+  {
+    id: 'war_redundant_connection_ii_50',
+    title: "Redundant Connection II (Directed Dependency Graph Sanitizer)",
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_dsu_redundant_connection_ii_l3',
+    description: "In microservice dependency injection topologies and build systems, a directed tree starts as a rooted tree where every node except root has exactly one parent. An edge was added that introduced either a cycle or a node with two parents. Given a directed graph represented as edges [u, v], return an edge that can be removed so that the resulting graph is a rooted tree of n nodes.",
+    starterCode: {
+      typescript: "function findRedundantDirectedConnection(edges: number[][]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def find_redundant_directed_connection(edges: list[list[int]]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "edges = [[1,2],[1,3],[2,3]]",
+            "expectedOutput": "[2,3]",
+            "explanation": "Node 3 has two parents; [2,3] is redundant."
+      },
+      {
+            "input": "edges = [[1,2],[2,3],[3,4],[4,1],[1,5]]",
+            "expectedOutput": "[4,1]",
+            "explanation": "Forms directed cycle; [4,1] is redundant."
+      },
+      {
+            "input": "edges = [[2,1],[3,1],[4,2],[1,4]]",
+            "expectedOutput": "[2,1]",
+            "explanation": "Dual parents and cycle resolution."
+      },
+      {
+            "input": "edges = [[1,2],[2,3],[3,1]]",
+            "expectedOutput": "[3,1]",
+            "explanation": "Simple directed triangle cycle."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Graph","Disjoint Set Union","Build Systems"],
+    hint: "Check for nodes with two parents. If found, test removing the second edge first using Disjoint Set Union (DSU) to check for cycles. If no dual-parent node exists, DSU will directly detect the edge creating a cycle.",
+    complexityTarget: "Time: O(N * alpha(N)) | Space: O(N)",
+  },
 ];
 
 export class CodeWarsApiService {
