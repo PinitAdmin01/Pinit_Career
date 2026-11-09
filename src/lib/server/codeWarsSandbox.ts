@@ -34,7 +34,7 @@ export function validateVmCodeSecurity(code: string): { safe: boolean; reason?: 
     { pattern: /\bfs\b/i, token: 'fs' },
     { pattern: /\bFunction\b/, token: 'Function' },
     { pattern: /\beval\b/i, token: 'eval' },
-    { pattern: /\bconstructor\b/i, token: 'constructor' },
+    { pattern: /(?:\.\s*constructor\b|\[\s*['"`]constructor['"`]\s*\]|\bconstructor\s*\.\s*constructor\b)/i, token: 'constructor property traversal' },
     { pattern: /__proto__/i, token: '__proto__' },
     { pattern: /\bprototype\b/i, token: 'prototype' },
     { pattern: /\bReflect\b/i, token: 'Reflect' },
