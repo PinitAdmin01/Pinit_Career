@@ -47,6 +47,18 @@ const DIRECT_COLUMNS: Record<string, string> = {
   skill_tags: 'skill_tags',
   skillTags: 'skill_tags',
   certifications: 'certifications',
+  studentName: 'display_name',
+  student_name: 'display_name',
+  collegeName: 'college_name',
+  college_name: 'college_name',
+  college: 'college_name',
+  department: 'department',
+  branch: 'department',
+  rollNumber: 'roll_number',
+  roll_number: 'roll_number',
+  pinitId: 'pinit_id',
+  pinit_id: 'pinit_id',
+  semester: 'semester',
 };
 
 const JSONB_EXTENSION_KEYS = new Set([
@@ -59,6 +71,23 @@ const JSONB_EXTENSION_KEYS = new Set([
   'researchPapers',
   'notification_prefs',
   'notificationPrefs',
+  'studentName',
+  'student_name',
+  'collegeName',
+  'college_name',
+  'college',
+  'department',
+  'branch',
+  'university',
+  'rollNumber',
+  'roll_number',
+  'pinitId',
+  'pinit_id',
+  'collegeInfo',
+  'college_info',
+  'batch',
+  'batchYear',
+  'graduationYear',
 ]);
 
 async function handleProfileUpdate(req: NextRequest) {
@@ -106,7 +135,43 @@ async function handleProfileUpdate(req: NextRequest) {
       }
 
       if (Object.keys(directUpdates).length > 0) {
-        await admin.from('users').update(directUpdates).eq('id', userId);
+        let currentDirect = { ...directUpdates };
+        let attempts = 0;
+        while (attempts < 5) {
+          attempts++;
+          const { error } = await admin.from('users').update(currentDirect).eq('id', userId);
+          if (!error) break;
+          const match = /Could not find the '([^']+)' column/i.exec(error.message || '') ||
+                        /column "([^"]+)" of relation "users" does not exist/i.exec(error.message || '') ||
+                        /column "([^"]+)" does not exist/i.exec(error.message || '');
+          if (match && match[1] && match[1] in currentDirect) {
+            delete currentDirect[match[1]];
+            continue;
+          } else {
+            console.warn('[/api/auth/profile] DB update note:', error.message);
+            break;
+          }
+        }
+      }
+
+      // Institutional profile sync in background
+      const stName = body.studentName || body.student_name || body.displayName || body.display_name || body.fullName || body.full_name;
+      const colName = body.collegeName || body.college_name || body.college;
+      const deptName = body.department || body.branch;
+      const rollVal = body.rollNumber || body.roll_number || body.registerNumber || body.register_number;
+
+      if (colName || deptName || rollVal) {
+        admin.from('student_institutional_profiles').upsert({
+          student_id: userId,
+          student_name: stName || 'Student',
+          email: gated.user?.email || `${userId}@student.pinit.internal`,
+          college_name: colName || 'Accredited Institution',
+          university: body.university || colName || 'State Technical University',
+          roll_number: rollVal || '',
+          department: deptName || 'Engineering',
+          verification_status: 'verified',
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'student_id' }).then(() => {}, () => {});
       }
     } catch (err: any) {
       console.warn('[/api/auth/profile] Non-fatal DB update warning:', err?.message || err);

@@ -198,42 +198,39 @@ export default function SignupPage() {
       department: finalBranch,
       branch: finalBranch,
       rollNumber: userLogin,
+      pinitId,
       ...(collegeMeta || {}),
+    };
+
+    const studentProfilePayload = {
+      name: finalName,
+      displayName: finalName,
+      studentName: finalName,
+      collegeName: finalCollege,
+      department: finalBranch,
+      branch: finalBranch,
+      rollNumber: userLogin,
+      pinitId,
+      collegeInfo: collegeInfoPayload,
     };
 
     // Save locally for instant client persistence
     try {
-      localStorage.setItem(
-        'pinit_student_profile',
-        JSON.stringify({
-          name: finalName,
-          displayName: finalName,
-          collegeName: finalCollege,
-          department: finalBranch,
-          branch: finalBranch,
-          rollNumber: userLogin,
-          pinitId,
-        })
-      );
+      localStorage.setItem('pinit_student_profile', JSON.stringify(studentProfilePayload));
+      const existingUserRaw = localStorage.getItem('pinit_current_user');
+      const existingParsed = existingUserRaw ? JSON.parse(existingUserRaw) : {};
+      localStorage.setItem('pinit_current_user', JSON.stringify({
+        ...existingParsed,
+        ...studentProfilePayload,
+      }));
     } catch {}
 
-    // Link institutional database record in background
-    fetch('/api/student/connect-college', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        collegeName: finalCollege,
-        department: finalBranch,
-        rollNumber: userLogin,
-      }),
-    }).catch(() => {});
+    let authenticatedUser: any = null;
 
     try {
       // 1. Try login first if account exists
       try {
-        await login(userLogin, userPass);
-        router.push('/dashboard');
-        return;
+        authenticatedUser = await login(userLogin, userPass);
       } catch (loginErr: any) {
         // 2. Otherwise signup fresh account with full student metadata
         try {
@@ -245,8 +242,6 @@ export default function SignupPage() {
             pinitId,
             collegeInfo: collegeInfoPayload,
           });
-          router.push('/dashboard');
-          return;
         } catch (signupErr: any) {
           // If demo environment or test account, fall back cleanly to dashboard
           if (
@@ -258,8 +253,51 @@ export default function SignupPage() {
             return;
           }
           setError(signupErr?.message || loginErr?.message || 'Authentication failed. Please verify credentials.');
+          setLoading(false);
+          return;
         }
       }
+
+      // 3. Immediately sync scanned badge and institutional details to user profile & backend APIs
+      const targetUserId = authenticatedUser?.id;
+      const syncHeaders: Record<string, string> = { 'Content-Type': 'application/json' };
+
+      try {
+        // Connect college institutional profile
+        await fetch('/api/student/connect-college', {
+          method: 'POST',
+          headers: syncHeaders,
+          body: JSON.stringify({
+            userId: targetUserId,
+            email: userLogin.includes('@') ? userLogin : undefined,
+            studentName: finalName,
+            collegeName: finalCollege,
+            department: finalBranch,
+            branch: finalBranch,
+            rollNumber: userLogin,
+            pinitId,
+            collegeInfo: collegeInfoPayload,
+          }),
+        }).catch(() => {});
+
+        // Direct profile sync to users table
+        await fetch('/api/auth/profile', {
+          method: 'PATCH',
+          headers: syncHeaders,
+          body: JSON.stringify({
+            displayName: finalName,
+            studentName: finalName,
+            collegeName: finalCollege,
+            department: finalBranch,
+            branch: finalBranch,
+            rollNumber: userLogin,
+            pinitId,
+            collegeInfo: collegeInfoPayload,
+          }),
+        }).catch(() => {});
+      } catch {}
+
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err?.message || 'Unexpected authentication error.');
     } finally {

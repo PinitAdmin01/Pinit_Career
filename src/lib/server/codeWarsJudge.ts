@@ -66,6 +66,14 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
         return { ok: false, error: 'SECURITY_VIOLATION', message: pyRes.stderr };
       }
 
+      if (pyRes.status === 'ENVIRONMENT_ERROR') {
+        console.warn(`[CodeWarsJudge] Python environment unavailable (${pyRes.stderr}), falling back to polyglot evaluator`);
+        const fallback = CodeWarsApiService.judgePolyglotSubmission(id, code, lang);
+        if (fallback) {
+          return { ok: true, ...fallback };
+        }
+      }
+
       if (pyRes.passed) {
         console.log(`[CodeWarsJudge] Python evaluation finished -> passed: true | testsPassed: ${config.totalTests}/${config.totalTests}`);
         return {

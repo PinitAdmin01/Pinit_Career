@@ -90,7 +90,7 @@ const COLUMN_MAP: Record<string, string> = {
   display_name: 'displayName',
   role: 'role',
   register_number: 'registerNumber',
-  roll_number: 'registerNumber',
+  roll_number: 'rollNumber',
   selected_teacher_id: 'selectedTeacherId',
   ats_score: 'atsScore',
   career_dna_score: 'careerDnaScore',
@@ -132,7 +132,14 @@ const COLUMN_MAP: Record<string, string> = {
   recruiter_visible: 'recruiterVisible',
   force_show_career_builder: 'forceShowCareerBuilder',
   demo_tabs_unlocked: 'demoTabsUnlocked',
-  guidance_mentor_id: 'guidanceMentorId'
+  guidance_mentor_id: 'guidanceMentorId',
+  college_name: 'collegeName',
+  college: 'collegeName',
+  department: 'department',
+  branch: 'branch',
+  university: 'university',
+  pinit_id: 'pinitId',
+  college_info: 'collegeInfo',
 };
 
 function demoIdentity(emailLower: string): { role: string; displayName: string } {
@@ -155,10 +162,23 @@ function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null
   const emailLower = sbUser.email?.toLowerCase();
   if (emailLower && DEMO_ROLE_BY_EMAIL[emailLower]) role = DEMO_ROLE_BY_EMAIL[emailLower];
 
-  const regNo = (profile?.registerNumber as string) || (profile?.register_number as string) || (profile?.roll_number as string) || '';
+  const ob = (profile?.onboarding_answers || (profile as any)?.onboardingAnswers || {}) as Record<string, any>;
+  const regNo = (profile?.registerNumber as string) || (profile?.register_number as string) || (profile?.roll_number as string) || (profile?.rollNumber as string) || ob.rollNumber || ob.roll_number || '';
+  const pinitVal = (profile?.pinitId as string) || (profile?.pinit_id as string) || ob.pinitId || ob.pinit_id || regNo;
   const teacherId = (profile?.selectedTeacherId as string) || (profile?.selected_teacher_id as string) || 'priya';
   const mentorId = (profile?.guidanceMentorId as string) || (profile?.guidance_mentor_id as string) || teacherId;
-  const dispName = (profile?.displayName as string) || (profile?.display_name as string) || sbUser.user_metadata?.display_name || sbUser.user_metadata?.full_name || 'User';
+  const dispName = (profile?.displayName as string) || (profile?.display_name as string) || (profile?.studentName as string) || ob.studentName || ob.displayName || sbUser.user_metadata?.display_name || sbUser.user_metadata?.full_name || 'User';
+  const colName = (profile?.collegeName as string) || (profile?.college_name as string) || (profile?.college as string) || ob.collegeName || ob.college || ob.university || '';
+  const deptName = (profile?.department as string) || (profile?.branch as string) || ob.department || ob.branch || '';
+  const branchName = (profile?.branch as string) || (profile?.department as string) || ob.branch || ob.department || '';
+  const univName = (profile?.university as string) || ob.university || colName;
+  const colInfo = profile?.collegeInfo || (profile as any)?.college_info || ob.collegeInfo || {
+    collegeName: colName,
+    department: deptName,
+    branch: branchName,
+    rollNumber: regNo,
+    pinitId: pinitVal,
+  };
 
   return {
     ...profile,
@@ -167,11 +187,25 @@ function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null
     email:             sbUser.email || '',
     displayName:       dispName,
     display_name:      dispName,
+    studentName:       dispName,
+    student_name:      dispName,
+    fullName:          dispName,
+    full_name:         dispName,
     role:              role,
     registerNumber:    regNo,
     register_number:   regNo,
-    pinitId:           regNo,
-    pinit_id:          regNo,
+    rollNumber:        regNo,
+    roll_number:       regNo,
+    pinitId:           pinitVal,
+    pinit_id:          pinitVal,
+    collegeName:       colName,
+    college_name:      colName,
+    college:           colName,
+    university:        univName,
+    department:        deptName,
+    branch:            branchName,
+    collegeInfo:       colInfo,
+    college_info:      colInfo,
     selectedTeacherId: teacherId,
     selected_teacher_id: teacherId,
     guidanceMentorId:  mentorId,
@@ -802,28 +836,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const resolvedId = data.pinitId || data.registerNumber || generateMemorableGlobalId(data.displayName, data.username);
+      const colName = data.collegeInfo?.collegeName || '';
+      const deptName = data.collegeInfo?.department || data.collegeInfo?.branch || '';
+      const rollVal = data.collegeInfo?.rollNumber || data.registerNumber || '';
+
+      const collegeInfoPayload = {
+        collegeName: colName,
+        department: deptName,
+        branch: deptName,
+        rollNumber: rollVal,
+        pinitId: resolvedId,
+        ...(data.collegeInfo || {}),
+      };
+
       const profile = {
         ...EMPTY_PROFILE,
         uid:             sbUser.id,
         email,
         username:        data.username,
         displayName:     data.displayName,
+        display_name:    data.displayName,
+        studentName:     data.displayName,
+        student_name:    data.displayName,
+        fullName:        data.displayName,
+        full_name:       data.displayName,
         role:            'student',
         registerNumber:  resolvedId,
         register_number: resolvedId,
+        rollNumber:      rollVal,
+        roll_number:     rollVal,
+        pinitId:         resolvedId,
         pinit_id:        resolvedId,
-        ...(data.collegeInfo ? {
-          college_name: data.collegeInfo.collegeName || '',
-          university: data.collegeInfo.collegeName || '',
-          department: data.collegeInfo.department || data.collegeInfo.branch || '',
-          branch: data.collegeInfo.branch || data.collegeInfo.department || '',
-          roll_number: data.collegeInfo.rollNumber || data.registerNumber || '',
-        } : {}),
+        collegeName:     colName,
+        college_name:    colName,
+        college:         colName,
+        university:      colName,
+        department:      deptName,
+        branch:          deptName,
+        collegeInfo:     collegeInfoPayload,
+        onboarding_answers: {
+          ...EMPTY_PROFILE.onboarding_answers,
+          studentName: data.displayName,
+          displayName: data.displayName,
+          fullName: data.displayName,
+          collegeName: colName,
+          college: colName,
+          university: colName,
+          department: deptName,
+          branch: deptName,
+          rollNumber: rollVal,
+          pinitId: resolvedId,
+          collegeInfo: collegeInfoPayload,
+        },
       };
 
-      // Await profile creation on signup to prevent broken state (Task 3.2)
       try {
-        await createUserProfile(sbUser.id, profile);
+        await createUserProfile(sbUser.id, profile, { allowPrivileged: true });
       } catch (err: any) {
         console.error('[AuthContext] Critical failure creating user profile:', err);
         throw new Error(`Profile initialization failed: ${err?.message || 'Database error'}`);

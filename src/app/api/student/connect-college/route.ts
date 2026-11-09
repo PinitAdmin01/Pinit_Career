@@ -14,9 +14,11 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => ({}));
     const collegeName = typeof body.collegeName === 'string' ? body.collegeName.trim() : '';
     const degree = typeof body.degree === 'string' ? body.degree.trim() : 'Undergraduate';
-    const department = typeof body.department === 'string' ? body.department.trim() : '';
+    const department = typeof body.department === 'string' ? body.department.trim() : (typeof body.branch === 'string' ? body.branch.trim() : '');
     const rollNumber = typeof body.rollNumber === 'string' ? body.rollNumber.trim() : '';
     const graduationYear = typeof body.graduationYear === 'string' ? body.graduationYear.trim() : '2026';
+    const studentName = typeof body.studentName === 'string' ? body.studentName.trim() : (typeof body.displayName === 'string' ? body.displayName.trim() : '');
+    const pinitId = typeof body.pinitId === 'string' ? body.pinitId.trim() : '';
 
     if (!collegeName || collegeName.length < 2) {
       return NextResponse.json(
@@ -39,18 +41,33 @@ export async function POST(req: NextRequest) {
       userId = cookieUid || body.userId || body.studentId || null;
     }
 
+    const admin = getAdminClient();
+
+    // Fallback: search by email or rollNumber if userId is not resolved yet
+    if (!userId && admin && (body.email || rollNumber)) {
+      try {
+        if (body.email) {
+          const { data: matched } = await admin.from('users').select('id').eq('email', body.email).maybeSingle();
+          if (matched?.id) userId = matched.id;
+        }
+        if (!userId && rollNumber) {
+          const { data: matched } = await admin.from('users').select('id').or(`register_number.eq.${rollNumber},roll_number.eq.${rollNumber}`).maybeSingle();
+          if (matched?.id) userId = matched.id;
+        }
+      } catch {}
+    }
+
     // Calculate institution initials (e.g. "Bangalore University" -> "BU")
     const words = collegeName.split(/\s+/).filter((w: string) => w.length > 0);
     const initials = words.length > 1
       ? words.map((w: string) => w[0].toUpperCase()).slice(0, 4).join('')
       : collegeName.slice(0, 3).toUpperCase();
 
-    const admin = getAdminClient();
     if (admin && userId) {
       try {
         const { data: existingUser } = await admin
           .from('users')
-          .select('onboarding_answers')
+          .select('onboarding_answers, display_name, email')
           .eq('id', userId)
           .maybeSingle();
 
@@ -59,26 +76,68 @@ export async function POST(req: NextRequest) {
         const updatedOb = {
           ...existingOb,
           college: collegeName,
-          university: collegeName,
+          collegeName,
+          university: body.university || collegeName,
           institution: collegeName,
           degree,
           department,
+          branch: department,
           rollNumber,
+          roll_number: rollNumber,
+          ...(studentName ? { studentName, displayName: studentName, fullName: studentName } : {}),
+          ...(pinitId ? { pinitId, pinit_id: pinitId } : {}),
+          ...(body.collegeInfo ? { collegeInfo: body.collegeInfo } : {}),
           graduationYear,
         };
 
-        await admin
-          .from('users')
-          .update({
+        const directUpdate: Record<string, any> = {
+          college_name: collegeName,
+          department: department || null,
+          roll_number: rollNumber || null,
+          onboarding_answers: updatedOb,
+          updated_at: new Date().toISOString()
+        };
+        if (pinitId) directUpdate.pinit_id = pinitId;
+        if (studentName) {
+          directUpdate.display_name = studentName;
+          directUpdate.full_name = studentName;
+        }
+
+        let attempts = 0;
+        while (attempts < 5) {
+          attempts++;
+          const { error } = await admin.from('users').update(directUpdate).eq('id', userId);
+          if (!error) break;
+          const match = /Could not find the '([^']+)' column/i.exec(error.message || '') ||
+                        /column "([^"]+)" of relation "users" does not exist/i.exec(error.message || '') ||
+                        /column "([^"]+)" does not exist/i.exec(error.message || '');
+          if (match && match[1] && match[1] in directUpdate) {
+            delete directUpdate[match[1]];
+            continue;
+          } else {
+            console.warn('[connect-college] Supabase update warning:', error.message);
+            break;
+          }
+        }
+
+        // Upsert to student_institutional_profiles table
+        try {
+          await admin.from('student_institutional_profiles').upsert({
+            student_id: userId,
+            student_name: studentName || existingUser?.display_name || 'Student',
+            email: body.email || existingUser?.email || `${userId}@student.pinit.internal`,
             college_name: collegeName,
-            department: department || null,
-            roll_number: rollNumber || null,
-            onboarding_answers: updatedOb,
+            university: body.university || collegeName || 'State Technical University',
+            roll_number: rollNumber || '',
+            department: department || 'Engineering',
+            verification_status: 'verified',
             updated_at: new Date().toISOString()
-          })
-          .eq('id', userId);
+          }, { onConflict: 'student_id' });
+        } catch (instErr) {
+          console.warn('[connect-college] Institutional table note:', instErr);
+        }
       } catch (dbErr) {
-        console.warn('[connect-college] Supabase update warning:', dbErr);
+        console.warn('[connect-college] Supabase update error:', dbErr);
       }
     }
 

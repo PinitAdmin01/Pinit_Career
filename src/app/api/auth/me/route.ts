@@ -328,6 +328,8 @@ export async function PATCH(req: NextRequest) {
       if (typeof val !== 'string') {
         return NextResponse.json({ error: 'INVALID_FIELD_TYPE', message: 'theme must be a string.' }, { status: 400 });
       }
+      updates.theme_preference = val.trim().slice(0, 20);
+    }
 
     if ('college_name' in body || 'collegeName' in body || 'college' in body) {
       const val = body.college_name ?? body.collegeName ?? body.college;
@@ -400,7 +402,7 @@ export async function PATCH(req: NextRequest) {
           department: deptVal || 'Engineering',
           verification_status: 'verified',
           updated_at: new Date().toISOString()
-        }, { onConflict: 'student_id' }).then(() => {}).catch(() => {});
+        }, { onConflict: 'student_id' }).then(() => {}, () => {});
       }
     } catch {}
 

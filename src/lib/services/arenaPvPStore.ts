@@ -312,6 +312,8 @@ function generateRoomCode(): string {
 }
 
 function rowToRoom(data: ArenaRoomRow): ArenaRoom {
+  const hostProg = data.host_progress || emptyProgress();
+  const guestProg = data.guest_progress || emptyProgress();
   return {
     id: data.id,
     roomCode: data.room_code,
@@ -323,12 +325,14 @@ function rowToRoom(data: ArenaRoomRow): ArenaRoom {
     hostName: data.host_name,
     hostAvatar: data.host_avatar || '',
     hostReady: Boolean(data.host_ready),
-    hostProgress: data.host_progress || emptyProgress(),
+    hostProgress: hostProg,
+    hostLanguage: hostProg.language || 'typescript',
     guestId: data.guest_id || undefined,
     guestName: data.guest_name || undefined,
     guestAvatar: data.guest_avatar || undefined,
     guestReady: Boolean(data.guest_ready),
-    guestProgress: data.guest_progress || emptyProgress(),
+    guestProgress: guestProg,
+    guestLanguage: guestProg.language || 'typescript',
     winnerId: data.winner_id || undefined,
     startedAt: data.started_at ? new Date(data.started_at).getTime() : undefined,
     endedAt: data.ended_at ? new Date(data.ended_at).getTime() : undefined,
@@ -403,9 +407,9 @@ export class ArenaPvPStore {
       hostDeviceId: params.hostDeviceId,
       hostLanguage: params.hostLanguage || 'typescript',
       hostReady: false,
-      hostProgress: emptyProgress(),
+      hostProgress: { ...emptyProgress(), language: params.hostLanguage || 'typescript' },
       guestReady: false,
-      guestProgress: emptyProgress(),
+      guestProgress: { ...emptyProgress(), language: 'typescript' },
       guestLanguage: 'typescript',
       createdAt: now,
     };
@@ -548,7 +552,10 @@ export class ArenaPvPStore {
       r.guestName = params.guestName || 'Challenger';
       r.guestAvatar = params.guestAvatar || '';
       r.guestDeviceId = params.guestDeviceId;
-      if (params.guestLanguage) r.guestLanguage = params.guestLanguage;
+      if (params.guestLanguage) {
+        r.guestLanguage = params.guestLanguage;
+        r.guestProgress.language = params.guestLanguage;
+      }
       return r;
     });
 
@@ -905,6 +912,8 @@ export class ArenaPvPStore {
       r.guestAvatar = guest.studentAvatar;
       r.guestDeviceId = guest.deviceId;
       r.guestLanguage = guest.preferredLanguage || 'typescript';
+      r.guestProgress.language = guest.preferredLanguage || 'typescript';
+      r.hostProgress.language = host.preferredLanguage || 'typescript';
       r.hostReady = true;
       r.guestReady = true;
       r.status = 'in_progress';

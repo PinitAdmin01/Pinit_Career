@@ -260,4 +260,71 @@ def two_sum(nums, target):
     assert.strictEqual(pyResult.passed, true);
     assert.strictEqual(pyResult.testsPassed, 5);
   });
+
+  it('9. Mutual Preference Clamping: Honors valid mutual requests, protects learners from unlearned tiers', () => {
+    // Case A: Both intermediate, requesting intermediate -> Granted
+    const playerA: QueueTicket = {
+      studentId: 'p1',
+      studentName: 'Player 1',
+      difficulty: 'intermediate',
+      eloRating: 1200,
+      enqueuedAt: Date.now(),
+      completedQuests: ['day_15'],
+    };
+    const playerB: QueueTicket = {
+      studentId: 'p2',
+      studentName: 'Player 2',
+      difficulty: 'intermediate',
+      eloRating: 1200,
+      enqueuedAt: Date.now(),
+      completedQuests: ['day_15'],
+    };
+    const chosenA = selectPerfectQuestion(playerA, playerB);
+    assert.strictEqual(chosenA.difficulty, 'intermediate', 'Mutual preference within verified frontier must be respected');
+
+    // Case B: Host requests advanced, but Guest is a Day 3 Novice -> Clamped to basic
+    const playerNovice: QueueTicket = {
+      studentId: 'p_novice',
+      studentName: 'Novice Student',
+      difficulty: 'any',
+      eloRating: 1200,
+      enqueuedAt: Date.now(),
+      completedQuests: ['day_03'],
+    };
+    const playerSenior: QueueTicket = {
+      studentId: 'p_senior',
+      studentName: 'Senior Student',
+      difficulty: 'advanced',
+      eloRating: 1600,
+      enqueuedAt: Date.now(),
+      completedQuests: ['day_40'],
+    };
+    const chosenB = selectPerfectQuestion(playerNovice, playerSenior);
+    assert.strictEqual(chosenB.difficulty, 'basic', 'Requested tier must be clamped to the shared verified frontier (basic)');
+  });
+
+  it('10. Room Language Persistence: Host and Guest languages are preserved in room state and progress payloads', async () => {
+    const room = await ArenaPvPStore.createRoom({
+      hostId: 'host_lang_user',
+      hostName: 'Host User',
+      hostLanguage: 'python',
+      problemId: 'war_two_sum_01',
+      difficulty: 'basic',
+    });
+
+    assert.strictEqual(room.hostLanguage, 'python');
+    assert.strictEqual(room.hostProgress.language, 'python');
+
+    const joinRes = await ArenaPvPStore.joinRoom({
+      roomCode: room.roomCode,
+      guestId: 'guest_lang_user',
+      guestName: 'Guest User',
+      guestLanguage: 'typescript',
+    });
+
+    assert.ok(joinRes.success && joinRes.room);
+    assert.strictEqual(joinRes.room.guestLanguage, 'typescript');
+    assert.strictEqual(joinRes.room.guestProgress.language, 'typescript');
+    assert.strictEqual(joinRes.room.hostLanguage, 'python');
+  });
 });

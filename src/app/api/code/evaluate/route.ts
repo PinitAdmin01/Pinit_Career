@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { problemId, code, language } = body;
+    console.log(`[CodeEvaluate API] Evaluation request from ${auth.user.id} | problem: ${problemId} | lang: ${language || 'typescript'} | codeLen: ${(code && typeof code === 'string') ? code.length : 0}`);
 
     if (!code || typeof code !== 'string') {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 });

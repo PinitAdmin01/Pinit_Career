@@ -267,6 +267,24 @@ function ArenaContent() {
     }
   }, [activeRoom?.events, studentId]);
 
+  // Synchronize player editor language to active room slot when entering match
+  useEffect(() => {
+    if (!activeRoom) return;
+    const isHost = activeRoom.hostId === studentId;
+    const isGuest = activeRoom.guestId === studentId || activeRoom.guestId === `${studentId}_challenger`;
+    const targetSlotLang = isHost
+      ? activeRoom.hostLanguage
+      : isGuest
+      ? activeRoom.guestLanguage
+      : undefined;
+
+    if (targetSlotLang && (targetSlotLang === 'python' || targetSlotLang === 'typescript' || targetSlotLang === 'java')) {
+      if (language !== targetSlotLang) {
+        setLanguage(targetSlotLang as 'python' | 'typescript' | 'java');
+      }
+    }
+  }, [activeRoom?.hostId, activeRoom?.guestId, activeRoom?.hostLanguage, activeRoom?.guestLanguage, studentId, language]);
+
   // Load starter code on problem or language change
   useEffect(() => {
     if (activeProblem && activeProblem.starterCode) {
