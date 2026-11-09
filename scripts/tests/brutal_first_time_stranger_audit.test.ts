@@ -258,7 +258,7 @@ describe('BRUTAL FIRST-TIME STRANGER AUDIT: Chaos, Adversarial & Boundary Testin
       // User's explicit prompt specification:
       // "simple logic exp + elo like 1000 exp and 20 elo on 1st place and 1000 exp and 10 elo on second place"
       const calculateLeagueScore = (weeklyXp: number, eloRating: number) => {
-        const eloGain = Math.max(0, eloRating - 1200);
+        const eloGain = Math.max(0, eloRating - 100);
         return weeklyXp + eloGain;
       };
 

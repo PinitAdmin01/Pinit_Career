@@ -40,6 +40,16 @@ export function getStudentCurriculumTier(
     'comp_dual_heap_median_l3',
     'comp_graph_bfs_word_ladder_l3',
     'comp_dp_levenshtein_l3',
+    'comp_heap_merge_k_sorted_l3',
+    'comp_graph_topological_alien_dict_l3',
+    'comp_stack_dp_longest_valid_parentheses_l3',
+    'comp_trees_serialization_wire_protocol_l3',
+    'comp_stack_monotonic_largest_rectangle_l3',
+    'comp_sliding_window_min_window_l3',
+    'comp_dp_palindrome_min_cuts_l3',
+    'comp_systems_consistent_hashing_ring_l3',
+    'comp_stack_basic_calculator_ast_l3',
+    'comp_dp_2d_maximal_square_l3',
   ]);
   const intComps = new Set([
     'comp_stack_brackets_l2',
@@ -62,6 +72,16 @@ export function getStudentCurriculumTier(
     'comp_backtracking_t9_l2',
     'comp_matrix_rotate_l2',
     'comp_stack_nested_decode_l2',
+    'comp_intervals_insert_merge_l2',
+    'comp_matrix_spiral_traversal_l2',
+    'comp_binary_search_rotated_lookup_l2',
+    'comp_dp_coin_combinations_l2',
+    'comp_string_ip_address_validation_l2',
+    'comp_trees_bfs_level_order_l2',
+    'comp_stack_unix_path_simplifier_l2',
+    'comp_greedy_intervals_partition_labels_l2',
+    'comp_prefix_sum_hash_mod_l2',
+    'comp_trees_bfs_right_side_view_l2',
   ]);
 
   for (const comp of verifiedCompetencies) {

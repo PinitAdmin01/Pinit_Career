@@ -17,7 +17,7 @@ test('Leaderboard ELO: Decoupled from artificial XP inflation with logarithmic c
     'Must purge naive totalXp / 8 which gave 2000+ ELO to non-combatants'
   );
   assert.ok(
-    leaderboardRoute.includes('Math.min(150, Math.round(Math.sqrt(totalXp) * 1.5))'),
+    leaderboardRoute.includes('Math.min(60, Math.round(Math.sqrt(totalXp) * 0.8))'),
     'Must use soft-capped logarithmic baseline for unranked candidates'
   );
 });
@@ -28,7 +28,7 @@ test('Leaderboard Score: Dynamic 1.5x competitive weight for weekly league score
     'League score must weight competitive arena victories with 1.5x multiplier'
   );
   assert.ok(
-    leaderboardPage.includes('entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 1200) * 1.5)'),
+    leaderboardPage.includes('entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 100) * 1.5)'),
     'Frontend must compute synchronized league score with identical formula'
   );
 });

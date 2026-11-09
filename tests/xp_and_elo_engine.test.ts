@@ -62,20 +62,20 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
     });
   });
 
-  describe('1v1 Match Resolution & Reward Allocations', () => {
-    it('awards positive delta to winner and negative delta to loser in even match', () => {
+  describe('1v1 Match Resolution & Reward Allocations (Base 100, 20-Point Transfer)', () => {
+    it('awards 20 elo from opponent to winner making 100 vs 100 become 120 vs 80', () => {
       const res = calculateEloMatch({
         hostId: 'player_host_01',
         guestId: 'player_guest_01',
-        hostElo: 1200,
-        guestElo: 1200,
+        hostElo: 100,
+        guestElo: 100,
         winnerId: 'player_host_01',
       });
 
-      assert.strictEqual(res.hostDelta, 16); // 32 * (1 - 0.5) = +16
-      assert.strictEqual(res.guestDelta, -16); // 32 * (0 - 0.5) = -16
-      assert.strictEqual(res.hostNewElo, 1216);
-      assert.strictEqual(res.guestNewElo, 1184);
+      assert.strictEqual(res.hostDelta, 20); // Winner receives +20 from opponent
+      assert.strictEqual(res.guestDelta, -20); // Opponent loses -20
+      assert.strictEqual(res.hostNewElo, 120);
+      assert.strictEqual(res.guestNewElo, 80);
 
       // Verify Effort Rewards
       assert.strictEqual(res.hostXpAward, ELO_CONFIG.WIN_XP); // 50 XP
@@ -84,46 +84,48 @@ describe('Authoritative Elo & XP Engine (Task 12)', () => {
       assert.strictEqual(res.guestPinsAward, ELO_CONFIG.LOSS_PINS); // 5 Pins
     });
 
-    it('awards higher delta when an underdog defeats a veteran', () => {
+    it('awards 20 elo when guest defeats host', () => {
       const res = calculateEloMatch({
-        hostId: 'cadet_player',
-        guestId: 'master_player',
-        hostElo: 1200,
-        guestElo: 1600,
-        winnerId: 'cadet_player', // Underdog upset!
+        hostId: 'host_player',
+        guestId: 'guest_player',
+        hostElo: 120,
+        guestElo: 80,
+        winnerId: 'guest_player',
       });
 
-      // Cadet expects ~9% win chance, winning yields ~29 points
-      assert.ok(res.hostDelta > 25);
-      assert.ok(res.hostNewElo > 1225);
+      assert.strictEqual(res.guestDelta, 20);
+      assert.strictEqual(res.hostDelta, -20);
+      assert.strictEqual(res.guestNewElo, 100);
+      assert.strictEqual(res.hostNewElo, 100);
     });
 
-    it('respects Elo floor of 1000 so students never drop below floor', () => {
+    it('respects Elo floor of 0 so students never drop below floor', () => {
       const res = calculateEloMatch({
         hostId: 'struggling_player',
         guestId: 'strong_player',
-        hostElo: 1005,
-        guestElo: 1005,
+        hostElo: 10,
+        guestElo: 100,
         winnerId: 'strong_player',
       });
 
-      // 1005 - 16 = 989 -> strictly floored at 1000
-      assert.ok(res.hostDelta < 0);
-      assert.ok(res.hostNewElo >= 1000);
-      assert.strictEqual(res.hostNewElo, 1000);
+      // 10 - 20 = -10 -> strictly floored at 0
+      assert.strictEqual(res.hostDelta, -20);
+      assert.strictEqual(res.hostNewElo, 0);
     });
 
     it('handles draw results accurately', () => {
       const res = calculateEloMatch({
         hostId: 'p1',
         guestId: 'p2',
-        hostElo: 1200,
-        guestElo: 1200,
+        hostElo: 100,
+        guestElo: 100,
         winnerId: 'draw',
       });
 
       assert.strictEqual(res.hostDelta, 0);
       assert.strictEqual(res.guestDelta, 0);
+      assert.strictEqual(res.hostNewElo, 100);
+      assert.strictEqual(res.guestNewElo, 100);
       assert.strictEqual(res.hostXpAward, ELO_CONFIG.DRAW_XP); // 25 XP
       assert.strictEqual(res.guestXpAward, ELO_CONFIG.DRAW_XP);
       assert.strictEqual(res.hostPinsAward, ELO_CONFIG.DRAW_PINS); // 10 Pins

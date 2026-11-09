@@ -34,9 +34,9 @@ export const ELO_CONFIG = {
   DEFAULT_ELO: 100,
   FLOOR_ELO: 0,
   WIN_ELO_TRANSFER: 20,
-  K_FACTOR_CADET: 20,      // Rating < 1400 (fixed 20-pt transfer calibration)
-  K_FACTOR_INTERMEDIATE: 20,// Rating 1400 - 1800
-  K_FACTOR_MASTER: 20,     // Rating > 1800 (high stability)
+  K_FACTOR_CADET: 32,      // Rating < 1400 (fast calibration)
+  K_FACTOR_INTERMEDIATE: 24,// Rating 1400 - 1800
+  K_FACTOR_MASTER: 16,     // Rating > 1800 (high stability)
   WIN_XP: 50,
   LOSS_XP: 15,
   DRAW_XP: 25,

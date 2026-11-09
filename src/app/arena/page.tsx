@@ -46,7 +46,7 @@ function ArenaContent() {
   const initialTab = (searchParams?.get('tab') as 'all' | 'code_wars' | 'hackathons' | 'viva') || 'all';
   const roomQueryCode = searchParams?.get('room');
 
-  const { user } = useAuth();
+  const { user, refresh } = useAuth();
   const studentId = user?.id || 'student_' + Math.random().toString(36).substring(2, 8);
   const studentName = (user as any)?.full_name || (user as any)?.name || 'Combatant';
   const studentAvatar = (user as any)?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
@@ -54,16 +54,49 @@ function ArenaContent() {
   const cOS = useCareerOS();
   const { xp = 0, pins = 0 } = cOS || {};
 
+  // Live ELO state with instant cache hydration (Baseline 100)
+  const [liveElo, setLiveElo] = useState<number | null>(null);
+  const [cachedElo, setCachedElo] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = Number(localStorage.getItem(`pinit_user_elo_${studentId}`));
+      if (Number.isFinite(saved) && saved > 0) return saved;
+    }
+    return 100;
+  });
+
+  const eloRating = liveElo ?? ((typeof (user as any)?.arena_elo === 'number' && Number.isFinite((user as any).arena_elo)) ? (user as any).arena_elo : cachedElo);
+
+  // Synchronize dynamic profile events across tabs and contexts
+  useEffect(() => {
+    const handleProfileUpdate = (e: any) => {
+      if (e?.detail?.arena_elo && typeof e.detail.arena_elo === 'number') {
+        setLiveElo(e.detail.arena_elo);
+      }
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
+      return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
+    }
+  }, []);
+
+  // Solo Sparring Match Settlement Reward State
+  const [soloReward, setSoloReward] = useState<{
+    eloDelta: number;
+    newElo: number;
+    xpAwarded: number;
+    pinsAwarded: number;
+  } | null>(null);
+
   // Task 14: Dynamic Empirical Knowledge Calibration
   const studentKnowledge = React.useMemo(() => {
     return calculateStudentKnowledge({
       xpTotal: xp,
-      arenaElo: (user as any)?.arena_elo || 1200,
+      arenaElo: eloRating,
       completedQuests: (user as any)?.completed_quests || [],
       careerDnaScore: (user as any)?.careerDnaScore || (user as any)?.atsScore || 50,
       missionsCompleted: (user as any)?.missionsCompleted || 0,
     });
-  }, [xp, user]);
+  }, [xp, user, eloRating]);
 
 
   const [recentMatches, setRecentMatches] = useState<BattleMatch[]>([]);
@@ -78,14 +111,14 @@ function ArenaContent() {
     }).catch(() => {});
   }, [studentId]);
 
-  // Elo Tier & Progress Calculation (Real user data)
-  const eloRating = (user as any)?.arena_elo || 1200;
+  // Elo Tier & Progress Calculation (100-baseline Esports ladder: +20 on win, -20 on loss)
   const eloTier = React.useMemo(() => {
-    if (eloRating >= 2000) return { name: 'Diamond Apex', icon: '💎', base: 2000, target: 2500, next: 'Grandmaster' };
-    if (eloRating >= 1700) return { name: 'Platinum Vanguard', icon: '🛡️', base: 1700, target: 2000, next: 'Diamond' };
-    if (eloRating >= 1400) return { name: 'Gold Architect', icon: '⚔️', base: 1400, target: 1700, next: 'Platinum' };
-    if (eloRating >= 1200) return { name: 'Silver Tactician', icon: '⚡', base: 1200, target: 1400, next: 'Gold' };
-    return { name: 'Bronze Cadet', icon: '🔰', base: 1000, target: 1200, next: 'Silver' };
+    if (eloRating >= 500) return { name: 'Grandmaster Apex', icon: '👑', base: 500, target: 700, next: 'Legendary' };
+    if (eloRating >= 400) return { name: 'Diamond Apex', icon: '💎', base: 400, target: 500, next: 'Grandmaster' };
+    if (eloRating >= 280) return { name: 'Platinum Vanguard', icon: '🛡️', base: 280, target: 400, next: 'Diamond' };
+    if (eloRating >= 200) return { name: 'Gold Architect', icon: '⚔️', base: 200, target: 280, next: 'Platinum' };
+    if (eloRating >= 140) return { name: 'Silver Tactician', icon: '⚡', base: 140, target: 200, next: 'Gold' };
+    return { name: 'Bronze Cadet', icon: '🔰', base: 100, target: 140, next: 'Silver' };
   }, [eloRating]);
   const eloProgressPct = Math.min(100, Math.max(5, Math.round(((eloRating - eloTier.base) / (eloTier.target - eloTier.base)) * 100)));
 
@@ -665,6 +698,7 @@ function ArenaContent() {
   // Start Solo Sparring against Turing AI with Knowledge Affinity Calibration
   const handleStartSoloSparring = (overrideDifficulty?: 'basic' | 'intermediate' | 'advanced') => {
     setIsQueueing(false);
+    setSoloReward(null);
     const targetDiff = overrideDifficulty || (studentKnowledge.recommendedDifficulty as any) || 'basic';
     const candidateProblems = problems.filter(p => p.difficulty === targetDiff);
     const unvisited = candidateProblems.filter(p => !solvedProblemIds.has(p.id));
@@ -691,6 +725,7 @@ function ArenaContent() {
     if (soloMatch) {
       setSoloMatch(null);
     }
+    setSoloReward(null);
     setTestResult(null);
     setShowCodeInspect(false);
   };
@@ -746,6 +781,78 @@ function ArenaContent() {
     const xpToAdd = typeof myAwardXp === 'number' ? myAwardXp : (didIWin ? 50 : 15);
     cOS.addXp(xpToAdd, didIWin ? '1v1 Code War Victory' : '1v1 Code War Match Effort');
   }, [isMatchOver, activeRoom, isHost, didIWin, cOS]);
+
+  // Synchronize 1v1 Room match completion to client state
+  const roomSettledRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!isMatchOver || !activeRoom || activeRoom.status !== 'completed') return;
+    const roomKey = `${activeRoom.roomCode}:${activeRoom.winnerId}:${activeRoom.hostNewElo}`;
+    if (roomSettledRef.current === roomKey) return;
+    roomSettledRef.current = roomKey;
+
+    const myNewElo = isHost ? activeRoom.hostNewElo : activeRoom.guestNewElo;
+    if (typeof myNewElo === 'number' && myNewElo > 0) {
+      setLiveElo(myNewElo);
+      try {
+        localStorage.setItem(`pinit_user_elo_${studentId}`, String(myNewElo));
+      } catch {}
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
+          detail: { arena_elo: myNewElo }
+        }));
+      }
+      if (refresh) refresh().catch(() => {});
+    }
+  }, [isMatchOver, activeRoom, isHost, studentId, refresh]);
+
+  // Authoritative Turing AI Sparring Settlement
+  const soloSettledRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!isMatchOver || !soloMatch || soloMatch.status === 'active') return;
+    const settleKey = `${soloMatch.id}:${soloMatch.status}`;
+    if (soloSettledRef.current === settleKey) return;
+    soloSettledRef.current = settleKey;
+
+    const isWin = soloMatch.status === 'victory';
+    fetch('/api/arena/settle-solo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        problemId: activeProblem.id,
+        passed: isWin,
+        timeSpentSeconds: (activeProblem.timeLimitSeconds || 600) - timeRemaining,
+      }),
+    })
+      .then(async res => {
+        if (!res.ok) return;
+        const data = await res.json();
+        setSoloReward({
+          eloDelta: data.eloDelta,
+          newElo: data.newElo,
+          xpAwarded: data.xpAwarded,
+          pinsAwarded: data.pinsAwarded,
+        });
+        setLiveElo(data.newElo);
+        try {
+          localStorage.setItem(`pinit_user_elo_${studentId}`, String(data.newElo));
+        } catch {}
+        if (data.xpAwarded && cOS?.addXp) {
+          cOS.addXp(data.xpAwarded, isWin ? 'Turing AI Sparring Victory (+20 ELO)' : 'Turing AI Sparring Match');
+        }
+        if (data.pinsAwarded && cOS?.earnPins) {
+          cOS.earnPins('arena_duel' as any, data.pinsAwarded, isWin ? 'Turing AI Sparring Victory' : 'Turing AI Sparring Match');
+        }
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
+            detail: { arena_elo: data.newElo, weekly_xp: data.newWeeklyXp, xp_total: data.newXp }
+          }));
+        }
+        if (refresh) refresh().catch(() => {});
+      })
+      .catch(err => {
+        console.warn('[Arena Solo Effect] Settle failed:', err);
+      });
+  }, [isMatchOver, soloMatch, activeProblem.id, timeRemaining, studentId, cOS, refresh]);
 
   return (
     <div style={{ maxWidth: 1380, margin: '0 auto', minHeight: '85vh', paddingBottom: 40 }}>
@@ -1509,12 +1616,12 @@ function ArenaContent() {
                   {/* Division Cards Grid */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
                     {[
-                      { name: 'Bronze Cadet', range: '1000 - 1199', icon: '🔰', badge: 'Tier 1 Foundations', color: '#cd7f32', isCurrent: eloRating < 1200, syllabus: 'Variables, Pointers & Array Scans' },
-                      { name: 'Silver Tactician', range: '1200 - 1399', icon: '⚡', badge: 'Tier 1+ Linear DS', color: '#94a3b8', isCurrent: eloRating >= 1200 && eloRating < 1400, syllabus: 'Hash Maps, Two Pointers & Freq Tables' },
-                      { name: 'Gold Architect', range: '1400 - 1599', icon: '⚔️', badge: 'Tier 2 Intermediate', color: '#f59e0b', isCurrent: eloRating >= 1400 && eloRating < 1700, syllabus: 'Stacks, Windows & Greedy Intervals' },
-                      { name: 'Platinum Vanguard', range: '1700 - 1999', icon: '🛡️', badge: 'Tier 2+ Algorithms', color: '#38bdf8', isCurrent: eloRating >= 1700 && eloRating < 2000, syllabus: 'Binary Search, Binary Trees & DFS/BFS' },
-                      { name: 'Diamond Apex', range: '2000 - 2499', icon: '💎', badge: 'Tier 3 Master', color: '#a855f7', isCurrent: eloRating >= 2000 && eloRating < 2500, syllabus: 'Dynamic Programming & Graph Traversal' },
-                      { name: 'Grandmaster Apex', range: '2500+', icon: '👑', badge: 'Tier 3+ Systems', color: '#ec4899', isCurrent: eloRating >= 2500, syllabus: 'Concurrency, Deadlock Locks & B-Trees' },
+                      { name: 'Bronze Cadet', range: '100 - 139', icon: '🔰', badge: 'Tier 1 Foundations', color: '#cd7f32', isCurrent: eloRating < 140, syllabus: 'Variables, Pointers & Array Scans' },
+                      { name: 'Silver Tactician', range: '140 - 199', icon: '⚡', badge: 'Tier 1+ Linear DS', color: '#94a3b8', isCurrent: eloRating >= 140 && eloRating < 200, syllabus: 'Hash Maps, Two Pointers & Freq Tables' },
+                      { name: 'Gold Architect', range: '200 - 279', icon: '⚔️', badge: 'Tier 2 Intermediate', color: '#f59e0b', isCurrent: eloRating >= 200 && eloRating < 280, syllabus: 'Stacks, Windows & Greedy Intervals' },
+                      { name: 'Platinum Vanguard', range: '280 - 399', icon: '🛡️', badge: 'Tier 2+ Algorithms', color: '#38bdf8', isCurrent: eloRating >= 280 && eloRating < 400, syllabus: 'Binary Search, Binary Trees & DFS/BFS' },
+                      { name: 'Diamond Apex', range: '400 - 499', icon: '💎', badge: 'Tier 3 Master', color: '#a855f7', isCurrent: eloRating >= 400 && eloRating < 500, syllabus: 'Dynamic Programming & Graph Traversal' },
+                      { name: 'Grandmaster Apex', range: '500+', icon: '👑', badge: 'Tier 3+ Systems', color: '#ec4899', isCurrent: eloRating >= 500, syllabus: 'Concurrency, Deadlock Locks & B-Trees' },
                     ].map((div) => (
                       <div
                         key={div.name}
@@ -2551,20 +2658,33 @@ function ArenaContent() {
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ELO RATING</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171' }}>
                           {(() => {
-                            const delta = isHost ? (activeRoom as any)?.hostEloDelta : (activeRoom as any)?.guestEloDelta;
-                            if (typeof delta === 'number') {
-                              return delta >= 0 ? `+${delta}` : `${delta}`;
+                            if (activeRoom) {
+                              const delta = isHost ? (activeRoom as any)?.hostEloDelta : (activeRoom as any)?.guestEloDelta;
+                              if (typeof delta === 'number') {
+                                return delta >= 0 ? `+${delta}` : `${delta}`;
+                              }
                             }
-                            return didIWin ? '+25' : '-10';
+                            if (soloReward) {
+                              return soloReward.eloDelta >= 0 ? `+${soloReward.eloDelta}` : `${soloReward.eloDelta}`;
+                            }
+                            return didIWin ? '+20' : '-20';
                           })()}
+                        </div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                          {soloReward?.newElo ? `New Rating: ${soloReward.newElo}` : (activeRoom ? `Rating: ${isHost ? (activeRoom as any)?.hostNewElo || 120 : (activeRoom as any)?.guestNewElo || 80}` : (didIWin ? 'New: 120' : 'New: 80'))}
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ARENA XP</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
                           +{(() => {
-                            const awardXp = isHost ? (activeRoom as any)?.hostXpAward : (activeRoom as any)?.guestXpAward;
-                            if (typeof awardXp === 'number') return awardXp;
+                            if (activeRoom) {
+                              const awardXp = isHost ? (activeRoom as any)?.hostXpAward : (activeRoom as any)?.guestXpAward;
+                              if (typeof awardXp === 'number') return awardXp;
+                            }
+                            if (soloReward) {
+                              return soloReward.xpAwarded;
+                            }
                             return didIWin ? (activeProblem?.xpReward || 50) : 15;
                           })()}
                         </div>
@@ -2573,8 +2693,13 @@ function ArenaContent() {
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>COMBAT PINS</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
                           +{(() => {
-                            const awardPins = isHost ? (activeRoom as any)?.hostPinsAward : (activeRoom as any)?.guestPinsAward;
-                            if (typeof awardPins === 'number') return awardPins;
+                            if (activeRoom) {
+                              const awardPins = isHost ? (activeRoom as any)?.hostPinsAward : (activeRoom as any)?.guestPinsAward;
+                              if (typeof awardPins === 'number') return awardPins;
+                            }
+                            if (soloReward) {
+                              return soloReward.pinsAwarded;
+                            }
                             return didIWin ? 20 : 5;
                           })()}
                         </div>

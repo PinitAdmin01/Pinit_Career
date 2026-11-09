@@ -129,6 +129,19 @@ function LeaderboardContent() {
     return () => clearInterval(timer);
   }, []);
 
+  // Real-time synchronization trigger when combat matches settle
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      setRefreshTrigger(prev => prev + 1);
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('pinit:user_profile_updated', handleProfileUpdate);
+      return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate);
+    }
+  }, []);
+
   // Fetch real leaderboard telemetry from server
   useEffect(() => {
     let isMounted = true;
@@ -186,7 +199,7 @@ function LeaderboardContent() {
 
     fetchLeaderboard();
     return () => { isMounted = false; };
-  }, [activeTab, selectedLeague, user?.id]);
+  }, [activeTab, selectedLeague, user?.id, refreshTrigger]);
 
   // Current user's entry in the leaderboard
   const currentUserEntry = useMemo(() => {
@@ -662,7 +675,7 @@ function LeaderboardContent() {
                 )}
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                    ★ {(filteredEntries[1].leagueScore ?? (filteredEntries[1].weeklyXp + Math.round(Math.max(0, filteredEntries[1].eloRating - 1200) * 1.5))).toLocaleString()} pts
+                    ★ {(filteredEntries[1].leagueScore ?? (filteredEntries[1].weeklyXp + Math.round(Math.max(0, filteredEntries[1].eloRating - 100) * 1.5))).toLocaleString()} pts
                   </span>
                 )}
               </div>
@@ -744,7 +757,7 @@ function LeaderboardContent() {
                 )}
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '5px 14px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.2)', color: '#059669', fontSize: 13.5, fontWeight: 900, fontFamily: 'var(--font-mono)', border: '1px solid rgba(16, 185, 129, 0.35)' }}>
-                    ★ {(filteredEntries[0].leagueScore ?? (filteredEntries[0].weeklyXp + Math.round(Math.max(0, filteredEntries[0].eloRating - 1200) * 1.5))).toLocaleString()} pts
+                    ★ {(filteredEntries[0].leagueScore ?? (filteredEntries[0].weeklyXp + Math.round(Math.max(0, filteredEntries[0].eloRating - 100) * 1.5))).toLocaleString()} pts
                   </span>
                 )}
               </div>
@@ -824,7 +837,7 @@ function LeaderboardContent() {
                 )}
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                    ★ {(filteredEntries[2].leagueScore ?? (filteredEntries[2].weeklyXp + Math.round(Math.max(0, filteredEntries[2].eloRating - 1200) * 1.5))).toLocaleString()} pts
+                    ★ {(filteredEntries[2].leagueScore ?? (filteredEntries[2].weeklyXp + Math.round(Math.max(0, filteredEntries[2].eloRating - 100) * 1.5))).toLocaleString()} pts
                   </span>
                 )}
               </div>
@@ -941,7 +954,7 @@ function LeaderboardContent() {
                       filteredEntries.length >= 2 &&
                       demotionCutoff > promotionCutoff;
 
-                    const calculatedLeagueScore = entry.leagueScore ?? (entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 1200) * 1.5));
+                    const calculatedLeagueScore = entry.leagueScore ?? (entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 100) * 1.5));
 
                     return (
                       <React.Fragment key={entry.studentId}>

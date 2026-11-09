@@ -53,7 +53,7 @@ describe('Task 10: 100 XP League Gate & Multi-Tier Leaderboard Audit', () => {
     const content = fs.readFileSync(apiRoutePath, 'utf8');
 
     // League score calculation (XP + ELO gain)
-    assert.match(content, /const eloGain = Math\.max\(0, eloRating - 1200\);/);
+    assert.match(content, /const eloGain = Math\.max\(0, eloRating - 100\);/);
     assert.match(content, /const leagueScore = weeklyXp \+ eloGain;/);
 
     // Sorting by leagueScore
