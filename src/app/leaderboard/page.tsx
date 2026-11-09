@@ -863,35 +863,82 @@ function LeaderboardContent() {
                 </tr>
               </thead>
               <tbody>
-                {guilds.map((guild) => (
-                  <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
-                    <td style={{ padding: '16px 20px', fontWeight: 900, color: guild.rank === 1 ? '#d97706' : guild.rank === 2 ? '#64748b' : guild.rank === 3 ? '#b45309' : 'var(--t3)' }}>
-                      {guild.rank === 1 ? '🥇' : guild.rank === 2 ? '🥈' : guild.rank === 3 ? '🥉' : `#${guild.rank}`}
-                    </td>
-                    <td style={{ padding: '16px 20px', fontWeight: 800, color: 'var(--t1)' }}>
-                      {guild.guildName}
-                    </td>
-                    <td style={{ padding: '16px 20px', color: 'var(--t2)', fontSize: 13.5 }}>
-                      {guild.hackathonTitle}
-                    </td>
-                    <td style={{ padding: '16px 20px', color: '#38bdf8', fontWeight: 700 }}>
-                      {guild.teamLeadName}
-                    </td>
-                    <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
-                      👥 {guild.membersCount} Contributors
-                    </td>
-                    <td style={{ padding: '16px 20px' }}>
-                      <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', fontWeight: 900, fontSize: 14 }}>
-                        ⚡ {guild.completedProjectsCount} Projects
-                      </span>
-                    </td>
-                    <td style={{ padding: '16px 20px' }}>
-                      <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: guild.status === 'verified' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)', color: guild.status === 'verified' ? '#22c55e' : '#eab308', textTransform: 'uppercase' }}>
-                        {guild.status}
-                      </span>
+                {guilds.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} style={{ padding: '56px 20px', textAlign: 'center' }}>
+                      <div style={{ maxWidth: 460, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+                        <div style={{
+                          width: 52,
+                          height: 52,
+                          borderRadius: 26,
+                          background: 'rgba(56, 189, 248, 0.12)',
+                          border: '1px solid rgba(56, 189, 248, 0.3)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 24,
+                        }}>
+                          🛡️
+                        </div>
+                        <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)' }}>
+                          No Active Student Guild Squads This Sprint
+                        </div>
+                        <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6, margin: 0 }}>
+                          Form an engineering squad in the Projects & Hackathon Hub, collaborate on distributed systems, and ship verified milestones to claim the top rank on the Guild Leaderboard.
+                        </p>
+                        <Link
+                          href="/projects"
+                          style={{
+                            marginTop: 8,
+                            padding: '9px 20px',
+                            borderRadius: 10,
+                            background: 'linear-gradient(135deg, #0284c7, #2563eb)',
+                            color: '#ffffff',
+                            fontSize: 13,
+                            fontWeight: 700,
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            boxShadow: '0 2px 10px rgba(37, 99, 235, 0.25)',
+                          }}
+                        >
+                          ⚡ Launch Squad in Projects Hub →
+                        </Link>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  guilds.map((guild) => (
+                    <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
+                      <td style={{ padding: '16px 20px', fontWeight: 900, color: guild.rank === 1 ? '#d97706' : guild.rank === 2 ? '#64748b' : guild.rank === 3 ? '#b45309' : 'var(--t3)' }}>
+                        {guild.rank === 1 ? '🥇' : guild.rank === 2 ? '🥈' : guild.rank === 3 ? '🥉' : `#${guild.rank}`}
+                      </td>
+                      <td style={{ padding: '16px 20px', fontWeight: 800, color: 'var(--t1)' }}>
+                        {guild.guildName}
+                      </td>
+                      <td style={{ padding: '16px 20px', color: 'var(--t2)', fontSize: 13.5 }}>
+                        {guild.hackathonTitle}
+                      </td>
+                      <td style={{ padding: '16px 20px', color: '#38bdf8', fontWeight: 700 }}>
+                        {guild.teamLeadName}
+                      </td>
+                      <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
+                        👥 {guild.membersCount} Contributors
+                      </td>
+                      <td style={{ padding: '16px 20px' }}>
+                        <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', fontWeight: 900, fontSize: 14 }}>
+                          ⚡ {guild.completedProjectsCount} Projects
+                        </span>
+                      </td>
+                      <td style={{ padding: '16px 20px' }}>
+                        <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: guild.status === 'verified' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)', color: guild.status === 'verified' ? '#22c55e' : '#eab308', textTransform: 'uppercase' }}>
+                          {guild.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

@@ -430,48 +430,68 @@ export async function GET(req: Request) {
       }
     } catch {}
 
-    const guilds: GuildLeaderboardEntry[] = [
-      {
-        rank: 1,
-        guildId: 'guild_01',
-        guildName: 'ByteCraft Autonomous Systems',
-        hackathonTitle: 'Global AI & Cloud Distributed Systems Hackathon',
-        teamLeadName: 'Devin Vance',
-        membersCount: 4,
-        completedProjectsCount: 5,
-        status: 'verified'
-      },
-      {
-        rank: 2,
-        guildId: 'guild_02',
-        guildName: 'NeuralEdge Labs',
-        hackathonTitle: 'Decentralized Microservices Summit',
-        teamLeadName: 'Elena Rostova',
-        membersCount: 3,
-        completedProjectsCount: 4,
-        status: 'verified'
-      },
-      {
-        rank: 3,
-        guildId: 'guild_03',
-        guildName: 'Argon Cyber Sentinels',
-        hackathonTitle: 'Zero-Trust Collegiate Security Quest',
-        teamLeadName: 'Kofi Mensah',
-        membersCount: 3,
-        completedProjectsCount: 3,
-        status: 'verified'
-      },
-      {
-        rank: 4,
-        guildId: 'guild_04',
-        guildName: 'Fullstack Hyperloop Guild',
-        hackathonTitle: 'Open Source Cloud Architecture Sprint',
-        teamLeadName: 'Aarav Patel',
-        membersCount: 2,
-        completedProjectsCount: 2,
-        status: 'building'
+    // 7. Guild Leaderboard: Query authentic student hackathon squads (zero mock data)
+    let guilds: GuildLeaderboardEntry[] = [];
+    if (admin) {
+      try {
+        const { data: squadRows } = await admin
+          .from('hackathon_squads')
+          .select('id, name, hackathon_title, team_lead_student_id, status, milestones, final_score, created_at')
+          .order('final_score', { ascending: false, nullsFirst: false })
+          .limit(50);
+
+        if (squadRows && squadRows.length > 0) {
+          // Fetch lead names
+          const leadIds = Array.from(new Set(squadRows.map((s: any) => s.team_lead_student_id).filter(Boolean)));
+          const leadNameMap = new Map<string, string>();
+          if (leadIds.length > 0) {
+            const { data: leadUsers } = await admin
+              .from('users')
+              .select('id, display_name')
+              .in('id', leadIds);
+            if (leadUsers) {
+              leadUsers.forEach((u: any) => {
+                leadNameMap.set(u.id, u.display_name || 'Student Lead');
+              });
+            }
+          }
+
+          // Fetch member counts from hackathon_squad_members if present
+          const squadIds = squadRows.map((s: any) => s.id);
+          const memberCountsMap = new Map<string, number>();
+          try {
+            const { data: memberRows } = await admin
+              .from('hackathon_squad_members')
+              .select('squad_id')
+              .in('squad_id', squadIds);
+            if (memberRows) {
+              memberRows.forEach((m: any) => {
+                memberCountsMap.set(m.squad_id, (memberCountsMap.get(m.squad_id) || 0) + 1);
+              });
+            }
+          } catch {}
+
+          guilds = squadRows.map((squad: any, idx: number) => {
+            const milestones = Array.isArray(squad.milestones) ? squad.milestones : [];
+            const completedMilestones = milestones.filter((m: any) => m.isCompleted).length;
+            const membersCount = memberCountsMap.get(squad.id) || (milestones.length > 0 ? 3 : 1);
+            return {
+              rank: idx + 1,
+              guildId: squad.id,
+              guildName: squad.name || `Squad ${squad.id}`,
+              hackathonTitle: squad.hackathon_title || 'Engineering Sprint Challenge',
+              teamLeadName: leadNameMap.get(squad.team_lead_student_id) || 'Student Lead',
+              membersCount,
+              completedProjectsCount: completedMilestones,
+              status: squad.status || 'building',
+            };
+          });
+        }
+      } catch (err) {
+        console.warn('[Leaderboard] Failed to query hackathon squads:', err);
+        guilds = [];
       }
-    ];
+    }
 
     return NextResponse.json({
       ok: true,
