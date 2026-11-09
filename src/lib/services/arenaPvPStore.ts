@@ -23,11 +23,25 @@ export function getStudentCurriculumTier(
     'comp_dsa_linear_trees_l2',
     'comp_concurrency_threads_l2',
     'comp_database_sql_internals_l3',
+    'comp_binary_tree_invert_l3',
+    'comp_tree_depth_dfs_l3',
+    'comp_validate_bst_bounds_l3',
+    'comp_dp_unbounded_knapsack_l3',
+    'comp_dp_non_adjacent_l3',
+    'comp_heap_quickselect_l3',
+    'comp_graph_grid_bfs_l3',
   ]);
   const intComps = new Set([
     'comp_stack_brackets_l2',
     'comp_greedy_kadane_l2',
     'comp_sliding_window_stock_l2',
+    'comp_dsa_binary_search_l2',
+    'comp_linked_list_pointers_l2',
+    'comp_sliding_window_unique_l2',
+    'comp_greedy_container_l2',
+    'comp_prefix_suffix_product_l2',
+    'comp_two_pointers_3sum_l2',
+    'comp_stack_min_o1_l2',
   ]);
 
   for (const comp of verifiedCompetencies) {
@@ -392,13 +406,27 @@ export class ArenaPvPStore {
   }): Promise<ArenaRoom> {
     const roomCode = params.roomCode || generateRoomCode();
     const now = Date.now();
-    console.log(`[ArenaPvPStore.createRoom] Creating room code: ${roomCode} for host: ${params.hostId} (${params.hostName}) | problem: ${params.problemId} | language: ${params.hostLanguage || 'typescript'}`);
+
+    // Resolve 'auto' or tier-based request to a concrete catalog challenge
+    let finalProblemId = params.problemId;
+    let finalDifficulty = params.difficulty || 'intermediate';
+    if (!finalProblemId || finalProblemId === 'auto' || finalProblemId.startsWith('tier_')) {
+      const targetDiff = finalProblemId?.startsWith('tier_')
+        ? (finalProblemId.replace('tier_', '') as CurriculumTier)
+        : (finalDifficulty as CurriculumTier);
+      const candidates = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === targetDiff);
+      const chosen = candidates.length > 0 ? candidates[Math.floor(Math.random() * candidates.length)] : CODE_WARS_PROBLEMS_CATALOG[0];
+      finalProblemId = chosen.id;
+      finalDifficulty = chosen.difficulty as any;
+    }
+
+    console.log(`[ArenaPvPStore.createRoom] Creating room code: ${roomCode} for host: ${params.hostId} (${params.hostName}) | problem: ${finalProblemId} (${finalDifficulty}) | language: ${params.hostLanguage || 'typescript'}`);
 
     const room: ArenaRoom = {
       id: `room_${now}_${Math.random().toString(36).substring(2, 7)}`,
       roomCode,
-      problemId: params.problemId,
-      difficulty: params.difficulty || 'intermediate',
+      problemId: finalProblemId,
+      difficulty: finalDifficulty,
       timeLimitSeconds: params.timeLimitSeconds || 600,
       status: 'waiting',
       hostId: params.hostId,
