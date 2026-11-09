@@ -46,8 +46,8 @@ function sanitizeAiOutput(parsed: any, rawReply: string): CollegeMetadata | null
  * Layer 1A: Groq Free Multimodal Vision (qwen/qwen3.8-27b)
  * Sub-second LPU inference speed on Groq Cloud.
  */
-async function tryGroqVision(mimeType: string, base64Image: string): Promise<CollegeMetadata | null> {
-  const groqKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
+async function tryGroqVision(mimeType: string, base64Image: string, customGroqKey?: string | null): Promise<CollegeMetadata | null> {
+  const groqKey = customGroqKey || process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
   if (!groqKey) return null;
 
   try {
@@ -85,7 +85,7 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
     });
 
     if (!res.ok) {
-      console.warn('[ScanIdCard API] Groq vision returned status:', res.status);
+      console.warn('[PinIT System] [ScanIdCard API] Groq vision returned status:', res.status);
       return null;
     }
 
@@ -96,7 +96,7 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
     const parsed = JSON.parse(rawReply.replace(/^```json\s*/i, '').replace(/```\s*$/i, ''));
     return sanitizeAiOutput(parsed, rawReply);
   } catch (err: any) {
-    console.warn('[ScanIdCard API] Groq vision call note:', err?.message);
+    console.warn('[PinIT System] [ScanIdCard API] Groq vision call note:', err?.message);
     return null;
   }
 }
@@ -139,7 +139,7 @@ async function tryGeminiVision(mimeType: string, base64Image: string): Promise<C
     );
 
     if (!res.ok) {
-      console.warn('[ScanIdCard API] Gemini vision returned status:', res.status);
+      console.warn('[PinIT System] [ScanIdCard API] Gemini vision returned status:', res.status);
       return null;
     }
 
@@ -150,19 +150,22 @@ async function tryGeminiVision(mimeType: string, base64Image: string): Promise<C
     const parsed = JSON.parse(rawReply.replace(/^```json\s*/i, '').replace(/```\s*$/i, ''));
     return sanitizeAiOutput(parsed, rawReply);
   } catch (err: any) {
-    console.warn('[ScanIdCard API] Gemini vision call note:', err?.message);
+    console.warn('[PinIT System] [ScanIdCard API] Gemini vision call note:', err?.message);
     return null;
   }
 }
 
 export async function POST(req: NextRequest) {
+  console.log('[PinIT System] [ScanIdCard API] Starting student ID verification request...');
   try {
     const formData = await req.formData();
     // Accept either 'file' or 'image' field for robust interoperability
     const file = (formData.get('file') as File | null) || (formData.get('image') as File | null);
     const fallbackName = (formData.get('fallbackName') as string) || '';
+    const headerGroqKey = req.headers.get('x-groq-api-key') || (formData.get('groqKey') as string | null);
 
     if (!file) {
+      console.warn('[PinIT System] [ScanIdCard API] Error: No file provided in formData');
       return NextResponse.json({ error: 'No ID card image provided' }, { status: 400 });
     }
 
@@ -176,24 +179,31 @@ export async function POST(req: NextRequest) {
     let extractionSource = 'fallback-to-client';
 
     // 1. Layer 1A: Attempt Free Multimodal Vision via Groq (qwen/qwen3.8-27b)
-    extractedMeta = await tryGroqVision(mimeType, base64Image);
+    console.log('[PinIT System] [ScanIdCard API] Action: Calling Groq Vision AI...');
+    extractedMeta = await tryGroqVision(mimeType, base64Image, headerGroqKey);
     if (extractedMeta) {
       extractionSource = 'groq-vision';
     }
 
     // 2. Layer 1B: If Groq not configured or failed, attempt Google Gemini Flash (gemini-2.0-flash)
     if (!extractedMeta) {
+      console.log('[PinIT System] [ScanIdCard API] Action: Calling Google Gemini Vision AI...');
       extractedMeta = await tryGeminiVision(mimeType, base64Image);
       if (extractedMeta) {
         extractionSource = 'gemini-vision';
       }
     }
 
-    // 3. Layer 2: Safe fallback using file metadata
+    // 3. Option 2 Fallback: If neither cloud AI was able to process, return fallbackRequired
+    // IMPORTANT: NEVER treat file.name as OCR text (prevents "college id card jpg" error)
     if (!extractedMeta) {
-      const cleanFileName = file.name ? file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ') : '';
-      extractedMeta = parseCollegeCardFromText(cleanFileName, fallbackName);
-      extractionSource = 'fallback-to-client';
+      console.log('[PinIT System] [ScanIdCard API] Fallback: Cloud AI unconfigured or returned null. Triggering Option 2 in-browser OCR...');
+      return NextResponse.json({
+        success: false,
+        fallbackRequired: true,
+        message: 'Server AI vision unconfigured or unreachable. Switching to in-browser OCR / client vision...',
+        source: 'fallback-to-client',
+      }, { status: 200 });
     }
 
     // 4. Generate Canonical PinIT ID
@@ -216,11 +226,13 @@ export async function POST(req: NextRequest) {
         });
 
       if (uploadErr) {
-        console.warn('[ScanIdCard API] Storage upload warning:', uploadErr.message);
+        console.warn('[PinIT System] [ScanIdCard API] Storage upload note:', uploadErr.message);
       }
     } catch (storageErr: any) {
-      console.warn('[ScanIdCard API] Storage service exception:', storageErr?.message);
+      console.warn('[PinIT System] [ScanIdCard API] Storage service exception:', storageErr?.message);
     }
+
+    console.log('[PinIT System] [ScanIdCard API] Completed: Successfully extracted credentials. Student:', extractedMeta.studentName, 'College:', extractedMeta.collegeName, 'ID:', pinitId);
 
     return NextResponse.json({
       success: true,
@@ -237,9 +249,9 @@ export async function POST(req: NextRequest) {
       source: extractionSource,
     });
   } catch (err: any) {
-    console.error('[ScanIdCard API] Critical handler error:', err);
+    console.error('[PinIT System] [ScanIdCard API] Critical handler error:', err);
     return NextResponse.json(
-      { error: err?.message || 'Failed to scan student ID card' },
+      { error: err?.message || 'Failed to scan student ID card', fallbackRequired: true },
       { status: 500 }
     );
   }

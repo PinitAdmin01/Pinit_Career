@@ -119,33 +119,75 @@ export default function SignupPage() {
     }
   }, [idMode, studentName, collegeName, branch, identifier]);
 
-  // Optical Character Recognition (OCR) Card Scanning Handler
+  // Helper to load in-browser Tesseract from CDN dynamically without bundling issues
+  const loadBrowserTesseract = async (): Promise<any> => {
+    if (typeof window === 'undefined') return null;
+    if ((window as any).Tesseract) return (window as any).Tesseract;
+    return new Promise((resolve) => {
+      const existing = document.getElementById('tesseract-cdn-script');
+      if (existing) {
+        if ((window as any).Tesseract) return resolve((window as any).Tesseract);
+        existing.addEventListener('load', () => resolve((window as any).Tesseract));
+        setTimeout(() => resolve((window as any).Tesseract || null), 2000);
+        return;
+      }
+      const script = document.createElement('script');
+      script.id = 'tesseract-cdn-script';
+      script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+      script.onload = () => resolve((window as any).Tesseract);
+      script.onerror = () => resolve(null);
+      document.head.appendChild(script);
+    });
+  };
+
+  // Optical Character Recognition (OCR) Card Scanning Handler with Option 2 Graceful Fallback
   const handleCardUpload = async (file: File) => {
     if (!file) return;
+    console.log('[PinIT System] [Signup-Page] Starting ID badge scanning workflow for file:', file.name, file.size, 'bytes');
     setIsScanning(true);
-    setScanStatus('Analyzing badge credentials...');
+    setScanStatus('Analyzing credentials, please wait a moment...');
+
+    const userGroqKey = (typeof window !== 'undefined' ? localStorage.getItem('pinit_groq_api_key') : '') || process.env.NEXT_PUBLIC_GROQ_API_KEY || '';
 
     try {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('image', file);
+      if (userGroqKey) {
+        formData.append('groqKey', userGroqKey);
+      }
 
-      // Primary: Call robust /api/auth/scan-id-card endpoint
+      // Step 1: Call robust /api/auth/scan-id-card endpoint with custom key header if available
+      console.log('[PinIT System] [Signup-Page] Action: Attempting primary server-side scan (/api/auth/scan-id-card)...');
+      const fetchHeaders: Record<string, string> = {};
+      if (userGroqKey) {
+        fetchHeaders['x-groq-api-key'] = userGroqKey;
+      }
+
       let res = await fetch('/api/auth/scan-id-card', {
         method: 'POST',
+        headers: fetchHeaders,
         body: formData,
       });
 
-      // Secondary: If not found or failed, try alias route /api/student/verify-card
-      if (!res.ok) {
+      // Step 2: Try alias route /api/student/verify-card if 404 or network issue
+      if (!res.ok && res.status === 404) {
+        console.log('[PinIT System] [Signup-Page] Action: Retrying with alias route /api/student/verify-card...');
         res = await fetch('/api/student/verify-card', {
           method: 'POST',
+          headers: fetchHeaders,
           body: formData,
         });
       }
 
       if (res.ok) {
         const data = await res.json();
+        // If server indicated fallback is required (e.g. keys unconfigured on cloud serverless)
+        if (data.fallbackRequired || !data.success) {
+          console.log('[PinIT System] [Signup-Page] Notice: Server requested Option 2 fallback. Transitioning to client-side extraction...');
+          throw new Error('Server requested client fallback');
+        }
+
         const meta = data.metadata || data.collegeMeta || data;
         const nameVal = meta.studentName || data.studentName;
         const colVal = meta.collegeName || data.collegeName;
@@ -159,106 +201,110 @@ export default function SignupPage() {
         if (rollVal) setIdentifier(rollVal);
         if (idVal) setPinitId(idVal);
         if (meta) setCollegeMeta(meta);
+
+        console.log('[PinIT System] [Signup-Page] Completed: Server extraction verified student:', nameVal, 'College:', colVal);
         setScanStatus('Badge Verified & Synced!');
         return;
       }
-      throw new Error('Server scan unavailable');
+      throw new Error(`Server scan returned status ${res.status}`);
     } catch (err) {
-      console.warn('[Signup] Server scan note, executing in-browser Vision AI:', err);
+      console.warn('[PinIT System] [Signup-Page] Fallback: Executing Option 2 client-side extraction:', err);
+      setScanStatus('Reading badge with Vision AI, please wait a moment...');
 
-      // Direct in-browser Groq Vision AI Extraction (Guarantees instant success even on static/cached Vercel deploys)
-      try {
-        setScanStatus('Reading badge with Vision AI...');
-        const reader = new FileReader();
-        const base64Promise = new Promise<string>((resolve, reject) => {
-          reader.onload = () => resolve((reader.result as string).split(',')[1]);
-          reader.onerror = reject;
-        });
-        reader.readAsDataURL(file);
-        const base64Image = await base64Promise;
-        const mimeType = file.type || 'image/jpeg';
-        const groqKey = process.env.NEXT_PUBLIC_GROQ_API_KEY || '';
-        if (!groqKey) {
-          throw new Error('NEXT_PUBLIC_GROQ_API_KEY not configured');
-        }
+      // Option 2A: Direct in-browser Groq Vision AI Extraction if key is present
+      if (userGroqKey) {
+        try {
+          console.log('[PinIT System] [Signup-Page] Action: Executing in-browser Groq Vision AI...');
+          const reader = new FileReader();
+          const base64Promise = new Promise<string>((resolve, reject) => {
+            reader.onload = () => resolve((reader.result as string).split(',')[1]);
+            reader.onerror = reject;
+          });
+          reader.readAsDataURL(file);
+          const base64Image = await base64Promise;
+          const mimeType = file.type || 'image/jpeg';
 
-        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${groqKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'qwen/qwen3.8-27b',
-            messages: [
-              {
-                role: 'system',
-                content: 'You are an institutional student ID card OCR analyzer. Extract credentials and return ONLY valid JSON matching this schema: {"studentName": "", "collegeName": "", "department": "", "rollNumber": "", "collegeCode": "", "departmentCode": ""}. If a field is not present or unreadable, return empty string "". Never guess.',
-              },
-              {
-                role: 'user',
-                content: [
-                  { type: 'text', text: 'Extract student name, college/school name, degree/department, and roll number/student ID from this ID card image.' },
-                  {
-                    type: 'image_url',
-                    image_url: {
-                      url: `data:${mimeType};base64,${base64Image}`,
+          const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${userGroqKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: 'qwen/qwen3.8-27b',
+              messages: [
+                {
+                  role: 'system',
+                  content: 'You are an institutional student ID card OCR analyzer. Extract credentials and return ONLY valid JSON matching this schema: {"studentName": "", "collegeName": "", "department": "", "rollNumber": "", "collegeCode": "", "departmentCode": ""}. If a field is not present or unreadable, return empty string "". Never guess.',
+                },
+                {
+                  role: 'user',
+                  content: [
+                    { type: 'text', text: 'Extract student name, college/school name, degree/department, and roll number/student ID from this ID card image.' },
+                    {
+                      type: 'image_url',
+                      image_url: {
+                        url: `data:${mimeType};base64,${base64Image}`,
+                      },
                     },
-                  },
-                ],
-              },
-            ],
-            temperature: 0.1,
-            max_tokens: 500,
-            response_format: { type: 'json_object' },
-          }),
-        });
+                  ],
+                },
+              ],
+              temperature: 0.1,
+              max_tokens: 500,
+              response_format: { type: 'json_object' },
+            }),
+          });
 
-        if (groqRes.ok) {
-          const aiData = await groqRes.json();
-          const content = aiData?.choices?.[0]?.message?.content?.trim() || '';
-          if (content) {
-            const parsed = JSON.parse(content.replace(/^```json\s*/i, '').replace(/```\s*$/i, ''));
-            const nameVal = parsed.studentName?.trim();
-            const colVal = parsed.collegeName?.trim();
-            const deptVal = parsed.department?.trim();
-            const rollVal = parsed.rollNumber?.trim();
+          if (groqRes.ok) {
+            const aiData = await groqRes.json();
+            const content = aiData?.choices?.[0]?.message?.content?.trim() || '';
+            if (content) {
+              const parsed = JSON.parse(content.replace(/^[^{]*/, '').replace(/[^}]*$/, ''));
+              const nameVal = parsed.studentName?.trim();
+              const colVal = parsed.collegeName?.trim();
+              const deptVal = parsed.department?.trim();
+              const rollVal = parsed.rollNumber?.trim();
 
-            if (nameVal) setStudentName(nameVal);
-            if (colVal) setCollegeName(colVal);
-            if (deptVal) setBranch(deptVal);
-            if (rollVal) setIdentifier(rollVal);
+              if (nameVal) setStudentName(nameVal);
+              if (colVal) setCollegeName(colVal);
+              if (deptVal) setBranch(deptVal);
+              if (rollVal) setIdentifier(rollVal);
 
-            const meta: CollegeMetadata = {
-              collegeName: colVal || 'Accredited Institution',
-              collegeCode: (parsed.collegeCode || 'COL').toUpperCase().slice(0, 6),
-              department: deptVal || 'General Studies',
-              departmentCode: (parsed.departmentCode || 'GEN').toUpperCase().slice(0, 6),
-              rollNumber: rollVal || '001',
-              studentName: nameVal || '',
-              rawExtractedText: content.slice(0, 300),
-              confidence: 0.96,
-            };
-            const generated = generateCollegePinItId(meta);
-            if (generated) setPinitId(generated);
-            setCollegeMeta(meta);
-            setScanStatus('Badge Verified & Synced!');
-            return;
+              const meta: CollegeMetadata = {
+                collegeName: colVal || 'Accredited Institution',
+                collegeCode: (parsed.collegeCode || 'COL').toUpperCase().slice(0, 6),
+                department: deptVal || 'General Studies',
+                departmentCode: (parsed.departmentCode || 'GEN').toUpperCase().slice(0, 6),
+                rollNumber: rollVal || '001',
+                studentName: nameVal || '',
+                rawExtractedText: content.slice(0, 300),
+                confidence: 0.96,
+              };
+              const generated = generateCollegePinItId(meta);
+              if (generated) setPinitId(generated);
+              setCollegeMeta(meta);
+              console.log('[PinIT System] [Signup-Page] Completed: In-browser Groq Vision extraction successful:', nameVal, colVal);
+              setScanStatus('Badge Verified & Synced!');
+              return;
+            }
           }
+        } catch (directAiErr) {
+          console.warn('[PinIT System] [Signup-Page] Direct in-browser AI vision note:', directAiErr);
         }
-      } catch (directAiErr) {
-        console.warn('[Signup] In-browser AI Vision note:', directAiErr);
       }
 
-      // In-Browser Tesseract.js OCR Direct Extraction
+      // Option 2B: In-Browser Tesseract.js OCR Direct Extraction
       try {
-        setScanStatus('Scanning badge via in-browser OCR...');
-        // @ts-ignore - optional dynamic client-side OCR import
-        const Tesseract = (typeof window !== 'undefined' && (window as any).Tesseract) || (await import(/* webpackIgnore: true */ 'tesseract.js').catch(() => null))?.default;
+        console.log('[PinIT System] [Signup-Page] Action: Loading in-browser OCR engine...');
+        setScanStatus('Scanning badge with in-browser OCR, please wait a moment...');
+        const Tesseract = await loadBrowserTesseract();
         if (Tesseract && typeof Tesseract.recognize === 'function') {
+          console.log('[PinIT System] [Signup-Page] Action: Running Tesseract OCR on ID badge image...');
           const { data } = await Tesseract.recognize(file, 'eng');
           const rawText = data?.text?.trim() || '';
           if (rawText && rawText.length >= 5) {
+            console.log('[PinIT System] [Signup-Page] Action: Parsing extracted OCR text:', rawText.slice(0, 100));
             const parsed = parseCollegeCardFromText(rawText);
             if (parsed.studentName) setStudentName(parsed.studentName);
             if (parsed.collegeName) setCollegeName(parsed.collegeName);
@@ -267,36 +313,25 @@ export default function SignupPage() {
             const generated = generateCollegePinItId(parsed);
             if (generated) setPinitId(generated);
             setCollegeMeta(parsed);
+            console.log('[PinIT System] [Signup-Page] Completed: In-browser OCR extraction successful:', parsed.studentName, parsed.collegeName);
             setScanStatus('Badge Verified & Synced!');
             return;
           }
         }
       } catch (clientOcrErr) {
-        console.warn('[Signup] Client OCR note:', clientOcrErr);
+        console.warn('[PinIT System] [Signup-Page] Client OCR note:', clientOcrErr);
       }
 
-      // Safe fallback parsing if OCR is unreadable
-      try {
-        const textSample = file.name ? file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ') : '';
-        const parsed = parseCollegeCardFromText(textSample);
-        if (parsed.studentName) setStudentName(parsed.studentName);
-        if (parsed.collegeName) setCollegeName(parsed.collegeName);
-        if (parsed.department) setBranch(parsed.department);
-        if (parsed.rollNumber) setIdentifier(parsed.rollNumber);
-        const generated = generateCollegePinItId(parsed);
-        if (generated) setPinitId(generated);
-        setCollegeMeta(parsed);
-        setScanStatus('Badge Synced!');
-      } catch {
-        setScanStatus('Card Synced');
-      }
+      // Option 2C: Non-destructive fallback — do NOT overwrite fields with filename!
+      console.log('[PinIT System] [Signup-Page] Fallback completed: Ready for user input without destructive overrides.');
+      setScanStatus('Badge uploaded — verify details below');
     } finally {
-      setIsScanning(false);
+      setIsScanning(false)
       setTimeout(() => setScanStatus(''), 4000);
     }
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+    const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleCardUpload(e.dataTransfer.files[0]);
@@ -1238,6 +1273,41 @@ export default function SignupPage() {
                   Instant Verification Preview
                 </span>
               </div>
+            </div>
+
+            {/* AI Vision Engine Key Configuration Pill */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6, marginBottom: 8, padding: '0 4px' }}>
+              <span style={{ fontSize: 10.5, color: isDark ? '#64748b' : '#94a3b8' }}>
+                Engine: <strong style={{ color: isDark ? '#38bdf8' : '#2563eb' }}>Groq Vision + In-Browser OCR</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const current = (typeof window !== 'undefined' ? localStorage.getItem('pinit_groq_api_key') : '') || '';
+                  const key = window.prompt('Enter your Groq API Key (gsk_...) for sub-second Vision AI credential extraction:', current);
+                  if (key !== null) {
+                    if (key.trim()) {
+                      localStorage.setItem('pinit_groq_api_key', key.trim());
+                      alert('Groq Vision AI Key saved to browser session!');
+                    } else {
+                      localStorage.removeItem('pinit_groq_api_key');
+                      alert('Groq Key removed. Scanner will use local in-browser OCR.');
+                    }
+                  }
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  fontSize: 10.5,
+                  color: isDark ? '#38bdf8' : '#2563eb',
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                  fontWeight: 600,
+                }}
+              >
+                Configure Key
+              </button>
             </div>
 
             {/* Error Message if any */}
