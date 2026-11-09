@@ -23,6 +23,8 @@ export interface CodeWarsProblem {
   memoryLimitMb: number;
   xpReward: number;
   tags: string[];
+  hint?: string;
+  complexityTarget?: string;
 }
 
 export interface BattleMatch {
@@ -73,7 +75,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 240,
     memoryLimitMb: 128,
     xpReward: 100,
-    tags: ['Arrays', 'HashMaps', 'Novice', 'Foundations']
+    tags: ['Arrays', 'HashMaps', 'Novice', 'Foundations'],
+    hint: "Keep a dictionary/map of numbers you've seen so far with their index. For each number, check if (target - num) is in your map. This solves it in a single pass!",
+    complexityTarget: "Time: O(N) | Space: O(N)"
   },
   {
     id: 'war_valid_palindrome_02',
@@ -100,7 +104,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 240,
     memoryLimitMb: 128,
     xpReward: 100,
-    tags: ['Strings', 'Two Pointers', 'Novice', 'Foundations']
+    tags: ['Strings', 'Two Pointers', 'Novice', 'Foundations'],
+    hint: "Filter out spaces and punctuation first (keep only alphanumeric chars in lowercase). Then compare characters moving from both ends toward the middle.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
   },
   {
     id: 'war_reverse_string_03',
@@ -126,7 +132,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 240,
     memoryLimitMb: 128,
     xpReward: 100,
-    tags: ['Strings', 'Tokens', 'Novice', 'Foundations']
+    tags: ['Strings', 'Tokens', 'Novice', 'Foundations'],
+    hint: "Trim whitespace from ends, split into words by spaces, filter out empty tokens, reverse the order of the words, and join them with a single space.",
+    complexityTarget: "Time: O(N) | Space: O(N)"
   },
 
   // TIER 2: APPRENTICE (Month 2 Core: Data Structures & HashMaps)
@@ -155,7 +163,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 300,
     memoryLimitMb: 128,
     xpReward: 150,
-    tags: ['Stack', 'Parsing', 'Apprentice', 'Data Structures']
+    tags: ['Stack', 'Parsing', 'Apprentice', 'Data Structures'],
+    hint: "Use a Stack! When you see an opening bracket '(', '{', '[', push its matching closer. When you see a closing bracket, pop the stack and verify it matches.",
+    complexityTarget: "Time: O(N) | Space: O(N)"
   },
   {
     id: 'war_max_subarray_05',
@@ -181,7 +191,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 300,
     memoryLimitMb: 128,
     xpReward: 150,
-    tags: ['Dynamic Programming', 'Kadane', 'Apprentice', 'Arrays']
+    tags: ['Dynamic Programming', 'Kadane', 'Apprentice', 'Arrays'],
+    hint: "Kadane's Algorithm: Maintain current_sum and max_sum. Add each number to current_sum. If current_sum drops below 0, reset it to 0. Update max_sum at each step.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
   },
   {
     id: 'war_best_stock_06',
@@ -207,7 +219,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 300,
     memoryLimitMb: 128,
     xpReward: 150,
-    tags: ['Greedy', 'Arrays', 'Apprentice', 'State Tracking']
+    tags: ['Greedy', 'Arrays', 'Apprentice', 'State Tracking'],
+    hint: "Track the minimum purchase price seen so far. For each day, calculate your profit if you sold today (price - min_price), and update your maximum profit.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
   },
 
   // TIER 3: MASTER (Month 3+ Advanced: Trees, Concurrency & Systems)
@@ -240,7 +254,9 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     timeLimitSeconds: 300,
     memoryLimitMb: 128,
     xpReward: 200,
-    tags: ['Trees', 'BST', 'Recursion', 'Master', 'Algorithms']
+    tags: ['Trees', 'BST', 'Recursion', 'Master', 'Algorithms'],
+    hint: "In a Binary Search Tree: if both p and q values are less than root, LCA is in left subtree. If both are greater, LCA is in right subtree. Otherwise, current root is the LCA split point!",
+    complexityTarget: "Time: O(H) | Space: O(1)"
   },
   {
     id: 'war_concurrency_deadlock_02',
@@ -265,7 +281,9 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     timeLimitSeconds: 360,
     memoryLimitMb: 256,
     xpReward: 250,
-    tags: ['Concurrency', 'Deadlocks', 'Mutex', 'Master', 'Systems']
+    tags: ['Concurrency', 'Deadlocks', 'Mutex', 'Master', 'Systems'],
+    hint: "Coffman's 4th condition for deadlock is Circular Wait. Eliminate circular wait by sorting all requested resource IDs deterministically before acquiring any locks.",
+    complexityTarget: "Time: O(N log N) | Space: O(N)"
   },
   {
     id: 'war_sql_btree_query_03',
@@ -288,7 +306,9 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     timeLimitSeconds: 240,
     memoryLimitMb: 128,
     xpReward: 200,
-    tags: ['SQL', 'Indexes', 'B-Tree', 'Master', 'Database']
+    tags: ['SQL', 'Indexes', 'B-Tree', 'Master', 'Database'],
+    hint: "B-Tree Composite Index Rule: Equality columns must come first, followed by range column. CREATE INDEX idx_{table}_{cols} ON {table} ({cols});",
+    complexityTarget: "Time: O(N) | Space: O(N)"
   }
 ];
 
@@ -937,7 +957,160 @@ export class CodeWarsApiService {
     return targetFn;
   }
 
-  static evaluateLcaTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+
+  static evaluateTwoSumTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+    const cases = [
+      { nums: [2, 7, 11, 15], target: 9, expected: [0, 1] },
+      { nums: [3, 2, 4], target: 6, expected: [1, 2] },
+      { nums: [3, 3], target: 6, expected: [0, 1] },
+      { nums: [1, 5, 8, 3], target: 13, expected: [1, 2] },
+      { nums: [10, -2, 5, 7], target: 15, expected: [0, 2] },
+    ];
+    let passed = 0;
+    for (let idx = 0; idx < cases.length; idx++) {
+      const c = cases[idx];
+      try {
+        const res = fn(c.nums.slice(), c.target);
+        if (!Array.isArray(res) || res.length !== 2) {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected array of 2 indices, got ${JSON.stringify(res)}` };
+        }
+        const sortedRes = res.slice().sort((a, b) => a - b);
+        const sortedExp = c.expected.slice().sort((a, b) => a - b);
+        if (sortedRes[0] === sortedExp[0] && sortedRes[1] === sortedExp[1]) {
+          passed++;
+        } else {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected ${JSON.stringify(c.expected)}, got ${JSON.stringify(res)}` };
+        }
+      } catch (err: any) {
+        return { passedCount: passed, errorLog: `Test case ${idx + 1} runtime error: ${err?.message || 'Execution failed'}` };
+      }
+    }
+    return { passedCount: passed };
+  }
+
+  static evaluatePalindromeTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+    const cases = [
+      { s: 'A man, a plan, a canal: Panama', expected: true },
+      { s: 'race a car', expected: false },
+      { s: ' ', expected: true },
+      { s: '0P', expected: false },
+      { s: 'ab_a', expected: true },
+    ];
+    let passed = 0;
+    for (let idx = 0; idx < cases.length; idx++) {
+      const c = cases[idx];
+      try {
+        const res = fn(c.s);
+        if (Boolean(res) === c.expected) {
+          passed++;
+        } else {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected ${c.expected}, got ${res}` };
+        }
+      } catch (err: any) {
+        return { passedCount: passed, errorLog: `Test case ${idx + 1} runtime error: ${err?.message || 'Execution failed'}` };
+      }
+    }
+    return { passedCount: passed };
+  }
+
+  static evaluateReverseWordsTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+    const cases = [
+      { s: 'the sky is blue', expected: 'blue is sky the' },
+      { s: '  hello world  ', expected: 'world hello' },
+      { s: 'a good   example', expected: 'example good a' },
+      { s: 'EPIC', expected: 'EPIC' },
+    ];
+    let passed = 0;
+    for (let idx = 0; idx < cases.length; idx++) {
+      const c = cases[idx];
+      try {
+        const res = fn(c.s);
+        if (typeof res === 'string' && res.trim() === c.expected.trim()) {
+          passed++;
+        } else {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected "${c.expected}", got "${res}"` };
+        }
+      } catch (err: any) {
+        return { passedCount: passed, errorLog: `Test case ${idx + 1} runtime error: ${err?.message || 'Execution failed'}` };
+      }
+    }
+    return { passedCount: passed };
+  }
+
+  static evaluateValidParenthesesTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+    const cases = [
+      { s: '()', expected: true },
+      { s: '()[]{}', expected: true },
+      { s: '(]', expected: false },
+      { s: '([)]', expected: false },
+      { s: '{[]}', expected: true },
+    ];
+    let passed = 0;
+    for (let idx = 0; idx < cases.length; idx++) {
+      const c = cases[idx];
+      try {
+        const res = fn(c.s);
+        if (Boolean(res) === c.expected) {
+          passed++;
+        } else {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected ${c.expected}, got ${res}` };
+        }
+      } catch (err: any) {
+        return { passedCount: passed, errorLog: `Test case ${idx + 1} runtime error: ${err?.message || 'Execution failed'}` };
+      }
+    }
+    return { passedCount: passed };
+  }
+
+  static evaluateMaxSubarrayTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+    const cases = [
+      { nums: [-2, 1, -3, 4, -1, 2, 1, -5, 4], expected: 6 },
+      { nums: [1], expected: 1 },
+      { nums: [5, 4, -1, 7, 8], expected: 23 },
+      { nums: [-1, -2, -3], expected: -1 },
+    ];
+    let passed = 0;
+    for (let idx = 0; idx < cases.length; idx++) {
+      const c = cases[idx];
+      try {
+        const res = fn(c.nums.slice());
+        if (res === c.expected) {
+          passed++;
+        } else {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected ${c.expected}, got ${res}` };
+        }
+      } catch (err: any) {
+        return { passedCount: passed, errorLog: `Test case ${idx + 1} runtime error: ${err?.message || 'Execution failed'}` };
+      }
+    }
+    return { passedCount: passed };
+  }
+
+  static evaluateBestStockTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+    const cases = [
+      { prices: [7, 1, 5, 3, 6, 4], expected: 5 },
+      { prices: [7, 6, 4, 3, 1], expected: 0 },
+      { prices: [2, 4, 1], expected: 2 },
+      { prices: [3, 2, 6, 5, 0, 3], expected: 4 },
+    ];
+    let passed = 0;
+    for (let idx = 0; idx < cases.length; idx++) {
+      const c = cases[idx];
+      try {
+        const res = fn(c.prices.slice());
+        if (res === c.expected) {
+          passed++;
+        } else {
+          return { passedCount: passed, errorLog: `Test case ${idx + 1} failed: expected ${c.expected}, got ${res}` };
+        }
+      } catch (err: any) {
+        return { passedCount: passed, errorLog: `Test case ${idx + 1} runtime error: ${err?.message || 'Execution failed'}` };
+      }
+    }
+    return { passedCount: passed };
+  }
+
+    static evaluateLcaTestCases(fn: Function): { passedCount: number; errorLog?: string } {
     class TreeNode {
       val: any;
       left: any;
@@ -1078,41 +1251,160 @@ export class CodeWarsApiService {
       };
     }
 
-    // 2. Syntax & Semantic Verification per problem
+    // 2. Syntax & Semantic Verification per problem with genuine test execution
     if (problem.id === 'war_two_sum_01') {
       const hasFunc = code.includes('two_sum') || code.includes('twoSum');
       if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function two_sum or twoSum not found in submission.' };
-      return { testsPassed: totalTests };
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:two_sum|twoSum)\s*\([^)]*\):/g, 'function twoSum(nums, target) {')
+            .replace(/\bNone\b/g, 'null').replace(/\band\b/g, '&&').replace(/\bor\b/g, '||')
+            .replace(/for\s+(\w+),\s*(\w+)\s+in\s+enumerate\((\w+)\):/g, 'for (let $1 = 0; $1 < $3.length; $1++) { let $2 = $3[$1];')
+            .replace(/for\s+(\w+)\s+in\s+range\(\s*len\((\w+)\)\s*\):/g, 'for (let $1 = 0; $1 < $2.length; $1++) {')
+            .replace(/for\s+(\w+)\s+in\s+range\(\s*(\w+)\s*\+\s*1,\s*len\((\w+)\)\s*\):/g, 'for (let $1 = $2 + 1; $1 < $3.length; $1++) {')
+            .replace(/(\w+)\s*=\s*\{\}/g, 'let $1 = {};')
+            .replace(/if\s+(\w+)\s+in\s+(\w+):/g, 'if ($1 in $2) {')
+            .replace(/return\s+\[([^\]]+)\]/g, 'return [$1];');
+          if (!jsEquivalent.includes('}')) jsEquivalent += '\n}\n}\n}';
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, ['twoSum', 'two_sum']);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateTwoSumTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Execution error: ${err?.message || 'Invalid syntax'}` };
+      }
+      return { testsPassed: 0, evalErrorLog: 'Algorithmic Evaluation Incomplete: Two Sum test cases could not be verified in execution runtime.' };
     }
 
     if (problem.id === 'war_valid_palindrome_02') {
       const hasFunc = code.includes('is_palindrome') || code.includes('isPalindrome');
       if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function is_palindrome or isPalindrome not found in submission.' };
-      return { testsPassed: totalTests };
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:is_palindrome|isPalindrome)\s*\([^)]*\):/g, 'function isPalindrome(s) {')
+            .replace(/\bNone\b/g, 'null').replace(/\band\b/g, '&&').replace(/\bor\b/g, '||')
+            .replace(/\bTrue\b/g, 'true').replace(/\bFalse\b/g, 'false')
+            .replace(/re\.sub\([^,]+,\s*['"][^'"]*['"],\s*(\w+)\)/g, '$1.replace(/[^a-z0-9]/gi, "")')
+            .replace(/(\w+)\[::-1\]/g, '$1.split("").reverse().join("")');
+          if (!jsEquivalent.includes('}')) jsEquivalent += '\n}';
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, ['isPalindrome', 'is_palindrome']);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluatePalindromeTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Execution error: ${err?.message || 'Invalid syntax'}` };
+      }
+      return { testsPassed: 0, evalErrorLog: 'Algorithmic Evaluation Incomplete: Palindrome test cases could not be verified in execution runtime.' };
     }
 
     if (problem.id === 'war_reverse_string_03') {
       const hasFunc = code.includes('reverse_words') || code.includes('reverseWords');
       if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function reverse_words or reverseWords not found in submission.' };
-      return { testsPassed: totalTests };
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:reverse_words|reverseWords)\s*\([^)]*\):/g, 'function reverseWords(s) {')
+            .replace(/\bNone\b/g, 'null').replace(/\band\b/g, '&&').replace(/\bor\b/g, '||')
+            .replace(/['"]\s*['"]\.join\(\s*(\w+)\.split\(\s*\)\[::-1\]\s*\)/g, '$1.trim().split(/\\s+/).reverse().join(" ")')
+            .replace(/['"]\s*['"]\.join\(\s*reversed\((\w+)\.split\(\s*\)\)\s*\)/g, '$1.trim().split(/\\s+/).reverse().join(" ")');
+          if (!jsEquivalent.includes('}')) jsEquivalent += '\n}';
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, ['reverseWords', 'reverse_words']);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateReverseWordsTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Execution error: ${err?.message || 'Invalid syntax'}` };
+      }
+      return { testsPassed: 0, evalErrorLog: 'Algorithmic Evaluation Incomplete: Reverse Words test cases could not be verified in execution runtime.' };
     }
 
     if (problem.id === 'war_valid_parentheses_04') {
       const hasFunc = code.includes('is_valid_parentheses') || code.includes('isValidParentheses');
       if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function is_valid_parentheses or isValidParentheses not found in submission.' };
-      return { testsPassed: totalTests };
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:is_valid_parentheses|isValidParentheses)\s*\([^)]*\):/g, 'function isValidParentheses(s) {')
+            .replace(/\bNone\b/g, 'null').replace(/\band\b/g, '&&').replace(/\bor\b/g, '||')
+            .replace(/\bTrue\b/g, 'true').replace(/\bFalse\b/g, 'false')
+            .replace(/(\w+)\.append\(([^)]+)\)/g, '$1.push($2)')
+            .replace(/(\w+)\.pop\(\)/g, '$1.pop()')
+            .replace(/len\((\w+)\)\s*==\s*0/g, '$1.length === 0')
+            .replace(/not\s+(\w+)/g, '!$1.length');
+          if (!jsEquivalent.includes('}')) jsEquivalent += '\n}';
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, ['isValidParentheses', 'is_valid_parentheses']);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateValidParenthesesTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Execution error: ${err?.message || 'Invalid syntax'}` };
+      }
+      return { testsPassed: 0, evalErrorLog: 'Algorithmic Evaluation Incomplete: Valid Parentheses test cases could not be verified in execution runtime.' };
     }
 
     if (problem.id === 'war_max_subarray_05') {
       const hasFunc = code.includes('max_sub_array') || code.includes('maxSubArray');
       if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function max_sub_array or maxSubArray not found in submission.' };
-      return { testsPassed: totalTests };
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:max_sub_array|maxSubArray)\s*\([^)]*\):/g, 'function maxSubArray(nums) {')
+            .replace(/\bNone\b/g, 'null').replace(/\band\b/g, '&&').replace(/\bor\b/g, '||')
+            .replace(/float\(['"]-inf['"]\)/g, '-Infinity')
+            .replace(/max\(([^,]+),\s*([^)]+)\)/g, 'Math.max($1, $2)')
+            .replace(/for\s+(\w+)\s+in\s+nums:/g, 'for (let $1 of nums) {');
+          if (!jsEquivalent.includes('}')) jsEquivalent += '\n}';
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, ['maxSubArray', 'max_sub_array']);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateMaxSubarrayTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Execution error: ${err?.message || 'Invalid syntax'}` };
+      }
+      return { testsPassed: 0, evalErrorLog: 'Algorithmic Evaluation Incomplete: Maximum Subarray test cases could not be verified in execution runtime.' };
     }
 
     if (problem.id === 'war_best_stock_06') {
       const hasFunc = code.includes('max_profit') || code.includes('maxProfit');
       if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function max_profit or maxProfit not found in submission.' };
-      return { testsPassed: totalTests };
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:max_profit|maxProfit)\s*\([^)]*\):/g, 'function maxProfit(prices) {')
+            .replace(/\bNone\b/g, 'null').replace(/\band\b/g, '&&').replace(/\bor\b/g, '||')
+            .replace(/float\(['"]inf['"]\)/g, 'Infinity')
+            .replace(/max\(([^,]+),\s*([^)]+)\)/g, 'Math.max($1, $2)')
+            .replace(/min\(([^,]+),\s*([^)]+)\)/g, 'Math.min($1, $2)')
+            .replace(/for\s+(\w+)\s+in\s+prices:/g, 'for (let $1 of prices) {');
+          if (!jsEquivalent.includes('}')) jsEquivalent += '\n}';
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, ['maxProfit', 'max_profit']);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateBestStockTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Execution error: ${err?.message || 'Invalid syntax'}` };
+      }
+      return { testsPassed: 0, evalErrorLog: 'Algorithmic Evaluation Incomplete: Best Stock test cases could not be verified in execution runtime.' };
     }
 
     if (problem.id === 'war_tree_lca_01') {

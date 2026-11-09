@@ -2042,13 +2042,64 @@ function ArenaContent() {
                     </span>
                   </div>
 
-                  <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px' }}>
+                  <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: '0 0 8px' }}>
                     {activeProblem.title}
                   </h2>
 
-                  <div style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, whiteSpace: 'pre-line', marginBottom: 20 }}>
+                  {/* Topic Tags & Target Complexity Badges */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
+                    {activeProblem.tags?.map(tag => (
+                      <span key={tag} style={{
+                        fontSize: 11.5,
+                        fontWeight: 600,
+                        padding: '2px 8px',
+                        borderRadius: 6,
+                        background: 'rgba(99, 102, 241, 0.1)',
+                        color: '#818cf8',
+                        border: '1px solid rgba(99, 102, 241, 0.25)',
+                      }}>
+                        {tag}
+                      </span>
+                    ))}
+                    {activeProblem.complexityTarget && (
+                      <span style={{
+                        fontSize: 11.5,
+                        fontWeight: 600,
+                        padding: '2px 8px',
+                        borderRadius: 6,
+                        background: 'rgba(16, 185, 129, 0.1)',
+                        color: '#34d399',
+                        border: '1px solid rgba(16, 185, 129, 0.25)',
+                      }}>
+                        🎯 {activeProblem.complexityTarget}
+                      </span>
+                    )}
+                  </div>
+
+                  <div style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, whiteSpace: 'pre-line', marginBottom: 18 }}>
                     {activeProblem.description}
                   </div>
+
+                  {/* Slow Reader Strategy Blueprint */}
+                  {activeProblem.hint && (
+                    <div style={{
+                      padding: '12px 14px',
+                      borderRadius: 10,
+                      background: 'rgba(59, 130, 246, 0.08)',
+                      border: '1px solid rgba(59, 130, 246, 0.25)',
+                      marginBottom: 18,
+                      fontSize: 13.5,
+                      lineHeight: 1.5,
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: '#60a5fa', marginBottom: 4 }}>
+                        <span>💡</span>
+                        <span>Slow Reader Strategy Blueprint:</span>
+                      </div>
+                      <p style={{ margin: 0, color: 'var(--t2)', fontSize: 13 }}>
+                        {activeProblem.hint}
+                      </p>
+                    </div>
+                  )}
 
                   <h4 style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>Test Cases</h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -2057,6 +2108,11 @@ function ArenaContent() {
                         <div style={{ color: 'var(--t3)', marginBottom: 4 }}>Example {idx + 1}:</div>
                         <div><strong style={{ color: 'var(--t2)' }}>Input:</strong> <code style={{ color: '#818cf8' }}>{tc.input}</code></div>
                         <div style={{ marginTop: 2 }}><strong style={{ color: 'var(--t2)' }}>Expected:</strong> <code style={{ color: 'var(--green, #059669)' }}>{tc.expectedOutput}</code></div>
+                        {tc.explanation && (
+                          <div style={{ marginTop: 4, color: 'var(--t3)', fontSize: 12, fontStyle: 'italic' }}>
+                            Why: {tc.explanation}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>

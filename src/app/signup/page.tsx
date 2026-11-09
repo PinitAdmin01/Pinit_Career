@@ -315,10 +315,8 @@ export default function SignupPage() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '36px 20px',
-        background: isDark
-          ? '#0c0d10'
-          : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%)',
-        color: isDark ? '#f8fafc' : '#0f172a',
+        background: '#0c0d10',
+        color: '#f8fafc',
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         overflowX: 'hidden',
         boxSizing: 'border-box',
@@ -437,7 +435,7 @@ export default function SignupPage() {
           position: 'fixed',
           inset: 0,
           pointerEvents: 'none',
-          backgroundImage: `radial-gradient(${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'} 1.2px, transparent 1.2px)`,
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1.2px, transparent 1.2px)',
           backgroundSize: '28px 28px',
           zIndex: 0,
         }}
@@ -450,25 +448,25 @@ export default function SignupPage() {
           left: '12%',
           width: 550,
           height: 550,
-          background: `radial-gradient(circle, rgba(16, 185, 129, ${isDark ? 0.14 : 0.08}) 0%, rgba(5, 150, 105, 0.04) 45%, transparent 70%)`,
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.04) 45%, transparent 70%)',
           filter: 'blur(75px)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
       />
       {/* High-Tech Reticle Corner Marks on Viewport */}
-      <div style={{ position: 'fixed', top: 20, left: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
+      <div style={{ position: 'fixed', top: 20, left: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
         <span>┌</span>
         <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SYS.ACTIVE // AUTH_DOCK_v2.5</span>
       </div>
-      <span style={{ position: 'fixed', top: 20, right: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┐</span>
-      <div style={{ position: 'fixed', bottom: 20, left: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
+      <span style={{ position: 'fixed', top: 20, right: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┐</span>
+      <div style={{ position: 'fixed', bottom: 20, left: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
         <span>└</span>
         <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SECURE_ENCLAVE_ONLINE</span>
       </div>
-      <span style={{ position: 'fixed', bottom: 20, right: 24, color: '#10b981', opacity: isDark ? 0.5 : 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
+      <span style={{ position: 'fixed', bottom: 20, right: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
 
-      {/* ─── Floating Top Bar: Theme Switcher ─── */}
+      {/* ─── Floating Top Bar: Theme Switcher (Unified Cyber Dark Aesthetic) ─── */}
       <div
         style={{
           position: 'absolute',
@@ -486,12 +484,10 @@ export default function SignupPage() {
             alignItems: 'center',
             padding: '3px 4px',
             borderRadius: 9999,
-            background: isDark ? 'rgba(25, 28, 35, 0.92)' : 'rgba(255, 255, 255, 0.95)',
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(203, 213, 225, 0.9)'}`,
+            background: 'rgba(25, 28, 35, 0.92)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(12px)',
-            boxShadow: isDark
-              ? '0 6px 20px rgba(0,0,0,0.5)'
-              : '0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.05)',
+            boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
           }}
         >
           <button
@@ -507,9 +503,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: isDark ? '#10b981' : 'transparent',
-              color: isDark ? '#061710' : '#64748b',
-              boxShadow: isDark ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
+              background: theme === 'dark' ? '#10b981' : 'transparent',
+              color: theme === 'dark' ? '#061710' : '#808593',
+              boxShadow: theme === 'dark' ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -528,9 +524,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: !isDark ? '#10b981' : 'transparent',
-              color: !isDark ? '#061710' : '#94a3b8',
-              boxShadow: !isDark ? '0 0 16px rgba(16, 185, 129, 0.4)' : 'none',
+              background: theme === 'light' ? '#10b981' : 'transparent',
+              color: theme === 'light' ? '#061710' : '#808593',
+              boxShadow: theme === 'light' ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -628,13 +624,16 @@ export default function SignupPage() {
                   </div>
                   <div
                     style={{
-                      fontSize: 22,
+                      fontSize: 'clamp(17px, 2.2vw, 22px)',
                       fontWeight: 800,
                       color: '#ffffff',
                       letterSpacing: 0.8,
                       marginTop: 4,
                       fontFamily: 'Consolas, "Roboto Mono", monospace',
                       textShadow: '0 0 12px rgba(16, 185, 129, 0.5)',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
                     }}
                   >
                     {pinitId}
@@ -743,125 +742,105 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* 2. Brand Typography & Fine-Line Telemetry HUD (Pure Canvas, No Heavy Enclosed Box!) */}
-          <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {/* Bold Brand Typography matching faf260f1.jpg */}
+          {/* 2. Official Brand Lockup & Aerospace Telemetry Spectrum HUD (Screenshot 1 Matching) */}
+          <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {/* Brand Lockup: Real Logo + Subtitle */}
             <div>
-              <div
-                style={{
-                  fontSize: 32,
-                  fontWeight: 800,
-                  color: isDark ? '#ffffff' : '#0f172a',
-                  lineHeight: 1.15,
-                  letterSpacing: -0.5,
-                }}
-              >
-                <div>PinIT</div>
-                <div>Career OS</div>
-              </div>
+              <Image
+                src="/brand/pinit-career-logo-clear.png"
+                alt="PinIT Career OS"
+                width={170}
+                height={38}
+                style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
+                priority
+              />
               <p
                 style={{
                   margin: '8px 0 0',
-                  fontSize: 13,
-                  color: isDark ? '#94a3b8' : '#64748b',
+                  fontSize: 12.5,
+                  color: '#94a3b8',
                   lineHeight: 1.5,
+                  maxWidth: 410,
                 }}
               >
-                Fine-line career progression metrics for future deployment typography.
+                Next-generation institutional identity, real-time campus telemetry, and autonomous AI career acceleration.
               </p>
             </div>
 
-            {/* Stats Row matching faf260f1.jpg */}
+            {/* Aerospace Telemetry Strip with Fine-Line Spectrum HUD */}
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                fontSize: 11,
-                fontFamily: 'Consolas, "Roboto Mono", monospace',
-                color: isDark ? '#64748b' : '#94a3b8',
-                paddingRight: 6,
-                marginTop: 2,
+                borderRadius: 14,
+                background: 'rgba(16, 20, 28, 0.65)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(12px)',
+                padding: '14px 16px',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
               }}
             >
-              <span style={{ color: isDark ? '#94a3b8' : '#475569', fontWeight: 600 }}>Career Progression</span>
-              <span>18% College Student</span>
-              <span>50% Parent</span>
-              <span style={{ color: '#10b981', fontWeight: 700 }}>+8.931 60.20%</span>
-              <span style={{ color: '#10b981', fontWeight: 700 }}>+29.58%</span>
-            </div>
-
-            {/* Seamless Fine-Line Telemetry Chart: Direct on Canvas (NO Enclosing Box!) */}
-            <div style={{ position: 'relative', width: '100%', height: 90 }}>
-              {/* Y-axis coordinates and label */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  fontSize: 10,
-                  color: '#10b981',
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: 0.5,
-                }}
-              >
-                Telemetry
+              {/* Status Indicator Bar */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                  <span style={{ fontSize: 10, fontWeight: 700, color: '#34d399', letterSpacing: 1, fontFamily: 'monospace' }}>
+                    LIVE CAREER VELOCITY
+                  </span>
+                </div>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: '#10b981', fontFamily: 'monospace' }}>
+                  +29.58% ACCELERATION
+                </span>
               </div>
+
+              {/* High-Precision Cyber Waveform Spectrum */}
+              <div style={{ position: 'relative', width: '100%', height: 44 }}>
+                <svg width="100%" height="44" viewBox="0 0 380 44" fill="none" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="cyberFade" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  {/* Technical Grid lines */}
+                  <line x1="0" y1="11" x2="380" y2="11" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
+                  <line x1="0" y1="22" x2="380" y2="22" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
+                  <line x1="0" y1="33" x2="380" y2="33" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
+
+                  {/* Smooth Cyber Waveform */}
+                  <path
+                    d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10 L380,44 L0,44 Z"
+                    fill="url(#cyberFade)"
+                  />
+                  <path
+                    d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10"
+                    stroke="#10b981"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+
+                  {/* Coordinates Nodes */}
+                  <circle cx="210" cy="12" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
+                  <circle cx="290" cy="18" r="2" fill="#10b981" />
+                  <circle cx="380" cy="10" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
+                </svg>
+              </div>
+
+              {/* Telemetry Metrics Row */}
               <div
                 style={{
-                  position: 'absolute',
-                  top: 18,
-                  left: 0,
                   display: 'flex',
-                  flexDirection: 'column',
-                  gap: 8,
-                  fontSize: 8.5,
-                  color: isDark ? '#475569' : '#94a3b8',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginTop: 10,
+                  fontSize: 9.5,
+                  color: '#64748b',
                   fontFamily: 'monospace',
                 }}
               >
-                <span>0.00</span>
-                <span>300</span>
-                <span>200</span>
-                <span>100</span>
+                <span>SYS: ONLINE</span>
+                <span>CONFIDENCE: 99.4%</span>
+                <span>LATENCY: 14ms</span>
+                <span style={{ color: '#94a3b8' }}>ID: VERIFIED</span>
               </div>
-
-              {/* Seamless Fine-Line SVG Chart */}
-              <svg width="100%" height="90" viewBox="0 0 380 90" fill="none" preserveAspectRatio="none" style={{ paddingLeft: 34, boxSizing: 'border-box' }}>
-                <defs>
-                  <linearGradient id="telemetryGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
-
-                {/* Delicate horizontal dashed grid lines */}
-                <line x1="0" y1="20" x2="380" y2="20" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
-                <line x1="0" y1="42" x2="380" y2="42" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
-                <line x1="0" y1="64" x2="380" y2="64" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
-                <line x1="0" y1="84" x2="380" y2="84" stroke={isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"} />
-
-                {/* Smooth fine-line curve matching faf260f1.jpg */}
-                <path
-                  d="M0,74 C30,74 60,72 90,66 C120,60 145,68 175,70 C205,72 225,48 245,36 C265,24 280,50 300,52 C320,54 340,32 360,20 C370,14 375,12 380,10 L380,84 L0,84 Z"
-                  fill="url(#telemetryGradient)"
-                />
-                <path
-                  d="M0,74 C30,74 60,72 90,66 C120,60 145,68 175,70 C205,72 225,48 245,36 C265,24 280,50 300,52 C320,54 340,32 360,20 C370,14 375,12 380,10"
-                  stroke="#10b981"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-
-                {/* Precision coordinate nodes */}
-                <circle cx="90" cy="66" r="2.5" fill="#10b981" />
-                <circle cx="175" cy="70" r="2.5" fill="#10b981" />
-                <circle cx="245" cy="36" r="3" fill="#34d399" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1" />
-                <circle cx="300" cy="52" r="2" fill="#10b981" />
-                <circle cx="360" cy="20" r="3" fill="#34d399" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1" />
-                <circle cx="380" cy="10" r="3.5" fill="#00f59b" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
-              </svg>
             </div>
           </div>
         </div>
@@ -876,11 +855,9 @@ export default function SignupPage() {
               width: '100%',
               maxWidth: 450,
               borderRadius: 26,
-              background: isDark ? '#15171d' : '#ffffff',
-              border: `1px solid ${isDark ? '#262933' : '#e2e8f0'}`,
-              boxShadow: isDark
-                ? '0 30px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)'
-                : '0 30px 70px -15px rgba(0, 0, 0, 0.09), 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px #e2e8f0',
+              background: '#15171d',
+              border: '1px solid #262933',
+              boxShadow: '0 30px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)',
               padding: '30px 28px',
               display: 'flex',
               flexDirection: 'column',
@@ -895,8 +872,8 @@ export default function SignupPage() {
                 gridTemplateColumns: '1fr 1fr',
                 padding: 4,
                 borderRadius: 9999,
-                background: isDark ? '#1b1e25' : '#f1f5f9',
-                border: `1px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                background: '#1b1e25',
+                border: '1px solid #282b36',
               }}
             >
               <button
@@ -910,25 +887,11 @@ export default function SignupPage() {
                   fontWeight: idMode === 'global' ? 700 : 500,
                   cursor: 'pointer',
                   background:
-                    idMode === 'global'
-                      ? isDark
-                        ? '#272b36'
-                        : '#ffffff'
-                      : 'transparent',
+                    idMode === 'global' ? '#272b36' : 'transparent',
                   color:
-                    idMode === 'global'
-                      ? isDark
-                        ? '#ffffff'
-                        : '#0f172a'
-                      : isDark
-                      ? '#808593'
-                      : '#64748b',
+                    idMode === 'global' ? '#ffffff' : '#808593',
                   boxShadow:
-                    idMode === 'global'
-                      ? isDark
-                        ? '0 2px 8px rgba(0,0,0,0.35)'
-                        : '0 2px 8px rgba(0,0,0,0.08)'
-                      : 'none',
+                    idMode === 'global' ? '0 2px 8px rgba(0,0,0,0.35)' : 'none',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -945,25 +908,11 @@ export default function SignupPage() {
                   fontWeight: idMode === 'college' ? 700 : 500,
                   cursor: 'pointer',
                   background:
-                    idMode === 'college'
-                      ? isDark
-                        ? '#242833'
-                        : '#ffffff'
-                      : 'transparent',
+                    idMode === 'college' ? '#242833' : 'transparent',
                   color:
-                    idMode === 'college'
-                      ? isDark
-                        ? '#ffffff'
-                        : '#0f172a'
-                      : isDark
-                      ? '#808593'
-                      : '#64748b',
+                    idMode === 'college' ? '#ffffff' : '#808593',
                   boxShadow:
-                    idMode === 'college'
-                      ? isDark
-                        ? '0 2px 8px rgba(0,0,0,0.35)'
-                        : '0 2px 8px rgba(0,0,0,0.08)'
-                      : 'none',
+                    idMode === 'college' ? '0 2px 8px rgba(0,0,0,0.35)' : 'none',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -991,8 +940,8 @@ export default function SignupPage() {
               style={{
                 position: 'relative',
                 borderRadius: 16,
-                background: isDark ? '#181b22' : '#f8fafc',
-                border: `1px solid ${isDark ? '#282b36' : '#e2e8f0'}`,
+                background: '#181b22',
+                border: '1px solid #282b36',
                 padding: '16px 20px',
                 display: 'flex',
                 alignItems: 'center',
@@ -1008,10 +957,10 @@ export default function SignupPage() {
               <span style={{ position: 'absolute', bottom: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┘</span>
 
               <div>
-                <div style={{ fontSize: 13.5, fontWeight: 700, color: isDark ? '#ffffff' : '#0f172a' }}>
+                <div style={{ fontSize: 13.5, fontWeight: 700, color: '#ffffff' }}>
                   Student ID badge scanner
                 </div>
-                <div style={{ fontSize: 11, color: scanStatus ? '#10b981' : isDark ? '#808593' : '#64748b', marginTop: 3 }}>
+                <div style={{ fontSize: 11, color: scanStatus ? '#10b981' : '#808593', marginTop: 3 }}>
                   {scanStatus || (isScanning ? 'Processing image...' : 'Drop ID badge or click to scan')}
                 </div>
               </div>
@@ -1031,19 +980,19 @@ export default function SignupPage() {
                       zIndex: 2,
                     }}
                   />
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.5">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5">
                     <rect x="3" y="3" width="7" height="7" rx="1" />
                     <rect x="14" y="3" width="7" height="7" rx="1" />
                     <rect x="3" y="14" width="7" height="7" rx="1" />
-                    <rect x="6" y="6" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
-                    <rect x="17" y="6" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
-                    <rect x="6" y="17" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
-                    <path d="M14 14h3v3h-3z" fill={isDark ? "#ffffff" : "#0f172a"} />
-                    <path d="M18 18h3v3h-3z" fill={isDark ? "#ffffff" : "#0f172a"} />
-                    <path d="M14 20h2v1h-2z" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <rect x="6" y="6" width="1" height="1" fill="#ffffff" />
+                    <rect x="17" y="6" width="1" height="1" fill="#ffffff" />
+                    <rect x="6" y="17" width="1" height="1" fill="#ffffff" />
+                    <path d="M14 14h3v3h-3z" fill="#ffffff" />
+                    <path d="M18 18h3v3h-3z" fill="#ffffff" />
+                    <path d="M14 20h2v1h-2z" fill="#ffffff" />
                   </svg>
                 </div>
-                <span style={{ fontSize: 8, color: isDark ? '#808593' : '#94a3b8', letterSpacing: 0.2 }}>
+                <span style={{ fontSize: 8, color: '#808593', letterSpacing: 0.2 }}>
                   Instant Verification Preview
                 </span>
               </div>
@@ -1055,9 +1004,9 @@ export default function SignupPage() {
                 style={{
                   padding: '8px 12px',
                   borderRadius: 8,
-                  background: isDark ? 'rgba(239, 68, 68, 0.15)' : '#fee2e2',
-                  border: `1px solid ${isDark ? 'rgba(239, 68, 68, 0.4)' : '#fca5a5'}`,
-                  color: isDark ? '#f87171' : '#b91c1c',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  color: '#f87171',
                   fontSize: 12,
                   fontWeight: 600,
                 }}
@@ -1081,14 +1030,14 @@ export default function SignupPage() {
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   placeholder="Student Full Name (e.g. Vinay N)"
-                  className={isDark ? 'input-glow' : 'input-glow-light'}
+                  className="input-glow"
                   style={{
                     width: '100%',
                     padding: '12px 14px 12px 40px',
                     borderRadius: 12,
-                    background: isDark ? '#181b22' : '#ffffff',
-                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                    color: isDark ? '#ffffff' : '#0f172a',
+                    background: '#181b22',
+                    border: '1.5px solid #282b36',
+                    color: '#ffffff',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -1097,66 +1046,69 @@ export default function SignupPage() {
                 />
               </div>
 
-              {/* Field 2: College Name (Full Width, No Truncation) */}
+              {/* Field 2 & 3: College Name & Branch (Symmetrical 2-Column Grid matching Screenshot 3) */}
               {idMode === 'college' && (
-                <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    value={collegeName}
-                    onChange={(e) => setCollegeName(e.target.value)}
-                    placeholder="College / Campus (e.g. BGS Institute of Management)"
-                    title="College Name"
-                    className={isDark ? 'input-glow' : 'input-glow-light'}
-                    style={{
-                      width: '100%',
-                      padding: '12px 14px 12px 40px',
-                      borderRadius: 12,
-                      background: isDark ? '#181b22' : '#ffffff',
-                      border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                      color: isDark ? '#ffffff' : '#0f172a',
-                      fontSize: 13,
-                      outline: 'none',
-                      boxSizing: 'border-box',
-                      transition: 'border-color 0.2s, box-shadow 0.2s',
-                    }}
-                  />
-                </div>
-              )}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+                      </svg>
+                    </span>
+                    <input
+                      type="text"
+                      value={collegeName}
+                      onChange={(e) => setCollegeName(e.target.value)}
+                      placeholder="College / Campus"
+                      title={collegeName || 'College Name'}
+                      className="input-glow"
+                      style={{
+                        width: '100%',
+                        padding: '12px 10px 12px 34px',
+                        borderRadius: 12,
+                        background: '#181b22',
+                        border: '1.5px solid #282b36',
+                        color: '#ffffff',
+                        fontSize: 12.5,
+                        outline: 'none',
+                        boxSizing: 'border-box',
+                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    />
+                  </div>
 
-              {/* Field 3: Branch / Stream (Full Width, No Truncation) */}
-              {idMode === 'college' && (
-                <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                      <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    value={branch}
-                    onChange={(e) => setBranch(e.target.value)}
-                    placeholder="Branch / Stream (e.g. BCA • Computer Applications)"
-                    title="Branch / Stream"
-                    className={isDark ? 'input-glow' : 'input-glow-light'}
-                    style={{
-                      width: '100%',
-                      padding: '12px 14px 12px 40px',
-                      borderRadius: 12,
-                      background: isDark ? '#181b22' : '#ffffff',
-                      border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                      color: isDark ? '#ffffff' : '#0f172a',
-                      fontSize: 13,
-                      outline: 'none',
-                      boxSizing: 'border-box',
-                      transition: 'border-color 0.2s, box-shadow 0.2s',
-                    }}
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                      </svg>
+                    </span>
+                    <input
+                      type="text"
+                      value={branch}
+                      onChange={(e) => setBranch(e.target.value)}
+                      placeholder="Branch / Stream"
+                      title={branch || 'Branch / Stream'}
+                      className="input-glow"
+                      style={{
+                        width: '100%',
+                        padding: '12px 10px 12px 34px',
+                        borderRadius: 12,
+                        background: '#181b22',
+                        border: '1.5px solid #282b36',
+                        color: '#ffffff',
+                        fontSize: 12.5,
+                        outline: 'none',
+                        boxSizing: 'border-box',
+                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    />
+                  </div>
                 </div>
               )}
 
@@ -1177,14 +1129,14 @@ export default function SignupPage() {
                       ? 'Student ID or Campus Email'
                       : 'Global PinIT ID or Email'
                   }
-                  className={isDark ? 'input-glow' : 'input-glow-light'}
+                  className="input-glow"
                   style={{
                     width: '100%',
                     padding: '12px 14px 12px 40px',
                     borderRadius: 12,
-                    background: isDark ? '#181b22' : '#ffffff',
-                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                    color: isDark ? '#ffffff' : '#0f172a',
+                    background: '#181b22',
+                    border: '1.5px solid #282b36',
+                    color: '#ffffff',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -1206,14 +1158,14 @@ export default function SignupPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
-                  className={isDark ? 'input-glow' : 'input-glow-light'}
+                  className="input-glow"
                   style={{
                     width: '100%',
                     padding: '12px 44px 12px 40px',
                     borderRadius: 12,
-                    background: isDark ? '#181b22' : '#ffffff',
-                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
-                    color: isDark ? '#ffffff' : '#0f172a',
+                    background: '#181b22',
+                    border: '1.5px solid #282b36',
+                    color: '#ffffff',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -1230,7 +1182,7 @@ export default function SignupPage() {
                     transform: 'translateY(-50%)',
                     background: 'transparent',
                     border: 'none',
-                    color: isDark ? '#808593' : '#94a3b8',
+                    color: '#808593',
                     cursor: 'pointer',
                     padding: 0,
                     display: 'flex',
@@ -1290,7 +1242,7 @@ export default function SignupPage() {
                 href="/login"
                 style={{
                   fontSize: 12.5,
-                  color: isDark ? '#808593' : '#64748b',
+                  color: '#808593',
                   textDecoration: 'none',
                   fontWeight: 500,
                 }}
