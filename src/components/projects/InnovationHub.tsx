@@ -89,7 +89,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
     if (list.length > 0) {
       if (initialJoinSquadId && list.some((s) => s.id === initialJoinSquadId)) {
         setSelectedSquadId(initialJoinSquadId);
-      } else if (!selectedSquadId) {
+      } else if (!selectedSquadIdRef.current) {
         setSelectedSquadId(list[0].id);
       }
     }

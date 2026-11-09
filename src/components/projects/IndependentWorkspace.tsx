@@ -47,7 +47,7 @@ export function IndependentWorkspace({
   const githubUrl = project.githubLink || '';
 
   // Fetch live GitHub telemetry
-  const loadTelemetry = async () => {
+  const loadTelemetry = React.useCallback(async () => {
     if (!githubUrl) return;
     setIsScanning(true);
     try {
@@ -58,11 +58,11 @@ export function IndependentWorkspace({
     } finally {
       setIsScanning(false);
     }
-  };
+  }, [githubUrl]);
 
   useEffect(() => {
     loadTelemetry();
-  }, [githubUrl]);
+  }, [loadTelemetry]);
 
   const handleManualScan = async () => {
     await loadTelemetry();
