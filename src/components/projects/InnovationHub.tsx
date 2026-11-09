@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import Link from 'next/link';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from '@/lib/store/useAppStore';
 import { parseAndValidateGithubUrl } from '@/lib/github/githubIngestion';
@@ -9,30 +9,9 @@ import {
   TeamsApiService,
   HackathonSquad,
   TeamRole,
+  InnovationChatMessage,
+  JoinRequest,
 } from '@/lib/api/teamsApi';
-
-export interface InnovationChatMessage {
-  id: string;
-  squadId: string;
-  senderId: string;
-  senderName: string;
-  senderAvatar?: string;
-  senderRole?: string;
-  text: string;
-  timestamp: number;
-}
-
-export interface JoinRequest {
-  id: string;
-  squadId: string;
-  studentId: string;
-  studentName: string;
-  studentAvatar?: string;
-  role: TeamRole;
-  pitch: string;
-  status: 'pending' | 'accepted' | 'declined';
-  createdAt: number;
-}
 
 interface InnovationHubProps {
   studentId: string;
@@ -55,11 +34,15 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
 }) => {
   const [squads, setSquads] = useState<HackathonSquad[]>([]);
   const [selectedSquadId, setSelectedSquadId] = useState<string>('');
+  const selectedSquadIdRef = useRef<string>('');
+  selectedSquadIdRef.current = selectedSquadId;
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedRoleFilter, setSelectedRoleFilter] = useState<string>('all');
   const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const [showInviteModal, setShowInviteModal] = useState<boolean>(false);
   const [showJoinRequestModal, setShowJoinRequestModal] = useState<boolean>(false);
+  const [showJuryModal, setShowJuryModal] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'workspace' | 'discussion' | 'requests'>('workspace');
 
   // Form states for Start Project
@@ -69,6 +52,11 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   const [newMyRole, setNewMyRole] = useState<TeamRole>('backend_lead');
   const [newRepoUrl, setNewRepoUrl] = useState<string>('');
   const [newIsPublic, setNewIsPublic] = useState<boolean>(true);
+
+  // Form state for Jury Submission
+  const [juryLiveUrl, setJuryLiveUrl] = useState<string>('');
+  const [juryDemoVideoUrl, setJuryDemoVideoUrl] = useState<string>('');
+  const [isSubmittingJury, setIsSubmittingJury] = useState<boolean>(false);
 
   // Auto-fill from incoming project navigation if provided
   useEffect(() => {
@@ -92,8 +80,9 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   // Join Requests State
   const [joinRequests, setJoinRequests] = useState<JoinRequest[]>([]);
 
-  // Load squads on mount
+  // 1. Initial Load & Multi-Device Sync on mount
   useEffect(() => {
+    // Immediate local read
     const list = TeamsApiService.getSquads(studentId);
     setSquads(list);
 
@@ -105,10 +94,38 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
       }
     }
 
-    const unsub = TeamsApiService.subscribeToSquadUpdates(() => {
+    // Async remote Supabase sync across collegiate cohort
+    TeamsApiService.syncRemoteSquads(studentId).then((synced) => {
+      if (synced && synced.length > 0) {
+        setSquads(synced);
+        if (!selectedSquadIdRef.current && synced[0]) {
+          setSelectedSquadId(synced[0].id);
+        }
+      }
+    });
+
+    // Subscribe to local and Supabase Realtime updates
+    const unsub = TeamsApiService.subscribeToSquadUpdates((payload: any) => {
       const updated = TeamsApiService.getSquads(studentId);
       setSquads(updated);
+
+      // Live chat message delivery
+      if (payload?.action === 'chat_message' && payload?.squadId === selectedSquadIdRef.current) {
+        setChatMessages((prev) => {
+          if (prev.some((m) => m.id === payload.message.id)) return prev;
+          return [...prev, payload.message];
+        });
+      }
+
+      // Live join request update
+      if (
+        (payload?.action === 'join_request' || payload?.action === 'join_request_resolved') &&
+        payload?.squadId === selectedSquadIdRef.current
+      ) {
+        setJoinRequests(TeamsApiService.getJoinRequests(selectedSquadIdRef.current));
+      }
     });
+
     return () => unsub();
   }, [studentId, initialJoinSquadId]);
 
@@ -117,16 +134,11 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   // Load chat messages when activeSquad changes
   useEffect(() => {
     if (!activeSquad) return;
-    const storageKey = `pinit_innovation_chat_${activeSquad.id}`;
-    const raw = localStorage.getItem(storageKey);
-    if (raw) {
-      try {
-        setChatMessages(JSON.parse(raw));
-      } catch {
-        setChatMessages([]);
-      }
+    const msgs = TeamsApiService.getChatMessages(activeSquad.id);
+    if (msgs.length > 0) {
+      setChatMessages(msgs);
     } else {
-      // Default initial welcome discussion messages
+      // Default initial welcome discussion message
       const initialMsgs: InnovationChatMessage[] = [
         {
           id: `msg_init_1_${activeSquad.id}`,
@@ -135,29 +147,21 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
           senderName: activeSquad.members[0]?.name || 'Team Lead',
           senderRole: 'Team Lead',
           senderAvatar: activeSquad.members[0]?.avatarUrl,
-          text: `Welcome to the ${activeSquad.name} innovation workspace! Let's discuss our architecture contracts, task distributions, and MVP deliverables here.`,
+          text: `Welcome to the ${activeSquad.name} innovation workspace! Let's collaborate on our architecture contracts, coordinate commits, and ship our sprint milestones.`,
           timestamp: activeSquad.createdAt || Date.now() - 3600000,
         },
       ];
       setChatMessages(initialMsgs);
-      localStorage.setItem(storageKey, JSON.stringify(initialMsgs));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(`pinit_innovation_chat_${activeSquad.id}`, JSON.stringify(initialMsgs));
+      }
     }
   }, [activeSquad?.id]);
 
-  // Load join requests
+  // Load join requests when activeSquad changes
   useEffect(() => {
     if (!activeSquad) return;
-    const key = `pinit_join_requests_${activeSquad.id}`;
-    const raw = localStorage.getItem(key);
-    if (raw) {
-      try {
-        setJoinRequests(JSON.parse(raw));
-      } catch {
-        setJoinRequests([]);
-      }
-    } else {
-      setJoinRequests([]);
-    }
+    setJoinRequests(TeamsApiService.getJoinRequests(activeSquad.id));
   }, [activeSquad?.id]);
 
   // Scroll chat to bottom
@@ -168,24 +172,22 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   }, [chatMessages, activeTab]);
 
   // Handle Send Chat Message
-  const handleSendMessage = () => {
-    if (!inputMessage.trim() || !activeSquad) return;
+  const handleSendMessage = (customText?: string) => {
+    const textToSend = (customText || inputMessage).trim();
+    if (!textToSend || !activeSquad) return;
+
     const myMember = activeSquad.members.find((m) => m.studentId === studentId);
-    const newMsg: InnovationChatMessage = {
-      id: `msg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    const sent = TeamsApiService.sendChatMessage({
       squadId: activeSquad.id,
       senderId: studentId,
       senderName: studentName,
       senderAvatar: studentAvatar,
       senderRole: myMember?.role ? myMember.role.replace('_', ' ') : 'Contributor',
-      text: inputMessage.trim(),
-      timestamp: Date.now(),
-    };
+      text: textToSend,
+    });
 
-    const updated = [...chatMessages, newMsg];
-    setChatMessages(updated);
+    setChatMessages((prev) => [...prev, sent]);
     setInputMessage('');
-    localStorage.setItem(`pinit_innovation_chat_${activeSquad.id}`, JSON.stringify(updated));
   };
 
   // Handle Create New Squad
@@ -215,8 +217,9 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
 
     toast.success('Innovation Project Launched! 🚀', `Squad "${created.name}" created. Invite peers via link or QR!`);
     setShowCreateModal(false);
+    setSquads(TeamsApiService.getSquads(studentId));
     setSelectedSquadId(created.id);
-    setActiveTab('discussion');
+    setActiveTab('workspace');
 
     // Reset fields
     setNewSquadName('');
@@ -227,23 +230,16 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   // Handle Submit Join Request
   const handleSubmitJoinRequest = () => {
     if (!activeSquad) return;
-    const newReq: JoinRequest = {
-      id: `req_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+    const req = TeamsApiService.createJoinRequest({
       squadId: activeSquad.id,
       studentId,
       studentName,
       studentAvatar,
       role: joinRole,
       pitch: joinPitch.trim() || 'Excited to contribute to this innovation build!',
-      status: 'pending',
-      createdAt: Date.now(),
-    };
+    });
 
-    const key = `pinit_join_requests_${activeSquad.id}`;
-    const existing = [...joinRequests, newReq];
-    setJoinRequests(existing);
-    localStorage.setItem(key, JSON.stringify(existing));
-
+    setJoinRequests((prev) => [...prev, req]);
     toast.success('Join Request Dispatched! 📨', `Team Lead has been notified of your request to join as ${joinRole.replace('_', ' ')}.`);
     setShowJoinRequestModal(false);
     setJoinPitch('');
@@ -252,22 +248,57 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   // Handle Accept Join Request (for team lead)
   const handleAcceptRequest = (req: JoinRequest) => {
     if (!activeSquad) return;
-    // Add member to squad
-    TeamsApiService.joinSquad({
-      squadId: activeSquad.id,
-      studentId: req.studentId,
-      name: req.studentName,
-      role: req.role,
-      avatarUrl: req.studentAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100',
-    });
-
-    // Update request status
-    const key = `pinit_join_requests_${activeSquad.id}`;
-    const updatedReqs = joinRequests.map((r) => (r.id === req.id ? { ...r, status: 'accepted' as const } : r));
-    setJoinRequests(updatedReqs);
-    localStorage.setItem(key, JSON.stringify(updatedReqs));
-
+    const res = TeamsApiService.acceptJoinRequest(activeSquad.id, req.id);
+    setSquads((prev) => prev.map((s) => (s.id === res.squad.id ? res.squad : s)));
+    setJoinRequests(res.requests);
     toast.success('Peer Added to Squad! 🎉', `${req.studentName} is now active in your innovation project.`);
+  };
+
+  // Handle Decline Join Request (for team lead)
+  const handleDeclineRequest = (req: JoinRequest) => {
+    if (!activeSquad) return;
+    const updated = TeamsApiService.declineJoinRequest(activeSquad.id, req.id);
+    setJoinRequests(updated);
+    toast.info('Request Dismissed', `${req.studentName}'s join request has been declined.`);
+  };
+
+  // Handle Toggle Milestone
+  const handleToggleMilestone = (milestoneId: string) => {
+    if (!activeSquad) return;
+    try {
+      const updated = TeamsApiService.toggleMilestone(activeSquad.id, milestoneId, studentId);
+      setSquads((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+      toast.success('Sprint Milestone Updated! 🎯', 'Sprint progress updated across all squad members.');
+    } catch (err: any) {
+      toast.error('Update Failed', err?.message || 'Could not update milestone.');
+    }
+  };
+
+  // Handle Final Jury Submission
+  const handleSubmitJury = async () => {
+    if (!activeSquad) return;
+    if (!juryLiveUrl.trim()) {
+      toast.error('Prototype URL Required', 'Please provide a live deployment URL (e.g. Vercel, Netlify, Railway) for faculty jury review.');
+      return;
+    }
+
+    try {
+      setIsSubmittingJury(true);
+      const res = await TeamsApiService.submitTeamProject({
+        squadId: activeSquad.id,
+        liveUrl: juryLiveUrl.trim(),
+        demoVideoUrl: juryDemoVideoUrl.trim() || undefined,
+        studentId,
+      });
+
+      setSquads((prev) => prev.map((s) => (s.id === res.squad.id ? res.squad : s)));
+      setShowJuryModal(false);
+      toast.success('Jury Defense Submitted! 🏆', `Recorded ${res.evidenceCount} cryptographically verified evidence records for squad members.`);
+    } catch (err: any) {
+      toast.error('Submission Failed', err?.message || 'Could not submit project to jury.');
+    } finally {
+      setIsSubmittingJury(false);
+    }
   };
 
   // Build Invite Link URL pointing to dedicated /innovation-hub route
@@ -279,9 +310,20 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
     `Join our collaborative engineering project "${activeSquad?.name || 'PinIT Squad'}" on PinIT Career OS! 🚀\n\nInvite Link: ${inviteUrl}`
   )}`;
 
+  // Web editor codespaces deep-link
+  const repoCheck = activeSquad?.repoUrl ? parseAndValidateGithubUrl(activeSquad.repoUrl) : null;
+  const webEditorUrl = repoCheck?.valid
+    ? `https://github.dev/${repoCheck.owner}/${repoCheck.repo}`
+    : null;
+
   const isUserMember = activeSquad?.members?.some((m) => m.studentId === studentId);
   const isUserLead = activeSquad?.teamLeadStudentId === studentId;
   const userPendingReq = joinRequests.find((r) => r.studentId === studentId && r.status === 'pending');
+
+  // Completed milestones metrics
+  const completedMilestones = activeSquad?.milestones?.filter((m) => m.isCompleted).length || 0;
+  const totalMilestones = activeSquad?.milestones?.length || 3;
+  const milestoneProgressPct = Math.round((completedMilestones / Math.max(1, totalMilestones)) * 100);
 
   // Filter squads based on search and role
   const filteredSquads = squads.filter((s) => {
@@ -299,7 +341,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
   });
 
   return (
-    <div data-testid="innovation-hub-container">
+    <div data-testid="innovation-hub-container" style={{ color: 'var(--t1)' }}>
       {/* Top Action Bar */}
       <div
         style={{
@@ -308,7 +350,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: 16,
-          marginBottom: 20,
+          marginBottom: 24,
         }}
       >
         <div>
@@ -336,6 +378,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: 8,
+            transition: 'transform 0.15s ease',
           }}
         >
           <span>🚀</span>
@@ -536,582 +579,824 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             </div>
           </div>
 
-      {/* Main Dual Grid: Left Squad Directory | Right Project Workspace */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 340px) 1fr', gap: 24 }}>
-        
-        {/* Left: Project Directory */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: '0.5px' }}>
-            Available Projects ({filteredSquads.length})
-          </div>
-
-          {filteredSquads.length === 0 ? (
-            <div style={{ padding: '24px 16px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 14, border: '1px dashed var(--border)', color: 'var(--t3)', fontSize: 13.5 }}>
-              No projects found matching that filter. Launch your own project to lead an innovation squad!
-            </div>
-          ) : filteredSquads.map((squad) => {
-            const isSelected = squad.id === activeSquad?.id;
-            const isMember = squad.members.some((m) => m.studentId === studentId);
-
-            return (
-              <div
-                key={squad.id}
-                data-testid={`squad-card-${squad.id}`}
-                onClick={() => setSelectedSquadId(squad.id)}
-                style={{
-                  padding: 16,
-                  borderRadius: 14,
-                  background: isSelected ? 'rgba(56, 189, 248, 0.1)' : 'var(--bg2)',
-                  border: isSelected ? '1.5px solid #38bdf8' : '1px solid var(--border)',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                  boxShadow: isSelected ? '0 4px 20px rgba(56, 189, 248, 0.15)' : 'none',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                  <span style={{ fontSize: 15.5, fontWeight: 800, color: isSelected ? '#38bdf8' : 'var(--t1)' }}>
-                    {squad.name}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 10.5,
-                      fontWeight: 800,
-                      padding: '2px 6px',
-                      borderRadius: 4,
-                      textTransform: 'uppercase',
-                      background: squad.status === 'verified' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)',
-                      color: squad.status === 'verified' ? '#22c55e' : '#eab308',
-                    }}
-                  >
-                    {squad.status}
-                  </span>
-                </div>
-
-                <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 10, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {squad.hackathonTitle}
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <div style={{ display: 'flex', marginLeft: 6 }}>
-                      {squad.members.slice(0, 3).map((m, i) => (
-                        <img
-                          key={i}
-                          src={m.avatarUrl}
-                          alt={m.name}
-                          style={{
-                            width: 22,
-                            height: 22,
-                            borderRadius: '50%',
-                            marginLeft: -6,
-                            border: '1.5px solid var(--bg2)',
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <span style={{ color: 'var(--t2)', fontWeight: 600 }}>{squad.members.length} Members</span>
-                  </div>
-
-                  {isMember ? (
-                    <span style={{ color: '#22c55e', fontWeight: 800, fontSize: 11.5 }}>✓ Enrolled</span>
-                  ) : (
-                    <span style={{ color: '#38bdf8', fontWeight: 700, fontSize: 11.5 }}>Public Project</span>
-                  )}
-                </div>
+          {/* Main Dual Grid: Left Squad Directory | Right Project Workspace */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(300px, 340px) 1fr',
+              gap: 24,
+              alignItems: 'start',
+            }}
+          >
+            {/* Left: Project Directory */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: '0.5px' }}>
+                Available Projects ({filteredSquads.length})
               </div>
-            );
-          })}
-        </div>
 
-        {/* Right: Active Project Workspace & Tabs */}
-        {!activeSquad ? (
-          <div style={{ padding: '48px 32px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 18, border: '1px dashed var(--border)', color: 'var(--t2)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ fontSize: 40, marginBottom: 12 }}>🚀</div>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 8px' }}>No Innovation Projects Yet</h3>
-            <p style={{ fontSize: 14, color: 'var(--t3)', maxWidth: 440, margin: '0 0 20px', lineHeight: 1.5 }}>
-              Launch your first collaborative project, invite your peers via WhatsApp or QR code, and build together!
-            </p>
-            <button
-              onClick={() => setShowCreateModal(true)}
-              style={{
-                padding: '10px 22px',
-                borderRadius: 10,
-                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
-                color: '#fff',
-                fontSize: 14,
-                fontWeight: 800,
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              + Launch Innovation Project
-            </button>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {/* Squad Hero Banner */}
-            <div
-              style={{
-                padding: '24px 28px',
-                borderRadius: 18,
-                background: 'var(--card)',
-                backgroundImage: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
-                border: '1px solid var(--border)',
-                boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))',
-                position: 'relative',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 14 }}>
-                <div>
-                  <span style={{ fontSize: 11.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    {activeSquad.hackathonTitle}
-                  </span>
-                  <h2 style={{ margin: '4px 0 8px', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>
-                    {activeSquad.name}
-                  </h2>
-                  <div style={{ display: 'flex', gap: 14, alignItems: 'center', fontSize: 14 }}>
-                    <a
-                      href={activeSquad.repoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ color: '#818cf8', textDecoration: 'none', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}
-                    >
-                      <span>🐙</span> GitHub Repository ↗
-                    </a>
-                    {activeSquad.liveUrl && (
-                      <a
-                        href={activeSquad.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: '#22c55e', textDecoration: 'none', fontWeight: 700 }}
-                      >
-                        🌐 Live Prototype ↗
-                      </a>
-                    )}
-                  </div>
+              {filteredSquads.length === 0 ? (
+                <div style={{ padding: '24px 16px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 14, border: '1px dashed var(--border)', color: 'var(--t3)', fontSize: 13.5 }}>
+                  No projects found matching that filter. Launch your own project to lead an innovation squad!
                 </div>
+              ) : filteredSquads.map((squad) => {
+                const isSelected = squad.id === activeSquad?.id;
+                const isMember = squad.members.some((m) => m.studentId === studentId);
 
-                {/* Invite & Join Request Actions */}
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-                  <button
-                    onClick={() => setShowInviteModal(true)}
-                    data-testid="invite-friends-btn"
+                return (
+                  <div
+                    key={squad.id}
+                    data-testid={`squad-card-${squad.id}`}
+                    onClick={() => setSelectedSquadId(squad.id)}
                     style={{
-                      padding: '9px 18px',
-                      borderRadius: 10,
-                      background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
-                      border: '1.5px solid var(--accent)',
-                      color: 'var(--accent)',
-                      fontSize: 13.5,
-                      fontWeight: 800,
+                      padding: 16,
+                      borderRadius: 14,
+                      background: isSelected ? 'var(--card)' : 'var(--bg2)',
+                      border: isSelected ? '1.5px solid var(--accent)' : '1px solid var(--border)',
                       cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
                       transition: 'all 0.15s ease',
+                      boxShadow: isSelected ? '0 4px 16px rgba(99, 102, 241, 0.15)' : 'none',
                     }}
                   >
-                    <span>📱</span>
-                    <span>Invite Friends (Link & QR)</span>
-                  </button>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <span style={{ fontSize: 15.5, fontWeight: 800, color: isSelected ? 'var(--accent)' : 'var(--t1)' }}>
+                        {squad.name}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 10.5,
+                          fontWeight: 800,
+                          padding: '2px 7px',
+                          borderRadius: 6,
+                          textTransform: 'uppercase',
+                          background: squad.status === 'verified' || squad.status === 'submitted' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)',
+                          color: squad.status === 'verified' || squad.status === 'submitted' ? '#16a34a' : '#d97706',
+                        }}
+                      >
+                        {squad.status}
+                      </span>
+                    </div>
 
-                  {!isUserMember && (
-                    <>
-                      {userPendingReq ? (
-                        <button
-                          disabled
-                          style={{
-                            padding: '9px 18px',
-                            borderRadius: 10,
-                            background: 'rgba(234, 179, 8, 0.15)',
-                            border: '1px solid rgba(234, 179, 8, 0.3)',
-                            color: '#eab308',
-                            fontSize: 13.5,
-                            fontWeight: 800,
-                            cursor: 'not-allowed',
-                          }}
-                        >
-                          ⏳ Join Request Pending
-                        </button>
+                    <div style={{ fontSize: 12.5, color: 'var(--t3)', marginBottom: 10, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {squad.hackathonTitle}
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <div style={{ display: 'flex', marginLeft: 6 }}>
+                          {squad.members.slice(0, 3).map((m, i) => (
+                            <img
+                              key={i}
+                              src={m.avatarUrl}
+                              alt={m.name}
+                              style={{
+                                width: 22,
+                                height: 22,
+                                borderRadius: '50%',
+                                marginLeft: -6,
+                                border: '1.5px solid var(--bg2)',
+                                objectFit: 'cover',
+                              }}
+                            />
+                          ))}
+                        </div>
+                        <span style={{ color: 'var(--t2)', fontWeight: 600 }}>{squad.members.length} Members</span>
+                      </div>
+
+                      {isMember ? (
+                        <span style={{ color: '#16a34a', fontWeight: 800, fontSize: 11.5 }}>✓ Enrolled</span>
                       ) : (
-                        <button
-                          onClick={() => setShowJoinRequestModal(true)}
-                          data-testid="request-to-join-btn"
-                          style={{
-                            padding: '9px 18px',
-                            borderRadius: 10,
-                            background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                            border: 'none',
-                            color: '#fff',
-                            fontSize: 13.5,
-                            fontWeight: 800,
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
-                          }}
-                        >
-                          + Request to Join Squad
-                        </button>
+                        <span style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 11.5 }}>Public Project</span>
                       )}
-                    </>
-                  )}
-                </div>
-              </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Sub-tab Navigation */}
-            <div style={{ display: 'flex', gap: 8, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-              {[
-                { id: 'workspace', label: '🛡️ Team Workspace & Roles' },
-                { id: 'discussion', label: `💬 Discussion & Chat (${chatMessages.length})` },
-                { id: 'requests', label: `📬 Join Requests (${joinRequests.filter((r) => r.status === 'pending').length})` },
-              ].map((tab) => (
+            {/* Right: Active Project Workspace & Tabs */}
+            {!activeSquad ? (
+              <div style={{ padding: '48px 32px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 18, border: '1px dashed var(--border)', color: 'var(--t2)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ fontSize: 40, marginBottom: 12 }}>🚀</div>
+                <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 8px' }}>No Innovation Projects Yet</h3>
+                <p style={{ fontSize: 14, color: 'var(--t3)', maxWidth: 440, margin: '0 0 20px', lineHeight: 1.5 }}>
+                  Launch your first collaborative project, invite your peers via WhatsApp or QR code, and build together!
+                </p>
                 <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  data-testid={`subtab-${tab.id}`}
+                  onClick={() => setShowCreateModal(true)}
                   style={{
-                    padding: '8px 18px',
+                    padding: '10px 22px',
                     borderRadius: 10,
-                    border: 'none',
-                    background: activeTab === tab.id ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
-                    color: activeTab === tab.id ? '#38bdf8' : 'var(--t2)',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                    color: '#fff',
                     fontSize: 14,
                     fontWeight: 800,
+                    border: 'none',
                     cursor: 'pointer',
                   }}
                 >
-                  {tab.label}
+                  + Launch Innovation Project
                 </button>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                {/* Squad Hero Banner */}
+                <div
+                  style={{
+                    padding: '24px 28px',
+                    borderRadius: 18,
+                    background: 'var(--card)',
+                    backgroundImage: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
+                    border: '1px solid var(--border)',
+                    boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))',
+                    position: 'relative',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 14 }}>
+                    <div>
+                      <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        {activeSquad.hackathonTitle}
+                      </span>
+                      <h2 style={{ margin: '4px 0 8px', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>
+                        {activeSquad.name}
+                      </h2>
+                      <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', fontSize: 13.5 }}>
+                        <a
+                          href={activeSquad.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: '#818cf8', textDecoration: 'none', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}
+                        >
+                          <span>🐙</span> GitHub Repository ↗
+                        </a>
 
-            {/* TAB: TEAM WORKSPACE */}
-            {activeTab === 'workspace' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                {/* Roles Allocation */}
-                <div style={{ padding: '24px 26px', borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.2px' }}>
-                    Squad Roles & Assigned Tasks
-                  </h3>
+                        {webEditorUrl && (
+                          <a
+                            href={webEditorUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{
+                              color: '#10b981',
+                              textDecoration: 'none',
+                              fontWeight: 700,
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 4,
+                              background: 'rgba(16, 185, 129, 0.1)',
+                              padding: '2px 8px',
+                              borderRadius: 6,
+                            }}
+                          >
+                            <span>💻</span> Code in Web Editor ↗
+                          </a>
+                        )}
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
-                    {activeSquad.members.map((member, idx) => (
-                      <div key={idx} style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border2)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                          <img
-                            src={member.avatarUrl}
-                            alt={member.name}
-                            style={{ width: 38, height: 38, borderRadius: '50%', objectFit: 'cover' }}
-                          />
-                          <div>
-                            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
-                            <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono, monospace)' }}>
-                              {member.role.replace('_', ' ')}
+                        {activeSquad.liveUrl && (
+                          <a
+                            href={activeSquad.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ color: '#22c55e', textDecoration: 'none', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}
+                          >
+                            <span>🌐</span> Live Prototype ↗
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons: Invite, Join, Submit to Jury */}
+                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => setShowInviteModal(true)}
+                        data-testid="invite-friends-btn"
+                        style={{
+                          padding: '9px 18px',
+                          borderRadius: 10,
+                          background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
+                          border: '1.5px solid var(--accent)',
+                          color: 'var(--accent)',
+                          fontSize: 13.5,
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        <span>📱</span>
+                        <span>Invite Teammates</span>
+                      </button>
+
+                      {/* If user is member, show jury submit or status */}
+                      {isUserMember ? (
+                        activeSquad.status === 'submitted' ? (
+                          <Link
+                            href={`/interview?mode=project_viva&squad=${activeSquad.id}`}
+                            style={{
+                              padding: '9px 18px',
+                              borderRadius: 10,
+                              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                              border: 'none',
+                              color: '#fff',
+                              fontSize: 13.5,
+                              fontWeight: 800,
+                              textDecoration: 'none',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 6,
+                              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                            }}
+                          >
+                            <span>🎙️</span>
+                            <span>Start AI Viva Defense</span>
+                          </Link>
+                        ) : (
+                          <button
+                            onClick={() => setShowJuryModal(true)}
+                            data-testid="submit-jury-modal-btn"
+                            style={{
+                              padding: '9px 18px',
+                              borderRadius: 10,
+                              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                              border: 'none',
+                              color: '#fff',
+                              fontSize: 13.5,
+                              fontWeight: 800,
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 6,
+                              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+                            }}
+                          >
+                            <span>🏆</span>
+                            <span>Submit to Jury Review</span>
+                          </button>
+                        )
+                      ) : (
+                        <>
+                          {userPendingReq ? (
+                            <button
+                              disabled
+                              style={{
+                                padding: '9px 18px',
+                                borderRadius: 10,
+                                background: 'rgba(234, 179, 8, 0.15)',
+                                border: '1px solid rgba(234, 179, 8, 0.3)',
+                                color: '#d97706',
+                                fontSize: 13.5,
+                                fontWeight: 800,
+                                cursor: 'not-allowed',
+                              }}
+                            >
+                              ⏳ Join Request Pending
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setShowJoinRequestModal(true)}
+                              data-testid="request-to-join-btn"
+                              style={{
+                                padding: '9px 18px',
+                                borderRadius: 10,
+                                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                                border: 'none',
+                                color: '#fff',
+                                fontSize: 13.5,
+                                fontWeight: 800,
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
+                              }}
+                            >
+                              + Request to Join Squad
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sub-tab Navigation */}
+                <div style={{ display: 'flex', gap: 8, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
+                  {[
+                    { id: 'workspace', label: '🛡️ Team Workspace & Sprints' },
+                    { id: 'discussion', label: `💬 Discussion & Chat (${chatMessages.length})` },
+                    { id: 'requests', label: `📬 Join Requests (${joinRequests.filter((r) => r.status === 'pending').length})` },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as any)}
+                      data-testid={`subtab-${tab.id}`}
+                      style={{
+                        padding: '8px 18px',
+                        borderRadius: 10,
+                        border: 'none',
+                        background: activeTab === tab.id ? 'var(--accent-light, rgba(99, 102, 241, 0.15))' : 'transparent',
+                        color: activeTab === tab.id ? 'var(--accent)' : 'var(--t2)',
+                        fontSize: 14,
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* TAB 1: TEAM WORKSPACE & SPRINTS */}
+                {activeTab === 'workspace' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    {/* Roles Allocation */}
+                    <div style={{ padding: '24px 26px', borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+                      <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.2px' }}>
+                        Squad Roles & Engineering Contribution
+                      </h3>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
+                        {activeSquad.members.map((member, idx) => (
+                          <div key={idx} style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border2, var(--border))' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                              <img
+                                src={member.avatarUrl}
+                                alt={member.name}
+                                style={{ width: 38, height: 38, borderRadius: '50%', objectFit: 'cover' }}
+                              />
+                              <div>
+                                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
+                                <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono, monospace)' }}>
+                                  {member.role.replace('_', ' ')}
+                                </div>
+                              </div>
                             </div>
+
+                            <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8 }}>
+                              Sprint Contribution: <strong style={{ color: 'var(--t1)' }}>{member.contributionPct}%</strong>
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                              {member.assignedTasks.map((t, tIdx) => (
+                                <span key={tIdx} style={{ fontSize: 12, color: 'var(--t2)', background: 'var(--card)', border: '1px solid var(--border)', padding: '4px 8px', borderRadius: 6 }}>
+                                  • {t}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Sprint Milestones & Build Pipeline */}
+                    <div style={{ padding: '24px 26px', borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 10 }}>
+                        <div>
+                          <h3 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.2px' }}>
+                            Sprint Milestones & Build Pipeline
+                          </h3>
+                          <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>
+                            Progress: {completedMilestones} / {totalMilestones} Completed ({milestoneProgressPct}%)
                           </div>
                         </div>
 
-                        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 8 }}>
-                          Sprint Contribution: <strong style={{ color: 'var(--t1)' }}>{member.contributionPct}%</strong>
-                        </div>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                          {member.assignedTasks.map((t, tIdx) => (
-                            <span key={tIdx} style={{ fontSize: 12, color: 'var(--t2)', background: 'var(--card)', border: '1px solid var(--border)', padding: '4px 8px', borderRadius: 6 }}>
-                              • {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Sprints Milestones */}
-                <div style={{ padding: '24px 26px', borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.2px' }}>
-                    Sprint Milestones & Build Pipeline
-                  </h3>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {activeSquad.milestones.map((m) => (
-                      <div
-                        key={m.id}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          padding: '12px 16px',
-                          borderRadius: 10,
-                          background: m.isCompleted ? 'rgba(34, 197, 94, 0.08)' : 'var(--bg3)',
-                          border: m.isCompleted ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid var(--border)',
-                        }}
-                      >
-                        <div>
-                          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{m.title}</div>
-                          <div style={{ fontSize: 12, color: 'var(--t3)' }}>{m.description}</div>
-                        </div>
-
-                        <span
-                          style={{
-                            fontSize: 11,
-                            fontWeight: 800,
-                            padding: '3px 8px',
-                            borderRadius: 6,
-                            background: m.isCompleted ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255, 255, 255, 0.08)',
-                            color: m.isCompleted ? '#22c55e' : 'var(--t3)',
-                          }}
-                        >
-                          {m.isCompleted ? '✓ Shipped' : `Due ${m.dueDate}`}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* TAB: DISCUSSION & CHAT */}
-            {activeTab === 'discussion' && (
-              <div
-                data-testid="innovation-team-chat-container"
-                style={{
-                  borderRadius: 16,
-                  background: 'var(--bg2)',
-                  border: '1px solid var(--border)',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: 520,
-                }}
-              >
-                {/* Chat Header */}
-                <div
-                  style={{
-                    padding: '14px 20px',
-                    borderBottom: '1px solid var(--border)',
-                    background: 'var(--bg3)',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <div>
-                    <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
-                      Team Ideation & Build Discussion
-                    </div>
-                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>
-                      Brainstorm features, coordinate GitHub commits, and discuss architecture decisions.
-                    </div>
-                  </div>
-                  <span style={{ fontSize: 12, color: '#22c55e', fontWeight: 700 }}>● Live Channel</span>
-                </div>
-
-                {/* Messages List */}
-                <div
-                  style={{
-                    flex: 1,
-                    overflowY: 'auto',
-                    padding: '16px 20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 14,
-                  }}
-                >
-                  {chatMessages.map((msg) => {
-                    const isMe = msg.senderId === studentId;
-                    return (
-                      <div
-                        key={msg.id}
-                        style={{
-                          display: 'flex',
-                          gap: 12,
-                          alignItems: 'flex-start',
-                          alignSelf: isMe ? 'flex-end' : 'flex-start',
-                          maxWidth: '80%',
-                          flexDirection: isMe ? 'row-reverse' : 'row',
-                        }}
-                      >
-                        <img
-                          src={msg.senderAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
-                          alt={msg.senderName}
-                          style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
-                        />
-                        <div>
+                        {/* Progress Bar */}
+                        <div style={{ width: 180, height: 8, background: 'var(--bg3)', borderRadius: 999, overflow: 'hidden' }}>
                           <div
+                            style={{
+                              width: `${milestoneProgressPct}%`,
+                              height: '100%',
+                              background: 'linear-gradient(90deg, #10b981 0%, #059669 100%)',
+                              borderRadius: 999,
+                              transition: 'width 0.3s ease',
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {activeSquad.milestones.map((m) => (
+                          <div
+                            key={m.id}
                             style={{
                               display: 'flex',
-                              gap: 8,
                               alignItems: 'center',
-                              marginBottom: 3,
-                              justifyContent: isMe ? 'flex-end' : 'flex-start',
+                              justifyContent: 'space-between',
+                              padding: '12px 16px',
+                              borderRadius: 12,
+                              background: m.isCompleted ? 'rgba(34, 197, 94, 0.08)' : 'var(--bg3)',
+                              border: m.isCompleted ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid var(--border)',
+                              transition: 'all 0.15s ease',
                             }}
                           >
-                            <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>{msg.senderName}</span>
-                            {msg.senderRole && (
-                              <span style={{ fontSize: 10, color: '#38bdf8', fontWeight: 800, textTransform: 'uppercase' }}>
-                                [{msg.senderRole}]
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                              <input
+                                type="checkbox"
+                                checked={m.isCompleted}
+                                onChange={() => handleToggleMilestone(m.id)}
+                                disabled={!isUserMember}
+                                style={{ width: 18, height: 18, cursor: isUserMember ? 'pointer' : 'not-allowed', accentColor: '#10b981' }}
+                                title={isUserMember ? 'Toggle milestone completion' : 'Only squad members can toggle milestones'}
+                              />
+                              <div>
+                                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)' }}>{m.title}</div>
+                                <div style={{ fontSize: 12, color: 'var(--t3)' }}>{m.description}</div>
+                              </div>
+                            </div>
+
+                            <button
+                              onClick={() => isUserMember && handleToggleMilestone(m.id)}
+                              disabled={!isUserMember}
+                              style={{
+                                fontSize: 11.5,
+                                fontWeight: 800,
+                                padding: '4px 10px',
+                                borderRadius: 6,
+                                background: m.isCompleted ? 'rgba(34, 197, 94, 0.15)' : 'var(--card)',
+                                color: m.isCompleted ? '#16a34a' : 'var(--t2)',
+                                border: m.isCompleted ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid var(--border)',
+                                cursor: isUserMember ? 'pointer' : 'default',
+                              }}
+                            >
+                              {m.isCompleted ? '✓ Shipped' : `Due ${m.dueDate} • Mark Complete`}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Faculty Jury Defense & Evidence Gate */}
+                    <div
+                      style={{
+                        padding: '24px 28px',
+                        borderRadius: 18,
+                        background: activeSquad.status === 'submitted' ? 'rgba(16, 185, 129, 0.06)' : 'var(--card)',
+                        border: activeSquad.status === 'submitted' ? '1.5px solid rgba(16, 185, 129, 0.4)' : '1px solid var(--border)',
+                        boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                            <span style={{ fontSize: 18 }}>🏆</span>
+                            <h4 style={{ margin: 0, fontSize: 16.5, fontWeight: 900, color: 'var(--t1)' }}>
+                              Faculty Jury Review & AI Viva Defense
+                            </h4>
+                            {activeSquad.status === 'submitted' && (
+                              <span style={{ fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 999, background: '#10b981', color: '#fff' }}>
+                                SUBMITTED ({activeSquad.finalScore || 100}%)
                               </span>
                             )}
-                            <span style={{ fontSize: 11, color: 'var(--t3)' }}>
-                              {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                            </span>
                           </div>
-
-                          <div
-                            style={{
-                              padding: '10px 16px',
-                              borderRadius: isMe ? '14px 4px 14px 14px' : '4px 14px 14px 14px',
-                              background: isMe ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'var(--bg3)',
-                              color: isMe ? '#fff' : 'var(--t1)',
-                              fontSize: 14,
-                              lineHeight: 1.5,
-                              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                            }}
-                          >
-                            {msg.text}
-                          </div>
+                          <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', maxWidth: 640, lineHeight: 1.5 }}>
+                            {activeSquad.status === 'submitted'
+                              ? activeSquad.juryFeedback || 'All deliverables submitted. Live faculty jury evaluation scheduled.'
+                              : 'Complete your sprint milestones, connect your live prototype deployment, and submit your project to the faculty panel and AI viva defense for accredited engineering certification.'}
+                          </p>
                         </div>
-                      </div>
-                    );
-                  })}
-                  <div ref={chatBottomRef} />
-                </div>
 
-                {/* Chat Input */}
-                <div
-                  style={{
-                    padding: '12px 18px',
-                    borderTop: '1px solid var(--border)',
-                    background: 'var(--bg3)',
-                    display: 'flex',
-                    gap: 10,
-                  }}
-                >
-                  <input
-                    type="text"
-                    data-testid="innovation-chat-input"
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                    placeholder="Discuss what to build, share GitHub PRs, or propose architecture..."
+                        {isUserMember && (
+                          activeSquad.status === 'submitted' ? (
+                            <Link
+                              href={`/interview?mode=project_viva&squad=${activeSquad.id}`}
+                              style={{
+                                padding: '11px 22px',
+                                borderRadius: 10,
+                                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                                color: '#fff',
+                                fontSize: 14,
+                                fontWeight: 800,
+                                textDecoration: 'none',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 6,
+                                boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)',
+                              }}
+                            >
+                              <span>🎙️</span>
+                              <span>Enter AI Viva Defense</span>
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={() => setShowJuryModal(true)}
+                              style={{
+                                padding: '11px 22px',
+                                borderRadius: 10,
+                                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                                color: '#fff',
+                                fontSize: 14,
+                                fontWeight: 800,
+                                border: 'none',
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 6,
+                                boxShadow: '0 4px 14px rgba(99, 102, 241, 0.3)',
+                              }}
+                            >
+                              <span>🚀</span>
+                              <span>Submit to Faculty Jury</span>
+                            </button>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* TAB 2: DISCUSSION & REALTIME CHAT */}
+                {activeTab === 'discussion' && (
+                  <div
+                    data-testid="innovation-team-chat-container"
                     style={{
-                      flex: 1,
-                      padding: '10px 16px',
-                      borderRadius: 10,
-                      background: 'var(--bg2)',
+                      borderRadius: 18,
+                      background: 'var(--card)',
                       border: '1px solid var(--border)',
-                      color: 'var(--t1)',
-                      fontSize: 14,
-                      outline: 'none',
-                    }}
-                  />
-                  <button
-                    onClick={handleSendMessage}
-                    data-testid="innovation-chat-send-btn"
-                    style={{
-                      padding: '10px 20px',
-                      borderRadius: 10,
-                      background: 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)',
-                      color: '#fff',
-                      fontSize: 14,
-                      fontWeight: 800,
-                      border: 'none',
-                      cursor: 'pointer',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: 560,
+                      boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
                     }}
                   >
-                    Send
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* TAB: JOIN REQUESTS */}
-            {activeTab === 'requests' && (
-              <div style={{ padding: 22, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
-                  Prospective Contributor Requests ({joinRequests.length})
-                </h3>
-
-                {joinRequests.length === 0 ? (
-                  <div style={{ padding: '36px 20px', textAlign: 'center', color: 'var(--t3)' }}>
-                    No join requests at the moment. Share your invite link or QR code to recruit teammates!
-                  </div>
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    {joinRequests.map((req) => (
-                      <div
-                        key={req.id}
-                        style={{
-                          padding: 16,
-                          borderRadius: 12,
-                          background: 'var(--bg3)',
-                          border: '1px solid var(--border)',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          flexWrap: 'wrap',
-                          gap: 12,
-                        }}
-                      >
-                        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                          <img
-                            src={req.studentAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
-                            alt={req.studentName}
-                            style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }}
-                          />
-                          <div>
-                            <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
-                              {req.studentName}
-                            </div>
-                            <div style={{ fontSize: 12, color: '#38bdf8', fontWeight: 700, textTransform: 'uppercase' }}>
-                              Role: {req.role.replace('_', ' ')}
-                            </div>
-                            <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 2 }}>
-                              "{req.pitch}"
-                            </div>
-                          </div>
+                    {/* Chat Header */}
+                    <div
+                      style={{
+                        padding: '14px 20px',
+                        borderBottom: '1px solid var(--border)',
+                        background: 'var(--bg2)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                          Team Ideation & Build Discussion
                         </div>
-
-                        <div>
-                          {req.status === 'accepted' ? (
-                            <span style={{ fontSize: 12, fontWeight: 800, color: '#22c55e', background: 'rgba(34, 197, 94, 0.15)', padding: '4px 10px', borderRadius: 6 }}>
-                              ✓ Member Accepted
-                            </span>
-                          ) : isUserLead ? (
-                            <div style={{ display: 'flex', gap: 8 }}>
-                              <button
-                                onClick={() => handleAcceptRequest(req)}
-                                style={{
-                                  padding: '8px 16px',
-                                  borderRadius: 8,
-                                  background: '#10b981',
-                                  color: '#fff',
-                                  fontSize: 13,
-                                  fontWeight: 800,
-                                  border: 'none',
-                                  cursor: 'pointer',
-                                }}
-                              >
-                                ✓ Accept
-                              </button>
-                            </div>
-                          ) : (
-                            <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
-                              Pending Lead Decision
-                            </span>
-                          )}
+                        <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+                          Brainstorm features, coordinate GitHub commits, and discuss architecture decisions.
                         </div>
                       </div>
-                    ))}
+                      <span style={{ fontSize: 12, color: '#16a34a', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+                        Live Channel
+                      </span>
+                    </div>
+
+                    {/* Messages List */}
+                    <div
+                      style={{
+                        flex: 1,
+                        overflowY: 'auto',
+                        padding: '16px 20px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 14,
+                        background: 'var(--bg)',
+                      }}
+                    >
+                      {chatMessages.map((msg) => {
+                        const isMe = msg.senderId === studentId;
+                        return (
+                          <div
+                            key={msg.id}
+                            style={{
+                              display: 'flex',
+                              gap: 10,
+                              alignItems: 'flex-start',
+                              alignSelf: isMe ? 'flex-end' : 'flex-start',
+                              maxWidth: '82%',
+                              flexDirection: isMe ? 'row-reverse' : 'row',
+                            }}
+                          >
+                            <img
+                              src={msg.senderAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
+                              alt={msg.senderName}
+                              style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                            />
+                            <div>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  gap: 8,
+                                  alignItems: 'center',
+                                  marginBottom: 3,
+                                  justifyContent: isMe ? 'flex-end' : 'flex-start',
+                                }}
+                              >
+                                <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>{msg.senderName}</span>
+                                {msg.senderRole && (
+                                  <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase' }}>
+                                    [{msg.senderRole}]
+                                  </span>
+                                )}
+                                <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+                                  {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                              </div>
+
+                              <div
+                                style={{
+                                  padding: '10px 16px',
+                                  borderRadius: isMe ? '16px 4px 16px 16px' : '4px 16px 16px 16px',
+                                  background: isMe ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'var(--card)',
+                                  color: isMe ? '#ffffff' : 'var(--t1)',
+                                  border: isMe ? 'none' : '1px solid var(--border)',
+                                  fontSize: 14,
+                                  lineHeight: 1.5,
+                                  boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))',
+                                }}
+                              >
+                                {msg.text}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                      <div ref={chatBottomRef} />
+                    </div>
+
+                    {/* Quick Action Chips */}
+                    <div style={{ padding: '8px 18px', background: 'var(--bg2)', borderTop: '1px solid var(--border)', display: 'flex', gap: 6, overflowX: 'auto' }}>
+                      {[
+                        '🚀 PR Ready for Review',
+                        '✅ All Tests Passing',
+                        '📦 Deployed to Staging',
+                        '💡 Architecture RFC',
+                        '🛠️ Backend Help Needed',
+                      ].map((chip, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleSendMessage(chip)}
+                          style={{
+                            padding: '4px 10px',
+                            borderRadius: 999,
+                            fontSize: 11.5,
+                            fontWeight: 700,
+                            background: 'var(--card)',
+                            border: '1px solid var(--border)',
+                            color: 'var(--t2)',
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {chip}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Chat Input */}
+                    <div
+                      style={{
+                        padding: '12px 18px',
+                        borderTop: '1px solid var(--border)',
+                        background: 'var(--card)',
+                        display: 'flex',
+                        gap: 10,
+                      }}
+                    >
+                      <input
+                        type="text"
+                        data-testid="innovation-chat-input"
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                        placeholder="Discuss what to build, share GitHub PRs, or propose architecture..."
+                        style={{
+                          flex: 1,
+                          padding: '11px 16px',
+                          borderRadius: 10,
+                          background: 'var(--bg2)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t1)',
+                          fontSize: 14,
+                          outline: 'none',
+                        }}
+                      />
+                      <button
+                        onClick={() => handleSendMessage()}
+                        data-testid="innovation-chat-send-btn"
+                        style={{
+                          padding: '10px 22px',
+                          borderRadius: 10,
+                          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                          color: '#fff',
+                          fontSize: 14,
+                          fontWeight: 800,
+                          border: 'none',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* TAB 3: JOIN REQUESTS */}
+                {activeTab === 'requests' && (
+                  <div style={{ padding: 24, borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+                    <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--t1)' }}>
+                      Prospective Contributor Requests ({joinRequests.length})
+                    </h3>
+
+                    {joinRequests.length === 0 ? (
+                      <div style={{ padding: '36px 20px', textAlign: 'center', color: 'var(--t3)', fontSize: 14 }}>
+                        No join requests at the moment. Share your invite link or QR code to recruit teammates!
+                      </div>
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        {joinRequests.map((req) => (
+                          <div
+                            key={req.id}
+                            style={{
+                              padding: 16,
+                              borderRadius: 12,
+                              background: 'var(--bg3)',
+                              border: '1px solid var(--border)',
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              flexWrap: 'wrap',
+                              gap: 12,
+                            }}
+                          >
+                            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                              <img
+                                src={req.studentAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
+                                alt={req.studentName}
+                                style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }}
+                              />
+                              <div>
+                                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                                  {req.studentName}
+                                </div>
+                                <div style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 700, textTransform: 'uppercase' }}>
+                                  Role: {req.role.replace('_', ' ')}
+                                </div>
+                                <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 2 }}>
+                                  "{req.pitch}"
+                                </div>
+                              </div>
+                            </div>
+
+                            <div>
+                              {req.status === 'accepted' ? (
+                                <span style={{ fontSize: 12, fontWeight: 800, color: '#16a34a', background: 'rgba(34, 197, 94, 0.15)', padding: '5px 12px', borderRadius: 6 }}>
+                                  ✓ Member Accepted
+                                </span>
+                              ) : req.status === 'declined' ? (
+                                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t3)', background: 'var(--card)', padding: '5px 12px', borderRadius: 6 }}>
+                                  ✕ Declined
+                                </span>
+                              ) : isUserLead ? (
+                                <div style={{ display: 'flex', gap: 8 }}>
+                                  <button
+                                    onClick={() => handleAcceptRequest(req)}
+                                    style={{
+                                      padding: '8px 16px',
+                                      borderRadius: 8,
+                                      background: '#10b981',
+                                      color: '#fff',
+                                      fontSize: 13,
+                                      fontWeight: 800,
+                                      border: 'none',
+                                      cursor: 'pointer',
+                                    }}
+                                  >
+                                    ✓ Accept
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeclineRequest(req)}
+                                    style={{
+                                      padding: '8px 16px',
+                                      borderRadius: 8,
+                                      background: 'var(--card)',
+                                      border: '1px solid var(--border)',
+                                      color: 'var(--t2)',
+                                      fontSize: 13,
+                                      fontWeight: 800,
+                                      cursor: 'pointer',
+                                    }}
+                                  >
+                                    ✕ Decline
+                                  </button>
+                                </div>
+                              ) : (
+                                <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
+                                  Pending Lead Decision
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
             )}
           </div>
-        )}
-      </div>
-      </>
+        </>
       )}
 
       {/* ── MODAL 1: START INNOVATION PROJECT ────────────────────────── */}
@@ -1121,7 +1406,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
+            background: 'rgba(0,0,0,0.65)',
             backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
@@ -1138,7 +1423,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
               border: '1px solid var(--border)',
               borderRadius: 20,
               padding: '28px 32px',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+              boxShadow: 'var(--shadow-xl, 0 20px 50px rgba(0,0,0,0.3))',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -1216,11 +1501,11 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                     outline: 'none',
                   }}
                 >
-                  <option value="backend_lead">Backend Lead (APIs & Database)</option>
-                  <option value="frontend_lead">Frontend Lead (UI & Next.js)</option>
-                  <option value="devops_cloud">DevOps & Cloud (Docker / CI/CD)</option>
-                  <option value="ai_architect">AI Architect (LLMs & Inference)</option>
-                  <option value="data_engineer">Data Engineer (Pipelines & Streaming)</option>
+                  <option value="backend_lead" style={{ background: 'var(--card)', color: 'var(--t1)' }}>Backend Lead (APIs & Database)</option>
+                  <option value="frontend_lead" style={{ background: 'var(--card)', color: 'var(--t1)' }}>Frontend Lead (UI & Next.js)</option>
+                  <option value="devops_cloud" style={{ background: 'var(--card)', color: 'var(--t1)' }}>DevOps & Cloud (Docker / CI/CD)</option>
+                  <option value="ai_architect" style={{ background: 'var(--card)', color: 'var(--t1)' }}>AI Architect (LLMs & Inference)</option>
+                  <option value="data_engineer" style={{ background: 'var(--card)', color: 'var(--t1)' }}>Data Engineer (Pipelines & Streaming)</option>
                 </select>
               </div>
 
@@ -1302,7 +1587,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
+            background: 'rgba(0,0,0,0.65)',
             backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
@@ -1320,7 +1605,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
               borderRadius: 20,
               padding: '28px 32px',
               textAlign: 'center',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+              boxShadow: 'var(--shadow-xl, 0 20px 50px rgba(0,0,0,0.3))',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -1348,7 +1633,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                 borderRadius: 16,
                 display: 'inline-block',
                 margin: '12px auto 16px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
               }}
             >
               <QRCodeSVG
@@ -1410,8 +1695,8 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                 style={{
                   padding: '8px 14px',
                   borderRadius: 8,
-                  background: '#38bdf8',
-                  color: '#000',
+                  background: 'var(--accent)',
+                  color: '#fff',
                   fontSize: 12.5,
                   fontWeight: 800,
                   border: 'none',
@@ -1457,7 +1742,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.7)',
+            background: 'rgba(0,0,0,0.65)',
             backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
@@ -1474,7 +1759,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
               border: '1px solid var(--border)',
               borderRadius: 20,
               padding: '28px 32px',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+              boxShadow: 'var(--shadow-xl, 0 20px 50px rgba(0,0,0,0.3))',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
@@ -1514,11 +1799,11 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                     outline: 'none',
                   }}
                 >
-                  <option value="frontend_lead">Frontend Lead (React / Tailwind)</option>
-                  <option value="backend_lead">Backend Lead (Node.js / PostgreSQL / Redis)</option>
-                  <option value="devops_cloud">DevOps & Cloud Engineer (Docker / Kubernetes)</option>
-                  <option value="ai_architect">AI & ML Engineer (Python / LangChain)</option>
-                  <option value="data_engineer">Data Engineer (ETL / Streaming)</option>
+                  <option value="frontend_lead" style={{ background: 'var(--card)', color: 'var(--t1)' }}>Frontend Lead (React / Tailwind)</option>
+                  <option value="backend_lead" style={{ background: 'var(--card)', color: 'var(--t1)' }}>Backend Lead (Node.js / PostgreSQL / Redis)</option>
+                  <option value="devops_cloud" style={{ background: 'var(--card)', color: 'var(--t1)' }}>DevOps & Cloud Engineer (Docker / Kubernetes)</option>
+                  <option value="ai_architect" style={{ background: 'var(--card)', color: 'var(--t1)' }}>AI & ML Engineer (Python / LangChain)</option>
+                  <option value="data_engineer" style={{ background: 'var(--card)', color: 'var(--t1)' }}>Data Engineer (ETL / Streaming)</option>
                 </select>
               </div>
 
@@ -1575,6 +1860,136 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                   }}
                 >
                   Submit Request
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL 4: SUBMIT PROJECT FOR FACULTY JURY & AI VIVA ──────── */}
+      {showJuryModal && activeSquad && (
+        <div
+          data-testid="jury-submit-modal"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.65)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: 20,
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 520,
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
+              borderRadius: 20,
+              padding: '28px 32px',
+              boxShadow: 'var(--shadow-xl, 0 20px 50px rgba(0,0,0,0.3))',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+              <div>
+                <h3 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: 'var(--t1)' }}>
+                  Submit to Faculty Jury
+                </h3>
+                <p style={{ margin: '2px 0 0', fontSize: 13, color: 'var(--t3)' }}>
+                  {activeSquad.name}
+                </p>
+              </div>
+              <button
+                onClick={() => setShowJuryModal(false)}
+                style={{ background: 'transparent', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>
+                  Live Deployment / Prototype URL *
+                </label>
+                <input
+                  type="text"
+                  value={juryLiveUrl}
+                  onChange={(e) => setJuryLiveUrl(e.target.value)}
+                  placeholder="https://your-squad-project.vercel.app"
+                  style={{
+                    width: '100%',
+                    padding: '10px 14px',
+                    borderRadius: 10,
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t1)',
+                    fontSize: 14,
+                    outline: 'none',
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>
+                  Walkthrough / Demo Video URL (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={juryDemoVideoUrl}
+                  onChange={(e) => setJuryDemoVideoUrl(e.target.value)}
+                  placeholder="https://loom.com/share/... or YouTube link"
+                  style={{
+                    width: '100%',
+                    padding: '10px 14px',
+                    borderRadius: 10,
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t1)',
+                    fontSize: 14,
+                    outline: 'none',
+                  }}
+                />
+              </div>
+
+              <div style={{ padding: '12px 14px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)' }}>
+                <strong>Evidence Record Generation:</strong> Upon submission, cryptographic SHA-256 evidence records will be generated for all {activeSquad.members.length} team members based on their assigned engineering domain and sprint contributions.
+              </div>
+
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 10 }}>
+                <button
+                  onClick={() => setShowJuryModal(false)}
+                  style={{
+                    padding: '10px 18px',
+                    borderRadius: 10,
+                    background: 'transparent',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t2)',
+                    fontSize: 14,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSubmitJury}
+                  disabled={isSubmittingJury}
+                  style={{
+                    padding: '10px 24px',
+                    borderRadius: 10,
+                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    color: '#fff',
+                    fontSize: 14,
+                    fontWeight: 800,
+                    border: 'none',
+                    cursor: isSubmittingJury ? 'wait' : 'pointer',
+                  }}
+                >
+                  {isSubmittingJury ? 'Submitting...' : 'Submit to Faculty Jury'}
                 </button>
               </div>
             </div>

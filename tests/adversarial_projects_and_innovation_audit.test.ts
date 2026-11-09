@@ -461,3 +461,109 @@ test('BRUTAL AUDIT 6.3: Student Protocol, Code Correctness AI Engine & Jury Defe
   assert.equal(juryRes.success, true);
   assert.ok(juryRes.receiptId.startsWith('JURY-'), 'Receipt ID must start with JURY-');
 });
+
+
+// ── AUDIT SUITE 7: Innovation Hub Real-Time Collab, Sprints & Jury Evaluation ──
+test('BRUTAL AUDIT 7.1: Innovation Hub Real-Time Discussion & Chat Persistence', () => {
+  const squadId = `squad_test_chat_${Date.now()}`;
+  
+  // Initially empty
+  const initial = TeamsApiService.getChatMessages(squadId);
+  assert.equal(initial.length, 0);
+
+  // Send message
+  const msg1 = TeamsApiService.sendChatMessage({
+    squadId,
+    senderId: 'student_lead_44',
+    senderName: 'Maya Patel',
+    senderRole: 'Backend Lead',
+    text: 'Architecture RFC drafted. Checking into repository.',
+  });
+
+  assert.ok(msg1.id.startsWith('msg_'), 'Message must have unique ID');
+  assert.equal(msg1.squadId, squadId);
+  assert.equal(msg1.text, 'Architecture RFC drafted. Checking into repository.');
+
+  // Fetch messages
+  const retrieved = TeamsApiService.getChatMessages(squadId);
+  assert.equal(retrieved.length, 1);
+  assert.equal(retrieved[0].text, 'Architecture RFC drafted. Checking into repository.');
+});
+
+test('BRUTAL AUDIT 7.2: Prospective Contributor Join Requests & Lead Decision Lifecycle', () => {
+  const squad = TeamsApiService.createSquad({
+    name: 'Edge AI Drone Router',
+    hackathonTitle: 'Autonomous Systems 2026',
+    teamLeadStudentId: 'lead_student_88',
+    teamLeadName: 'Karan Mehra',
+    teamLeadRole: 'backend_lead',
+    repoUrl: 'https://github.com/karan/edge-drone-router',
+  });
+
+  // Peer submits join request
+  const req = TeamsApiService.createJoinRequest({
+    squadId: squad.id,
+    studentId: 'peer_student_99',
+    studentName: 'Ananya Roy',
+    role: 'frontend_lead',
+    pitch: 'Experienced in React, Next.js and Tailwind. Ready to build telemetry UI.',
+  });
+
+  assert.equal(req.status, 'pending');
+  assert.equal(req.squadId, squad.id);
+
+  const pendingList = TeamsApiService.getJoinRequests(squad.id);
+  assert.equal(pendingList.length, 1);
+  assert.equal(pendingList[0].status, 'pending');
+
+  // Lead accepts join request
+  const acceptRes = TeamsApiService.acceptJoinRequest(squad.id, req.id);
+  assert.equal(acceptRes.squad.members.length, 2);
+  assert.ok(acceptRes.squad.members.some(m => m.studentId === 'peer_student_99'));
+  assert.equal(acceptRes.requests[0].status, 'accepted');
+
+  // Second peer submits request and lead declines
+  const req2 = TeamsApiService.createJoinRequest({
+    squadId: squad.id,
+    studentId: 'peer_student_100',
+    studentName: 'Samir Khan',
+    role: 'data_engineer',
+    pitch: 'Interested in project.',
+  });
+
+  const declineRes = TeamsApiService.declineJoinRequest(squad.id, req2.id);
+  const declinedItem = declineRes.find(r => r.id === req2.id);
+  assert.equal(declinedItem?.status, 'declined');
+});
+
+test('BRUTAL AUDIT 7.3: Squad Sprint Milestones & Final Faculty Jury Submission', async () => {
+  const squad = TeamsApiService.createSquad({
+    name: 'Quantum Key Exchange Simulation',
+    hackathonTitle: 'Post-Quantum Cryptography Capstone',
+    teamLeadStudentId: 'lead_crypto_01',
+    teamLeadName: 'Elena Rostova',
+    teamLeadRole: 'backend_lead',
+    repoUrl: 'https://github.com/elena/quantum-key-sim',
+  });
+
+  assert.equal(squad.status, 'recruiting');
+  assert.equal(squad.milestones.length, 3);
+
+  // Toggle milestone 1
+  const t1 = TeamsApiService.toggleMilestone(squad.id, squad.milestones[0].id, 'lead_crypto_01');
+  assert.equal(t1.milestones[0].isCompleted, true);
+
+  // Submit to jury with live prototype
+  const submitRes = await TeamsApiService.submitTeamProject({
+    squadId: squad.id,
+    liveUrl: 'https://quantum-sim.vercel.app',
+    demoVideoUrl: 'https://loom.com/share/quantum-demo',
+    studentId: 'lead_crypto_01',
+  });
+
+  assert.equal(submitRes.squad.status, 'submitted');
+  assert.equal(submitRes.squad.liveUrl, 'https://quantum-sim.vercel.app');
+  assert.ok(submitRes.evidenceCount >= 1, 'Must record evidence for squad members');
+  assert.ok(submitRes.squad.finalScore !== undefined);
+  assert.ok(submitRes.squad.juryFeedback?.length! > 0);
+});
