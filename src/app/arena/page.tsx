@@ -106,7 +106,7 @@ function ArenaContent() {
 
   // Code Wars & PvP State
   const [problems] = useState<CodeWarsProblem[]>(CODE_WARS_PROBLEMS_CATALOG);
-  const [selectedProblemId, setSelectedProblemId] = useState<string>(problems[0].id);
+  const [selectedProblemId, setSelectedProblemId] = useState<string>('auto');
   const [selectedDifficulty, setSelectedDifficulty] = useState<'basic' | 'intermediate' | 'advanced' | 'production'>('intermediate');
   const [selectedTimeLimit, setSelectedTimeLimit] = useState<number>(600); // 10 minutes
 
@@ -168,7 +168,7 @@ function ArenaContent() {
   const [showBattleReport, setShowBattleReport] = useState<boolean>(false);
 
   // Determine current active problem
-  const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || selectedProblemId)) || problems[0];
+  const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || (selectedProblemId !== 'auto' ? selectedProblemId : ''))) || problems[0];
 
   // Latest versions of handlers used inside effects. They are recreated on every render; reading them
   // through refs keeps the effects below from restarting on each render (assigned after their definitions).
@@ -662,12 +662,21 @@ function ArenaContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // Start Solo Sparring against Turing AI
-  const handleStartSoloSparring = () => {
+  // Start Solo Sparring against Turing AI with Knowledge Affinity Calibration
+  const handleStartSoloSparring = (overrideDifficulty?: 'basic' | 'intermediate' | 'advanced') => {
     setIsQueueing(false);
-    const match = CodeWarsApiService.startMatch(studentId, activeProblem.id, '1v1_duel');
+    const targetDiff = overrideDifficulty || (studentKnowledge.recommendedDifficulty as any) || 'basic';
+    const candidateProblems = problems.filter(p => p.difficulty === targetDiff);
+    const unvisited = candidateProblems.filter(p => !solvedProblemIds.has(p.id));
+    const pool = unvisited.length > 0 ? unvisited : candidateProblems;
+    const chosenProblem = pool.length > 0
+      ? pool[Math.floor(Math.random() * pool.length)]
+      : problems[0];
+
+    setSelectedProblemId(chosenProblem.id);
+    const match = CodeWarsApiService.startMatch(studentId, chosenProblem.id, '1v1_duel');
     setSoloMatch(match);
-    setTimeRemaining(activeProblem.timeLimitSeconds);
+    setTimeRemaining(chosenProblem.timeLimitSeconds);
     setTestResult(null);
   };
 
@@ -1237,7 +1246,7 @@ function ArenaContent() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
                       <div>
-                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Challenge</label>
+                        <label style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600, display: 'block', marginBottom: 4 }}>Challenge Caliber</label>
                         <select
                           value={selectedProblemId}
                           onChange={e => setSelectedProblemId(e.target.value)}
@@ -1252,9 +1261,10 @@ function ArenaContent() {
                             fontWeight: 600
                           }}
                         >
-                          {problems.map(p => (
-                            <option key={p.id} value={p.id}>{p.title.slice(0, 22)}...</option>
-                          ))}
+                          <option value="auto">🎯 Auto-Calibrated (Shared Knowledge Edge)</option>
+                          <option value="tier_basic">🟢 Novice Foundations (Days 1–15)</option>
+                          <option value="tier_intermediate">🟡 Apprentice Structures (Days 16–30)</option>
+                          <option value="tier_advanced">🔴 Master Algorithms (Days 31–60)</option>
                         </select>
                       </div>
 
@@ -1446,95 +1456,272 @@ function ArenaContent() {
                 </div>
               </div>
 
-              {/* Problem Selection & Solo Practice Catalog */}
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
-                    Algorithmic Challenges Catalog
-                  </h3>
-                  <span style={{ fontSize: 14.5, color: 'var(--t3)' }}>Select a problem to review or practice solo</span>
-                </div>
+              {/* ARENA COMPETITIVE INTELLIGENCE & LEAGUE LADDER HUB */}
+              <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', gap: 24 }}>
+                {/* 1. Competitive League Divisions Ladder */}
+                <div style={{
+                  padding: 24,
+                  borderRadius: 18,
+                  background: 'var(--card)',
+                  border: '1px solid var(--border)',
+                  boxShadow: 'var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.04))',
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                          Competitive Division Ladder
+                        </h3>
+                        <span style={{
+                          padding: '2px 8px',
+                          borderRadius: 6,
+                          background: 'rgba(99, 102, 241, 0.12)',
+                          color: '#6366f1',
+                          fontSize: 11.5,
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                        }}>
+                          Live Elo Ranks
+                        </span>
+                      </div>
+                      <p style={{ fontSize: 13.5, color: 'var(--t3)', margin: '4px 0 0' }}>
+                        Climb through algorithmic leagues. Opponents and challenges are auto-calibrated to your verified learning edge.
+                      </p>
+                    </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: 16 }}>
-                  {problems.map(p => {
-                    const isSelected = p.id === selectedProblemId;
-                    const diffColors = {
-                      basic: { bg: 'rgba(16, 185, 129, 0.12)', border: '#10b981', text: 'var(--green, #059669)' },
-                      intermediate: { bg: 'rgba(245, 158, 11, 0.12)', border: '#f59e0b', text: 'var(--amber-dark, #b45309)' },
-                      advanced: { bg: 'rgba(239, 68, 68, 0.12)', border: '#ef4444', text: '#dc2626' },
-                      production: { bg: 'rgba(168, 85, 247, 0.12)', border: '#a855f7', text: '#7c3aed' },
-                    };
-                    const dc = diffColors[p.difficulty] || diffColors.intermediate;
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '8px 16px',
+                      borderRadius: 12,
+                      background: 'var(--bg2)',
+                      border: '1px solid var(--border)',
+                    }}>
+                      <div style={{ fontSize: 24 }}>{eloTier.icon}</div>
+                      <div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Your Division</div>
+                        <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{eloTier.name} ({eloRating} Elo)</div>
+                      </div>
+                    </div>
+                  </div>
 
-                    return (
+                  {/* Division Cards Grid */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+                    {[
+                      { name: 'Bronze Cadet', range: '1000 - 1199', icon: '🔰', badge: 'Tier 1 Foundations', color: '#cd7f32', isCurrent: eloRating < 1200, syllabus: 'Variables, Pointers & Array Scans' },
+                      { name: 'Silver Tactician', range: '1200 - 1399', icon: '⚡', badge: 'Tier 1+ Linear DS', color: '#94a3b8', isCurrent: eloRating >= 1200 && eloRating < 1400, syllabus: 'Hash Maps, Two Pointers & Freq Tables' },
+                      { name: 'Gold Architect', range: '1400 - 1599', icon: '⚔️', badge: 'Tier 2 Intermediate', color: '#f59e0b', isCurrent: eloRating >= 1400 && eloRating < 1700, syllabus: 'Stacks, Windows & Greedy Intervals' },
+                      { name: 'Platinum Vanguard', range: '1700 - 1999', icon: '🛡️', badge: 'Tier 2+ Algorithms', color: '#38bdf8', isCurrent: eloRating >= 1700 && eloRating < 2000, syllabus: 'Binary Search, Binary Trees & DFS/BFS' },
+                      { name: 'Diamond Apex', range: '2000 - 2499', icon: '💎', badge: 'Tier 3 Master', color: '#a855f7', isCurrent: eloRating >= 2000 && eloRating < 2500, syllabus: 'Dynamic Programming & Graph Traversal' },
+                      { name: 'Grandmaster Apex', range: '2500+', icon: '👑', badge: 'Tier 3+ Systems', color: '#ec4899', isCurrent: eloRating >= 2500, syllabus: 'Concurrency, Deadlock Locks & B-Trees' },
+                    ].map((div) => (
                       <div
-                        key={p.id}
-                        onClick={() => setSelectedProblemId(p.id)}
+                        key={div.name}
                         style={{
-                          padding: 18,
-                          borderRadius: 14,
-                          background: isSelected ? 'rgba(99, 102, 241, 0.12)' : 'var(--bg2)',
-                          border: isSelected ? '1.5px solid #6366f1' : '1px solid var(--border)',
-                          cursor: 'pointer',
-                          transition: 'all 0.15s ease',
+                          padding: '14px 12px',
+                          borderRadius: 12,
+                          background: div.isCurrent ? 'rgba(99, 102, 241, 0.08)' : 'var(--bg2)',
+                          border: div.isCurrent ? `2px solid ${div.color}` : '1px solid var(--border)',
                           display: 'flex',
                           flexDirection: 'column',
-                          justifyContent: 'space-between'
+                          gap: 6,
+                          position: 'relative',
+                          overflow: 'hidden',
                         }}
                       >
-                        <div>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                            <span style={{
-                              padding: '3px 8px',
-                              borderRadius: 6,
-                              background: dc.bg,
-                              border: `1px solid ${dc.border}`,
-                              color: dc.text,
-                              fontSize: 12,
-                              fontWeight: 700,
-                              textTransform: 'uppercase'
-                            }}>
-                              {p.difficulty}
-                            </span>
-                            <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>⏱️ {Math.round(p.timeLimitSeconds / 60)} mins</span>
+                        {div.isCurrent && (
+                          <span style={{
+                            position: 'absolute',
+                            top: 6,
+                            right: 6,
+                            fontSize: 9.5,
+                            fontWeight: 800,
+                            padding: '2px 6px',
+                            borderRadius: 4,
+                            background: div.color,
+                            color: '#fff',
+                            textTransform: 'uppercase',
+                          }}>
+                            Active
+                          </span>
+                        )}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <span style={{ fontSize: 20 }}>{div.icon}</span>
+                          <div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>{div.name}</div>
+                            <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>{div.range} Elo</div>
                           </div>
-
-                          <h4 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                            {p.title}
-                          </h4>
-                          <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.4, margin: '0 0 14px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                            {p.description}
-                          </p>
                         </div>
-
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 10, borderTop: '1px solid var(--border)' }}>
-                          <span style={{ fontSize: 13, color: '#f59e0b', fontWeight: 700 }}>+{p.xpReward} XP</span>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedProblemId(p.id);
-                              handleStartSoloSparring();
-                            }}
-                            style={{
-                              padding: '6px 12px',
-                              borderRadius: 8,
-                              background: 'var(--bg3)',
-                              border: '1px solid var(--border)',
-                              color: 'var(--t1)',
-                              fontSize: 13,
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 6
-                            }}
-                          >
-                            Solo Spar
-                          </button>
+                        <div style={{ fontSize: 11, color: 'var(--t2)', lineHeight: 1.3, marginTop: 2 }}>
+                          {div.syllabus}
                         </div>
                       </div>
-                    );
-                  })}
+                    ))}
+                  </div>
+                </div>
+
+                {/* 2. Combat Intelligence & Mystery AI Sparring Hub */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
+                  {/* Calibrated AI Sparring Launcher */}
+                  <div style={{
+                    padding: 24,
+                    borderRadius: 18,
+                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%)',
+                    border: '1px solid rgba(99, 102, 241, 0.25)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                        <span style={{
+                          padding: '3px 8px',
+                          borderRadius: 6,
+                          background: 'rgba(99, 102, 241, 0.15)',
+                          color: '#818cf8',
+                          fontSize: 11,
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                        }}>
+                          AI Turing Combatant
+                        </span>
+                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>Zero-Wait Sparring</span>
+                      </div>
+                      <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
+                        Calibrated AI Sparring Duel
+                      </h4>
+                      <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 16px' }}>
+                        Face a virtual bot calibrated to your exact Elo rating and knowledge edge. A fresh, unseen problem is drawn at battle start with full slow-reader hints.
+                      </p>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => handleStartSoloSparring()}
+                        style={{
+                          flex: 1,
+                          minWidth: 160,
+                          padding: '12px 18px',
+                          borderRadius: 12,
+                          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                          color: '#fff',
+                          fontWeight: 700,
+                          fontSize: 14,
+                          border: 'none',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: 8,
+                          boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)',
+                        }}
+                      >
+                        <span>⚔️</span>
+                        <span>Start Auto-Calibrated Spar</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleStartSoloSparring('basic')}
+                        style={{
+                          padding: '12px 14px',
+                          borderRadius: 12,
+                          background: 'var(--bg2)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t1)',
+                          fontWeight: 600,
+                          fontSize: 13,
+                          cursor: 'pointer',
+                        }}
+                        title="Practice Foundational Problems (Days 1–15)"
+                      >
+                        🟢 Novice
+                      </button>
+
+                      <button
+                        onClick={() => handleStartSoloSparring('intermediate')}
+                        style={{
+                          padding: '12px 14px',
+                          borderRadius: 12,
+                          background: 'var(--bg2)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t1)',
+                          fontWeight: 600,
+                          fontSize: 13,
+                          cursor: 'pointer',
+                        }}
+                        title="Practice Intermediate Structures (Days 16–30)"
+                      >
+                        🟡 Apprentice
+                      </button>
+
+                      <button
+                        onClick={() => handleStartSoloSparring('advanced')}
+                        style={{
+                          padding: '12px 14px',
+                          borderRadius: 12,
+                          background: 'var(--bg2)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t1)',
+                          fontWeight: 600,
+                          fontSize: 13,
+                          cursor: 'pointer',
+                        }}
+                        title="Practice Master Algorithms (Days 31–60)"
+                      >
+                        🔴 Master
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Combatant Knowledge & Security Dossier */}
+                  <div style={{
+                    padding: 24,
+                    borderRadius: 18,
+                    background: 'var(--card)',
+                    border: '1px solid var(--border)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                        <span style={{
+                          padding: '3px 8px',
+                          borderRadius: 6,
+                          background: 'rgba(16, 185, 129, 0.15)',
+                          color: '#10b981',
+                          fontSize: 11,
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                        }}>
+                          Curriculum Integrity
+                        </span>
+                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>Anti-Cheat Protocol</span>
+                      </div>
+                      <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
+                        Knowledge Affinity & Polyglot Engine
+                      </h4>
+                      <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 14px' }}>
+                        Questions remain strictly concealed until match start to preserve competitive integrity. Both combatants receive the identical real-world problem evaluated across Python 3.11 and TypeScript runtimes.
+                      </p>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+                      <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>30</div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Active Challenges</div>
+                      </div>
+                      <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: '#10b981' }}>2</div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Polyglot Runtimes</div>
+                      </div>
+                      <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: '#f59e0b' }}>{solvedProblemIds.size}</div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Cleared by You</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
