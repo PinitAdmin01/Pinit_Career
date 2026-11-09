@@ -61,10 +61,11 @@ describe('PinIT Arena Knowledge-Affinity Shared-Frontier & Polyglot Engine Suite
     // Must be a basic foundational problem that the novice has actually learned!
     assert.strictEqual(chosen.difficulty, 'basic');
     assert.ok(
-      ['war_two_sum_01', 'war_valid_palindrome_02', 'war_reverse_string_03'].includes(chosen.id),
+      CODE_WARS_PROBLEMS_CATALOG.some((p) => p.id === chosen.id && p.difficulty === 'basic'),
       `Chosen problem ${chosen.id} must be in the Tier 1 foundational catalog`
     );
     // Must NOT be an alien Tree, Concurrency, or SQL problem
+    assert.notStrictEqual(chosen.difficulty, 'advanced');
     assert.notStrictEqual(chosen.id, 'war_tree_lca_01');
     assert.notStrictEqual(chosen.id, 'war_concurrency_deadlock_02');
     assert.notStrictEqual(chosen.id, 'war_sql_btree_query_03');
@@ -94,7 +95,7 @@ describe('PinIT Arena Knowledge-Affinity Shared-Frontier & Polyglot Engine Suite
     const chosen = selectPerfectQuestion(playerA, playerB);
     assert.strictEqual(chosen.difficulty, 'advanced');
     assert.ok(
-      ['war_tree_lca_01', 'war_concurrency_deadlock_02', 'war_sql_btree_query_03'].includes(chosen.id),
+      CODE_WARS_PROBLEMS_CATALOG.some((p) => p.id === chosen.id && p.difficulty === 'advanced'),
       `Chosen problem ${chosen.id} must be an advanced master tier challenge`
     );
   });
@@ -176,7 +177,9 @@ describe('PinIT Arena Knowledge-Affinity Shared-Frontier & Polyglot Engine Suite
 
     // Both war_two_sum_01 and war_valid_palindrome_02 are recent
     const chosen = selectPerfectQuestion(host, guest);
-    assert.strictEqual(chosen.id, 'war_reverse_string_03', 'Must pick the fresh remaining Tier 1 problem');
+    assert.strictEqual(chosen.difficulty, 'basic');
+    assert.notStrictEqual(chosen.id, 'war_two_sum_01', 'Must not pick recent war_two_sum_01');
+    assert.notStrictEqual(chosen.id, 'war_valid_palindrome_02', 'Must not pick recent war_valid_palindrome_02');
   });
 
   it('7. Governing Rule Invariant: Both players receive the EXACT SAME problem in createRoom / matchmake', async () => {

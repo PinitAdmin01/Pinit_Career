@@ -330,24 +330,24 @@ export default function SignupPage() {
         /* Symmetric card levitation (Zero perspective skewing, purely parallel edges) */
         @keyframes symmetricLevitateDark {
           0% {
-            transform: rotate(-5.5deg) translateY(0px);
+            transform: rotate(-5.5deg) translateY(-5%);
           }
           50% {
-            transform: rotate(-5.5deg) translateY(-12px);
+            transform: rotate(-5.5deg) translateY(calc(-5% - 12px));
           }
           100% {
-            transform: rotate(-5.5deg) translateY(0px);
+            transform: rotate(-5.5deg) translateY(-5%);
           }
         }
 
         @keyframes laserPulseGlow {
           0%, 100% {
-            box-shadow: 0 0 35px rgba(16, 185, 129, 0.38), inset 0 0 25px rgba(16, 185, 129, 0.12), 0 20px 45px rgba(0, 0, 0, 0.75);
-            border-color: #10b981;
+            box-shadow: 0 0 35px rgba(37, 99, 235, 0.4), inset 0 0 25px rgba(59, 130, 246, 0.15), 0 20px 45px rgba(0, 0, 0, 0.75);
+            border-color: #3b82f6;
           }
           50% {
-            box-shadow: 0 0 55px rgba(52, 211, 153, 0.58), inset 0 0 32px rgba(52, 211, 153, 0.22), 0 26px 52px rgba(0, 0, 0, 0.85);
-            border-color: #34d399;
+            box-shadow: 0 0 55px rgba(56, 189, 248, 0.6), inset 0 0 32px rgba(56, 189, 248, 0.25), 0 26px 52px rgba(0, 0, 0, 0.85);
+            border-color: #38bdf8;
           }
         }
 
@@ -395,11 +395,11 @@ export default function SignupPage() {
 
         @keyframes shadowBreathe {
           0%, 100% {
-            transform: scale(0.96) translateY(0px);
+            transform: scale(0.96) translateY(-5%);
             opacity: 0.45;
           }
           50% {
-            transform: scale(1.08) translateY(8px);
+            transform: scale(1.08) translateY(calc(-5% + 8px));
             opacity: 0.75;
           }
         }
@@ -416,18 +416,18 @@ export default function SignupPage() {
         }
 
         .input-glow:focus {
-          border-color: #10b981 !important;
-          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+          border-color: #3b82f6 !important;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
         }
 
         .input-glow-light:focus {
-          border-color: #10b981 !important;
-          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+          border-color: #2563eb !important;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
         }
 
         .btn-neon-hover:hover {
           transform: translateY(-2px);
-          box-shadow: 0 0 35px rgba(0, 245, 155, 0.7), 0 6px 20px rgba(16, 185, 129, 0.5) !important;
+          box-shadow: 0 0 35px rgba(0, 210, 255, 0.7), 0 6px 20px rgba(37, 99, 235, 0.5) !important;
         }
       `}</style>
 
@@ -444,7 +444,7 @@ export default function SignupPage() {
           zIndex: 0,
         }}
       />
-      {/* Green Laser Ambient Glow Behind Card */}
+      {/* Blue Laser Ambient Glow Behind Card */}
       <div
         style={{
           position: 'fixed',
@@ -453,24 +453,24 @@ export default function SignupPage() {
           width: 550,
           height: 550,
           background: isDark
-            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.04) 45%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(99, 102, 241, 0.06) 50%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(37, 99, 235, 0.16) 0%, rgba(30, 58, 138, 0.05) 50%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%)',
           filter: 'blur(75px)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
       />
       {/* High-Tech Reticle Corner Marks on Viewport */}
-      <div style={{ position: 'fixed', top: 20, left: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
+      <div style={{ position: 'fixed', top: 20, left: 24, color: isDark ? '#38bdf8' : '#2563eb', opacity: isDark ? 0.65 : 0.75, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
         <span>┌</span>
         <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SYS.ACTIVE // AUTH_DOCK_v2.5</span>
       </div>
-      <span style={{ position: 'fixed', top: 20, right: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┐</span>
-      <div style={{ position: 'fixed', bottom: 20, left: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
+      <span style={{ position: 'fixed', top: 20, right: 24, color: isDark ? '#38bdf8' : '#2563eb', opacity: isDark ? 0.65 : 0.75, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┐</span>
+      <div style={{ position: 'fixed', bottom: 20, left: 24, color: isDark ? '#38bdf8' : '#2563eb', opacity: isDark ? 0.65 : 0.75, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: 6 }}>
         <span>└</span>
         <span style={{ fontSize: 9, letterSpacing: 1.5 }}>SECURE_ENCLAVE_ONLINE</span>
       </div>
-      <span style={{ position: 'fixed', bottom: 20, right: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
+      <span style={{ position: 'fixed', bottom: 20, right: 24, color: isDark ? '#38bdf8' : '#2563eb', opacity: isDark ? 0.65 : 0.75, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
 
       {/* ─── Floating Top Bar: Theme Switcher ─── */}
       <div
@@ -512,9 +512,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: isDark ? '#10b981' : 'transparent',
-              color: isDark ? '#061710' : '#64748b',
-              boxShadow: isDark ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
+              background: isDark ? '#2563eb' : 'transparent',
+              color: isDark ? '#ffffff' : '#64748b',
+              boxShadow: isDark ? '0 0 16px rgba(37, 99, 235, 0.6)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -533,9 +533,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: !isDark ? '#10b981' : 'transparent',
-              color: !isDark ? '#061710' : '#94a3b8',
-              boxShadow: !isDark ? '0 0 16px rgba(16, 185, 129, 0.4)' : 'none',
+              background: !isDark ? '#2563eb' : 'transparent',
+              color: !isDark ? '#ffffff' : '#94a3b8',
+              boxShadow: !isDark ? '0 0 16px rgba(37, 99, 235, 0.5)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -564,8 +564,8 @@ export default function SignupPage() {
         ══════════════════════════════════════════════════════════ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32, padding: '12px 6px' }}>
           {/* 1. Symmetrical Floating Holographic Student ID Card */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
-            {/* Breathing Neon Green Shadow Underneath Floating Card */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', marginTop: '-5%' }}>
+            {/* Breathing Sapphire Blue Shadow Underneath Floating Card */}
             <div
               style={{
                 position: 'absolute',
@@ -573,8 +573,8 @@ export default function SignupPage() {
                 height: 40,
                 bottom: -16,
                 background: isDark
-                  ? 'radial-gradient(ellipse, rgba(16, 185, 129, 0.45) 0%, transparent 70%)'
-                  : 'radial-gradient(ellipse, rgba(16, 185, 129, 0.28) 0%, transparent 70%)',
+                  ? 'radial-gradient(ellipse, rgba(37, 99, 235, 0.5) 0%, transparent 70%)'
+                  : 'radial-gradient(ellipse, rgba(37, 99, 235, 0.28) 0%, transparent 70%)',
                 filter: 'blur(24px)',
                 animation: 'shadowBreathe 4.5s ease-in-out infinite',
                 pointerEvents: 'none',
@@ -589,9 +589,9 @@ export default function SignupPage() {
                 aspectRatio: '1.586 / 1', // CR80 standard card ratio
                 borderRadius: 20,
                 background: isDark
-                  ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(12, 16, 22, 0.96) 50%, rgba(16, 185, 129, 0.08) 100%)'
-                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 253, 244, 0.94) 50%, rgba(255, 255, 255, 0.98) 100%)',
-                border: '1.5px solid #10b981',
+                  ? 'linear-gradient(135deg, rgba(37, 99, 235, 0.16) 0%, rgba(12, 16, 26, 0.96) 50%, rgba(56, 189, 248, 0.08) 100%)'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(239, 246, 255, 0.95) 50%, rgba(255, 255, 255, 0.98) 100%)',
+                border: `1.5px solid ${isDark ? '#3b82f6' : '#2563eb'}`,
                 backdropFilter: 'blur(20px)',
                 padding: '24px 26px',
                 position: 'relative',
@@ -610,7 +610,9 @@ export default function SignupPage() {
                 style={{
                   position: 'absolute',
                   inset: '-50% -50%',
-                  background: 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 48%, rgba(52, 211, 153, 0.22) 52%, transparent 65%)',
+                  background: isDark
+                    ? 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.08) 48%, rgba(56, 189, 248, 0.25) 52%, transparent 65%)'
+                    : 'linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.4) 48%, rgba(37, 99, 235, 0.18) 52%, transparent 65%)',
                   animation: 'holographicSweep 6s ease-in-out infinite',
                   pointerEvents: 'none',
                   zIndex: 3,
@@ -626,12 +628,11 @@ export default function SignupPage() {
                         width: 6,
                         height: 6,
                         borderRadius: '50%',
-                        background: '#10b981',
-                        boxShadow: '0 0 8px #10b981',
+                        background: isDark ? '#38bdf8' : '#2563eb', boxShadow: isDark ? '0 0 8px #38bdf8' : '0 0 8px #2563eb',
                         animation: 'beaconBlink 2s ease-in-out infinite',
                       }}
                     />
-                    <span style={{ fontSize: 10, fontWeight: 700, color: isDark ? '#6ee7b7' : '#059669', letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: isDark ? '#7dd3fc' : '#1d4ed8', letterSpacing: 1.2, textTransform: 'uppercase' }}>
                       Institutional Identity Badge
                     </span>
                   </div>
@@ -643,7 +644,7 @@ export default function SignupPage() {
                       letterSpacing: 0.8,
                       marginTop: 4,
                       fontFamily: 'Consolas, "Roboto Mono", monospace',
-                      textShadow: isDark ? '0 0 12px rgba(16, 185, 129, 0.5)' : '0 0 10px rgba(16, 185, 129, 0.25)',
+                      textShadow: isDark ? '0 0 12px rgba(56, 189, 248, 0.5)' : '0 0 10px rgba(37, 99, 235, 0.25)',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -664,10 +665,10 @@ export default function SignupPage() {
                     priority
                   />
                   {/* Microchip SVG */}
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5">
-                    <rect x="5" y="5" width="14" height="14" rx="2.5" stroke="#10b981" strokeWidth="1.5" />
-                    <rect x="8.5" y="8.5" width="7" height="7" fill="#10b981" fillOpacity="0.28" stroke="#34d399" strokeWidth="1.2" />
-                    <circle cx="12" cy="12" r="1.5" fill="#34d399" />
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={isDark ? "#38bdf8" : "#2563eb"} strokeWidth="1.5">
+                    <rect x="5" y="5" width="14" height="14" rx="2.5" stroke={isDark ? "#38bdf8" : "#2563eb"} strokeWidth="1.5" />
+                    <rect x="8.5" y="8.5" width="7" height="7" fill={isDark ? "#38bdf8" : "#2563eb"} fillOpacity="0.28" stroke={isDark ? "#60a5fa" : "#3b82f6"} strokeWidth="1.2" />
+                    <circle cx="12" cy="12" r="1.5" fill={isDark ? "#60a5fa" : "#3b82f6"} />
                     <line x1="8" y1="1.5" x2="8" y2="5" strokeWidth="1.4" />
                     <line x1="12" y1="1.5" x2="12" y2="5" strokeWidth="1.4" />
                     <line x1="16" y1="1.5" x2="16" y2="5" strokeWidth="1.4" />
@@ -686,10 +687,10 @@ export default function SignupPage() {
 
               {/* Student Name + SVG Vector Icons */}
               <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 12, position: 'relative', zIndex: 4 }}>
-                <div style={{ fontSize: 18.5, fontWeight: 800, color: '#ffffff', letterSpacing: -0.2 }}>
+                <div style={{ fontSize: 18.5, fontWeight: 800, color: isDark ? '#ffffff' : '#0f172a', letterSpacing: -0.2 }}>
                   {studentName || 'Student Name'}
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: isDark ? '#34d399' : '#059669', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: isDark ? '#60a5fa' : '#2563eb', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
                   </svg>
@@ -713,12 +714,12 @@ export default function SignupPage() {
                     gap: 6,
                     padding: '5px 12px',
                     borderRadius: 9999,
-                    background: isDark ? 'rgba(16, 185, 129, 0.18)' : 'rgba(16, 185, 129, 0.12)',
-                    border: `1px solid ${isDark ? 'rgba(16, 185, 129, 0.5)' : 'rgba(16, 185, 129, 0.4)'}`,
-                    color: isDark ? '#34d399' : '#047857',
+                    background: isDark ? 'rgba(37, 99, 235, 0.18)' : 'rgba(37, 99, 235, 0.1)',
+                    border: `1px solid ${isDark ? 'rgba(59, 130, 246, 0.5)' : 'rgba(37, 99, 235, 0.35)'}`,
+                    color: isDark ? '#60a5fa' : '#1d4ed8',
                     fontSize: 11,
                     fontWeight: 700,
-                    boxShadow: '0 0 15px rgba(16, 185, 129, 0.25)',
+                    boxShadow: isDark ? '0 0 15px rgba(37, 99, 235, 0.25)' : '0 2px 8px rgba(37, 99, 235, 0.15)',
                   }}
                 >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -736,13 +737,12 @@ export default function SignupPage() {
                       left: 0,
                       right: 0,
                       height: 2,
-                      background: '#34d399',
-                      boxShadow: '0 0 8px #34d399',
+                      background: isDark ? '#38bdf8' : '#2563eb', boxShadow: isDark ? '0 0 8px #38bdf8' : '0 0 8px #2563eb',
                       animation: 'scanBeam 2.5s ease-in-out infinite',
                       zIndex: 5,
                     }}
                   />
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.4" opacity="0.9">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={isDark ? "#38bdf8" : "#2563eb"} strokeWidth="1.4" opacity="0.9">
                     <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4" />
                     <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 11.3-2.8" />
                     <path d="M12 10a2 2 0 0 0-2 2c0 4 1 6.5 2 9" />
@@ -766,15 +766,13 @@ export default function SignupPage() {
                     height: 44,
                     borderRadius: 12,
                     background: isDark
-                      ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(12, 16, 22, 0.85) 100%)'
-                      : 'linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(255, 255, 255, 0.95) 100%)',
-                    border: `1.5px solid ${isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(16, 185, 129, 0.5)'}`,
+                      ? 'linear-gradient(135deg, rgba(37, 99, 235, 0.22) 0%, rgba(12, 16, 22, 0.85) 100%)'
+                      : 'linear-gradient(135deg, rgba(37, 99, 235, 0.16) 0%, rgba(255, 255, 255, 0.95) 100%)',
+                    border: `1.5px solid ${isDark ? 'rgba(59, 130, 246, 0.45)' : 'rgba(37, 99, 235, 0.5)'}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: isDark
-                      ? '0 0 20px rgba(16, 185, 129, 0.35)'
-                      : '0 4px 14px rgba(16, 185, 129, 0.2)',
+                    boxShadow: isDark ? '0 0 20px rgba(37, 99, 235, 0.35)' : '0 4px 14px rgba(37, 99, 235, 0.2)',
                     padding: 4,
                     flexShrink: 0,
                   }}
@@ -799,13 +797,13 @@ export default function SignupPage() {
                       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                     }}
                   >
-                    PinIT <span style={{ color: '#10b981' }}>Career OS</span>
+                    PinIT <span style={{ color: isDark ? '#38bdf8' : '#2563eb' }}>Career OS</span>
                   </div>
                   <div
                     style={{
                       fontSize: 10,
                       fontWeight: 700,
-                      color: isDark ? '#34d399' : '#059669',
+                      color: isDark ? '#60a5fa' : '#1d4ed8',
                       letterSpacing: 1.5,
                       textTransform: 'uppercase',
                       fontFamily: 'Consolas, "Roboto Mono", monospace',
@@ -837,12 +835,12 @@ export default function SignupPage() {
                 background: isDark
                   ? 'linear-gradient(135deg, rgba(16, 20, 28, 0.85) 0%, rgba(12, 15, 22, 0.95) 100%)'
                   : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
-                border: `1.5px solid ${isDark ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.3)'}`,
+                border: `1.5px solid ${isDark ? 'rgba(59, 130, 246, 0.28)' : 'rgba(37, 99, 235, 0.3)'}`,
                 backdropFilter: 'blur(16px)',
                 padding: '16px 18px',
                 boxShadow: isDark
-                  ? '0 15px 35px rgba(0, 0, 0, 0.55), 0 0 25px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
-                  : '0 15px 35px rgba(16, 185, 129, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
+                  ? '0 15px 35px rgba(0, 0, 0, 0.55), 0 0 25px rgba(37, 99, 235, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
+                  : '0 15px 35px rgba(37, 99, 235, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
                 transition: 'all 0.3s ease',
               }}
             >
@@ -854,8 +852,7 @@ export default function SignupPage() {
                       width: 7,
                       height: 7,
                       borderRadius: '50%',
-                      background: '#10b981',
-                      boxShadow: '0 0 10px #10b981',
+                      background: isDark ? '#38bdf8' : '#2563eb', boxShadow: isDark ? '0 0 10px #38bdf8' : '0 0 10px #2563eb',
                       animation: 'beaconBlink 2s ease-in-out infinite',
                     }}
                   />
@@ -863,7 +860,7 @@ export default function SignupPage() {
                     style={{
                       fontSize: 10.5,
                       fontWeight: 800,
-                      color: isDark ? '#34d399' : '#059669',
+                      color: isDark ? '#60a5fa' : '#1d4ed8',
                       letterSpacing: 1.2,
                       fontFamily: 'Consolas, "Roboto Mono", monospace',
                       textTransform: 'uppercase',
@@ -879,11 +876,11 @@ export default function SignupPage() {
                     gap: 5,
                     padding: '3px 8px',
                     borderRadius: 9999,
-                    background: isDark ? 'rgba(16, 185, 129, 0.15)' : 'rgba(16, 185, 129, 0.12)',
-                    border: `1px solid ${isDark ? 'rgba(16, 185, 129, 0.4)' : 'rgba(16, 185, 129, 0.35)'}`,
+                    background: isDark ? 'rgba(56, 189, 248, 0.15)' : 'rgba(37, 99, 235, 0.12)',
+                    border: `1px solid ${isDark ? 'rgba(56, 189, 248, 0.4)' : 'rgba(37, 99, 235, 0.35)'}`,
                   }}
                 >
-                  <span style={{ fontSize: 10.5, fontWeight: 800, color: '#10b981', fontFamily: 'Consolas, "Roboto Mono", monospace' }}>
+                  <span style={{ fontSize: 10.5, fontWeight: 800, color: isDark ? '#38bdf8' : '#2563eb', fontFamily: 'Consolas, "Roboto Mono", monospace' }}>
                     +29.58% ACCELERATION
                   </span>
                 </div>
@@ -894,9 +891,9 @@ export default function SignupPage() {
                 <svg width="100%" height="64" viewBox="0 0 400 64" fill="none" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="cyberFade" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" stopOpacity={isDark ? 0.32 : 0.22} />
-                      <stop offset="60%" stopColor="#00f59b" stopOpacity={isDark ? 0.12 : 0.06} />
-                      <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                      <stop offset="0%" stopColor={isDark ? "#38bdf8" : "#2563eb"} stopOpacity={isDark ? 0.35 : 0.22} />
+                      <stop offset="60%" stopColor={isDark ? "#2563eb" : "#3b82f6"} stopOpacity={isDark ? 0.14 : 0.06} />
+                      <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.0" />
                     </linearGradient>
                   </defs>
 
@@ -914,19 +911,19 @@ export default function SignupPage() {
                   {/* Glowing Stroke Vector */}
                   <path
                     d="M 0,44 C 30,44 60,40 90,40 C 120,40 140,46 170,44 C 200,42 225,18 255,16 C 285,14 305,44 330,42 C 355,40 375,16 400,12"
-                    stroke="#10b981"
+                    stroke={isDark ? "#38bdf8" : "#2563eb"}
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
 
                   {/* Coordinate Telemetry Nodes */}
-                  <circle cx="90" cy="40" r="2.5" fill="#10b981" />
-                  <circle cx="170" cy="44" r="2.5" fill="#10b981" />
-                  <circle cx="255" cy="16" r="3.5" fill="#34d399" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
-                  <circle cx="255" cy="16" r="7" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="2 2" opacity="0.7" />
-                  <circle cx="330" cy="42" r="2.5" fill="#10b981" />
-                  <circle cx="396" cy="12" r="3.5" fill="#00f59b" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
+                  <circle cx="90" cy="40" r="2.5" fill={isDark ? "#38bdf8" : "#2563eb"} />
+                  <circle cx="170" cy="44" r="2.5" fill={isDark ? "#38bdf8" : "#2563eb"} />
+                  <circle cx="255" cy="16" r="3.5" fill={isDark ? "#60a5fa" : "#3b82f6"} stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
+                  <circle cx="255" cy="16" r="7" fill="none" stroke={isDark ? "#38bdf8" : "#2563eb"} strokeWidth="1" strokeDasharray="2 2" opacity="0.7" />
+                  <circle cx="330" cy="42" r="2.5" fill={isDark ? "#38bdf8" : "#2563eb"} />
+                  <circle cx="396" cy="12" r="3.5" fill={isDark ? "#00d2ff" : "#1d4ed8"} stroke="#ffffff" strokeWidth="1.2" />
                 </svg>
               </div>
 
@@ -945,12 +942,12 @@ export default function SignupPage() {
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#10b981' }} />
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: isDark ? '#38bdf8' : '#2563eb' }} />
                   <span>SYS: <strong style={{ color: isDark ? '#ffffff' : '#0f172a' }}>ONLINE</strong></span>
                 </div>
-                <span>CONFIDENCE: <strong style={{ color: '#10b981' }}>99.4%</strong></span>
+                <span>CONFIDENCE: <strong style={{ color: isDark ? '#38bdf8' : '#2563eb' }}>99.4%</strong></span>
                 <span>LATENCY: <strong style={{ color: isDark ? '#cbd5e1' : '#334155' }}>14ms</strong></span>
-                <span style={{ color: isDark ? '#6ee7b7' : '#047857', fontWeight: 700 }}>ID: VERIFIED</span>
+                <span style={{ color: isDark ? '#7dd3fc' : '#1d4ed8', fontWeight: 700 }}>ID: VERIFIED</span>
               </div>
             </div>
           </div>
@@ -1058,16 +1055,16 @@ export default function SignupPage() {
                 overflow: 'hidden',
               }}
             >
-              <span style={{ position: 'absolute', top: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┌</span>
-              <span style={{ position: 'absolute', top: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┐</span>
-              <span style={{ position: 'absolute', bottom: 5, left: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>└</span>
-              <span style={{ position: 'absolute', bottom: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┘</span>
+              <span style={{ position: 'absolute', top: 5, left: 6, color: isDark ? '#38bdf8' : '#2563eb', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┌</span>
+              <span style={{ position: 'absolute', top: 5, right: 6, color: isDark ? '#38bdf8' : '#2563eb', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┐</span>
+              <span style={{ position: 'absolute', bottom: 5, left: 6, color: isDark ? '#38bdf8' : '#2563eb', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>└</span>
+              <span style={{ position: 'absolute', bottom: 5, right: 6, color: isDark ? '#38bdf8' : '#2563eb', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┘</span>
 
               <div>
                 <div style={{ fontSize: 13.5, fontWeight: 700, color: isDark ? '#ffffff' : '#0f172a' }}>
                   Student ID badge scanner
                 </div>
-                <div style={{ fontSize: 11, color: scanStatus ? '#10b981' : isDark ? '#808593' : '#64748b', marginTop: 3 }}>
+                <div style={{ fontSize: 11, color: scanStatus ? (isDark ? '#38bdf8' : '#2563eb') : isDark ? '#808593' : '#64748b', marginTop: 3 }}>
                   {scanStatus || (isScanning ? 'Processing image...' : 'Drop ID badge or click to scan')}
                 </div>
               </div>
@@ -1081,8 +1078,7 @@ export default function SignupPage() {
                       left: 0,
                       right: 0,
                       height: 2,
-                      background: '#10b981',
-                      boxShadow: '0 0 6px #10b981',
+                      background: isDark ? '#38bdf8' : '#2563eb', boxShadow: isDark ? '0 0 6px #38bdf8' : '0 0 6px #2563eb',
                       animation: 'laserScanBar 2s ease-in-out infinite',
                       zIndex: 2,
                     }}
@@ -1126,7 +1122,7 @@ export default function SignupPage() {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {/* Field 1: Student Full Name with User Icon */}
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#38bdf8' : '#2563eb', pointerEvents: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
@@ -1157,7 +1153,7 @@ export default function SignupPage() {
               {idMode === 'college' && (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
                   <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#38bdf8' : '#2563eb', pointerEvents: 'none' }}>
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
                       </svg>
@@ -1187,7 +1183,7 @@ export default function SignupPage() {
                   </div>
 
                   <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#38bdf8' : '#2563eb', pointerEvents: 'none' }}>
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                         <path d="M6 12v5c3 3 9 3 12 0v-5" />
@@ -1221,7 +1217,7 @@ export default function SignupPage() {
 
               {/* Field 4: Student ID or Campus Email with ID Icon */}
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#38bdf8' : '#2563eb', pointerEvents: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <line x1="2" y1="10" x2="22" y2="10" />
@@ -1254,7 +1250,7 @@ export default function SignupPage() {
 
               {/* Field 5: Password with Lock Icon & Eye Toggle */}
               <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#10b981', pointerEvents: 'none' }}>
+                <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: isDark ? '#38bdf8' : '#2563eb', pointerEvents: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -1311,7 +1307,7 @@ export default function SignupPage() {
                 </button>
               </div>
 
-              {/* 4. The Iconic Glowing Green Pill CTA Button */}
+              {/* 4. The Iconic Glowing Blue Pill CTA Button */}
               <button
                 type="submit"
                 disabled={loading}
@@ -1325,9 +1321,13 @@ export default function SignupPage() {
                   fontSize: 14.5,
                   fontWeight: 800,
                   cursor: loading ? 'not-allowed' : 'pointer',
-                  background: 'linear-gradient(135deg, #00f59b 0%, #10b981 100%)',
-                  color: '#05160e',
-                  boxShadow: '0 0 30px rgba(0, 245, 155, 0.5), 0 4px 14px rgba(16, 185, 129, 0.4)',
+                  background: isDark
+                    ? 'linear-gradient(135deg, #00d2ff 0%, #2563eb 100%)'
+                    : 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                  color: '#ffffff',
+                  boxShadow: isDark
+                    ? '0 0 30px rgba(0, 210, 255, 0.45), 0 4px 16px rgba(37, 99, 235, 0.4)'
+                    : '0 10px 25px rgba(37, 99, 235, 0.35), 0 4px 10px rgba(59, 130, 246, 0.25)',
                   transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                   display: 'flex',
                   alignItems: 'center',
@@ -1354,7 +1354,7 @@ export default function SignupPage() {
                   fontWeight: 500,
                 }}
               >
-                Already have an account? <span style={{ color: isDark ? '#10b981' : '#059669', fontWeight: 600 }}>Sign in →</span>
+                Already have an account? <span style={{ color: isDark ? '#38bdf8' : '#2563eb', fontWeight: 600 }}>Sign in →</span>
               </Link>
             </div>
           </div>

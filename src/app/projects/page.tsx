@@ -1107,17 +1107,19 @@ function ProjectsPageContent() {
       {/* ── PATHWAY SUB-TAB NAVIGATION (SLENDER COMPACT INTERFACE) ── */}
       <div
         style={{
-          display: 'flex',
+          display: 'inline-flex',
           alignItems: 'center',
-          gap: 8,
-          padding: '6px',
+          gap: 6,
+          padding: '5px',
           borderRadius: 14,
-          background: 'rgba(13, 18, 30, 0.85)',
+          background: 'var(--card)',
           backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid var(--border)',
           marginBottom: 20,
+          maxWidth: '100%',
           overflowX: 'auto',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
         }}
       >
         {/* Sub-Tab 1: Certification Course */}
@@ -1130,15 +1132,28 @@ function ProjectsPageContent() {
             alignItems: 'center',
             gap: 8,
             padding: '8px 16px',
-            borderRadius: 9,
-            background: selectedPathway === 'certification' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            borderRadius: 10,
+            background: selectedPathway === 'certification' ? 'var(--accent-light)' : 'transparent',
             border: selectedPathway === 'certification' ? '1px solid var(--accent)' : '1px solid transparent',
-            color: selectedPathway === 'certification' ? 'var(--t1)' : 'var(--t2)',
+            color: selectedPathway === 'certification' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: selectedPathway === 'certification' ? 800 : 600,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
+            boxShadow: selectedPathway === 'certification' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={(e) => {
+            if (selectedPathway !== 'certification') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedPathway !== 'certification') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>🎓</span>
@@ -1147,10 +1162,11 @@ function ProjectsPageContent() {
             style={{
               fontSize: 11,
               fontWeight: 700,
-              padding: '2px 7px',
+              padding: '2px 8px',
               borderRadius: 12,
-              background: certActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-              color: certActive ? '#10b981' : 'var(--t3)'
+              background: certActive ? 'var(--green-light)' : 'var(--bg3)',
+              color: certActive ? 'var(--green)' : 'var(--t3)',
+              border: certActive ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid var(--border)'
             }}
           >
             {certActive ? '● Active' : '○ Inactive'}
@@ -1167,15 +1183,28 @@ function ProjectsPageContent() {
             alignItems: 'center',
             gap: 8,
             padding: '8px 16px',
-            borderRadius: 9,
-            background: selectedPathway === 'roadmap' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            borderRadius: 10,
+            background: selectedPathway === 'roadmap' ? 'var(--accent-light)' : 'transparent',
             border: selectedPathway === 'roadmap' ? '1px solid var(--accent)' : '1px solid transparent',
-            color: selectedPathway === 'roadmap' ? 'var(--t1)' : 'var(--t2)',
+            color: selectedPathway === 'roadmap' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: selectedPathway === 'roadmap' ? 800 : 600,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
+            boxShadow: selectedPathway === 'roadmap' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={(e) => {
+            if (selectedPathway !== 'roadmap') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedPathway !== 'roadmap') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>🗺️</span>
@@ -1184,10 +1213,11 @@ function ProjectsPageContent() {
             style={{
               fontSize: 11,
               fontWeight: 700,
-              padding: '2px 7px',
+              padding: '2px 8px',
               borderRadius: 12,
-              background: roadmapActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-              color: roadmapActive ? '#10b981' : 'var(--t3)'
+              background: roadmapActive ? 'var(--green-light)' : 'var(--bg3)',
+              color: roadmapActive ? 'var(--green)' : 'var(--t3)',
+              border: roadmapActive ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid var(--border)'
             }}
           >
             {roadmapActive ? '● Active' : '○ Inactive'}
@@ -1204,15 +1234,28 @@ function ProjectsPageContent() {
             alignItems: 'center',
             gap: 8,
             padding: '8px 16px',
-            borderRadius: 9,
-            background: selectedPathway === 'standalone' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            borderRadius: 10,
+            background: selectedPathway === 'standalone' ? 'var(--accent-light)' : 'transparent',
             border: selectedPathway === 'standalone' ? '1px solid var(--accent)' : '1px solid transparent',
-            color: selectedPathway === 'standalone' ? 'var(--t1)' : 'var(--t2)',
+            color: selectedPathway === 'standalone' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: selectedPathway === 'standalone' ? 800 : 600,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
+            boxShadow: selectedPathway === 'standalone' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={(e) => {
+            if (selectedPathway !== 'standalone') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedPathway !== 'standalone') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>⚡</span>
@@ -1221,10 +1264,11 @@ function ProjectsPageContent() {
             style={{
               fontSize: 11,
               fontWeight: 700,
-              padding: '2px 7px',
+              padding: '2px 8px',
               borderRadius: 12,
-              background: standaloneActive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-              color: standaloneActive ? '#10b981' : 'var(--t3)'
+              background: standaloneActive ? 'var(--green-light)' : 'var(--bg3)',
+              color: standaloneActive ? 'var(--green)' : 'var(--t3)',
+              border: standaloneActive ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid var(--border)'
             }}
           >
             {standaloneActive ? '● Active' : '○ Inactive'}
@@ -1241,15 +1285,28 @@ function ProjectsPageContent() {
             alignItems: 'center',
             gap: 8,
             padding: '8px 16px',
-            borderRadius: 9,
-            background: selectedPathway === 'independent' ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+            borderRadius: 10,
+            background: selectedPathway === 'independent' ? 'var(--accent-light)' : 'transparent',
             border: selectedPathway === 'independent' ? '1px solid var(--accent)' : '1px solid transparent',
-            color: selectedPathway === 'independent' ? 'var(--t1)' : 'var(--t2)',
+            color: selectedPathway === 'independent' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: selectedPathway === 'independent' ? 800 : 600,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
+            boxShadow: selectedPathway === 'independent' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={(e) => {
+            if (selectedPathway !== 'independent') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedPathway !== 'independent') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>🛠️</span>
@@ -1258,10 +1315,11 @@ function ProjectsPageContent() {
             style={{
               fontSize: 11,
               fontWeight: 700,
-              padding: '2px 7px',
+              padding: '2px 8px',
               borderRadius: 12,
-              background: independentActive ? 'rgba(59, 130, 246, 0.15)' : 'rgba(148, 163, 184, 0.15)',
-              color: independentActive ? '#3b82f6' : 'var(--t3)'
+              background: independentActive ? 'var(--blue-light, rgba(59, 130, 246, 0.15))' : 'var(--bg3)',
+              color: independentActive ? 'var(--blue, #3b82f6)' : 'var(--t3)',
+              border: independentActive ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid var(--border)'
             }}
           >
             {independentActive ? `${independentProjects.length} Custom` : 'Custom'}
@@ -2462,8 +2520,9 @@ function ProjectsPageContent() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(6px)',
+            background: 'rgba(15, 23, 42, 0.65)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -2473,16 +2532,15 @@ function ProjectsPageContent() {
         >
           <div
             style={{
-              background: 'linear-gradient(145deg, rgba(17, 24, 39, 0.98) 0%, rgba(11, 15, 26, 0.98) 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.22)',
-              borderRadius: 22,
+              background: 'var(--card)',
+              border: '1px solid var(--border2)',
+              borderRadius: 20,
               maxWidth: 580,
               width: '100%',
               padding: '32px 36px',
-              boxShadow: '0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(99, 102, 241, 0.2)',
-              backdropFilter: 'blur(20px)',
-              position: 'relative'
+              boxShadow: 'var(--shadow-xl)',
+              position: 'relative',
+              color: 'var(--t1)'
             }}
           >
             {ownProjectStep === 'confirm' ? (
@@ -2496,24 +2554,24 @@ function ProjectsPageContent() {
 
                 <div
                   style={{
-                    background: 'rgba(245, 158, 11, 0.1)',
-                    border: '1px solid rgba(245, 158, 11, 0.3)',
+                    background: 'var(--amber-light)',
+                    border: '1px solid rgba(217, 119, 6, 0.35)',
                     borderRadius: 12,
                     padding: '14px 16px',
                     marginBottom: 20,
                     fontSize: 14,
                     color: 'var(--t1)',
-                    lineHeight: 1.5
+                    lineHeight: 1.55
                   }}
                 >
-                  <strong style={{ color: '#f59e0b', display: 'block', marginBottom: 4 }}>
+                  <strong style={{ color: 'var(--amber, #d97706)', display: 'block', marginBottom: 4 }}>
                     Academic Milestone Notice
                   </strong>
                   Are you sure you want to start an independent project leaving all standard course and certificate milestones?
                   Independent projects provide complete creative freedom and live GitHub evidence tracking, but they do <strong>not automatically grant accredited university degree credits</strong> or official course certificates until defended before faculty.
                 </div>
 
-                <p style={{ fontSize: 14, color: 'var(--t2)', marginBottom: 24, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, color: 'var(--t2)', marginBottom: 24, lineHeight: 1.55 }}>
                   If you proceed, you will link your public GitHub repository to PinIT. Our automated CI ingestion engine will inspect your commit signatures, code architecture, and automated tests.
                 </p>
 
@@ -2524,12 +2582,21 @@ function ProjectsPageContent() {
                     style={{
                       padding: '10px 18px',
                       borderRadius: 10,
-                      background: 'transparent',
+                      background: 'var(--bg3)',
                       border: '1px solid var(--border)',
                       color: 'var(--t2)',
                       fontSize: 14,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--t1)';
+                      e.currentTarget.style.borderColor = 'var(--border2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--t2)';
+                      e.currentTarget.style.borderColor = 'var(--border)';
                     }}
                   >
                     Cancel / Stay on Course
@@ -2547,7 +2614,8 @@ function ProjectsPageContent() {
                       fontSize: 14,
                       fontWeight: 800,
                       cursor: 'pointer',
-                      boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)'
+                      boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
+                      transition: 'transform 0.15s ease, box-shadow 0.15s ease'
                     }}
                   >
                     Yes, I Understand → Link GitHub
@@ -2587,13 +2655,21 @@ function ProjectsPageContent() {
                         width: '100%',
                         padding: '12px 16px',
                         borderRadius: 12,
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
                         color: 'var(--t1)',
                         fontSize: 14,
                         boxSizing: 'border-box',
                         outline: 'none',
-                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--accent)';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px var(--accent-light)';
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -2612,13 +2688,21 @@ function ProjectsPageContent() {
                         width: '100%',
                         padding: '12px 16px',
                         borderRadius: 12,
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
                         color: 'var(--t1)',
                         fontSize: 14,
                         boxSizing: 'border-box',
                         outline: 'none',
-                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--accent)';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px var(--accent-light)';
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     />
                     <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>
@@ -2639,13 +2723,21 @@ function ProjectsPageContent() {
                         width: '100%',
                         padding: '12px 16px',
                         borderRadius: 12,
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
                         color: 'var(--t1)',
                         fontSize: 14,
                         boxSizing: 'border-box',
                         outline: 'none',
-                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--accent)';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px var(--accent-light)';
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -2663,14 +2755,22 @@ function ProjectsPageContent() {
                         width: '100%',
                         padding: '12px 16px',
                         borderRadius: 12,
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
                         color: 'var(--t1)',
                         fontSize: 13.5,
                         boxSizing: 'border-box',
                         resize: 'vertical',
                         outline: 'none',
-                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--accent)';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px var(--accent-light)';
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -2683,12 +2783,21 @@ function ProjectsPageContent() {
                     style={{
                       padding: '10px 18px',
                       borderRadius: 10,
-                      background: 'transparent',
+                      background: 'var(--bg3)',
                       border: '1px solid var(--border)',
                       color: 'var(--t2)',
                       fontSize: 14,
                       fontWeight: 700,
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--t1)';
+                      e.currentTarget.style.borderColor = 'var(--border2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--t2)';
+                      e.currentTarget.style.borderColor = 'var(--border)';
                     }}
                   >
                     ← Back

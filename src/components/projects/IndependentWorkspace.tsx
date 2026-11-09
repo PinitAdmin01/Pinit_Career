@@ -124,16 +124,14 @@ export function IndependentWorkspace({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }} className="fade-in">
-      {/* ── Top Independent Project Hub Header (God-Level Frosted Hero) ── */}
+      {/* ── Top Independent Project Hub Header (God-Level Semantic Adaptive Hero) ── */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(20, 27, 45, 0.94) 100%)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.18)',
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
           borderRadius: 20,
           padding: '28px 32px',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
-          backdropFilter: 'blur(20px)',
+          boxShadow: 'var(--shadow-sm)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -147,7 +145,7 @@ export function IndependentWorkspace({
             width: 200,
             height: 200,
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, var(--accent-light) 0%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -159,8 +157,8 @@ export function IndependentWorkspace({
                 style={{
                   fontSize: 11,
                   fontWeight: 800,
-                  color: '#60a5fa',
-                  background: 'rgba(59, 130, 246, 0.14)',
+                  color: 'var(--blue, #3b82f6)',
+                  background: 'var(--blue-light, rgba(59, 130, 246, 0.12))',
                   border: '1px solid rgba(59, 130, 246, 0.3)',
                   padding: '4px 10px',
                   borderRadius: 20,
@@ -181,8 +179,8 @@ export function IndependentWorkspace({
                 style={{
                   fontSize: 11,
                   fontWeight: 800,
-                  color: '#10b981',
-                  background: 'rgba(16, 185, 129, 0.12)',
+                  color: 'var(--success, #10b981)',
+                  background: 'var(--green-light, rgba(16, 185, 129, 0.12))',
                   border: '1px solid rgba(16, 185, 129, 0.28)',
                   padding: '3px 9px',
                   borderRadius: 20,
@@ -220,8 +218,8 @@ export function IndependentWorkspace({
                   style={{
                     padding: '10px 18px',
                     borderRadius: 12,
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
                     color: 'var(--t1)',
                     fontSize: 13,
                     fontWeight: 700,
@@ -229,16 +227,14 @@ export function IndependentWorkspace({
                     alignItems: 'center',
                     gap: 7,
                     textDecoration: 'none',
-                    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    transition: 'all 0.15s ease',
+                    boxShadow: 'var(--shadow-sm)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+                    e.currentTarget.style.borderColor = 'var(--border2)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                    e.currentTarget.style.borderColor = 'var(--border)';
                   }}
                 >
                   <span style={{ fontSize: 14 }}>↗</span>
@@ -260,17 +256,17 @@ export function IndependentWorkspace({
                     alignItems: 'center',
                     gap: 8,
                     textDecoration: 'none',
-                    boxShadow: '0 4px 16px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+                    boxShadow: '0 4px 16px rgba(59, 130, 246, 0.35)',
                     transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                   title="Open in GitHub Web Editor / Codespaces to code directly in browser"
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-1px)';
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.45)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(59, 130, 246, 0.35)';
                   }}
                 >
                   <span style={{ fontSize: 14 }}>💻</span>
@@ -285,19 +281,19 @@ export function IndependentWorkspace({
                 padding: '10px 16px',
                 borderRadius: 12,
                 background: 'transparent',
-                border: '1px dashed rgba(255, 255, 255, 0.18)',
+                border: '1px dashed var(--border2)',
                 color: 'var(--t2)',
                 fontSize: 13,
                 fontWeight: 700,
                 cursor: 'pointer',
-                transition: 'all 0.2s ease',
+                transition: 'all 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#3b82f6';
-                e.currentTarget.style.color = 'var(--t1)';
+                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.color = 'var(--accent)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.18)';
+                e.currentTarget.style.borderColor = 'var(--border2)';
                 e.currentTarget.style.color = 'var(--t2)';
               }}
             >
@@ -307,27 +303,27 @@ export function IndependentWorkspace({
         </div>
 
         {/* Project Meta Pills (Refined Pixel-Perfect Alignment) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', paddingTop: 16, borderTop: '1px solid rgba(255, 255, 255, 0.07)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', paddingTop: 16, borderTop: '1px solid var(--border)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--t2)' }}>
             <span style={{ color: 'var(--t3)' }}>Repository:</span>
-            <code style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '3px 8px', borderRadius: 6, fontSize: 12.5, color: '#93c5fd', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <code style={{ background: 'var(--bg3)', padding: '3px 8px', borderRadius: 6, fontSize: 12.5, color: 'var(--accent)', border: '1px solid var(--border)' }}>
               {githubUrl || 'Not linked'}
             </code>
           </div>
-          <span style={{ color: 'rgba(255, 255, 255, 0.15)' }}>•</span>
+          <span style={{ color: 'var(--border2)' }}>•</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--t2)' }}>
             <span style={{ color: 'var(--t3)' }}>Tech Stack:</span>
             <span style={{ fontWeight: 700, color: 'var(--t1)' }}>{project.techStack || 'Python'}</span>
           </div>
-          <span style={{ color: 'rgba(255, 255, 255, 0.15)' }}>•</span>
+          <span style={{ color: 'var(--border2)' }}>•</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--t2)' }}>
             <span style={{ color: 'var(--t3)' }}>Evidence XP:</span>
             <span style={{ fontWeight: 800, color: '#f59e0b' }}>+{project.xpReward || 350} XP</span>
           </div>
           {juryReceipt && (
             <>
-              <span style={{ color: 'rgba(255, 255, 255, 0.15)' }}>•</span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: '#10b981', fontWeight: 800 }}>
+              <span style={{ color: 'var(--border2)' }}>•</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: 'var(--success, #10b981)', fontWeight: 800 }}>
                 <span>🛡️</span>
                 <span>Jury Review Active ({juryReceipt.id})</span>
               </div>
@@ -337,7 +333,7 @@ export function IndependentWorkspace({
 
         {/* Project Switcher if multiple custom projects exist */}
         {independentList.length > 1 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 16, overflowX: 'auto', paddingTop: 12, borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 16, overflowX: 'auto', paddingTop: 12, borderTop: '1px solid var(--border)' }}>
             <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', whiteSpace: 'nowrap' }}>Switch Custom Project:</span>
             {independentList.map((p) => {
               const isSelected = p.id === project.id;
@@ -348,9 +344,9 @@ export function IndependentWorkspace({
                   style={{
                     padding: '5px 12px',
                     borderRadius: 8,
-                    background: isSelected ? 'rgba(59, 130, 246, 0.18)' : 'rgba(255, 255, 255, 0.03)',
-                    border: isSelected ? '1px solid #3b82f6' : '1px solid rgba(255, 255, 255, 0.08)',
-                    color: isSelected ? '#60a5fa' : 'var(--t2)',
+                    background: isSelected ? 'var(--accent-light)' : 'var(--bg3)',
+                    border: isSelected ? '1px solid var(--accent)' : '1px solid var(--border)',
+                    color: isSelected ? 'var(--accent)' : 'var(--t2)',
                     fontSize: 12,
                     fontWeight: isSelected ? 800 : 600,
                     cursor: 'pointer',
@@ -369,17 +365,17 @@ export function IndependentWorkspace({
       {/* ── 🚀 STUDENT ENGINEERING PROTOCOL (Step-by-Step Developer Guide) ── */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(24, 33, 53, 0.88) 100%)',
-          border: '1px solid rgba(59, 130, 246, 0.22)',
-          borderTop: '1px solid rgba(96, 165, 250, 0.35)',
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          borderLeft: '4px solid var(--accent)',
           borderRadius: 18,
           padding: '24px 28px',
-          boxShadow: '0 6px 24px rgba(0, 0, 0, 0.3)',
+          boxShadow: 'var(--shadow-sm)',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, flexWrap: 'wrap', gap: 12 }}>
           <div>
-            <h2 style={{ fontSize: 16.5, fontWeight: 800, color: '#60a5fa', margin: '0 0 4px 0', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '-0.2px' }}>
+            <h2 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--accent)', margin: '0 0 4px 0', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '-0.2px' }}>
               <span>⚡</span> Student Engineering Protocol: How to Code &amp; Clear Verification
             </h2>
             <p style={{ fontSize: 13.5, color: 'var(--t2)', margin: 0, lineHeight: 1.5 }}>
@@ -391,9 +387,9 @@ export function IndependentWorkspace({
             style={{
               padding: '7px 14px',
               borderRadius: 10,
-              background: 'rgba(59, 130, 246, 0.12)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              color: '#93c5fd',
+              background: 'var(--accent-light)',
+              border: '1px solid var(--accent)',
+              color: 'var(--accent)',
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
@@ -404,16 +400,16 @@ export function IndependentWorkspace({
           </button>
         </div>
 
-        {/* 4 Protocol Steps Grid (Micro-Border Accents) */}
+        {/* 4 Protocol Steps Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
           <div
             style={{
               padding: '16px 18px',
               borderRadius: 14,
-              background: 'rgba(13, 18, 30, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
               borderTop: '2px solid #3b82f6',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ fontSize: 11, fontWeight: 800, color: '#3b82f6', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 6 }}>
@@ -422,7 +418,7 @@ export function IndependentWorkspace({
             <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 5 }}>
               Choose Your Environment
             </div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.45 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>
               Click <strong>[💻 Code in Web Editor]</strong> for 1-click browser coding, or open VS Code / Cursor on your machine.
             </div>
           </div>
@@ -431,10 +427,10 @@ export function IndependentWorkspace({
             style={{
               padding: '16px 18px',
               borderRadius: 14,
-              background: 'rgba(13, 18, 30, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
               borderTop: '2px solid #10b981',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ fontSize: 11, fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 6 }}>
@@ -443,7 +439,7 @@ export function IndependentWorkspace({
             <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 5 }}>
               Git Commit &amp; Push
             </div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.45 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>
               Push your code to branch <code>main</code>. Click <strong>🔄 Rescan GitHub</strong> to ingest new commits immediately.
             </div>
           </div>
@@ -452,10 +448,10 @@ export function IndependentWorkspace({
             style={{
               padding: '16px 18px',
               borderRadius: 14,
-              background: 'rgba(13, 18, 30, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
               borderTop: '2px solid #f59e0b',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ fontSize: 11, fontWeight: 800, color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 6 }}>
@@ -464,7 +460,7 @@ export function IndependentWorkspace({
             <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 5 }}>
               AST &amp; AI Logic Scan
             </div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.45 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>
               Career OS checks tests &amp; architecture, and runs an AI Logic Audit to verify algorithmic soundness and correctness.
             </div>
           </div>
@@ -473,10 +469,10 @@ export function IndependentWorkspace({
             style={{
               padding: '16px 18px',
               borderRadius: 14,
-              background: 'rgba(13, 18, 30, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
               borderTop: '2px solid #a855f7',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ fontSize: 11, fontWeight: 800, color: '#a855f7', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 6 }}>
@@ -485,7 +481,7 @@ export function IndependentWorkspace({
             <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 5 }}>
               Viva &amp; Faculty Review
             </div>
-            <div style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.45 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45 }}>
               Submit for faculty grading and complete a live Voice AI Viva with Ms. Priya defending your repository design.
             </div>
           </div>
@@ -493,8 +489,8 @@ export function IndependentWorkspace({
 
         {/* Collapsible Terminal Commands Box (Crisp Terminal Shell) */}
         {showTerminalGuide && (
-          <div style={{ marginTop: 16, padding: '16px 20px', borderRadius: 14, background: '#090d16', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-            <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ marginTop: 16, padding: '16px 20px', borderRadius: 14, background: '#090d16', border: '1px solid #1e293b' }}>
+            <div style={{ fontSize: 12.5, fontWeight: 800, color: '#94a3b8', marginBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span>🖥️</span> Standard Git Commands for Local Machine (VS Code / Terminal):
               </span>
@@ -504,8 +500,8 @@ export function IndependentWorkspace({
                   toast.success('Copied! 📋', 'Terminal commands copied to clipboard.');
                 }}
                 style={{
-                  background: 'rgba(59, 130, 246, 0.12)',
-                  border: '1px solid rgba(59, 130, 246, 0.28)',
+                  background: 'rgba(59, 130, 246, 0.15)',
+                  border: '1px solid rgba(59, 130, 246, 0.35)',
                   padding: '4px 10px',
                   borderRadius: 6,
                   color: '#60a5fa',
@@ -537,12 +533,12 @@ git push origin main`}
       <div
         style={{
           display: 'inline-flex',
-          background: 'rgba(13, 18, 30, 0.85)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
           borderRadius: 14,
           padding: 5,
           gap: 6,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+          boxShadow: 'var(--shadow-sm)',
           alignSelf: 'flex-start',
         }}
       >
@@ -551,17 +547,29 @@ git push origin main`}
           style={{
             padding: '9px 18px',
             borderRadius: 10,
-            background: activeTab === 'telemetry' ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(59, 130, 246, 0.14) 100%)' : 'transparent',
-            border: activeTab === 'telemetry' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-            color: activeTab === 'telemetry' ? '#fff' : 'var(--t2)',
+            background: activeTab === 'telemetry' ? 'var(--accent-light)' : 'transparent',
+            border: activeTab === 'telemetry' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: activeTab === 'telemetry' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: activeTab === 'telemetry' ? 800 : 600,
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
             gap: 7,
-            boxShadow: activeTab === 'telemetry' ? '0 2px 8px rgba(99, 102, 241, 0.25)' : 'none',
+            boxShadow: activeTab === 'telemetry' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease',
+          }}
+          onMouseEnter={(e) => {
+            if (activeTab !== 'telemetry') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (activeTab !== 'telemetry') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>🛰️</span>
@@ -573,17 +581,29 @@ git push origin main`}
           style={{
             padding: '9px 18px',
             borderRadius: 10,
-            background: activeTab === 'evidence' ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(59, 130, 246, 0.14) 100%)' : 'transparent',
-            border: activeTab === 'evidence' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-            color: activeTab === 'evidence' ? '#fff' : 'var(--t2)',
+            background: activeTab === 'evidence' ? 'var(--accent-light)' : 'transparent',
+            border: activeTab === 'evidence' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: activeTab === 'evidence' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: activeTab === 'evidence' ? 800 : 600,
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
             gap: 7,
-            boxShadow: activeTab === 'evidence' ? '0 2px 8px rgba(99, 102, 241, 0.25)' : 'none',
+            boxShadow: activeTab === 'evidence' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease',
+          }}
+          onMouseEnter={(e) => {
+            if (activeTab !== 'evidence') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (activeTab !== 'evidence') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>🛡️</span>
@@ -595,17 +615,29 @@ git push origin main`}
           style={{
             padding: '9px 18px',
             borderRadius: 10,
-            background: activeTab === 'defense' ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(59, 130, 246, 0.14) 100%)' : 'transparent',
-            border: activeTab === 'defense' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-            color: activeTab === 'defense' ? '#fff' : 'var(--t2)',
+            background: activeTab === 'defense' ? 'var(--accent-light)' : 'transparent',
+            border: activeTab === 'defense' ? '1px solid var(--accent)' : '1px solid transparent',
+            color: activeTab === 'defense' ? 'var(--accent)' : 'var(--t2)',
             fontSize: 13.5,
             fontWeight: activeTab === 'defense' ? 800 : 600,
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
             gap: 7,
-            boxShadow: activeTab === 'defense' ? '0 2px 8px rgba(99, 102, 241, 0.25)' : 'none',
+            boxShadow: activeTab === 'defense' ? '0 2px 8px var(--accent-glow)' : 'none',
             transition: 'all 0.15s ease',
+          }}
+          onMouseEnter={(e) => {
+            if (activeTab !== 'defense') {
+              e.currentTarget.style.background = 'var(--bg3)';
+              e.currentTarget.style.color = 'var(--t1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (activeTab !== 'defense') {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--t2)';
+            }
           }}
         >
           <span>⚖️</span>
@@ -620,10 +652,10 @@ git push origin main`}
           <div
             style={{
               background: 'var(--card)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--border)',
               borderRadius: 18,
               padding: 24,
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -636,8 +668,8 @@ git push origin main`}
                 style={{
                   fontSize: 12,
                   fontWeight: 700,
-                  color: '#60a5fa',
-                  background: 'rgba(59, 130, 246, 0.12)',
+                  color: 'var(--blue, #3b82f6)',
+                  background: 'var(--blue-light, rgba(59, 130, 246, 0.12))',
                   border: '1px solid rgba(59, 130, 246, 0.3)',
                   padding: '5px 12px',
                   borderRadius: 8,
@@ -650,37 +682,37 @@ git push origin main`}
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14, marginBottom: 16 }}>
-              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Default Branch</div>
                 <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>
                   {telemetry?.defaultBranch || 'main'}
                 </div>
               </div>
 
-              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Primary Language</div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: '#3b82f6', marginTop: 4 }}>
+                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--blue, #3b82f6)', marginTop: 4 }}>
                   {telemetry?.primaryLanguage || project.techStack || 'Python'}
                 </div>
               </div>
 
-              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Stars &amp; Forks</div>
                 <div style={{ fontSize: 18, fontWeight: 900, color: '#f59e0b', marginTop: 4 }}>
                   ⭐ {telemetry?.stars ?? 0} &nbsp; 🍴 {telemetry?.forks ?? 0}
                 </div>
               </div>
 
-              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
-                <div style={{ fontSize: 11, color: '#10b981', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Evidence Score</div>
-                <div style={{ fontSize: 20, fontWeight: 900, color: '#10b981', marginTop: 4 }}>
+              <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--green-light, rgba(16, 185, 129, 0.08))', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
+                <div style={{ fontSize: 11, color: 'var(--success, #10b981)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Evidence Score</div>
+                <div style={{ fontSize: 20, fontWeight: 900, color: 'var(--success, #10b981)', marginTop: 4 }}>
                   {telemetry?.evidenceScore ?? 85} / 100
                 </div>
               </div>
             </div>
 
             {telemetry?.error && (
-              <div style={{ padding: 12, borderRadius: 10, background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.25)', color: '#ef4444', fontSize: 13 }}>
+              <div style={{ padding: 12, borderRadius: 10, background: 'var(--coral-light, rgba(239, 68, 68, 0.1))', border: '1px solid rgba(239, 68, 68, 0.25)', color: '#ef4444', fontSize: 13 }}>
                 ⚠️ {telemetry.error}
               </div>
             )}
@@ -690,10 +722,10 @@ git push origin main`}
           <div
             style={{
               background: 'var(--card)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--border)',
               borderRadius: 18,
               padding: 24,
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -711,8 +743,8 @@ git push origin main`}
                     style={{
                       padding: '12px 14px',
                       borderRadius: 12,
-                      background: 'rgba(255, 255, 255, 0.02)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      background: 'var(--bg3)',
+                      border: '1px solid var(--border)',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: 4,
@@ -720,7 +752,7 @@ git push origin main`}
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <code style={{ fontSize: 12, color: '#818cf8', fontWeight: 800, background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.25)', padding: '2px 7px', borderRadius: 5 }}>
+                      <code style={{ fontSize: 12, color: 'var(--accent)', fontWeight: 800, background: 'var(--accent-light)', border: '1px solid rgba(99, 102, 241, 0.25)', padding: '2px 7px', borderRadius: 5 }}>
                         {c.hash}
                       </code>
                       <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
@@ -737,7 +769,7 @@ git push origin main`}
                 ))}
               </div>
             ) : (
-              <div style={{ padding: '24px 20px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px dashed rgba(255, 255, 255, 0.12)', textAlign: 'center' }}>
+              <div style={{ padding: '24px 20px', borderRadius: 14, background: 'var(--bg3)', border: '1px dashed var(--border2)', textAlign: 'center' }}>
                 <div style={{ fontSize: 26, marginBottom: 8 }}>📦</div>
                 <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>
                   No Commits Captured Yet
@@ -745,7 +777,7 @@ git push origin main`}
                 <p style={{ fontSize: 13, color: 'var(--t3)', margin: '0 0 14px 0', lineHeight: 1.45 }}>
                   Code locally in VS Code or click <strong>[💻 Code in Web Editor]</strong>, then push your first commit.
                 </p>
-                <div style={{ textAlign: 'left', background: '#090d16', padding: 12, borderRadius: 10, fontFamily: 'var(--font-mono, monospace)', fontSize: 12, color: '#38bdf8', lineHeight: 1.6, border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                <div style={{ textAlign: 'left', background: '#090d16', padding: 12, borderRadius: 10, fontFamily: 'var(--font-mono, monospace)', fontSize: 12, color: '#38bdf8', lineHeight: 1.6, border: '1px solid #1e293b' }}>
                   git remote add origin {githubUrl}<br />
                   git add .<br />
                   git commit -m &quot;feat: initial commit&quot;<br />
@@ -764,10 +796,10 @@ git push origin main`}
           <div
             style={{
               background: 'var(--card)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--border)',
               borderRadius: 18,
               padding: '28px 30px',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
@@ -781,7 +813,7 @@ git push origin main`}
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>Proof Signature:</span>
-                <code style={{ fontSize: 12.5, color: '#10b981', background: 'rgba(16, 185, 129, 0.12)', padding: '4px 10px', borderRadius: 8, border: '1px solid rgba(16, 185, 129, 0.3)', fontWeight: 800 }}>
+                <code style={{ fontSize: 12.5, color: '#10b981', background: 'var(--green-light, rgba(16, 185, 129, 0.12))', padding: '4px 10px', borderRadius: 8, border: '1px solid rgba(16, 185, 129, 0.3)', fontWeight: 800 }}>
                   {telemetry?.evidenceHash || 'PIN-GH-SCAN'}
                 </code>
               </div>
@@ -789,52 +821,52 @@ git push origin main`}
 
             {/* 5 Structural Pillars */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, marginBottom: 22 }}>
-              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t3)', fontWeight: 800, marginBottom: 8, letterSpacing: '0.3px' }}>
                   <span>🏗️ Architecture (30%)</span>
                   <span style={{ color: 'var(--t1)' }}>{telemetry?.architectureScore ?? 70}%</span>
                 </div>
-                <div style={{ height: 8, borderRadius: 4, background: 'rgba(255, 255, 255, 0.06)', overflow: 'hidden' }}>
+                <div style={{ height: 8, borderRadius: 4, background: 'var(--border)', overflow: 'hidden' }}>
                   <div style={{ width: `${telemetry?.architectureScore ?? 70}%`, height: '100%', background: '#3b82f6', borderRadius: 4 }} />
                 </div>
               </div>
 
-              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t3)', fontWeight: 800, marginBottom: 8, letterSpacing: '0.3px' }}>
                   <span>🧪 Automated Tests (25%)</span>
                   <span style={{ color: 'var(--t1)' }}>{telemetry?.testingScore ?? 60}%</span>
                 </div>
-                <div style={{ height: 8, borderRadius: 4, background: 'rgba(255, 255, 255, 0.06)', overflow: 'hidden' }}>
+                <div style={{ height: 8, borderRadius: 4, background: 'var(--border)', overflow: 'hidden' }}>
                   <div style={{ width: `${telemetry?.testingScore ?? 60}%`, height: '100%', background: '#10b981', borderRadius: 4 }} />
                 </div>
               </div>
 
-              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t3)', fontWeight: 800, marginBottom: 8, letterSpacing: '0.3px' }}>
                   <span>⚙️ DevOps &amp; CI/CD (20%)</span>
                   <span style={{ color: 'var(--t1)' }}>{telemetry?.devopsScore ?? 55}%</span>
                 </div>
-                <div style={{ height: 8, borderRadius: 4, background: 'rgba(255, 255, 255, 0.06)', overflow: 'hidden' }}>
+                <div style={{ height: 8, borderRadius: 4, background: 'var(--border)', overflow: 'hidden' }}>
                   <div style={{ width: `${telemetry?.devopsScore ?? 55}%`, height: '100%', background: '#f59e0b', borderRadius: 4 }} />
                 </div>
               </div>
 
-              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t3)', fontWeight: 800, marginBottom: 8, letterSpacing: '0.3px' }}>
                   <span>📚 Docs &amp; Specs (15%)</span>
                   <span style={{ color: 'var(--t1)' }}>{telemetry?.documentationScore ?? 80}%</span>
                 </div>
-                <div style={{ height: 8, borderRadius: 4, background: 'rgba(255, 255, 255, 0.06)', overflow: 'hidden' }}>
+                <div style={{ height: 8, borderRadius: 4, background: 'var(--border)', overflow: 'hidden' }}>
                   <div style={{ width: `${telemetry?.documentationScore ?? 80}%`, height: '100%', background: '#a855f7', borderRadius: 4 }} />
                 </div>
               </div>
 
-              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t3)', fontWeight: 800, marginBottom: 8, letterSpacing: '0.3px' }}>
                   <span>⚡ Activity (10%)</span>
                   <span style={{ color: 'var(--t1)' }}>{telemetry?.activityScore ?? 90}%</span>
                 </div>
-                <div style={{ height: 8, borderRadius: 4, background: 'rgba(255, 255, 255, 0.06)', overflow: 'hidden' }}>
+                <div style={{ height: 8, borderRadius: 4, background: 'var(--border)', overflow: 'hidden' }}>
                   <div style={{ width: `${telemetry?.activityScore ?? 90}%`, height: '100%', background: '#06b6d4', borderRadius: 4 }} />
                 </div>
               </div>
@@ -851,7 +883,7 @@ git push origin main`}
                       fontSize: 12,
                       fontWeight: 700,
                       color: '#10b981',
-                      background: 'rgba(16, 185, 129, 0.12)',
+                      background: 'var(--green-light, rgba(16, 185, 129, 0.12))',
                       border: '1px solid rgba(16, 185, 129, 0.28)',
                       padding: '3px 9px',
                       borderRadius: 8,
@@ -868,11 +900,11 @@ git push origin main`}
           <div
             style={{
               background: 'var(--card)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--border)',
               borderLeft: '4px solid #a855f7',
               borderRadius: 18,
               padding: '28px 30px',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16, marginBottom: 20 }}>
@@ -897,16 +929,16 @@ git push origin main`}
                 style={{
                   padding: '11px 20px',
                   borderRadius: 12,
-                  background: isAuditing ? 'rgba(255, 255, 255, 0.08)' : 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)',
-                  color: '#fff',
+                  background: isAuditing ? 'var(--bg3)' : 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)',
+                  color: isAuditing ? 'var(--t3)' : '#fff',
                   fontSize: 13.5,
                   fontWeight: 800,
-                  border: 'none',
+                  border: isAuditing ? '1px solid var(--border)' : 'none',
                   cursor: isAuditing ? 'not-allowed' : 'pointer',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 8,
-                  boxShadow: '0 4px 16px rgba(168, 85, 247, 0.35)',
+                  boxShadow: isAuditing ? 'none' : '0 4px 16px rgba(168, 85, 247, 0.35)',
                   transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                 }}
               >
@@ -919,38 +951,38 @@ git push origin main`}
             {auditResult ? (
               <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
-                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                     <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Logic Quality Score</div>
                     <div style={{ fontSize: 22, fontWeight: 900, color: auditResult.logicScore >= 75 ? '#10b981' : '#f59e0b', marginTop: 4 }}>
                       {auditResult.logicScore} / 100
                     </div>
                   </div>
 
-                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                     <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Code Health Status</div>
                     <div style={{ fontSize: 16, fontWeight: 800, color: auditResult.codeHealth === 'Optimal' ? '#10b981' : '#60a5fa', marginTop: 6 }}>
                       {auditResult.codeHealth}
                     </div>
                   </div>
 
-                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                     <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Algorithmic Complexity</div>
                     <div style={{ fontSize: 15, fontWeight: 800, color: '#c084fc', marginTop: 6 }}>
                       {auditResult.algorithmicComplexity}
                     </div>
                   </div>
 
-                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <div style={{ padding: '14px 16px', borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                     <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Inspected Source File</div>
-                    <code style={{ fontSize: 13, fontWeight: 700, color: '#38bdf8', marginTop: 6, display: 'block' }}>
+                    <code style={{ fontSize: 13, fontWeight: 700, color: 'var(--blue, #38bdf8)', marginTop: 6, display: 'block' }}>
                       {auditResult.testedSourceFile}
                     </code>
                   </div>
                 </div>
 
                 {/* Verdict Box */}
-                <div style={{ padding: '16px 20px', borderRadius: 12, background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.25)', borderLeft: '4px solid #818cf8' }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#a5b4fc', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>
+                <div style={{ padding: '16px 20px', borderRadius: 12, background: 'var(--accent-light)', border: '1px solid rgba(99, 102, 241, 0.25)', borderLeft: '4px solid var(--accent)' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>
                     AUDIT VERDICT &amp; PATHWAY STATUS:
                   </div>
                   <div style={{ fontSize: 14, color: 'var(--t1)', lineHeight: 1.6 }}>{auditResult.verdict}</div>
@@ -958,18 +990,18 @@ git push origin main`}
 
                 {/* Strengths & Fixes */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
-                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'var(--green-light, rgba(16, 185, 129, 0.08))', border: '1px solid rgba(16, 185, 129, 0.25)' }}>
                     <div style={{ fontSize: 12, fontWeight: 800, color: '#10b981', letterSpacing: '0.4px', marginBottom: 10 }}>✓ IDENTIFIED LOGIC STRENGTHS:</div>
-                    <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: 'var(--t2)', lineHeight: 1.7 }}>
+                    <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: 'var(--t1)', lineHeight: 1.7 }}>
                       {auditResult.keyStrengths.map((s, idx) => (
                         <li key={idx}>{s}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
+                  <div style={{ padding: '18px 20px', borderRadius: 14, background: 'var(--amber-light, rgba(245, 158, 11, 0.08))', border: '1px solid rgba(245, 158, 11, 0.25)' }}>
                     <div style={{ fontSize: 12, fontWeight: 800, color: '#f59e0b', letterSpacing: '0.4px', marginBottom: 10 }}>⚡ ACTIONABLE LOGIC FIXES REQUIRED:</div>
-                    <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: 'var(--t2)', lineHeight: 1.7 }}>
+                    <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: 'var(--t1)', lineHeight: 1.7 }}>
                       {auditResult.criticalFixes.map((f, idx) => (
                         <li key={idx}>{f}</li>
                       ))}
@@ -978,7 +1010,7 @@ git push origin main`}
                 </div>
               </div>
             ) : (
-              <div style={{ marginTop: 16, padding: '18px 20px', borderRadius: 12, background: 'rgba(255, 255, 255, 0.02)', border: '1px dashed rgba(255, 255, 255, 0.1)', textAlign: 'center' }}>
+              <div style={{ marginTop: 16, padding: '18px 20px', borderRadius: 12, background: 'var(--bg3)', border: '1px dashed var(--border2)', textAlign: 'center' }}>
                 <span style={{ fontSize: 13.5, color: 'var(--t3)' }}>
                   Click <strong>[Run AI Logic &amp; Correctness Audit]</strong> above to evaluate your repository code against your problem statement.
                 </span>
@@ -993,15 +1025,15 @@ git push origin main`}
         <div
           style={{
             background: 'var(--card)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border)',
             borderRadius: 18,
             padding: '28px 32px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+            boxShadow: 'var(--shadow-sm)',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16, marginBottom: 20 }}>
             <div>
-              <div style={{ fontSize: 11.5, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 4 }}>
+              <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 4 }}>
                 ⚖️ Formal Evaluation &amp; Career Showcase
               </div>
               <h3 style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px 0', letterSpacing: '-0.3px' }}>
@@ -1013,7 +1045,7 @@ git push origin main`}
             </div>
 
             {juryReceipt ? (
-              <div style={{ padding: '9px 18px', borderRadius: 12, background: 'rgba(16, 185, 129, 0.14)', border: '1px solid #10b981', color: '#10b981', fontWeight: 800, fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ padding: '9px 18px', borderRadius: 12, background: 'var(--green-light)', border: '1px solid #10b981', color: '#10b981', fontWeight: 800, fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 <span>✓</span> Jury Defense Submitted: {juryReceipt.id}
               </div>
             ) : (
@@ -1044,22 +1076,22 @@ git push origin main`}
 
           {/* 4-Tier Evaluation Rubric */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, marginBottom: 28 }}>
-            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: '#60a5fa', marginBottom: 4 }}>1. Architecture (30%)</div>
               <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>Separation of concerns, clean modules, schema definitions.</div>
             </div>
 
-            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: '#34d399', marginBottom: 4 }}>2. Logic Correctness (30%)</div>
               <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>Algorithmic soundness, edge-case coverage, functional solution.</div>
             </div>
 
-            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: '#fbbf24', marginBottom: 4 }}>3. Automated Tests (20%)</div>
               <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>Automated test cases, pytest / jest passes, CI execution.</div>
             </div>
 
-            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: '#c084fc', marginBottom: 4 }}>4. Oral Defense (20%)</div>
               <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>Live voice defense responding to architectural edge cases.</div>
             </div>
@@ -1093,8 +1125,8 @@ git push origin main`}
               style={{
                 padding: '12px 22px',
                 borderRadius: 12,
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                background: 'var(--bg3)',
+                border: '1px solid var(--border)',
                 color: 'var(--t1)',
                 fontSize: 14,
                 fontWeight: 700,
@@ -1103,6 +1135,12 @@ git push origin main`}
                 alignItems: 'center',
                 gap: 8,
                 transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border)';
               }}
             >
               <span>🏆</span>

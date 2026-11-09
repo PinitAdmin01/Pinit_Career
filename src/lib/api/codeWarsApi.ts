@@ -309,6 +309,780 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     tags: ['SQL', 'Indexes', 'B-Tree', 'Master', 'Database'],
     hint: "B-Tree Composite Index Rule: Equality columns must come first, followed by range column. CREATE INDEX idx_{table}_{cols} ON {table} ({cols});",
     complexityTarget: "Time: O(N) | Space: O(N)"
+  },
+  {
+    id: 'war_contains_duplicate_04',
+    title: 'Contains Duplicate (Set Frequency)',
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_sets_l1',
+    description: 'Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.',
+    starterCode: {
+      typescript: `function containsDuplicate(nums: number[]): boolean {\n  // Your solution here\n  return false;\n}`,
+      python: `def contains_duplicate(nums):\n    # Your solution here\n    return False`
+    },
+    testCases: [
+      {
+            input: "nums = [1, 2, 3, 1]",
+            expectedOutput: "true",
+            explanation: "1 appears at index 0 and 3."
+      },
+      {
+            input: "nums = [1, 2, 3, 4]",
+            expectedOutput: "false",
+            explanation: "All elements are distinct."
+      },
+      {
+            input: "nums = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]",
+            expectedOutput: "true",
+            isHidden: true
+      },
+      {
+            input: "nums = [0]",
+            expectedOutput: "false",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","Hash Set","Novice","Foundations"],
+    hint: "Use a Set! As you iterate through nums, check if current number is already in the set. If yes, return true. Otherwise add it.",
+    complexityTarget: "Time: O(N) | Space: O(N)"
+  },
+  {
+    id: 'war_valid_anagram_05',
+    title: 'Valid Anagram (Character Frequency)',
+    difficulty: 'basic',
+    competencyId: 'comp_strings_freq_l1',
+    description: 'Given two strings s and t, return true if t is an anagram of s, and false otherwise. An Anagram is formed by rearranging characters of a different word.',
+    starterCode: {
+      typescript: `function isAnagram(s: string, t: string): boolean {\n  // Your solution here\n  return false;\n}`,
+      python: `def is_anagram(s, t):\n    # Your solution here\n    return False`
+    },
+    testCases: [
+      {
+            input: "s = \"anagram\", t = \"nagaram\"",
+            expectedOutput: "true",
+            explanation: "Both strings have identical characters and frequencies."
+      },
+      {
+            input: "s = \"rat\", t = \"car\"",
+            expectedOutput: "false",
+            explanation: "Characters do not match."
+      },
+      {
+            input: "s = \"a\", t = \"ab\"",
+            expectedOutput: "false",
+            isHidden: true
+      },
+      {
+            input: "s = \"listen\", t = \"silent\"",
+            expectedOutput: "true",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Strings","Hash Map","Novice","Foundations"],
+    hint: "First verify lengths match. Then count character frequencies using a map or sorted character comparison.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_move_zeroes_06',
+    title: 'Move Zeroes In-Place',
+    difficulty: 'basic',
+    competencyId: 'comp_two_pointers_shift_l1',
+    description: 'Given an integer array nums, move all 0\'s to the end of it while maintaining the relative order of the non-zero elements. Return modified array.',
+    starterCode: {
+      typescript: `function moveZeroes(nums: number[]): number[] {\n  // Your solution here\n  return nums;\n}`,
+      python: `def move_zeroes(nums):\n    # Your solution here\n    return nums`
+    },
+    testCases: [
+      {
+            input: "nums = [0, 1, 0, 3, 12]",
+            expectedOutput: "[1, 3, 12, 0, 0]",
+            explanation: "Non-zero numbers preserve order, zeroes placed at end."
+      },
+      {
+            input: "nums = [0]",
+            expectedOutput: "[0]"
+      },
+      {
+            input: "nums = [1, 2, 3]",
+            expectedOutput: "[1, 2, 3]",
+            isHidden: true
+      },
+      {
+            input: "nums = [0, 0, 1]",
+            expectedOutput: "[1, 0, 0]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","Two Pointers","Novice","In-Place"],
+    hint: "Use a write pointer `lastNonZeroIndex = 0`. Iterate through array: whenever you see a non-zero, swap it with `lastNonZeroIndex` and increment!",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_single_number_07',
+    title: 'Single Number (Bitwise XOR)',
+    difficulty: 'basic',
+    competencyId: 'comp_bitwise_xor_l1',
+    description: 'Given a non-empty array of integers nums, every element appears twice except for one. Find that single one in linear time and O(1) space.',
+    starterCode: {
+      typescript: `function singleNumber(nums: number[]): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def single_number(nums):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "nums = [2, 2, 1]",
+            expectedOutput: "1"
+      },
+      {
+            input: "nums = [4, 1, 2, 1, 2]",
+            expectedOutput: "4",
+            explanation: "1 and 2 appear twice; 4 appears once."
+      },
+      {
+            input: "nums = [1]",
+            expectedOutput: "1",
+            isHidden: true
+      },
+      {
+            input: "nums = [7, 3, 7]",
+            expectedOutput: "3",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Bit Manipulation","XOR","Novice","Foundations"],
+    hint: "Bitwise XOR magic: a ^ a = 0 and a ^ 0 = a! XOR all numbers together; pairs cancel out to 0 leaving only the unique single number.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_missing_number_08',
+    title: 'Missing Number (Gauss Summation)',
+    difficulty: 'basic',
+    competencyId: 'comp_math_gauss_l1',
+    description: 'Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.',
+    starterCode: {
+      typescript: `function missingNumber(nums: number[]): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def missing_number(nums):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "nums = [3, 0, 1]",
+            expectedOutput: "2",
+            explanation: "n = 3, range [0, 3]. 2 is missing."
+      },
+      {
+            input: "nums = [0, 1]",
+            expectedOutput: "2",
+            explanation: "n = 2, range [0, 2]. 2 is missing."
+      },
+      {
+            input: "nums = [9, 6, 4, 2, 3, 5, 7, 0, 1]",
+            expectedOutput: "8",
+            isHidden: true
+      },
+      {
+            input: "nums = [0]",
+            expectedOutput: "1",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Math","Arrays","Novice","Foundations"],
+    hint: "Expected sum of 0 to n is n * (n + 1) / 2. Subtract actual sum of array elements from expected sum to find the missing number!",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_merge_sorted_arrays_09',
+    title: 'Merge Sorted Arrays',
+    difficulty: 'basic',
+    competencyId: 'comp_two_pointers_merge_l1',
+    description: 'Given two sorted integer arrays nums1 and nums2, merge them into a single sorted array.',
+    starterCode: {
+      typescript: `function mergeSortedArrays(nums1: number[], nums2: number[]): number[] {\n  // Your solution here\n  return [];\n}`,
+      python: `def merge_sorted_arrays(nums1, nums2):\n    # Your solution here\n    return []`
+    },
+    testCases: [
+      {
+            input: "nums1 = [1, 2, 3], nums2 = [2, 5, 6]",
+            expectedOutput: "[1, 2, 2, 3, 5, 6]"
+      },
+      {
+            input: "nums1 = [1], nums2 = []",
+            expectedOutput: "[1]"
+      },
+      {
+            input: "nums1 = [], nums2 = [1]",
+            expectedOutput: "[1]",
+            isHidden: true
+      },
+      {
+            input: "nums1 = [2, 4], nums2 = [1, 3]",
+            expectedOutput: "[1, 2, 3, 4]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","Two Pointers","Novice","Sorting"],
+    hint: "Use two pointers i and j starting at 0 for both arrays. Compare elements and push the smaller one to the merged result until both arrays are exhausted.",
+    complexityTarget: "Time: O(M + N) | Space: O(M + N)"
+  },
+  {
+    id: 'war_roman_to_int_10',
+    title: 'Roman to Integer (Symbol Accumulator)',
+    difficulty: 'basic',
+    competencyId: 'comp_string_parsing_roman_l1',
+    description: 'Given a roman numeral string s, convert it to an integer. Symbol values: I=1, V=5, X=10, L=50, C=100, D=500, M=1000.',
+    starterCode: {
+      typescript: `function romanToInt(s: string): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def roman_to_int(s):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "s = \"III\"",
+            expectedOutput: "3"
+      },
+      {
+            input: "s = \"LVIII\"",
+            expectedOutput: "58",
+            explanation: "L = 50, V = 5, III = 3."
+      },
+      {
+            input: "s = \"MCMXCIV\"",
+            expectedOutput: "1994",
+            explanation: "M = 1000, CM = 900, XC = 90, IV = 4."
+      },
+      {
+            input: "s = \"IX\"",
+            expectedOutput: "9",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Strings","Hash Map","Novice","Math"],
+    hint: "Iterate through characters: if current roman value is less than the next roman value (e.g. IV = 4), subtract it; otherwise add it!",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_binary_search_07',
+    title: 'Binary Search (Logarithmic Lookup)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_dsa_binary_search_l2',
+    description: 'Given an array of integers nums sorted in ascending order and a target, search target in nums in O(log n) time. Return index or -1.',
+    starterCode: {
+      typescript: `function search(nums: number[], target: number): number {\n  // Your solution here\n  return -1;\n}`,
+      python: `def search(nums, target):\n    # Your solution here\n    return -1`
+    },
+    testCases: [
+      {
+            input: "nums = [-1, 0, 3, 5, 9, 12], target = 9",
+            expectedOutput: "4",
+            explanation: "9 exists at index 4."
+      },
+      {
+            input: "nums = [-1, 0, 3, 5, 9, 12], target = 2",
+            expectedOutput: "-1",
+            explanation: "2 does not exist in nums."
+      },
+      {
+            input: "nums = [5], target = 5",
+            expectedOutput: "0",
+            isHidden: true
+      },
+      {
+            input: "nums = [1, 3, 5], target = 1",
+            expectedOutput: "0",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Binary Search","Arrays","Apprentice","Divide & Conquer"],
+    hint: "Divide and conquer! Set left = 0, right = nums.length - 1. While left <= right, calculate mid. Adjust left or right based on nums[mid] comparison.",
+    complexityTarget: "Time: O(log N) | Space: O(1)"
+  },
+  {
+    id: 'war_reverse_linked_list_08',
+    title: 'Reverse a Singly Linked List',
+    difficulty: 'intermediate',
+    competencyId: 'comp_linked_list_pointers_l2',
+    description: 'Given an array of values representing a singly linked list, reverse the list and return the reversed array in O(N) time and O(1) space.',
+    starterCode: {
+      typescript: `function reverseList(headValues: number[]): number[] {\n  // Your solution here\n  return [];\n}`,
+      python: `def reverse_list(head_values):\n    # Your solution here\n    return []`
+    },
+    testCases: [
+      {
+            input: "head = [1, 2, 3, 4, 5]",
+            expectedOutput: "[5, 4, 3, 2, 1]"
+      },
+      {
+            input: "head = [1, 2]",
+            expectedOutput: "[2, 1]"
+      },
+      {
+            input: "head = []",
+            expectedOutput: "[]",
+            isHidden: true
+      },
+      {
+            input: "head = [42]",
+            expectedOutput: "[42]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Linked List","Two Pointers","Apprentice","Data Structures"],
+    hint: "Maintain prev = null, curr = head. For each node: nextNode = curr.next; curr.next = prev; prev = curr; curr = nextNode. Return prev.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_longest_substring_09',
+    title: 'Longest Substring Without Repeating Characters',
+    difficulty: 'intermediate',
+    competencyId: 'comp_sliding_window_unique_l2',
+    description: 'Given a string s, find the length of the longest substring without repeating characters.',
+    starterCode: {
+      typescript: `function lengthOfLongestSubstring(s: string): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def length_of_longest_substring(s):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "s = \"abcabcbb\"",
+            expectedOutput: "3",
+            explanation: "The answer is \"abc\", with length 3."
+      },
+      {
+            input: "s = \"bbbbb\"",
+            expectedOutput: "1",
+            explanation: "The answer is \"b\", with length 1."
+      },
+      {
+            input: "s = \"pwwkew\"",
+            expectedOutput: "3",
+            explanation: "The answer is \"wke\", with length 3."
+      },
+      {
+            input: "s = \"\"",
+            expectedOutput: "0",
+            isHidden: true
+      },
+      {
+            input: "s = \"au\"",
+            expectedOutput: "2",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Sliding Window","Hash Map","Apprentice","Strings"],
+    hint: "Sliding window technique! Use a map tracking the last seen index of each char. When a duplicate is seen, jump the left window boundary past it.",
+    complexityTarget: "Time: O(N) | Space: O(min(N, M))"
+  },
+  {
+    id: 'war_container_water_10',
+    title: 'Container With Most Water',
+    difficulty: 'intermediate',
+    competencyId: 'comp_greedy_container_l2',
+    description: 'Given an array height of length n, find two lines that together with the x-axis form a container storing the most water. Return maximum area.',
+    starterCode: {
+      typescript: `function maxArea(height: number[]): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def max_area(height):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "height = [1, 8, 6, 2, 5, 4, 8, 3, 7]",
+            expectedOutput: "49",
+            explanation: "Between index 1 (8) and index 8 (7): min(8, 7) * 7 = 49."
+      },
+      {
+            input: "height = [1, 1]",
+            expectedOutput: "1"
+      },
+      {
+            input: "height = [4, 3, 2, 1, 4]",
+            expectedOutput: "16",
+            isHidden: true
+      },
+      {
+            input: "height = [1, 2, 1]",
+            expectedOutput: "2",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Two Pointers","Greedy","Apprentice","Arrays"],
+    hint: "Two pointers at left = 0, right = n - 1. Area is min(height[left], height[right]) * (right - left). Always move the shorter pointer inward!",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_product_except_self_11',
+    title: 'Product of Array Except Self',
+    difficulty: 'intermediate',
+    competencyId: 'comp_prefix_suffix_product_l2',
+    description: 'Given an integer array nums, return an array answer where answer[i] equals the product of all elements of nums except nums[i], without division.',
+    starterCode: {
+      typescript: `function productExceptSelf(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}`,
+      python: `def product_except_self(nums):\n    # Your solution here\n    return []`
+    },
+    testCases: [
+      {
+            input: "nums = [1, 2, 3, 4]",
+            expectedOutput: "[24, 12, 8, 6]"
+      },
+      {
+            input: "nums = [-1, 1, 0, -3, 3]",
+            expectedOutput: "[0, 0, 9, 0, 0]"
+      },
+      {
+            input: "nums = [2, 3]",
+            expectedOutput: "[3, 2]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Prefix Sums","Arrays","Apprentice","No Division"],
+    hint: "Two passes: First pass left to right building prefix products. Second pass right to left accumulating suffix products into the output array.",
+    complexityTarget: "Time: O(N) | Space: O(1) auxiliary"
+  },
+  {
+    id: 'war_three_sum_12',
+    title: '3Sum (Unique Zero-Sum Triplets)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_two_pointers_3sum_l2',
+    description: 'Given an integer array nums, return all unique triplets [nums[i], nums[j], nums[k]] such that their sum equals 0.',
+    starterCode: {
+      typescript: `function threeSum(nums: number[]): number[][] {\n  // Your solution here\n  return [];\n}`,
+      python: `def three_sum(nums):\n    # Your solution here\n    return []`
+    },
+    testCases: [
+      {
+            input: "nums = [-1, 0, 1, 2, -1, -4]",
+            expectedOutput: "[[-1, -1, 2], [-1, 0, 1]]"
+      },
+      {
+            input: "nums = [0, 1, 1]",
+            expectedOutput: "[]"
+      },
+      {
+            input: "nums = [0, 0, 0]",
+            expectedOutput: "[[0, 0, 0]]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 175,
+    tags: ["Two Pointers","Sorting","Apprentice","Arrays"],
+    hint: "Sort nums first! For each index i, skip duplicates, then use two pointers (left = i + 1, right = n - 1) to find pairs summing to -nums[i].",
+    complexityTarget: "Time: O(N^2) | Space: O(1)"
+  },
+  {
+    id: 'war_min_stack_13',
+    title: 'Min Stack Simulator (O(1) Retrieval)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_stack_min_o1_l2',
+    description: 'Simulate a stack supporting push, pop, top, and retrieving minimum in O(1) time. Return an array of all getMin query results.',
+    starterCode: {
+      typescript: `function processMinStack(operations: string[], values: number[][]): number[] {\n  // Your solution here\n  return [];\n}`,
+      python: `def process_min_stack(operations, values):\n    # Your solution here\n    return []`
+    },
+    testCases: [
+      {
+            input: "ops = [\"push\", \"push\", \"push\", \"getMin\", \"pop\", \"getMin\"], vals = [[-2], [0], [-3], [], [], []]",
+            expectedOutput: "[-3, -2]"
+      },
+      {
+            input: "ops = [\"push\", \"getMin\"], vals = [[5], []]",
+            expectedOutput: "[5]"
+      },
+      {
+            input: "ops = [\"push\", \"push\", \"getMin\", \"pop\", \"getMin\"], vals = [[2], [1], [], [], []]",
+            expectedOutput: "[1, 2]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Stack","Design","Apprentice","O(1) Min"],
+    hint: "Store pairs [value, currentMinSoFar] in your stack. When you pop, the previous minimum is preserved automatically!",
+    complexityTarget: "Time: O(1) per op | Space: O(N)"
+  },
+  {
+    id: 'war_invert_binary_tree_04',
+    title: 'Invert Binary Tree (Mirror Reflection)',
+    difficulty: 'advanced',
+    competencyId: 'comp_binary_tree_invert_l3',
+    description: 'Given the root of a binary tree (represented as level-order array), invert the tree (swap left and right subtrees at every node), and return level-order array.',
+    starterCode: {
+      typescript: `function invertTree(root: (number | null)[]): (number | null)[] {\n  // Your solution here\n  return [];\n}`,
+      python: `def invert_tree(root):\n    # Your solution here\n    return []`
+    },
+    testCases: [
+      {
+            input: "root = [4, 2, 7, 1, 3, 6, 9]",
+            expectedOutput: "[4, 7, 2, 9, 6, 3, 1]"
+      },
+      {
+            input: "root = [2, 1, 3]",
+            expectedOutput: "[2, 3, 1]"
+      },
+      {
+            input: "root = []",
+            expectedOutput: "[]",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Tree","DFS","Recursion","Master"],
+    hint: "Recursively swap subtrees: temp = node.left; node.left = invertTree(node.right); node.right = invertTree(temp); return node.",
+    complexityTarget: "Time: O(N) | Space: O(H)"
+  },
+  {
+    id: 'war_max_depth_tree_05',
+    title: 'Maximum Depth of Binary Tree',
+    difficulty: 'advanced',
+    competencyId: 'comp_tree_depth_dfs_l3',
+    description: 'Given the root of a binary tree (level-order array), return its maximum depth along the longest path from root to leaf.',
+    starterCode: {
+      typescript: `function maxDepth(root: (number | null)[]): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def max_depth(root):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "root = [3, 9, 20, null, null, 15, 7]",
+            expectedOutput: "3"
+      },
+      {
+            input: "root = [1, null, 2]",
+            expectedOutput: "2"
+      },
+      {
+            input: "root = []",
+            expectedOutput: "0",
+            isHidden: true
+      },
+      {
+            input: "root = [1]",
+            expectedOutput: "1",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Tree","DFS","BFS","Master"],
+    hint: "Base case: if node is null, return 0. Recursive case: 1 + Math.max(maxDepth(left), maxDepth(right)).",
+    complexityTarget: "Time: O(N) | Space: O(H)"
+  },
+  {
+    id: 'war_validate_bst_06',
+    title: 'Validate Binary Search Tree',
+    difficulty: 'advanced',
+    competencyId: 'comp_validate_bst_bounds_l3',
+    description: 'Given the root of a binary tree (level-order array), determine if it is a valid binary search tree (BST) where left < root < right across all descendants.',
+    starterCode: {
+      typescript: `function isValidBST(root: (number | null)[]): boolean {\n  // Your solution here\n  return false;\n}`,
+      python: `def is_valid_bst(root):\n    # Your solution here\n    return False`
+    },
+    testCases: [
+      {
+            input: "root = [2, 1, 3]",
+            expectedOutput: "true"
+      },
+      {
+            input: "root = [5, 1, 4, null, null, 3, 6]",
+            expectedOutput: "false",
+            explanation: "Root 5 has right child 4 which is smaller than 5."
+      },
+      {
+            input: "root = [1]",
+            expectedOutput: "true",
+            isHidden: true
+      },
+      {
+            input: "root = [5, 4, 6, null, null, 3, 7]",
+            expectedOutput: "false",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Search Tree","DFS","Validation","Master"],
+    hint: "Pass valid boundaries down recursion! Start with (-inf, +inf). When traversing left, upper bound = node.val. When traversing right, lower bound = node.val.",
+    complexityTarget: "Time: O(N) | Space: O(H)"
+  },
+  {
+    id: 'war_coin_change_07',
+    title: 'Coin Change (Fewest Coins DP)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_unbounded_knapsack_l3',
+    description: 'Given coins of different denominations and an amount, return the fewest number of coins needed to make up that amount, or -1 if impossible.',
+    starterCode: {
+      typescript: `function coinChange(coins: number[], amount: number): number {\n  // Your solution here\n  return -1;\n}`,
+      python: `def coin_change(coins, amount):\n    # Your solution here\n    return -1`
+    },
+    testCases: [
+      {
+            input: "coins = [1, 2, 5], amount = 11",
+            expectedOutput: "3",
+            explanation: "11 = 5 + 5 + 1 (3 coins)"
+      },
+      {
+            input: "coins = [2], amount = 3",
+            expectedOutput: "-1"
+      },
+      {
+            input: "coins = [1], amount = 0",
+            expectedOutput: "0"
+      },
+      {
+            input: "coins = [1], amount = 2",
+            expectedOutput: "2",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ["Dynamic Programming","Knapsack","Master","Optimization"],
+    hint: "Bottom-up DP: dp[i] = min coins to make amount i. dp[0] = 0, all others Infinity. For each coin, dp[i] = min(dp[i], dp[i - coin] + 1).",
+    complexityTarget: "Time: O(amount * len(coins)) | Space: O(amount)"
+  },
+  {
+    id: 'war_house_robber_08',
+    title: 'House Robber (Optimal Non-Adjacent Stash)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_non_adjacent_l3',
+    description: 'Given house stash values along a street, calculate the maximum amount you can rob without robbing two adjacent houses.',
+    starterCode: {
+      typescript: `function rob(nums: number[]): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def rob(nums):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "nums = [1, 2, 3, 1]",
+            expectedOutput: "4",
+            explanation: "Rob house 1 (1) and house 3 (3) = 4."
+      },
+      {
+            input: "nums = [2, 7, 9, 3, 1]",
+            expectedOutput: "12",
+            explanation: "Rob house 1 (2), house 3 (9), house 5 (1) = 12."
+      },
+      {
+            input: "nums = [0]",
+            expectedOutput: "0",
+            isHidden: true
+      },
+      {
+            input: "nums = [2, 1, 1, 2]",
+            expectedOutput: "4",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Dynamic Programming","Memoization","Master","Decision Tree"],
+    hint: "Maintain rob1 and rob2. For each house num: currentMax = max(rob1 + num, rob2); rob1 = rob2; rob2 = currentMax. Return rob2.",
+    complexityTarget: "Time: O(N) | Space: O(1)"
+  },
+  {
+    id: 'war_kth_largest_09',
+    title: 'Kth Largest Element in an Array',
+    difficulty: 'advanced',
+    competencyId: 'comp_heap_quickselect_l3',
+    description: 'Given an integer array nums and an integer k, return the kth largest element in sorted order.',
+    starterCode: {
+      typescript: `function findKthLargest(nums: number[], k: number): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def find_kth_largest(nums, k):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "nums = [3, 2, 1, 5, 6, 4], k = 2",
+            expectedOutput: "5"
+      },
+      {
+            input: "nums = [3, 2, 3, 1, 2, 4, 5, 5, 6], k = 4",
+            expectedOutput: "4"
+      },
+      {
+            input: "nums = [1], k = 1",
+            expectedOutput: "1",
+            isHidden: true
+      },
+      {
+            input: "nums = [7, 6, 5, 4, 3, 2, 1], k = 5",
+            expectedOutput: "3",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Heap","Quickselect","Sorting","Master"],
+    hint: "Use a Min-Heap of size k (or sort descending and pick index k - 1). Quickselect gives linear average time.",
+    complexityTarget: "Time: O(N log K) | Space: O(K)"
+  },
+  {
+    id: 'war_number_of_islands_10',
+    title: 'Number of Islands (Grid BFS/DFS)',
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_grid_bfs_l3',
+    description: 'Given an m x n 2D binary grid representing land (\'1\') and water (\'0\'), return the number of connected islands.',
+    starterCode: {
+      typescript: `function numIslands(grid: string[][]): number {\n  // Your solution here\n  return 0;\n}`,
+      python: `def num_islands(grid):\n    # Your solution here\n    return 0`
+    },
+    testCases: [
+      {
+            input: "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]",
+            expectedOutput: "1"
+      },
+      {
+            input: "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]",
+            expectedOutput: "3"
+      },
+      {
+            input: "grid = [[\"1\"]]",
+            expectedOutput: "1",
+            isHidden: true
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ["Graph","BFS","DFS","Matrix","Master"],
+    hint: "Iterate across every cell (r, c). When you find '1', increment island count and run BFS/DFS to sink all connected '1's to '0'.",
+    complexityTarget: "Time: O(M * N) | Space: O(M * N)"
   }
 ];
 
