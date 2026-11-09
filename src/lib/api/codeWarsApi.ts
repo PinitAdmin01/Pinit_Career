@@ -1083,7 +1083,735 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     tags: ["Graph","BFS","DFS","Matrix","Master"],
     hint: "Iterate across every cell (r, c). When you find '1', increment island count and run BFS/DFS to sink all connected '1's to '0'.",
     complexityTarget: "Time: O(M * N) | Space: O(M * N)"
+  },
+  // ==========================================
+  // BASIC TIER: 10 NEW FOUNDATIONAL PROBLEMS (31-40)
+  // ==========================================
+  {
+    id: 'war_majority_element_11',
+    title: 'Majority Element (Boyer-Moore Voting)',
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_voting_l1',
+    description: 'Given an array nums of size n, return the majority element that appears more than ⌊n / 2⌋ times. In distributed consensus, this determines quorum agreement across cluster nodes without auxiliary memory.',
+    starterCode: {
+      typescript: 'function majorityElement(nums: number[]): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def majority_element(nums):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'nums = [3, 2, 3]', expectedOutput: '3' },
+      { input: 'nums = [2, 2, 1, 1, 1, 2, 2]', expectedOutput: '2' },
+      { input: 'nums = [1]', expectedOutput: '1', isHidden: true },
+      { input: 'nums = [6, 5, 5]', expectedOutput: '5', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Arrays', 'Voting', 'Quorum', 'Novice'],
+    hint: 'Use the Boyer-Moore Voting algorithm: track a candidate and count. Increment count when current matches candidate, decrement when different. When count reaches 0, pick current element.',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+  {
+    id: 'war_first_unique_char_12',
+    title: 'First Unique Character in a String',
+    difficulty: 'basic',
+    competencyId: 'comp_strings_hash_first_l1',
+    description: 'Given a string s, find the first non-repeating character and return its 0-based index. If it does not exist, return -1. In real-time payment validation, this detects the first fresh security nonce.',
+    starterCode: {
+      typescript: 'function firstUniqChar(s: string): number {\n  // Your solution here\n  return -1;\n}',
+      python: 'def first_uniq_char(s):\n    # Your solution here\n    return -1'
+    },
+    testCases: [
+      { input: 's = "leetcode"', expectedOutput: '0' },
+      { input: 's = "loveleetcode"', expectedOutput: '2' },
+      { input: 's = "aabb"', expectedOutput: '-1', isHidden: true },
+      { input: 's = "z"', expectedOutput: '0', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Strings', 'Hash Map', 'Novice', 'Stream'],
+    hint: 'Build a frequency map of characters in the first pass. In the second pass, return the index of the first character whose frequency is exactly 1.',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+  {
+    id: 'war_climbing_stairs_13',
+    title: 'Climbing Stairs (Fibonacci Step Pacing)',
+    difficulty: 'basic',
+    competencyId: 'comp_dp_fibonacci_l1',
+    description: 'You are climbing a staircase taking n steps to reach the top. Each time you can climb 1 or 2 steps. How many distinct ways can you climb to the top? In packet delivery, this counts distinct hop combinations.',
+    starterCode: {
+      typescript: 'function climbStairs(n: number): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def climb_stairs(n):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'n = 2', expectedOutput: '2' },
+      { input: 'n = 3', expectedOutput: '3' },
+      { input: 'n = 4', expectedOutput: '5', isHidden: true },
+      { input: 'n = 5', expectedOutput: '8', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Dynamic Programming', 'Math', 'Novice'],
+    hint: 'To reach step n, you must arrive from step n-1 or step n-2. Thus ways(n) = ways(n-1) + ways(n-2). Keep two rolling variables.',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+  {
+    id: 'war_valid_palindrome_ii_14',
+    title: 'Valid Palindrome II (1-Fault Tolerance)',
+    difficulty: 'basic',
+    competencyId: 'comp_two_pointers_fault_l1',
+    description: 'Given a string s, return true if s can be a palindrome after deleting at most one character. In fault-tolerant data transmission, this simulates 1-byte parity packet recovery.',
+    starterCode: {
+      typescript: 'function validPalindrome(s: string): boolean {\n  // Your solution here\n  return false;\n}',
+      python: 'def valid_palindrome(s):\n    # Your solution here\n    return False'
+    },
+    testCases: [
+      { input: 's = "aba"', expectedOutput: 'true' },
+      { input: 's = "abca"', expectedOutput: 'true' },
+      { input: 's = "abc"', expectedOutput: 'false', isHidden: true },
+      { input: 's = "deeee"', expectedOutput: 'true', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Strings', 'Two Pointers', 'Fault Tolerance', 'Novice'],
+    hint: 'Use two pointers from the outside in. Upon encountering a mismatch at l and r, check if the substring without s[l] OR the substring without s[r] is a valid palindrome.',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+  {
+    id: 'war_intersection_arrays_15',
+    title: 'Intersection of Two Arrays',
+    difficulty: 'basic',
+    competencyId: 'comp_hash_set_intersection_l1',
+    description: 'Given two integer arrays nums1 and nums2, return an array of their unique intersection sorted in ascending order. In analytics databases, this computes audience segment overlap.',
+    starterCode: {
+      typescript: 'function intersection(nums1: number[], nums2: number[]): number[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def intersection(nums1, nums2):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'nums1 = [1, 2, 2, 1], nums2 = [2, 2]', expectedOutput: '[2]' },
+      { input: 'nums1 = [4, 9, 5], nums2 = [9, 4, 9, 8, 4]', expectedOutput: '[4, 9]' },
+      { input: 'nums1 = [1, 2], nums2 = [3, 4]', expectedOutput: '[]', isHidden: true },
+      { input: 'nums1 = [1], nums2 = [1]', expectedOutput: '[1]', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Hash Set', 'Arrays', 'Join', 'Novice'],
+    hint: 'Store elements of nums1 in a Set. Filter unique elements of nums2 that exist in the set, and return them sorted in ascending order.',
+    complexityTarget: 'Time: O(M + N) | Space: O(M + N)'
+  },
+  {
+    id: 'war_pascals_triangle_16',
+    title: "Pascal's Triangle (Binomial Coefficient Grid)",
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_pascal_l1',
+    description: "Given an integer numRows, return the first numRows of Pascal's triangle. In quantitative financial modeling, this generates binomial option pricing probability grids.",
+    starterCode: {
+      typescript: 'function generatePascal(numRows: number): number[][] {\n  // Your solution here\n  return [];\n}',
+      python: 'def generate_pascal(num_rows):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'numRows = 1', expectedOutput: '[[1]]' },
+      { input: 'numRows = 2', expectedOutput: '[[1], [1, 1]]' },
+      { input: 'numRows = 4', expectedOutput: '[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1]]', isHidden: true },
+      { input: 'numRows = 5', expectedOutput: '[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Arrays', 'Math', 'Matrix', 'Novice'],
+    hint: 'Start with row [[1]]. For each new row i, the first and last values are 1, while intermediate values are the sum of the two numbers directly above it.',
+    complexityTarget: 'Time: O(N^2) | Space: O(N^2)'
+  },
+  {
+    id: 'war_disappeared_numbers_17',
+    title: 'Find All Numbers Disappeared in an Array',
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_inplace_mark_l1',
+    description: 'Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all integers in [1, n] that do not appear in nums. In sequence logging, this detects dropped telemetry packet IDs.',
+    starterCode: {
+      typescript: 'function findDisappearedNumbers(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def find_disappeared_numbers(nums):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'nums = [4, 3, 2, 7, 8, 2, 3, 1]', expectedOutput: '[5, 6]' },
+      { input: 'nums = [1, 1]', expectedOutput: '[2]' },
+      { input: 'nums = [2, 2]', expectedOutput: '[1]', isHidden: true },
+      { input: 'nums = [1]', expectedOutput: '[]', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Arrays', 'In-Place', 'Telemetry', 'Novice'],
+    hint: 'Iterate through nums. For each val, negate the element at index Math.abs(val) - 1. In a second pass, any index with a positive number was never visited.',
+    complexityTarget: 'Time: O(N) | Space: O(1) auxiliary'
+  },
+  {
+    id: 'war_summary_ranges_18',
+    title: 'Summary Ranges (Contiguous Segment Formatter)',
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_intervals_formatting_l1',
+    description: 'Given a sorted unique integer array nums, return the smallest sorted list of ranges that cover all numbers in the array exactly. In cloud networking, this compresses contiguous firewall port allocations.',
+    starterCode: {
+      typescript: 'function summaryRanges(nums: number[]): number[] | string[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def summary_ranges(nums):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'nums = [0, 1, 2, 4, 5, 7]', expectedOutput: '["0->2", "4->5", "7"]' },
+      { input: 'nums = [0, 2, 3, 4, 6, 8, 9]', expectedOutput: '["0", "2->4", "6", "8->9"]' },
+      { input: 'nums = []', expectedOutput: '[]', isHidden: true },
+      { input: 'nums = [-1]', expectedOutput: '["-1"]', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Arrays', 'Formatting', 'Ranges', 'Novice'],
+    hint: 'Use a two-pointer scan. Advance the right pointer while nums[j+1] === nums[j] + 1. If i === j format as "x", else "x->y".',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+  {
+    id: 'war_happy_number_19',
+    title: 'Happy Number (Sum of Squares Cycle Detector)',
+    difficulty: 'basic',
+    competencyId: 'comp_hash_cycle_happy_l1',
+    description: 'Starting with any positive integer, replace the number by the sum of the squares of its digits. Repeat until the number equals 1, or it loops endlessly in a cycle. In hashing algorithms, this tests convergence.',
+    starterCode: {
+      typescript: 'function isHappy(n: number): boolean {\n  // Your solution here\n  return false;\n}',
+      python: 'def is_happy(n):\n    # Your solution here\n    return False'
+    },
+    testCases: [
+      { input: 'n = 19', expectedOutput: 'true' },
+      { input: 'n = 2', expectedOutput: 'false' },
+      { input: 'n = 1', expectedOutput: 'true', isHidden: true },
+      { input: 'n = 7', expectedOutput: 'true', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Math', 'Hash Set', 'Cycle Detection', 'Novice'],
+    hint: 'Extract digits using modulo 10 and square them. Use a Set to track seen numbers. If n reaches 1 return true; if a duplicate is seen, an infinite cycle exists.',
+    complexityTarget: 'Time: O(log N) | Space: O(log N)'
+  },
+  {
+    id: 'war_length_of_last_word_20',
+    title: 'Length of Last Word (CLI Tokenizer)',
+    difficulty: 'basic',
+    competencyId: 'comp_string_scan_last_l1',
+    description: 'Given a string s consisting of words and spaces, return the length of the last word in the string. In command-line interfaces, this parses terminal flags and sub-command arguments.',
+    starterCode: {
+      typescript: 'function lengthOfLastWord(s: string): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def length_of_last_word(s):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 's = "Hello World"', expectedOutput: '5' },
+      { input: 's = "   fly me   to   the moon  "', expectedOutput: '4' },
+      { input: 's = "luffy is still joyboy"', expectedOutput: '6', isHidden: true },
+      { input: 's = "a"', expectedOutput: '1', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Strings', 'CLI', 'Parsing', 'Novice'],
+    hint: 'Trim trailing spaces first. Then scan backward from the end counting characters until you hit another space or the start of the string.',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+
+  // ==========================================
+  // INTERMEDIATE TIER: 10 NEW STRUCTURES & ENGINES (41-50)
+  // ==========================================
+  {
+    id: 'war_lru_cache_14',
+    title: 'LRU Cache Simulator (O(1) Eviction)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_lru_cache_engine_l2',
+    description: 'Implement a Least Recently Used (LRU) cache with O(1) get and put operations. When capacity is exceeded, evict the least recently accessed key. In-memory data stores like Redis rely on this exact buffer mechanism.',
+    starterCode: {
+      typescript: 'function processLruCache(capacity: number, operations: string[], values: any[][]): any[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def process_lru_cache(capacity, operations, values):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      {
+        input: 'capacity = 2, ops = ["put","put","get","put","get","put","get","get","get"], vals = [[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]',
+        expectedOutput: '[null, null, 1, null, -1, null, -1, 3, 4]'
+      },
+      {
+        input: 'capacity = 1, ops = ["put","get","put","get"], vals = [[2,1],[2],[3,2],[2]]',
+        expectedOutput: '[null, 1, null, -1]'
+      },
+      {
+        input: 'capacity = 2, ops = ["get","put","get"], vals = [[2],[2,6],[2]]',
+        expectedOutput: '[-1, null, 6]',
+        isHidden: true
+      }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Cache', 'Linked List', 'Hash Map', 'Systems', 'Apprentice'],
+    hint: 'Use a Map or Doubly Linked List + Map. When getting or putting an existing key, delete it and re-insert it so it stays at the most-recently-used position. When size exceeds capacity, delete the first key in the map.',
+    complexityTarget: 'Time: O(1) per op | Space: O(Capacity)'
+  },
+  {
+    id: 'war_group_anagrams_15',
+    title: 'Group Anagrams (Canonical Search Clustering)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_hash_group_anagrams_l2',
+    description: 'Given an array of strings strs, group the anagrams together in any order. In search engine indexing, this groups query variations and detects duplicate listings.',
+    starterCode: {
+      typescript: 'function groupAnagrams(strs: string[]): string[][] {\n  // Your solution here\n  return [];\n}',
+      python: 'def group_anagrams(strs):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'strs = ["eat","tea","tan","ate","nat","bat"]', expectedOutput: '[["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]' },
+      { input: 'strs = [""]', expectedOutput: '[[""]]' },
+      { input: 'strs = ["a"]', expectedOutput: '[["a"]]', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Strings', 'Hash Map', 'Clustering', 'Apprentice'],
+    hint: 'Sort each string alphabetically to form a unique signature key. Group words matching the same signature into an array in a hash map.',
+    complexityTarget: 'Time: O(N * K log K) | Space: O(N * K)'
+  },
+  {
+    id: 'war_merge_intervals_16',
+    title: 'Merge Overlapping Intervals',
+    difficulty: 'intermediate',
+    competencyId: 'comp_intervals_merge_l2',
+    description: 'Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals. In cloud infrastructure, this aggregates booked virtual machine time slices and calendar schedules.',
+    starterCode: {
+      typescript: 'function mergeIntervals(intervals: number[][]): number[][] {\n  // Your solution here\n  return [];\n}',
+      python: 'def merge_intervals(intervals):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]', expectedOutput: '[[1, 6], [8, 10], [15, 18]]' },
+      { input: 'intervals = [[1, 4], [4, 5]]', expectedOutput: '[[1, 5]]' },
+      { input: 'intervals = [[1, 4], [0, 4]]', expectedOutput: '[[0, 4]]', isHidden: true },
+      { input: 'intervals = [[1, 4], [2, 3]]', expectedOutput: '[[1, 4]]', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Intervals', 'Sorting', 'Scheduling', 'Apprentice'],
+    hint: 'Sort the intervals by their start time. Iterate through: if current start is <= last merged interval end, merge them by setting last.end = Math.max(last.end, current.end).',
+    complexityTarget: 'Time: O(N log N) | Space: O(N)'
+  },
+  {
+    id: 'war_daily_temperatures_17',
+    title: 'Daily Temperatures (Monotonic Latency Spikes)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_stack_monotonic_daily_l2',
+    description: 'Given an array of integers temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. In latency monitoring, this calculates lookahead breach delays.',
+    starterCode: {
+      typescript: 'function dailyTemperatures(temperatures: number[]): number[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def daily_temperatures(temperatures):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'temperatures = [73, 74, 75, 71, 69, 72, 76, 73]', expectedOutput: '[1, 1, 4, 2, 1, 1, 0, 0]' },
+      { input: 'temperatures = [30, 40, 50, 60]', expectedOutput: '[1, 1, 1, 0]' },
+      { input: 'temperatures = [30, 60, 90]', expectedOutput: '[1, 1, 0]', isHidden: true },
+      { input: 'temperatures = [80]', expectedOutput: '[0]', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Stack', 'Monotonic Stack', 'Lookahead', 'Apprentice'],
+    hint: 'Use a monotonic decreasing stack that stores day indices. When current temperature is higher than stack top, pop it and set answer[prev] = current - prev.',
+    complexityTarget: 'Time: O(N) | Space: O(N)'
+  },
+  {
+    id: 'war_subarray_sum_k_18',
+    title: 'Subarray Sum Equals K (Financial Audit Trail)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_prefix_sum_hash_l2',
+    description: 'Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k. In forensic auditing, this flags transaction sequences matching an exact embezzlement sum.',
+    starterCode: {
+      typescript: 'function subarraySum(nums: number[], k: number): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def subarray_sum(nums, k):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'nums = [1, 1, 1], k = 2', expectedOutput: '2' },
+      { input: 'nums = [1, 2, 3], k = 3', expectedOutput: '2' },
+      { input: 'nums = [1, -1, 0], k = 0', expectedOutput: '3', isHidden: true },
+      { input: 'nums = [3], k = 3', expectedOutput: '1', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Prefix Sum', 'Hash Map', 'Financial', 'Apprentice'],
+    hint: 'Track running prefix sum. Check if (currentSum - k) exists in a hash map of prefix sum frequencies. Add its frequency to count, then record currentSum.',
+    complexityTarget: 'Time: O(N) | Space: O(N)'
+  },
+  {
+    id: 'war_find_min_rotated_19',
+    title: 'Find Minimum in Rotated Sorted Array',
+    difficulty: 'intermediate',
+    competencyId: 'comp_binary_search_rotated_min_l2',
+    description: 'Suppose an array of length n sorted in ascending order is rotated between 1 and n times. Find the minimum element in O(log n) time. In distributed circular ring topology, this identifies the partition reset node.',
+    starterCode: {
+      typescript: 'function findMin(nums: number[]): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def find_min(nums):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'nums = [3, 4, 5, 1, 2]', expectedOutput: '1' },
+      { input: 'nums = [4, 5, 6, 7, 0, 1, 2]', expectedOutput: '0' },
+      { input: 'nums = [11, 13, 15, 17]', expectedOutput: '11', isHidden: true },
+      { input: 'nums = [2, 1]', expectedOutput: '1', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Binary Search', 'Arrays', 'Circular', 'Apprentice'],
+    hint: 'Compare nums[mid] with nums[right]. If nums[mid] > nums[right], the inflection point is to the right (left = mid + 1). Otherwise it is at or to the left (right = mid).',
+    complexityTarget: 'Time: O(log N) | Space: O(1)'
+  },
+  {
+    id: 'war_top_k_frequent_20',
+    title: 'Top K Frequent Elements (Trending Stream Engine)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_heap_bucket_topk_l2',
+    description: 'Given an integer array nums and an integer k, return the k most frequent elements in ascending order. In telemetry monitoring, this isolates the most common HTTP error codes.',
+    starterCode: {
+      typescript: 'function topKFrequent(nums: number[], k: number): number[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def top_k_frequent(nums, k):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'nums = [1, 1, 1, 2, 2, 3], k = 2', expectedOutput: '[1, 2]' },
+      { input: 'nums = [1], k = 1', expectedOutput: '[1]' },
+      { input: 'nums = [4, 1, -1, 2, -1, 2, 3], k = 2', expectedOutput: '[-1, 2]', isHidden: true },
+      { input: 'nums = [1, 2], k = 2', expectedOutput: '[1, 2]', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Hash Map', 'Bucket Sort', 'Heap', 'Apprentice'],
+    hint: 'Count frequencies in a Map. Place numbers into bucket arrays indexed by frequency. Scan buckets from highest frequency downwards to collect k elements.',
+    complexityTarget: 'Time: O(N) | Space: O(N)'
+  },
+  {
+    id: 'war_letter_combinations_21',
+    title: 'Letter Combinations of a Phone Number',
+    difficulty: 'intermediate',
+    competencyId: 'comp_backtracking_t9_l2',
+    description: 'Given a string containing digits from 2-9, return all possible letter combinations that the number could represent based on telephone buttons. In telecommunications, this powers mnemonic vanity lookup.',
+    starterCode: {
+      typescript: 'function letterCombinations(digits: string): string[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def letter_combinations(digits):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'digits = "23"', expectedOutput: '["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]' },
+      { input: 'digits = ""', expectedOutput: '[]' },
+      { input: 'digits = "2"', expectedOutput: '["a", "b", "c"]', isHidden: true },
+      { input: 'digits = "7"', expectedOutput: '["p", "q", "r", "s"]', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Backtracking', 'Recursion', 'Strings', 'Apprentice'],
+    hint: 'Map digits 2-9 to their keypad letters. Use depth-first backtracking: at each digit index, iterate over its letters, append to current path, and recurse.',
+    complexityTarget: 'Time: O(4^N) | Space: O(N)'
+  },
+  {
+    id: 'war_rotate_image_22',
+    title: 'Rotate Image (In-Place Matrix Transformation)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_matrix_rotate_l2',
+    description: 'You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees clockwise in-place. In satellite imaging, this reorients sensory grid projections without extra RAM.',
+    starterCode: {
+      typescript: 'function rotateImage(matrix: number[][]): number[][] {\n  // Your solution here\n  return matrix;\n}',
+      python: 'def rotate_image(matrix):\n    # Your solution here\n    return matrix'
+    },
+    testCases: [
+      { input: 'matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]', expectedOutput: '[[7, 4, 1], [8, 5, 2], [9, 6, 3]]' },
+      { input: 'matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]', expectedOutput: '[[15, 13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7, 10, 11]]' },
+      { input: 'matrix = [[1]]', expectedOutput: '[[1]]', isHidden: true },
+      { input: 'matrix = [[1, 2], [3, 4]]', expectedOutput: '[[3, 1], [4, 2]]', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Matrix', 'In-Place', 'Computer Vision', 'Apprentice'],
+    hint: 'A 90-degree clockwise rotation equals transposing the matrix (swapping matrix[i][j] with matrix[j][i]), followed by reversing each row horizontally.',
+    complexityTarget: 'Time: O(N^2) | Space: O(1) in-place'
+  },
+  {
+    id: 'war_decode_string_23',
+    title: 'Decode String (Nested Run-Length Expander)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_stack_nested_decode_l2',
+    description: 'Given an encoded string, return its decoded string where k[encoded_string] repeats the encoded string exactly k times. In serialization protocols, this decompresses nested run-length payload buffers.',
+    starterCode: {
+      typescript: 'function decodeString(s: string): string {\n  // Your solution here\n  return "";\n}',
+      python: 'def decode_string(s):\n    # Your solution here\n    return ""'
+    },
+    testCases: [
+      { input: 's = "3[a]2[bc]"', expectedOutput: '"aaabcbc"' },
+      { input: 's = "3[a2[c]]"', expectedOutput: '"accaccacc"' },
+      { input: 's = "2[abc]3[cd]ef"', expectedOutput: '"abcabccdcdcdef"', isHidden: true },
+      { input: 's = "abc"', expectedOutput: '"abc"', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Stack', 'Strings', 'Decompression', 'Apprentice'],
+    hint: 'Use two stacks: one for repeat counts and one for parent strings. On "[", push current string and count; on "]", pop and repeat current string.',
+    complexityTarget: 'Time: O(Output Length) | Space: O(N)'
+  },
+
+  // ==========================================
+  // ADVANCED TIER: 10 NEW SYSTEMS & GRAPH/DP CHALLENGES (51-60)
+  // ==========================================
+  {
+    id: 'war_trapping_rain_water_11',
+    title: 'Trapping Rain Water (Two-Pointer Reservoir)',
+    difficulty: 'advanced',
+    competencyId: 'comp_two_pointers_reservoir_l3',
+    description: 'Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining. In reservoir compute engines, this computes trapped volume.',
+    starterCode: {
+      typescript: 'function trap(height: number[]): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def trap(height):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]', expectedOutput: '6' },
+      { input: 'height = [4, 2, 0, 3, 2, 5]', expectedOutput: '9' },
+      { input: 'height = [1, 2, 3, 4]', expectedOutput: '0', isHidden: true },
+      { input: 'height = [3, 0, 2, 0, 4]', expectedOutput: '7', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Two Pointers', 'Stack', 'Dynamic Programming', 'Master'],
+    hint: 'Use two pointers from left and right. Maintain maxLeft and maxRight. The water trapped at current pointer is bounded by the lower boundary minus current height.',
+    complexityTarget: 'Time: O(N) | Space: O(1)'
+  },
+  {
+    id: 'war_sliding_window_max_12',
+    title: 'Sliding Window Maximum (Monotonic Deque)',
+    difficulty: 'advanced',
+    competencyId: 'comp_deque_sliding_window_l3',
+    description: 'You are given an array of integers nums and a sliding window of size k moving from left to right. Return the max sliding window. In algorithmic trading, this extracts rolling peak price volatility.',
+    starterCode: {
+      typescript: 'function maxSlidingWindow(nums: number[], k: number): number[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def max_sliding_window(nums, k):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'nums = [1, 3, -1, -3, 5, 3, 6, 7], k = 3', expectedOutput: '[3, 3, 5, 5, 6, 7]' },
+      { input: 'nums = [1], k = 1', expectedOutput: '[1]' },
+      { input: 'nums = [1, -1], k = 1', expectedOutput: '[1, -1]', isHidden: true },
+      { input: 'nums = [9, 11], k = 2', expectedOutput: '[11]', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Deque', 'Sliding Window', 'Trading', 'Master'],
+    hint: 'Use a double-ended queue (deque) storing indices. Maintain monotonically decreasing values. Evict indices outside current window i - k + 1.',
+    complexityTarget: 'Time: O(N) | Space: O(K)'
+  },
+  {
+    id: 'war_word_break_13',
+    title: 'Word Break (Dynamic Dictionary Segmentation)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_word_break_l3',
+    description: 'Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of dictionary words. In URL routing and search queries, this segments unspaced slugs.',
+    starterCode: {
+      typescript: 'function wordBreak(s: string, wordDict: string[]): boolean {\n  // Your solution here\n  return false;\n}',
+      python: 'def word_break(s, wordDict):\n    # Your solution here\n    return False'
+    },
+    testCases: [
+      { input: 's = "leetcode", wordDict = ["leet", "code"]', expectedOutput: 'true' },
+      { input: 's = "applepenapple", wordDict = ["apple", "pen"]', expectedOutput: 'true' },
+      { input: 's = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]', expectedOutput: 'false', isHidden: true },
+      { input: 's = "cars", wordDict = ["car", "ca", "rs"]', expectedOutput: 'true', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Dynamic Programming', 'Trie', 'NLP', 'Master'],
+    hint: 'Use a boolean array dp of size s.length + 1 where dp[0] = true. For each i, check all j < i: if dp[j] is true and s[j...i] is in wordSet, mark dp[i] = true.',
+    complexityTarget: 'Time: O(N^2) | Space: O(N)'
+  },
+  {
+    id: 'war_longest_increasing_subsequence_14',
+    title: 'Longest Increasing Subsequence (Patience Sorting)',
+    difficulty: 'advanced',
+    competencyId: 'comp_binary_search_lis_l3',
+    description: 'Given an integer array nums, return the length of the longest strictly increasing subsequence. In distributed telemetry, this measures packet reordering monotonicity.',
+    starterCode: {
+      typescript: 'function lengthOfLIS(nums: number[]): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def length_of_lis(nums):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'nums = [10, 9, 2, 5, 3, 7, 101, 18]', expectedOutput: '4' },
+      { input: 'nums = [0, 1, 0, 3, 2, 3]', expectedOutput: '4' },
+      { input: 'nums = [7, 7, 7, 7, 7, 7, 7]', expectedOutput: '1', isHidden: true },
+      { input: 'nums = [4, 10, 4, 3, 8, 9]', expectedOutput: '3', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Binary Search', 'Dynamic Programming', 'Patience Sorting', 'Master'],
+    hint: 'Maintain an array tails where tails[i] stores the smallest tail of all increasing subsequences of length i+1. Use binary search to find replacement index.',
+    complexityTarget: 'Time: O(N log N) | Space: O(N)'
+  },
+  {
+    id: 'war_course_schedule_15',
+    title: 'Course Schedule (DAG Dependency Resolution)',
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_topological_cycle_l3',
+    description: 'There are a total of numCourses courses. Some courses have prerequisites [a, b] meaning you must take b before a. Return true if you can finish all courses without a circular dependency. This powers package managers like npm and Bazel.',
+    starterCode: {
+      typescript: 'function canFinish(numCourses: number, prerequisites: number[][]): boolean {\n  // Your solution here\n  return false;\n}',
+      python: 'def can_finish(num_courses, prerequisites):\n    # Your solution here\n    return False'
+    },
+    testCases: [
+      { input: 'numCourses = 2, prerequisites = [[1, 0]]', expectedOutput: 'true' },
+      { input: 'numCourses = 2, prerequisites = [[1, 0], [0, 1]]', expectedOutput: 'false' },
+      { input: 'numCourses = 3, prerequisites = [[1, 0], [2, 1]]', expectedOutput: 'true', isHidden: true },
+      { input: 'numCourses = 4, prerequisites = [[1, 0], [2, 1], [3, 2], [1, 3]]', expectedOutput: 'false', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Graph', 'Topological Sort', 'Cycle Detection', 'Master'],
+    hint: "Use Kahn's algorithm: compute indegree for each course. Enqueue courses with indegree 0. Process queue and decrement neighbor indegrees. If count of processed courses equals numCourses, return true.",
+    complexityTarget: 'Time: O(V + E) | Space: O(V + E)'
+  },
+  {
+    id: 'war_clone_graph_16',
+    title: 'Clone Graph (Cyclic Object Graph Replicator)',
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_clone_l3',
+    description: 'Given an adjacency list representing an undirected graph, return a deep copy (clone) of the graph representation. In distributed microservices, this replicates state topologies across regional nodes.',
+    starterCode: {
+      typescript: 'function cloneGraphNodes(adjList: number[][]): number[][] {\n  // Your solution here\n  return [];\n}',
+      python: 'def clone_graph_nodes(adj_list):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      { input: 'adjList = [[2, 4], [1, 3], [2, 4], [1, 3]]', expectedOutput: '[[2, 4], [1, 3], [2, 4], [1, 3]]' },
+      { input: 'adjList = [[]]', expectedOutput: '[[]]' },
+      { input: 'adjList = []', expectedOutput: '[]', isHidden: true },
+      { input: 'adjList = [[2], [1]]', expectedOutput: '[[2], [1]]', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Graph', 'BFS', 'DFS', 'Cloning', 'Master'],
+    hint: 'Use a visited Map mapping original 1-based node indices to their cloned copies. Perform BFS/DFS traversal to copy each node and its adjacency list.',
+    complexityTarget: 'Time: O(V + E) | Space: O(V)'
+  },
+  {
+    id: 'war_token_bucket_rate_limiter_17',
+    title: 'Token Bucket Rate Limiter Engine',
+    difficulty: 'advanced',
+    competencyId: 'comp_systems_token_bucket_l3',
+    description: 'Simulate a Token Bucket Rate Limiter with capacity, refillRatePerSec, and a stream of requests with { timestamp, tokensRequested }. Return boolean array indicating allowed/dropped requests. Essential for API Gateways at Stripe and Cloudflare.',
+    starterCode: {
+      typescript: 'function simulateRateLimiter(capacity: number, refillRatePerSec: number, requests: { timestamp: number; tokensRequested: number }[]): boolean[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def simulate_rate_limiter(capacity, refill_rate_per_sec, requests):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      {
+        input: 'capacity = 5, refill = 1, requests = [{timestamp: 0, tokensRequested: 3}, {timestamp: 0, tokensRequested: 3}, {timestamp: 2, tokensRequested: 3}]',
+        expectedOutput: '[true, false, true]'
+      },
+      {
+        input: 'capacity = 10, refill = 2, requests = [{timestamp: 1, tokensRequested: 10}, {timestamp: 2, tokensRequested: 3}, {timestamp: 3, tokensRequested: 3}]',
+        expectedOutput: '[true, false, true]'
+      },
+      {
+        input: 'capacity = 1, refill = 0.5, requests = [{timestamp: 0, tokensRequested: 1}, {timestamp: 1, tokensRequested: 1}]',
+        expectedOutput: '[true, false]',
+        isHidden: true
+      }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Distributed Systems', 'Rate Limiting', 'Traffic Shaping', 'Master'],
+    hint: 'Track current tokens and lastRefillTimestamp. On each request, add elapsed_time * refillRatePerSec capped at capacity. If tokens >= requested, subtract and record true; else false.',
+    complexityTarget: 'Time: O(N) | Space: O(N)'
+  },
+  {
+    id: 'war_median_data_stream_18',
+    title: 'Find Median from Data Stream (Dual Heaps)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dual_heap_median_l3',
+    description: 'Maintain the running median of numbers inserted dynamically from an active stream. Operations include ["addNum", "findMedian"]. In observability engines, this tracks continuous P50 latency telemetry.',
+    starterCode: {
+      typescript: 'function processMedianStream(operations: string[], values: number[][]): number[] {\n  // Your solution here\n  return [];\n}',
+      python: 'def process_median_stream(operations, values):\n    # Your solution here\n    return []'
+    },
+    testCases: [
+      {
+        input: 'ops = ["addNum", "addNum", "findMedian", "addNum", "findMedian"], vals = [[1], [2], [], [3], []]',
+        expectedOutput: '[1.5, 2]'
+      },
+      {
+        input: 'ops = ["addNum", "findMedian"], vals = [[5], []]',
+        expectedOutput: '[5]'
+      },
+      {
+        input: 'ops = ["addNum", "addNum", "addNum", "addNum", "findMedian"], vals = [[6], [10], [2], [8], []]',
+        expectedOutput: '[7]',
+        isHidden: true
+      }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Heap', 'Data Stream', 'Telemetry', 'Master'],
+    hint: 'Balance two halves: a max-heap for the lower half and a min-heap for the upper half. If sizes are equal, median is average of roots; otherwise root of larger heap.',
+    complexityTarget: 'Time: O(log N) insert, O(1) find | Space: O(N)'
+  },
+  {
+    id: 'war_word_ladder_19',
+    title: 'Word Ladder (Shortest Genetic Mutation BFS)',
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_bfs_word_ladder_l3',
+    description: 'Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, changing one letter at a time. In bioinformatics, this models minimal genetic mutation paths.',
+    starterCode: {
+      typescript: 'function ladderLength(beginWord: string, endWord: string, wordList: string[]): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def ladder_length(begin_word, end_word, word_list):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]', expectedOutput: '5' },
+      { input: 'beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]', expectedOutput: '0' },
+      { input: 'beginWord = "a", endWord = "c", wordList = ["a","b","c"]', expectedOutput: '2', isHidden: true },
+      { input: 'beginWord = "hot", endWord = "dog", wordList = ["hot","dog"]', expectedOutput: '0', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Graph', 'BFS', 'Shortest Path', 'Master'],
+    hint: "Use BFS level by level. Store wordList in a Set. For the current word, try substituting every position from 'a' to 'z'. If a mutated word is in the set, remove it and enqueue with step+1.",
+    complexityTarget: 'Time: O(M^2 * N) | Space: O(M * N)'
+  },
+  {
+    id: 'war_edit_distance_20',
+    title: 'Edit Distance (Levenshtein Diff Engine)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_levenshtein_l3',
+    description: 'Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2 (insert, delete, or replace a character). In version control engines (Git), this powers diff line reconciliation.',
+    starterCode: {
+      typescript: 'function minDistance(word1: string, word2: string): number {\n  // Your solution here\n  return 0;\n}',
+      python: 'def min_distance(word1, word2):\n    # Your solution here\n    return 0'
+    },
+    testCases: [
+      { input: 'word1 = "horse", word2 = "ros"', expectedOutput: '3' },
+      { input: 'word1 = "intention", word2 = "execution"', expectedOutput: '5' },
+      { input: 'word1 = "", word2 = "a"', expectedOutput: '1', isHidden: true },
+      { input: 'word1 = "abc", word2 = "abc"', expectedOutput: '0', isHidden: true }
+    ],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 250,
+    tags: ['Dynamic Programming', 'Strings', 'Levenshtein', 'Master'],
+    hint: 'Build a 2D table dp[m+1][n+1]. If characters match, dp[i][j] = dp[i-1][j-1]. Otherwise, dp[i][j] = 1 + min(insert, delete, replace).',
+    complexityTarget: 'Time: O(M * N) | Space: O(M * N)'
   }
+
 ];
 
 export class CodeWarsApiService {
