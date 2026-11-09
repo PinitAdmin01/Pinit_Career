@@ -491,13 +491,13 @@ export default function SignupPage() {
         /* Symmetric card levitation (Zero perspective skewing, purely parallel edges) */
         @keyframes symmetricLevitateDark {
           0% {
-            transform: rotate(-5.5deg) translateY(-5%);
+            transform: rotate(-5.5deg) translateY(-10%);
           }
           50% {
-            transform: rotate(-5.5deg) translateY(calc(-5% - 12px));
+            transform: rotate(-5.5deg) translateY(calc(-10% - 12px));
           }
           100% {
-            transform: rotate(-5.5deg) translateY(-5%);
+            transform: rotate(-5.5deg) translateY(-10%);
           }
         }
 
@@ -556,11 +556,11 @@ export default function SignupPage() {
 
         @keyframes shadowBreathe {
           0%, 100% {
-            transform: scale(0.96) translateY(-5%);
+            transform: scale(0.96) translateY(-10%);
             opacity: 0.45;
           }
           50% {
-            transform: scale(1.08) translateY(calc(-5% + 8px));
+            transform: scale(1.08) translateY(calc(-10% + 8px));
             opacity: 0.75;
           }
         }
@@ -725,7 +725,7 @@ export default function SignupPage() {
         ══════════════════════════════════════════════════════════ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32, padding: '12px 6px' }}>
           {/* 1. Symmetrical Floating Holographic Student ID Card */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', marginTop: '-5%' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', marginTop: '-10%' }}>
             {/* Breathing Sapphire Blue Shadow Underneath Floating Card */}
             <div
               style={{
@@ -919,8 +919,8 @@ export default function SignupPage() {
           {/* 2. Official Brand Lockup & Aerospace Telemetry Spectrum HUD (Task 1: Moved 10% & 5% bigger) */}
           <div
             style={{
-              marginTop: '-5%',
-              transform: 'translateY(-5%) scale(1.05)',
+              marginTop: '0%',
+              transform: 'translateY(0%) scale(1.05)',
               transformOrigin: 'top left',
               display: 'flex',
               flexDirection: 'column',
@@ -1134,7 +1134,7 @@ export default function SignupPage() {
             style={{
               width: '100%',
               maxWidth: 540, // Task 2: 20% bigger (450 * 1.2 = 540px)
-              transform: 'translateX(-10%)', // Task 2: Repositioned 10% leftside
+              transform: 'translateX(0%)', // Moved 10% toward right side
               borderRadius: 28,
               background: isDark ? '#15171d' : '#ffffff',
               border: `1px solid ${isDark ? '#262933' : '#e2e8f0'}`,
