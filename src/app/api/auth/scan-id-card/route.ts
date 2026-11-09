@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { parseCollegeCardFromText, generateCollegePinItId, CollegeMetadata, isInvalidStudentName } from '@/lib/utils/pinitIdGenerator';
-import Tesseract from 'tesseract.js';
 
 const VISION_SYSTEM_PROMPT = `You are a specialist Document AI OCR vision model analyzing university, college, and school identity cards.
 Carefully examine the visual layout of this student ID card.
@@ -48,7 +47,7 @@ function sanitizeAiOutput(parsed: any, rawReply: string): CollegeMetadata | null
  * Sub-second LPU inference speed on Groq Cloud.
  */
 async function tryGroqVision(mimeType: string, base64Image: string): Promise<CollegeMetadata | null> {
-  const groqKey = process.env.GROQ_API_KEY;
+  const groqKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
   if (!groqKey) return null;
 
   try {
@@ -156,33 +155,6 @@ async function tryGeminiVision(mimeType: string, base64Image: string): Promise<C
   }
 }
 
-/**
- * Layer 2: In-Process Tesseract.js OCR Engine
- * Directly scans the image buffer on the server without any external API keys.
- */
-async function tryTesseractOcr(buffer: Buffer): Promise<CollegeMetadata | null> {
-  try {
-    const { data } = await Tesseract.recognize(buffer, 'eng');
-    const rawText = data?.text?.trim() || '';
-    if (!rawText || rawText.length < 5) return null;
-
-    const parsed = parseCollegeCardFromText(rawText);
-    return {
-      collegeName: parsed.collegeName || 'Accredited Institution',
-      collegeCode: parsed.collegeCode || 'COL',
-      department: parsed.department || 'General Studies',
-      departmentCode: parsed.departmentCode || 'GEN',
-      rollNumber: parsed.rollNumber || '001',
-      studentName: parsed.studentName || '',
-      rawExtractedText: rawText.slice(0, 300),
-      confidence: Math.min(1, Math.max(0.1, (data.confidence || 75) / 100)),
-    };
-  } catch (err: any) {
-    console.warn('[ScanIdCard API] Tesseract OCR error:', err?.message);
-    return null;
-  }
-}
-
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -217,29 +189,21 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 3. Layer 2: If no cloud AI key or call failed, run Server Tesseract.js OCR on raw image
-    if (!extractedMeta) {
-      extractedMeta = await tryTesseractOcr(buffer);
-      if (extractedMeta) {
-        extractionSource = 'server-tesseract-ocr';
-      }
-    }
-
-    // 4. Layer 3: Safe fallback using file metadata
+    // 3. Layer 2: Safe fallback using file metadata
     if (!extractedMeta) {
       const cleanFileName = file.name ? file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ') : '';
       extractedMeta = parseCollegeCardFromText(cleanFileName, fallbackName);
       extractionSource = 'fallback-to-client';
     }
 
-    // 5. Generate Canonical PinIT ID
+    // 4. Generate Canonical PinIT ID
     const pinitId = generateCollegePinItId({
       collegeCode: extractedMeta.collegeCode,
       departmentCode: extractedMeta.departmentCode,
       rollNumber: extractedMeta.rollNumber,
     });
 
-    // 6. Securely upload raw image to Supabase Storage Bucket 'student-id-cards' if available
+    // 5. Securely upload raw image to Supabase Storage Bucket 'student-id-cards' if available
     let storagePath = '';
     try {
       const admin = getSupabaseAdmin();

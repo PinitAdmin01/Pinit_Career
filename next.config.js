@@ -42,6 +42,7 @@ const CSP = [
     'https://pinit-voice-service.onrender.com',
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
+    'https://api.groq.com',
     'https://cdn.jsdelivr.net',
     'https://tessdata.projectnaptha.com',
     'https://*.projectnaptha.com',

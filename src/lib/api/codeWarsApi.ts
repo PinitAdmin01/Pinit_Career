@@ -1810,8 +1810,1177 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     tags: ['Dynamic Programming', 'Strings', 'Levenshtein', 'Master'],
     hint: 'Build a 2D table dp[m+1][n+1]. If characters match, dp[i][j] = dp[i-1][j-1]. Otherwise, dp[i][j] = 1 + min(insert, delete, replace).',
     complexityTarget: 'Time: O(M * N) | Space: O(M * N)'
-  }
-
+  },
+  {
+    id: 'war_plus_one_21',
+    title: 'Plus One (Arbitrary-Precision BigInt Addition)',
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_bigint_plus_one_l1',
+    description: 'You are maintaining a high-throughput ledger transaction counter where integer values exceed standard 64-bit IEEE float representations and are stored as digit arrays. Given a non-empty array of decimal digits representing a non-negative integer, increment the integer by one. The digits are stored such that the most significant digit is at the head of the list, and each element contains a single digit. You may assume the integer does not contain any leading zero, except the number 0 itself.',
+    starterCode: {
+      typescript: "function plusOne(digits: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def plus_one(digits):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[1, 2, 3]",
+            "expectedOutput": "[1, 2, 4]",
+            "explanation": "123 + 1 = 124"
+      },
+      {
+            "input": "[4, 3, 2, 1]",
+            "expectedOutput": "[4, 3, 2, 2]",
+            "explanation": "4321 + 1 = 4322"
+      },
+      {
+            "input": "[9]",
+            "expectedOutput": "[1, 0]",
+            "explanation": "Ripple carry: 9 + 1 = 10"
+      },
+      {
+            "input": "[9, 9, 9]",
+            "expectedOutput": "[1, 0, 0, 0]",
+            "explanation": "Cascading carry across all digits"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["arrays","math","arbitrary-precision"],
+    hint: 'Iterate from the least significant digit (right to left). If the digit is less than 9, increment and return immediately. If it is 9, set it to 0 and propagate the carry. If you exit the loop with an active carry, prepend 1 to the array.',
+    complexityTarget: 'Time: O(N) | Space: O(1) auxiliary',
+  },
+  {
+    id: 'war_longest_common_prefix_22',
+    title: 'Longest Common Prefix (API Gateway Trie Path)',
+    difficulty: 'basic',
+    competencyId: 'comp_strings_common_prefix_l1',
+    description: 'An API gateway needs to group incoming request endpoints under the most specific shared URL root path to optimize caching and route table lookups. Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string "".',
+    starterCode: {
+      typescript: "function longestCommonPrefix(strs: string[]): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def longest_common_prefix(strs):\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "[\"flower\",\"flow\",\"flight\"]",
+            "expectedOutput": "\"fl\"",
+            "explanation": "Common prefix across all three strings is \"fl\""
+      },
+      {
+            "input": "[\"dog\",\"racecar\",\"car\"]",
+            "expectedOutput": "\"\"",
+            "explanation": "No common prefix among the input strings"
+      },
+      {
+            "input": "[\"interspecies\",\"interstellar\",\"interstate\"]",
+            "expectedOutput": "\"inters\"",
+            "explanation": "Prefix matches up through character s"
+      },
+      {
+            "input": "[\"single\"]",
+            "expectedOutput": "\"single\"",
+            "explanation": "Array with one string has that string as prefix"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["strings","prefix-trie","scan"],
+    hint: 'Take the first string as your prefix candidate. Loop through the remaining strings; while the current string does not start with your prefix candidate, trim the last character off the candidate until it matches or becomes empty.',
+    complexityTarget: 'Time: O(S) where S is sum of all characters | Space: O(1)',
+  },
+  {
+    id: 'war_remove_duplicates_sorted_23',
+    title: 'Remove Duplicates from Sorted Array',
+    difficulty: 'basic',
+    competencyId: 'comp_two_pointers_dedup_l1',
+    description: 'In a real-time timeseries database, duplicate sensor heartbeats with identical timestamps must be compacted in-place to minimize cache footprint. Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Return the compacted array containing only the unique elements in their original relative order.',
+    starterCode: {
+      typescript: "function removeDuplicates(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def remove_duplicates(nums):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[1, 1, 2]",
+            "expectedOutput": "[1, 2]",
+            "explanation": "Compacted unique sequence is [1, 2]"
+      },
+      {
+            "input": "[0, 0, 1, 1, 1, 2, 2, 3, 3, 4]",
+            "expectedOutput": "[0, 1, 2, 3, 4]",
+            "explanation": "Compacted unique sequence is [0, 1, 2, 3, 4]"
+      },
+      {
+            "input": "[1]",
+            "expectedOutput": "[1]",
+            "explanation": "Single element is already unique"
+      },
+      {
+            "input": "[5, 5, 5, 5]",
+            "expectedOutput": "[5]",
+            "explanation": "All duplicates reduced to single 5"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["arrays","two-pointers","in-place"],
+    hint: 'Use a slow pointer and a fast pointer. The slow pointer tracks the position of the last unique element. When the fast pointer encounters a new value distinct from nums[slow], advance slow and copy the value over.',
+    complexityTarget: 'Time: O(N) | Space: O(1) in-place',
+  },
+  {
+    id: 'war_valid_perfect_square_24',
+    title: 'Valid Perfect Square (Clock Timing Jitter)',
+    difficulty: 'basic',
+    competencyId: 'comp_math_binary_search_square_l1',
+    description: 'High-frequency telemetry timestamps in an aerospace flight controller must verify whether clock drift cycles correspond to exact square wave harmonics without invoking floating-point hardware instructions. Given a positive integer num, write a function that returns true if num is a perfect square or false otherwise, without using any built-in square root functions.',
+    starterCode: {
+      typescript: "function isPerfectSquare(num: number): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_perfect_square(num):\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "16",
+            "expectedOutput": "true",
+            "explanation": "4 * 4 = 16"
+      },
+      {
+            "input": "14",
+            "expectedOutput": "false",
+            "explanation": "14 is not a perfect square"
+      },
+      {
+            "input": "1",
+            "expectedOutput": "true",
+            "explanation": "1 * 1 = 1"
+      },
+      {
+            "input": "100000000",
+            "expectedOutput": "true",
+            "explanation": "10000 * 10000 = 100000000"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["math","binary-search","square-root"],
+    hint: 'Binary search the integer domain between 1 and num. For mid, calculate mid * mid. If mid * mid == num, return true. If square is greater than num, search left; otherwise search right.',
+    complexityTarget: 'Time: O(log N) | Space: O(1)',
+  },
+  {
+    id: 'war_excel_column_number_25',
+    title: 'Excel Sheet Column Number (Base-26 Bijective)',
+    difficulty: 'basic',
+    competencyId: 'comp_math_base26_excel_l1',
+    description: 'An enterprise reporting engine exports analytics into Excel formats and must convert spreadsheet column headers into zero-based column indices. Given a string columnTitle that represents the column title as it appears in an Excel sheet, return its corresponding column number (1-indexed: A -> 1, B -> 2, Z -> 26, AA -> 27, AB -> 28).',
+    starterCode: {
+      typescript: "function titleToNumber(columnTitle: string): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def title_to_number(column_title):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "\"A\"",
+            "expectedOutput": "1",
+            "explanation": "Single column A is 1"
+      },
+      {
+            "input": "\"AB\"",
+            "expectedOutput": "28",
+            "explanation": "A*26 + B = 1*26 + 2 = 28"
+      },
+      {
+            "input": "\"ZY\"",
+            "expectedOutput": "701",
+            "explanation": "Z*26 + Y = 26*26 + 25 = 701"
+      },
+      {
+            "input": "\"FXSHRXW\"",
+            "expectedOutput": "2147483647",
+            "explanation": "Maximum 32-bit integer column coordinate"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["math","string-conversion","radix-26"],
+    hint: 'Treat this as a positional base-26 numeral system. For each character from left to right, multiply your running total by 26 and add (char code - 64).',
+    complexityTarget: 'Time: O(N) | Space: O(1)',
+  },
+  {
+    id: 'war_max_average_subarray_26',
+    title: 'Maximum Average Subarray I (Fixed Telemetry Window)',
+    difficulty: 'basic',
+    competencyId: 'comp_sliding_window_fixed_avg_l1',
+    description: 'An infrastructure monitor evaluates CPU load across contiguous k-second bursts to identify maximum average resource spikes. You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Answers with a small numerical difference are accepted.',
+    starterCode: {
+      typescript: "function findMaxAverage(nums: number[], k: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def find_max_average(nums, k):\n    # Your solution here\n    return 0.0",
+    },
+    testCases: [
+      {
+            "input": "[1, 12, -5, -6, 50, 3], k = 4",
+            "expectedOutput": "12.75",
+            "explanation": "Subarray [12, -5, -6, 50] has max sum 51 / 4 = 12.75"
+      },
+      {
+            "input": "[5], k = 1",
+            "expectedOutput": "5.0",
+            "explanation": "Single element average is the element itself"
+      },
+      {
+            "input": "[0, 4, 0, 3, 2], k = 1",
+            "expectedOutput": "4.0",
+            "explanation": "Maximum single element is 4"
+      },
+      {
+            "input": "[-1], k = 1",
+            "expectedOutput": "-1.0",
+            "explanation": "Negative numbers handled correctly"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["sliding-window","arrays","statistics"],
+    hint: 'Compute the sum of the first k elements as your window sum. Then slide the window across the array: add the new incoming element and subtract the outgoing element. Maintain the maximum sum seen, then divide by k at the end.',
+    complexityTarget: 'Time: O(N) | Space: O(1)',
+  },
+  {
+    id: 'war_can_place_flowers_27',
+    title: 'Can Place Flowers (Non-Adjacent Thermal Spacing)',
+    difficulty: 'basic',
+    competencyId: 'comp_greedy_spacing_flowers_l1',
+    description: 'A data center server rack enforces strict thermal spacing: high-power GPU units cannot be installed adjacent to one another without causing overheating. You have a long binary array flowerbed where 0 means empty slot and 1 means occupied, and an integer n. Return true if n new units can be placed in the flowerbed without violating the no-adjacent rule, and false otherwise.',
+    starterCode: {
+      typescript: "function canPlaceFlowers(flowerbed: number[], n: number): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def can_place_flowers(flowerbed, n):\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "[1, 0, 0, 0, 1], n = 1",
+            "expectedOutput": "true",
+            "explanation": "Can plant 1 unit at index 2"
+      },
+      {
+            "input": "[1, 0, 0, 0, 1], n = 2",
+            "expectedOutput": "false",
+            "explanation": "Cannot plant 2 units without violating adjacency"
+      },
+      {
+            "input": "[0, 0, 1, 0, 1], n = 1",
+            "expectedOutput": "true",
+            "explanation": "Can plant at index 0"
+      },
+      {
+            "input": "[0], n = 1",
+            "expectedOutput": "true",
+            "explanation": "Single empty slot can accommodate 1 unit"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["greedy","arrays","allocation"],
+    hint: 'Iterate through the slots. A slot i can be occupied if flowerbed[i] == 0 AND both left neighbor (or edge) and right neighbor (or edge) are 0. When placed, mark flowerbed[i] = 1 and decrement n. Return n <= 0.',
+    complexityTarget: 'Time: O(N) | Space: O(1)',
+  },
+  {
+    id: 'war_isomorphic_strings_28',
+    title: 'Isomorphic Strings (Schema Key Remapping)',
+    difficulty: 'basic',
+    competencyId: 'comp_hash_map_isomorphism_l1',
+    description: 'A database migration engine converts legacy data records into a new normalized schema by remapping string tokens. Two strings s and t are isomorphic if the characters in s can be replaced to get t. All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself. Determine if s and t are isomorphic.',
+    starterCode: {
+      typescript: "function isIsomorphic(s: string, t: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_isomorphic(s, t):\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "s = \"egg\", t = \"add\"",
+            "expectedOutput": "true",
+            "explanation": "e->a, g->d bijective mapping"
+      },
+      {
+            "input": "s = \"foo\", t = \"bar\"",
+            "expectedOutput": "false",
+            "explanation": "o cannot map to both a and r"
+      },
+      {
+            "input": "s = \"paper\", t = \"title\"",
+            "expectedOutput": "true",
+            "explanation": "p->t, a->i, e->l, r->e bijective mapping"
+      },
+      {
+            "input": "s = \"badc\", t = \"baba\"",
+            "expectedOutput": "false",
+            "explanation": "b and d cannot both map to b"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["hash-map","strings","bijection"],
+    hint: 'Maintain two hash maps: s_to_t and t_to_s. For each index, ensure s[i] consistently maps to t[i] and t[i] consistently maps to s[i]. If either mapping conflicts, return false.',
+    complexityTarget: 'Time: O(N) | Space: O(1) (bounded by ASCII/alphabet size)',
+  },
+  {
+    id: 'war_find_pivot_index_29',
+    title: 'Find Pivot Index (Balanced Ledger Equator)',
+    difficulty: 'basic',
+    competencyId: 'comp_prefix_sum_pivot_index_l1',
+    description: 'An automated forensic auditing engine identifies the exact inflection point in a financial ledger where transactions on the left perfectly balance transactions on the right. Given an array of integers nums, calculate the pivot index. The pivot index is the index where the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index\'s right. Return the leftmost pivot index. If no such index exists, return -1.',
+    starterCode: {
+      typescript: "function pivotIndex(nums: number[]): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def pivot_index(nums):\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "[1, 7, 3, 6, 5, 6]",
+            "expectedOutput": "3",
+            "explanation": "Left sum = 1+7+3 = 11, Right sum = 5+6 = 11"
+      },
+      {
+            "input": "[1, 2, 3]",
+            "expectedOutput": "-1",
+            "explanation": "No index satisfies left sum == right sum"
+      },
+      {
+            "input": "[2, 1, -1]",
+            "expectedOutput": "0",
+            "explanation": "Left sum = 0, Right sum = 1 + (-1) = 0"
+      },
+      {
+            "input": "[-1, -1, 0, 1, 1, 0]",
+            "expectedOutput": "5",
+            "explanation": "Left sum = 0, Right sum = 0"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["prefix-sum","arrays","equilibrium"],
+    hint: 'First compute the total sum of the entire array. Then maintain a running leftSum. At index i, rightSum is totalSum - leftSum - nums[i]. If leftSum == rightSum, return i. Update leftSum += nums[i].',
+    complexityTarget: 'Time: O(N) | Space: O(1)',
+  },
+  {
+    id: 'war_symmetric_tree_30',
+    title: 'Symmetric Tree (Bilateral Mirror Verification)',
+    difficulty: 'basic',
+    competencyId: 'comp_trees_symmetric_mirror_l1',
+    description: 'A computer-aided design (CAD) validation engine analyzes 3D mechanical components represented as binary assembly trees to guarantee perfect bilateral symmetry across the manufacturing center line. Given the root of a binary tree as an array in level-order, check whether it is a mirror of itself (i.e., symmetric around its center).',
+    starterCode: {
+      typescript: "function isSymmetric(root: (number | null)[]): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_symmetric(root):\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "[1, 2, 2, 3, 4, 4, 3]",
+            "expectedOutput": "true",
+            "explanation": "Bilateral mirror reflection matches perfectly"
+      },
+      {
+            "input": "[1, 2, 2, null, 3, null, 3]",
+            "expectedOutput": "false",
+            "explanation": "Right subtree orientation does not mirror left"
+      },
+      {
+            "input": "[1]",
+            "expectedOutput": "true",
+            "explanation": "Single root is symmetric"
+      },
+      {
+            "input": "[]",
+            "expectedOutput": "true",
+            "explanation": "Empty tree is symmetric"
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 64,
+    xpReward: 100,
+    tags: ["trees","recursion","symmetry"],
+    hint: 'Construct nodes and define a helper function isMirror(t1, t2). Two trees are mirrors if: both are null (true), one is null (false), their values are equal, and isMirror(t1.left, t2.right) and isMirror(t1.right, t2.left) are both true.',
+    complexityTarget: 'Time: O(N) | Space: O(H) where H is tree height',
+  },
+  {
+    id: 'war_insert_interval_24',
+    title: 'Insert Interval (Calendar Schedule Merger)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_intervals_insert_merge_l2',
+    description: 'An executive calendar scheduling engine must insert a high-priority meeting into a user\'s existing calendar without overlaps. You are given an array of non-overlapping intervals intervals where intervals[i] = [start_i, end_i] sorted in ascending order by start_i, and a newInterval = [start, end]. Insert newInterval into intervals such that intervals is still sorted in ascending order and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).',
+    starterCode: {
+      typescript: "function insertInterval(intervals: number[][], newInterval: number[]): number[][] {\n  // Your solution here\n  return [];\n}",
+      python: "def insert_interval(intervals, new_interval):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "intervals = [[1, 3], [6, 9]], newInterval = [2, 5]",
+            "expectedOutput": "[[1, 5], [6, 9]]",
+            "explanation": "[2, 5] merges with [1, 3] to form [1, 5]"
+      },
+      {
+            "input": "intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], newInterval = [4, 8]",
+            "expectedOutput": "[[1, 2], [3, 10], [12, 16]]",
+            "explanation": "[4, 8] overlaps [3, 5], [6, 7], [8, 10] into [3, 10]"
+      },
+      {
+            "input": "intervals = [], newInterval = [5, 7]",
+            "expectedOutput": "[[5, 7]]",
+            "explanation": "Inserting into empty calendar yields single interval"
+      },
+      {
+            "input": "intervals = [[1, 5]], newInterval = [2, 3]",
+            "expectedOutput": "[[1, 5]]",
+            "explanation": "New interval fully contained inside existing interval"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["intervals","arrays","scheduling"],
+    hint: 'Separate intervals into three sequential phases: 1) Add all intervals that end before newInterval begins. 2) Merge all overlapping intervals by expanding newInterval = [min(start), max(end)]. 3) Add all intervals that begin after newInterval ends.',
+    complexityTarget: 'Time: O(N) | Space: O(N) output',
+  },
+  {
+    id: 'war_spiral_matrix_25',
+    title: 'Spiral Matrix (Sensor Raster Scanning Pattern)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_matrix_spiral_traversal_l2',
+    description: 'An optical satellite imaging sensor sweeps geographical grid coordinates in a clockwise inward spiral to maintain continuous focal plane exposure. Given an m x n matrix, return all elements of the matrix in spiral order (top row left-to-right, right column top-to-bottom, bottom row right-to-left, left column bottom-to-top, repeating inward).',
+    starterCode: {
+      typescript: "function spiralOrder(matrix: number[][]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def spiral_order(matrix):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]",
+            "expectedOutput": "[1, 2, 3, 6, 9, 8, 7, 4, 5]",
+            "explanation": "3x3 spiral perimeter traversal"
+      },
+      {
+            "input": "[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]",
+            "expectedOutput": "[1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7]",
+            "explanation": "3x4 rectangular spiral traversal"
+      },
+      {
+            "input": "[[1]]",
+            "expectedOutput": "[1]",
+            "explanation": "Single element matrix"
+      },
+      {
+            "input": "[[1, 2], [3, 4]]",
+            "expectedOutput": "[1, 2, 4, 3]",
+            "explanation": "2x2 square spiral"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["matrix","simulation","traversal"],
+    hint: 'Maintain four boundary pointers: top, bottom, left, and right. In a while loop (top <= bottom && left <= right), traverse top row, increment top; traverse right col, decrement right; traverse bottom row (if top <= bottom), decrement bottom; traverse left col (if left <= right), increment left.',
+    complexityTarget: 'Time: O(M * N) | Space: O(1) auxiliary',
+  },
+  {
+    id: 'war_search_rotated_array_26',
+    title: 'Search in Rotated Sorted Array',
+    difficulty: 'intermediate',
+    competencyId: 'comp_binary_search_rotated_lookup_l2',
+    description: 'In a distributed sharded database with consistent hash rings, keys are strictly ordered but partitioned across nodes offset by an unknown rotation pivot. Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums. You must write an algorithm with O(log n) runtime complexity.',
+    starterCode: {
+      typescript: "function searchRotated(nums: number[], target: number): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def search_rotated(nums, target):\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "nums = [4, 5, 6, 7, 0, 1, 2], target = 0",
+            "expectedOutput": "4",
+            "explanation": "Target 0 found at index 4"
+      },
+      {
+            "input": "nums = [4, 5, 6, 7, 0, 1, 2], target = 3",
+            "expectedOutput": "-1",
+            "explanation": "Target 3 does not exist in array"
+      },
+      {
+            "input": "nums = [1], target = 0",
+            "expectedOutput": "-1",
+            "explanation": "Single element mismatch"
+      },
+      {
+            "input": "nums = [1, 3], target = 3",
+            "expectedOutput": "1",
+            "explanation": "Target found in short array"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["binary-search","arrays","rotated-sorted"],
+    hint: 'At mid, at least one half of the array (left or right) is guaranteed to be normally sorted. Determine which half is sorted by comparing nums[left] and nums[mid]. If target lies within the sorted half bounds, search there; otherwise search the other half.',
+    complexityTarget: 'Time: O(log N) | Space: O(1)',
+  },
+  {
+    id: 'war_coin_change_ii_27',
+    title: 'Coin Change II (Unique Combinations Counter)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_dp_coin_combinations_l2',
+    description: 'A point-of-sale checkout gateway must determine how many distinct, order-independent coin combinations can be dispensed to make exact customer change. You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. Return the number of combinations that make up that amount. If that amount cannot be made up by any combination of the coins, return 0. You may assume that you have an infinite number of each kind of coin.',
+    starterCode: {
+      typescript: "function change(amount: number, coins: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def change(amount, coins):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "amount = 5, coins = [1, 2, 5]",
+            "expectedOutput": "4",
+            "explanation": "5=5, 5=2+2+1, 5=2+1+1+1, 5=1+1+1+1+1"
+      },
+      {
+            "input": "amount = 3, coins = [2]",
+            "expectedOutput": "0",
+            "explanation": "Amount 3 cannot be made with coin 2"
+      },
+      {
+            "input": "amount = 10, coins = [10]",
+            "expectedOutput": "1",
+            "explanation": "Exactly one combination"
+      },
+      {
+            "input": "amount = 0, coins = [7]",
+            "expectedOutput": "1",
+            "explanation": "Amount 0 has 1 valid combination (empty set)"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["dynamic-programming","knapsack","combinatorics"],
+    hint: 'Notice the difference from unbounded knapsack permutations: to avoid counting permutations like (1,2) and (2,1) separately, put the coin loop on the OUTSIDE and amount loop on the INSIDE. dp[x] += dp[x - coin].',
+    complexityTarget: 'Time: O(amount * coins.length) | Space: O(amount)',
+  },
+  {
+    id: 'war_validate_ip_address_28',
+    title: 'Validate IP Address (VPC Gateway Firewall)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_string_ip_address_validation_l2',
+    description: 'A cloud security group ingress controller validates incoming network packets against strict CIDR rules. Given a string queryIP, return "IPv4" if IP is a valid IPv4 address, "IPv6" if IP is a valid IPv6 address, or "Neither" if IP is not a correct IP of any type. Valid IPv4 addresses consist of four decimal numbers (0-255) separated by dots without leading zeros. Valid IPv6 addresses consist of eight groups of four hexadecimal digits (case-insensitive) separated by colons.',
+    starterCode: {
+      typescript: "function validIPAddress(queryIP: string): string {\n  // Your solution here\n  return \"Neither\";\n}",
+      python: "def valid_ip_address(query_ip):\n    # Your solution here\n    return \"Neither\"",
+    },
+    testCases: [
+      {
+            "input": "\"172.16.254.1\"",
+            "expectedOutput": "\"IPv4\"",
+            "explanation": "Standard valid IPv4"
+      },
+      {
+            "input": "\"2001:0db8:85a3:0:0:8A2E:0370:7334\"",
+            "expectedOutput": "\"IPv6\"",
+            "explanation": "Standard valid IPv6"
+      },
+      {
+            "input": "\"256.256.256.256\"",
+            "expectedOutput": "\"Neither\"",
+            "explanation": "Octet 256 exceeds 255"
+      },
+      {
+            "input": "\"192.168.01.1\"",
+            "expectedOutput": "\"Neither\"",
+            "explanation": "Leading zero in octet 01 is invalid"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["strings","parsing","networking"],
+    hint: 'Check if queryIP contains three dots (IPv4 candidate) or seven colons (IPv6 candidate). For IPv4, split by dot: check exactly 4 segments, each numeric 0-255, no leading zeroes if length > 1. For IPv6, split by colon: check exactly 8 segments, 1-4 hex digits each.',
+    complexityTarget: 'Time: O(N) | Space: O(1)',
+  },
+  {
+    id: 'war_level_order_traversal_29',
+    title: 'Binary Tree Level Order Traversal (Cluster Topology)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_trees_bfs_level_order_l2',
+    description: 'A cloud orchestration engine builds hierarchical topological maps of distributed cluster workers. Given the root of a binary tree as an array in level-order, return the level order traversal of its nodes\' values (i.e., from left to right, level by level as a 2D array of numbers).',
+    starterCode: {
+      typescript: "function levelOrder(root: (number | null)[]): number[][] {\n  // Your solution here\n  return [];\n}",
+      python: "def level_order(root):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[3, 9, 20, null, null, 15, 7]",
+            "expectedOutput": "[[3], [9, 20], [15, 7]]",
+            "explanation": "Root is 3, second level is 9 and 20, third level is 15 and 7"
+      },
+      {
+            "input": "[1]",
+            "expectedOutput": "[[1]]",
+            "explanation": "Single node tree"
+      },
+      {
+            "input": "[]",
+            "expectedOutput": "[]",
+            "explanation": "Empty tree returns empty array"
+      },
+      {
+            "input": "[1, 2, 3, 4, 5]",
+            "expectedOutput": "[[1], [2, 3], [4, 5]]",
+            "explanation": "Complete 3-level tree"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["trees","bfs","queue"],
+    hint: 'Convert the input array to linked TreeNodes. Use a FIFO queue initialized with the root node. In a while loop, record queue.length as the current level size, iterate levelSize times popping nodes, adding their values to a level array, and pushing their non-null children into the queue.',
+    complexityTarget: 'Time: O(N) | Space: O(N)',
+  },
+  {
+    id: 'war_simplify_path_30',
+    title: 'Simplify Path (Unix Virtual File System Normalizer)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_stack_unix_path_simplifier_l2',
+    description: 'A container runtime sandbox resolves relative and absolute file paths against container chroots to prevent directory traversal escapes. Given an absolute Unix-style file path path, convert it to the simplified canonical path. In a Unix-style file system: a period "." refers to the current directory, a double period ".." refers to the directory up a level, multiple consecutive slashes are treated as a single slash, and the canonical path must start with a single slash and not end with a trailing slash.',
+    starterCode: {
+      typescript: "function simplifyPath(path: string): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def simplify_path(path):\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "\"/home/\"",
+            "expectedOutput": "\"/home\"",
+            "explanation": "Trailing slash removed"
+      },
+      {
+            "input": "\"/../\"",
+            "expectedOutput": "\"/\"",
+            "explanation": "Cannot navigate above root"
+      },
+      {
+            "input": "\"/home//foo/\"",
+            "expectedOutput": "\"/home/foo\"",
+            "explanation": "Double slash reduced to single slash"
+      },
+      {
+            "input": "\"/a/./b/../../c/\"",
+            "expectedOutput": "\"/c\"",
+            "explanation": "Navigating up two directories from b leaves /c"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["stack","strings","file-system"],
+    hint: 'Split the path by "/". Iterate over each token: ignore empty tokens and single dots ".". If token is "..", pop from your directory stack if non-empty. For any valid directory name, push to the stack. Finally, join with "/" and prepend "/".',
+    complexityTarget: 'Time: O(N) | Space: O(N)',
+  },
+  {
+    id: 'war_partition_labels_31',
+    title: 'Partition Labels (Greedy Video Transcoder Chunks)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_greedy_intervals_partition_labels_l2',
+    description: 'A cloud video encoding pipeline breaks raw video streams into independent parallel transcode chunks. However, each unique character token represents an interdependent keyframe codec that cannot be split across chunks. You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part. Return a list of integers representing the size of these parts.',
+    starterCode: {
+      typescript: "function partitionLabels(s: string): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def partition_labels(s):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "\"ababcbacadefegdehijhklij\"",
+            "expectedOutput": "[9, 7, 8]",
+            "explanation": "Partitions are \"ababcbaca\" (9), \"defegde\" (7), and \"hijhklij\" (8)"
+      },
+      {
+            "input": "\"eccbbbbdec\"",
+            "expectedOutput": "[10]",
+            "explanation": "Character c appears at start and end, forcing single chunk of 10"
+      },
+      {
+            "input": "\"a\"",
+            "expectedOutput": "[1]",
+            "explanation": "Single character string"
+      },
+      {
+            "input": "\"abcdef\"",
+            "expectedOutput": "[1, 1, 1, 1, 1, 1]",
+            "explanation": "All unique characters partition into individual chunks"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["greedy","two-pointers","strings"],
+    hint: 'First pass: record the last index of occurrence for each character in a hash map. Second pass: keep an anchor and an end pointer. For each char at index i, update end = max(end, last[char]). When i reaches end, a valid partition boundary is reached! Output (end - anchor + 1) and update anchor = i + 1.',
+    complexityTarget: 'Time: O(N) | Space: O(1) (26 lowercase English letters)',
+  },
+  {
+    id: 'war_continuous_subarray_sum_32',
+    title: 'Continuous Subarray Sum (FinTech Anomaly)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_prefix_sum_hash_mod_l2',
+    description: 'A FinTech transaction auditor looks for cyclic fraud patterns where money is round-tripped through multiple accounts in increments of batch size k. Given an integer array nums and an integer k, return true if nums has a good subarray or false otherwise. A good subarray is a subarray where: its length is at least two, and the sum of the elements of the subarray is a multiple of k (sum % k == 0).',
+    starterCode: {
+      typescript: "function checkSubarraySum(nums: number[], k: number): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def check_subarray_sum(nums, k):\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "nums = [23, 2, 4, 6, 7], k = 6",
+            "expectedOutput": "true",
+            "explanation": "[2, 4] is continuous subarray of length 2 summing to 6"
+      },
+      {
+            "input": "nums = [23, 2, 6, 4, 7], k = 6",
+            "expectedOutput": "true",
+            "explanation": "[23, 2, 6, 4, 7] sums to 42, which is 6 * 7"
+      },
+      {
+            "input": "nums = [23, 2, 6, 4, 7], k = 13",
+            "expectedOutput": "false",
+            "explanation": "No subarray of length >= 2 sums to a multiple of 13"
+      },
+      {
+            "input": "nums = [5, 0, 0, 0], k = 3",
+            "expectedOutput": "true",
+            "explanation": "[0, 0] of length 2 sums to 0, which is 0 * 3"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["hash-map","prefix-sum","modular-arithmetic"],
+    hint: 'Use modular arithmetic on running prefix sums: if prefixSum[j] % k == prefixSum[i] % k and (j - i) >= 2, the subarray between i and j has sum divisible by k. Store the earliest index where each remainder (sum % k) was observed in a hash map initialized with { 0: -1 }.',
+    complexityTarget: 'Time: O(N) | Space: O(min(N, k))',
+  },
+  {
+    id: 'war_binary_tree_right_side_33',
+    title: 'Binary Tree Right Side View (Shadow Projection)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_trees_bfs_right_side_view_l2',
+    description: 'A satellite radar creates an orthogonal projection of a binary planetary sensor grid by scanning exclusively from the right flank. Given the root of a binary tree as an array in level-order, imagine yourself standing on the right side of it; return the values of the nodes you can see ordered from top to bottom.',
+    starterCode: {
+      typescript: "function rightSideView(root: (number | null)[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def right_side_view(root):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[1, 2, 3, null, 5, null, 4]",
+            "expectedOutput": "[1, 3, 4]",
+            "explanation": "Visible nodes from right side are 1, 3, and 4"
+      },
+      {
+            "input": "[1, null, 3]",
+            "expectedOutput": "[1, 3]",
+            "explanation": "Right child only"
+      },
+      {
+            "input": "[]",
+            "expectedOutput": "[]",
+            "explanation": "Empty tree"
+      },
+      {
+            "input": "[1, 2, 3, 4]",
+            "expectedOutput": "[1, 3, 4]",
+            "explanation": "Node 4 on third level is visible because node 3 has no children"
+      }
+],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["trees","bfs","dfs","view"],
+    hint: 'Perform a BFS level-order traversal. For each level, append the value of the LAST node in that level to your result array. Alternatively, use a reverse DFS (visit right child before left child), adding the node value whenever depth == result.length.',
+    complexityTarget: 'Time: O(N) | Space: O(D) where D is tree diameter',
+  },
+  {
+    id: 'war_merge_k_sorted_lists_21',
+    title: 'Merge K Sorted Lists (Distributed Log Aggregator)',
+    difficulty: 'advanced',
+    competencyId: 'comp_heap_merge_k_sorted_l3',
+    description: 'A distributed log aggregation daemon (such as Fluentd or Vector) consumes timestamp-ordered message streams from K independent microservices and must interleave them into a single sequentially unified audit trail. Given an array of k sorted lists, each sorted in ascending order, merge all the sorted lists into one sorted list and return it. Your implementation must execute in O(N log k) time.',
+    starterCode: {
+      typescript: "function mergeKLists(lists: number[][]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def merge_k_lists(lists):\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[[1, 4, 5], [1, 3, 4], [2, 6]]",
+            "expectedOutput": "[1, 1, 2, 3, 4, 4, 5, 6]",
+            "explanation": "Three sorted streams merged in order"
+      },
+      {
+            "input": "[]",
+            "expectedOutput": "[]",
+            "explanation": "No streams"
+      },
+      {
+            "input": "[[]]",
+            "expectedOutput": "[]",
+            "explanation": "Single empty stream"
+      },
+      {
+            "input": "[[1], [0]]",
+            "expectedOutput": "[0, 1]",
+            "explanation": "Two single element streams"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["heap","divide-and-conquer","merge-sort"],
+    hint: 'Use a Min-Heap containing the current head of each non-empty list (value, listIndex, elementIndex), or use Divide and Conquer: pairwise merge lists[i] and lists[i + interval] repeatedly until only 1 consolidated list remains in O(N log k).',
+    complexityTarget: 'Time: O(N log K) | Space: O(K)',
+  },
+  {
+    id: 'war_alien_dictionary_22',
+    title: 'Alien Dictionary (Topological Compiler Symbol Order)',
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_topological_alien_dict_l3',
+    description: 'A language runtime compiler discovers an esoteric scripting language whose alphabetical order differs from standard ASCII. You receive a list of words from the alien language\'s dictionary, where the words are claimed to be sorted lexicographically by the rules of this language. Derive the unique order of characters in this alien language. If the order is invalid (e.g. A cyclic dependency like a < b < a exists or an invalid prefix ordering occurred), return "". If multiple valid orders exist, return any valid topological sort.',
+    starterCode: {
+      typescript: "function alienOrder(words: string[]): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def alien_order(words):\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "[\"wrt\", \"wrf\", \"er\", \"ett\", \"rftt\"]",
+            "expectedOutput": "\"wertf\"",
+            "explanation": "t->f, w->e, r->t, e->r yields valid order wertf"
+      },
+      {
+            "input": "[\"z\", \"x\"]",
+            "expectedOutput": "\"zx\"",
+            "explanation": "z precedes x"
+      },
+      {
+            "input": "[\"z\", \"x\", \"z\"]",
+            "expectedOutput": "\"\"",
+            "explanation": "Cycle: z < x < z is invalid"
+      },
+      {
+            "input": "[\"abc\", \"ab\"]",
+            "expectedOutput": "\"\"",
+            "explanation": "Invalid prefix order: longer string cannot precede its own prefix"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["graphs","topological-sort","dag"],
+    hint: 'Build a directed graph where edges u -> v indicate char u comes before char v. Compare adjacent words word1 and word2: find the first mismatching character; add edge word1[k] -> word2[k]. If word1 starts with word2 and is longer, order is invalid. Run Kahn\'s algorithm; if visited count < total unique characters, a cycle exists (return "").',
+    complexityTarget: 'Time: O(C) total characters | Space: O(U + E) where U is unique chars',
+  },
+  {
+    id: 'war_longest_valid_parentheses_23',
+    title: 'Longest Valid Parentheses (Compiler AST Balancer)',
+    difficulty: 'advanced',
+    competencyId: 'comp_stack_dp_longest_valid_parentheses_l3',
+    description: 'A code formatter and syntax highlighter identifies the maximum contiguous region of well-formed parentheses in uncompiled or corrupted code files. Given a string containing just the characters \'(\' and \')\', return the length of the longest valid (well-formed) parentheses substring.',
+    starterCode: {
+      typescript: "function longestValidParentheses(s: string): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def longest_valid_parentheses(s):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "\"(()\"",
+            "expectedOutput": "2",
+            "explanation": "Longest valid is \"()\""
+      },
+      {
+            "input": "\")()())\"",
+            "expectedOutput": "4",
+            "explanation": "Longest valid is \"()()\""
+      },
+      {
+            "input": "\"\"",
+            "expectedOutput": "0",
+            "explanation": "Empty string has length 0"
+      },
+      {
+            "input": "\"()(()\"",
+            "expectedOutput": "2",
+            "explanation": "Longest valid substring has length 2"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["stack","dynamic-programming","greedy"],
+    hint: 'Use a stack initialized with -1 to serve as the base index of the last unmatched closing parenthesis. For \'(\', push its index. For \')\', pop from stack. If stack is empty, push current index as new base; if non-empty, maxLen = max(maxLen, i - stack[top]).',
+    complexityTarget: 'Time: O(N) | Space: O(N)',
+  },
+  {
+    id: 'war_serialize_deserialize_tree_24',
+    title: 'Serialize and Deserialize Binary Tree (Wire RPC)',
+    difficulty: 'advanced',
+    competencyId: 'comp_trees_serialization_wire_protocol_l3',
+    description: 'In a microservice mesh, structured binary search trees representing distributed database partition indexes must be serialized into compact strings for network wire transmission and deserialized on remote hosts with exact fidelity. Design an algorithm to serialize a binary tree into a string and deserialize that string back into the identical tree. Your test will verify that round-tripping a tree produces identical level-order structure.',
+    starterCode: {
+      typescript: "function roundTripTree(root: (number | null)[]): (number | null)[] {\n  // Your solution here: serialize then deserialize\n  return [];\n}",
+      python: "def round_trip_tree(root):\n    # Your solution here: serialize then deserialize\n    return []",
+    },
+    testCases: [
+      {
+            "input": "[1, 2, 3, null, null, 4, 5]",
+            "expectedOutput": "[1, 2, 3, null, null, 4, 5]",
+            "explanation": "Tree preserved across serialize and deserialize"
+      },
+      {
+            "input": "[]",
+            "expectedOutput": "[]",
+            "explanation": "Empty tree"
+      },
+      {
+            "input": "[1]",
+            "expectedOutput": "[1]",
+            "explanation": "Single root"
+      },
+      {
+            "input": "[1, 2]",
+            "expectedOutput": "[1, 2]",
+            "explanation": "Left child only"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["trees","serialization","protocol-buffers"],
+    hint: 'Use preorder DFS with a delimiter (e.g. comma) and marker for null (e.g. "X"). Serialize: recursively append root.val + "," + serialize(left) + "," + serialize(right). Deserialize: split string by commas into a queue; recursively pop items: if "X", return null; else construct TreeNode and recurse for left and right.',
+    complexityTarget: 'Time: O(N) | Space: O(N)',
+  },
+  {
+    id: 'war_largest_rectangle_histogram_25',
+    title: 'Largest Rectangle in Histogram (Peak Memory Block)',
+    difficulty: 'advanced',
+    competencyId: 'comp_stack_monotonic_largest_rectangle_l3',
+    description: 'A physical memory manager compresses unfragmented contiguous RAM chunks across varying process allocations. Given an array of integers heights representing the histogram\'s bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram. Your solution must execute in O(N) time.',
+    starterCode: {
+      typescript: "function largestRectangleArea(heights: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def largest_rectangle_area(heights):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "[2, 1, 5, 6, 2, 3]",
+            "expectedOutput": "10",
+            "explanation": "Bars 5 and 6 form a rectangle of area 5 * 2 = 10"
+      },
+      {
+            "input": "[2, 4]",
+            "expectedOutput": "4",
+            "explanation": "Bar of height 4 has area 4"
+      },
+      {
+            "input": "[1]",
+            "expectedOutput": "1",
+            "explanation": "Single bar"
+      },
+      {
+            "input": "[2, 1, 2]",
+            "expectedOutput": "3",
+            "explanation": "Spans full width at height 1 (area 3)"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["monotonic-stack","arrays","optimization"],
+    hint: 'Maintain a monotonic increasing stack of bar indices. When the current bar is shorter than the bar at stack top, pop the top index: its height is heights[top], and the width extends from the new stack top to the current index (width = stack.empty ? i : i - stack.top - 1). Track the maximum area.',
+    complexityTarget: 'Time: O(N) | Space: O(N)',
+  },
+  {
+    id: 'war_min_window_substring_26',
+    title: 'Minimum Window Substring (Search Query Snippet)',
+    difficulty: 'advanced',
+    competencyId: 'comp_sliding_window_min_window_l3',
+    description: 'An enterprise full-text search engine generates compact search snippets highlighting all matched keywords in user queries. Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "". The test cases will be generated such that the answer is unique.',
+    starterCode: {
+      typescript: "function minWindow(s: string, t: string): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def min_window(s, t):\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "s = \"ADOBECODEBANC\", t = \"ABC\"",
+            "expectedOutput": "\"BANC\"",
+            "explanation": "\"BANC\" contains A, B, and C in minimal length 4"
+      },
+      {
+            "input": "s = \"a\", t = \"a\"",
+            "expectedOutput": "\"a\"",
+            "explanation": "Exact match"
+      },
+      {
+            "input": "s = \"a\", t = \"aa\"",
+            "expectedOutput": "\"\"",
+            "explanation": "s lacks two occurrences of a"
+      },
+      {
+            "input": "s = \"ab\", t = \"b\"",
+            "expectedOutput": "\"b\"",
+            "explanation": "Single character match at end"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["sliding-window","hash-map","two-pointers"],
+    hint: 'Build a frequency map of target string t and track formed characters. Expand the right pointer: when char matches t requirements, increment formed. When formed == required, contract the left pointer to find the tightest window while updating minLen. Continue until right reaches end.',
+    complexityTarget: 'Time: O(M + N) | Space: O(1) (ASCII size)',
+  },
+  {
+    id: 'war_palindrome_partitioning_ii_27',
+    title: 'Palindrome Partitioning II (Min Compression Cuts)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_palindrome_min_cuts_l3',
+    description: 'A natural language processing engine compresses token sequences by segmenting documents into minimum palindromic syllabic chunks. Given a string s, partition s such that every substring of the partition is a palindrome. Return the minimum cuts needed for a palindrome partitioning of s.',
+    starterCode: {
+      typescript: "function minCut(s: string): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def min_cut(s):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "\"aab\"",
+            "expectedOutput": "1",
+            "explanation": "\"aa\" | \"b\" requires 1 cut"
+      },
+      {
+            "input": "\"a\"",
+            "expectedOutput": "0",
+            "explanation": "Already a palindrome, 0 cuts"
+      },
+      {
+            "input": "\"ab\"",
+            "expectedOutput": "1",
+            "explanation": "\"a\" | \"b\" requires 1 cut"
+      },
+      {
+            "input": "\"ababbbabbababa\"",
+            "expectedOutput": "3",
+            "explanation": "Optimal partitioning requires 3 cuts"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["dynamic-programming","strings","palindrome"],
+    hint: 'Precompute an isPal[i][j] boolean 2D table in O(N^2) expanding around centers. Then define dp[i] as the minimum cuts needed for prefix s[0...i]. If isPal[0][i] is true, dp[i] = 0. Otherwise dp[i] = min(dp[j] + 1) for all 0 <= j < i where isPal[j+1][i] is true.',
+    complexityTarget: 'Time: O(N^2) | Space: O(N^2)',
+  },
+  {
+    id: 'war_consistent_hashing_ring_28',
+    title: 'Consistent Hashing Ring (Distributed Sharding Router)',
+    difficulty: 'advanced',
+    competencyId: 'comp_systems_consistent_hashing_ring_l3',
+    description: 'A distributed NoSQL storage engine (like DynamoDB or Apache Cassandra) uses consistent hashing to assign key-value pairs across a cluster of server nodes positioned on a virtual ring (hash range 0 to M-1). Given a sorted array of active server node hash positions on the ring nodes and a request hash key, route the request to the first server node whose position is greater than or equal to key. If key is greater than all server positions, it wraps around to the first server node (nodes[0]). Write routeRequest to return the selected server node.',
+    starterCode: {
+      typescript: "function routeRequest(nodes: number[], key: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def route_request(nodes, key):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "nodes = [10, 50, 100], key = 20",
+            "expectedOutput": "50",
+            "explanation": "Next clockwise server node >= 20 is 50"
+      },
+      {
+            "input": "nodes = [10, 50, 100], key = 100",
+            "expectedOutput": "100",
+            "explanation": "Exact match at server node 100"
+      },
+      {
+            "input": "nodes = [10, 50, 100], key = 120",
+            "expectedOutput": "10",
+            "explanation": "Wraps around the ring to node 10"
+      },
+      {
+            "input": "nodes = [25, 75], key = 5",
+            "expectedOutput": "25",
+            "explanation": "Next clockwise server node >= 5 is 25"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["consistent-hashing","binary-search","distributed-systems"],
+    hint: 'Since the server nodes array is sorted, use binary search (bisect_left / lower_bound) to find the first node >= key in O(log K) time. If the index equals nodes.length, wrap around to return nodes[0].',
+    complexityTarget: 'Time: O(log K) | Space: O(1)',
+  },
+  {
+    id: 'war_basic_calculator_29',
+    title: 'Basic Calculator (Arithmetic AST Evaluator)',
+    difficulty: 'advanced',
+    competencyId: 'comp_stack_basic_calculator_ast_l3',
+    description: 'An embedded query engine evaluates mathematical filter clauses in SQL WHERE conditions without invoking insecure eval() interpreters. Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation. The expression string contains only digits, \'+\', \'-\', \'(\', \')\', and spaces \' \'. Note: You are not allowed to use any built-in eval functions.',
+    starterCode: {
+      typescript: "function calculate(s: string): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def calculate(s):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "\"1 + 1\"",
+            "expectedOutput": "2",
+            "explanation": "1 + 1 = 2"
+      },
+      {
+            "input": "\" 2-1 + 2 \"",
+            "expectedOutput": "3",
+            "explanation": "2 - 1 + 2 = 3"
+      },
+      {
+            "input": "\"(1+(4+5+2)-3)+(6+8)\"",
+            "expectedOutput": "23",
+            "explanation": "Nested parentheses expression evaluates to 23"
+      },
+      {
+            "input": "\"- (3 + (4 + 5))\"",
+            "expectedOutput": "-12",
+            "explanation": "Unary negation outside parentheses"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["stack","math","parser"],
+    hint: 'Maintain a running result, current sign (+1 or -1), and a stack of [previousResult, previousSign]. When \'(\' is encountered, push [result, sign], then reset result = 0, sign = 1. When \')\' is encountered, pop [prevResult, prevSign], and set result = prevResult + prevSign * result.',
+    complexityTarget: 'Time: O(N) | Space: O(N)',
+  },
+  {
+    id: 'war_maximal_square_30',
+    title: 'Maximal Square (Semiconductor Wafer Defect Map)',
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_2d_maximal_square_l3',
+    description: 'A semiconductor lithography inspection scanner analyzes silicon wafer surface matrices to find the largest contiguous square area free of silicon crystal defects. Given an m x n binary matrix filled with 0s and 1s, find the largest square containing only 1s and return its area.',
+    starterCode: {
+      typescript: "function maximalSquare(matrix: string[][]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def maximal_square(matrix):\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "[[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]",
+            "expectedOutput": "4",
+            "explanation": "A 2x2 square of 1s has area 4"
+      },
+      {
+            "input": "[[\"0\",\"1\"],[\"1\",\"0\"]]",
+            "expectedOutput": "1",
+            "explanation": "Only 1x1 squares of 1s exist"
+      },
+      {
+            "input": "[[\"0\"]]",
+            "expectedOutput": "0",
+            "explanation": "No 1s, area 0"
+      },
+      {
+            "input": "[[\"1\",\"1\"],[\"1\",\"1\"]]",
+            "expectedOutput": "4",
+            "explanation": "2x2 square has area 4"
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["dynamic-programming","matrix","2d-geometry"],
+    hint: 'Let dp[i][j] represent the side length of the largest square whose bottom-right corner is at (i, j). If matrix[i][j] == "1", then dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]). Track maxSide, return maxSide * maxSide.',
+    complexityTarget: 'Time: O(M * N) | Space: O(M * N) or O(N) space optimized',
+  },
 ];
 
 export class CodeWarsApiService {

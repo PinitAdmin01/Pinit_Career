@@ -31,11 +31,12 @@ export interface EloMatchResult {
 }
 
 export const ELO_CONFIG = {
-  DEFAULT_ELO: 1200,
-  FLOOR_ELO: 1000,
-  K_FACTOR_CADET: 32,      // Rating < 1400 (fast calibration)
-  K_FACTOR_INTERMEDIATE: 24,// Rating 1400 - 1800
-  K_FACTOR_MASTER: 16,     // Rating > 1800 (high stability)
+  DEFAULT_ELO: 100,
+  FLOOR_ELO: 0,
+  WIN_ELO_TRANSFER: 20,
+  K_FACTOR_CADET: 20,      // Rating < 1400 (fixed 20-pt transfer calibration)
+  K_FACTOR_INTERMEDIATE: 20,// Rating 1400 - 1800
+  K_FACTOR_MASTER: 20,     // Rating > 1800 (high stability)
   WIN_XP: 50,
   LOSS_XP: 15,
   DRAW_XP: 25,
@@ -60,6 +61,7 @@ export function calculateExpectedScore(playerRating: number, opponentRating: num
 
 /**
  * Calculates Elo rating changes and match rewards for two combatants.
+ * Core Rule: Everyone starts at 100 ELO. Winner receives 20 ELO from opponent (100 -> 120, opponent -> 80). Floor is 0.
  */
 export function calculateEloMatch(params: {
   hostId: string;
@@ -82,6 +84,8 @@ export function calculateEloMatch(params: {
   let guestXpAward = ELO_CONFIG.DRAW_XP;
   let hostPinsAward = ELO_CONFIG.DRAW_PINS;
   let guestPinsAward = ELO_CONFIG.DRAW_PINS;
+  let hostDelta = 0;
+  let guestDelta = 0;
 
   if (params.winnerId === params.hostId) {
     hostActualScore = 1;
@@ -90,6 +94,8 @@ export function calculateEloMatch(params: {
     guestXpAward = ELO_CONFIG.LOSS_XP;
     hostPinsAward = ELO_CONFIG.WIN_PINS;
     guestPinsAward = ELO_CONFIG.LOSS_PINS;
+    hostDelta = ELO_CONFIG.WIN_ELO_TRANSFER;
+    guestDelta = -ELO_CONFIG.WIN_ELO_TRANSFER;
   } else if (params.winnerId === params.guestId) {
     hostActualScore = 0;
     guestActualScore = 1;
@@ -97,16 +103,11 @@ export function calculateEloMatch(params: {
     guestXpAward = ELO_CONFIG.WIN_XP;
     hostPinsAward = ELO_CONFIG.LOSS_PINS;
     guestPinsAward = ELO_CONFIG.WIN_PINS;
+    hostDelta = -ELO_CONFIG.WIN_ELO_TRANSFER;
+    guestDelta = ELO_CONFIG.WIN_ELO_TRANSFER;
   }
 
-  const hostK = getKFactor(hostCurrentElo);
-  const guestK = getKFactor(guestCurrentElo);
-
-  // ΔR = round(K * (Actual - Expected))
-  const hostDelta = Math.round(hostK * (hostActualScore - hostExpected));
-  const guestDelta = Math.round(guestK * (guestActualScore - guestExpected));
-
-  // Enforce Elo floor
+  // Enforce Elo floor (0)
   const hostNewElo = Math.max(ELO_CONFIG.FLOOR_ELO, hostCurrentElo + hostDelta);
   const guestNewElo = Math.max(ELO_CONFIG.FLOOR_ELO, guestCurrentElo + guestDelta);
 
