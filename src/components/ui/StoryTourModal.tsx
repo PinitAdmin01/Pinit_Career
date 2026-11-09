@@ -67,7 +67,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/quests',
     segment: 1,
     segmentLabel: 'TAB 2/13 · QUESTS',
-    text: 'Quests and Courses: guided lessons that earn Pins.',
+    text: 'Quests and Courses: guided lessons that build verified proof-of-work.',
     durationMs: TOUR_TAB_MS,
     autoScroll: true,
   },

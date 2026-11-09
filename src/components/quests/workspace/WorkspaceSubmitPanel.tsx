@@ -170,7 +170,7 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
           fontWeight: 700
         }}>
           <span data-testid="workspace-xp-reward" style={{ color: 'var(--accent)' }}>⚡ +{xpReward} XP</span>
-          <span data-testid="workspace-pins-reward" style={{ color: 'var(--green)' }}>📌 +{pinsReward} Pins</span>
+          {pinsReward > 0 && <span data-testid="workspace-pins-reward" style={{ color: 'var(--green)' }}>📌 +{pinsReward} Pins</span>}
         </div>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>

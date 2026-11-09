@@ -5,16 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 const ALLOWED_SOURCES = new Set([
   'streak_bonus',
   'admin_grant',
-  'mission_complete',
-  'exam_pass',
-  'interview_session',
-  'study_session',
-  'onboarding_complete',
-  'vault_verify',
   'daily_login',
-  'communication_session',
-  'ai_interview',
-  'course_enrollment',
 ]);
 
 const MAX_EARN_LIMITS: Record<string, number> = {

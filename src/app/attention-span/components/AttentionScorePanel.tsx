@@ -70,7 +70,7 @@ export function AttentionScorePanel({
       <div className="att-quest">
         <div>
           <h3>Daily mind quest</h3>
-          <p>Finish 2 sessions today ({todaySessionCount}/2) for +15 Pins and +40 XP.</p>
+          <p>Finish 2 sessions today ({todaySessionCount}/2) for +40 XP.</p>
         </div>
         <button
           type="button"

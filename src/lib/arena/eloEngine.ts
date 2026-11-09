@@ -40,9 +40,9 @@ export const ELO_CONFIG = {
   WIN_XP: 50,
   LOSS_XP: 15,
   DRAW_XP: 25,
-  WIN_PINS: 20,
-  LOSS_PINS: 5,
-  DRAW_PINS: 10,
+  WIN_PINS: 0,
+  LOSS_PINS: 0,
+  DRAW_PINS: 0,
 };
 
 export function getKFactor(rating: number): number {

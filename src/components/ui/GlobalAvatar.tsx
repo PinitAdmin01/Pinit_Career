@@ -297,7 +297,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           if (currentActivePath === '/dashboard') {
             advice = "Head to the Missions tab to solve today's gap-closure challenges, or Quests to continue your active learning track!";
           } else if (currentActivePath === '/quests') {
-            advice = "Explore your active socratic courses to earn Pins and increase your verified skill metrics!";
+            advice = "Explore your active socratic courses to earn XP and increase your verified skill metrics!";
           } else if (currentActivePath === '/missions') {
             advice = "Complete today's daily challenges to close your skill gaps and protect your consistency streak!";
           } else if (currentActivePath === '/arena') {
@@ -637,7 +637,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     } else {
       const TAB_GUIDES: Record<string, string> = {
         '/dashboard': "🏠 **Home Dashboard** — Your command center! Here you can see your Career Score, active mission streak, XP tier progression, and AI-personalised recommendations. Keep your streak alive with daily missions!",
-        '/quests': "🗺 **Quests** — Your socratic learning curriculum! Complete guided coding challenges and theory lessons to earn Pins and verify your mastery.",
+        '/quests': "🗺 **Quests** — Your socratic learning curriculum! Complete guided coding challenges and theory lessons to verify your mastery and earn XP.",
         '/career-twin': "🧬 **Career Twin** — Map your Current Self against your Future Self (target role). We'll calculate your alignment percentage and identify exact skill gaps!",
         '/learning': "📖 **Learning & Roadmap** — Track your milestone roadmap, skill competencies, and deep-dive learning modules to qualify for top roles.",
         '/missions': "⚡ **Daily Missions** — 5 personalised micro-challenges generated every day based on your skill gaps. Complete them to maintain your streak and earn bonus XP!",
@@ -649,7 +649,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         '/attention-span': "🧠 **Attention Span** — Gamified cognitive focus exercises to train your endurance and stamina for long engineering sprints.",
         '/notifications': "🔔 **Notifications** — Real-time alerts for quest rewards, streak milestones, recruiter profile views, and mission assignments.",
         '/friends': "👥 **Friends & Network** — Connect with peers, challenge friends to 1v1 Arena Duels, collaborate on Squad Projects, and build your university network.",
-        '/pins': "⚡ **Pins & Wallet** — Track your earned Pins balance, recharge, and unlock premium AI features.",
+        '/pins': "⚡ **Pins & Wallet** — Track your Pins balance, recharge via UPI, and unlock premium AI features.",
         '/profile': "👤 **Profile** — Manage settings, configure vocal biometrics, inspect your Career DNA genome, and select your AI mentor personality.",
       };
 

@@ -839,9 +839,6 @@ function ArenaContent() {
         if (data.xpAwarded && cOS?.addXp) {
           cOS.addXp(data.xpAwarded, isWin ? 'Turing AI Sparring Victory (+20 ELO)' : 'Turing AI Sparring Match');
         }
-        if (data.pinsAwarded && cOS?.earnPins) {
-          cOS.earnPins('arena_duel' as any, data.pinsAwarded, isWin ? 'Turing AI Sparring Victory' : 'Turing AI Sparring Match');
-        }
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
             detail: { arena_elo: data.newElo, weekly_xp: data.newWeeklyXp, xp_total: data.newXp }
@@ -2689,21 +2686,6 @@ function ArenaContent() {
                           })()}
                         </div>
                       </div>
-                      <div>
-                        <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>COMBAT PINS</div>
-                        <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
-                          +{(() => {
-                            if (activeRoom) {
-                              const awardPins = isHost ? (activeRoom as any)?.hostPinsAward : (activeRoom as any)?.guestPinsAward;
-                              if (typeof awardPins === 'number') return awardPins;
-                            }
-                            if (soloReward) {
-                              return soloReward.pinsAwarded;
-                            }
-                            return didIWin ? 20 : 5;
-                          })()}
-                        </div>
-                      </div>
                     </div>
 
                     <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -2876,7 +2858,7 @@ function ArenaContent() {
             >
               <div>
                 <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--t2)', fontWeight: 800, letterSpacing: '0.04em' }}>
-                  Combat Pins
+                  Pins Balance
                 </div>
                 <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
                   {pins.toLocaleString()}

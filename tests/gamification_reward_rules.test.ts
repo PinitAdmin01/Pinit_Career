@@ -11,30 +11,30 @@ import { getAuthoritativeQuest } from '../src/lib/quests/questRegistry';
 
 describe('Gamification & Progression Reward Rules (Task 13)', () => {
   describe('Canonical XP & Pin Rewards', () => {
-    it('defines standard lesson rewards as exactly +100 XP and 5 Pins', () => {
+    it('defines standard lesson rewards as exactly +100 XP and 0 Pins (gameplay pins disabled)', () => {
       assert.strictEqual(REWARD_RULES.LESSON_STANDARD.xp, 100);
-      assert.strictEqual(REWARD_RULES.LESSON_STANDARD.pins, 5);
+      assert.strictEqual(REWARD_RULES.LESSON_STANDARD.pins, 0);
     });
 
-    it('defines 5-day milestone exam rewards as exactly +200 XP and 10 Pins', () => {
+    it('defines 5-day milestone exam rewards as exactly +200 XP and 0 Pins', () => {
       assert.strictEqual(REWARD_RULES.LESSON_EXAM_MILESTONE.xp, 200);
-      assert.strictEqual(REWARD_RULES.LESSON_EXAM_MILESTONE.pins, 10);
+      assert.strictEqual(REWARD_RULES.LESSON_EXAM_MILESTONE.pins, 0);
     });
 
-    it('defines month capstone / graduation project rewards as +500 XP and 25 Pins', () => {
+    it('defines month capstone / graduation project rewards as +500 XP and 0 Pins', () => {
       assert.strictEqual(REWARD_RULES.LESSON_CAPSTONE_PROJECT.xp, 500);
-      assert.strictEqual(REWARD_RULES.LESSON_CAPSTONE_PROJECT.pins, 25);
+      assert.strictEqual(REWARD_RULES.LESSON_CAPSTONE_PROJECT.pins, 0);
     });
 
-    it('defines 1v1 PvP duel rewards: Win (+50 XP, +20 Pins), Loss (+15 XP, +5 Pins), Draw (+25 XP, +10 Pins)', () => {
+    it('defines 1v1 PvP duel rewards: Win (+50 XP, 0 Pins), Loss (+15 XP, 0 Pins), Draw (+25 XP, 0 Pins)', () => {
       assert.strictEqual(REWARD_RULES.ARENA_WIN.xp, 50);
-      assert.strictEqual(REWARD_RULES.ARENA_WIN.pins, 20);
+      assert.strictEqual(REWARD_RULES.ARENA_WIN.pins, 0);
 
       assert.strictEqual(REWARD_RULES.ARENA_LOSS.xp, 15);
-      assert.strictEqual(REWARD_RULES.ARENA_LOSS.pins, 5);
+      assert.strictEqual(REWARD_RULES.ARENA_LOSS.pins, 0);
 
       assert.strictEqual(REWARD_RULES.ARENA_DRAW.xp, 25);
-      assert.strictEqual(REWARD_RULES.ARENA_DRAW.pins, 10);
+      assert.strictEqual(REWARD_RULES.ARENA_DRAW.pins, 0);
     });
 
     it('defines career drills: Daily Mission (+50 XP), Interview Pass (+150 XP), GitHub Ingest (+1000 XP)', () => {
@@ -88,12 +88,12 @@ describe('Gamification & Progression Reward Rules (Task 13)', () => {
       const lessonQuest = getAuthoritativeQuest('test-course-d01-lesson');
       assert.ok(lessonQuest);
       assert.strictEqual(lessonQuest.xp, 100);
-      assert.strictEqual(lessonQuest.pins, 5);
+      assert.strictEqual(lessonQuest.pins, 0);
 
       const examQuest = getAuthoritativeQuest('test-course-exam-milestone-01');
       assert.ok(examQuest);
       assert.strictEqual(examQuest.xp, 200);
-      assert.strictEqual(examQuest.pins, 10);
+      assert.strictEqual(examQuest.pins, 0);
     });
   });
 });

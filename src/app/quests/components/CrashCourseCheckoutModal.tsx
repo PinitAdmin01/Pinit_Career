@@ -59,7 +59,7 @@ const PAYMENT_METHODS = [
     id: 'pins',
     iconText: 'PINS',
     title: 'PinIT Vault Coins',
-    subtitle: 'Pay with earned Pins',
+    subtitle: 'Pay with PinIT Pins',
     description: 'Debit directly from your PinIT student wallet',
     gradient: 'linear-gradient(135deg, #f59e0b, #f97316)',
   },

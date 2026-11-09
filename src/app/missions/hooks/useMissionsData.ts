@@ -143,11 +143,11 @@ export function useMissionsData({
         }).catch(() => {});
 
         addXp(50, "Socratic Roleplay Cleared");
-        earnPins('mission_complete', 10, "Socratic Roleplay Cleared");
+        // Gameplay earn disabled: roleplay cleared grants XP and mindset evolution, not pins
         if (hasCompletedToday) {
-          toast.success("Evolution Complete! 🧠", `Socratic review compiled. Mindset Archetype evolved to: ${computedMindsetArchetype}. Streak is active for today! +50 XP and +10 Pins awarded.`);
+          toast.success("Evolution Complete! 🧠", `Socratic review compiled. Mindset Archetype evolved to: ${computedMindsetArchetype}. Streak is active for today! +50 XP awarded.`);
         } else {
-          toast.success("Evolution Complete! 🧠", `Socratic review compiled. Mindset Archetype evolved to: ${computedMindsetArchetype}. Streak: 🔥${newStreak} days! +50 XP and +10 Pins awarded.`);
+          toast.success("Evolution Complete! 🧠", `Socratic review compiled. Mindset Archetype evolved to: ${computedMindsetArchetype}. Streak: 🔥${newStreak} days! +50 XP awarded.`);
         }
 
         const lastSpeaker = roleplayScenario?.activeAvatar || 'anish';

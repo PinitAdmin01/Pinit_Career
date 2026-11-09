@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     // Core ELO rule: Base 100. Win gives +20, Loss subtracts -20 (floored at 0).
     const eloDelta = passed ? ELO_CONFIG.WIN_ELO_TRANSFER : -ELO_CONFIG.WIN_ELO_TRANSFER;
     const xpAwarded = passed ? ELO_CONFIG.WIN_XP : ELO_CONFIG.LOSS_XP;
-    const pinsAwarded = passed ? ELO_CONFIG.WIN_PINS : ELO_CONFIG.LOSS_PINS;
+    const pinsAwarded = 0; // Strict policy: Pins acquired strictly via purchase and bonus, not gameplay
 
     const newElo = Math.max(ELO_CONFIG.FLOOR_ELO, currentElo + eloDelta);
     const effectiveDelta = newElo - currentElo;
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     const newXpTotal = currentXp + xpAwarded;
     const newWeeklyXp = currentWeeklyXp + xpAwarded;
-    const newPins = currentPins + pinsAwarded;
+    const newPins = currentPins;
     const newWins = currentWins + (passed ? 1 : 0);
     const newLosses = currentLosses + (!passed ? 1 : 0);
 

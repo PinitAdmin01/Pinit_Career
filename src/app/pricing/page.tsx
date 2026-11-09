@@ -68,11 +68,11 @@ export default function PublicPricingPageRevamp() {
   const faqs = [
     {
       q: 'Is PinIT Career OS truly free for students?',
-      a: 'Yes! The foundational Career OS, all 36 foundation roadmaps, 1,080 handcrafted daily quests, peer Code Wars (async leaderboard), and daily missions are 100% free forever. Students earn Pins through active learning and completing daily challenges without ever having to enter a credit card.'
+      a: 'Yes! The foundational Career OS, all 36 foundation roadmaps, 1,080 handcrafted daily quests, peer Code Wars (async leaderboard), and daily missions are 100% free forever. Students acquire XP, rank up on leaderboards, and build verified proof-of-work without ever having to enter a credit card.'
     },
     {
-      q: 'What are Pins and how do I earn or buy them?',
-      a: 'Pins are the gamified utility currency powering AI speech avatar coaching, deep mock interview grading, and crisis incident rollouts. Students earn Pins for free by maintaining daily streaks (+15) and passing quest exams (+25). Top-ups are available at ₹1 = 10 Pins, which are stored in your permanent vault and never expire.'
+      q: 'What are Pins and how do I get them?',
+      a: 'Pins are the utility currency powering AI speech avatar coaching, deep mock interview grading, and 30-min AI power passes. Pins are acquired strictly via secure UPI purchase (starting from ₹9) or claimed as daily and streak bonuses. Top-up pins never expire.'
     },
     {
       q: 'How does the ₹99 Basic Student Plan work?',
@@ -256,7 +256,7 @@ export default function PublicPricingPageRevamp() {
               Predictable Pricing for <span className="text-gradient">Every Ambition.</span>
             </h1>
             <p className="hero-subtitle" style={{ margin: '16px auto 0' }}>
-              Zero paywall on foundational learning. Earn pins by building real proof-of-work, or unlock institutional super-powers for your campus.
+              Zero paywall on foundational learning. Build real proof-of-work, earn verified skill credentials, and power up your career.
             </p>
           </div>
 
@@ -276,7 +276,7 @@ export default function PublicPricingPageRevamp() {
 
                 <div style={{ padding: '14px 18px', borderRadius: 14, background: 'var(--badge-bg)', border: '1px solid var(--badge-border)', marginBottom: 24 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>🎁 50 SIGNUP BONUS PINS</div>
-                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Earn +15 Pins daily through streak consistency.</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Daily login & streak bonus pins available.</div>
                 </div>
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>

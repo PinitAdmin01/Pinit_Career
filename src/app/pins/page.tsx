@@ -12,7 +12,7 @@ import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 
 // ── Types ──────────────────────────────────────────────────────────────────
-type PageTab = 'buy' | 'calculator' | 'earn' | 'wallet';
+type PageTab = 'buy' | 'calculator' | 'wallet';
 type FilterTab = 'all' | 'earned' | 'spent';
 
 // ── Indian Tier-3 Student Sachet Micro-Packs Catalog (1 Rs = 10 Pins Rate) ──
@@ -407,7 +407,6 @@ export default function PinsWalletPage() {
         {([
           ['buy', '💳 Chota Recharges & Plans'],
           ['calculator', '🧮 Pins → AI Calculator'],
-          ['earn', '⚡ ₹0 Free Daily Path'],
           ['wallet', '📊 My Wallet & History'],
         ] as [PageTab, string][]).map(([tab, label]) => (
           <button
@@ -802,90 +801,7 @@ export default function PinsWalletPage() {
       )}
 
       {/* ══════════════════════════════════════════════════════════════
-          TAB 3: ZERO-EXPENSE FREE DAILY EARNING PATH (For ₹0 Spending Power)
-      ══════════════════════════════════════════════════════════════ */}
-      {activeTab === 'earn' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: '24px 24px' }}>
-            <div style={{ marginBottom: 20 }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', borderRadius: 20, background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
-                <span>₹0 Spending Power Blueprint</span>
-              </div>
-              <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
-                Study 100% Free: How to Earn Up to 60 Pins Every Day
-              </h2>
-              <p style={{ fontSize: 13.5, color: 'var(--t3)', margin: '6px 0 0', lineHeight: 1.5 }}>
-                We believe financial limitations should never stop a talented student from getting placed. Over <strong>78% of active students</strong> on PinIT Career OS never spend a single rupee—they fuel their AI mocks by completing their daily study habits.
-              </p>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, marginBottom: 22 }}>
-              <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: 16, padding: '18px 18px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                  <span style={{ fontSize: 24 }}>📍</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>+10 Pins</span>
-                </div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>Campus Attendance</div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>
-                  Mark your daily attendance on the dashboard. Maintains your 75% statutory exam eligibility while crediting instant utility pins.
-                </div>
-              </div>
-
-              <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: 16, padding: '18px 18px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                  <span style={{ fontSize: 24 }}>⚡</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>+10 Pins</span>
-                </div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>Solve 1 Daily Mission</div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>
-                  Complete 1 scenario-based mission from your dashboard workload queue (takes ~15 minutes).
-                </div>
-              </div>
-
-              <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: 16, padding: '18px 18px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                  <span style={{ fontSize: 24 }}>🏆</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>+25 Pins</span>
-                </div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>Pass a Module Exam</div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>
-                  Score &gt;70% on any module quiz. Verifies your competence in the Career DNA engine and awards high reward pins.
-                </div>
-              </div>
-
-              <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: 16, padding: '18px 18px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                  <span style={{ fontSize: 24 }}>⚔️</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, fontWeight: 900, color: '#10b981' }}>+15 Pins</span>
-                </div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>Win a Code Arena Duel</div>
-                <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, lineHeight: 1.4 }}>
-                  Solve a 1v1 algorithm problem faster than a peer or AI sparring bot in Code Arena.
-                </div>
-              </div>
-            </div>
-
-            {/* Zero Platform Loss Guarantee Explainer */}
-            <div style={{ background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 16, padding: '20px 22px' }}>
-              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--accent)', marginBottom: 6 }}>
-                🛡️ Platform Sustainability & Zero-Loss Guarantee
-              </div>
-              <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.6 }}>
-                How can PinIT offer high-end AI coaching for free without facing loss?
-                <br />
-                1. <strong>Lightweight AI Optimization:</strong> Our Socratic voice and grading infrastructure leverages Gemini 2.0 Flash and distilled open-weight LLMs, bringing raw inference cost down to mere paise per session.
-                <br />
-                2. <strong>Recruiter Subsidies:</strong> Verified student portfolios and ATS skill verification badges are funded through our enterprise corporate placement pipeline.
-                <br />
-                3. <strong>Anti-Abuse Daily Caps:</strong> Free accounts have rate limits (6 queries/min) and max response clamping (500 tokens), preventing API scraping or resource drain.
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ══════════════════════════════════════════════════════════════
-          TAB 4: MY WALLET & TRANSACTION HISTORY
+          TAB 3: MY WALLET & TRANSACTION HISTORY
       ══════════════════════════════════════════════════════════════ */}
       {activeTab === 'wallet' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -893,9 +809,9 @@ export default function PinsWalletPage() {
           {/* ── Stats Row ─────────────────────────────────────────── */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
             <div style={{ background: 'var(--bg2)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 16, padding: '18px 20px' }}>
-              <div style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>Total Earned</div>
+              <div style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>Total Acquired</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26, fontWeight: 900, color: '#10b981' }}>+{totalEarned.toLocaleString()} pins</div>
-              <div style={{ fontSize: 11, color: 'var(--t4)' }}>{pinHistory.filter(t => t.type === 'earn').length} study earn events</div>
+              <div style={{ fontSize: 11, color: 'var(--t4)' }}>{pinHistory.filter(t => t.type === 'earn').length} purchase & bonus credits</div>
             </div>
             <div style={{ background: 'var(--bg2)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 16, padding: '18px 20px' }}>
               <div style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>Total Spent</div>
@@ -975,7 +891,7 @@ export default function PinsWalletPage() {
                       <span style={{ fontSize: 18 }}>{getSourceIcon(tx.source as string, tx.type)}</span>
                       <div>
                         <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
-                          {tx.reason || (tx.type === 'earn' ? 'Earned Pins' : 'Feature Unlock')}
+                          {tx.reason || (tx.type === 'earn' ? 'Credited / Bonus Pins' : 'Feature Unlock')}
                         </div>
                         <div style={{ fontSize: 11, color: 'var(--t4)' }}>
                           {formatDate(tx.timestamp)} · {timeAgo(tx.timestamp)}

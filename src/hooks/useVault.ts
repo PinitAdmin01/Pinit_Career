@@ -144,7 +144,7 @@ export function useVault(options: UseVaultOptions = {}) {
       if (updates.verified && !item.verified) {
         toast.success('✓ Proof Verified', `"${item.title}" is officially verified!`);
         if (onAddXp) onAddXp(20, 'Proof Verified');
-        if (onEarnPins) onEarnPins('vault_verify');
+        // Gameplay earn disabled: pins strictly granted via purchase & bonus
       }
       return merged;
     });

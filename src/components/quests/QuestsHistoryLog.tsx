@@ -36,7 +36,7 @@ export function QuestsHistoryLog() {
             📜 Activity & Completion Log
           </h3>
           <p style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2 }}>
-            Your full trajectory milestone history, XP gains, and Pin rewards
+            Your full trajectory milestone history and XP gains
           </p>
         </div>
 

@@ -154,9 +154,8 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
       if (isDeflective) {
         toast.warning('Unprofessional Communication', 'Evasive responses damage executive credibility. Review the coach critique.');
       } else {
-        toast.success('Corporate Evaluation Complete! 💼', '+50 XP & +10 Pins awarded.');
+        toast.success('Corporate Evaluation Complete! 💼', '+50 XP awarded.');
         addXp(50, 'Real-World Corporate Communication Session');
-        earnPins('communication_session', 10, 'Corporate Communication Practice');
       }
 
       // Save to CareerOS context history

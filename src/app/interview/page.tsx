@@ -577,7 +577,7 @@ export default function InterviewPage() {
     if (!isCapstoneRun && !cOS.isItemUnlocked(itemKey)) {
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
       if (!unlocked) {
-        toast.error('Insufficient Pins', 'You need Pins to start this corporate interview session. Complete quests to earn Pins!');
+        toast.error('Insufficient Pins', 'You need Pins to start this corporate interview session. Top up your Pins in the Pins store or claim your daily bonus!');
         return;
       }
     }
@@ -1084,9 +1084,7 @@ export default function InterviewPage() {
     if (typeof resultObj.xpAwarded === 'number' && resultObj.xpAwarded > 0) {
       applyServerXp(resultObj.newXp, resultObj.xpAwarded, 'Completed AI Interview');
     }
-    if (resultObj.verdict === 'Hire' || resultObj.verdict === 'Conditional Hire') {
-      earnPins('ai_interview');
-    }
+    // Interview verdict recorded; pins are not earned via gameplay
 
     const { dateStr, isoStr } = safeFormatDate();
     const sessionRecord: InterviewSessionRecord = {

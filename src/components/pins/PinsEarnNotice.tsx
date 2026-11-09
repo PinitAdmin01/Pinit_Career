@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function PinsEarnNotice({ earnAmount, activity, description }: Props) {
+  if (earnAmount <= 0) return null;
   return (
     <div style={{
       display: 'inline-flex', alignItems: 'center', gap: 10,

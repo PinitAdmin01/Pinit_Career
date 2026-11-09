@@ -423,10 +423,7 @@ export function useWorkspaceState({
                 localStorage.setItem(`pinit_code_${userId}_${quest.id}`, code);
               }
               addCompletedQuest(quest.id, category === 'exam', xpReward);
-              toast.success(category === 'exam' ? 'Exam Passed! 🎉' : 'Quest Completed! 🎉', `Earned +${xpReward} XP & +${pinsReward} Pins.`);
-              if (typeof cOS?.earnPins === 'function') {
-                cOS.earnPins(category === 'exam' ? 'exam_pass' : 'mission_complete', pinsReward, `Completed quest: ${quest.title}`);
-              }
+              toast.success(category === 'exam' ? 'Exam Passed! 🎉' : 'Quest Completed! 🎉', `Earned +${xpReward} XP.`);
               if (userId && userId !== 'guest') {
                 Promise.resolve(supabase.from('quest_completions').upsert({
                   user_id: userId,

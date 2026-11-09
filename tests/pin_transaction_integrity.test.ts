@@ -17,10 +17,11 @@ test('Block 161 (TASK-481): PIN_COSTS and PIN_EARN economy catalog invariants', 
   assert.strictEqual(PIN_COSTS.code_arena.cost, 10, 'Code Arena battle must cost 10 pins');
   assert.strictEqual(PIN_COSTS.group_discussion.cost, 25, 'GD practice must cost 25 pins');
 
-  // PIN_EARN rewards
-  assert.ok(PIN_EARN.mission_complete > 0, 'Mission complete earn rate must be > 0');
-  assert.ok(PIN_EARN.onboarding_complete > 0, 'Onboarding complete earn rate must be > 0');
-  assert.ok(PIN_EARN.vault_verify > 0, 'Vault verify earn rate must be > 0');
+  // PIN_EARN rewards: gameplay earn rates must be 0; purchases and bonuses must be > 0
+  assert.strictEqual(PIN_EARN.mission_complete, 0, 'Gameplay mission earn rate must be 0');
+  assert.strictEqual(PIN_EARN.vault_verify, 0, 'Gameplay vault verify earn rate must be 0');
+  assert.ok(PIN_EARN.purchase > 0, 'Purchase earn rate must be > 0');
+  assert.ok(PIN_EARN.streak_bonus > 0, 'Streak bonus earn rate must be > 0');
 });
 
 test('Block 161 (TASK-481): Debit / Credit transaction engine non-negative balance invariant', () => {

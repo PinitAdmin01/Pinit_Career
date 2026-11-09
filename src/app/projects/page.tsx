@@ -979,9 +979,7 @@ function ProjectsPageContent() {
           .then((res) => applyServerXp(res?.newXp, res?.xpAwarded ?? 0, xpLabel))
           .catch((err: unknown) => toast.info('Project XP not added', err instanceof Error && err.message ? err.message : 'Verify the repository again and retry.'));
       }
-      if (earnedPins > 0) {
-        earnPins('vault_verify', earnedPins, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
-      }
+      // Gameplay earn disabled: projects grant XP and portfolio verification, not pins
 
       // Record in authoritative pathway evidence engine, under the program and competency of the
       // student's own track (tracks the competency catalog doesn't cover record nothing).

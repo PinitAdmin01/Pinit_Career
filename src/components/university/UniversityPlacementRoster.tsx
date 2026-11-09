@@ -152,7 +152,7 @@ export const UniversityPlacementRoster: React.FC<UniversityPlacementRosterProps>
           </svg>
           <h3 className="mt-4 text-lg font-semibold text-slate-300">No verified candidates found</h3>
           <p className="mt-2 text-sm text-slate-500 max-w-md mx-auto">
-            No verified candidates found matching these criteria. Once students complete missions and earn cryptographic Pins, their verified profiles will appear here.
+            No verified candidates found matching these criteria. Once students complete missions and build verified proof-of-work, their verified profiles will appear here.
           </p>
         </div>
       ) : (

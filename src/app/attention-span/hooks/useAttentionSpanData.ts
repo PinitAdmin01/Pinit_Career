@@ -489,7 +489,7 @@ export function useAttentionSpanData(user: any) {
     playSound('level', soundMuted);
     saveStats({ ...stats, questClaimedDate: today });
     try {
-      earnPins('mission_complete', 15, 'Daily Focus Quest Complete');
+      // Gameplay earn disabled: focus quest awards XP, not pins
       addXp(40, 'Daily Focus Quest Completed');
     } catch {}
   };
