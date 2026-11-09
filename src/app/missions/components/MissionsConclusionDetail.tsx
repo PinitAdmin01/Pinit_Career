@@ -277,8 +277,8 @@ export default function MissionsConclusionDetail({ theme, record, onBack }: Miss
                         <div
                           key={mIdx}
                           style={{
-                            background: 'rgba(0,0,0,0.25)',
-                            border: '1px solid rgba(20,184,166,0.2)',
+                            background: 'color-mix(in srgb, var(--card) 60%, transparent)',
+                            border: '1px solid rgba(20,184,166,0.25)',
                             borderRadius: 10,
                             padding: '6px 12px',
                             display: 'flex',
