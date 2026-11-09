@@ -4215,6 +4215,1294 @@ for idx, (matrix, expected) in enumerate(cases):
 `,
   },
 
+  // --- EXPANSION TO 120 QUESTIONS (30 NEW ENTERPRISE & UNIVERSAL QUESTIONS) ---
+  // [BASIC] Number of 1 Bits (Hamming Telemetry Weight)
+  war_hamming_weight_31: {
+    functionName: 'hammingWeight',
+    pythonFunctionName: 'hamming_weight',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { n: 11, expected: 3 },
+        { n: 128, expected: 1 },
+        { n: 2147483645, expected: 30 },
+        { n: 0, expected: 0 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = hammingWeight(cases[i].n);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('hamming_weight') or globals().get('hammingWeight')
+assert fn is not None, "Function hamming_weight not found"
+cases = [
+    (11, 3),
+    (128, 1),
+    (2147483645, 30),
+    (0, 0)
+]
+for idx, (n, expected) in enumerate(cases):
+    ans = fn(n)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Implement strStr (Linear Search Needle in Haystack)
+  war_strstr_needle_32: {
+    functionName: 'strStr',
+    pythonFunctionName: 'str_str',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { h: "sadbutsad", n: "sad", expected: 0 },
+        { h: "leetcode", n: "leeto", expected: -1 },
+        { h: "hello", n: "ll", expected: 2 },
+        { h: "pipeline", n: "", expected: 0 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = strStr(cases[i].h, cases[i].n);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('str_str') or globals().get('strStr')
+assert fn is not None, "Function str_str not found"
+cases = [
+    ("sadbutsad", "sad", 0),
+    ("leetcode", "leeto", -1),
+    ("hello", "ll", 2),
+    ("pipeline", "", 0)
+]
+for idx, (h, n, expected) in enumerate(cases):
+    ans = fn(h, n)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Backspace String Compare (Editor Keystroke Buffer)
+  war_backspace_string_compare_33: {
+    functionName: 'backspaceCompare',
+    pythonFunctionName: 'backspace_compare',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "ab#c", t: "ad#c", expected: true },
+        { s: "ab##", t: "c#d#", expected: true },
+        { s: "a#c", t: "b", expected: false },
+        { s: "bxj##tw", t: "bxj###tw", expected: false }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = backspaceCompare(cases[i].s, cases[i].t);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('backspace_compare') or globals().get('backspaceCompare')
+assert fn is not None, "Function backspace_compare not found"
+cases = [
+    ("ab#c", "ad#c", True),
+    ("ab##", "c#d#", True),
+    ("a#c", "b", False),
+    ("bxj##tw", "bxj###tw", False)
+]
+for idx, (s, t, expected) in enumerate(cases):
+    ans = fn(s, t)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Squares of a Sorted Array (Two-Pointer Convergence)
+  war_squares_sorted_array_34: {
+    functionName: 'sortedSquares',
+    pythonFunctionName: 'sorted_squares',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [-4,-1,0,3,10], expected: [0,1,9,16,100] },
+        { nums: [-7,-3,2,3,11], expected: [4,9,9,49,121] },
+        { nums: [0,2,3], expected: [0,4,9] },
+        { nums: [-5,-4,-1], expected: [1,16,25] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = sortedSquares(cases[i].nums.slice());
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('sorted_squares') or globals().get('sortedSquares')
+assert fn is not None, "Function sorted_squares not found"
+cases = [
+    ([-4,-1,0,3,10], [0,1,9,16,100]),
+    ([-7,-3,2,3,11], [4,9,9,49,121]),
+    ([0,2,3], [0,4,9]),
+    ([-5,-4,-1], [1,16,25])
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = list(fn(list(nums)))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Ransom Note (Character Inventory Validator)
+  war_ransom_note_35: {
+    functionName: 'canConstruct',
+    pythonFunctionName: 'can_construct',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { r: "a", m: "b", expected: false },
+        { r: "aa", m: "ab", expected: false },
+        { r: "aa", m: "aab", expected: true },
+        { r: "secure", m: "rescueme", expected: true }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = canConstruct(cases[i].r, cases[i].m);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('can_construct') or globals().get('canConstruct')
+assert fn is not None, "Function can_construct not found"
+cases = [
+    ("a", "b", False),
+    ("aa", "ab", False),
+    ("aa", "aab", True),
+    ("secure", "rescueme", True)
+]
+for idx, (r, m, expected) in enumerate(cases):
+    ans = fn(r, m)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Maximum Units on a Truck (Greedy Cargo Optimization)
+  war_maximum_units_truck_36: {
+    functionName: 'maximumUnits',
+    pythonFunctionName: 'maximum_units',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { b: [[1,3],[2,2],[3,1]], t: 4, expected: 8 },
+        { b: [[5,10],[2,5],[4,7],[3,9]], t: 10, expected: 91 },
+        { b: [[3,1]], t: 5, expected: 3 },
+        { b: [[2,10],[3,20]], t: 0, expected: 0 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var bCopy = cases[i].b.map(function(item){ return item.slice(); });
+          var res = maximumUnits(bCopy, cases[i].t);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('maximum_units') or globals().get('maximumUnits')
+assert fn is not None, "Function maximum_units not found"
+cases = [
+    ([[1,3],[2,2],[3,1]], 4, 8),
+    ([[5,10],[2,5],[4,7],[3,9]], 10, 91),
+    ([[3,1]], 5, 3),
+    ([[2,10],[3,20]], 0, 0)
+]
+for idx, (b, t, expected) in enumerate(cases):
+    ans = fn([list(x) for x in b], t)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Monotonic Array (Telemetry Drift Consistency)
+  war_monotonic_array_37: {
+    functionName: 'isMonotonic',
+    pythonFunctionName: 'is_monotonic',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,2,2,3], expected: true },
+        { nums: [6,5,4,4], expected: true },
+        { nums: [1,3,2], expected: false },
+        { nums: [1,1,1], expected: true }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = isMonotonic(cases[i].nums.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('is_monotonic') or globals().get('isMonotonic')
+assert fn is not None, "Function is_monotonic not found"
+cases = [
+    ([1,2,2,3], True),
+    ([6,5,4,4], True),
+    ([1,3,2], False),
+    ([1,1,1], True)
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Replace Elements with Greatest on Right (Suffix Max Scan)
+  war_replace_elements_greatest_right_38: {
+    functionName: 'replaceElements',
+    pythonFunctionName: 'replace_elements',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { arr: [17,18,5,4,6,1], expected: [18,6,6,6,1,-1] },
+        { arr: [400], expected: [-1] },
+        { arr: [2,3,1], expected: [3,1,-1] },
+        { arr: [5,4,3,2,1], expected: [4,3,2,1,-1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = replaceElements(cases[i].arr.slice());
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('replace_elements') or globals().get('replaceElements')
+assert fn is not None, "Function replace_elements not found"
+cases = [
+    ([17,18,5,4,6,1], [18,6,6,6,1,-1]),
+    ([400], [-1]),
+    ([2,3,1], [3,1,-1]),
+    ([5,4,3,2,1], [4,3,2,1,-1])
+]
+for idx, (arr, expected) in enumerate(cases):
+    ans = list(fn(list(arr)))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Kth Missing Positive Number (Ordered Stream Discontinuity)
+  war_kth_missing_positive_39: {
+    functionName: 'findKthPositive',
+    pythonFunctionName: 'find_kth_positive',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { arr: [2,3,4,7,11], k: 5, expected: 9 },
+        { arr: [1,2,3,4], k: 2, expected: 6 },
+        { arr: [5,6,7,8], k: 1, expected: 1 },
+        { arr: [1], k: 1, expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findKthPositive(cases[i].arr.slice(), cases[i].k);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_kth_positive') or globals().get('findKthPositive')
+assert fn is not None, "Function find_kth_positive not found"
+cases = [
+    ([2,3,4,7,11], 5, 9),
+    ([1,2,3,4], 2, 6),
+    ([5,6,7,8], 1, 1),
+    ([1], 1, 2)
+]
+for idx, (arr, k, expected) in enumerate(cases):
+    ans = fn(list(arr), k)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [BASIC] Peak Index in a Mountain Array (Unimodal Binary Search)
+  war_peak_index_mountain_40: {
+    functionName: 'peakIndexInMountainArray',
+    pythonFunctionName: 'peak_index_in_mountain_array',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { arr: [0,1,0], expected: 1 },
+        { arr: [0,2,1,0], expected: 1 },
+        { arr: [0,10,5,2], expected: 1 },
+        { arr: [3,4,5,1], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = peakIndexInMountainArray(cases[i].arr.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('peak_index_in_mountain_array') or globals().get('peakIndexInMountainArray')
+assert fn is not None, "Function peak_index_in_mountain_array not found"
+cases = [
+    ([0,1,0], 1),
+    ([0,2,1,0], 1),
+    ([0,10,5,2], 1),
+    ([3,4,5,1], 2)
+]
+for idx, (arr, expected) in enumerate(cases):
+    ans = fn(list(arr))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Gas Station (Circular Fuel Delivery Circuit)
+  war_gas_station_34: {
+    functionName: 'canCompleteCircuit',
+    pythonFunctionName: 'can_complete_circuit',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { gas: [1,2,3,4,5], cost: [3,4,5,1,2], expected: 3 },
+        { gas: [2,3,4], cost: [3,4,3], expected: -1 },
+        { gas: [5,1,2,3,4], cost: [4,4,1,5,1], expected: 4 },
+        { gas: [3,1,1], cost: [1,2,2], expected: 0 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = canCompleteCircuit(cases[i].gas.slice(), cases[i].cost.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('can_complete_circuit') or globals().get('canCompleteCircuit')
+assert fn is not None, "Function can_complete_circuit not found"
+cases = [
+    ([1,2,3,4,5], [3,4,5,1,2], 3),
+    ([2,3,4], [3,4,3], -1),
+    ([5,1,2,3,4], [4,4,1,5,1], 4),
+    ([3,1,1], [1,2,2], 0)
+]
+for idx, (gas, cost, expected) in enumerate(cases):
+    ans = fn(list(gas), list(cost))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Koko Eating Bananas (Binary Search on Feasibility)
+  war_koko_eating_bananas_35: {
+    functionName: 'minEatingSpeed',
+    pythonFunctionName: 'min_eating_speed',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { piles: [3,6,7,11], h: 8, expected: 4 },
+        { piles: [30,11,23,4,20], h: 5, expected: 30 },
+        { piles: [30,11,23,4,20], h: 6, expected: 23 },
+        { piles: [1,1,1,1], h: 4, expected: 1 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = minEatingSpeed(cases[i].piles.slice(), cases[i].h);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('min_eating_speed') or globals().get('minEatingSpeed')
+assert fn is not None, "Function min_eating_speed not found"
+cases = [
+    ([3,6,7,11], 8, 4),
+    ([30,11,23,4,20], 5, 30),
+    ([30,11,23,4,20], 6, 23),
+    ([1,1,1,1], 4, 1)
+]
+for idx, (piles, h, expected) in enumerate(cases):
+    ans = fn(list(piles), h)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Longest Palindromic Substring (Center Expansion)
+  war_longest_palindromic_substring_36: {
+    functionName: 'longestPalindrome',
+    pythonFunctionName: 'longest_palindrome',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "babad", valid: ["bab", "aba"] },
+        { s: "cbbd", valid: ["bb"] },
+        { s: "a", valid: ["a"] },
+        { s: "racecar", valid: ["racecar"] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = longestPalindrome(cases[i].s);
+          if (cases[i].valid.indexOf(res) !== -1) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected one of ' + JSON.stringify(cases[i].valid) + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('longest_palindrome') or globals().get('longestPalindrome')
+assert fn is not None, "Function longest_palindrome not found"
+cases = [
+    ("babad", ["bab", "aba"]),
+    ("cbbd", ["bb"]),
+    ("a", ["a"]),
+    ("racecar", ["racecar"])
+]
+for idx, (s, valid) in enumerate(cases):
+    ans = fn(s)
+    assert ans in valid, f"Test case {idx+1} failed: expected one of {valid}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] House Robber II (Circular Ring Network Security)
+  war_house_robber_ii_37: {
+    functionName: 'rob',
+    pythonFunctionName: 'rob',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [2,3,2], expected: 3 },
+        { nums: [1,2,3,1], expected: 4 },
+        { nums: [1,2,3], expected: 3 },
+        { nums: [10], expected: 10 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = rob(cases[i].nums.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('rob')
+assert fn is not None, "Function rob not found"
+cases = [
+    ([2,3,2], 3),
+    ([1,2,3,1], 4),
+    ([1,2,3], 3),
+    ([10], 10)
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Next Greater Element II (Circular Monotonic Buffer)
+  war_next_greater_element_ii_38: {
+    functionName: 'nextGreaterElements',
+    pythonFunctionName: 'next_greater_elements',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [1,2,1], expected: [2,-1,2] },
+        { nums: [1,2,3,4,3], expected: [2,3,4,-1,4] },
+        { nums: [5,4,3,2,1], expected: [-1,5,5,5,5] },
+        { nums: [1], expected: [-1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = nextGreaterElements(cases[i].nums.slice());
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('next_greater_elements') or globals().get('nextGreaterElements')
+assert fn is not None, "Function next_greater_elements not found"
+cases = [
+    ([1,2,1], [2,-1,2]),
+    ([1,2,3,4,3], [2,3,4,-1,4]),
+    ([5,4,3,2,1], [-1,5,5,5,5]),
+    ([1], [-1])
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = list(fn(list(nums)))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Rotting Oranges (Multi-Source BFS Infection Propagation)
+  war_rotting_oranges_39: {
+    functionName: 'orangesRotting',
+    pythonFunctionName: 'oranges_rotting',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { grid: [[2,1,1],[1,1,0],[0,1,1]], expected: 4 },
+        { grid: [[2,1,1],[0,1,1],[1,0,1]], expected: -1 },
+        { grid: [[0,2]], expected: 0 },
+        { grid: [[1]], expected: -1 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var gridCopy = cases[i].grid.map(function(r){ return r.slice(); });
+          var res = orangesRotting(gridCopy);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('oranges_rotting') or globals().get('orangesRotting')
+assert fn is not None, "Function oranges_rotting not found"
+cases = [
+    ([[2,1,1],[1,1,0],[0,1,1]], 4),
+    ([[2,1,1],[0,1,1],[1,0,1]], -1),
+    ([[0,2]], 0),
+    ([[1]], -1)
+]
+for idx, (grid, expected) in enumerate(cases):
+    ans = fn([list(r) for r in grid])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Find All Anagrams in a String (Sliding Window Fingerprint)
+  war_find_all_anagrams_40: {
+    functionName: 'findAnagrams',
+    pythonFunctionName: 'find_anagrams',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "cbaebabacd", p: "abc", expected: [0, 6] },
+        { s: "abab", p: "ab", expected: [0, 1, 2] },
+        { s: "hello", p: "world", expected: [] },
+        { s: "aa", p: "a", expected: [0, 1] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = findAnagrams(cases[i].s, cases[i].p);
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('find_anagrams') or globals().get('findAnagrams')
+assert fn is not None, "Function find_anagrams not found"
+cases = [
+    ("cbaebabacd", "abc", [0, 6]),
+    ("abab", "ab", [0, 1, 2]),
+    ("hello", "world", []),
+    ("aa", "a", [0, 1])
+]
+for idx, (s, p, expected) in enumerate(cases):
+    ans = list(fn(s, p))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Word Search (Grid DFS Backtracking Matrix)
+  war_word_search_41: {
+    functionName: 'exist',
+    pythonFunctionName: 'exist',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { board: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word: "ABCCED", expected: true },
+        { board: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word: "SEE", expected: true },
+        { board: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word: "ABCB", expected: false },
+        { board: [["A"]], word: "A", expected: true }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var bCopy = cases[i].board.map(function(r){ return r.slice(); });
+          var res = exist(bCopy, cases[i].word);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('exist')
+assert fn is not None, "Function exist not found"
+cases = [
+    ([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED", True),
+    ([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "SEE", True),
+    ([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCB", False),
+    ([["A"]], "A", True)
+]
+for idx, (board, word, expected) in enumerate(cases):
+    ans = fn([list(r) for r in board], word)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Car Fleet (Monotonic Intersection Time)
+  war_car_fleet_42: {
+    functionName: 'carFleet',
+    pythonFunctionName: 'car_fleet',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { t: 12, p: [10,8,0,5,3], s: [2,4,1,1,3], expected: 3 },
+        { t: 10, p: [3], s: [3], expected: 1 },
+        { t: 100, p: [0,2,4], s: [4,2,1], expected: 1 },
+        { t: 10, p: [6,8], s: [3,2], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = carFleet(cases[i].t, cases[i].p.slice(), cases[i].s.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('car_fleet') or globals().get('carFleet')
+assert fn is not None, "Function car_fleet not found"
+cases = [
+    (12, [10,8,0,5,3], [2,4,1,1,3], 3),
+    (10, [3], [3], 1),
+    (100, [0,2,4], [4,2,1], 1),
+    (10, [6,8], [3,2], 2)
+]
+for idx, (t, p, s, expected) in enumerate(cases):
+    ans = fn(t, list(p), list(s))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [INTERMEDIATE] Reorganize String (Max-Frequency Heap Buffer)
+  war_reorganize_string_43: {
+    functionName: 'reorganizeString',
+    pythonFunctionName: 'reorganize_string',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "aab", possible: true },
+        { s: "aaab", possible: false },
+        { s: "vvvlo", possible: true },
+        { s: "baaba", possible: true }
+      ];
+      var passedCount = 0;
+      var isValid = function(orig, res) {
+        if (res.length !== orig.length) return false;
+        var c1 = {}, c2 = {};
+        for (var i = 0; i < orig.length; i++) c1[orig[i]] = (c1[orig[i]] || 0) + 1;
+        for (var i = 0; i < res.length; i++) c2[res[i]] = (c2[res[i]] || 0) + 1;
+        for (var k in c1) if (c1[k] !== c2[k]) return false;
+        for (var i = 0; i < res.length - 1; i++) if (res[i] === res[i+1]) return false;
+        return true;
+      };
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = reorganizeString(cases[i].s);
+          if (!cases[i].possible) {
+            if (res === "") passedCount++;
+            else return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected "", got ' + res };
+          } else {
+            if (isValid(cases[i].s, res)) passedCount++;
+            else return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: invalid rearrangement ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('reorganize_string') or globals().get('reorganizeString')
+assert fn is not None, "Function reorganize_string not found"
+from collections import Counter
+def is_valid(orig, res):
+    if len(res) != len(orig): return False
+    if Counter(orig) != Counter(res): return False
+    for i in range(len(res) - 1):
+        if res[i] == res[i+1]: return False
+    return True
+cases = [
+    ("aab", True),
+    ("aaab", False),
+    ("vvvlo", True),
+    ("baaba", True)
+]
+for idx, (s, possible) in enumerate(cases):
+    ans = fn(s)
+    if not possible:
+        assert ans == "", f"Test case {idx+1} failed: expected empty string, got {ans}"
+    else:
+        assert is_valid(s, ans), f"Test case {idx+1} failed: invalid rearrangement {ans}"
+`,
+  },
+
+  // [ADVANCED] LFU Cache (O(1) Frequency Eviction Engine)
+  war_lfu_cache_31: {
+    functionName: 'simulateLFU',
+    pythonFunctionName: 'simulate_lfu',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { cap: 2, ops: [["put","1","1"],["put","2","2"],["get","1"],["put","3","3"],["get","2"],["get","3"],["put","4","4"],["get","1"],["get","3"],["get","4"]], expected: [null,null,1,null,-1,3,null,-1,3,4] },
+        { cap: 0, ops: [["put","0","0"],["get","0"]], expected: [null,-1] },
+        { cap: 1, ops: [["put","2","1"],["get","2"],["put","3","2"],["get","2"],["get","3"]], expected: [null,1,null,-1,2] },
+        { cap: 2, ops: [["get","2"],["put","2","6"],["get","1"],["put","1","5"],["put","1","2"],["get","1"],["get","2"]], expected: [-1,null,-1,null,null,2,6] }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var opsCopy = cases[i].ops.map(function(item){ return item.slice(); });
+          var res = simulateLFU(cases[i].cap, opsCopy);
+          if (JSON.stringify(res) === JSON.stringify(cases[i].expected)) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + JSON.stringify(cases[i].expected) + ', got ' + JSON.stringify(res) };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('simulate_lfu') or globals().get('simulateLFU')
+assert fn is not None, "Function simulate_lfu not found"
+cases = [
+    (2, [["put","1","1"],["put","2","2"],["get","1"],["put","3","3"],["get","2"],["get","3"],["put","4","4"],["get","1"],["get","3"],["get","4"]], [None,None,1,None,-1,3,None,-1,3,4]),
+    (0, [["put","0","0"],["get","0"]], [None,-1]),
+    (1, [["put","2","1"],["get","2"],["put","3","2"],["get","2"],["get","3"]], [None,1,None,-1,2]),
+    (2, [["get","2"],["put","2","6"],["get","1"],["put","1","5"],["put","1","2"],["get","1"],["get","2"]], [-1,None,-1,None,None,2,6])
+]
+for idx, (cap, ops, expected) in enumerate(cases):
+    ans = fn(cap, [list(o) for o in ops])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Wildcard Matching (2D DP Glob Pattern Matcher)
+  war_wildcard_matching_32: {
+    functionName: 'isMatch',
+    pythonFunctionName: 'is_match',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "aa", p: "a", expected: false },
+        { s: "aa", p: "*", expected: true },
+        { s: "cb", p: "?a", expected: false },
+        { s: "adceb", p: "*a*b", expected: true }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = isMatch(cases[i].s, cases[i].p);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('is_match') or globals().get('isMatch')
+assert fn is not None, "Function is_match not found"
+cases = [
+    ("aa", "a", False),
+    ("aa", "*", True),
+    ("cb", "?a", False),
+    ("adceb", "*a*b", True)
+]
+for idx, (s, p, expected) in enumerate(cases):
+    ans = fn(s, p)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Burst Balloons (Interval Dynamic Programming)
+  war_burst_balloons_33: {
+    functionName: 'maxCoins',
+    pythonFunctionName: 'max_coins',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { nums: [3,1,5,8], expected: 167 },
+        { nums: [1,5], expected: 10 },
+        { nums: [7], expected: 7 },
+        { nums: [1,2,3], expected: 12 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = maxCoins(cases[i].nums.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('max_coins') or globals().get('maxCoins')
+assert fn is not None, "Function max_coins not found"
+cases = [
+    ([3,1,5,8], 167),
+    ([1,5], 10),
+    ([7], 7),
+    ([1,2,3], 12)
+]
+for idx, (nums, expected) in enumerate(cases):
+    ans = fn(list(nums))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] N-Queens (Bitmask Backtracking Placement Engine)
+  war_n_queens_34: {
+    functionName: 'totalNQueens',
+    pythonFunctionName: 'total_n_queens',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { n: 4, expected: 2 },
+        { n: 1, expected: 1 },
+        { n: 5, expected: 10 },
+        { n: 8, expected: 92 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = totalNQueens(cases[i].n);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('total_n_queens') or globals().get('totalNQueens')
+assert fn is not None, "Function total_n_queens not found"
+cases = [
+    (4, 2),
+    (1, 1),
+    (5, 10),
+    (8, 92)
+]
+for idx, (n, expected) in enumerate(cases):
+    ans = fn(n)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Regular Expression Matching (Kleene Star AST DP)
+  war_regular_expression_matching_35: {
+    functionName: 'isRegexMatch',
+    pythonFunctionName: 'is_regex_match',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "aa", p: "a", expected: false },
+        { s: "aa", p: "a*", expected: true },
+        { s: "ab", p: ".*", expected: true },
+        { s: "aab", p: "c*a*b", expected: true }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = isRegexMatch(cases[i].s, cases[i].p);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('is_regex_match') or globals().get('isRegexMatch')
+assert fn is not None, "Function is_regex_match not found"
+cases = [
+    ("aa", "a", False),
+    ("aa", "a*", True),
+    ("ab", ".*", True),
+    ("aab", "c*a*b", True)
+]
+for idx, (s, p, expected) in enumerate(cases):
+    ans = fn(s, p)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Maximal Rectangle (2D Matrix Monotonic Histogram)
+  war_maximal_rectangle_36: {
+    functionName: 'maximalRectangle',
+    pythonFunctionName: 'maximal_rectangle',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { m: [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]], expected: 6 },
+        { m: [["0"]], expected: 0 },
+        { m: [["1"]], expected: 1 },
+        { m: [["0","0"],["0","0"]], expected: 0 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var mCopy = cases[i].m.map(function(r){ return r.slice(); });
+          var res = maximalRectangle(mCopy);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('maximal_rectangle') or globals().get('maximalRectangle')
+assert fn is not None, "Function maximal_rectangle not found"
+cases = [
+    ([["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]], 6),
+    ([["0"]], 0),
+    ([["1"]], 1),
+    ([["0","0"],["0","0"]], 0)
+]
+for idx, (m, expected) in enumerate(cases):
+    ans = fn([list(r) for r in m])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Network Delay Time (Dijkstra Shortest Path Router)
+  war_network_delay_dijkstra_37: {
+    functionName: 'networkDelayTime',
+    pythonFunctionName: 'network_delay_time',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { t: [[2,1,1],[2,3,1],[3,4,1]], n: 4, k: 2, expected: 2 },
+        { t: [[1,2,1]], n: 2, k: 1, expected: 1 },
+        { t: [[1,2,1]], n: 2, k: 2, expected: -1 },
+        { t: [[1,2,1],[2,3,2],[1,3,4]], n: 3, k: 1, expected: 3 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var tCopy = cases[i].t.map(function(item){ return item.slice(); });
+          var res = networkDelayTime(tCopy, cases[i].n, cases[i].k);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('network_delay_time') or globals().get('networkDelayTime')
+assert fn is not None, "Function network_delay_time not found"
+cases = [
+    ([[2,1,1],[2,3,1],[3,4,1]], 4, 2, 2),
+    ([[1,2,1]], 2, 1, 1),
+    ([[1,2,1]], 2, 2, -1),
+    ([[1,2,1],[2,3,2],[1,3,4]], 3, 1, 3)
+]
+for idx, (t, n, k, expected) in enumerate(cases):
+    ans = fn([list(x) for x in t], n, k)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Shortest Palindrome (KMP Prefix Table Minimizer)
+  war_shortest_palindrome_38: {
+    functionName: 'shortestPalindrome',
+    pythonFunctionName: 'shortest_palindrome',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { s: "aacecaaa", expected: "aaacecaaa" },
+        { s: "abcd", expected: "dcbabcd" },
+        { s: "", expected: "" },
+        { s: "a", expected: "a" }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = shortestPalindrome(cases[i].s);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('shortest_palindrome') or globals().get('shortestPalindrome')
+assert fn is not None, "Function shortest_palindrome not found"
+cases = [
+    ("aacecaaa", "aaacecaaa"),
+    ("abcd", "dcbabcd"),
+    ("", ""),
+    ("a", "a")
+]
+for idx, (s, expected) in enumerate(cases):
+    ans = fn(s)
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Swim in Rising Water (Minimax Elevation Binary Search)
+  war_swim_in_rising_water_39: {
+    functionName: 'swimInWater',
+    pythonFunctionName: 'swim_in_water',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { g: [[0,2],[1,3]], expected: 3 },
+        { g: [[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]], expected: 16 },
+        { g: [[3]], expected: 3 },
+        { g: [[0,1],[3,2]], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var gCopy = cases[i].g.map(function(r){ return r.slice(); });
+          var res = swimInWater(gCopy);
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('swim_in_water') or globals().get('swimInWater')
+assert fn is not None, "Function swim_in_water not found"
+cases = [
+    ([[0,2],[1,3]], 3),
+    ([[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]], 16),
+    ([[3]], 3),
+    ([[0,1],[3,2]], 2)
+]
+for idx, (g, expected) in enumerate(cases):
+    ans = fn([list(r) for r in g])
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
+
+  // [ADVANCED] Binary Tree Maximum Path Sum (Post-Order Dynamic Path)
+  war_binary_tree_max_path_sum_40: {
+    functionName: 'maxPathSum',
+    pythonFunctionName: 'max_path_sum',
+    totalTests: 4,
+    evaluatorCode: `
+var cases = [
+        { r: [1, 2, 3], expected: 6 },
+        { r: [-10, 9, 20, null, null, 15, 7], expected: 42 },
+        { r: [-3], expected: -3 },
+        { r: [2, -1], expected: 2 }
+      ];
+      var passedCount = 0;
+      for (var i = 0; i < cases.length; i++) {
+        try {
+          var res = maxPathSum(cases[i].r.slice());
+          if (res === cases[i].expected) {
+            passedCount++;
+          } else {
+            return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' failed: expected ' + cases[i].expected + ', got ' + res };
+          }
+        } catch (e) {
+          return { passed: false, status: 'FAILED', testsPassed: passedCount, totalTests: cases.length, error: 'Test case ' + (i+1) + ' error: ' + (e && e.message ? e.message : 'Execution error') };
+        }
+      }
+      return { passed: true, status: 'SUCCESS', testsPassed: passedCount, totalTests: cases.length };
+    `,
+    pythonTests: `
+fn = globals().get('max_path_sum') or globals().get('maxPathSum')
+assert fn is not None, "Function max_path_sum not found"
+cases = [
+    ([1, 2, 3], 6),
+    ([-10, 9, 20, None, None, 15, 7], 42),
+    ([-3], -3),
+    ([2, -1], 2)
+]
+for idx, (r, expected) in enumerate(cases):
+    ans = fn(list(r))
+    assert ans == expected, f"Test case {idx+1} failed: expected {expected}, got {ans}"
+`,
+  },
 };
 
 const EVALUATOR_WORKER_SCRIPT = `

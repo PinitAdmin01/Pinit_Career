@@ -22,8 +22,29 @@ export default function SignupPage() {
 
   // ─── Global App Store Theme Synchronization ───
   const storeTheme = useAppStore((s) => s.theme);
+  const setStoreTheme = useAppStore((s) => s.setTheme);
   const toggleTheme = useAppStore((s) => s.toggleTheme);
   const isDark = storeTheme === 'dark';
+
+  useEffect(() => {
+    // 1. Sync theme on mount from canonical pc_theme or data-theme
+    try {
+      const saved = (localStorage.getItem('pc_theme') as 'dark' | 'light' | null) ||
+        (document.documentElement.getAttribute('data-theme') as 'dark' | 'light' | null);
+      if (saved && (saved === 'dark' || saved === 'light') && saved !== storeTheme) {
+        setStoreTheme(saved);
+      }
+    } catch {}
+
+    // 2. Cross-component event listener for pc_theme_toggled
+    const handleThemeEvent = (e: any) => {
+      if (e.detail?.theme && (e.detail.theme === 'dark' || e.detail.theme === 'light')) {
+        setStoreTheme(e.detail.theme);
+      }
+    };
+    window.addEventListener('pc_theme_toggled', handleThemeEvent);
+    return () => window.removeEventListener('pc_theme_toggled', handleThemeEvent);
+  }, [setStoreTheme, storeTheme]);
 
   // ─── Form & Verification State (Clean Unhardcoded Initial State) ───
   const [idMode, setIdMode] = useState<'college' | 'global'>('college');

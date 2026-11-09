@@ -80,6 +80,7 @@ function LeaderboardContent() {
   const [activeTab, setActiveTab] = useState<TabMode>(initialMode);
   const [selectedLeague, setSelectedLeague] = useState<LeagueTier>('browns');
   const [currentUserLeague, setCurrentUserLeague] = useState<LeagueTier>('browns');
+  const [isLeagueModalOpen, setIsLeagueModalOpen] = useState(false);
   const hasManuallySelectedRef = useRef(false);
   const [domainFilter, setDomainFilter] = useState<'all' | 'tech' | 'data' | 'ai'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -319,21 +320,65 @@ function LeaderboardContent() {
           alignItems: 'center',
         }}
       >
-        {/* Card 1: Active League & Rank Status */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <LeagueBadge tier={currentUserLeague} size="sm" glow animate />
-          <div>
-            <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: userLeagueMeta.color }}>
-              Your Active League
-            </div>
-            <div style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', margin: '1px 0' }}>
-              {userLeagueMeta.title}
-            </div>
-            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-              {userLeagueMeta.slogan}
+        {/* Card 1: Active League & Interactive Division Selector Trigger */}
+        <button
+          type="button"
+          data-testid="interactive-league-emblem-btn"
+          onClick={() => setIsLeagueModalOpen(true)}
+          title="Click to inspect all competitive divisions"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background: 'transparent',
+            border: 'none',
+            padding: '4px 8px',
+            margin: '-4px -8px',
+            borderRadius: 12,
+            cursor: 'pointer',
+            textAlign: 'left',
+            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            outline: 'none',
+          }}
+        >
+          <div style={{ position: 'relative' }}>
+            <LeagueBadge tier={selectedLeague} size="sm" glow animate />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: -2,
+                right: -2,
+                width: 15,
+                height: 15,
+                borderRadius: 8,
+                background: activeLeagueMeta.color,
+                color: (selectedLeague === 'silver' || selectedLeague === 'gold') ? '#0f172a' : '#ffffff',
+                fontSize: 9,
+                fontWeight: 900,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: `0 0 8px ${activeLeagueMeta.color}`,
+              }}
+            >
+              ⇄
             </div>
           </div>
-        </div>
+          <div>
+            <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: activeLeagueMeta.color, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span>Active Division</span>
+              <span style={{ fontSize: 9.5, padding: '1px 5px', borderRadius: 4, background: `${activeLeagueMeta.color}22`, border: `1px solid ${activeLeagueMeta.color}50`, textTransform: 'none' }}>
+                Switch ▾
+              </span>
+            </div>
+            <div style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', margin: '1px 0' }}>
+              {activeLeagueMeta.title}
+            </div>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+              {activeLeagueMeta.slogan}
+            </div>
+          </div>
+        </button>
 
         {/* Card 2: Sprint Standing & Promotion Status */}
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -573,50 +618,144 @@ function LeaderboardContent() {
 
 
 
-      {/* ── 5-League Tier Switcher Bar (when in weekly_leagues mode) ───── */}
-      {activeTab === 'weekly_leagues' && (
-        <div style={{ marginBottom: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
-            Inspect League Division:
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: 10 }}>
-            {ALL_LEAGUES.map(tier => {
-              const meta = LEAGUE_CONFIGS[tier];
-              const isSelected = selectedLeague === tier;
-              const isUserTier = currentUserLeague === tier;
-              const count = leagueCounts[tier] || 0;
-
-              return (
-                <button
-                  key={tier}
-                  onClick={() => { setSelectedLeague(tier); hasManuallySelectedRef.current = true; }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    padding: '10px 14px',
-                    borderRadius: 14,
-                    border: isSelected ? `2px solid ${meta.color}` : '1px solid var(--border)',
-                    background: isSelected ? meta.bgGradient : 'var(--card)',
-                    boxShadow: isSelected ? `0 4px 16px ${meta.glowColor}` : 'var(--shadow-sm)',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <LeagueBadge tier={tier} size="xs" glow={isSelected} animate={isSelected} />
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ fontSize: 14.5, fontWeight: 900, color: isSelected ? meta.color : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                      {meta.title}
-                      {isUserTier && <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: meta.color, color: (tier === 'silver' || tier === 'gold') ? '#0f172a' : '#ffffff', fontWeight: 900 }}>YOU</span>}
-                    </div>
-                    <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>
-                      {count} {count === 1 ? 'Student' : 'Students'}
-                    </div>
+      {/* ── Interactive Game-Dev League Division Vault Modal ──────────── */}
+      {isLeagueModalOpen && (
+        <div
+          data-testid="league-division-modal-overlay"
+          onClick={() => setIsLeagueModalOpen(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(3, 7, 18, 0.78)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+          }}
+        >
+          <div
+            data-testid="league-division-modal"
+            onClick={e => e.stopPropagation()}
+            style={{
+              width: '100%',
+              maxWidth: 960,
+              background: 'linear-gradient(145deg, var(--card) 0%, var(--bg3) 100%)',
+              border: `1.5px solid ${activeLeagueMeta.color}60`,
+              borderRadius: 22,
+              padding: '24px 28px',
+              boxShadow: `0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px ${activeLeagueMeta.color}25`,
+              position: 'relative',
+            }}
+          >
+            {/* Modal Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ fontSize: 24 }}>⚔️</div>
+                <div>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.3px' }}>
+                    Competitive Division Vault
                   </div>
-                </button>
-              );
-            })}
+                  <div style={{ fontSize: 13, color: 'var(--t2)', marginTop: 2 }}>
+                    Select any league division to inspect live sprint contenders, rankings, and promotion brackets.
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsLeagueModalOpen(false)}
+                data-testid="close-league-modal-btn"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t2)',
+                  width: 34,
+                  height: 34,
+                  borderRadius: 17,
+                  cursor: 'pointer',
+                  fontSize: 15,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 5 League Division Cards Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: 12 }}>
+              {ALL_LEAGUES.map(tier => {
+                const meta = LEAGUE_CONFIGS[tier];
+                const isSelected = selectedLeague === tier;
+                const isUserTier = currentUserLeague === tier;
+                const count = leagueCounts[tier] || 0;
+
+                return (
+                  <button
+                    key={tier}
+                    type="button"
+                    data-testid={`select-league-${tier}`}
+                    onClick={() => {
+                      setSelectedLeague(tier);
+                      hasManuallySelectedRef.current = true;
+                      setIsLeagueModalOpen(false);
+                      if (activeTab !== 'weekly_leagues') {
+                        setActiveTab('weekly_leagues');
+                      }
+                      toast.info(`Inspecting ${meta.title}`, `Loaded ${meta.title} sprint ladder.`);
+                    }}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '18px 14px',
+                      borderRadius: 16,
+                      border: isSelected ? `2px solid ${meta.color}` : '1px solid var(--border)',
+                      background: isSelected ? meta.bgGradient : 'var(--card)',
+                      boxShadow: isSelected ? `0 6px 24px ${meta.glowColor}` : 'var(--shadow-sm)',
+                      cursor: 'pointer',
+                      textAlign: 'center',
+                      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                      position: 'relative',
+                    }}
+                  >
+                    {isUserTier && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 8,
+                        right: 8,
+                        fontSize: 10,
+                        padding: '2px 6px',
+                        borderRadius: 4,
+                        background: meta.color,
+                        color: (tier === 'silver' || tier === 'gold') ? '#0f172a' : '#ffffff',
+                        fontWeight: 900,
+                        letterSpacing: '0.04em',
+                      }}>
+                        YOU
+                      </div>
+                    )}
+                    <LeagueBadge tier={tier} size="md" glow={isSelected} animate={isSelected} />
+                    <div>
+                      <div style={{ fontSize: 15, fontWeight: 900, color: isSelected ? meta.color : 'var(--t1)' }}>
+                        {meta.title}
+                      </div>
+                      <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>
+                        {count} {count === 1 ? 'Student' : 'Students'}
+                      </div>
+                      <div style={{ fontSize: 11, color: isSelected ? meta.color : 'var(--t2)', marginTop: 8, fontWeight: 700 }}>
+                        {isSelected ? '● Active View' : 'Inspect Division →'}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}

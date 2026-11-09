@@ -132,7 +132,7 @@ export async function GET(req: Request) {
 
         if (mode === 'weekly_leagues') {
           if (activeLeague === 'browns') {
-            query = query.or('league_tier.eq.browns,league_tier.eq.Browns,league_tier.is.null');
+            query = query.or('league_tier.eq.browns,league_tier.is.null');
           } else {
             query = query.or(`league_tier.eq.${activeLeague},league_tier.eq.${activeLeague.charAt(0).toUpperCase() + activeLeague.slice(1)}`);
           }

@@ -2981,6 +2981,1178 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     hint: 'Let dp[i][j] represent the side length of the largest square whose bottom-right corner is at (i, j). If matrix[i][j] == "1", then dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]). Track maxSide, return maxSide * maxSide.',
     complexityTarget: 'Time: O(M * N) | Space: O(M * N) or O(N) space optimized',
   },
+
+  // --- EXPANSION TO 120 QUESTIONS (30 NEW ENTERPRISE & UNIVERSAL QUESTIONS) ---
+  {
+    id: 'war_hamming_weight_31',
+    title: "Number of 1 Bits (Hamming Telemetry Weight)",
+    difficulty: 'basic',
+    competencyId: 'comp_bitwise_hamming_weight_l1',
+    description: "In embedded IoT sensor firmware and low-level network packet telemetry, memory words encode active diagnostic alarms as binary bits. Given a positive integer n, return the number of set \"1\" bits in its binary representation (also known as the Hamming weight).",
+    starterCode: {
+      typescript: "function hammingWeight(n: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def hamming_weight(n: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "n = 11",
+            "expectedOutput": "3",
+            "explanation": "11 in binary is 1011, having 3 set bits."
+      },
+      {
+            "input": "n = 128",
+            "expectedOutput": "1",
+            "explanation": "128 in binary is 10000000, having 1 set bit."
+      },
+      {
+            "input": "n = 2147483645",
+            "expectedOutput": "30",
+            "explanation": "Large 32-bit integer with 30 set bits."
+      },
+      {
+            "input": "n = 0",
+            "expectedOutput": "0",
+            "explanation": "Zero has 0 set bits."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Bit Manipulation","Algorithms","Hardware Telemetry"],
+    hint: "Use bitwise AND with (n - 1) to clear the lowest set bit in each iteration (Brian Kernighan's algorithm), achieving O(k) complexity where k is the number of 1s.",
+    complexityTarget: "Time: O(k) | Space: O(1)",
+  },
+  {
+    id: 'war_strstr_needle_32',
+    title: "Implement strStr (Linear Search Needle in Haystack)",
+    difficulty: 'basic',
+    competencyId: 'comp_string_strstr_needle_l1',
+    description: "In log ingestion pipelines and query parsers, string matching is the foundational primitive. Given two strings haystack and needle, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack. Return 0 if needle is empty.",
+    starterCode: {
+      typescript: "function strStr(haystack: string, needle: string): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def str_str(haystack: str, needle: str) -> int:\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "haystack = \"sadbutsad\", needle = \"sad\"",
+            "expectedOutput": "0",
+            "explanation": "\"sad\" first occurs at index 0."
+      },
+      {
+            "input": "haystack = \"leetcode\", needle = \"leeto\"",
+            "expectedOutput": "-1",
+            "explanation": "\"leeto\" does not occur in \"leetcode\"."
+      },
+      {
+            "input": "haystack = \"hello\", needle = \"ll\"",
+            "expectedOutput": "2",
+            "explanation": "\"ll\" first occurs at index 2."
+      },
+      {
+            "input": "haystack = \"pipeline\", needle = \"\"",
+            "expectedOutput": "0",
+            "explanation": "Empty needle returns index 0."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Strings","Two Pointers","Search Algorithms"],
+    hint: "Iterate through haystack up to index haystack.length - needle.length and compare substring slices. For linear O(N) performance on massive streams, KMP or Boyer-Moore can be utilized.",
+    complexityTarget: "Time: O(N * M) | Space: O(1)",
+  },
+  {
+    id: 'war_backspace_string_compare_33',
+    title: "Backspace String Compare (Editor Keystroke Buffer)",
+    difficulty: 'basic',
+    competencyId: 'comp_stack_backspace_compare_l1',
+    description: "In collaborative web editors and terminal emulators, keystroke streams process '#' characters as backspaces deleting the preceding typed character. Given two strings s and t, return true if they produce identical text buffers when typed into empty text editors.",
+    starterCode: {
+      typescript: "function backspaceCompare(s: string, t: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def backspace_compare(s: str, t: str) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "s = \"ab#c\", t = \"ad#c\"",
+            "expectedOutput": "true",
+            "explanation": "Both evaluate to \"ac\"."
+      },
+      {
+            "input": "s = \"ab##\", t = \"c#d#\"",
+            "expectedOutput": "true",
+            "explanation": "Both evaluate to empty string \"\"."
+      },
+      {
+            "input": "s = \"a#c\", t = \"b\"",
+            "expectedOutput": "false",
+            "explanation": "s evaluates to \"c\" while t evaluates to \"b\"."
+      },
+      {
+            "input": "s = \"bxj##tw\", t = \"bxj###tw\"",
+            "expectedOutput": "false",
+            "explanation": "Resulting buffers differ."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Stack","Two Pointers","String Simulation"],
+    hint: "Process each string using a stack or iterate backwards from the end with skip counters to achieve O(N) time and O(1) extra space without allocating new string buffers.",
+    complexityTarget: "Time: O(N + M) | Space: O(1) aux",
+  },
+  {
+    id: 'war_squares_sorted_array_34',
+    title: "Squares of a Sorted Array (Two-Pointer Convergence)",
+    difficulty: 'basic',
+    competencyId: 'comp_two_pointers_sorted_squares_l1',
+    description: "In radar Doppler signal processing, frequency drift offsets can be positive or negative. Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order in optimal O(N) linear time.",
+    starterCode: {
+      typescript: "function sortedSquares(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def sorted_squares(nums: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "nums = [-4,-1,0,3,10]",
+            "expectedOutput": "[0,1,9,16,100]",
+            "explanation": "Squares sorted in non-decreasing order."
+      },
+      {
+            "input": "nums = [-7,-3,2,3,11]",
+            "expectedOutput": "[4,9,9,49,121]",
+            "explanation": "Squares with duplicate intermediate powers."
+      },
+      {
+            "input": "nums = [0,2,3]",
+            "expectedOutput": "[0,4,9]",
+            "explanation": "All positive numbers."
+      },
+      {
+            "input": "nums = [-5,-4,-1]",
+            "expectedOutput": "[1,16,25]",
+            "explanation": "All negative numbers."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Two Pointers","Arrays","Sorting"],
+    hint: "Since the original array is sorted, the largest squares will originate from either the extreme negative left or the extreme positive right. Use two pointers converging inward to populate the result array from right to left.",
+    complexityTarget: "Time: O(N) | Space: O(1) aux",
+  },
+  {
+    id: 'war_ransom_note_35',
+    title: "Ransom Note (Character Inventory Validator)",
+    difficulty: 'basic',
+    competencyId: 'comp_hash_ransom_note_l1',
+    description: "In supply chain inventory verification, an assembly order requires specific component batches. Given two strings ransomNote and magazine, return true if ransomNote can be constructed using the letters from magazine, where each letter in magazine can only be used once.",
+    starterCode: {
+      typescript: "function canConstruct(ransomNote: string, magazine: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def can_construct(ransom_note: str, magazine: str) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "ransomNote = \"a\", magazine = \"b\"",
+            "expectedOutput": "false",
+            "explanation": "Character \"a\" is not present in magazine."
+      },
+      {
+            "input": "ransomNote = \"aa\", magazine = \"ab\"",
+            "expectedOutput": "false",
+            "explanation": "Magazine has only one \"a\", need two."
+      },
+      {
+            "input": "ransomNote = \"aa\", magazine = \"aab\"",
+            "expectedOutput": "true",
+            "explanation": "Magazine contains two \"a\" characters."
+      },
+      {
+            "input": "ransomNote = \"secure\", magazine = \"rescueme\"",
+            "expectedOutput": "true",
+            "explanation": "All letters available in magazine."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Hash Table","Counting","Strings"],
+    hint: "Build a frequency histogram map or fixed 26-element array counting characters available in magazine, then decrement counts for each character in ransomNote. If any count drops below zero, return false.",
+    complexityTarget: "Time: O(N + M) | Space: O(1) 26-char",
+  },
+  {
+    id: 'war_maximum_units_truck_36',
+    title: "Maximum Units on a Truck (Greedy Cargo Optimization)",
+    difficulty: 'basic',
+    competencyId: 'comp_greedy_truck_units_l1',
+    description: "You are assigned to dispatch delivery trucks at an automated fulfillment center. You are given a 2D array boxTypes where boxTypes[i] = [numberOfBoxes_i, unitsPerBox_i], and an integer truckSize representing maximum box capacity. Return the maximum total units that can be loaded onto the truck.",
+    starterCode: {
+      typescript: "function maximumUnits(boxTypes: number[][], truckSize: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def maximum_units(box_types: list[list[int]], truck_size: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4",
+            "expectedOutput": "8",
+            "explanation": "1 box of 3 units + 2 boxes of 2 units + 1 box of 1 unit = 3 + 4 + 1 = 8."
+      },
+      {
+            "input": "boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10",
+            "expectedOutput": "91",
+            "explanation": "5 of 10 units (50) + 3 of 9 units (27) + 2 of 7 units (14) = 91."
+      },
+      {
+            "input": "boxTypes = [[3,1]], truckSize = 5",
+            "expectedOutput": "3",
+            "explanation": "All 3 boxes fit in truck."
+      },
+      {
+            "input": "boxTypes = [[2,10],[3,20]], truckSize = 0",
+            "expectedOutput": "0",
+            "explanation": "Truck has zero capacity."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Greedy","Sorting","Arrays"],
+    hint: "Greedily sort box types descending by unitsPerBox. Load as many boxes of the highest-yield type as the remaining truck capacity permits until the truck is full.",
+    complexityTarget: "Time: O(N log N) | Space: O(1)",
+  },
+  {
+    id: 'war_monotonic_array_37',
+    title: "Monotonic Array (Telemetry Drift Consistency)",
+    difficulty: 'basic',
+    competencyId: 'comp_array_monotonic_scan_l1',
+    description: "In aerospace telemetry logging, flight sensor readings must be checked for monotonic drift without erratic oscillations. An array nums is monotonic if it is either monotone increasing (nums[i] <= nums[i+1]) or monotone decreasing (nums[i] >= nums[i+1]) for all valid i. Return true if nums is monotonic, false otherwise.",
+    starterCode: {
+      typescript: "function isMonotonic(nums: number[]): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_monotonic(nums: list[int]) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,2,2,3]",
+            "expectedOutput": "true",
+            "explanation": "Monotone increasing sequence."
+      },
+      {
+            "input": "nums = [6,5,4,4]",
+            "expectedOutput": "true",
+            "explanation": "Monotone decreasing sequence."
+      },
+      {
+            "input": "nums = [1,3,2]",
+            "expectedOutput": "false",
+            "explanation": "Oscillates up then down."
+      },
+      {
+            "input": "nums = [1,1,1]",
+            "expectedOutput": "true",
+            "explanation": "Constant array is both non-decreasing and non-increasing."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","Telemetry","Algorithms"],
+    hint: "Maintain two boolean flags: increasing = true and decreasing = true. In a single pass, if nums[i] > nums[i+1], clear increasing; if nums[i] < nums[i+1], clear decreasing. Return increasing || decreasing.",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_replace_elements_greatest_right_38',
+    title: "Replace Elements with Greatest on Right (Suffix Max Scan)",
+    difficulty: 'basic',
+    competencyId: 'comp_array_replace_greatest_right_l1',
+    description: "In stock market backtesting engines, trailing market benchmarks are evaluated against subsequent trading peaks. Given an array arr, replace every element in that array with the greatest element among the elements to its right, and replace the last element with -1. Return the mutated or newly constructed array.",
+    starterCode: {
+      typescript: "function replaceElements(arr: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def replace_elements(arr: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "arr = [17,18,5,4,6,1]",
+            "expectedOutput": "[18,6,6,6,1,-1]",
+            "explanation": "Every element replaced by max element to its right."
+      },
+      {
+            "input": "arr = [400]",
+            "expectedOutput": "[-1]",
+            "explanation": "Single element becomes -1."
+      },
+      {
+            "input": "arr = [2,3,1]",
+            "expectedOutput": "[3,1,-1]",
+            "explanation": "Rightward max scan."
+      },
+      {
+            "input": "arr = [5,4,3,2,1]",
+            "expectedOutput": "[4,3,2,1,-1]",
+            "explanation": "Strictly decreasing sequence."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Arrays","In-Place","Suffix Scanning"],
+    hint: "Iterate right-to-left from the end of the array, tracking the running maximum seen so far. At each index, store arr[i], set arr[i] = maxSeen, and update maxSeen = Math.max(maxSeen, storedVal).",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_kth_missing_positive_39',
+    title: "Kth Missing Positive Number (Ordered Stream Discontinuity)",
+    difficulty: 'basic',
+    competencyId: 'comp_binary_search_kth_missing_l1',
+    description: "In distributed event sequences with strictly increasing integer IDs, network partitions can cause packet drops. Given an array arr of positive integers sorted in strictly increasing order, and an integer k, return the kth positive integer that is missing from this sequence.",
+    starterCode: {
+      typescript: "function findKthPositive(arr: number[], k: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def find_kth_positive(arr: list[int], k: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "arr = [2,3,4,7,11], k = 5",
+            "expectedOutput": "9",
+            "explanation": "Missing numbers are [1,5,6,8,9,10...]; 5th is 9."
+      },
+      {
+            "input": "arr = [1,2,3,4], k = 2",
+            "expectedOutput": "6",
+            "explanation": "Missing numbers are [5,6,7...]; 2nd is 6."
+      },
+      {
+            "input": "arr = [5,6,7,8], k = 1",
+            "expectedOutput": "1",
+            "explanation": "First missing positive is 1."
+      },
+      {
+            "input": "arr = [1], k = 1",
+            "expectedOutput": "2",
+            "explanation": "Next missing positive is 2."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Binary Search","Arrays","Distributed Systems"],
+    hint: "At index i, the number of missing positives before arr[i] is arr[i] - (i + 1). Use binary search to find the partition index where missing count < k, then compute left + k.",
+    complexityTarget: "Time: O(log N) | Space: O(1)",
+  },
+  {
+    id: 'war_peak_index_mountain_40',
+    title: "Peak Index in a Mountain Array (Unimodal Binary Search)",
+    difficulty: 'basic',
+    competencyId: 'comp_binary_search_mountain_peak_l1',
+    description: "In audio waveform peak detection and altitude terrain profiles, signals strictly rise to a single highest point before strictly descending. An array arr is a mountain array if arr[0] < arr[1] < ... < arr[i] and arr[i] > arr[i+1] > ... > arr[arr.length - 1]. Return the index i of the peak element in guaranteed O(log N) time.",
+    starterCode: {
+      typescript: "function peakIndexInMountainArray(arr: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def peak_index_in_mountain_array(arr: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "arr = [0,1,0]",
+            "expectedOutput": "1",
+            "explanation": "Index 1 is the peak element."
+      },
+      {
+            "input": "arr = [0,2,1,0]",
+            "expectedOutput": "1",
+            "explanation": "Index 1 has value 2 which is greater than 0 and 1."
+      },
+      {
+            "input": "arr = [0,10,5,2]",
+            "expectedOutput": "1",
+            "explanation": "Peak is at index 1 with value 10."
+      },
+      {
+            "input": "arr = [3,4,5,1]",
+            "expectedOutput": "2",
+            "explanation": "Peak is at index 2 with value 5."
+      }
+],
+    timeLimitSeconds: 180,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ["Binary Search","Arrays","Unimodal Search"],
+    hint: "Binary search the array: if arr[mid] < arr[mid + 1], the peak lies strictly to the right (left = mid + 1); otherwise, the peak is at or to the left of mid (right = mid).",
+    complexityTarget: "Time: O(log N) | Space: O(1)",
+  },
+  {
+    id: 'war_gas_station_34',
+    title: "Gas Station (Circular Fuel Delivery Circuit)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_greedy_gas_station_circuit_l2',
+    description: "There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i]. Traveling from the ith station to the (i + 1)th station costs cost[i] gas. You begin the journey with an empty tank at one of the stations. Return the starting gas station index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique.",
+    starterCode: {
+      typescript: "function canCompleteCircuit(gas: number[], cost: number[]): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def can_complete_circuit(gas: list[int], cost: list[int]) -> int:\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "gas = [1,2,3,4,5], cost = [3,4,5,1,2]",
+            "expectedOutput": "3",
+            "explanation": "Start at index 3 with 4 gas and complete the circuit."
+      },
+      {
+            "input": "gas = [2,3,4], cost = [3,4,3]",
+            "expectedOutput": "-1",
+            "explanation": "Total gas is 9, total cost is 10; impossible."
+      },
+      {
+            "input": "gas = [5,1,2,3,4], cost = [4,4,1,5,1]",
+            "expectedOutput": "4",
+            "explanation": "Start at index 4."
+      },
+      {
+            "input": "gas = [3,1,1], cost = [1,2,2]",
+            "expectedOutput": "0",
+            "explanation": "Start at index 0."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Greedy","Arrays","Circular Iteration"],
+    hint: "If the total sum of gas is less than total sum of cost, completing the circuit is impossible (return -1). Otherwise, iterate through stations tracking tank balance; whenever tank < 0, reset tank to 0 and set starting station to i + 1.",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_koko_eating_bananas_35',
+    title: "Koko Eating Bananas (Binary Search on Feasibility)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_binary_search_koko_bananas_l2',
+    description: "In cluster compute throttling, batch ingestion workers consume queues of items within an assigned SLA deadline. Koko loves to eat bananas. There are n piles of bananas, where the ith pile has piles[i] bananas. The guards will return in h hours. Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses a pile and eats k bananas from it (if the pile has fewer than k, she eats all and does not eat more during that hour). Return the minimum integer k such that she can eat all the bananas within h hours.",
+    starterCode: {
+      typescript: "function minEatingSpeed(piles: number[], h: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def min_eating_speed(piles: list[int], h: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "piles = [3,6,7,11], h = 8",
+            "expectedOutput": "4",
+            "explanation": "At speed 4, hours required: 1+2+2+3 = 8 <= 8."
+      },
+      {
+            "input": "piles = [30,11,23,4,20], h = 5",
+            "expectedOutput": "30",
+            "explanation": "Needs to eat fastest pile in 1 hour each."
+      },
+      {
+            "input": "piles = [30,11,23,4,20], h = 6",
+            "expectedOutput": "23",
+            "explanation": "At speed 23, total hours is 6."
+      },
+      {
+            "input": "piles = [1,1,1,1], h = 4",
+            "expectedOutput": "1",
+            "explanation": "Minimal speed 1 satisfies 4 hours."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Binary Search","Arrays","Optimization"],
+    hint: "Binary search on the candidate speed k in range [1, max(piles)]. For each speed mid, compute total hours sum(ceil(p / mid)). If total <= h, try a slower speed (right = mid); otherwise, speed up (left = mid + 1).",
+    complexityTarget: "Time: O(N log(max(P))) | Space: O(1)",
+  },
+  {
+    id: 'war_longest_palindromic_substring_36',
+    title: "Longest Palindromic Substring (Center Expansion)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_string_longest_palindrome_l2',
+    description: "In bioinformatics genome pattern matching, inverted repeat palindrome sequences define biological promoter binding sites. Given a string s, return the longest palindromic substring in s in optimal polynomial time.",
+    starterCode: {
+      typescript: "function longestPalindrome(s: string): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def longest_palindrome(s: str) -> str:\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "s = \"babad\"",
+            "expectedOutput": "\"bab\" or \"aba\"",
+            "explanation": "\"bab\" or \"aba\" are valid max length 3 palindromes."
+      },
+      {
+            "input": "s = \"cbbd\"",
+            "expectedOutput": "\"bb\"",
+            "explanation": "\"bb\" is the longest palindrome of length 2."
+      },
+      {
+            "input": "s = \"a\"",
+            "expectedOutput": "\"a\"",
+            "explanation": "Single character string is its own palindrome."
+      },
+      {
+            "input": "s = \"racecar\"",
+            "expectedOutput": "\"racecar\"",
+            "explanation": "Entire string is palindromic."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Strings","Two Pointers","Dynamic Programming"],
+    hint: "There are 2N - 1 possible centers for palindromes (either on a single character for odd lengths, or between two characters for even lengths). Expand outward from each center while characters match to track the longest slice.",
+    complexityTarget: "Time: O(N^2) | Space: O(1)",
+  },
+  {
+    id: 'war_house_robber_ii_37',
+    title: "House Robber II (Circular Ring Network Security)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_dp_house_robber_circular_l2',
+    description: "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Adjacent houses have security systems connected, and will automatically contact the police if two adjacent houses were broken into on the same night. Return the maximum amount of money you can rob tonight without alerting the police.",
+    starterCode: {
+      typescript: "function rob(nums: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def rob(nums: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "nums = [2,3,2]",
+            "expectedOutput": "3",
+            "explanation": "Cannot rob house 1 (money 2) and house 3 (money 2) because they are adjacent in a circle."
+      },
+      {
+            "input": "nums = [1,2,3,1]",
+            "expectedOutput": "4",
+            "explanation": "Rob house 1 (money 1) and house 3 (money 3) total 4."
+      },
+      {
+            "input": "nums = [1,2,3]",
+            "expectedOutput": "3",
+            "explanation": "Rob house 2 (money 3)."
+      },
+      {
+            "input": "nums = [10]",
+            "expectedOutput": "10",
+            "explanation": "Single house."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Dynamic Programming","Circular Arrays","Optimization"],
+    hint: "Because house 0 and house N-1 are connected, you cannot rob both. Solve standard linear House Robber I twice: once on subarray nums[0..N-2], and once on nums[1..N-1]. Return the maximum of both runs.",
+    complexityTarget: "Time: O(N) | Space: O(1)",
+  },
+  {
+    id: 'war_next_greater_element_ii_38',
+    title: "Next Greater Element II (Circular Monotonic Buffer)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_stack_next_greater_circular_l2',
+    description: "In ring buffer resource allocation, tasks wait for the next larger processor capacity available in circular priority queues. Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), return the next greater number for every element in nums. The next greater number of a number x is the first greater number to its traversing-order next in the array. If it doesn't exist, return -1 for this number.",
+    starterCode: {
+      typescript: "function nextGreaterElements(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def next_greater_elements(nums: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "nums = [1,2,1]",
+            "expectedOutput": "[2,-1,2]",
+            "explanation": "Next greater for 1 is 2, for 2 is none (-1), for second 1 circles back to 2."
+      },
+      {
+            "input": "nums = [1,2,3,4,3]",
+            "expectedOutput": "[2,3,4,-1,4]",
+            "explanation": "Next greater circular resolution."
+      },
+      {
+            "input": "nums = [5,4,3,2,1]",
+            "expectedOutput": "[-1,5,5,5,5]",
+            "explanation": "Every smaller element circles back to 5."
+      },
+      {
+            "input": "nums = [1]",
+            "expectedOutput": "[-1]",
+            "explanation": "Single element has no greater neighbor."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Monotonic Stack","Circular Arrays","Algorithms"],
+    hint: "Simulate a circular array by iterating 2N times using index i % N, and maintain a decreasing monotonic stack of indices whose next greater element has not yet been resolved.",
+    complexityTarget: "Time: O(N) | Space: O(N)",
+  },
+  {
+    id: 'war_rotting_oranges_39',
+    title: "Rotting Oranges (Multi-Source BFS Infection Propagation)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_graph_bfs_rotting_oranges_l2',
+    description: "In epidemiology network modeling and malware worm propagation across server racks, infection spreads simultaneously from all infected nodes to 4-directionally adjacent healthy nodes each minute. Given an m x n grid where 0 represents empty cell, 1 represents fresh orange, and 2 represents rotten orange, return the minimum number of minutes until no cell has a fresh orange. If this is impossible, return -1.",
+    starterCode: {
+      typescript: "function orangesRotting(grid: number[][]): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def oranges_rotting(grid: list[list[int]]) -> int:\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "grid = [[2,1,1],[1,1,0],[0,1,1]]",
+            "expectedOutput": "4",
+            "explanation": "All fresh oranges rot in 4 minutes."
+      },
+      {
+            "input": "grid = [[2,1,1],[0,1,1],[1,0,1]]",
+            "expectedOutput": "-1",
+            "explanation": "Bottom left orange at (2,0) can never be reached."
+      },
+      {
+            "input": "grid = [[0,2]]",
+            "expectedOutput": "0",
+            "explanation": "No fresh oranges initially; takes 0 minutes."
+      },
+      {
+            "input": "grid = [[1]]",
+            "expectedOutput": "-1",
+            "explanation": "Single fresh orange never rots."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Graph","BFS","Matrix Simulation"],
+    hint: "Use multi-source BFS. Initialize a queue with the coordinates of all initially rotten oranges (2) and count all fresh oranges (1). At each minute level, expand 4-directionally, turning fresh oranges into rotten and decrementing fresh count.",
+    complexityTarget: "Time: O(M * N) | Space: O(M * N)",
+  },
+  {
+    id: 'war_find_all_anagrams_40',
+    title: "Find All Anagrams in a String (Sliding Window Fingerprint)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_sliding_window_anagrams_l2',
+    description: "In network packet payload intrusion detection, deep packet inspection monitors sliding windows of traffic to match scrambled signature byte fingerprints. Given two strings s and p, return an array of all the start indices of p's anagrams in s in any order.",
+    starterCode: {
+      typescript: "function findAnagrams(s: string, p: string): number[] {\n  // Your solution here\n  return [];\n}",
+      python: "def find_anagrams(s: str, p: str) -> list[int]:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "s = \"cbaebabacd\", p = \"abc\"",
+            "expectedOutput": "[0, 6]",
+            "explanation": "Substrings at index 0 (\"cba\") and index 6 (\"bac\") are anagrams of \"abc\"."
+      },
+      {
+            "input": "s = \"abab\", p = \"ab\"",
+            "expectedOutput": "[0, 1, 2]",
+            "explanation": "Substrings at 0 (\"ab\"), 1 (\"ba\"), and 2 (\"ab\") are anagrams."
+      },
+      {
+            "input": "s = \"hello\", p = \"world\"",
+            "expectedOutput": "[]",
+            "explanation": "No anagram matches."
+      },
+      {
+            "input": "s = \"aa\", p = \"a\"",
+            "expectedOutput": "[0, 1]",
+            "explanation": "Both indices match."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Sliding Window","Hash Table","Strings"],
+    hint: "Maintain two 26-character frequency arrays: one for pattern p, and one for a sliding window of length p.length across string s. Slide the window one character at a time by incrementing the new char and decrementing the leaving char.",
+    complexityTarget: "Time: O(N) | Space: O(1) 26-char",
+  },
+  {
+    id: 'war_word_search_41',
+    title: "Word Search (Grid DFS Backtracking Matrix)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_backtracking_word_search_l2',
+    description: "In OCR document digitization and spatial word search engines, word discovery traces adjacent character paths across an m x n character grid. Given an m x n grid of characters board and a string word, return true if word exists in the grid. The word can be constructed from letters of sequentially adjacent cells (horizontally or vertically), where the same letter cell may not be used more than once in a word.",
+    starterCode: {
+      typescript: "function exist(board: string[][], word: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def exist(board: list[list[str]], word: str) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"",
+            "expectedOutput": "true",
+            "explanation": "Path A->B->C->C->E->D exists."
+      },
+      {
+            "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"",
+            "expectedOutput": "true",
+            "explanation": "Path S->E->E exists."
+      },
+      {
+            "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"",
+            "expectedOutput": "false",
+            "explanation": "Cannot reuse the B cell."
+      },
+      {
+            "input": "board = [[\"A\"]], word = \"A\"",
+            "expectedOutput": "true",
+            "explanation": "Single character match."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Backtracking","DFS","Matrix"],
+    hint: "Iterate over every cell in board. When board[r][c] matches word[0], launch a recursive DFS backtracking exploration. Mark the visited cell temporarily (e.g. board[r][c] = \"#\"), explore 4 directions, and restore board[r][c] upon backtracking.",
+    complexityTarget: "Time: O(M * N * 3^L) | Space: O(L) recursion",
+  },
+  {
+    id: 'war_car_fleet_42',
+    title: "Car Fleet (Monotonic Intersection Time)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_monotonic_stack_car_fleet_l2',
+    description: "There are n cars traveling to the same destination on a one-lane highway along a target position. A car can never pass another car ahead of it, but it can catch up to it and drive bumper-to-bumper at the slower car's speed forming a car fleet. Given the target distance and integer arrays position and speed, return the total number of car fleets that will arrive at the destination.",
+    starterCode: {
+      typescript: "function carFleet(target: number, position: number[], speed: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def car_fleet(target: int, position: list[int], speed: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "target = 12, position = [10,8,0,5,3], speed = [2,4,1,1,3]",
+            "expectedOutput": "3",
+            "explanation": "Cars merge into 3 separate fleets."
+      },
+      {
+            "input": "target = 10, position = [3], speed = [3]",
+            "expectedOutput": "1",
+            "explanation": "Single car forms 1 fleet."
+      },
+      {
+            "input": "target = 100, position = [0,2,4], speed = [4,2,1]",
+            "expectedOutput": "1",
+            "explanation": "All cars catch up and form a single fleet."
+      },
+      {
+            "input": "target = 10, position = [6,8], speed = [3,2]",
+            "expectedOutput": "2",
+            "explanation": "Car at 6 arrives at t=1.33, car at 8 arrives at t=1; they arrive as 2 fleets."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Monotonic Stack","Sorting","Arrays"],
+    hint: "Sort cars descending by starting position. Calculate each car's arrival time to target: (target - position[i]) / speed[i]. If a car arrives in less than or equal time to the fleet ahead of it, it merges into that fleet; otherwise, it forms a new fleet.",
+    complexityTarget: "Time: O(N log N) | Space: O(N)",
+  },
+  {
+    id: 'war_reorganize_string_43',
+    title: "Reorganize String (Max-Frequency Heap Buffer)",
+    difficulty: 'intermediate',
+    competencyId: 'comp_heap_reorganize_string_l2',
+    description: "In multi-tenant thread dispatching and optical spectrum multiplexing, task channels cannot process adjacent packets from identical tenant origins to prevent CPU cache thrashing. Given a string s, rearrange the characters of s so that any two adjacent characters are not the same. Return any valid rearrangement of the string, or return empty string '' if no valid rearrangement is possible.",
+    starterCode: {
+      typescript: "function reorganizeString(s: string): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def reorganize_string(s: str) -> str:\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "s = \"aab\"",
+            "expectedOutput": "\"aba\"",
+            "explanation": "Alternating rearrangement."
+      },
+      {
+            "input": "s = \"aaab\"",
+            "expectedOutput": "\"\"",
+            "explanation": "Character \"a\" count exceeds (4+1)/2 = 2; impossible."
+      },
+      {
+            "input": "s = \"vvvlo\"",
+            "expectedOutput": "Valid rearrangement with no adjacent duplicate",
+            "explanation": "\"vlvov\" is valid."
+      },
+      {
+            "input": "s = \"baaba\"",
+            "expectedOutput": "\"ababa\"",
+            "explanation": "Valid interleaved format."
+      }
+],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ["Greedy","Hash Table","Heap"],
+    hint: "Count character frequencies. If any character occurs more than (N + 1) / 2 times, it is mathematically impossible (return \"\"). Otherwise, fill even indices first with the most frequent characters, then wrap around to odd indices.",
+    complexityTarget: "Time: O(N log K) | Space: O(K) where K <= 26",
+  },
+  {
+    id: 'war_lfu_cache_31',
+    title: "LFU Cache (O(1) Frequency Eviction Engine)",
+    difficulty: 'advanced',
+    competencyId: 'comp_design_lfu_cache_l3',
+    description: "Design and implement a data structure for a Least Frequently Used (LFU) cache. When the cache reaches capacity, it should invalidate and remove the least frequently used key before inserting a new item. When there is a tie (two or more keys with identical use frequency), the least recently used key among them should be invalidated. Implement simulateLFU(capacity, operations) where operations is an array of ['put', key, value] or ['get', key], returning an array of results where 'get' yields the value (or -1 if missing) and 'put' yields null.",
+    starterCode: {
+      typescript: "function simulateLFU(capacity: number, operations: string[][]): (number | null)[] {\n  // Your solution here\n  return [];\n}",
+      python: "def simulate_lfu(capacity: int, operations: list[list[str]]) -> list:\n    # Your solution here\n    return []",
+    },
+    testCases: [
+      {
+            "input": "capacity = 2, operations = [[\"put\",\"1\",\"1\"],[\"put\",\"2\",\"2\"],[\"get\",\"1\"],[\"put\",\"3\",\"3\"],[\"get\",\"2\"],[\"get\",\"3\"],[\"put\",\"4\",\"4\"],[\"get\",\"1\"],[\"get\",\"3\"],[\"get\",\"4\"]]",
+            "expectedOutput": "[null,null,1,null,-1,3,null,-1,3,4]",
+            "explanation": "LFU eviction sequence with tie-breaking."
+      },
+      {
+            "input": "capacity = 0, operations = [[\"put\",\"0\",\"0\"],[\"get\",\"0\"]]",
+            "expectedOutput": "[null,-1]",
+            "explanation": "Zero capacity cache cannot hold items."
+      },
+      {
+            "input": "capacity = 1, operations = [[\"put\",\"2\",\"1\"],[\"get\",\"2\"],[\"put\",\"3\",\"2\"],[\"get\",\"2\"],[\"get\",\"3\"]]",
+            "expectedOutput": "[null,1,null,-1,2]",
+            "explanation": "Capacity 1 cache replaces single item."
+      },
+      {
+            "input": "capacity = 2, operations = [[\"get\",\"2\"],[\"put\",\"2\",\"6\"],[\"get\",\"1\"],[\"put\",\"1\",\"5\"],[\"put\",\"1\",\"2\"],[\"get\",\"1\"],[\"get\",\"2\"]]",
+            "expectedOutput": "[-1,null,-1,null,null,2,6]",
+            "explanation": "Updates and gets update frequencies."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Design","Hash Table","Linked List","Distributed Systems"],
+    hint: "Maintain two hash maps: one mapping key -> (value, frequency), and another mapping frequency -> DoublyLinkedList / OrderedSet of keys with that frequency. Track minFrequency. On get/put, move the key from its current frequency list to frequency + 1 in O(1) time.",
+    complexityTarget: "Time: O(1) per operation | Space: O(capacity)",
+  },
+  {
+    id: 'war_wildcard_matching_32',
+    title: "Wildcard Matching (2D DP Glob Pattern Matcher)",
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_wildcard_matching_l3',
+    description: "In shell globbing and filesystem access control filters, wildcard expressions govern file matching. Given an input string s and a pattern p, implement wildcard pattern matching with support for '?' (matches any single character) and '*' (matches any sequence of characters, including the empty sequence). The matching must cover the entire input string.",
+    starterCode: {
+      typescript: "function isMatch(s: string, p: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_match(s: str, p: str) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "s = \"aa\", p = \"a\"",
+            "expectedOutput": "false",
+            "explanation": "Pattern \"a\" does not match entire string \"aa\"."
+      },
+      {
+            "input": "s = \"aa\", p = \"*\"",
+            "expectedOutput": "true",
+            "explanation": "\"*\" matches any sequence."
+      },
+      {
+            "input": "s = \"cb\", p = \"?a\"",
+            "expectedOutput": "false",
+            "explanation": "\"?\" matches \"c\", but \"b\" does not match \"a\"."
+      },
+      {
+            "input": "s = \"adceb\", p = \"*a*b\"",
+            "expectedOutput": "true",
+            "explanation": "First star matches empty, second matches \"dce\"."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Dynamic Programming","Strings","Pattern Matching"],
+    hint: "Use a 2D DP table dp[i][j] representing if s[0..i-1] matches p[0..j-1]. If p[j-1] == \"*\", dp[i][j] = dp[i-1][j] (star matches 1+ chars) || dp[i][j-1] (star matches 0 chars). If p[j-1] == \"?\" or matches s[i-1], dp[i][j] = dp[i-1][j-1].",
+    complexityTarget: "Time: O(M * N) | Space: O(M * N)",
+  },
+  {
+    id: 'war_burst_balloons_33',
+    title: "Burst Balloons (Interval Dynamic Programming)",
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_burst_balloons_l3',
+    description: "You are given n balloons, indexed from 0 to n - 1. Each balloon is painted with a number on it represented by an array nums. You are asked to burst all the balloons. If you burst the ith balloon, you will get nums[i - 1] * nums[i] * nums[i + 1] coins. If i - 1 or i + 1 goes out of bounds, treat it as if there is a balloon with a 1 painted on it. Return the maximum coins you can collect by bursting the balloons wisely.",
+    starterCode: {
+      typescript: "function maxCoins(nums: number[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def max_coins(nums: list[int]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "nums = [3,1,5,8]",
+            "expectedOutput": "167",
+            "explanation": "Optimal bursting order yields 167 coins."
+      },
+      {
+            "input": "nums = [1,5]",
+            "expectedOutput": "10",
+            "explanation": "Burst 1 then 5: 1*1*5 + 1*5*1 = 5 + 5 = 10."
+      },
+      {
+            "input": "nums = [7]",
+            "expectedOutput": "7",
+            "explanation": "1*7*1 = 7."
+      },
+      {
+            "input": "nums = [1,2,3]",
+            "expectedOutput": "12",
+            "explanation": "Optimal sequence yields 12."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Dynamic Programming","Interval DP","Algorithms"],
+    hint: "Pad nums with 1 at both boundaries. Instead of thinking which balloon to burst first, think which balloon k to burst LAST in interval (i, j). Then dp[i][j] = max_k(dp[i][k] + nums[i]*nums[k]*nums[j] + dp[k][j]) for length from 1 to N.",
+    complexityTarget: "Time: O(N^3) | Space: O(N^2)",
+  },
+  {
+    id: 'war_n_queens_34',
+    title: "N-Queens (Bitmask Backtracking Placement Engine)",
+    difficulty: 'advanced',
+    competencyId: 'comp_backtracking_n_queens_l3',
+    description: "In automated VLSI chip layout routing and spatial conflict avoidance, non-interfering processing units must be placed across grid matrices. The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other (no two queens share the same row, column, or diagonal). Given an integer n, return the total number of distinct solutions.",
+    starterCode: {
+      typescript: "function totalNQueens(n: number): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def total_n_queens(n: int) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "n = 4",
+            "expectedOutput": "2",
+            "explanation": "There are 2 distinct solutions for 4x4 board."
+      },
+      {
+            "input": "n = 1",
+            "expectedOutput": "1",
+            "explanation": "Single queen on 1x1 board."
+      },
+      {
+            "input": "n = 5",
+            "expectedOutput": "10",
+            "explanation": "10 distinct solutions for 5x5 board."
+      },
+      {
+            "input": "n = 8",
+            "expectedOutput": "92",
+            "explanation": "Standard 8-queens problem has 92 solutions."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Backtracking","Bit Manipulation","Combinatorics"],
+    hint: "Use recursive row-by-row backtracking with three bitmasks representing occupied columns, occupied major diagonals (diag1), and occupied minor diagonals (diag2). Available positions for row r are ~(cols | diag1 | diag2) & ((1 << n) - 1).",
+    complexityTarget: "Time: O(N!) | Space: O(N)",
+  },
+  {
+    id: 'war_regular_expression_matching_35',
+    title: "Regular Expression Matching (Kleene Star AST DP)",
+    difficulty: 'advanced',
+    competencyId: 'comp_dp_regex_matching_l3',
+    description: "In security firewall ingress engines and lexical tokenizers, pattern engines match strings against formal regular expressions. Given an input string s and a pattern p, implement regular expression matching with support for '.' (matches any single character) and '*' (matches zero or more of the preceding element). The matching must cover the entire input string.",
+    starterCode: {
+      typescript: "function isRegexMatch(s: string, p: string): boolean {\n  // Your solution here\n  return false;\n}",
+      python: "def is_regex_match(s: str, p: str) -> bool:\n    # Your solution here\n    return False",
+    },
+    testCases: [
+      {
+            "input": "s = \"aa\", p = \"a\"",
+            "expectedOutput": "false",
+            "explanation": "Does not match entire string."
+      },
+      {
+            "input": "s = \"aa\", p = \"a*\"",
+            "expectedOutput": "true",
+            "explanation": "\"*\" repeats preceding \"a\"."
+      },
+      {
+            "input": "s = \"ab\", p = \".*\"",
+            "expectedOutput": "true",
+            "explanation": "\".*\" matches any sequence of characters."
+      },
+      {
+            "input": "s = \"aab\", p = \"c*a*b\"",
+            "expectedOutput": "true",
+            "explanation": "\"c*\" matches 0 \"c\"s, \"a*\" matches 2 \"a\"s."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Dynamic Programming","Strings","Compilers"],
+    hint: "2D Dynamic Programming: dp[i][j] is true if s[0..i-1] matches p[0..j-1]. When p[j-1] == '*', look back two positions: either zero occurrences dp[i][j-2], or one+ occurrences (if preceding char matches s[i-1]) dp[i-1][j].",
+    complexityTarget: "Time: O(M * N) | Space: O(M * N)",
+  },
+  {
+    id: 'war_maximal_rectangle_36',
+    title: "Maximal Rectangle (2D Matrix Monotonic Histogram)",
+    difficulty: 'advanced',
+    competencyId: 'comp_stack_maximal_rectangle_l3',
+    description: "In lithography wafer manufacturing and database buffer contiguous block allocation, engineers scan 2D binary matrices to find the largest contiguous rectangular area of unallocated (or defect-free '1') cells. Given an m x n binary matrix filled with '0's and '1's, find the largest rectangle containing only '1's and return its area.",
+    starterCode: {
+      typescript: "function maximalRectangle(matrix: string[][]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def maximal_rectangle(matrix: list[list[str]]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]",
+            "expectedOutput": "6",
+            "explanation": "Maximal rectangle of 1s has area 6."
+      },
+      {
+            "input": "matrix = [[\"0\"]]",
+            "expectedOutput": "0",
+            "explanation": "No 1s in matrix."
+      },
+      {
+            "input": "matrix = [[\"1\"]]",
+            "expectedOutput": "1",
+            "explanation": "Single 1 has area 1."
+      },
+      {
+            "input": "matrix = [[\"0\",\"0\"],[\"0\",\"0\"]]",
+            "expectedOutput": "0",
+            "explanation": "Empty grid."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Monotonic Stack","Matrix","Dynamic Programming"],
+    hint: "Treat each row as the base of a histogram where bar heights accumulate contiguous 1s from above. For each row, run the optimal O(N) monotonic stack algorithm (Largest Rectangle in Histogram) to calculate peak area.",
+    complexityTarget: "Time: O(M * N) | Space: O(N)",
+  },
+  {
+    id: 'war_network_delay_dijkstra_37',
+    title: "Network Delay Time (Dijkstra Shortest Path Router)",
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_dijkstra_network_delay_l3',
+    description: "You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = [u_i, v_i, w_i], where u_i is the source node, v_i is the target node, and w_i is the time it takes for a signal to travel from source to target. We will send a signal from a given node k. Return the minimum time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1.",
+    starterCode: {
+      typescript: "function networkDelayTime(times: number[][], n: number, k: number): number {\n  // Your solution here\n  return -1;\n}",
+      python: "def network_delay_time(times: list[list[int]], n: int, k: int) -> int:\n    # Your solution here\n    return -1",
+    },
+    testCases: [
+      {
+            "input": "times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2",
+            "expectedOutput": "2",
+            "explanation": "Signal reaches all nodes in 2 time units."
+      },
+      {
+            "input": "times = [[1,2,1]], n = 2, k = 1",
+            "expectedOutput": "1",
+            "explanation": "Reaches node 2 in 1 unit."
+      },
+      {
+            "input": "times = [[1,2,1]], n = 2, k = 2",
+            "expectedOutput": "-1",
+            "explanation": "Node 1 is unreachable from node 2."
+      },
+      {
+            "input": "times = [[1,2,1],[2,3,2],[1,3,4]], n = 3, k = 1",
+            "expectedOutput": "3",
+            "explanation": "Shortest path to node 3 is via node 2 with cost 1+2=3."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Graph","Dijkstra","Shortest Path","Distributed Networks"],
+    hint: "Use Dijkstra's algorithm with a priority queue (min-heap). Track the shortest distance from node k to all other nodes. If after exploring all reachable nodes, any node has not been reached, return -1; otherwise, return max(distances).",
+    complexityTarget: "Time: O(E log V) | Space: O(V + E)",
+  },
+  {
+    id: 'war_shortest_palindrome_38',
+    title: "Shortest Palindrome (KMP Prefix Table Minimizer)",
+    difficulty: 'advanced',
+    competencyId: 'comp_string_shortest_palindrome_kmp_l3',
+    description: "In string compression and DNA sequence alignment, missing sequence prefixes must be prepended with minimal overhead. You are given a string s. You can convert s to a palindrome by adding characters in front of it. Return the shortest palindrome you can find by performing this transformation.",
+    starterCode: {
+      typescript: "function shortestPalindrome(s: string): string {\n  // Your solution here\n  return \"\";\n}",
+      python: "def shortest_palindrome(s: str) -> str:\n    # Your solution here\n    return \"\"",
+    },
+    testCases: [
+      {
+            "input": "s = \"aacecaaa\"",
+            "expectedOutput": "\"aaacecaaa\"",
+            "explanation": "Prepend \"a\" to create palindrome."
+      },
+      {
+            "input": "s = \"abcd\"",
+            "expectedOutput": "\"dcbabcd\"",
+            "explanation": "Prepend \"dcb\"."
+      },
+      {
+            "input": "s = \"\"",
+            "expectedOutput": "\"\"",
+            "explanation": "Empty string is palindrome."
+      },
+      {
+            "input": "s = \"a\"",
+            "expectedOutput": "\"a\"",
+            "explanation": "Single character string."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Strings","KMP Algorithm","Algorithms"],
+    hint: "Find the longest palindromic prefix of s. Construct the string temp = s + '#' + reverse(s) and compute its KMP pi-table (longest prefix which is also suffix). The last value pi[temp.length - 1] gives the length of the longest palindromic prefix.",
+    complexityTarget: "Time: O(N) | Space: O(N)",
+  },
+  {
+    id: 'war_swim_in_rising_water_39',
+    title: "Swim in Rising Water (Minimax Elevation Binary Search)",
+    difficulty: 'advanced',
+    competencyId: 'comp_graph_swim_in_rising_water_l3',
+    description: "You are given an n x n integer matrix grid where each term grid[i][j] represents the elevation at that point (i, j). It starts raining, and at time t, the depth of the water everywhere is t. You can swim from a square to an adjacent square if and only if the elevation of both squares is at most t. You start at the top left square (0, 0). What is the least time until you can reach the bottom right square (n - 1, n - 1)?",
+    starterCode: {
+      typescript: "function swimInWater(grid: number[][]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def swim_in_water(grid: list[list[int]]) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "grid = [[0,2],[1,3]]",
+            "expectedOutput": "3",
+            "explanation": "At time 3, water allows path (0,0)->(1,0)->(1,1)."
+      },
+      {
+            "input": "grid = [[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]",
+            "expectedOutput": "16",
+            "explanation": "Optimal route circumvents high elevation barrier."
+      },
+      {
+            "input": "grid = [[3]]",
+            "expectedOutput": "3",
+            "explanation": "Must wait until water rises to elevation 3."
+      },
+      {
+            "input": "grid = [[0,1],[3,2]]",
+            "expectedOutput": "2",
+            "explanation": "Path (0,0)->(0,1)->(1,1) reachable at time 2."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Search","BFS","Matrix","Minimax"],
+    hint: "Binary search on time t in range [grid[0][0], n*n - 1]. For a candidate t, run a BFS/DFS to check if cell (n-1, n-1) is reachable using only cells with elevation <= t.",
+    complexityTarget: "Time: O(N^2 log N) | Space: O(N^2)",
+  },
+  {
+    id: 'war_binary_tree_max_path_sum_40',
+    title: "Binary Tree Maximum Path Sum (Post-Order Dynamic Path)",
+    difficulty: 'advanced',
+    competencyId: 'comp_trees_max_path_sum_l3',
+    description: "In telecommunication fiber tree topologies, packet routing paths maximize bandwidth gain while traversing non-cyclic routes. A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge connecting them. A node can only appear in the sequence at most once. The path sum of a path is the sum of the node's values in the path. Given the root of a binary tree (represented as a level-order serialized array), return the maximum path sum of any non-empty path.",
+    starterCode: {
+      typescript: "function maxPathSum(rootArr: (number | null)[]): number {\n  // Your solution here\n  return 0;\n}",
+      python: "def max_path_sum(root_arr: list) -> int:\n    # Your solution here\n    return 0",
+    },
+    testCases: [
+      {
+            "input": "root = [1, 2, 3]",
+            "expectedOutput": "6",
+            "explanation": "Path 2 -> 1 -> 3 gives maximum path sum of 2 + 1 + 3 = 6."
+      },
+      {
+            "input": "root = [-10, 9, 20, null, null, 15, 7]",
+            "expectedOutput": "42",
+            "explanation": "Optimal path is 15 -> 20 -> 7 giving 15 + 20 + 7 = 42."
+      },
+      {
+            "input": "root = [-3]",
+            "expectedOutput": "-3",
+            "explanation": "Single negative node."
+      },
+      {
+            "input": "root = [2, -1]",
+            "expectedOutput": "2",
+            "explanation": "Best path is just node 2."
+      }
+],
+    timeLimitSeconds: 360,
+    memoryLimitMb: 128,
+    xpReward: 200,
+    tags: ["Binary Tree","DFS","Dynamic Programming","Recursion"],
+    hint: "Post-order DFS traversal: for each node, compute max gain from left child max(0, leftGain) and right child max(0, rightGain). The best path arching through the current node is node.val + leftGain + rightGain. Update global max, and return node.val + max(leftGain, rightGain) to parent.",
+    complexityTarget: "Time: O(N) | Space: O(H)",
+  },
 ];
 
 export class CodeWarsApiService {
