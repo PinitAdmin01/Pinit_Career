@@ -112,7 +112,9 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/mirror', icon: '🪞', label: 'Mirror' },
-    { href: '/attention-span', icon: '🧠', label: 'Attention Span' }
+    { href: '/attention-span', icon: '🧠', label: 'Attention Span' },
+    { href: '/vault', icon: '🗄️', label: 'Proof Vault' },
+    { href: '/shop', icon: '🛍️', label: 'Item Shop' }
   ]}
 ];
 

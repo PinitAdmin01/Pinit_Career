@@ -397,29 +397,20 @@ export class VRoidAvatarEngine {
     );
     const prefersHD = !this.isLowPowerDevice && !isSlowNetwork && (typeof window !== 'undefined' && window.innerWidth >= 1024);
 
-    const hdPath = `/avatar/hd/${id}.glb`;
-    const litePath = `/avatar/${id}.glb`;
+    const modelPath = `/avatar/${id}.glb`;
 
-    const FEMALE_FALLBACK_MODELS = prefersHD
-      ? ['/avatar/hd/priya.glb', '/avatar/priya.glb', '/avatar/avatarsample_c.glb']
-      : ['/avatar/avatarsample_c.glb', '/avatar/priya.glb'];
-
-    const MALE_FALLBACK_MODELS = prefersHD
-      ? ['/avatar/hd/kashyap.glb', '/avatar/kashyap.glb', '/avatar/akira.glb']
-      : ['/avatar/akira.glb', '/avatar/kashyap.glb'];
+    const FEMALE_FALLBACK_MODELS = ['/avatar/priya.glb', '/avatar/avatarsample_c.glb'];
+    const MALE_FALLBACK_MODELS = ['/avatar/kashyap.glb', '/avatar/akira.glb'];
 
     const genderMatchedFallbacks =
       personaForModel.gender === 'female' ? FEMALE_FALLBACK_MODELS
       : personaForModel.gender === 'male' ? MALE_FALLBACK_MODELS
       : ['/avatar/mentor.glb'];
 
-    // If prefersHD is true, try hdPath first, then seamlessly fall back to litePath if HD fails
-    const paths = prefersHD
-      ? [hdPath, litePath, ...genderMatchedFallbacks]
-      : [litePath, litePath, ...genderMatchedFallbacks];
+    const paths = [modelPath, ...genderMatchedFallbacks];
 
     console.log(
-      `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}, mode: ${prefersHD ? 'HD-Adaptive' : 'Lite-Optimized'}):`,
+      `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}):`,
       paths.join(' -> ')
     );
 
