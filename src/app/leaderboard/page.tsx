@@ -85,6 +85,7 @@ function LeaderboardContent() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [serverCurrentUser, setServerCurrentUser] = useState<LeaderboardEntry | null>(null);
   const [guilds, setGuilds] = useState<GuildLeaderboardEntry[]>([]);
   const [promotionCutoff, setPromotionCutoff] = useState(1);
   const [demotionCutoff, setDemotionCutoff] = useState(1);
@@ -106,10 +107,10 @@ function LeaderboardContent() {
   const [joinedLeague, setJoinedLeague] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const stored = localStorage.getItem(`pinit_joined_league_${user?.id || 'default'}`);
-    return stored === 'true';
+    return stored === 'true' || Boolean((user as any)?.league_tier);
   });
 
-  const handleJoinLeague = () => {
+  const handleJoinLeague = async () => {
     if (userTotalXp < 100) {
       toast.error('League Locked', `You need 100 XP to join the Weekly Ranked League. You currently have ${userTotalXp} XP.`);
       return;
@@ -118,6 +119,22 @@ function LeaderboardContent() {
     if (typeof window !== 'undefined') {
       localStorage.setItem(`pinit_joined_league_${user?.id || 'default'}`, 'true');
     }
+
+    // Persist league tier to Supabase database
+    if (user?.id) {
+      try {
+        await supabase.from('users').update({ league_tier: 'browns' }).eq('id', user.id);
+      } catch (err) {
+        console.warn('[Leaderboard] Failed to persist league_tier to Supabase:', err);
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
+        detail: { league_tier: 'browns' }
+      }));
+    }
+    setRefreshTrigger(prev => prev + 1);
     toast.success('🏆 Joined Weekly Ranked League!', 'Welcome to the Browns Division. Climb the ranks with Weekly XP & 1v1 Code Wars!');
   };
 
@@ -152,6 +169,9 @@ function LeaderboardContent() {
           mode: activeTab,
           league: selectedLeague,
         });
+        if (user?.id) {
+          params.set('userId', user.id);
+        }
 
         let authHeader: Record<string, string> = {};
         try {
@@ -164,6 +184,7 @@ function LeaderboardContent() {
         const res = await fetch(`/api/leaderboard?${params.toString()}`, {
           headers: {
             ...authHeader,
+            ...(user?.id ? { 'x-user-id': user.id } : {}),
           },
           cache: 'no-store',
         });
@@ -171,6 +192,9 @@ function LeaderboardContent() {
 
         if (data.ok && isMounted) {
           setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
+          if (data.currentUser) {
+            setServerCurrentUser(data.currentUser);
+          }
           if (Array.isArray(data.guilds)) {
             setGuilds(data.guilds);
           }
@@ -201,13 +225,45 @@ function LeaderboardContent() {
     return () => { isMounted = false; };
   }, [activeTab, selectedLeague, user?.id, refreshTrigger]);
 
+  // User's college for Regional filter
+  const userCollege = (user as any)?.college || (cOS as any)?.onboardingAnswers?.college || 'RV College of Engineering';
+
   // Current user's entry in the leaderboard
   const currentUserEntry = useMemo(() => {
-    return leaderboard.find(e => e.isCurrentUser || e.studentId === user?.id) || null;
-  }, [leaderboard, user?.id]);
+    const fromTable = leaderboard.find(e => e.isCurrentUser || e.studentId === user?.id);
+    if (fromTable) return fromTable;
+    if (serverCurrentUser) return serverCurrentUser;
 
-  // User's college for Regional filter
-  const userCollege = (user as any)?.college || (cOS?.onboardingAnswers as any)?.college || 'RV College of Engineering';
+    if (user?.id) {
+      const clientXp = Number((user as any).weekly_xp) || Number((cOS as any)?.dna?.experience) || (userTotalXp > 0 ? userTotalXp : 0);
+      const clientElo = Number((user as any).arena_elo) || 100;
+      const clientEloGain = Math.max(0, clientElo - 100);
+      const clientLeagueScore = clientXp + Math.round(clientEloGain * 1.5);
+      const userName = typeof user.name === 'string' ? user.name : ((user as any).display_name || 'Student Candidate');
+      return {
+        rank: 1,
+        studentId: user.id,
+        name: userName,
+        avatarUrl: user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(userName)}`,
+        college: userCollege,
+        programTitle: 'Engineering Track',
+        verifiedSkillsCount: 0,
+        demonstratedSkillsCount: 0,
+        defenseScore: 75,
+        readinessStatus: 'exploring',
+        learningGainPoints: Math.round(clientXp / 50),
+        eloRating: clientElo,
+        eloGain: clientEloGain,
+        leagueScore: clientLeagueScore,
+        leagueTier: currentUserLeague,
+        weeklyXp: clientXp,
+        totalXp: userTotalXp,
+        zone: 'safe',
+        isCurrentUser: true,
+      } as LeaderboardEntry;
+    }
+    return null;
+  }, [leaderboard, serverCurrentUser, user, cOS, userCollege, currentUserLeague, userTotalXp]);
 
   // Filtered entries by domain, search, and region/college
   const filteredEntries = useMemo(() => {
@@ -222,7 +278,7 @@ function LeaderboardContent() {
       }
     }
 
-    return list.filter(entry => {
+    const result = list.filter(entry => {
       const matchesSearch = !searchQuery ||
         entry.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         entry.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -233,7 +289,13 @@ function LeaderboardContent() {
 
       return matchesSearch && matchesDomain;
     });
-  }, [leaderboard, searchQuery, domainFilter, activeTab, userCollege]);
+
+    if (currentUserEntry && !searchQuery && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
+      result.push(currentUserEntry);
+    }
+
+    return result;
+  }, [leaderboard, searchQuery, domainFilter, activeTab, userCollege, currentUserEntry]);
 
   const activeLeagueMeta = LEAGUE_CONFIGS[selectedLeague];
   const userLeagueMeta = LEAGUE_CONFIGS[currentUserLeague];
