@@ -315,8 +315,10 @@ export default function SignupPage() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '36px 20px',
-        background: '#0c0d10',
-        color: '#f8fafc',
+        background: isDark
+          ? '#0c0d10'
+          : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)',
+        color: isDark ? '#f8fafc' : '#0f172a',
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         overflowX: 'hidden',
         boxSizing: 'border-box',
@@ -435,7 +437,9 @@ export default function SignupPage() {
           position: 'fixed',
           inset: 0,
           pointerEvents: 'none',
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1.2px, transparent 1.2px)',
+          backgroundImage: isDark
+            ? 'radial-gradient(rgba(255,255,255,0.06) 1.2px, transparent 1.2px)'
+            : 'radial-gradient(rgba(100, 116, 139, 0.14) 1.2px, transparent 1.2px)',
           backgroundSize: '28px 28px',
           zIndex: 0,
         }}
@@ -448,7 +452,9 @@ export default function SignupPage() {
           left: '12%',
           width: 550,
           height: 550,
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.04) 45%, transparent 70%)',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.04) 45%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(99, 102, 241, 0.06) 50%, transparent 70%)',
           filter: 'blur(75px)',
           pointerEvents: 'none',
           zIndex: 0,
@@ -466,7 +472,7 @@ export default function SignupPage() {
       </div>
       <span style={{ position: 'fixed', bottom: 20, right: 24, color: '#10b981', opacity: 0.65, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
 
-      {/* ─── Floating Top Bar: Theme Switcher (Unified Cyber Dark Aesthetic) ─── */}
+      {/* ─── Floating Top Bar: Theme Switcher ─── */}
       <div
         style={{
           position: 'absolute',
@@ -484,10 +490,13 @@ export default function SignupPage() {
             alignItems: 'center',
             padding: '3px 4px',
             borderRadius: 9999,
-            background: 'rgba(25, 28, 35, 0.92)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: isDark ? 'rgba(25, 28, 35, 0.92)' : 'rgba(255, 255, 255, 0.95)',
+            border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(203, 213, 225, 0.9)'}`,
             backdropFilter: 'blur(12px)',
-            boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
+            boxShadow: isDark
+              ? '0 6px 20px rgba(0,0,0,0.5)'
+              : '0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.05)',
+            transition: 'all 0.3s ease',
           }}
         >
           <button
@@ -503,9 +512,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: theme === 'dark' ? '#10b981' : 'transparent',
-              color: theme === 'dark' ? '#061710' : '#808593',
-              boxShadow: theme === 'dark' ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
+              background: isDark ? '#10b981' : 'transparent',
+              color: isDark ? '#061710' : '#64748b',
+              boxShadow: isDark ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -524,9 +533,9 @@ export default function SignupPage() {
               fontSize: 12.5,
               fontWeight: 700,
               cursor: 'pointer',
-              background: theme === 'light' ? '#10b981' : 'transparent',
-              color: theme === 'light' ? '#061710' : '#808593',
-              boxShadow: theme === 'light' ? '0 0 16px rgba(16, 185, 129, 0.5)' : 'none',
+              background: !isDark ? '#10b981' : 'transparent',
+              color: !isDark ? '#061710' : '#94a3b8',
+              boxShadow: !isDark ? '0 0 16px rgba(16, 185, 129, 0.4)' : 'none',
               transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
@@ -563,7 +572,9 @@ export default function SignupPage() {
                 width: '85%',
                 height: 40,
                 bottom: -16,
-                background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.45) 0%, transparent 70%)',
+                background: isDark
+                  ? 'radial-gradient(ellipse, rgba(16, 185, 129, 0.45) 0%, transparent 70%)'
+                  : 'radial-gradient(ellipse, rgba(16, 185, 129, 0.28) 0%, transparent 70%)',
                 filter: 'blur(24px)',
                 animation: 'shadowBreathe 4.5s ease-in-out infinite',
                 pointerEvents: 'none',
@@ -577,7 +588,9 @@ export default function SignupPage() {
                 maxWidth: 420,
                 aspectRatio: '1.586 / 1', // CR80 standard card ratio
                 borderRadius: 20,
-                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(12, 16, 22, 0.96) 50%, rgba(16, 185, 129, 0.08) 100%)',
+                background: isDark
+                  ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(12, 16, 22, 0.96) 50%, rgba(16, 185, 129, 0.08) 100%)'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 253, 244, 0.94) 50%, rgba(255, 255, 255, 0.98) 100%)',
                 border: '1.5px solid #10b981',
                 backdropFilter: 'blur(20px)',
                 padding: '24px 26px',
@@ -618,7 +631,7 @@ export default function SignupPage() {
                         animation: 'beaconBlink 2s ease-in-out infinite',
                       }}
                     />
-                    <span style={{ fontSize: 10, fontWeight: 700, color: '#6ee7b7', letterSpacing: 1.2, textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: isDark ? '#6ee7b7' : '#059669', letterSpacing: 1.2, textTransform: 'uppercase' }}>
                       Institutional Identity Badge
                     </span>
                   </div>
@@ -626,11 +639,11 @@ export default function SignupPage() {
                     style={{
                       fontSize: 'clamp(17px, 2.2vw, 22px)',
                       fontWeight: 800,
-                      color: '#ffffff',
+                      color: isDark ? '#ffffff' : '#0f172a',
                       letterSpacing: 0.8,
                       marginTop: 4,
                       fontFamily: 'Consolas, "Roboto Mono", monospace',
-                      textShadow: '0 0 12px rgba(16, 185, 129, 0.5)',
+                      textShadow: isDark ? '0 0 12px rgba(16, 185, 129, 0.5)' : '0 0 10px rgba(16, 185, 129, 0.25)',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -676,13 +689,13 @@ export default function SignupPage() {
                 <div style={{ fontSize: 18.5, fontWeight: 800, color: '#ffffff', letterSpacing: -0.2 }}>
                   {studentName || 'Student Name'}
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#34d399', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: isDark ? '#34d399' : '#059669', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
                   </svg>
                   {collegeName || 'Campus Institution'}
                 </div>
-                <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ fontSize: 11, color: isDark ? '#94a3b8' : '#475569', marginTop: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                     <path d="M6 12v5c3 3 9 3 12 0v-5" />
@@ -700,9 +713,9 @@ export default function SignupPage() {
                     gap: 6,
                     padding: '5px 12px',
                     borderRadius: 9999,
-                    background: 'rgba(16, 185, 129, 0.18)',
-                    border: '1px solid rgba(16, 185, 129, 0.5)',
-                    color: '#34d399',
+                    background: isDark ? 'rgba(16, 185, 129, 0.18)' : 'rgba(16, 185, 129, 0.12)',
+                    border: `1px solid ${isDark ? 'rgba(16, 185, 129, 0.5)' : 'rgba(16, 185, 129, 0.4)'}`,
+                    color: isDark ? '#34d399' : '#047857',
                     fontSize: 11,
                     fontWeight: 700,
                     boxShadow: '0 0 15px rgba(16, 185, 129, 0.25)',
@@ -742,85 +755,178 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* 2. Official Brand Lockup & Aerospace Telemetry Spectrum HUD (Screenshot 1 Matching) */}
+          {/* 2. Official Brand Lockup & Aerospace Telemetry Spectrum HUD (Re-Engineered & Unclipped) */}
           <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {/* Brand Lockup: Real Logo + Subtitle */}
+            {/* Brand Lockup: Real High-Res Emblem + Razor-Sharp Typography */}
             <div>
-              <Image
-                src="/brand/pinit-career-logo-clear.png"
-                alt="PinIT Career OS"
-                width={170}
-                height={38}
-                style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
-                priority
-              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 12,
+                    background: isDark
+                      ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(12, 16, 22, 0.85) 100%)'
+                      : 'linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(255, 255, 255, 0.95) 100%)',
+                    border: `1.5px solid ${isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(16, 185, 129, 0.5)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: isDark
+                      ? '0 0 20px rgba(16, 185, 129, 0.35)'
+                      : '0 4px 14px rgba(16, 185, 129, 0.2)',
+                    padding: 4,
+                    flexShrink: 0,
+                  }}
+                >
+                  <Image
+                    src="/brand/pinit-career-mark.png"
+                    alt="PinIT"
+                    width={34}
+                    height={34}
+                    style={{ height: '30px', width: 'auto', objectFit: 'contain' }}
+                    priority
+                  />
+                </div>
+                <div>
+                  <div
+                    style={{
+                      fontSize: 24,
+                      fontWeight: 900,
+                      color: isDark ? '#ffffff' : '#0f172a',
+                      letterSpacing: -0.6,
+                      lineHeight: 1.1,
+                      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    }}
+                  >
+                    PinIT <span style={{ color: '#10b981' }}>Career OS</span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: isDark ? '#34d399' : '#059669',
+                      letterSpacing: 1.5,
+                      textTransform: 'uppercase',
+                      fontFamily: 'Consolas, "Roboto Mono", monospace',
+                      marginTop: 2,
+                    }}
+                  >
+                    Institutional Identity Architecture
+                  </div>
+                </div>
+              </div>
+
               <p
                 style={{
-                  margin: '8px 0 0',
-                  fontSize: 12.5,
-                  color: '#94a3b8',
-                  lineHeight: 1.5,
-                  maxWidth: 410,
+                  margin: '10px 0 0',
+                  fontSize: 13,
+                  color: isDark ? '#94a3b8' : '#64748b',
+                  lineHeight: 1.55,
+                  maxWidth: 420,
                 }}
               >
                 Next-generation institutional identity, real-time campus telemetry, and autonomous AI career acceleration.
               </p>
             </div>
 
-            {/* Aerospace Telemetry Strip with Fine-Line Spectrum HUD */}
+            {/* Aerospace Telemetry Strip with Mathematical Waveform HUD */}
             <div
               style={{
-                borderRadius: 14,
-                background: 'rgba(16, 20, 28, 0.65)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                backdropFilter: 'blur(12px)',
-                padding: '14px 16px',
-                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+                borderRadius: 16,
+                background: isDark
+                  ? 'linear-gradient(135deg, rgba(16, 20, 28, 0.85) 0%, rgba(12, 15, 22, 0.95) 100%)'
+                  : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
+                border: `1.5px solid ${isDark ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.3)'}`,
+                backdropFilter: 'blur(16px)',
+                padding: '16px 18px',
+                boxShadow: isDark
+                  ? '0 15px 35px rgba(0, 0, 0, 0.55), 0 0 25px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
+                  : '0 15px 35px rgba(16, 185, 129, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
+                transition: 'all 0.3s ease',
               }}
             >
               {/* Status Indicator Bar */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, color: '#34d399', letterSpacing: 1, fontFamily: 'monospace' }}>
-                    LIVE CAREER VELOCITY
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <span
+                    style={{
+                      width: 7,
+                      height: 7,
+                      borderRadius: '50%',
+                      background: '#10b981',
+                      boxShadow: '0 0 10px #10b981',
+                      animation: 'beaconBlink 2s ease-in-out infinite',
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: 10.5,
+                      fontWeight: 800,
+                      color: isDark ? '#34d399' : '#059669',
+                      letterSpacing: 1.2,
+                      fontFamily: 'Consolas, "Roboto Mono", monospace',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Live Career Velocity
                   </span>
                 </div>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: '#10b981', fontFamily: 'monospace' }}>
-                  +29.58% ACCELERATION
-                </span>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: '3px 8px',
+                    borderRadius: 9999,
+                    background: isDark ? 'rgba(16, 185, 129, 0.15)' : 'rgba(16, 185, 129, 0.12)',
+                    border: `1px solid ${isDark ? 'rgba(16, 185, 129, 0.4)' : 'rgba(16, 185, 129, 0.35)'}`,
+                  }}
+                >
+                  <span style={{ fontSize: 10.5, fontWeight: 800, color: '#10b981', fontFamily: 'Consolas, "Roboto Mono", monospace' }}>
+                    +29.58% ACCELERATION
+                  </span>
+                </div>
               </div>
 
-              {/* High-Precision Cyber Waveform Spectrum */}
-              <div style={{ position: 'relative', width: '100%', height: 44 }}>
-                <svg width="100%" height="44" viewBox="0 0 380 44" fill="none" preserveAspectRatio="none">
+              {/* High-Precision Mathematical Cyber Waveform Spectrum (Zero Clipping!) */}
+              <div style={{ position: 'relative', width: '100%', height: 64 }}>
+                <svg width="100%" height="64" viewBox="0 0 400 64" fill="none" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="cyberFade" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                      <stop offset="0%" stopColor="#10b981" stopOpacity={isDark ? 0.32 : 0.22} />
+                      <stop offset="60%" stopColor="#00f59b" stopOpacity={isDark ? 0.12 : 0.06} />
                       <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
                     </linearGradient>
                   </defs>
-                  {/* Technical Grid lines */}
-                  <line x1="0" y1="11" x2="380" y2="11" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
-                  <line x1="0" y1="22" x2="380" y2="22" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
-                  <line x1="0" y1="33" x2="380" y2="33" stroke="rgba(255,255,255,0.05)" strokeDasharray="2 3" />
 
-                  {/* Smooth Cyber Waveform */}
+                  {/* Technical Grid lines */}
+                  <line x1="0" y1="16" x2="400" y2="16" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
+                  <line x1="0" y1="36" x2="400" y2="36" stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} strokeDasharray="3 3" />
+                  <line x1="0" y1="52" x2="400" y2="52" stroke={isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"} />
+
+                  {/* Smooth Unclipped Cyber Waveform Gradient Area */}
                   <path
-                    d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10 L380,44 L0,44 Z"
+                    d="M 0,44 C 30,44 60,40 90,40 C 120,40 140,46 170,44 C 200,42 225,18 255,16 C 285,14 305,44 330,42 C 355,40 375,16 400,12 L 400,64 L 0,64 Z"
                     fill="url(#cyberFade)"
                   />
+
+                  {/* Glowing Stroke Vector */}
                   <path
-                    d="M0,32 Q30,33 60,30 T120,24 T170,30 T210,12 T250,26 T290,18 T340,28 T380,10"
+                    d="M 0,44 C 30,44 60,40 90,40 C 120,40 140,46 170,44 C 200,42 225,18 255,16 C 285,14 305,44 330,42 C 355,40 375,16 400,12"
                     stroke="#10b981"
-                    strokeWidth="1.6"
+                    strokeWidth="2"
                     strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
 
-                  {/* Coordinates Nodes */}
-                  <circle cx="210" cy="12" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
-                  <circle cx="290" cy="18" r="2" fill="#10b981" />
-                  <circle cx="380" cy="10" r="2.5" fill="#34d399" stroke="#ffffff" strokeWidth="1" />
+                  {/* Coordinate Telemetry Nodes */}
+                  <circle cx="90" cy="40" r="2.5" fill="#10b981" />
+                  <circle cx="170" cy="44" r="2.5" fill="#10b981" />
+                  <circle cx="255" cy="16" r="3.5" fill="#34d399" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
+                  <circle cx="255" cy="16" r="7" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="2 2" opacity="0.7" />
+                  <circle cx="330" cy="42" r="2.5" fill="#10b981" />
+                  <circle cx="396" cy="12" r="3.5" fill="#00f59b" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.2" />
                 </svg>
               </div>
 
@@ -830,16 +936,21 @@ export default function SignupPage() {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginTop: 10,
-                  fontSize: 9.5,
-                  color: '#64748b',
-                  fontFamily: 'monospace',
+                  marginTop: 12,
+                  paddingTop: 10,
+                  borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+                  fontSize: 10,
+                  color: isDark ? '#94a3b8' : '#64748b',
+                  fontFamily: 'Consolas, "Roboto Mono", monospace',
                 }}
               >
-                <span>SYS: ONLINE</span>
-                <span>CONFIDENCE: 99.4%</span>
-                <span>LATENCY: 14ms</span>
-                <span style={{ color: '#94a3b8' }}>ID: VERIFIED</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#10b981' }} />
+                  <span>SYS: <strong style={{ color: isDark ? '#ffffff' : '#0f172a' }}>ONLINE</strong></span>
+                </div>
+                <span>CONFIDENCE: <strong style={{ color: '#10b981' }}>99.4%</strong></span>
+                <span>LATENCY: <strong style={{ color: isDark ? '#cbd5e1' : '#334155' }}>14ms</strong></span>
+                <span style={{ color: isDark ? '#6ee7b7' : '#047857', fontWeight: 700 }}>ID: VERIFIED</span>
               </div>
             </div>
           </div>
@@ -855,9 +966,11 @@ export default function SignupPage() {
               width: '100%',
               maxWidth: 450,
               borderRadius: 26,
-              background: '#15171d',
-              border: '1px solid #262933',
-              boxShadow: '0 30px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+              background: isDark ? '#15171d' : '#ffffff',
+              border: `1px solid ${isDark ? '#262933' : '#e2e8f0'}`,
+              boxShadow: isDark
+                ? '0 30px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+                : '0 30px 70px -15px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px #e2e8f0',
               padding: '30px 28px',
               display: 'flex',
               flexDirection: 'column',
@@ -872,8 +985,8 @@ export default function SignupPage() {
                 gridTemplateColumns: '1fr 1fr',
                 padding: 4,
                 borderRadius: 9999,
-                background: '#1b1e25',
-                border: '1px solid #282b36',
+                background: isDark ? '#1b1e25' : '#f1f5f9',
+                border: `1px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
               }}
             >
               <button
@@ -886,12 +999,9 @@ export default function SignupPage() {
                   fontSize: 12.5,
                   fontWeight: idMode === 'global' ? 700 : 500,
                   cursor: 'pointer',
-                  background:
-                    idMode === 'global' ? '#272b36' : 'transparent',
-                  color:
-                    idMode === 'global' ? '#ffffff' : '#808593',
-                  boxShadow:
-                    idMode === 'global' ? '0 2px 8px rgba(0,0,0,0.35)' : 'none',
+                  background: idMode === 'global' ? (isDark ? '#272b36' : '#ffffff') : 'transparent',
+                  color: idMode === 'global' ? (isDark ? '#ffffff' : '#0f172a') : (isDark ? '#808593' : '#64748b'),
+                  boxShadow: idMode === 'global' ? (isDark ? '0 2px 8px rgba(0,0,0,0.35)' : '0 2px 8px rgba(0,0,0,0.08)') : 'none',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -907,12 +1017,9 @@ export default function SignupPage() {
                   fontSize: 12.5,
                   fontWeight: idMode === 'college' ? 700 : 500,
                   cursor: 'pointer',
-                  background:
-                    idMode === 'college' ? '#242833' : 'transparent',
-                  color:
-                    idMode === 'college' ? '#ffffff' : '#808593',
-                  boxShadow:
-                    idMode === 'college' ? '0 2px 8px rgba(0,0,0,0.35)' : 'none',
+                  background: idMode === 'college' ? (isDark ? '#242833' : '#ffffff') : 'transparent',
+                  color: idMode === 'college' ? (isDark ? '#ffffff' : '#0f172a') : (isDark ? '#808593' : '#64748b'),
+                  boxShadow: idMode === 'college' ? (isDark ? '0 2px 8px rgba(0,0,0,0.35)' : '0 2px 8px rgba(0,0,0,0.08)') : 'none',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -940,8 +1047,8 @@ export default function SignupPage() {
               style={{
                 position: 'relative',
                 borderRadius: 16,
-                background: '#181b22',
-                border: '1px solid #282b36',
+                background: isDark ? '#181b22' : '#f8fafc',
+                border: `1px solid ${isDark ? '#282b36' : '#e2e8f0'}`,
                 padding: '16px 20px',
                 display: 'flex',
                 alignItems: 'center',
@@ -957,10 +1064,10 @@ export default function SignupPage() {
               <span style={{ position: 'absolute', bottom: 5, right: 6, color: '#10b981', fontSize: 16, fontWeight: 900, lineHeight: 1 }}>┘</span>
 
               <div>
-                <div style={{ fontSize: 13.5, fontWeight: 700, color: '#ffffff' }}>
+                <div style={{ fontSize: 13.5, fontWeight: 700, color: isDark ? '#ffffff' : '#0f172a' }}>
                   Student ID badge scanner
                 </div>
-                <div style={{ fontSize: 11, color: scanStatus ? '#10b981' : '#808593', marginTop: 3 }}>
+                <div style={{ fontSize: 11, color: scanStatus ? '#10b981' : isDark ? '#808593' : '#64748b', marginTop: 3 }}>
                   {scanStatus || (isScanning ? 'Processing image...' : 'Drop ID badge or click to scan')}
                 </div>
               </div>
@@ -980,16 +1087,16 @@ export default function SignupPage() {
                       zIndex: 2,
                     }}
                   />
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke={isDark ? "#ffffff" : "#0f172a"} strokeWidth="1.5">
                     <rect x="3" y="3" width="7" height="7" rx="1" />
                     <rect x="14" y="3" width="7" height="7" rx="1" />
                     <rect x="3" y="14" width="7" height="7" rx="1" />
-                    <rect x="6" y="6" width="1" height="1" fill="#ffffff" />
-                    <rect x="17" y="6" width="1" height="1" fill="#ffffff" />
-                    <rect x="6" y="17" width="1" height="1" fill="#ffffff" />
-                    <path d="M14 14h3v3h-3z" fill="#ffffff" />
-                    <path d="M18 18h3v3h-3z" fill="#ffffff" />
-                    <path d="M14 20h2v1h-2z" fill="#ffffff" />
+                    <rect x="6" y="6" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <rect x="17" y="6" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <rect x="6" y="17" width="1" height="1" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <path d="M14 14h3v3h-3z" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <path d="M18 18h3v3h-3z" fill={isDark ? "#ffffff" : "#0f172a"} />
+                    <path d="M14 20h2v1h-2z" fill={isDark ? "#ffffff" : "#0f172a"} />
                   </svg>
                 </div>
                 <span style={{ fontSize: 8, color: '#808593', letterSpacing: 0.2 }}>
@@ -1035,9 +1142,9 @@ export default function SignupPage() {
                     width: '100%',
                     padding: '12px 14px 12px 40px',
                     borderRadius: 12,
-                    background: '#181b22',
-                    border: '1.5px solid #282b36',
-                    color: '#ffffff',
+                    background: isDark ? '#181b22' : '#ffffff',
+                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                    color: isDark ? '#ffffff' : '#0f172a',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -1066,9 +1173,9 @@ export default function SignupPage() {
                         width: '100%',
                         padding: '12px 10px 12px 34px',
                         borderRadius: 12,
-                        background: '#181b22',
-                        border: '1.5px solid #282b36',
-                        color: '#ffffff',
+                        background: isDark ? '#181b22' : '#ffffff',
+                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                    color: isDark ? '#ffffff' : '#0f172a',
                         fontSize: 12.5,
                         outline: 'none',
                         boxSizing: 'border-box',
@@ -1097,9 +1204,9 @@ export default function SignupPage() {
                         width: '100%',
                         padding: '12px 10px 12px 34px',
                         borderRadius: 12,
-                        background: '#181b22',
-                        border: '1.5px solid #282b36',
-                        color: '#ffffff',
+                        background: isDark ? '#181b22' : '#ffffff',
+                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                    color: isDark ? '#ffffff' : '#0f172a',
                         fontSize: 12.5,
                         outline: 'none',
                         boxSizing: 'border-box',
@@ -1134,9 +1241,9 @@ export default function SignupPage() {
                     width: '100%',
                     padding: '12px 14px 12px 40px',
                     borderRadius: 12,
-                    background: '#181b22',
-                    border: '1.5px solid #282b36',
-                    color: '#ffffff',
+                    background: isDark ? '#181b22' : '#ffffff',
+                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                    color: isDark ? '#ffffff' : '#0f172a',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -1163,9 +1270,9 @@ export default function SignupPage() {
                     width: '100%',
                     padding: '12px 44px 12px 40px',
                     borderRadius: 12,
-                    background: '#181b22',
-                    border: '1.5px solid #282b36',
-                    color: '#ffffff',
+                    background: isDark ? '#181b22' : '#ffffff',
+                    border: `1.5px solid ${isDark ? '#282b36' : '#cbd5e1'}`,
+                    color: isDark ? '#ffffff' : '#0f172a',
                     fontSize: 13,
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -1247,7 +1354,7 @@ export default function SignupPage() {
                   fontWeight: 500,
                 }}
               >
-                Already have an account? <span style={{ color: '#10b981', fontWeight: 600 }}>Sign in →</span>
+                Already have an account? <span style={{ color: isDark ? '#10b981' : '#059669', fontWeight: 600 }}>Sign in →</span>
               </Link>
             </div>
           </div>
