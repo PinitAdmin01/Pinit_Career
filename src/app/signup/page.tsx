@@ -8,6 +8,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { useAppStore } from '@/lib/store/useAppStore';
 import DynamicSkyCanvas from '@/components/effects/DynamicSkyCanvas';
 import GearAudioHub from '@/components/nav/GearAudioHub';
+import AmbientAudioToggle from '@/components/effects/AmbientAudioToggle';
 import {
   generateMemorableGlobalId,
   generateCollegePinItId,
@@ -21,6 +22,7 @@ export default function SignupPage() {
 
   // ─── Global App Store Theme Synchronization ───
   const storeTheme = useAppStore((s) => s.theme);
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
   const isDark = storeTheme === 'dark';
 
   // ─── Form & Verification State (Clean Unhardcoded Initial State) ───
@@ -463,7 +465,7 @@ export default function SignupPage() {
         justifyContent: 'center',
         padding: '36px 20px',
         background: isDark
-          ? '#0c0d10'
+          ? '#060813'
           : 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)',
         color: isDark ? '#f8fafc' : '#0f172a',
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -621,6 +623,23 @@ export default function SignupPage() {
           zIndex: 1,
         }}
       />
+      {/* Cosmic Deep Space Ambient Glow (Matching Landing Page Hero Halo) */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '20%',
+          left: '15%',
+          width: 700,
+          height: 700,
+          borderRadius: '50%',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(0, 163, 255, 0.22) 0%, rgba(56, 189, 248, 0.08) 45%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(251, 146, 60, 0.05) 45%, transparent 70%)',
+          filter: 'blur(65px)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
       {/* Blue Laser Ambient Glow Behind Card */}
       <div
         style={{
@@ -649,7 +668,44 @@ export default function SignupPage() {
       </div>
       <span style={{ position: 'fixed', bottom: 20, right: 24, color: isDark ? '#38bdf8' : '#2563eb', opacity: isDark ? 0.65 : 0.75, fontSize: 16, fontFamily: 'monospace', pointerEvents: 'none' }}>┘</span>
 
-      {/* ─── Floating Top Bar: Universal Gear Settings Hub ─── */}
+      {/* ─── Floating Top Bar: Brand Home Link (Left) & Actions Hub (Right) ─── */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 22,
+          left: 32,
+          zIndex: 50,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+        }}
+      >
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            textDecoration: 'none',
+            color: isDark ? '#ffffff' : '#0f172a',
+            transition: 'opacity 0.2s',
+          }}
+          title="Return to PinIT Career OS Home"
+        >
+          <Image
+            src="/brand/pinit-career-mark.png"
+            alt="PinIT Career"
+            width={32}
+            height={32}
+            style={{ width: 28, height: 28, objectFit: 'contain' }}
+            priority
+          />
+          <span style={{ fontSize: 14.5, fontWeight: 800, letterSpacing: -0.3 }}>
+            PinIT <span style={{ color: isDark ? '#38bdf8' : '#0284c7' }}>Career</span>
+          </span>
+        </Link>
+      </div>
+
       <div
         style={{
           position: 'absolute',
@@ -658,11 +714,59 @@ export default function SignupPage() {
           zIndex: 50,
           display: 'flex',
           alignItems: 'center',
-          gap: 12,
+          gap: 10,
         }}
       >
+        <Link
+          href="/login"
+          style={{
+            padding: '7px 14px',
+            fontSize: '13px',
+            fontWeight: 700,
+            textDecoration: 'none',
+            borderRadius: '8px',
+            border: isDark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+            color: isDark ? '#f8fafc' : '#0f172a',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'transparent',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          Sign In
+        </Link>
+
+        {/* 1-Click Sun / Moon Direct Theme Toggle (Matching Landing Page) */}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          style={{
+            background: 'transparent',
+            border: isDark ? '1px solid rgba(255,255,255,0.14)' : '1px solid rgba(0,0,0,0.14)',
+            borderRadius: '50%',
+            width: '36px',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '17px',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            color: isDark ? '#ffffff' : '#0f172a',
+          }}
+          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          aria-label="Toggle Theme"
+        >
+          {isDark ? '☀️' : '🌙'}
+        </button>
+
+        {/* ⚙️ Universal Gear Audio & Settings Hub */}
         <GearAudioHub theme={storeTheme} />
       </div>
+
+      {/* ─── Persistent Floating Ambient Audio Toggle (Matching Landing Page) ─── */}
+      <AmbientAudioToggle />
 
       {/* ─── Main Two-Column Viewport Container ─── */}
       <div

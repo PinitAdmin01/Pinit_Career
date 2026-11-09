@@ -85,6 +85,7 @@ function LeaderboardContent() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [serverCurrentUser, setServerCurrentUser] = useState<LeaderboardEntry | null>(null);
   const [guilds, setGuilds] = useState<GuildLeaderboardEntry[]>([]);
   const [promotionCutoff, setPromotionCutoff] = useState(1);
   const [demotionCutoff, setDemotionCutoff] = useState(1);
@@ -106,10 +107,10 @@ function LeaderboardContent() {
   const [joinedLeague, setJoinedLeague] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const stored = localStorage.getItem(`pinit_joined_league_${user?.id || 'default'}`);
-    return stored === 'true';
+    return stored === 'true' || Boolean((user as any)?.league_tier);
   });
 
-  const handleJoinLeague = () => {
+  const handleJoinLeague = async () => {
     if (userTotalXp < 100) {
       toast.error('League Locked', `You need 100 XP to join the Weekly Ranked League. You currently have ${userTotalXp} XP.`);
       return;
@@ -118,6 +119,22 @@ function LeaderboardContent() {
     if (typeof window !== 'undefined') {
       localStorage.setItem(`pinit_joined_league_${user?.id || 'default'}`, 'true');
     }
+
+    // Persist league tier to Supabase database
+    if (user?.id) {
+      try {
+        await supabase.from('users').update({ league_tier: 'browns' }).eq('id', user.id);
+      } catch (err) {
+        console.warn('[Leaderboard] Failed to persist league_tier to Supabase:', err);
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
+        detail: { league_tier: 'browns' }
+      }));
+    }
+    setRefreshTrigger(prev => prev + 1);
     toast.success('🏆 Joined Weekly Ranked League!', 'Welcome to the Browns Division. Climb the ranks with Weekly XP & 1v1 Code Wars!');
   };
 
@@ -152,6 +169,9 @@ function LeaderboardContent() {
           mode: activeTab,
           league: selectedLeague,
         });
+        if (user?.id) {
+          params.set('userId', user.id);
+        }
 
         let authHeader: Record<string, string> = {};
         try {
@@ -164,6 +184,7 @@ function LeaderboardContent() {
         const res = await fetch(`/api/leaderboard?${params.toString()}`, {
           headers: {
             ...authHeader,
+            ...(user?.id ? { 'x-user-id': user.id } : {}),
           },
           cache: 'no-store',
         });
@@ -171,6 +192,9 @@ function LeaderboardContent() {
 
         if (data.ok && isMounted) {
           setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
+          if (data.currentUser) {
+            setServerCurrentUser(data.currentUser);
+          }
           if (Array.isArray(data.guilds)) {
             setGuilds(data.guilds);
           }
@@ -201,13 +225,45 @@ function LeaderboardContent() {
     return () => { isMounted = false; };
   }, [activeTab, selectedLeague, user?.id, refreshTrigger]);
 
+  // User's college for Regional filter
+  const userCollege = (user as any)?.college || (cOS as any)?.onboardingAnswers?.college || 'RV College of Engineering';
+
   // Current user's entry in the leaderboard
   const currentUserEntry = useMemo(() => {
-    return leaderboard.find(e => e.isCurrentUser || e.studentId === user?.id) || null;
-  }, [leaderboard, user?.id]);
+    const fromTable = leaderboard.find(e => e.isCurrentUser || e.studentId === user?.id);
+    if (fromTable) return fromTable;
+    if (serverCurrentUser) return serverCurrentUser;
 
-  // User's college for Regional filter
-  const userCollege = (user as any)?.college || (cOS?.onboardingAnswers as any)?.college || 'RV College of Engineering';
+    if (user?.id) {
+      const clientXp = Number((user as any).weekly_xp) || Number((cOS as any)?.dna?.experience) || (userTotalXp > 0 ? userTotalXp : 0);
+      const clientElo = Number((user as any).arena_elo) || 100;
+      const clientEloGain = Math.max(0, clientElo - 100);
+      const clientLeagueScore = clientXp + Math.round(clientEloGain * 1.5);
+      const userName = typeof user.name === 'string' ? user.name : ((user as any).display_name || 'Student Candidate');
+      return {
+        rank: 1,
+        studentId: user.id,
+        name: userName,
+        avatarUrl: user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(userName)}`,
+        college: userCollege,
+        programTitle: 'Engineering Track',
+        verifiedSkillsCount: 0,
+        demonstratedSkillsCount: 0,
+        defenseScore: 75,
+        readinessStatus: 'exploring',
+        learningGainPoints: Math.round(clientXp / 50),
+        eloRating: clientElo,
+        eloGain: clientEloGain,
+        leagueScore: clientLeagueScore,
+        leagueTier: currentUserLeague,
+        weeklyXp: clientXp,
+        totalXp: userTotalXp,
+        zone: 'safe',
+        isCurrentUser: true,
+      } as LeaderboardEntry;
+    }
+    return null;
+  }, [leaderboard, serverCurrentUser, user, cOS, userCollege, currentUserLeague, userTotalXp]);
 
   // Filtered entries by domain, search, and region/college
   const filteredEntries = useMemo(() => {
@@ -222,7 +278,7 @@ function LeaderboardContent() {
       }
     }
 
-    return list.filter(entry => {
+    const result = list.filter(entry => {
       const matchesSearch = !searchQuery ||
         entry.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         entry.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -233,7 +289,13 @@ function LeaderboardContent() {
 
       return matchesSearch && matchesDomain;
     });
-  }, [leaderboard, searchQuery, domainFilter, activeTab, userCollege]);
+
+    if (currentUserEntry && !searchQuery && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
+      result.push(currentUserEntry);
+    }
+
+    return result;
+  }, [leaderboard, searchQuery, domainFilter, activeTab, userCollege, currentUserEntry]);
 
   const activeLeagueMeta = LEAGUE_CONFIGS[selectedLeague];
   const userLeagueMeta = LEAGUE_CONFIGS[currentUserLeague];
@@ -241,35 +303,129 @@ function LeaderboardContent() {
   return (
     <div style={{ background: 'transparent', color: 'var(--text)', maxWidth: 1340, margin: '0 auto', padding: '0 0 40px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
 
-      {/* ── Header Bar ─────────────────────────────────────────────────── */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid var(--border)', paddingBottom: 16, flexWrap: 'wrap', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      {/* ── TOP ELEVATED COCKPIT TELEMETRY HUD (25% Compact Scale) ──────── */}
+      <div
+        data-testid="cockpit-telemetry-hud"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: 12,
+          padding: '12px 18px',
+          borderRadius: 14,
+          background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
+          border: `1.5px solid ${userLeagueMeta.color}45`,
+          boxShadow: `var(--shadow-sm), 0 0 16px ${userLeagueMeta.color}15`,
+          marginBottom: 16,
+          alignItems: 'center',
+        }}
+      >
+        {/* Card 1: Active League & Rank Status */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <LeagueBadge tier={currentUserLeague} size="sm" glow animate />
           <div>
-            <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: 10, color: 'var(--t1)' }}>
-              Competency & Weekly Leagues
-              <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 20, background: userLeagueMeta.bgGradient, color: userLeagueMeta.color, border: `1.5px solid ${userLeagueMeta.color}60`, fontWeight: 800 }}>
-                {userLeagueMeta.title}
-              </span>
-            </h1>
-            <p style={{ margin: '4px 0 0', fontSize: 14.5, color: 'var(--t2)' }}>
-              7-Day Duolingo-Style Sprints · Top 10% Promote · Bottom 10% Demote · Resets Mondays at 1:00 AM IST
-            </p>
+            <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: userLeagueMeta.color }}>
+              Your Active League
+            </div>
+            <div style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', margin: '1px 0' }}>
+              {userLeagueMeta.title}
+            </div>
+            <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+              {userLeagueMeta.slogan}
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+        {/* Card 2: Sprint Standing & Promotion Status */}
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span>Current Sprint Standing ($XP + ELO$)</span>
+            <span style={{ fontSize: 9.5, padding: '1px 6px', borderRadius: 4, background: 'rgba(99, 102, 241, 0.12)', color: 'var(--accent, #4f46e5)', fontWeight: 800 }}>LIVE SPRINT</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2, flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: '#d97706' }}>
+              {currentUserEntry ? `#${currentUserEntry.rank}` : 'Unranked'}
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
+              {currentUserEntry
+                ? `${currentUserEntry.weeklyXp.toLocaleString()} XP + ${currentUserEntry.eloGain ?? 0} ELO Gain`
+                : 'Earn XP & Duel in Code Wars!'}
+            </span>
+            {currentUserEntry && (
+              <span style={{ fontSize: 11, fontWeight: 800, padding: '1px 6px', borderRadius: 4, background: 'rgba(16, 185, 129, 0.12)', color: '#059669', fontFamily: 'var(--font-mono)' }}>
+                ★ {(currentUserEntry.leagueScore ?? (currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5))).toLocaleString()} pts
+              </span>
+            )}
+          </div>
+
+          <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+            {currentUserEntry?.zone === 'promotion' ? (
+              <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(16,185,129,0.18)' }}>
+                ⬆️ In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
+              </span>
+            ) : currentUserEntry?.zone === 'demotion' ? (
+              <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(239,68,68,0.18)' }}>
+                ⬇️ In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
+              </span>
+            ) : (
+              <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#4f46e5', fontSize: 10.5, fontWeight: 800 }}>
+                ⏸️ Safe Zone — Remaining in {userLeagueMeta.title}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Card 3: Sprint Reset Countdown Timer */}
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)' }}>
+            ⏳ Weekly Sprint Ends (Monday 1:00 AM IST)
+          </div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 900, color: remainingMs < 86400000 ? '#dc2626' : 'var(--blue, #2563eb)', marginTop: 2 }}>
+            {formatCountdown(remainingMs)}
+          </div>
+          <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>
+            Top 10% promote ⬆️ · Bottom 10% demote ⬇️
+          </div>
+        </div>
+
+        {/* Card 4: Quick Telemetry Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, flexWrap: 'wrap' }}>
           <Link
             href="/arena?tab=code_wars"
-            style={{ padding: '8px 16px', borderRadius: 10, background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: '#fff', fontSize: 14.5, textDecoration: 'none', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 6 }}
+            style={{
+              padding: '7px 14px',
+              borderRadius: 8,
+              background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+              color: '#ffffff',
+              fontSize: 12.5,
+              textDecoration: 'none',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              boxShadow: '0 2px 8px rgba(79, 70, 229, 0.25)',
+              whiteSpace: 'nowrap',
+            }}
           >
             ⚔️ 1v1 Battle Arena
           </Link>
           <Link
             href="/pins"
-            style={{ padding: '8px 16px', borderRadius: 10, background: 'rgba(217,119,6,0.12)', color: '#d97706', fontSize: 14.5, textDecoration: 'none', border: '1px solid rgba(217,119,6,0.35)', boxShadow: 'var(--shadow-sm)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 6 }}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 8,
+              background: 'rgba(217, 119, 6, 0.1)',
+              color: '#d97706',
+              fontSize: 12,
+              textDecoration: 'none',
+              border: '1px solid rgba(217, 119, 6, 0.3)',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 5,
+              whiteSpace: 'nowrap',
+            }}
           >
-            <PinCoin size={16} glow /> Pins Wallet
+            <PinCoin size={13} glow /> Pins Wallet
           </Link>
         </div>
       </div>
@@ -415,88 +571,7 @@ function LeaderboardContent() {
         ))}
       </div>
 
-      {/* ── Weekly League Cockpit Banner (when weekly_leagues mode active) ── */}
-      {activeTab === 'weekly_leagues' && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 16,
-          padding: '20px 24px',
-          borderRadius: 20,
-          background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
-          border: `1.5px solid ${userLeagueMeta.color}45`,
-          boxShadow: `var(--shadow-md), 0 0 24px ${userLeagueMeta.color}15`,
-          marginBottom: 24,
-        }}>
-          {/* Card 1: Active League & Rank Status */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <LeagueBadge tier={currentUserLeague} size="md" glow animate />
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: userLeagueMeta.color }}>
-                Your Active League
-              </div>
-              <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: '2px 0' }}>
-                {userLeagueMeta.title}
-              </div>
-              <div style={{ fontSize: 13, color: 'var(--t3)' }}>
-                {userLeagueMeta.slogan}
-              </div>
-            </div>
-          </div>
 
-          {/* Card 2: Sprint Standing & Promotion Status */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span>Current Sprint Standing ($XP + ELO$)</span>
-              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(99, 102, 241, 0.12)', color: 'var(--accent, #4f46e5)', fontWeight: 800 }}>LIVE SPRINT</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 26.5, fontWeight: 900, color: '#d97706' }}>
-                {currentUserEntry ? `#${currentUserEntry.rank}` : 'Unranked'}
-              </span>
-              <span style={{ fontSize: 14.5, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
-                {currentUserEntry
-                  ? `${currentUserEntry.weeklyXp.toLocaleString()} XP + ${currentUserEntry.eloGain ?? 0} ELO Gain`
-                  : 'Earn XP & Duel in Code Wars!'}
-              </span>
-              {currentUserEntry && (
-                <span style={{ fontSize: 13, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: '#059669', fontFamily: 'var(--font-mono)' }}>
-                  ★ {(currentUserEntry.leagueScore ?? (currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5))).toLocaleString()} pts
-                </span>
-              )}
-            </div>
-
-            <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              {currentUserEntry?.zone === 'promotion' ? (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 12, fontWeight: 800, boxShadow: '0 0 12px rgba(16,185,129,0.2)' }}>
-                  ⬆️ In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
-                </span>
-              ) : currentUserEntry?.zone === 'demotion' ? (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 12, fontWeight: 800, boxShadow: '0 0 12px rgba(239,68,68,0.2)' }}>
-                  ⬇️ In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
-                </span>
-              ) : (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#4f46e5', fontSize: 12, fontWeight: 800 }}>
-                  ⏸️ Safe Zone — Remaining in {userLeagueMeta.title}
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Card 3: Sprint Reset Countdown Timer */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)' }}>
-              ⏳ Weekly Sprint Ends (Monday 1:00 AM IST)
-            </div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 24, fontWeight: 900, color: remainingMs < 86400000 ? '#dc2626' : 'var(--blue, #2563eb)', marginTop: 4 }}>
-              {formatCountdown(remainingMs)}
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
-              Top 10% promote ⬆️ · Bottom 10% demote ⬇️
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── 5-League Tier Switcher Bar (when in weekly_leagues mode) ───── */}
       {activeTab === 'weekly_leagues' && (
