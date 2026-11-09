@@ -433,10 +433,11 @@ function LeaderboardContent() {
 
           {/* Card 2: Sprint Standing & Promotion Status */}
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)' }}>
-              Current Sprint Standing ($XP + ELO$)
+            <div style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span>Current Sprint Standing ($XP + ELO$)</span>
+              <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(99, 102, 241, 0.12)', color: 'var(--accent, #4f46e5)', fontWeight: 800 }}>LIVE SPRINT</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, flexWrap: 'wrap' }}>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 26.5, fontWeight: 900, color: '#d97706' }}>
                 {currentUserEntry ? `#${currentUserEntry.rank}` : 'Unranked'}
               </span>
@@ -445,15 +446,20 @@ function LeaderboardContent() {
                   ? `${currentUserEntry.weeklyXp.toLocaleString()} XP + ${currentUserEntry.eloGain ?? 0} ELO Gain`
                   : 'Earn XP & Duel in Code Wars!'}
               </span>
+              {currentUserEntry && (
+                <span style={{ fontSize: 13, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: '#059669', fontFamily: 'var(--font-mono)' }}>
+                  ★ {(currentUserEntry.leagueScore ?? (currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5))).toLocaleString()} pts
+                </span>
+              )}
             </div>
 
-            <div style={{ marginTop: 6 }}>
+            <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               {currentUserEntry?.zone === 'promotion' ? (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 12, fontWeight: 800 }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 12, fontWeight: 800, boxShadow: '0 0 12px rgba(16,185,129,0.2)' }}>
                   ⬆️ In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
                 </span>
               ) : currentUserEntry?.zone === 'demotion' ? (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 12, fontWeight: 800 }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 12, fontWeight: 800, boxShadow: '0 0 12px rgba(239,68,68,0.2)' }}>
                   ⬇️ In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
                 </span>
               ) : (
@@ -574,256 +580,514 @@ function LeaderboardContent() {
         </div>
       )}
 
+      {/* ── TOP 3 CHAMPIONS PODIUM SHOWCASE ─────────────────────────── */}
+      {activeTab !== 'guild_projects' && filteredEntries.length >= 3 && !loading && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 16,
+          marginBottom: 24,
+          alignItems: 'end',
+        }}>
+          {/* 🥈 Rank 2: Silver Pedestal (Left) */}
+          {filteredEntries[1] && (
+            <div style={{
+              background: 'linear-gradient(180deg, rgba(148, 163, 184, 0.12) 0%, var(--card) 100%)',
+              border: '1.5px solid rgba(148, 163, 184, 0.4)',
+              borderRadius: 20,
+              padding: '24px 20px 20px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative',
+              boxShadow: 'var(--shadow-md), 0 0 24px rgba(148, 163, 184, 0.15)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: -12,
+                padding: '4px 14px',
+                borderRadius: 20,
+                background: 'linear-gradient(135deg, #94a3b8, #64748b)',
+                color: '#ffffff',
+                fontSize: 11.5,
+                fontWeight: 900,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                boxShadow: '0 2px 10px rgba(148, 163, 184, 0.4)',
+              }}>
+                🥈 2nd Place Contender
+              </div>
+              <div style={{ position: 'relative', marginTop: 6, marginBottom: 12 }}>
+                <Image
+                  src={filteredEntries[1].avatarUrl}
+                  alt={filteredEntries[1].name}
+                  width={68}
+                  height={68}
+                  style={{
+                    width: 68,
+                    height: 68,
+                    borderRadius: 34,
+                    border: '3px solid #94a3b8',
+                    boxShadow: '0 0 16px rgba(148, 163, 184, 0.5)',
+                    objectFit: 'cover',
+                  }}
+                  unoptimized
+                />
+                <span style={{
+                  position: 'absolute',
+                  bottom: -4,
+                  right: -4,
+                  fontSize: 18,
+                }}>🥈</span>
+              </div>
+              <div style={{ fontSize: 16.5, fontWeight: 900, color: filteredEntries[1].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                {filteredEntries[1].name}
+                {filteredEntries[1].isCurrentUser && (
+                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>YOU</span>
+                )}
+              </div>
+              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2, marginBottom: 12 }}>
+                {filteredEntries[1].college}
+              </div>
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(217, 119, 6, 0.12)', color: '#d97706', fontSize: 12.5, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                  +{activeTab === 'weekly_leagues' ? filteredEntries[1].weeklyXp.toLocaleString() : filteredEntries[1].totalXp.toLocaleString()} XP
+                </span>
+                {activeTab === 'weekly_leagues' && (
+                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', fontSize: 12.5, fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
+                    ⚔️ {filteredEntries[1].eloRating} ELO
+                  </span>
+                )}
+                {activeTab === 'weekly_leagues' && (
+                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
+                    ★ {(filteredEntries[1].leagueScore ?? (filteredEntries[1].weeklyXp + Math.round(Math.max(0, filteredEntries[1].eloRating - 1200) * 1.5))).toLocaleString()} pts
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 👑 Rank 1: Gold Pedestal (Center - Elevated!) */}
+          {filteredEntries[0] && (
+            <div style={{
+              background: 'linear-gradient(180deg, rgba(245, 158, 11, 0.18) 0%, var(--card) 100%)',
+              border: '2px solid rgba(245, 158, 11, 0.65)',
+              borderRadius: 22,
+              padding: '30px 22px 24px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative',
+              boxShadow: 'var(--shadow-lg), 0 0 36px rgba(245, 158, 11, 0.25)',
+              transform: 'scale(1.03)',
+              zIndex: 2,
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: -14,
+                padding: '5px 18px',
+                borderRadius: 20,
+                background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                color: '#ffffff',
+                fontSize: 12,
+                fontWeight: 900,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                boxShadow: '0 4px 16px rgba(245, 158, 11, 0.5)',
+              }}>
+                👑 1st Place · Division Leader
+              </div>
+              <div style={{ position: 'relative', marginTop: 4, marginBottom: 12 }}>
+                <Image
+                  src={filteredEntries[0].avatarUrl}
+                  alt={filteredEntries[0].name}
+                  width={80}
+                  height={80}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 40,
+                    border: '3.5px solid #f59e0b',
+                    boxShadow: '0 0 24px rgba(245, 158, 11, 0.65)',
+                    objectFit: 'cover',
+                  }}
+                  unoptimized
+                />
+                <span style={{
+                  position: 'absolute',
+                  bottom: -6,
+                  right: -6,
+                  fontSize: 22,
+                }}>👑</span>
+              </div>
+              <div style={{ fontSize: 18, fontWeight: 900, color: filteredEntries[0].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                {filteredEntries[0].name}
+                {filteredEntries[0].isCurrentUser && (
+                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>YOU</span>
+                )}
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2, marginBottom: 14 }}>
+                {filteredEntries[0].college}
+              </div>
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
+                <span style={{ padding: '5px 12px', borderRadius: 8, background: 'rgba(217, 119, 6, 0.15)', color: '#d97706', fontSize: 13.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
+                  +{activeTab === 'weekly_leagues' ? filteredEntries[0].weeklyXp.toLocaleString() : filteredEntries[0].totalXp.toLocaleString()} XP
+                </span>
+                {activeTab === 'weekly_leagues' && (
+                  <span style={{ padding: '5px 12px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.15)', color: '#dc2626', fontSize: 13.5, fontWeight: 900, border: '1px solid rgba(239, 68, 68, 0.3)' }}>
+                    ⚔️ {filteredEntries[0].eloRating} ELO
+                  </span>
+                )}
+                {activeTab === 'weekly_leagues' && (
+                  <span style={{ padding: '5px 14px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.2)', color: '#059669', fontSize: 13.5, fontWeight: 900, fontFamily: 'var(--font-mono)', border: '1px solid rgba(16, 185, 129, 0.35)' }}>
+                    ★ {(filteredEntries[0].leagueScore ?? (filteredEntries[0].weeklyXp + Math.round(Math.max(0, filteredEntries[0].eloRating - 1200) * 1.5))).toLocaleString()} pts
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 🥉 Rank 3: Bronze Pedestal (Right) */}
+          {filteredEntries[2] && (
+            <div style={{
+              background: 'linear-gradient(180deg, rgba(217, 119, 6, 0.12) 0%, var(--card) 100%)',
+              border: '1.5px solid rgba(217, 119, 6, 0.4)',
+              borderRadius: 20,
+              padding: '24px 20px 20px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative',
+              boxShadow: 'var(--shadow-md), 0 0 24px rgba(217, 119, 6, 0.15)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: -12,
+                padding: '4px 14px',
+                borderRadius: 20,
+                background: 'linear-gradient(135deg, #d97706, #b45309)',
+                color: '#ffffff',
+                fontSize: 11.5,
+                fontWeight: 900,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                boxShadow: '0 2px 10px rgba(217, 119, 6, 0.4)',
+              }}>
+                🥉 3rd Place Challenger
+              </div>
+              <div style={{ position: 'relative', marginTop: 6, marginBottom: 12 }}>
+                <Image
+                  src={filteredEntries[2].avatarUrl}
+                  alt={filteredEntries[2].name}
+                  width={68}
+                  height={68}
+                  style={{
+                    width: 68,
+                    height: 68,
+                    borderRadius: 34,
+                    border: '3px solid #d97706',
+                    boxShadow: '0 0 16px rgba(217, 119, 6, 0.5)',
+                    objectFit: 'cover',
+                  }}
+                  unoptimized
+                />
+                <span style={{
+                  position: 'absolute',
+                  bottom: -4,
+                  right: -4,
+                  fontSize: 18,
+                }}>🥉</span>
+              </div>
+              <div style={{ fontSize: 16.5, fontWeight: 900, color: filteredEntries[2].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                {filteredEntries[2].name}
+                {filteredEntries[2].isCurrentUser && (
+                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>YOU</span>
+                )}
+              </div>
+              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2, marginBottom: 12 }}>
+                {filteredEntries[2].college}
+              </div>
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(217, 119, 6, 0.12)', color: '#d97706', fontSize: 12.5, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                  +{activeTab === 'weekly_leagues' ? filteredEntries[2].weeklyXp.toLocaleString() : filteredEntries[2].totalXp.toLocaleString()} XP
+                </span>
+                {activeTab === 'weekly_leagues' && (
+                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', fontSize: 12.5, fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
+                    ⚔️ {filteredEntries[2].eloRating} ELO
+                  </span>
+                )}
+                {activeTab === 'weekly_leagues' && (
+                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
+                    ★ {(filteredEntries[2].leagueScore ?? (filteredEntries[2].weeklyXp + Math.round(Math.max(0, filteredEntries[2].eloRating - 1200) * 1.5))).toLocaleString()} pts
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* ── TAB CONTENT: GUILD PROJECTS TABLE ──────────────────────────── */}
       {activeTab === 'guild_projects' ? (
         <div data-testid="guild-projects-table-container" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
-            <thead>
-              <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
-                <th style={{ padding: '14px 20px' }}>Guild / Engineering Squad</th>
-                <th style={{ padding: '14px 20px' }}>Hackathon Theme</th>
-                <th style={{ padding: '14px 20px' }}>Team Lead</th>
-                <th style={{ padding: '14px 20px' }}>Members</th>
-                <th style={{ padding: '14px 20px' }}>Projects Completed</th>
-                <th style={{ padding: '14px 20px' }}>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {guilds.map((guild) => (
-                <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td style={{ padding: '16px 20px', fontWeight: 900, color: guild.rank === 1 ? '#d97706' : guild.rank === 2 ? '#64748b' : guild.rank === 3 ? '#b45309' : 'var(--t3)' }}>
-                    {guild.rank === 1 ? '🥇' : guild.rank === 2 ? '🥈' : guild.rank === 3 ? '🥉' : `#${guild.rank}`}
-                  </td>
-                  <td style={{ padding: '16px 20px', fontWeight: 800, color: 'var(--t1)' }}>
-                    {guild.guildName}
-                  </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--t2)', fontSize: 13.5 }}>
-                    {guild.hackathonTitle}
-                  </td>
-                  <td style={{ padding: '16px 20px', color: '#38bdf8', fontWeight: 700 }}>
-                    {guild.teamLeadName}
-                  </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
-                    👥 {guild.membersCount} Contributors
-                  </td>
-                  <td style={{ padding: '16px 20px' }}>
-                    <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', fontWeight: 900, fontSize: 14 }}>
-                      ⚡ {guild.completedProjectsCount} Projects
-                    </span>
-                  </td>
-                  <td style={{ padding: '16px 20px' }}>
-                    <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: guild.status === 'verified' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)', color: guild.status === 'verified' ? '#22c55e' : '#eab308', textTransform: 'uppercase' }}>
-                      {guild.status}
-                    </span>
-                  </td>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', minWidth: 840, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
+              <thead>
+                <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
+                  <th style={{ padding: '14px 20px' }}>Guild / Engineering Squad</th>
+                  <th style={{ padding: '14px 20px' }}>Hackathon Theme</th>
+                  <th style={{ padding: '14px 20px' }}>Team Lead</th>
+                  <th style={{ padding: '14px 20px' }}>Members</th>
+                  <th style={{ padding: '14px 20px' }}>Projects Completed</th>
+                  <th style={{ padding: '14px 20px' }}>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {guilds.map((guild) => (
+                  <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '16px 20px', fontWeight: 900, color: guild.rank === 1 ? '#d97706' : guild.rank === 2 ? '#64748b' : guild.rank === 3 ? '#b45309' : 'var(--t3)' }}>
+                      {guild.rank === 1 ? '🥇' : guild.rank === 2 ? '🥈' : guild.rank === 3 ? '🥉' : `#${guild.rank}`}
+                    </td>
+                    <td style={{ padding: '16px 20px', fontWeight: 800, color: 'var(--t1)' }}>
+                      {guild.guildName}
+                    </td>
+                    <td style={{ padding: '16px 20px', color: 'var(--t2)', fontSize: 13.5 }}>
+                      {guild.hackathonTitle}
+                    </td>
+                    <td style={{ padding: '16px 20px', color: '#38bdf8', fontWeight: 700 }}>
+                      {guild.teamLeadName}
+                    </td>
+                    <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
+                      👥 {guild.membersCount} Contributors
+                    </td>
+                    <td style={{ padding: '16px 20px' }}>
+                      <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', fontWeight: 900, fontSize: 14 }}>
+                        ⚡ {guild.completedProjectsCount} Projects
+                      </span>
+                    </td>
+                    <td style={{ padding: '16px 20px' }}>
+                      <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: guild.status === 'verified' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(234, 179, 8, 0.15)', color: guild.status === 'verified' ? '#22c55e' : '#eab308', textTransform: 'uppercase' }}>
+                        {guild.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         /* ── STUDENT CANDIDATES LEADERBOARD TABLE (Region / Global / Weekly) ── */
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
-            <thead>
-              <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
-                <th style={{ padding: '14px 20px' }}>Student Candidate</th>
-                <th style={{ padding: '14px 20px' }}>
-                  {activeTab === 'region_college' ? 'Collegiate Affiliation' : 'Program Track'}
-                </th>
-                <th style={{ padding: '14px 20px' }}>
-                  {activeTab === 'weekly_leagues' ? 'Weekly XP' : 'Total XP'}
-                </th>
-                {activeTab === 'weekly_leagues' && (
-                  <th style={{ padding: '14px 20px' }}>Arena ELO</th>
-                )}
-                <th style={{ padding: '14px 20px' }}>
-                  {activeTab === 'weekly_leagues' ? 'League Score (XP + ELO)' : 'Defense Score'}
-                </th>
-                <th style={{ padding: '14px 20px' }}>
-                  {activeTab === 'weekly_leagues' ? 'Sprint Zone' : 'Placement Status'}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading ? (
-                <tr>
-                  <td colSpan={7} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
-                    Loading real-time student leaderboard & leagues...
-                  </td>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', minWidth: 840, borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
+              <thead>
+                <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
+                  <th style={{ padding: '14px 20px' }}>Student Candidate</th>
+                  <th style={{ padding: '14px 20px' }}>
+                    {activeTab === 'region_college' ? 'Collegiate Affiliation' : 'Program Track'}
+                  </th>
+                  <th style={{ padding: '14px 20px' }}>
+                    {activeTab === 'weekly_leagues' ? 'Weekly XP' : 'Total XP'}
+                  </th>
+                  {activeTab === 'weekly_leagues' && (
+                    <th style={{ padding: '14px 20px' }}>Arena ELO</th>
+                  )}
+                  <th style={{ padding: '14px 20px' }}>
+                    {activeTab === 'weekly_leagues' ? 'League Score (XP + ELO)' : 'Defense Score'}
+                  </th>
+                  <th style={{ padding: '14px 20px' }}>
+                    {activeTab === 'weekly_leagues' ? 'Sprint Zone' : 'Placement Status'}
+                  </th>
                 </tr>
-              ) : filteredEntries.length === 0 ? (
-                <tr>
-                  <td colSpan={7} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
-                    No students found matching this criteria. Earn XP to lead this division!
-                  </td>
-                </tr>
-              ) : (
-                filteredEntries.map((entry, idx) => {
-                  const isTop3 = entry.rank <= 3;
-                  const rankIcon = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : `#${entry.rank}`;
-                  const isPromoting = entry.zone === 'promotion';
-                  const isDemoting = entry.zone === 'demotion';
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={7} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
+                      Loading real-time student leaderboard & leagues...
+                    </td>
+                  </tr>
+                ) : filteredEntries.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} style={{ padding: 48, textAlign: 'center', color: 'var(--t3)' }}>
+                      No students found matching this criteria. Earn XP to lead this division!
+                    </td>
+                  </tr>
+                ) : (
+                  filteredEntries.map((entry, idx) => {
+                    const isTop3 = entry.rank <= 3;
+                    const rankIcon = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : `#${entry.rank}`;
+                    const isPromoting = entry.zone === 'promotion';
+                    const isDemoting = entry.zone === 'demotion';
 
-                  // Cutoff lines for weekly leagues
-                  const renderPromotionDivider = activeTab === 'weekly_leagues' &&
-                    selectedLeague !== 'ruby' &&
-                    idx + 1 === promotionCutoff &&
-                    filteredEntries.length >= 2;
+                    // Cutoff lines for weekly leagues
+                    const renderPromotionDivider = activeTab === 'weekly_leagues' &&
+                      selectedLeague !== 'ruby' &&
+                      idx + 1 === promotionCutoff &&
+                      filteredEntries.length >= 2;
 
-                  const renderDemotionDivider = activeTab === 'weekly_leagues' &&
-                    selectedLeague !== 'browns' &&
-                    idx + 1 === demotionCutoff - 1 &&
-                    filteredEntries.length >= 2 &&
-                    demotionCutoff > promotionCutoff;
+                    const renderDemotionDivider = activeTab === 'weekly_leagues' &&
+                      selectedLeague !== 'browns' &&
+                      idx + 1 === demotionCutoff - 1 &&
+                      filteredEntries.length >= 2 &&
+                      demotionCutoff > promotionCutoff;
 
-                  const calculatedLeagueScore = entry.leagueScore ?? (entry.weeklyXp + Math.max(0, entry.eloRating - 1200));
+                    const calculatedLeagueScore = entry.leagueScore ?? (entry.weeklyXp + Math.round(Math.max(0, entry.eloRating - 1200) * 1.5));
 
-                  return (
-                    <React.Fragment key={entry.studentId}>
-                      <tr
-                        style={{
-                          borderBottom: '1px solid var(--border)',
-                          background: entry.isCurrentUser
-                            ? 'rgba(99, 102, 241, 0.12)'
-                            : isPromoting
-                            ? 'rgba(16, 185, 129, 0.05)'
-                            : isDemoting
-                            ? 'rgba(239, 68, 68, 0.05)'
-                            : 'transparent',
-                          transition: 'background 0.15s ease',
-                        }}
-                      >
-                        {/* Rank */}
-                        <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 17.5 : 14.5, color: entry.rank === 1 ? '#d97706' : entry.rank === 2 ? '#64748b' : entry.rank === 3 ? '#b45309' : 'var(--t3)' }}>
-                          {rankIcon}
-                        </td>
-
-                        {/* Student Candidate & Avatar */}
-                        <td style={{ padding: '16px 20px' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                            <Image
-                              src={entry.avatarUrl}
-                              alt={entry.name}
-                              width={38}
-                              height={38}
-                              style={{
-                                width: 38,
-                                height: 38,
-                                borderRadius: 19,
-                                border: entry.isCurrentUser ? '2.5px solid #4f46e5' : isPromoting ? '2px solid #10b981' : '1px solid var(--border)',
-                                objectFit: 'cover'
-                              }}
-                              unoptimized
-                            />
-                            <div>
-                              <div style={{ fontWeight: 800, color: entry.isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                                {entry.name}
-                                {entry.isCurrentUser && (
-                                  <span style={{ fontSize: 10.5, padding: '2px 7px', borderRadius: 5, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>
-                                    YOU
-                                  </span>
-                                )}
-                              </div>
-                              <div style={{ fontSize: 12, color: 'var(--t3)' }}>{entry.college}</div>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Program / College Track */}
-                        <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
-                          {activeTab === 'region_college' ? entry.college : entry.programTitle}
-                        </td>
-
-                        {/* XP Column */}
-                        <td style={{ padding: '16px 20px' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15.5, fontWeight: 900, color: '#d97706' }}>
-                              +{activeTab === 'weekly_leagues' ? entry.weeklyXp.toLocaleString() : entry.totalXp.toLocaleString()}
-                            </span>
-                            <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700 }}>XP</span>
-                          </div>
-                        </td>
-
-                        {/* Arena ELO (Weekly leagues) */}
-                        {activeTab === 'weekly_leagues' && (
-                          <td style={{ padding: '16px 20px' }}>
-                            <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.12)', color: '#dc2626', fontWeight: 800, fontSize: 13, border: '1px solid rgba(239,68,68,0.25)' }}>
-                              ⚔️ {entry.eloRating} ELO
-                            </span>
+                    return (
+                      <React.Fragment key={entry.studentId}>
+                        <tr
+                          style={{
+                            borderBottom: '1px solid var(--border)',
+                            borderLeft: entry.isCurrentUser ? '4px solid #4f46e5' : '4px solid transparent',
+                            background: entry.isCurrentUser
+                              ? 'rgba(99, 102, 241, 0.12)'
+                              : isPromoting
+                              ? 'rgba(16, 185, 129, 0.05)'
+                              : isDemoting
+                              ? 'rgba(239, 68, 68, 0.05)'
+                              : 'transparent',
+                            transition: 'background 0.15s ease, transform 0.15s ease',
+                          }}
+                        >
+                          {/* Rank */}
+                          <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 17.5 : 14.5, color: entry.rank === 1 ? '#d97706' : entry.rank === 2 ? '#64748b' : entry.rank === 3 ? '#b45309' : 'var(--t3)' }}>
+                            {rankIcon}
                           </td>
-                        )}
 
-                        {/* League Score (XP + ELO) or Defense Score */}
-                        <td style={{ padding: '16px 20px' }}>
-                          {activeTab === 'weekly_leagues' ? (
-                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 900, color: '#10b981' }}>
-                              ★ {calculatedLeagueScore.toLocaleString()}
-                            </span>
-                          ) : (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                              <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.12)', color: '#059669', fontWeight: 800, fontSize: 13, border: '1px solid rgba(16,185,129,0.25)' }}>
-                                {entry.defenseScore}% Defense
-                              </span>
+                          {/* Student Candidate & Avatar */}
+                          <td style={{ padding: '16px 20px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                              <Image
+                                src={entry.avatarUrl}
+                                alt={entry.name}
+                                width={38}
+                                height={38}
+                                style={{
+                                  width: 38,
+                                  height: 38,
+                                  borderRadius: 19,
+                                  border: entry.isCurrentUser ? '2.5px solid #4f46e5' : isPromoting ? '2px solid #10b981' : '1px solid var(--border)',
+                                  objectFit: 'cover'
+                                }}
+                                unoptimized
+                              />
+                              <div>
+                                <div style={{ fontWeight: 800, color: entry.isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                                  {entry.name}
+                                  {entry.isCurrentUser && (
+                                    <span style={{ fontSize: 10.5, padding: '2px 7px', borderRadius: 5, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>
+                                      YOU
+                                    </span>
+                                  )}
+                                </div>
+                                <div style={{ fontSize: 12, color: 'var(--t3)' }}>{entry.college}</div>
+                              </div>
                             </div>
-                          )}
-                        </td>
+                          </td>
 
-                        {/* Zone / Placement */}
-                        <td style={{ padding: '16px 20px' }}>
-                          {activeTab === 'weekly_leagues' ? (
-                            isPromoting ? (
-                              <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#059669', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(16,185,129,0.3)' }}>
-                                ⬆️ Promoting
+                          {/* Program / College Track */}
+                          <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
+                            {activeTab === 'region_college' ? entry.college : entry.programTitle}
+                          </td>
+
+                          {/* XP Column */}
+                          <td style={{ padding: '16px 20px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15.5, fontWeight: 900, color: '#d97706' }}>
+                                +{activeTab === 'weekly_leagues' ? entry.weeklyXp.toLocaleString() : entry.totalXp.toLocaleString()}
                               </span>
-                            ) : isDemoting ? (
-                              <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', color: '#dc2626', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(239,68,68,0.3)' }}>
-                                ⬇️ Demoting
+                              <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700 }}>XP</span>
+                            </div>
+                          </td>
+
+                          {/* Arena ELO (Weekly leagues) */}
+                          {activeTab === 'weekly_leagues' && (
+                            <td style={{ padding: '16px 20px' }}>
+                              <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.12)', color: '#dc2626', fontWeight: 800, fontSize: 13, border: '1px solid rgba(239,68,68,0.25)' }}>
+                                ⚔️ {entry.eloRating} ELO
+                              </span>
+                            </td>
+                          )}
+
+                          {/* League Score (XP + ELO) or Defense Score */}
+                          <td style={{ padding: '16px 20px' }}>
+                            {activeTab === 'weekly_leagues' ? (
+                              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 900, color: '#10b981' }}>
+                                ★ {calculatedLeagueScore.toLocaleString()}
                               </span>
                             ) : (
-                              <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: '#4f46e5', fontWeight: 700, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                                ⏸️ Safe Zone
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.12)', color: '#059669', fontWeight: 800, fontSize: 13, border: '1px solid rgba(16,185,129,0.25)' }}>
+                                  {entry.defenseScore}% Defense
+                                </span>
+                              </div>
+                            )}
+                          </td>
+
+                          {/* Zone / Placement */}
+                          <td style={{ padding: '16px 20px' }}>
+                            {activeTab === 'weekly_leagues' ? (
+                              isPromoting ? (
+                                <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#059669', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(16,185,129,0.3)' }}>
+                                  ⬆️ Promoting
+                                </span>
+                              ) : isDemoting ? (
+                                <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', color: '#dc2626', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(239,68,68,0.3)' }}>
+                                  ⬇️ Demoting
+                                </span>
+                              ) : (
+                                <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: '#4f46e5', fontWeight: 700, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                                  ⏸️ Safe Zone
+                                </span>
+                              )
+                            ) : (
+                              <span style={{ fontSize: 12.5, fontWeight: 700, color: entry.readinessStatus === 'ready_for_interview' ? '#059669' : '#38bdf8' }}>
+                                {entry.readinessStatus === 'ready_for_interview' ? 'Interview Ready' : 'In Progress'}
                               </span>
-                            )
-                          ) : (
-                            <span style={{ fontSize: 12.5, fontWeight: 700, color: entry.readinessStatus === 'ready_for_interview' ? '#059669' : '#38bdf8' }}>
-                              {entry.readinessStatus === 'ready_for_interview' ? 'Interview Ready' : 'In Progress'}
-                            </span>
-                          )}
-                        </td>
-                      </tr>
-
-                      {/* Promotion Divider */}
-                      {renderPromotionDivider && (
-                        <tr>
-                          <td colSpan={7} style={{ padding: 0 }}>
-                            <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #10b981, #10b981 8px, transparent 8px, transparent 16px)' }} />
-                            <div style={{ padding: '4px 20px', background: 'rgba(16,185,129,0.1)', color: '#059669', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                              ⬆️ Promotion Cutoff Line — Top 10% advance to higher league
-                            </div>
+                            )}
                           </td>
                         </tr>
-                      )}
 
-                      {/* Demotion Divider */}
-                      {renderDemotionDivider && (
-                        <tr>
-                          <td colSpan={7} style={{ padding: 0 }}>
-                            <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #ef4444, #ef4444 8px, transparent 8px, transparent 16px)' }} />
-                            <div style={{ padding: '4px 20px', background: 'rgba(239,68,68,0.1)', color: '#dc2626', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                              ⬇️ Demotion Cutoff Line — Bottom 10% demote to lower league
-                            </div>
-                          </td>
-                        </tr>
-                      )}
-                    </React.Fragment>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
+                        {/* Promotion Divider */}
+                        {renderPromotionDivider && (
+                          <tr>
+                            <td colSpan={7} style={{ padding: 0 }}>
+                              <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #10b981, #10b981 8px, transparent 8px, transparent 16px)' }} />
+                              <div style={{ padding: '4px 20px', background: 'rgba(16,185,129,0.1)', color: '#059669', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                                ⬆️ Promotion Cutoff Line — Top 10% advance to higher league
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+
+                        {/* Demotion Divider */}
+                        {renderDemotionDivider && (
+                          <tr>
+                            <td colSpan={7} style={{ padding: 0 }}>
+                              <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #ef4444, #ef4444 8px, transparent 8px, transparent 16px)' }} />
+                              <div style={{ padding: '4px 20px', background: 'rgba(239,68,68,0.1)', color: '#dc2626', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                                ⬇️ Demotion Cutoff Line — Bottom 10% demote to lower league
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 
