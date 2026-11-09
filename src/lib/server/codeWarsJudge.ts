@@ -27,19 +27,28 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
   const id = typeof problemId === 'string' ? problemId : '';
   const lang = typeof language === 'string' && language.trim() ? language.trim().toLowerCase() : 'typescript';
 
+  console.log(`[CodeWarsJudge] Evaluating submission for problem: '${id}' | lang: '${lang}' | chars: ${code.length}`);
+
   const config = CODEWARS_PROBLEM_REGISTRY[id];
-  if (!config) return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
+  if (!config) {
+    console.warn(`[CodeWarsJudge] Problem '${id}' not found in registry`);
+    return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
+  }
 
   // 1. JavaScript & TypeScript: Evaluated in Node VM Sandbox
   if (JS_LANGUAGES.has(lang)) {
     const security = validateVmCodeSecurity(code);
-    if (!security.safe) return { ok: false, error: 'SECURITY_VIOLATION', message: `Security violation: ${security.reason}` };
+    if (!security.safe) {
+      console.warn(`[CodeWarsJudge] JS/TS security violation: ${security.reason}`);
+      return { ok: false, error: 'SECURITY_VIOLATION', message: `Security violation: ${security.reason}` };
+    }
     const res = await runEvaluationInSandbox({
       cleanCode: CodeWarsApiService.cleanTypeScriptForExecution(code),
       functionName: config.functionName,
       totalTests: config.totalTests,
       evaluatorCode: config.evaluatorCode,
     });
+    console.log(`[CodeWarsJudge] JS/TS evaluation finished -> passed: ${res.passed} | testsPassed: ${res.testsPassed || 0}/${config.totalTests}`);
     return { ok: true, passed: res.passed === true, testsPassed: res.testsPassed || 0, totalTests: config.totalTests, error: res.error };
   }
 
@@ -53,10 +62,12 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
       });
 
       if (pyRes.isSecurityViolation) {
+        console.warn(`[CodeWarsJudge] Python security violation: ${pyRes.stderr}`);
         return { ok: false, error: 'SECURITY_VIOLATION', message: pyRes.stderr };
       }
 
       if (pyRes.passed) {
+        console.log(`[CodeWarsJudge] Python evaluation finished -> passed: true | testsPassed: ${config.totalTests}/${config.totalTests}`);
         return {
           ok: true,
           passed: true,
@@ -73,6 +84,8 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
         testsPassed = Math.max(0, failedNum - 1);
       }
 
+      console.log(`[CodeWarsJudge] Python evaluation finished -> passed: false | testsPassed: ${testsPassed}/${config.totalTests} | error: ${errorMsg.split('\n')[0]}`);
+
       return {
         ok: true,
         passed: false,
@@ -85,7 +98,11 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
 
   // 3. Fallback Polyglot Verification
   const poly = CodeWarsApiService.judgePolyglotSubmission(id, code, lang);
-  if (!poly) return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
+  if (!poly) {
+    console.warn(`[CodeWarsJudge] Polyglot evaluation unsupported for problem '${id}', lang '${lang}'`);
+    return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
+  }
+  console.log(`[CodeWarsJudge] Polyglot fallback evaluation finished -> passed: ${poly.passed} | testsPassed: ${poly.testsPassed}/${poly.totalTests}`);
   return { ok: true, ...poly };
 }
 

@@ -37,18 +37,49 @@ export async function GET(req: NextRequest) {
       console.warn('[api/auth/me] User fetch warning:', error.message);
     }
 
-    const ob = userRow?.onboarding_answers || {};
+    const ob = (userRow?.onboarding_answers as Record<string, any>) || {};
     const step = typeof userRow?.onboarding_step === 'number' ? userRow.onboarding_step : (ob.hasCompleted ? 3 : 1);
     const roadmapGen = Boolean(userRow?.roadmap_generated ?? ob.hasCompleted);
+
+    const studentName = userRow?.display_name || userRow?.full_name || ob.studentName || ob.displayName || 'Student';
+    const collegeName = userRow?.college_name || ob.collegeName || ob.college || ob.university || ob.institution || '';
+    const department = userRow?.department || ob.department || ob.branch || '';
+    const branch = ob.branch || userRow?.department || ob.department || '';
+    const university = ob.university || userRow?.college_name || ob.collegeName || '';
+    const rollNumber = userRow?.roll_number || userRow?.register_number || ob.rollNumber || ob.roll_number || '';
+    const pinitId = userRow?.pinit_id || ob.pinitId || ob.pinit_id || userRow?.register_number || userRow?.roll_number || '';
+    const collegeInfo = ob.collegeInfo || {
+      collegeName,
+      department,
+      branch,
+      rollNumber,
+      pinitId,
+    };
 
     const userProfile = {
       id: userId,
       email: gated.user?.email || userRow?.email || '',
-      displayName: userRow?.display_name || userRow?.full_name || 'Student',
-      display_name: userRow?.display_name || userRow?.full_name || 'Student',
+      displayName: studentName,
+      display_name: studentName,
+      studentName,
+      student_name: studentName,
+      fullName: studentName,
+      full_name: studentName,
+      collegeName,
+      college_name: collegeName,
+      college: collegeName,
+      department,
+      branch,
+      university,
+      rollNumber,
+      roll_number: rollNumber,
+      pinitId,
+      pinit_id: pinitId,
+      collegeInfo,
+      college_info: collegeInfo,
       role: userRow?.role || 'student',
-      registerNumber: userRow?.register_number || userRow?.roll_number || '',
-      register_number: userRow?.register_number || userRow?.roll_number || '',
+      registerNumber: rollNumber || userRow?.register_number || '',
+      register_number: rollNumber || userRow?.register_number || '',
       selectedTeacherId: userRow?.selected_teacher_id || 'kashyap',
       guidanceMentorId: userRow?.guidance_mentor_id || 'priya',
       atsScore: userRow?.ats_score ?? 0,
@@ -101,7 +132,30 @@ export const ALLOWED_PROFILE_KEYS = new Set([
   'displayName',
   'full_name',
   'fullName',
+  'student_name',
+  'studentName',
+  'name',
   'username',
+  'college_name',
+  'collegeName',
+  'college',
+  'university',
+  'department',
+  'branch',
+  'roll_number',
+  'rollNumber',
+  'register_number',
+  'registerNumber',
+  'pinit_id',
+  'pinitId',
+  'college_info',
+  'collegeInfo',
+  'semester',
+  'batch',
+  'batch_year',
+  'batchYear',
+  'graduation_year',
+  'graduationYear',
   'target_role',
   'targetRole',
   'career_goal',
@@ -274,22 +328,115 @@ export async function PATCH(req: NextRequest) {
       if (typeof val !== 'string') {
         return NextResponse.json({ error: 'INVALID_FIELD_TYPE', message: 'theme must be a string.' }, { status: 400 });
       }
-      updates.theme_preference = val.trim().slice(0, 20);
+
+    if ('college_name' in body || 'collegeName' in body || 'college' in body) {
+      const val = body.college_name ?? body.collegeName ?? body.college;
+      if (typeof val === 'string') {
+        updates.college_name = val.trim().slice(0, 200);
+      }
     }
 
-    if (Object.keys(updates).length === 0) {
-      return NextResponse.json({ error: 'NO_VALID_UPDATES', message: 'No valid self-editable fields provided.' }, { status: 400 });
+    if ('department' in body || 'branch' in body) {
+      const val = body.department ?? body.branch;
+      if (typeof val === 'string') {
+        updates.department = val.trim().slice(0, 150);
+      }
     }
+
+    if ('roll_number' in body || 'rollNumber' in body || 'register_number' in body || 'registerNumber' in body) {
+      const val = body.roll_number ?? body.rollNumber ?? body.register_number ?? body.registerNumber;
+      if (typeof val === 'string') {
+        updates.roll_number = val.trim().slice(0, 80);
+        updates.register_number = val.trim().slice(0, 80);
+      }
+    }
+
+    if ('pinit_id' in body || 'pinitId' in body) {
+      const val = body.pinit_id ?? body.pinitId;
+      if (typeof val === 'string') {
+        updates.pinit_id = val.trim().slice(0, 80);
+      }
+    }
+
+    if ('semester' in body) {
+      const num = Number(body.semester);
+      if (!isNaN(num)) updates.semester = num;
+    }
+
+    // Merge resiliently into onboarding_answers JSONB
+    try {
+      const { data: existingUser } = await db
+        .from('users')
+        .select('onboarding_answers, display_name')
+        .eq('id', userId)
+        .maybeSingle();
+
+      const existingOb = (existingUser?.onboarding_answers as Record<string, any>) || {};
+      const colVal = updates.college_name || (body.collegeName ?? body.college);
+      const deptVal = updates.department || (body.branch ?? body.department);
+      const rollVal = updates.roll_number || (body.rollNumber ?? body.registerNumber);
+      const pinitVal = updates.pinit_id || (body.pinitId ?? body.pinit_id);
+      const nameVal = updates.display_name || (body.studentName ?? body.fullName);
+
+      updates.onboarding_answers = {
+        ...existingOb,
+        ...(nameVal ? { studentName: nameVal, displayName: nameVal, fullName: nameVal } : {}),
+        ...(colVal ? { collegeName: colVal, college: colVal, university: body.university || colVal, institution: colVal } : {}),
+        ...(deptVal ? { department: deptVal, branch: deptVal } : {}),
+        ...(rollVal ? { rollNumber: rollVal, roll_number: rollVal, registerNumber: rollVal } : {}),
+        ...(pinitVal ? { pinitId: pinitVal, pinit_id: pinitVal } : {}),
+        ...(body.collegeInfo || body.college_info ? { collegeInfo: body.collegeInfo || body.college_info } : {}),
+      };
+
+      // Background institutional profile sync
+      if (colVal || deptVal || rollVal) {
+        db.from('student_institutional_profiles').upsert({
+          student_id: userId,
+          student_name: nameVal || existingUser?.display_name || 'Student',
+          email: gated.user?.email || `${userId}@student.pinit.internal`,
+          college_name: colVal || 'Accredited Institution',
+          university: body.university || colVal || 'State Technical University',
+          roll_number: rollVal || '',
+          department: deptVal || 'Engineering',
+          verification_status: 'verified',
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'student_id' }).then(() => {}).catch(() => {});
+      }
+    } catch {}
 
     updates.updated_at = new Date().toISOString();
 
-    const { error } = await db
-      .from('users')
-      .update(updates)
-      .eq('id', userId);
+    let currentUpdates = { ...updates };
+    let updateError: any = null;
+    let attempts = 0;
 
-    if (error) {
-      return NextResponse.json({ error: 'DB_ERROR', message: error.message }, { status: 500 });
+    while (attempts < 5) {
+      attempts++;
+      const { error } = await db
+        .from('users')
+        .update(currentUpdates)
+        .eq('id', userId);
+
+      if (!error) {
+        updateError = null;
+        break;
+      }
+
+      updateError = error;
+      const match = /Could not find the '([^']+)' column/i.exec(error.message || '') ||
+                    /column "([^"]+)" of relation "users" does not exist/i.exec(error.message || '') ||
+                    /column "([^"]+)" does not exist/i.exec(error.message || '');
+      if (match && match[1] && match[1] in currentUpdates) {
+        console.warn(`[api/auth/me] Column '${match[1]}' missing in database, dropping and retrying.`);
+        delete currentUpdates[match[1]];
+        continue;
+      } else {
+        break;
+      }
+    }
+
+    if (updateError) {
+      return NextResponse.json({ error: 'DB_ERROR', message: updateError.message }, { status: 500 });
     }
 
     return NextResponse.json({

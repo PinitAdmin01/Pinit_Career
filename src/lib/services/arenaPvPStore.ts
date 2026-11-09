@@ -1,5 +1,183 @@
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { calculateEloMatch } from '@/lib/arena/eloEngine';
+import { CODE_WARS_PROBLEMS_CATALOG, CodeWarsProblem } from '@/lib/api/codeWarsApi';
+
+export type CurriculumTier = 'basic' | 'intermediate' | 'advanced';
+
+export const TIER_ORDER: Record<CurriculumTier, number> = {
+  basic: 1,
+  intermediate: 2,
+  advanced: 3,
+};
+
+/**
+ * Knowledge-Affinity Curriculum Tier Evaluator
+ * Calibrates a student's maximum verified algorithmic frontier from their completed quests and competencies.
+ * Guarantees zero alien surprises for learners and slow readers.
+ */
+export function getStudentCurriculumTier(
+  completedQuests: string[] = [],
+  verifiedCompetencies: string[] = []
+): CurriculumTier {
+  const advComps = new Set([
+    'comp_dsa_linear_trees_l2',
+    'comp_concurrency_threads_l2',
+    'comp_database_sql_internals_l3',
+  ]);
+  const intComps = new Set([
+    'comp_stack_brackets_l2',
+    'comp_greedy_kadane_l2',
+    'comp_sliding_window_stock_l2',
+  ]);
+
+  for (const comp of verifiedCompetencies) {
+    if (advComps.has(comp)) return 'advanced';
+  }
+  for (const quest of completedQuests) {
+    if (advComps.has(quest)) return 'advanced';
+  }
+
+  for (const comp of verifiedCompetencies) {
+    if (intComps.has(comp)) return 'intermediate';
+  }
+  for (const quest of completedQuests) {
+    if (intComps.has(quest)) return 'intermediate';
+  }
+
+  // Parse day numbers from quest IDs (e.g. 'day_15', 'day-25', 'd18', 'iot_net_day_05')
+  let maxDay = 0;
+  for (const q of completedQuests) {
+    const match = q.match(/(?:day|d)[_-]?(\d+)/i);
+    if (match && match[1]) {
+      const dayNum = parseInt(match[1], 10);
+      if (!isNaN(dayNum) && dayNum > maxDay) {
+        maxDay = dayNum;
+      }
+    }
+  }
+
+  if (maxDay >= 21) return 'advanced';
+  if (maxDay >= 11) return 'intermediate';
+
+  // Fallback to quest count:
+  const count = completedQuests.length;
+  if (count >= 16) return 'advanced';
+  if (count >= 6) return 'intermediate';
+
+  return 'basic';
+}
+
+/**
+ * 1-Perfect-Question Knowledge Affinity & Polyglot Selector
+ * Selects exactly ONE shared question at the intersection of both combatants' verified learning frontiers.
+ * Supports polyglot execution (e.g. Player A in Python, Player B in TypeScript) with 100% test case alignment.
+ */
+export function selectPerfectQuestion(
+  host: {
+    studentId?: string;
+    difficulty?: string;
+    preferredLanguage?: string;
+    completedQuests?: string[];
+    verifiedCompetencies?: string[];
+    recentProblemIds?: string[];
+  },
+  guest: {
+    studentId?: string;
+    difficulty?: string;
+    preferredLanguage?: string;
+    completedQuests?: string[];
+    verifiedCompetencies?: string[];
+    recentProblemIds?: string[];
+  },
+  overrideProblemId?: string,
+  extraRecentIds?: string[]
+): CodeWarsProblem {
+  console.log(`[SelectPerfectQuestion] Initiating question selection for Host: ${host.studentId || 'unknown'} | Guest: ${guest.studentId || 'unknown'}`);
+
+  // If a valid override problem ID was explicitly requested and exists in catalog
+  if (overrideProblemId && overrideProblemId !== 'auto') {
+    const directMatch = CODE_WARS_PROBLEMS_CATALOG.find((p) => p.id === overrideProblemId);
+    if (directMatch) {
+      console.log(`[SelectPerfectQuestion] Direct override requested -> Using problem: ${directMatch.id} (${directMatch.title})`);
+      return directMatch;
+    }
+  }
+
+  const hostTier = getStudentCurriculumTier(host.completedQuests, host.verifiedCompetencies);
+  const guestTier = getStudentCurriculumTier(guest.completedQuests, guest.verifiedCompetencies);
+
+  console.log(`[SelectPerfectQuestion] Frontier Tiers evaluated -> Host Tier: ${hostTier} (${host.completedQuests?.length || 0} quests) | Guest Tier: ${guestTier} (${guest.completedQuests?.length || 0} quests)`);
+
+  // Shared Learning Frontier: Clamped to the lowest common denominator
+  // Neither student gets an alien question they have not studied!
+  let targetTier: CurriculumTier = 'basic';
+  if (TIER_ORDER[hostTier] >= 3 && TIER_ORDER[guestTier] >= 3) {
+    targetTier = 'advanced';
+  } else if (TIER_ORDER[hostTier] >= 2 && TIER_ORDER[guestTier] >= 2) {
+    targetTier = 'intermediate';
+  } else {
+    targetTier = 'basic';
+  }
+
+  // If both players specifically requested a tier that is within their shared frontier, respect it
+  const hostReq = host.difficulty;
+  const guestReq = guest.difficulty;
+  if (hostReq && guestReq && hostReq !== 'any' && guestReq !== 'any' && hostReq === guestReq) {
+    const reqTier = hostReq as CurriculumTier;
+    if (TIER_ORDER[reqTier] && TIER_ORDER[reqTier] <= TIER_ORDER[targetTier]) {
+      targetTier = reqTier;
+      console.log(`[SelectPerfectQuestion] Mutual preference applied within verified frontier: ${targetTier}`);
+    } else {
+      console.log(`[SelectPerfectQuestion] Requested tier '${reqTier}' exceeds verified frontier '${targetTier}' -> Clamped to protect learner`);
+    }
+  }
+
+  console.log(`[SelectPerfectQuestion] Final Shared Target Tier: ${targetTier}`);
+
+  // Language Compatibility Guard
+  const hostLang = (host.preferredLanguage || 'typescript').toLowerCase();
+  const guestLang = (guest.preferredLanguage || 'typescript').toLowerCase();
+
+  const isLangSupported = (problem: CodeWarsProblem, lang: string): boolean => {
+    const normalized = (lang === 'js' || lang === 'javascript') ? 'typescript' : (lang === 'py' ? 'python' : lang);
+    return Boolean(problem.starterCode && problem.starterCode[normalized]);
+  };
+
+  // Filter problems by tier and polyglot support
+  let candidates = CODE_WARS_PROBLEMS_CATALOG.filter((p) => {
+    if (p.difficulty !== targetTier) return false;
+    return isLangSupported(p, hostLang) && isLangSupported(p, guestLang);
+  });
+
+  // Fallback to basic tier if no candidates found in target tier
+  if (candidates.length === 0) {
+    console.warn(`[SelectPerfectQuestion] No problems found in tier '${targetTier}' supporting [${hostLang}, ${guestLang}]. Falling back to basic tier.`);
+    candidates = CODE_WARS_PROBLEMS_CATALOG.filter((p) => p.difficulty === 'basic' && isLangSupported(p, hostLang) && isLangSupported(p, guestLang));
+  }
+
+  // If still empty (e.g. exotic language), ignore language constraint and use basic catalog
+  if (candidates.length === 0) {
+    candidates = CODE_WARS_PROBLEMS_CATALOG.filter((p) => p.difficulty === 'basic');
+  }
+
+  // Combine recent problem IDs to avoid immediate repeats
+  const recentSet = new Set<string>([
+    ...(host.recentProblemIds || []),
+    ...(guest.recentProblemIds || []),
+    ...(extraRecentIds || []),
+  ]);
+
+  const freshCandidates = candidates.filter((p) => !recentSet.has(p.id));
+  const pool = freshCandidates.length > 0 ? freshCandidates : candidates;
+
+  // Pick candidate
+  const chosenIndex = Math.floor(Math.random() * pool.length);
+  const selected = pool[chosenIndex] || CODE_WARS_PROBLEMS_CATALOG[0];
+
+  console.log(`[SelectPerfectQuestion] Perfect Question Chosen: [${selected.id}] "${selected.title}" (Tier: ${selected.difficulty}, Competency: ${selected.competencyId}) - Candidates: ${pool.length}`);
+
+  return selected;
+}
 
 export interface ArenaPlayerProgress {
   testsPassed: number;
@@ -70,6 +248,9 @@ export interface QueueTicket {
   deviceId?: string;
   preferredLanguage?: string;
   knowledgeScore?: number;
+  completedQuests?: string[];
+  verifiedCompetencies?: string[];
+  recentProblemIds?: string[];
 }
 
 interface ArenaRoomRow {
@@ -207,6 +388,7 @@ export class ArenaPvPStore {
   }): Promise<ArenaRoom> {
     const roomCode = params.roomCode || generateRoomCode();
     const now = Date.now();
+    console.log(`[ArenaPvPStore.createRoom] Creating room code: ${roomCode} for host: ${params.hostId} (${params.hostName}) | problem: ${params.problemId} | language: ${params.hostLanguage || 'typescript'}`);
 
     const room: ArenaRoom = {
       id: `room_${now}_${Math.random().toString(36).substring(2, 7)}`,
@@ -327,6 +509,7 @@ export class ArenaPvPStore {
     guestDeviceId?: string;
     guestLanguage?: string;
   }): Promise<{ success: boolean; room?: ArenaRoom; error?: string }> {
+    console.log(`[ArenaPvPStore.joinRoom] Guest joining room: ${params.roomCode} | guestId: ${params.guestId} (${params.guestName}) | language: ${params.guestLanguage || 'typescript'}`);
     let failure: string | null = null;
     let actualGuestId = params.guestId;
 
@@ -440,11 +623,9 @@ export class ArenaPvPStore {
 
 
     const hostId = room.hostId;
-
     const guestId = room.guestId || 'guest';
-
+    console.log(`[ArenaPvPStore.settleMatch] Settling match ${room.roomCode} | Winner: ${room.winnerId} | Host: ${hostId} | Guest: ${guestId}`);
     let hostElo = 1200;
-
     let guestElo = 1200;
 
 
@@ -537,7 +718,7 @@ export class ArenaPvPStore {
 
     room.guestPinsAward = result.guestPinsAward;
 
-
+    console.log(`[ArenaPvPStore.settleMatch] Match ${room.roomCode} settled | Host Delta: ${result.hostDelta} (New: ${result.hostNewElo}), Guest Delta: ${result.guestDelta} (New: ${result.guestNewElo}), FirstBlood: ${room.firstBloodClaimedBy || 'none'}`);
 
     // Cache in memory
 
@@ -695,19 +876,35 @@ export class ArenaPvPStore {
     defaultProblemId: string,
     roomCode?: string
   ): Promise<ArenaRoom | null> {
+    console.log(`[ArenaPvPStore.createMatchedRoom] Pairing Host: ${host.studentId} (${host.preferredLanguage || 'ts'}) with Guest: ${guest.studentId} (${guest.preferredLanguage || 'ts'})`);
+
+    const recentProblemIds = [
+      ...(host.recentProblemIds || []),
+      ...(guest.recentProblemIds || []),
+    ];
+
+    const perfectProblem = selectPerfectQuestion(host, guest, defaultProblemId, recentProblemIds);
+
     const created = await this.createRoom({
       hostId: host.studentId,
       hostName: host.studentName,
       hostAvatar: host.studentAvatar,
-      problemId: defaultProblemId,
-      difficulty: (guest.difficulty !== 'any' ? guest.difficulty : host.difficulty !== 'any' ? host.difficulty : 'intermediate') as ArenaRoom['difficulty'],
-      timeLimitSeconds: 600,
+      hostDeviceId: host.deviceId,
+      hostLanguage: host.preferredLanguage || 'typescript',
+      problemId: perfectProblem.id,
+      difficulty: perfectProblem.difficulty,
+      timeLimitSeconds: perfectProblem.timeLimitSeconds || 600,
       roomCode,
     });
+
+    console.log(`[ArenaPvPStore.createMatchedRoom] Room created: ${created.roomCode} with 1-Perfect-Question: ${perfectProblem.id} (${perfectProblem.difficulty})`);
+
     return this.updateRoom(created.roomCode, (r) => {
       r.guestId = guest.studentId;
       r.guestName = guest.studentName;
       r.guestAvatar = guest.studentAvatar;
+      r.guestDeviceId = guest.deviceId;
+      r.guestLanguage = guest.preferredLanguage || 'typescript';
       r.hostReady = true;
       r.guestReady = true;
       r.status = 'in_progress';
@@ -766,6 +963,7 @@ export class ArenaPvPStore {
           .select('student_id');
         if (!Array.isArray(claimed) || claimed.length === 0) continue; // someone else got them first
 
+        const inMemHost = inMemoryQueue.find((t) => t.studentId === cand.student_id);
         const host: QueueTicket = {
           studentId: cand.student_id,
           studentName: cand.student_name,
@@ -773,7 +971,27 @@ export class ArenaPvPStore {
           difficulty: cand.difficulty || 'any',
           eloRating: cand.elo_rating || 1200,
           enqueuedAt: Date.now(),
+          preferredLanguage: inMemHost?.preferredLanguage || 'typescript',
+          completedQuests: inMemHost?.completedQuests || [],
+          verifiedCompetencies: inMemHost?.verifiedCompetencies || [],
+          recentProblemIds: inMemHost?.recentProblemIds || [],
         };
+
+        if (!inMemHost) {
+          try {
+            const baseHostId = cand.student_id.split('_')[0];
+            const { data: hostUserData } = await admin
+              .from('users')
+              .select('completed_quests, onboarding_answers')
+              .eq('id', baseHostId)
+              .maybeSingle();
+            if (hostUserData?.completed_quests && Array.isArray(hostUserData.completed_quests)) {
+              host.completedQuests = hostUserData.completed_quests;
+            }
+          } catch (fetchErr) {
+            console.warn('[ArenaPvPStore] Could not fetch host completed_quests from users table:', fetchErr);
+          }
+        }
         const room = await this.createMatchedRoom(host, ticket, defaultProblemId, roomCode);
         if (!room) {
           // Could not create the room: put the opponent back in the queue.
@@ -820,23 +1038,29 @@ export class ArenaPvPStore {
 
   /** Local-dev fallback (no database): same rules, one process. */
   private static async matchmakeLocally(ticket: QueueTicket, defaultProblemId: string): Promise<{ matched: boolean; room?: ArenaRoom }> {
+    console.log(`[ArenaPvPStore.matchmakeLocally] Local matchmaking for student: ${ticket.studentId} (queue size: ${inMemoryQueue.length})`);
     const waitingFor = inMemoryMatches.get(ticket.studentId);
     if (waitingFor) {
       inMemoryMatches.delete(ticket.studentId);
       const room = await this.getRoom(waitingFor);
-      if (room) return { matched: true, room };
+      if (room) {
+        console.log(`[ArenaPvPStore.matchmakeLocally] Found local match for ${ticket.studentId} -> ${room.roomCode}`);
+        return { matched: true, room };
+      }
     }
 
     const now = Date.now();
     const opponent = inMemoryQueue.find((t) =>
       now - t.enqueuedAt < QUEUE_TTL_MS && t.studentId !== ticket.studentId && difficultyFits(ticket.difficulty, t.difficulty));
     if (opponent) {
+      console.log(`[ArenaPvPStore.matchmakeLocally] Opponent found in local queue: ${opponent.studentId} for ${ticket.studentId}`);
       inMemoryQueue.splice(inMemoryQueue.indexOf(opponent), 1);
       const room = await this.createMatchedRoom(opponent, ticket, defaultProblemId);
       if (room) {
         inMemoryMatches.set(opponent.studentId, room.roomCode);
         const mine = inMemoryQueue.findIndex((t) => t.studentId === ticket.studentId);
         if (mine !== -1) inMemoryQueue.splice(mine, 1);
+        console.log(`[ArenaPvPStore.matchmakeLocally] Created local matched room: ${room.roomCode} for ${opponent.studentId} and ${ticket.studentId}`);
         return { matched: true, room };
       }
     }
@@ -844,6 +1068,7 @@ export class ArenaPvPStore {
     const existingIdx = inMemoryQueue.findIndex((t) => t.studentId === ticket.studentId);
     if (existingIdx !== -1) inMemoryQueue[existingIdx] = ticket;
     else inMemoryQueue.push(ticket);
+    console.log(`[ArenaPvPStore.matchmakeLocally] Student ${ticket.studentId} waiting in local queue (size: ${inMemoryQueue.length})`);
     return { matched: false };
   }
 

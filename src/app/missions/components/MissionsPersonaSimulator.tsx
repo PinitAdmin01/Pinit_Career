@@ -32,7 +32,7 @@ interface MissionsPersonaSimulatorProps {
   updateRoleplayActive: (active: boolean) => void;
   setEvaluationReport: (report: string) => void;
   triggerEvaluation?: (history: RoleplayHistoryEntry[]) => void;
-  setActiveTab?: (tab: 'evolve' | 'language' | 'history' | 'comm') => void;
+  setActiveTab?: (tab: 'evolve' | 'language' | 'history') => void;
 }
 
 export default function MissionsPersonaSimulator({

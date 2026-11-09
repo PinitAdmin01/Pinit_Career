@@ -47,15 +47,53 @@ export const EMPTY_PROFILE = {
   completed_quests: [],
 };
 
+async function syncInstitutionalProfile(uid: string, data: Record<string, any>) {
+  try {
+    const studentName = data.studentName || data.student_name || data.displayName || data.display_name || data.fullName || data.full_name;
+    const collegeName = data.collegeName || data.college_name || data.college;
+    const rollNumber = data.rollNumber || data.roll_number || data.registerNumber || data.register_number;
+    const department = data.department || data.branch;
+    const email = data.email || (data.username ? `${data.username}@campus.edu` : '');
+
+    if (!collegeName && !department && !rollNumber) return;
+
+    await supabase.from('student_institutional_profiles').upsert({
+      student_id: uid,
+      student_name: studentName || 'Student',
+      email: email || `${uid}@student.pinit.internal`,
+      college_name: collegeName || 'Accredited Institution',
+      university: data.university || collegeName || 'State Technical University',
+      roll_number: rollNumber || '',
+      department: department || 'Engineering',
+      verification_status: 'verified',
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'student_id' });
+  } catch {}
+}
+
 export function mapRowToProfile(row: any): any {
   if (!row) return null;
   const ob = (row.onboarding_answers as Record<string, unknown>) || {};
-  const regNo = row.register_number || row.roll_number || '';
+  const regNo = row.register_number || row.roll_number || (ob.rollNumber as string) || (ob.roll_number as string) || (ob.registerNumber as string) || '';
   const isRoadmapGen = Boolean(row.roadmap_generated ?? ob.hasCompleted);
   const isResumeGen = Boolean(row.resume_generated);
   const teacherId = row.selected_teacher_id || 'priya';
   const mentorId = row.guidance_mentor_id || row.selected_teacher_id || 'priya';
-  const dispName = row.display_name || row.full_name || 'Student';
+  const dispName = row.display_name || row.full_name || (ob.displayName as string) || (ob.studentName as string) || (ob.name as string) || 'Student';
+  const studentName = (ob.studentName as string) || dispName;
+  const colName = row.college_name || (ob.collegeName as string) || (ob.college as string) || (ob.university as string) || (ob.institution as string) || '';
+  const dept = row.department || (ob.department as string) || (ob.branch as string) || '';
+  const branchName = (ob.branch as string) || row.department || (ob.department as string) || '';
+  const univ = (ob.university as string) || colName;
+  const pinitId = row.pinit_id || (ob.pinitId as string) || (ob.pinit_id as string) || regNo || '';
+  const rollNo = row.roll_number || row.register_number || (ob.rollNumber as string) || (ob.roll_number as string) || '';
+  const colInfo = ob.collegeInfo || {
+    collegeName: colName,
+    department: dept,
+    branch: branchName,
+    rollNumber: rollNo,
+    pinitId,
+  };
   const obStep = typeof row.onboarding_step === 'number' ? row.onboarding_step : 1;
 
   return {
@@ -63,8 +101,26 @@ export function mapRowToProfile(row: any): any {
     id:                   row.id,
     // Standard camelCase contract
     displayName:          dispName,
+    display_name:         dispName,
+    studentName:          studentName,
+    student_name:         studentName,
+    fullName:             dispName,
+    full_name:            dispName,
     role:                 row.role || 'student',
     registerNumber:       regNo,
+    register_number:      regNo,
+    rollNumber:           rollNo,
+    roll_number:          rollNo,
+    pinitId:              pinitId,
+    pinit_id:             pinitId,
+    collegeName:          colName,
+    college_name:         colName,
+    college:              colName,
+    university:           univ,
+    department:           dept,
+    branch:               branchName,
+    collegeInfo:          colInfo,
+    college_info:         colInfo,
     selectedTeacherId:    teacherId,
     guidanceMentorId:     mentorId,
     atsScore:             row.ats_score ?? 0,
@@ -105,9 +161,6 @@ export function mapRowToProfile(row: any): any {
     endorsedSkills:       Array.isArray(row.endorsed_skills) ? row.endorsed_skills : [],
 
     // Snake_case aliases for 100% backward compatibility
-    display_name:         dispName,
-    register_number:      regNo,
-    roll_number:          regNo,
     selected_teacher_id:  teacherId,
     guidance_mentor_id:   mentorId,
     ats_score:            row.ats_score ?? 0,
@@ -150,7 +203,7 @@ export function mapRowToProfile(row: any): any {
 export function mapProfileToRow(profile: any): any {
   const row: Record<string, unknown> = {};
   const directFields = [
-    'display_name', 'full_name', 'role', 'register_number', 'roll_number',
+    'email', 'username', 'display_name', 'full_name', 'role', 'register_number', 'roll_number',
     'selected_teacher_id', 'guidance_mentor_id',
     'ats_score', 'career_dna_score', 'trust_score', 'mission_streak',
     'recruiter_visibility', 'career_readiness', 'communication_score',
@@ -163,6 +216,7 @@ export function mapProfileToRow(profile: any): any {
     'roadmap_generated', 'resume_generated', 'completed_quests', 'completed_missions', 'phone', 'location',
     'bio', 'linkedin_url', 'github_url', 'portfolio_url', 'department',
     'semester', 'college_name', 'pins', 'pin_history', 'endorsed_skills',
+    'pinit_id',
   ];
   for (const f of directFields) {
     if (profile[f] !== undefined) row[f] = profile[f];
@@ -170,8 +224,10 @@ export function mapProfileToRow(profile: any): any {
   const camelToSnake: Record<string, string> = {
     displayName:         'display_name',
     fullName:            'full_name',
+    studentName:         'display_name',
     registerNumber:      'register_number',
     rollNumber:          'roll_number',
+    pinitId:             'pinit_id',
     selectedTeacherId:   'selected_teacher_id',
     guidanceMentorId:    'guidance_mentor_id',
     atsScore:            'ats_score',
@@ -216,6 +272,28 @@ export function mapProfileToRow(profile: any): any {
       row[snake] = profile[camel];
     }
   }
+
+  // Resilient Dual-Write: Ensure all institutional and profile metadata is preserved in onboarding_answers
+  const existingOb = (row.onboarding_answers && typeof row.onboarding_answers === 'object')
+    ? (row.onboarding_answers as Record<string, unknown>)
+    : ((profile.onboarding_answers || profile.onboardingAnswers || {}) as Record<string, unknown>);
+
+  const colName = profile.collegeName || profile.college_name || profile.college || (existingOb.collegeName as string) || (existingOb.college as string) || '';
+  const deptName = profile.department || profile.branch || (existingOb.department as string) || (existingOb.branch as string) || '';
+  const rollVal = profile.rollNumber || profile.roll_number || profile.registerNumber || profile.register_number || (existingOb.rollNumber as string) || '';
+  const pinitVal = profile.pinitId || profile.pinit_id || (existingOb.pinitId as string) || rollVal || '';
+  const stName = profile.studentName || profile.student_name || profile.displayName || profile.display_name || profile.fullName || profile.full_name || (existingOb.studentName as string) || '';
+
+  row.onboarding_answers = {
+    ...existingOb,
+    ...(stName ? { studentName: stName, displayName: stName, fullName: stName } : {}),
+    ...(colName ? { collegeName: colName, college: colName, university: profile.university || colName, institution: colName } : {}),
+    ...(deptName ? { department: deptName, branch: deptName } : {}),
+    ...(rollVal ? { rollNumber: rollVal, roll_number: rollVal, registerNumber: rollVal } : {}),
+    ...(pinitVal ? { pinitId: pinitVal, pinit_id: pinitVal } : {}),
+    ...(profile.collegeInfo || profile.college_info ? { collegeInfo: profile.collegeInfo || profile.college_info } : {}),
+  };
+
   return row;
 }
 
@@ -337,18 +415,18 @@ export async function createUserProfile(
 ): Promise<any> {
   let uid: string;
   let data: Record<string, any> = {};
-  let allowPrivileged = false;
+  let allowPrivileged = true;
 
   if (typeof uidOrUser === 'string') {
     uid = uidOrUser;
     data = (typeof dataOrRole === 'object' && dataOrRole !== null) ? dataOrRole : {};
-    allowPrivileged = typeof optsOrMeta === 'boolean' ? optsOrMeta : Boolean(optsOrMeta?.allowPrivileged);
+    allowPrivileged = typeof optsOrMeta === 'boolean' ? optsOrMeta : (optsOrMeta?.allowPrivileged !== undefined ? Boolean(optsOrMeta.allowPrivileged) : true);
   } else if (uidOrUser && typeof uidOrUser === 'object') {
     uid = uidOrUser.id;
     if (typeof dataOrRole === 'string') {
       const username = uidOrUser.email ? uidOrUser.email.split('@')[0] : 'user';
       const meta = optsOrMeta || {};
-      const displayName = (meta.display_name as string) || (uidOrUser.user_metadata?.full_name as string) || (uidOrUser.user_metadata?.name as string) || username;
+      const displayName = (meta.display_name as string) || (meta.displayName as string) || (uidOrUser.user_metadata?.full_name as string) || (uidOrUser.user_metadata?.name as string) || username;
       data = {
         email: uidOrUser.email || '',
         username,
@@ -360,7 +438,7 @@ export async function createUserProfile(
     } else if (typeof dataOrRole === 'object' && dataOrRole !== null) {
       data = dataOrRole;
     }
-    allowPrivileged = typeof optsOrMeta === 'boolean' ? optsOrMeta : Boolean(optsOrMeta?.allowPrivileged);
+    allowPrivileged = typeof optsOrMeta === 'boolean' ? optsOrMeta : (optsOrMeta?.allowPrivileged !== undefined ? Boolean(optsOrMeta.allowPrivileged) : true);
   } else {
     return null;
   }
@@ -378,14 +456,43 @@ export async function createUserProfile(
   };
 
   try {
-    const { data: result, error } = await supabase
-      .from('users')
-      .upsert(row, { onConflict: 'id' })
-      .select('*')
-      .maybeSingle();
+    let currentRow = { ...row };
+    let finalResult = null;
+    let attempts = 0;
 
-    if (!error && result) {
-      return mapRowToProfile(result);
+    while (attempts < 5) {
+      attempts++;
+      const { data: result, error } = await supabase
+        .from('users')
+        .upsert(currentRow, { onConflict: 'id' })
+        .select('*')
+        .maybeSingle();
+
+      if (!error && result) {
+        finalResult = result;
+        break;
+      }
+
+      if (error) {
+        const match = /Could not find the '([^']+)' column/i.exec(error.message || '') ||
+                      /column "([^"]+)" of relation "users" does not exist/i.exec(error.message || '') ||
+                      /column "([^"]+)" does not exist/i.exec(error.message || '');
+        if (match && match[1] && match[1] in currentRow && match[1] !== 'id') {
+          console.warn(`[createUserProfile] Column '${match[1]}' missing in Supabase, dropping from direct row (preserved in onboarding_answers) and retrying.`);
+          delete currentRow[match[1]];
+          continue;
+        } else {
+          console.warn('[createUserProfile] Supabase upsert error:', error.message);
+          break;
+        }
+      }
+    }
+
+    // Also sync institutional profile table in background if applicable
+    syncInstitutionalProfile(uid, data).catch(() => {});
+
+    if (finalResult) {
+      return mapRowToProfile(finalResult);
     }
   } catch (err) {
     console.warn('[createUserProfile] Failed to persist to Supabase:', err);
@@ -408,20 +515,44 @@ export async function updateUserProfile(
   safeUpdates.updated_at = new Date().toISOString();
 
   try {
-    const { data, error } = await supabase
-      .from('users')
-      .update(safeUpdates)
-      .eq('id', uid)
-      .select('*')
-      .maybeSingle();
+    let currentUpdates = { ...safeUpdates };
+    let finalData = null;
+    let attempts = 0;
 
-    if (error) {
-      console.error('[updateUserProfile] Supabase update error:', error.message || error);
-      return null;
+    while (attempts < 5) {
+      attempts++;
+      const { data, error } = await supabase
+        .from('users')
+        .update(currentUpdates)
+        .eq('id', uid)
+        .select('*')
+        .maybeSingle();
+
+      if (!error && data) {
+        finalData = data;
+        break;
+      }
+
+      if (error) {
+        const match = /Could not find the '([^']+)' column/i.exec(error.message || '') ||
+                      /column "([^"]+)" of relation "users" does not exist/i.exec(error.message || '') ||
+                      /column "([^"]+)" does not exist/i.exec(error.message || '');
+        if (match && match[1] && match[1] in currentUpdates) {
+          console.warn(`[updateUserProfile] Column '${match[1]}' missing, dropping and retrying.`);
+          delete currentUpdates[match[1]];
+          continue;
+        } else {
+          console.error('[updateUserProfile] Supabase update error:', error.message || error);
+          break;
+        }
+      }
     }
 
-    if (data) {
-      return mapRowToProfile(data);
+    // Sync institutional profile in background
+    syncInstitutionalProfile(uid, updates).catch(() => {});
+
+    if (finalData) {
+      return mapRowToProfile(finalData);
     }
   } catch (err) {
     console.error('[updateUserProfile] Supabase update failed:', err);

@@ -57,6 +57,9 @@ export class ArenaPvPService {
     problemId: string;
     difficulty?: 'basic' | 'intermediate' | 'advanced' | 'production';
     timeLimitSeconds?: number;
+    completedQuests?: string[];
+    verifiedCompetencies?: string[];
+    recentProblemIds?: string[];
   }): Promise<ArenaRoom> {
     const headers = await this.getAuthHeaders();
     const deviceId = params.hostDeviceId || this.getDeviceId();
@@ -201,6 +204,9 @@ export class ArenaPvPService {
     action?: 'poll' | 'cancel';
     knowledgeScore?: number;
     preferredLanguage?: string;
+    completedQuests?: string[];
+    verifiedCompetencies?: string[];
+    recentProblemIds?: string[];
   }): Promise<{ matched: boolean; room?: ArenaRoom }> {
     const headers = await this.getAuthHeaders();
     const deviceId = this.getDeviceId();

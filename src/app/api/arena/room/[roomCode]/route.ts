@@ -16,16 +16,22 @@ import { createCombatEvent, resolveMatchWinner } from '@/lib/arena/codeWarRules'
 export async function GET(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
   try {
     const auth = await requireCombatantFromRequest(req);
-    if (auth.error) return auth.error;
+    if (auth.error) {
+      console.warn('[ArenaRoom GET] Combatant auth failed');
+      return auth.error;
+    }
     const { roomCode } = await params;
+    console.log(`[ArenaRoom GET] Room lookup: ${roomCode} from viewer: ${auth.user.id}`);
     const room = await ArenaPvPStore.getRoom(roomCode);
 
     if (!room) {
+      console.warn(`[ArenaRoom GET] Room not found: ${roomCode}`);
       return NextResponse.json({ error: 'Room not found' }, { status: 404 });
     }
 
     return NextResponse.json({ success: true, room: viewRoomFor(room, auth.user.id) });
   } catch (err: unknown) {
+    console.error('[ArenaRoom GET] Error:', err);
     return NextResponse.json({ error: err instanceof Error ? err.message : 'Internal error' }, { status: 500 });
   }
 }
@@ -33,20 +39,27 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ room
 export async function POST(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
   try {
     const auth = await requireCombatantFromRequest(req);
-    if (auth.error) return auth.error;
+    if (auth.error) {
+      console.warn('[ArenaRoom POST] Combatant auth failed');
+      return auth.error;
+    }
     const playerId = auth.user.id;
     const { roomCode } = await params;
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
     const { action, testsPassed, totalTests, score, code, logs, language } = body;
 
+    console.log(`[ArenaRoom POST] Action: ${action} on room: ${roomCode} by player: ${playerId}`);
+
     const current = await ArenaPvPStore.getRoom(roomCode);
     if (!current) {
+      console.warn(`[ArenaRoom POST] Room ${roomCode} not found`);
       return NextResponse.json({ error: 'Room not found or update failed' }, { status: 404 });
     }
     const deviceId = req.headers.get('x-combatant-device-id') || '';
     const isHost = current.hostId === playerId || Boolean(deviceId && current.hostDeviceId === deviceId);
     const isGuest = current.guestId === playerId || current.guestId === `${playerId}_challenger` || Boolean(deviceId && current.guestDeviceId === deviceId);
     if (!isHost && !isGuest) {
+      console.warn(`[ArenaRoom POST] Player ${playerId} is neither host nor guest in ${roomCode}`);
       return NextResponse.json({ error: 'You are not a player in this room' }, { status: 403 });
     }
 
@@ -54,12 +67,21 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     let judged: { passed: boolean; testsPassed: number; totalTests: number; score: number } | null = null;
     if (action === 'submit_solution') {
       if (current.status !== 'in_progress') {
+        console.warn(`[ArenaRoom POST] Cannot submit: match in status '${current.status}' is not in_progress`);
         return NextResponse.json({ error: 'The match is not running' }, { status: 409 });
       }
-      const result = await judgeCodeWarsSubmission(current.problemId, code, language);
-      if (!result.ok) return NextResponse.json({ error: result.message, code: result.error }, { status: 400 });
+      const evalLanguage = (typeof language === 'string' && language.trim())
+        ? language.trim()
+        : (isHost ? (current.hostLanguage || 'typescript') : (current.guestLanguage || 'typescript'));
+      console.log(`[ArenaRoom POST] Judging solution for room: ${roomCode} | player: ${playerId} | problem: ${current.problemId} | lang: ${evalLanguage}`);
+      const result = await judgeCodeWarsSubmission(current.problemId, code, evalLanguage);
+      if (!result.ok) {
+        console.warn(`[ArenaRoom POST] Judge evaluation failed: ${result.error} - ${result.message}`);
+        return NextResponse.json({ error: result.message, code: result.error }, { status: 400 });
+      }
       const secondsSpent = current.startedAt ? (Date.now() - current.startedAt) / 1000 : current.timeLimitSeconds;
       judged = { ...result, score: codeWarsScore(result, secondsSpent, current.timeLimitSeconds) };
+      console.log(`[ArenaRoom POST] Judge evaluated -> passed: ${judged.passed} | testsPassed: ${judged.testsPassed}/${judged.totalTests} | score: ${judged.score}`);
     }
 
     // Code stays private until the match ends.
@@ -131,6 +153,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
 
         // First to pass every test (as judged by the server) wins with First Blood!
         if (judged.passed) {
+          console.log(`[ArenaRoom POST] VICTORY in ${roomCode}! Winner: ${playerId} (${actorName}) claimed First Blood`);
           room.status = 'completed';
           room.winnerId = playerId;
           room.endedAt = Date.now();
@@ -178,10 +201,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
             firstBloodClaimedBy: room.firstBloodClaimedBy,
           });
 
+          console.log(`[ArenaRoom POST] Both players submitted in ${roomCode}. Tie-breaker winner: ${resolution.winnerId} (${resolution.winReason})`);
           room.winnerId = resolution.winnerId;
           room.tieBreakerReason = resolution.winReason;
         }
       } else if (action === 'forfeit') {
+        console.log(`[ArenaRoom POST] Forfeit in ${roomCode} by ${playerId}`);
         room.status = 'completed';
         room.winnerId = isHost ? room.guestId : room.hostId;
         room.endedAt = Date.now();

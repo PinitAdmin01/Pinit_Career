@@ -335,12 +335,23 @@ function ArenaContent() {
     const pollMatchmaker = async () => {
       if (!isSubscribed) return;
       try {
+        const studentCompletedQuests: string[] = (Array.isArray(cOS?.completedQuests) && cOS.completedQuests.length > 0)
+          ? cOS.completedQuests
+          : (Array.isArray((user as any)?.completed_quests)
+            ? (user as any).completed_quests
+            : (Array.isArray((user as any)?.completedQuests)
+              ? (user as any).completedQuests
+              : []));
+
         const res = await ArenaPvPService.matchmake({
           studentId,
           studentName,
           studentAvatar,
           difficulty: selectedDifficulty,
           defaultProblemId: selectedProblemId,
+          preferredLanguage: language,
+          completedQuests: studentCompletedQuests,
+          recentProblemIds: Array.from(solvedProblemIds),
         });
 
         if (res.matched && res.room && isSubscribed) {
@@ -364,7 +375,7 @@ function ArenaContent() {
       clearInterval(clockInterval);
       clearInterval(pollInterval);
     };
-  }, [isQueueing, selectedDifficulty, selectedProblemId, studentId, studentName, studentAvatar]);
+  }, [isQueueing, selectedDifficulty, selectedProblemId, studentId, studentName, studentAvatar, language, solvedProblemIds, cOS?.completedQuests, user]);
 
   // Handle Create Room
   const handleCreateRoom = async () => {
@@ -375,13 +386,25 @@ function ArenaContent() {
       }
       setIsCreatingRoom(true);
       setRoomError(null);
+
+      const studentCompletedQuests: string[] = (Array.isArray(cOS?.completedQuests) && cOS.completedQuests.length > 0)
+        ? cOS.completedQuests
+        : (Array.isArray((user as any)?.completed_quests)
+          ? (user as any).completed_quests
+          : (Array.isArray((user as any)?.completedQuests)
+            ? (user as any).completedQuests
+            : []));
+
       const room = await ArenaPvPService.createRoom({
         hostId: studentId,
         hostName: studentName,
         hostAvatar: studentAvatar,
-        problemId: selectedProblemId,
+        hostLanguage: language,
+        problemId: selectedProblemId || 'auto',
         difficulty: selectedDifficulty,
         timeLimitSeconds: selectedTimeLimit,
+        completedQuests: studentCompletedQuests,
+        recentProblemIds: Array.from(solvedProblemIds),
       });
       setActiveRoom(room);
       setTimeRemaining(room.timeLimitSeconds);
@@ -408,6 +431,7 @@ function ArenaContent() {
         guestId: studentId,
         guestName: studentName,
         guestAvatar: studentAvatar,
+        guestLanguage: language,
       });
       setActiveRoom(room);
       setTimeRemaining(room.timeLimitSeconds || 600);
