@@ -275,10 +275,10 @@ export default function MissionsEvolveBanner({
           {/* Right Column: Launch Station Action Box */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.45)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              border: '1.5px solid rgba(168,85,247,0.3)',
+              background: 'color-mix(in srgb, var(--card) 85%, transparent)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1.5px solid rgba(168,85,247,0.28)',
               borderRadius: 20,
               padding: '28px 24px',
               textAlign: 'center',
@@ -286,16 +286,26 @@ export default function MissionsEvolveBanner({
               flexDirection: 'column',
               gap: 16,
               alignItems: 'center',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
+              boxShadow: 'var(--shadow-md), 0 8px 30px rgba(168,85,247,0.12)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 16 }}>🎯</span>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '5px 14px',
+                borderRadius: 999,
+                background: isCalibrated ? 'var(--teal-light)' : 'var(--bgInside)',
+                border: `1px solid ${isCalibrated ? 'rgba(8, 145, 178, 0.3)' : theme.border}`,
+              }}
+            >
+              <span style={{ fontSize: 14 }}>🎯</span>
               <span
                 style={{
                   fontSize: 12,
                   fontWeight: 800,
-                  letterSpacing: '1px',
+                  letterSpacing: '0.8px',
                   textTransform: 'uppercase',
                   color: isCalibrated ? 'var(--teal)' : theme.tPrimary,
                   fontFamily: 'var(--font-mono)',
@@ -337,11 +347,11 @@ export default function MissionsEvolveBanner({
               {roleplayLoading || isUnlocking ? '⚡ Compiling Parameters...' : '⚡ Launch Simulator Session (5 Pins)'}
             </button>
 
-            <span style={{ fontSize: 12, color: theme.tTertiary, lineHeight: 1.4 }}>
+            <span style={{ fontSize: 12.5, color: theme.tSecondary, lineHeight: 1.5, fontWeight: 500 }}>
               Includes 3D VRoid avatar debrief, real-time System 2 evaluation, and QT2 score calibration.
             </span>
 
-            <div style={{ paddingTop: 4, borderTop: `1px solid ${theme.border}`, width: '100%' }}>
+            <div style={{ paddingTop: 8, borderTop: `1px solid ${theme.border}`, width: '100%' }}>
               <button
                 onClick={() => setShowTraditionalMissions(!showTraditionalMissions)}
                 style={{
@@ -353,6 +363,13 @@ export default function MissionsEvolveBanner({
                   textDecoration: 'underline',
                   fontWeight: 600,
                   padding: '4px 0',
+                  transition: 'color 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = theme.tPrimary;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = theme.tSecondary;
                 }}
               >
                 {showTraditionalMissions
