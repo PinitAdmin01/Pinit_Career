@@ -30,6 +30,16 @@ export function getStudentCurriculumTier(
     'comp_dp_non_adjacent_l3',
     'comp_heap_quickselect_l3',
     'comp_graph_grid_bfs_l3',
+    'comp_two_pointers_reservoir_l3',
+    'comp_deque_sliding_window_l3',
+    'comp_dp_word_break_l3',
+    'comp_binary_search_lis_l3',
+    'comp_graph_topological_cycle_l3',
+    'comp_graph_clone_l3',
+    'comp_systems_token_bucket_l3',
+    'comp_dual_heap_median_l3',
+    'comp_graph_bfs_word_ladder_l3',
+    'comp_dp_levenshtein_l3',
   ]);
   const intComps = new Set([
     'comp_stack_brackets_l2',
@@ -42,6 +52,16 @@ export function getStudentCurriculumTier(
     'comp_prefix_suffix_product_l2',
     'comp_two_pointers_3sum_l2',
     'comp_stack_min_o1_l2',
+    'comp_lru_cache_engine_l2',
+    'comp_hash_group_anagrams_l2',
+    'comp_intervals_merge_l2',
+    'comp_stack_monotonic_daily_l2',
+    'comp_prefix_sum_hash_l2',
+    'comp_binary_search_rotated_min_l2',
+    'comp_heap_bucket_topk_l2',
+    'comp_backtracking_t9_l2',
+    'comp_matrix_rotate_l2',
+    'comp_stack_nested_decode_l2',
   ]);
 
   for (const comp of verifiedCompetencies) {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { parseCollegeCardFromText, generateCollegePinItId, CollegeMetadata, isInvalidStudentName } from '@/lib/utils/pinitIdGenerator';
+import Tesseract from 'tesseract.js';
 
 const VISION_SYSTEM_PROMPT = `You are a specialist Document AI OCR vision model analyzing university, college, and school identity cards.
 Carefully examine the visual layout of this student ID card.
@@ -9,7 +10,7 @@ Return ONLY valid JSON matching this exact structure:
 {
   "collegeName": "Full institutional name of the university, college, or school (e.g. BGS Institute of Management)",
   "collegeCode": "2-6 uppercase letters for the college acronym (e.g. BGS, SVCE, GCC, GKCC, COL)",
-  "studentName": "Full name of the student in Title Case (e.g. Vinay N, David Smith, Md. Ekramul Islam). If the student's name is NOT present, unreadable, or only school titles/addresses/class descriptions are visible, return an empty string \\"\\"",
+  "studentName": "Full name of the student in Title Case (e.g. Vinay N, David Smith, Md. Ekramul Islam). If the student's name is NOT present, unreadable, or only school titles/addresses/class descriptions are visible, return an empty string \"\"",
   "department": "Degree or department name (e.g. Computer Applications, Nursing, Mechanical Engineering)",
   "departmentCode": "2-5 uppercase letters (e.g. BCA, CSE, NURS, MECH, GEN)",
   "rollNumber": "Roll number, USN, registration number, or student ID suffix (3-6 characters)",
@@ -23,10 +24,9 @@ CRITICAL NEGATIVE CONSTRAINTS:
 
 function sanitizeAiOutput(parsed: any, rawReply: string): CollegeMetadata | null {
   if (!parsed || typeof parsed !== 'object') return null;
-  if (!parsed.collegeCode && !parsed.studentName && !parsed.rollNumber) return null;
+  if (!parsed.collegeCode && !parsed.studentName && !parsed.rollNumber && !parsed.collegeName) return null;
 
   let sName = (parsed.studentName || '').trim();
-  // Filter non-person entities, institution titles, addresses, OCR noise or AI placeholders
   if (isInvalidStudentName(sName)) {
     sName = '';
   }
@@ -39,13 +39,13 @@ function sanitizeAiOutput(parsed: any, rawReply: string): CollegeMetadata | null
     rollNumber: (parsed.rollNumber || '001').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6) || '001',
     studentName: sName,
     rawExtractedText: rawReply.slice(0, 300),
-    confidence: Math.min(1, Math.max(0.1, Number(parsed.confidence) || 0.92)),
+    confidence: Math.min(1, Math.max(0.1, Number(parsed.confidence) || 0.95)),
   };
 }
 
 /**
- * Layer 1A: Groq Free Vision (Meta Llama 3.2 11B Vision Preview)
- * Free tier on GroqCloud, sub-second LPU inference speed.
+ * Layer 1A: Groq Free Multimodal Vision (qwen/qwen3.8-27b)
+ * Sub-second LPU inference speed on Groq Cloud.
  */
 async function tryGroqVision(mimeType: string, base64Image: string): Promise<CollegeMetadata | null> {
   const groqKey = process.env.GROQ_API_KEY;
@@ -62,9 +62,13 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
         model: 'qwen/qwen3.8-27b',
         messages: [
           {
+            role: 'system',
+            content: VISION_SYSTEM_PROMPT,
+          },
+          {
             role: 'user',
             content: [
-              { type: 'text', text: VISION_SYSTEM_PROMPT },
+              { type: 'text', text: 'Analyze this student ID badge image and extract all credentials into the specified JSON format.' },
               {
                 type: 'image_url',
                 image_url: {
@@ -152,10 +156,38 @@ async function tryGeminiVision(mimeType: string, base64Image: string): Promise<C
   }
 }
 
+/**
+ * Layer 2: In-Process Tesseract.js OCR Engine
+ * Directly scans the image buffer on the server without any external API keys.
+ */
+async function tryTesseractOcr(buffer: Buffer): Promise<CollegeMetadata | null> {
+  try {
+    const { data } = await Tesseract.recognize(buffer, 'eng');
+    const rawText = data?.text?.trim() || '';
+    if (!rawText || rawText.length < 5) return null;
+
+    const parsed = parseCollegeCardFromText(rawText);
+    return {
+      collegeName: parsed.collegeName || 'Accredited Institution',
+      collegeCode: parsed.collegeCode || 'COL',
+      department: parsed.department || 'General Studies',
+      departmentCode: parsed.departmentCode || 'GEN',
+      rollNumber: parsed.rollNumber || '001',
+      studentName: parsed.studentName || '',
+      rawExtractedText: rawText.slice(0, 300),
+      confidence: Math.min(1, Math.max(0.1, (data.confidence || 75) / 100)),
+    };
+  } catch (err: any) {
+    console.warn('[ScanIdCard API] Tesseract OCR error:', err?.message);
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const file = formData.get('file') as File | null;
+    // Accept either 'file' or 'image' field for robust interoperability
+    const file = (formData.get('file') as File | null) || (formData.get('image') as File | null);
     const fallbackName = (formData.get('fallbackName') as string) || '';
 
     if (!file) {
@@ -166,12 +198,12 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(arrayBuffer);
     const mimeType = file.type || 'image/jpeg';
     const base64Image = buffer.toString('base64');
-    const fileExt = file.name.split('.').pop() || 'jpg';
+    const fileExt = file.name ? file.name.split('.').pop() || 'jpg' : 'jpg';
 
     let extractedMeta: CollegeMetadata | null = null;
     let extractionSource = 'fallback-to-client';
 
-    // 1. Layer 1A: Attempt Free Multimodal Vision via Groq (llama-3.2-11b-vision-preview)
+    // 1. Layer 1A: Attempt Free Multimodal Vision via Groq (qwen/qwen3.8-27b)
     extractedMeta = await tryGroqVision(mimeType, base64Image);
     if (extractedMeta) {
       extractionSource = 'groq-vision';
@@ -185,21 +217,29 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 3. Layer 2: If neither AI Vision key is active, initialize safe metadata for client fallback
+    // 3. Layer 2: If no cloud AI key or call failed, run Server Tesseract.js OCR on raw image
     if (!extractedMeta) {
-      const cleanFileName = file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ');
-      extractedMeta = parseCollegeCardFromText(cleanFileName, '');
+      extractedMeta = await tryTesseractOcr(buffer);
+      if (extractedMeta) {
+        extractionSource = 'server-tesseract-ocr';
+      }
+    }
+
+    // 4. Layer 3: Safe fallback using file metadata
+    if (!extractedMeta) {
+      const cleanFileName = file.name ? file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ') : '';
+      extractedMeta = parseCollegeCardFromText(cleanFileName, fallbackName);
       extractionSource = 'fallback-to-client';
     }
 
-    // 4. Generate Canonical PinIT ID
+    // 5. Generate Canonical PinIT ID
     const pinitId = generateCollegePinItId({
       collegeCode: extractedMeta.collegeCode,
       departmentCode: extractedMeta.departmentCode,
       rollNumber: extractedMeta.rollNumber,
     });
 
-    // 5. Securely upload raw image to Supabase Storage Bucket 'student-id-cards'
+    // 6. Securely upload raw image to Supabase Storage Bucket 'student-id-cards' if available
     let storagePath = '';
     try {
       const admin = getSupabaseAdmin();

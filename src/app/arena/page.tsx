@@ -1709,7 +1709,7 @@ function ArenaContent() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
                       <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>30</div>
+                        <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>{CODE_WARS_PROBLEMS_CATALOG.length}</div>
                         <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Active Challenges</div>
                       </div>
                       <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>

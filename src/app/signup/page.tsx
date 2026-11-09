@@ -37,15 +37,15 @@ export default function SignupPage() {
 
   const isDark = theme === 'dark';
 
-  // ─── Form & Verification State ───
+  // ─── Form & Verification State (Clean Unhardcoded Initial State) ───
   const [idMode, setIdMode] = useState<'college' | 'global'>('college');
-  const [studentName, setStudentName] = useState('Vinay N');
-  const [collegeName, setCollegeName] = useState('BGS Institute of Management');
-  const [branch, setBranch] = useState('BCA • Computer Applications');
-  const [identifier, setIdentifier] = useState('vinay@campus.edu');
-  const [password, setPassword] = useState('password123');
+  const [studentName, setStudentName] = useState('');
+  const [collegeName, setCollegeName] = useState('');
+  const [branch, setBranch] = useState('');
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [pinitId, setPinitId] = useState('PIN-BGS-BCA-726');
+  const [pinitId, setPinitId] = useState('');
   const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | undefined>();
   const [isScanning, setIsScanning] = useState(false);
   const [scanStatus, setScanStatus] = useState('');
@@ -95,13 +95,17 @@ export default function SignupPage() {
 
   // Dynamically recalculate PinIT ID whenever name, college, branch, or identifier changes
   useEffect(() => {
+    if (!studentName && !collegeName && !branch && !identifier) {
+      setPinitId('');
+      return;
+    }
     if (idMode === 'global') {
       const gid = generateMemorableGlobalId(studentName || identifier || 'STUDENT');
       setPinitId(gid);
     } else {
       const collegeCode = deriveCollegeCode(collegeName);
       const branchCode = deriveBranchCode(branch);
-      let rollDigits = '726';
+      let rollDigits = '001';
       const cleanId = identifier.trim();
       const numMatch = cleanId.match(/\d{2,5}$/);
       if (numMatch) {
@@ -123,11 +127,22 @@ export default function SignupPage() {
 
     try {
       const formData = new FormData();
+      formData.append('file', file);
       formData.append('image', file);
-      const res = await fetch('/api/student/verify-card', {
+
+      // Primary: Call robust /api/auth/scan-id-card endpoint
+      let res = await fetch('/api/auth/scan-id-card', {
         method: 'POST',
         body: formData,
       });
+
+      // Secondary: If not found or failed, try alias route /api/student/verify-card
+      if (!res.ok) {
+        res = await fetch('/api/student/verify-card', {
+          method: 'POST',
+          body: formData,
+        });
+      }
 
       if (res.ok) {
         const data = await res.json();
@@ -145,13 +160,36 @@ export default function SignupPage() {
         if (idVal) setPinitId(idVal);
         if (meta) setCollegeMeta(meta);
         setScanStatus('Badge Verified & Synced!');
-      } else {
-        throw new Error('No metadata');
+        return;
       }
-    } catch {
-      // Local fallback parsing
+      throw new Error('Server scan unavailable');
+    } catch (err) {
+      console.warn('[Signup] Server scan note, attempting in-browser Tesseract OCR:', err);
+      // In-Browser Tesseract.js OCR Direct Extraction
       try {
-        const textSample = file.name.replace(/[._-]/g, ' ');
+        setScanStatus('Scanning badge via in-browser OCR...');
+        const Tesseract = (await import('tesseract.js')).default;
+        const { data } = await Tesseract.recognize(file, 'eng');
+        const rawText = data?.text?.trim() || '';
+        if (rawText && rawText.length >= 5) {
+          const parsed = parseCollegeCardFromText(rawText);
+          if (parsed.studentName) setStudentName(parsed.studentName);
+          if (parsed.collegeName) setCollegeName(parsed.collegeName);
+          if (parsed.department) setBranch(parsed.department);
+          if (parsed.rollNumber) setIdentifier(parsed.rollNumber);
+          const generated = generateCollegePinItId(parsed);
+          if (generated) setPinitId(generated);
+          setCollegeMeta(parsed);
+          setScanStatus('Badge Verified & Synced!');
+          return;
+        }
+      } catch (clientOcrErr) {
+        console.warn('[Signup] Client OCR note:', clientOcrErr);
+      }
+
+      // Safe fallback parsing if OCR is unreadable
+      try {
+        const textSample = file.name ? file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ') : '';
         const parsed = parseCollegeCardFromText(textSample);
         if (parsed.studentName) setStudentName(parsed.studentName);
         if (parsed.collegeName) setCollegeName(parsed.collegeName);
@@ -650,7 +688,7 @@ export default function SignupPage() {
                       textOverflow: 'ellipsis',
                     }}
                   >
-                    {pinitId}
+                    {pinitId || 'PIN-CAMPUS-DEG-001'}
                   </div>
                 </div>
 
@@ -755,8 +793,19 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* 2. Official Brand Lockup & Aerospace Telemetry Spectrum HUD (Re-Engineered & Unclipped) */}
-          <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {/* 2. Official Brand Lockup & Aerospace Telemetry Spectrum HUD (Task 1: Moved 10% & 5% bigger) */}
+          <div
+            style={{
+              marginTop: '-5%',
+              transform: 'translateY(-5%) scale(1.05)',
+              transformOrigin: 'top left',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 14,
+              width: '100%',
+              maxWidth: 440,
+            }}
+          >
             {/* Brand Lockup: Real High-Res Emblem + Razor-Sharp Typography */}
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -957,22 +1006,24 @@ export default function SignupPage() {
             RIGHT COLUMN: THE AUTH DOCK (CARD)
             (Unified Laser Targeting Reticles for BOTH Dark & Light Mode)
         ══════════════════════════════════════════════════════════ */}
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <div
             style={{
               width: '100%',
-              maxWidth: 450,
-              borderRadius: 26,
+              maxWidth: 540, // Task 2: 20% bigger (450 * 1.2 = 540px)
+              transform: 'translateX(-10%)', // Task 2: Repositioned 10% leftside
+              borderRadius: 28,
               background: isDark ? '#15171d' : '#ffffff',
               border: `1px solid ${isDark ? '#262933' : '#e2e8f0'}`,
               boxShadow: isDark
                 ? '0 30px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)'
                 : '0 30px 70px -15px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px #e2e8f0',
-              padding: '30px 28px',
+              padding: '34px 32px',
               display: 'flex',
               flexDirection: 'column',
-              gap: 16,
+              gap: 18,
               boxSizing: 'border-box',
+              transition: 'all 0.25s ease',
             }}
           >
             {/* 1. Mode Pill Toggle: [ Global PinIT ID | College Student ID ] */}
