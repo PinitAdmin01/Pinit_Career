@@ -60,6 +60,16 @@ export function getStudentCurriculumTier(
     'comp_string_kmp_shortest_palindrome_l3',
     'comp_binary_search_bfs_swim_rising_water_l3',
     'comp_trees_post_order_max_path_sum_l3',
+    'comp_heap_sliding_window_median_l3',
+    'comp_array_cyclic_sort_first_missing_l3',
+    'comp_trie_matrix_word_search_ii_l3',
+    'comp_bfs_remove_invalid_parentheses_l3',
+    'comp_dp_russian_doll_envelopes_l3',
+    'comp_systems_tiered_cache_simulator_l3',
+    'comp_binary_search_median_two_arrays_l3',
+    'comp_graph_bitmask_shortest_path_all_nodes_l3',
+    'comp_trie_palindrome_pairs_l3',
+    'comp_graph_dsu_redundant_connection_ii_l3',
   ]);
   const intComps = new Set([
     'comp_stack_brackets_l2',
@@ -102,6 +112,16 @@ export function getStudentCurriculumTier(
     'comp_matrix_backtracking_word_search_l2',
     'comp_monotonic_stack_car_fleet_l2',
     'comp_heap_greedy_reorganize_string_l2',
+    'comp_binary_search_peak_element_l2',
+    'comp_backtracking_combination_sum_l2',
+    'comp_dp_partition_equal_subset_l2',
+    'comp_two_pointers_sort_colors_l2',
+    'comp_dp_target_sum_ways_l2',
+    'comp_greedy_non_overlapping_intervals_l2',
+    'comp_trees_path_sum_ii_l2',
+    'comp_graph_cheapest_flights_bellman_l2',
+    'comp_trees_bst_kth_smallest_l2',
+    'comp_matrix_surrounded_regions_bfs_l2',
   ]);
 
   for (const comp of verifiedCompetencies) {
