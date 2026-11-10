@@ -426,22 +426,22 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 22,
     "title": "Distributed Microservices, gRPC & Protocol Buffers (Protobuf)",
-    "desc": "Execute type-safe server mutations directly from client forms using Next.js Server Actions with automatic revalidation.",
+    "desc": "Design high-throughput distributed microservices using gRPC and Protocol Buffers, featuring HTTP/2 multiplexing, circuit breaker fault isolation, and service discovery.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Next.js Server Actions, Optimistic Updates & Form Mutations.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Core Foundations: Protocol Buffers (Protobuf) Binary Serialization, Varints & Schema Contract Invariants",
+      "Operational Architecture: gRPC over HTTP/2 Multiplexed Framing, Unary RPCs & Bidirectional Streaming Physics",
+      "Production Best Practices: Inter-Service Circuit Breakers (CLOSED/OPEN/HALF-OPEN), Cascading Timeout Deadlines & Service Discovery"
     ],
-    "eTitle": "Server Action Mutation & Cache Revalidator",
-    "eDesc": "Implement function executeServerAction(actionFn, revalidatePathFn) executing server mutation and triggering path revalidation.",
-    "eStarter": "async function executeServerAction(actionFn, revalidatePathFn) {\n  // Execute mutation function, call revalidatePath, and return success payload.\n  \n}",
-    "eHint": "Execute mutation function, call revalidatePath, and return success payload.",
-    "eTest": "let revalidated = false;\nconst action = async () => ({ updated: true });\nconst revalidate = path => { if (path === '/dashboard') revalidated = true; };\nconst res = await executeServerAction(action, revalidate);\nif (res.success !== true || !revalidated) throw new Error('Server action failed to execute or revalidate');",
-    "aTitle": "Form Data Parser Helper",
-    "aDesc": "Implement function parseFormDataEntries(entries) returning object. The result must have the field: `email`.",
-    "aStarter": "function parseFormDataEntries(entries) {\n  // TODO: write your code here\n}",
-    "aHint": "Use Object.fromEntries.",
-    "aTest": "const obj = parseFormDataEntries([['email', 'a@b.com']]);\nif (obj.email !== 'a@b.com') throw new Error('FormData parse failed');"
+    "eTitle": "Circuit Breaker Pattern State Machine for Microservices",
+    "eDesc": "Implement class CircuitBreaker with states CLOSED, OPEN, HALF_OPEN and failure thresholds. When consecutive failures reach the threshold, trip state to 'OPEN'. In 'OPEN' state, throw Error('CIRCUIT_OPEN_FAST_FAIL') without calling asyncFn. After resetTimeout expires, allow probe attempt in 'HALF_OPEN'.",
+    "eStarter": "/**\n * Circuit Breaker state machine for distributed microservice fault tolerance.\n * States: 'CLOSED' (normal), 'OPEN' (tripped fast-fail), 'HALF_OPEN' (probing recovery).\n */\nclass CircuitBreaker {\n  constructor(threshold = 3, resetTimeout = 1000) {\n    this.threshold = threshold;\n    this.resetTimeout = resetTimeout;\n    this.state = 'CLOSED';\n    this.failureCount = 0;\n    this.lastStateChange = Date.now();\n  }\n\n  /**\n   * Executes the asynchronous microservice call protected by the circuit breaker.\n   * @param {() => Promise<any>} asyncFn - Microservice RPC function\n   * @returns {Promise<any>}\n   */\n  async execute(asyncFn) {\n    // Check state, fast fail if OPEN, handle probe if HALF_OPEN, or track failures in CLOSED\n    \n  }\n}",
+    "eHint": "In execute(asyncFn): check if (this.state === 'OPEN'). If so, if (Date.now() - this.lastStateChange > this.resetTimeout) { this.state = 'HALF_OPEN'; } else { throw new Error('CIRCUIT_OPEN_FAST_FAIL'); } try { const result = await asyncFn(); this.failureCount = 0; this.state = 'CLOSED'; return result; } catch (err) { this.failureCount++; if (this.failureCount >= this.threshold || this.state === 'HALF_OPEN') { this.state = 'OPEN'; this.lastStateChange = Date.now(); } throw err; }",
+    "eTest": "const cb = new CircuitBreaker(2, 500);\nconst failFn = async () => { throw new Error('Service Down'); };\ntry { await cb.execute(failFn); } catch(e){}\ntry { await cb.execute(failFn); } catch(e){}\nif (cb.state !== 'OPEN') throw new Error('Circuit breaker should trip to OPEN after 2 failures');\nlet fastFailed = false;\ntry { await cb.execute(async () => 'ok'); } catch(e) { fastFailed = e.message === 'CIRCUIT_OPEN_FAST_FAIL'; }\nif (!fastFailed) throw new Error('Open circuit should fast fail without executing function');\n\ncb.lastStateChange = Date.now() - 600;\nconst res = await cb.execute(async () => 'recovered');\nif (res !== 'recovered' || cb.state !== 'CLOSED') throw new Error('Successful probe in HALF_OPEN must reset state to CLOSED');",
+    "aTitle": "Microservice Service Discovery Registry",
+    "aDesc": "Implement function registerService(registry, serviceName, endpointUrl) mapping logical microservice names to network endpoints with validation.",
+    "aStarter": "/**\n * Registers a microservice endpoint in the in-memory service discovery registry.\n * @param {Record<string, string>} registry - Existing service map\n * @param {string} serviceName - Logical microservice name (e.g., 'auth', 'billing')\n * @param {string} endpointUrl - Network endpoint URL\n * @returns {Record<string, string>} Updated registry object\n */\nfunction registerService(registry, serviceName, endpointUrl) {\n  // Validate and register service in registry\n  \n}",
+    "aHint": "Verify serviceName and endpointUrl are non-empty strings. Mutate or clone registry, set registry[serviceName] = endpointUrl, and return registry.",
+    "aTest": "const reg = registerService({}, 'auth', 'http://localhost:4001');\nif (reg.auth !== 'http://localhost:4001') throw new Error('Service registry failed');\nconst reg2 = registerService(reg, 'billing', 'http://localhost:4002');\nif (reg2.billing !== 'http://localhost:4002' || reg2.auth !== 'http://localhost:4001') throw new Error('Multi-service registration failed');\nlet threw = false;\ntry { registerService({}, '', 'http://localhost'); } catch(e) { threw = true; }\nif (!threw) throw new Error('Empty serviceName must throw error');"
   },
   {
     "day": 23,
