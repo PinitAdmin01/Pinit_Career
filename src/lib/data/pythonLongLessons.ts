@@ -186,7 +186,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           "Now let us put everything from today together into one small program: a title, a few expenses, and a total. This is the very first version of the Expense Tracker you will build this month.",
           "Look at how the program is organised. A comment says what it is. print lines show the title and each expense in order. The last line lets Python do the maths for the total.",
           "Right now the numbers are typed twice: once in each expense line and again in the total. That is not ideal, because if you change one number you must remember to change it in two places. Tomorrow you will fix this with variables.",
-          "In the practice tasks right after this lesson, you will see your code wrapped inside a small helper frame that starts with def function_name(): and ends with return. Think of def as a named container for your answer, pass as a temporary placeholder line you delete, and return as the instruction that hands your final answer (such as return \"My Expense Tracker\" or return 65) back to the automatic grading checker."
+          "In the practice tasks right after this lesson, you will write your first real lines of Python! Use print() to display your app's title and greet your users on the screen, exactly like you practised today."
         ],
         "example": "A shop receipt has the shop name at the top, then one line per item, then the total at the bottom. Your first program is a tiny receipt printed by Python.",
         "code": "# Expense Tracker, version 1\nprint(\"=== My Expense Tracker ===\")\nprint(\"Tea\", 20)\nprint(\"Bus\", 45)\nprint(\"Lunch\", 120)\nprint(\"Total:\", 20 + 45 + 120)",
