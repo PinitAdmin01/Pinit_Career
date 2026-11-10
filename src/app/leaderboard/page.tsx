@@ -112,6 +112,7 @@ function LeaderboardContent() {
   });
 
   const handleJoinLeague = async () => {
+    console.log('[LEADERBOARD_CLIENT][Join League Triggered]', { userId: user?.id, userTotalXp });
     if (userTotalXp < 100) {
       toast.error('League Locked', `You need 100 XP to join the Weekly Ranked League. You currently have ${userTotalXp} XP.`);
       return;
@@ -125,6 +126,7 @@ function LeaderboardContent() {
     if (user?.id) {
       try {
         await supabase.from('users').update({ league_tier: 'browns' }).eq('id', user.id);
+        console.log('[LEADERBOARD_CLIENT][Persisted league_tier: browns to Supabase]');
       } catch (err) {
         console.warn('[Leaderboard] Failed to persist league_tier to Supabase:', err);
       }
@@ -184,6 +186,7 @@ function LeaderboardContent() {
 
   useEffect(() => {
     const handleProfileUpdate = (e: any) => {
+      console.log('[LEADERBOARD_CLIENT][Profile Update Event Received]', e?.detail);
       if (e?.detail) {
         if (e.detail.league_tier) {
           setJoinedLeague(true);
@@ -224,6 +227,13 @@ function LeaderboardContent() {
           }
         } catch {}
 
+        console.log('[LEADERBOARD_CLIENT][Fetch Inflight]', {
+          mode: activeTab,
+          league: selectedLeague,
+          userId: user?.id || 'guest',
+        });
+        const clientStartTime = performance.now();
+
         const res = await fetch(`/api/leaderboard?${params.toString()}`, {
           headers: {
             ...authHeader,
@@ -232,6 +242,15 @@ function LeaderboardContent() {
           cache: 'no-store',
         });
         const data = await res.json();
+        const clientDuration = Math.round(performance.now() - clientStartTime);
+
+        console.log('[LEADERBOARD_CLIENT][Fetch Complete]', {
+          ok: data.ok,
+          entries: data.leaderboard?.length,
+          guilds: data.guilds?.length,
+          userRank: data.currentUser?.rank,
+          clientDurationMs: clientDuration,
+        });
 
         if (data.ok && isMounted) {
           setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
@@ -779,6 +798,7 @@ function LeaderboardContent() {
                     className="pinit-vault-tier-card"
                     data-testid={`select-league-${tier}`}
                     onClick={() => {
+                      console.log('[LEADERBOARD_CLIENT][Division Switched]', { from: selectedLeague, to: tier });
                       setSelectedLeague(tier);
                       hasManuallySelectedRef.current = true;
                       setIsLeagueModalOpen(false);
