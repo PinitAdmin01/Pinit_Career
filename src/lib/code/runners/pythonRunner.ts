@@ -67,11 +67,19 @@ async function getPyodide() {
   if (pyodide) return pyodide;
   if (initPromise) return initPromise;
   initPromise = (async () => {
-    importScripts('__PYODIDE_BASE__pyodide.js');
-    pyodide = await self.loadPyodide({
-      indexURL: '__PYODIDE_BASE__'
-    });
-    return pyodide;
+    try {
+      importScripts('__PYODIDE_BASE__pyodide.js');
+      pyodide = await self.loadPyodide({
+        indexURL: '__PYODIDE_BASE__'
+      });
+      return pyodide;
+    } catch (_localErr) {
+      importScripts('https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js');
+      pyodide = await self.loadPyodide({
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/'
+      });
+      return pyodide;
+    }
   })();
   return initPromise;
 }
@@ -94,7 +102,10 @@ self.onmessage = async function(e) {
       }
       self.postMessage({ id, success: true, results });
     } catch (err) {
-      self.postMessage({ id, success: false, error: err?.message || String(err) });
+      const rawMsg = (err && err.message) ? String(err.message) : String(err);
+      const lines = rawMsg.trim().split('\\n').map(l => l.trim()).filter(Boolean);
+      const cleanErr = lines.length > 0 ? lines[lines.length - 1] : rawMsg;
+      self.postMessage({ id, success: false, error: cleanErr });
     }
   }
 };
@@ -343,23 +354,35 @@ export async function executePythonSuite(
   // 2. If testSuite assertion script is provided, evaluate assertion suite
   if (hasTestSuite) {
     const pythonScript = `
-import sys, io, json
+import sys, io, json, traceback
 sys.stdout = io.StringIO()
 sys.stderr = io.StringIO()
+def _pinit_excepthook(exc_type, exc_value, exc_tb):
+    _t = getattr(sys, '__stderr__', None)
+    if _t:
+        _t.write(''.join(traceback.format_exception(exc_type, exc_value, exc_tb)))
+        _t.flush()
+sys.excepthook = _pinit_excepthook
 
 ${code}
 
 _captured_stdout_ = sys.stdout.getvalue()
 
 # --- Authoritative Test Suite ---
-${testSuite}
-
+_test_passed = 'FALSE'
+_assertion_error = ''
+try:
+${(testSuite || '').split('\n').map(l => '    ' + l).join('\n')}
+    _test_passed = 'TRUE'
+except AssertionError as _ae:
+    _assertion_error = f"AssertionError: {_ae}" if str(_ae) else "AssertionError: Test check failed."
+except Exception as _ex:
+    _assertion_error = f"{type(_ex).__name__}: {_ex}"
 _stdout_log = sys.stdout.getvalue()
 _stderr_log = sys.stderr.getvalue()
-_test_passed = 'TRUE'
 `;
 
-    const res = await runPythonScript(pythonScript, ['_stdout_log', '_stderr_log', '_test_passed'], timeoutMs);
+    const res = await runPythonScript(pythonScript, ['_stdout_log', '_stderr_log', '_test_passed', '_assertion_error'], timeoutMs);
     const duration = Date.now() - startTime;
     const stdoutLog = res.results?._stdout_log || '';
     if (stdoutLog) terminalLogs.push(`  stdout: ${stdoutLog}`);
@@ -387,8 +410,10 @@ _test_passed = 'TRUE'
         }]
       };
     } else {
-      const isTimeout = (res.error || '').toLowerCase().includes('timeout');
-      const errorMsg = res.error || 'Assertion failed during test execution.';
+      const rawErr = res.results?._assertion_error || res.error || 'Assertion failed during test execution.';
+      const errLines = rawErr.trim().split('\n').map((l: string) => l.trim()).filter(Boolean);
+      const errorMsg = errLines.length > 0 ? errLines[errLines.length - 1] : rawErr;
+      const isTimeout = errorMsg.toLowerCase().includes('timeout');
       terminalLogs.push(isTimeout ? `[TIMEOUT] ${errorMsg}` : `[FAIL] ${errorMsg}`);
       return {
         language: 'python',
