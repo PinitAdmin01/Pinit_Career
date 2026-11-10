@@ -305,23 +305,23 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 16,
-    "title": "GraphQL APIs, Resolvers & Query Complexity Cost Analysis",
+    "title": "WebSockets & Real-Time Event Architecture: Bi-directional Framing, Heartbeats & Room Multiplexing",
     "desc": "Build bi-directional real-time communication channels, room broadcasting, and connection heartbeat ping-pongs.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of WebSockets & Real-Time Bidirectional Event Streaming.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "The Real-Time Evolution: HTTP Polling vs Long-Polling vs Server-Sent Events (SSE) vs Full-Duplex WebSockets (RFC 6455)",
+      "The WebSocket Upgrade Protocol & Binary Framing Physics: HTTP 101 Switching Protocols, Masking Keys, and Opcodes",
+      "Room Multiplexing, Pub/Sub Topologies & Connection Heartbeats: Ping/Pong Frames, Dead Socket Detection, and Sender-Excluded Broadcasting"
     ],
     "eTitle": "WebSocket Room Broadcasting Hub",
-    "eDesc": "Implement class WebSocketRoomHub supporting join(room, socketId), leave(room, socketId), and broadcast(room, message, senderId). The result must have the field: `recipients`.",
-    "eStarter": "class WebSocketRoomHub {\n  constructor() {\n    // Broadcast message to all room members excluding the original sender.\n    \n  }\n  join(room, socketId) {\n    // Broadcast message to all room members excluding the original sender.\n    \n  }\n  leave(room, socketId) {\n    // Broadcast message to all room members excluding the original sender.\n    \n  }\n  broadcast(room, message, senderId) {\n    // Broadcast message to all room members excluding the original sender.\n    \n  }\n\n}",
-    "eHint": "Broadcast message to all room members excluding the original sender.",
-    "eTest": "const hub = new WebSocketRoomHub();\nhub.join('chat_general', 'user_1'); hub.join('chat_general', 'user_2'); hub.join('chat_general', 'user_3');\nconst broadcast = hub.broadcast('chat_general', 'Hello world!', 'user_1');\nif (broadcast.recipients.length !== 2 || broadcast.recipients.includes('user_1')) throw new Error('WebSocket broadcast failed to exclude sender');",
+    "eDesc": "Implement class WebSocketRoomHub supporting join(room, socketId), leave(room, socketId), and broadcast(room, message, senderId). broadcast returns { room, message, senderId, recipients: string[] } sending only to room members excluding senderId.",
+    "eStarter": "/**\n * Enterprise WebSocket Room Multiplexer and Broadcasting Hub.\n */\nclass WebSocketRoomHub {\n  constructor() {\n    this.rooms = new Map();\n  }\n\n  join(room, socketId) {\n    // 1. Ensure room Set exists\n    // 2. Add socketId to room Set\n    \n  }\n\n  leave(room, socketId) {\n    // 1. Remove socketId from room Set\n    // 2. If room is empty, delete room from Map\n    \n  }\n\n  broadcast(room, message, senderId) {\n    // 1. Retrieve sockets in room\n    // 2. Filter out senderId to prevent echo loops\n    // 3. Return { room, message, senderId, recipients: [...] }\n    \n  }\n}",
+    "eHint": "Use a Map<string, Set<string>> for rooms. In broadcast(), get the Set for room; filter array of socketIds excluding senderId; return { room, message, senderId, recipients }.",
+    "eTest": "const hub = new WebSocketRoomHub();\nhub.join('chat_general', 'user_1');\nhub.join('chat_general', 'user_2');\nhub.join('chat_general', 'user_3');\n\nconst broadcast = hub.broadcast('chat_general', 'Hello world!', 'user_1');\nif (!broadcast || !Array.isArray(broadcast.recipients)) throw new Error('Broadcast result must have recipients array');\nif (broadcast.recipients.length !== 2 || broadcast.recipients.includes('user_1')) throw new Error('WebSocket broadcast failed to exclude sender');\nif (!broadcast.recipients.includes('user_2') || !broadcast.recipients.includes('user_3')) throw new Error('WebSocket broadcast failed to reach all other room members');\n\nhub.leave('chat_general', 'user_2');\nconst broadcast2 = hub.broadcast('chat_general', 'Another message', 'user_3');\nif (broadcast2.recipients.length !== 1 || broadcast2.recipients[0] !== 'user_1') throw new Error('WebSocket leave failed to remove socket from room');\n\nconst emptyBroadcast = hub.broadcast('non_existent_room', 'test', 'user_1');\nif (!emptyBroadcast.recipients || emptyBroadcast.recipients.length !== 0) throw new Error('Broadcasting to non-existent room must return empty recipients');",
     "aTitle": "WebSocket Heartbeat Ping/Pong Monitor",
-    "aDesc": "Implement function isConnectionAlive(lastPingTime, timeoutMs = 30000).",
-    "aStarter": "function isConnectionAlive(lastPing, timeout = 30000) {\n  // Check if elapsed time since last ping is under timeout.\n  \n}",
-    "aHint": "Check if elapsed time since last ping is under timeout.",
-    "aTest": "if (isConnectionAlive(Date.now() - 5000) !== true || isConnectionAlive(Date.now() - 40000) !== false) throw new Error('Heartbeat check failed');"
+    "aDesc": "Implement function isConnectionAlive(lastPingTimestamp, timeoutMs = 30000) that evaluates if a socket connection is still alive based on elapsed time since the last heartbeat ping.",
+    "aStarter": "/**\n * Evaluates whether a WebSocket connection is healthy based on last heartbeat timestamp.\n * @param {number} lastPingTimestamp - Unix epoch timestamp (ms) of the last received ping/pong\n * @param {number} [timeoutMs=30000] - Inactivity threshold in milliseconds\n * @returns {boolean} True if connection is alive, false if dead/timed out\n */\nfunction isConnectionAlive(lastPingTimestamp, timeoutMs = 30000) {\n  // If lastPingTimestamp is invalid or elapsed time >= timeoutMs, return false\n  \n}",
+    "aHint": "if (typeof lastPingTimestamp !== 'number' || isNaN(lastPingTimestamp)) return false; return (Date.now() - lastPingTimestamp) < timeoutMs;",
+    "aTest": "const now = Date.now();\nif (isConnectionAlive(now - 5000) !== true) throw new Error('Recent ping must be alive');\nif (isConnectionAlive(now - 40000) !== false) throw new Error('Stale ping beyond timeout must be dead');\nif (isConnectionAlive(now - 30000) !== false) throw new Error('Ping at exact timeout boundary must be considered expired');\nif (isConnectionAlive(null) !== false || isConnectionAlive(undefined) !== false) throw new Error('Invalid timestamp must return false');"
   },
   {
     "day": 17,
