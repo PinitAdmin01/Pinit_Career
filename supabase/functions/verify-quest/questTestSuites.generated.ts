@@ -7220,7 +7220,7 @@ export const QUEST_METADATA: Record<string, { xp: number; pinCost: number; isExa
 };
 
 export const QUEST_TEST_SUITES_META = {
-  generatedAt: "2026-11-10T21:16:42.943Z",
+  generatedAt: "2026-11-10T22:01:59.294Z",
   totalEntries: 3603,
   fromCourseRegistry: 3600,
   legacyEntries: 3,
