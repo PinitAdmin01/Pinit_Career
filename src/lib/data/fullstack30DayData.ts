@@ -25,23 +25,23 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Streaming SSR Pipelines, Server Actions & Real-Time Event Architectures",
-    "desc": "Master event-driven architecture, EventEmitter listeners, memory buffers, and streaming large payloads.",
+    "title": "Node.js Runtime Core: Asynchronous EventEmitters, Memory Buffers & Stream Physics",
+    "desc": "Master the Node.js event-driven architecture, custom EventEmitters, raw binary Buffer memory allocation, UTF-8 multi-byte encoding physics, and stream backpressure mechanics.",
     "syllabus": [
-      "EventEmitters: .on(event, handler), .emit(event, payload), and .once() patterns.",
-      "Buffer Allocation: Buffer.from() and UTF-8 byte encodings.",
-      "Readable & Writable Streams: Handling backpressure without memory bloat."
+      "EventEmitters & Observer Pattern: .on(event, handler), .emit(event, payload), .off(event, handler), and .once() execution semantics.",
+      "Binary Buffers & Encoding Physics: Raw memory allocation, Buffer.from(), and ASCII vs UTF-8 multi-byte encoding (characters vs bytes).",
+      "Streams & Backpressure Management: High-water marks, paused vs flowing modes, and streaming gigabyte payloads with bounded memory."
     ],
     "eTitle": "Production Event Hub Bus",
-    "eDesc": "Implement class EventBus supporting on(event, callback), emit(event, data), and off(event, callback).",
-    "eStarter": "class EventBus {\n  constructor() {\n    // Use a Map storing arrays of callback functions keyed by event name.\n    \n  }\n  on(event, cb) {\n    // Use a Map storing arrays of callback functions keyed by event name.\n    \n  }\n  emit(event, data) {\n    // Use a Map storing arrays of callback functions keyed by event name.\n    \n  }\n  off(event, cb) {\n    // Use a Map storing arrays of callback functions keyed by event name.\n    \n  }\n\n}",
-    "eHint": "Use a Map storing arrays of callback functions keyed by event name.",
-    "eTest": "const bus = new EventBus();\nlet received = 0;\nconst handler = data => { received += data; };\nbus.on('order:created', handler);\nbus.emit('order:created', 100);\nif (received !== 100) throw new Error('EventBus failed to dispatch data to listener');\nbus.off('order:created', handler);\nbus.emit('order:created', 50);\nif (received !== 100) throw new Error('EventBus failed to deregister listener');",
+    "eDesc": "Implement class EventBus supporting on(event, callback), emit(event, data), off(event, callback), and once(event, callback). Ensure that emitting an event with no registered listeners returns false cleanly without throwing, and that multiple listeners on the same event execute sequentially.",
+    "eStarter": "/**\n * Production Event Bus implementing the Observer Pattern.\n * Coordinates decoupled events across domain services.\n */\nclass EventBus {\n  constructor() {\n    this.listeners = new Map();\n  }\n\n  on(event, callback) {\n    // Register listener function in listeners Map\n  }\n\n  once(event, callback) {\n    // Register listener that automatically deregisters after its first execution\n  }\n\n  off(event, callback) {\n    // Remove specific listener from event array\n  }\n\n  emit(event, data) {\n    // Execute registered listeners; return false if no listeners exist\n  }\n}",
+    "eHint": "Use this.listeners = new Map() where values are arrays of functions. In once(), wrap the callback so it calls this.off() before invoking the callback. In emit(), safely return false if the array is empty or undefined.",
+    "eTest": "const bus = new EventBus();\nlet received = 0;\nconst handler = data => { received += data; };\nbus.on('order:created', handler);\nbus.emit('order:created', 100);\nif (received !== 100) throw new Error('EventBus failed to dispatch data to listener');\nbus.off('order:created', handler);\nbus.emit('order:created', 50);\nif (received !== 100) throw new Error('EventBus failed to deregister listener');\nif (bus.emit('unhandled:topic', 999) !== false) throw new Error('Emitting unhandled event should return false');\nlet sequence = [];\nbus.on('seq', (d) => sequence.push('L1:' + d));\nbus.on('seq', (d) => sequence.push('L2:' + d));\nbus.emit('seq', 'run');\nif (sequence.join(',') !== 'L1:run,L2:run') throw new Error('Multiple listeners did not execute in FIFO order');\nlet onceCount = 0;\nbus.once('one_timer', () => { onceCount++; });\nbus.emit('one_timer', null);\nbus.emit('one_timer', null);\nif (onceCount !== 1) throw new Error('once() listener executed more than once: ' + onceCount);",
     "aTitle": "Payload Byte Size Calculator",
-    "aDesc": "Implement function getPayloadByteSize(text) returning how many bytes the text takes in UTF-8. In the browser use new TextEncoder().encode(text).length (on a Node.js server, Buffer.byteLength(text, 'utf8') gives the same number).",
-    "aStarter": "function getPayloadByteSize(text) {\n  // Count UTF-8 bytes, not characters: an emoji is 4 bytes.\n  \n}",
-    "aHint": "new TextEncoder().encode(text) gives the UTF-8 bytes; return its length.",
-    "aTest": "if (getPayloadByteSize('hello') !== 5) throw new Error('ASCII byte size failed');\nif (getPayloadByteSize('🚀') !== 4) throw new Error('Emoji UTF-8 4-byte count failed');"
+    "aDesc": "Implement function getPayloadByteSize(text) returning the exact byte count required to encode the string in UTF-8. The function must accurately distinguish between UTF-16 string length and UTF-8 byte length across ASCII (1 byte), non-ASCII (2-3 bytes), and astral plane emojis (4 bytes). Throws TypeError if text is not a string.",
+    "aStarter": "/**\n * Calculates the true binary byte size of a string encoded in UTF-8.\n * @param {string} text - Input text string\n * @returns {number} - Total byte count in UTF-8\n */\nfunction getPayloadByteSize(text) {\n  // Validate input type and calculate UTF-8 byte length\n  \n}",
+    "aHint": "Verify typeof text === 'string' (throw TypeError otherwise). In Node.js use Buffer.byteLength(text, 'utf8') or isomorphic new TextEncoder().encode(text).length.",
+    "aTest": "if (getPayloadByteSize('hello') !== 5) throw new Error('ASCII byte size failed');\nif (getPayloadByteSize('🚀') !== 4) throw new Error('Emoji UTF-8 4-byte count failed');\nif (getPayloadByteSize('café') !== 5) throw new Error('Accented UTF-8 multi-byte count failed');\nif (getPayloadByteSize('世界') !== 6) throw new Error('CJK UTF-8 3-byte count failed');\nif (getPayloadByteSize('') !== 0) throw new Error('Empty string should return 0 bytes');\nlet threwOnInvalid = false;\ntry { getPayloadByteSize(12345); } catch (err) { threwOnInvalid = true; }\nif (!threwOnInvalid) throw new Error('getPayloadByteSize must throw TypeError for non-string input');"
   },
   {
     "day": 3,
