@@ -349,6 +349,8 @@ sys.stderr = io.StringIO()
 
 ${code}
 
+_captured_stdout_ = sys.stdout.getvalue()
+
 # --- Authoritative Test Suite ---
 ${testSuite}
 

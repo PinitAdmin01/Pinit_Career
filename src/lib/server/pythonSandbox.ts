@@ -75,13 +75,21 @@ export async function runPythonInSandbox(
           .join('\n')
       : '    pass';
 
-    const testRunnerCode = `import sys
+    const testRunnerCode = `import sys, io
 token = sys.stdin.readline().rstrip('\\r\\n')
+_sand_cap = io.StringIO()
+_orig_sys_stdout = sys.stdout
+sys.stdout = _sand_cap
 try:
     from solution import *
 except BaseException as e:
+    sys.stdout = _orig_sys_stdout
     sys.stderr.write(f"ImportError: {e}\\n")
     sys.exit(1)
+
+_captured_stdout_ = _sand_cap.getvalue()
+sys.stdout = _orig_sys_stdout
+sys.stdout.write(_captured_stdout_)
 
 try:
 ${indentedTestSuite}
