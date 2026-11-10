@@ -482,7 +482,7 @@ export const portalService = {
           email: u.email || '',
           roleTarget: u.target_role || 'Software Engineer',
           atsScore: u.ats_score || 0,
-          codeWarsElo: u.arena_elo || 1200,
+          codeWarsElo: (u.arena_elo === 1200 && !(u.arena_wins)) ? 100 : (u.arena_elo || 100),
           verifiedSkills: Array.isArray(u.skill_tags) ? u.skill_tags : [],
           stage: 'discovered' as const,
           appliedDate: u.created_at ? u.created_at.split('T')[0] : new Date().toISOString().split('T')[0],

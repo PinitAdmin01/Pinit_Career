@@ -33,7 +33,10 @@ export async function POST(req: NextRequest) {
         if (data) {
           userProfile = data;
           if (typeof data.arena_elo === 'number' && Number.isFinite(data.arena_elo)) {
-            currentElo = data.arena_elo;
+            // Sanitize uncalibrated legacy 1200 default from old migration
+            currentElo = (data.arena_elo === 1200 && (!data.arena_wins || data.arena_wins === 0))
+              ? 100
+              : data.arena_elo;
           }
         }
       }

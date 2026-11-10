@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       studentName: studentName.slice(0, 60),
       studentAvatar: typeof studentAvatar === 'string' ? studentAvatar.slice(0, 500) : undefined,
       difficulty: typeof difficulty === 'string' && difficulty ? difficulty : 'any',
-      eloRating: typeof eloRating === 'number' ? eloRating : 1200,
+      eloRating: (typeof eloRating === 'number' && eloRating !== 1200) ? eloRating : 100,
       enqueuedAt: Date.now(),
       deviceId,
       preferredLanguage: typeof preferredLanguage === 'string' ? preferredLanguage : 'typescript',

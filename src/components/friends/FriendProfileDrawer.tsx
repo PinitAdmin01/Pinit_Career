@@ -452,8 +452,9 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                     <div className="drawer-stat-label">Battle Elo Rating</div>
                     <div style={{ fontSize: 22, fontWeight: 800, color: '#38bdf8' }}>
                       {(() => {
-                        const elo = (student as any).arena_elo || (student as any).eloRating || (1200 + ((student.arenaWins || 0) * 25));
-                        const rankTitle = elo >= 1800 ? 'Grandmaster' : elo >= 1400 ? 'Warrior' : 'Cadet';
+                        const raw = (student as any).arena_elo || (student as any).eloRating;
+                        const elo = (raw === 1200 && !(student.arenaWins)) ? 100 : (raw || (100 + ((student.arenaWins || 0) * 20)));
+                        const rankTitle = elo >= 500 ? 'Grandmaster Apex' : elo >= 280 ? 'Platinum Vanguard' : elo >= 140 ? 'Silver Tactician' : 'Bronze Cadet';
                         return `${elo.toLocaleString()} Elo (${rankTitle})`;
                       })()}
                     </div>
@@ -466,8 +467,9 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                   </div>
                 </div>
                 {(() => {
-                  const targetElo = (student as any).arena_elo || (student as any).eloRating || (1200 + ((student.arenaWins || 0) * 25));
-                  const stakes = calculateStakesPreview(1200, targetElo);
+                  const rawTarget = (student as any).arena_elo || (student as any).eloRating;
+                  const targetElo = (rawTarget === 1200 && !(student.arenaWins)) ? 100 : (rawTarget || (100 + ((student.arenaWins || 0) * 20)));
+                  const stakes = calculateStakesPreview(100, targetElo);
                   return (
                     <div style={{
                       display: 'flex',

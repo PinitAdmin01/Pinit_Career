@@ -79,17 +79,22 @@ test('Mock Cohorts: All 5 divisions have calibrated cohorts for testing', () => 
 
 // ── 3. BEAST-TIER UI/UX & PODIUM SHOWCASE AUDIT ──────────────────────────────
 test('Podium Showcase: Top 3 pedestal cards with Gold, Silver, and Bronze elevation', () => {
+  // Per Task 2, podium showcase is temporarily disabled from rendering
   assert.ok(
-    leaderboardPage.includes('👑 1st Place · Division Leader'),
-    'Must render Gold 1st Place pedestal card'
+    leaderboardPage.includes('Temporarily disabled per Task 2'),
+    'Podium showcase must be marked temporarily disabled per Task 2'
   );
   assert.ok(
-    leaderboardPage.includes('🥈 2nd Place Contender'),
-    'Must render Silver 2nd Place pedestal card'
+    leaderboardPage.includes('1st Place · Division Leader'),
+    'Pedestal markup must preserve 1st Place title without emojis'
   );
   assert.ok(
-    leaderboardPage.includes('🥉 3rd Place Challenger'),
-    'Must render Bronze 3rd Place pedestal card'
+    leaderboardPage.includes('2nd Place Contender'),
+    'Pedestal markup must preserve 2nd Place title without emojis'
+  );
+  assert.ok(
+    leaderboardPage.includes('3rd Place Challenger'),
+    'Pedestal markup must preserve 3rd Place title without emojis'
   );
   assert.ok(
     leaderboardPage.includes("transform: 'scale(1.03)'"),
@@ -107,11 +112,11 @@ test('Cockpit HUD: Live telemetry, dynamic score breakdown, and zone indicators'
     'Cockpit must render user rank number'
   );
   assert.ok(
-    leaderboardPage.includes('⬆️ In Promotion Zone! Advance to'),
+    leaderboardPage.includes('In Promotion Zone! Advance to'),
     'Cockpit must render promotion zone banner'
   );
   assert.ok(
-    leaderboardPage.includes('⬇️ In Demotion Zone! Earn XP to remain in'),
+    leaderboardPage.includes('In Demotion Zone! Earn XP to remain in'),
     'Cockpit must render demotion zone banner'
   );
 });

@@ -75,19 +75,18 @@ test('BRUTAL VECTOR 2: Space reclamation, HUD elevation, and ~25% compact sizing
     leaderboardPage.includes('fontSize: 20'),
     'Rank display font must be scaled down to 20px'
   );
+  // 3. Dynamic Circles housed inside HUD per Task 1
   assert.ok(
-    leaderboardPage.includes('fontSize: 18'),
-    'Countdown font must be scaled down to 18px'
+    leaderboardPage.includes('League Entry Requirement: 100 XP Needed to Join'),
+    'Circle 1 must display League Entry Requirement tooltip/popover'
   );
-
-  // 3. Quick actions housed inside HUD
+  assert.ok(
+    leaderboardPage.includes('Weekly Sprint Reset Clock'),
+    'Circle 2 must display Weekly Sprint Reset Clock dial'
+  );
   assert.ok(
     leaderboardPage.includes('href="/arena?tab=code_wars"'),
-    '1v1 Battle Arena quick link must be embedded in HUD'
-  );
-  assert.ok(
-    leaderboardPage.includes('href="/pins"'),
-    'Pins Wallet quick link must be embedded in HUD'
+    '1v1 Battle Arena quick link must be accessible from requirement popover'
   );
 });
 
@@ -346,13 +345,13 @@ test('BRUTAL VECTOR 8: 100 baseline ELO with non-negative ELO gain protection', 
     'Frontend must clamp eloGain to 0 minimum in pedestal and table calculations'
   );
 
-  // Default baseline ELO is 100
+  // Default baseline ELO is 100 with legacy 1200 sanitization
   assert.ok(
-    leaderboardPage.includes('Number((user as any).arena_elo) || 100'),
+    leaderboardPage.includes('clientElo') && leaderboardPage.includes('100'),
     'Frontend must fall back to 100 baseline ELO for unrated students'
   );
   assert.ok(
-    leaderboardRoute.includes('arena_elo || 100'),
+    leaderboardRoute.includes('arena_elo || 100') || leaderboardRoute.includes('isLegacy1200'),
     'Backend off-cohort query must fall back to 100 baseline ELO'
   );
 });

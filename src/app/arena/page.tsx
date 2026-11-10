@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
+import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/lib/store/useAppStore';
 import {
   CodeWarsApiService,
@@ -43,7 +44,7 @@ const MonacoEditor = dynamic(
 function ArenaContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialTab = (searchParams?.get('tab') as 'all' | 'code_wars' | 'hackathons' | 'viva') || 'all';
+  const initialTab = (searchParams?.get('tab') as 'code_wars' | 'hackathons' | 'viva') || 'code_wars';
   const roomQueryCode = searchParams?.get('room');
 
   const { user, refresh } = useAuth();
@@ -59,12 +60,30 @@ function ArenaContent() {
   const [cachedElo, setCachedElo] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       const saved = Number(localStorage.getItem(`pinit_user_elo_${studentId}`));
+      if (saved === 1200) {
+        localStorage.setItem(`pinit_user_elo_${studentId}`, '100');
+        return 100;
+      }
       if (Number.isFinite(saved) && saved > 0) return saved;
     }
     return 100;
   });
 
-  const eloRating = liveElo ?? ((typeof (user as any)?.arena_elo === 'number' && Number.isFinite((user as any).arena_elo)) ? (user as any).arena_elo : cachedElo);
+  const rawUserElo = (typeof (user as any)?.arena_elo === 'number' && Number.isFinite((user as any).arena_elo))
+    ? (user as any).arena_elo
+    : null;
+  // Sanitize legacy 1200 default from old SQL migration: baseline is 100
+  const isLegacy1200 = rawUserElo === 1200 && !(user as any)?.arena_wins;
+  const sanitizedUserElo = isLegacy1200 ? 100 : rawUserElo;
+
+  const eloRating = liveElo ?? (sanitizedUserElo ?? cachedElo);
+
+  // Auto-heal legacy 1200 database rows in Supabase
+  useEffect(() => {
+    if (user?.id && (user as any)?.arena_elo === 1200 && !(user as any)?.arena_wins) {
+      Promise.resolve(supabase.from('users').update({ arena_elo: 100 }).eq('id', user.id)).catch(() => {});
+    }
+  }, [user]);
 
   // Synchronize dynamic profile events across tabs and contexts
   useEffect(() => {
@@ -130,12 +149,12 @@ function ArenaContent() {
   const winsCount = recentMatches.filter(m => m.status === 'victory').length;
   const winRatePct = totalBattles > 0 ? Math.round((winsCount / totalBattles) * 100) : 0;
 
-  const [activeTab, setActiveTab] = useState<'all' | 'code_wars' | 'hackathons' | 'viva'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'code_wars' | 'hackathons' | 'viva'>(initialTab);
 
   // Sync tab with URL query parameter
   useEffect(() => {
     const tabParam = searchParams?.get('tab');
-    if (tabParam && ['all', 'code_wars', 'hackathons', 'viva'].includes(tabParam)) {
+    if (tabParam && ['code_wars', 'hackathons', 'viva'].includes(tabParam)) {
       setActiveTab(tabParam as any);
     }
   }, [searchParams]);
@@ -889,7 +908,6 @@ function ArenaContent() {
         boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.04))'
       }}>
         {[
-          { id: 'all', label: 'All Combat Modes', badge: 'Overview' },
           { id: 'code_wars', label: '1v1 Code Wars', badge: 'Live PvP Arena' },
           { id: 'hackathons', label: 'Hackathon Squads', badge: 'Squad Collab' },
           { id: 'viva', label: 'AI STAR Viva Defenses', badge: 'Live Voice' },
@@ -934,96 +952,11 @@ function ArenaContent() {
         })}
       </div>
 
-      {/* ── Tab Content (Heaven-Grade Frosted Glass Overview Cards) ── */}
-      {(activeTab === 'all' || activeTab === 'hackathons' || activeTab === 'viva') && (
+      {/* ── Tab Content (Frosted Glass Squad / Viva Overview Cards) ── */}
+      {(activeTab === 'hackathons' || activeTab === 'viva') && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
-          {/* Card 1: 1v1 Code Wars */}
-          {activeTab === 'all' && (
-          <div style={{
-            padding: '28px 26px',
-            borderRadius: 20,
-            background: 'var(--card)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid var(--border)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            position: 'relative',
-            overflow: 'hidden',
-            boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-          }}>
-            {/* Ambient Red Accent Glow */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: 160,
-              height: 160,
-              background: 'radial-gradient(circle at top right, rgba(239, 68, 68, 0.12), transparent 70%)',
-              pointerEvents: 'none'
-            }} />
-
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <span style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '4px 12px',
-                  borderRadius: 20,
-                  background: 'rgba(239, 68, 68, 0.12)',
-                  border: '1px solid rgba(239, 68, 68, 0.25)',
-                  color: '#ef4444',
-                  fontSize: 12,
-                  fontWeight: 800,
-                  letterSpacing: '0.04em'
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', boxShadow: '0 0 6px #ef4444' }} />
-                  1V1 PVP ARENA
-                </span>
-              </div>
-              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, letterSpacing: '-0.3px' }}>
-                Algorithmic Code Wars
-              </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 20 }}>
-                Challenge fellow engineers in private 1v1 duel rooms or spar against the Turing Benchmark AI.
-                Solve deterministic algorithmic challenges, optimize time complexity, and earn verified skill evidence.
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ 1v1 Room Battles</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Turing AI Sparring</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ SHA-256 Ledger Evidence</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Monaco Code Runner</span>
-              </div>
-            </div>
-            <button
-              onClick={() => setActiveTab('code_wars')}
-              style={{
-                width: '100%',
-                padding: '14px',
-                borderRadius: 14,
-                background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-                color: '#fff',
-                fontWeight: 800,
-                fontSize: 15.5,
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                boxShadow: '0 4px 16px rgba(239, 68, 68, 0.35)',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              Open 1v1 Code Wars Arena →
-            </button>
-          </div>
-          )}
-
           {/* Card 2: Hackathon Squads */}
-          {(activeTab === 'all' || activeTab === 'hackathons') && (
+          {activeTab === 'hackathons' && (
           <div style={{
             padding: '28px 26px',
             borderRadius: 20,
@@ -1108,7 +1041,7 @@ function ArenaContent() {
           )}
 
           {/* Card 3: AI STAR Viva */}
-          {(activeTab === 'all' || activeTab === 'viva') && (
+          {activeTab === 'viva' && (
           <div style={{
             padding: '28px 26px',
             borderRadius: 20,

@@ -100,6 +100,9 @@ function LeaderboardContent() {
   });
   const [loading, setLoading] = useState(true);
 
+  const [showXpReqTooltip, setShowXpReqTooltip] = useState(false);
+  const [showResetTooltip, setShowResetTooltip] = useState(false);
+
   // Task 10: 100 XP League Gate State
   const userTotalXp = typeof cOS?.xp === 'number' && Number.isFinite(cOS.xp)
     ? cOS.xp
@@ -138,7 +141,7 @@ function LeaderboardContent() {
       }));
     }
     setRefreshTrigger(prev => prev + 1);
-    toast.success('🏆 Joined Weekly Ranked League!', 'Welcome to the Browns Division. Climb the ranks with Weekly XP & 1v1 Code Wars!');
+    toast.success('Joined Weekly Ranked League!', 'Welcome to the Browns Division. Climb the ranks with Weekly XP & 1v1 Code Wars!');
   };
 
   // Live 1-second countdown ticker for Monday 1:00 AM IST reset
@@ -326,7 +329,8 @@ function LeaderboardContent() {
 
     if (user?.id) {
       const clientXp = Number((user as any).weekly_xp) || Number((cOS as any)?.dna?.experience) || (userTotalXp > 0 ? userTotalXp : 0);
-      const clientElo = Number((user as any).arena_elo) || 100;
+      const rawUserElo = Number((user as any).arena_elo);
+      const clientElo = (rawUserElo === 1200 && !(user as any).arena_wins) ? 100 : (rawUserElo > 0 ? rawUserElo : 100);
       const clientEloGain = Math.max(0, clientElo - 100);
       const clientLeagueScore = clientXp + Math.round(clientEloGain * 1.5);
       const userName = typeof user.name === 'string' ? user.name : ((user as any).display_name || 'Student Candidate');
@@ -496,7 +500,7 @@ function LeaderboardContent() {
             </span>
             {currentUserEntry && (
               <span style={{ fontSize: 11, fontWeight: 800, padding: '1px 6px', borderRadius: 4, background: 'rgba(16, 185, 129, 0.12)', color: '#059669', fontFamily: 'var(--font-mono)' }}>
-                ★ {(currentUserEntry.leagueScore ?? (currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5))).toLocaleString()} pts
+                {(currentUserEntry.leagueScore ?? (currentUserEntry.weeklyXp + Math.round((currentUserEntry.eloGain ?? 0) * 1.5))).toLocaleString()} pts
               </span>
             )}
           </div>
@@ -504,73 +508,239 @@ function LeaderboardContent() {
           <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
             {currentUserEntry?.zone === 'promotion' ? (
               <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(16,185,129,0.18)' }}>
-                ⬆️ In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
+                In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
               </span>
             ) : currentUserEntry?.zone === 'demotion' ? (
               <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 10.5, fontWeight: 800, boxShadow: '0 0 10px rgba(239,68,68,0.18)' }}>
-                ⬇️ In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
+                In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
               </span>
             ) : (
               <span style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#4f46e5', fontSize: 10.5, fontWeight: 800 }}>
-                ⏸️ Safe Zone — Remaining in {userLeagueMeta.title}
+                Safe Zone — Remaining in {userLeagueMeta.title}
               </span>
             )}
           </div>
         </div>
 
-        {/* Card 3: Sprint Reset Countdown Timer */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)' }}>
-            ⏳ Weekly Sprint Ends (Monday 1:00 AM IST)
-          </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 900, color: remainingMs < 86400000 ? '#dc2626' : 'var(--blue, #2563eb)', marginTop: 2 }}>
-            {formatCountdown(remainingMs)}
-          </div>
-          <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>
-            Top 10% promote ⬆️ · Bottom 10% demote ⬇️
-          </div>
-        </div>
+        {/* Right Section: Two Dynamic Circles Side-by-Side (Task 1) */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 16 }}>
+          {/* Circle 1: League Entry Requirement: 100 XP Needed to Join (Vanishes when requirement met) */}
+          {(userTotalXp < 100 && !joinedLeague) && (
+            <div style={{ position: 'relative' }}>
+              <button
+                type="button"
+                onClick={() => setShowXpReqTooltip(prev => !prev)}
+                title="League Entry Requirement: 100 XP Needed to Join"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                }}
+              >
+                <div style={{ position: 'relative', width: 54, height: 54 }}>
+                  <svg width="54" height="54" viewBox="0 0 54 54">
+                    <circle
+                      cx="27"
+                      cy="27"
+                      r="22"
+                      fill="none"
+                      stroke="rgba(245, 158, 11, 0.2)"
+                      strokeWidth="4"
+                    />
+                    <circle
+                      cx="27"
+                      cy="27"
+                      r="22"
+                      fill="none"
+                      stroke="url(#xpReqGradient)"
+                      strokeWidth="4"
+                      strokeDasharray={138.23}
+                      strokeDashoffset={138.23 * (1 - Math.min(1, Math.max(0, userTotalXp / 100)))}
+                      strokeLinecap="round"
+                      transform="rotate(-90 27 27)"
+                      style={{ transition: 'stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }}
+                    />
+                    <defs>
+                      <linearGradient id="xpReqGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#eab308" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'none',
+                  }}>
+                    <span style={{ fontSize: 11, fontWeight: 900, color: '#f59e0b', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
+                      {userTotalXp}
+                    </span>
+                    <span style={{ fontSize: 8, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', lineHeight: 1, marginTop: 1 }}>
+                      100 XP
+                    </span>
+                  </div>
+                </div>
+                <span style={{ fontSize: 9, fontWeight: 800, color: '#f59e0b', marginTop: 4, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                  Entry Req
+                </span>
+              </button>
 
-        {/* Card 4: Quick Telemetry Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, flexWrap: 'wrap' }}>
-          <Link
-            href="/arena?tab=code_wars"
-            style={{
-              padding: '7px 14px',
-              borderRadius: 8,
-              background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
-              color: '#ffffff',
-              fontSize: 12.5,
-              textDecoration: 'none',
-              fontWeight: 700,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              boxShadow: '0 2px 8px rgba(79, 70, 229, 0.25)',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            ⚔️ 1v1 Battle Arena
-          </Link>
-          <Link
-            href="/pins"
-            style={{
-              padding: '6px 12px',
-              borderRadius: 8,
-              background: 'rgba(217, 119, 6, 0.1)',
-              color: '#d97706',
-              fontSize: 12,
-              textDecoration: 'none',
-              border: '1px solid rgba(217, 119, 6, 0.3)',
-              fontWeight: 700,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 5,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <PinCoin size={13} glow /> Pins Wallet
-          </Link>
+              {/* Popover on click */}
+              {showXpReqTooltip && (
+                <div
+                  data-testid="xp-requirement-popover"
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    right: 0,
+                    marginTop: 8,
+                    zIndex: 100,
+                    width: 240,
+                    padding: '12px 14px',
+                    borderRadius: 12,
+                    background: 'var(--card)',
+                    border: '1.5px solid rgba(245, 158, 11, 0.4)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                    textAlign: 'left',
+                  }}
+                >
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: '#f59e0b', marginBottom: 4 }}>
+                    League Entry Requirement: 100 XP Needed to Join
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--t2)', lineHeight: 1.4 }}>
+                    Earn <strong>{Math.max(0, 100 - userTotalXp)} more XP</strong> in Quests or Code Wars to unlock Ranked Leagues. Current: {userTotalXp}/100 XP.
+                  </div>
+                  <div style={{ marginTop: 8, height: 4, borderRadius: 2, background: 'rgba(245, 158, 11, 0.2)', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${Math.min(100, (userTotalXp / 100) * 100)}%`, background: '#f59e0b' }} />
+                  </div>
+                  <div style={{ marginTop: 8 }}>
+                    <Link
+                      href="/arena?tab=code_wars"
+                      style={{
+                        display: 'inline-block',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: '#f59e0b',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      Duel in 1v1 Code Wars →
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Circle 2: Reset Clock to promote or demote users */}
+          <div style={{ position: 'relative' }}>
+            <button
+              type="button"
+              onClick={() => setShowResetTooltip(prev => !prev)}
+              title="Weekly Sprint Reset Clock: Promote & Demote"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+              }}
+            >
+              <div style={{ position: 'relative', width: 54, height: 54 }}>
+                <svg width="54" height="54" viewBox="0 0 54 54">
+                  <circle
+                    cx="27"
+                    cy="27"
+                    r="22"
+                    fill="none"
+                    stroke="rgba(56, 189, 248, 0.2)"
+                    strokeWidth="4"
+                  />
+                  <circle
+                    cx="27"
+                    cy="27"
+                    r="22"
+                    fill="none"
+                    stroke="url(#resetClockGradient)"
+                    strokeWidth="4"
+                    strokeDasharray={138.23}
+                    strokeDashoffset={138.23 * (1 - Math.min(1, Math.max(0, remainingMs / (7 * 24 * 60 * 60 * 1000))))}
+                    strokeLinecap="round"
+                    transform="rotate(-90 27 27)"
+                    style={{ transition: 'stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }}
+                  />
+                  <defs>
+                    <linearGradient id="resetClockGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor={remainingMs < 86400000 ? '#ef4444' : '#38bdf8'} />
+                      <stop offset="100%" stopColor={remainingMs < 86400000 ? '#f43f5e' : '#6366f1'} />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  pointerEvents: 'none',
+                }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: remainingMs < 86400000 ? '#ef4444' : '#38bdf8', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>
+                    {Math.floor(remainingMs / 86400000)}d
+                  </span>
+                  <span style={{ fontSize: 8.5, fontWeight: 700, color: 'var(--t3)', fontFamily: 'var(--font-mono)', lineHeight: 1, marginTop: 1 }}>
+                    {Math.floor((remainingMs % 86400000) / 3600000)}h
+                  </span>
+                </div>
+              </div>
+              <span style={{ fontSize: 9, fontWeight: 800, color: remainingMs < 86400000 ? '#ef4444' : '#38bdf8', marginTop: 4, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                Reset Clock
+              </span>
+            </button>
+
+            {/* Popover on click */}
+            {showResetTooltip && (
+              <div
+                data-testid="reset-clock-popover"
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: 8,
+                  zIndex: 100,
+                  width: 250,
+                  padding: '12px 14px',
+                  borderRadius: 12,
+                  background: 'var(--card)',
+                  border: '1.5px solid rgba(56, 189, 248, 0.4)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                  textAlign: 'left',
+                }}
+              >
+                <div style={{ fontSize: 11.5, fontWeight: 800, color: '#38bdf8', marginBottom: 4 }}>
+                  Weekly Sprint Reset Clock
+                </div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-mono)', marginBottom: 4 }}>
+                  {formatCountdown(remainingMs)}
+                </div>
+                <div style={{ fontSize: 10.5, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  Sprint resets Monday at 1:00 AM IST. Top 10% promote to higher league; bottom 10% demote.
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -592,7 +762,21 @@ function LeaderboardContent() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div style={{ fontSize: 32 }}>🔒</div>
+            <div style={{
+              width: 44,
+              height: 44,
+              borderRadius: 12,
+              background: 'rgba(234, 179, 8, 0.12)',
+              border: '1.5px solid rgba(234, 179, 8, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#eab308" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
             <div>
               <div style={{ fontSize: 16, fontWeight: 800, color: '#eab308' }}>
                 League Entry Requirement: 100 XP Needed to Join
@@ -637,7 +821,21 @@ function LeaderboardContent() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div style={{ fontSize: 32 }}>🎉</div>
+            <div style={{
+              width: 44,
+              height: 44,
+              borderRadius: 12,
+              background: 'rgba(34, 197, 94, 0.12)',
+              border: '1.5px solid rgba(34, 197, 94, 0.35)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
             <div>
               <div style={{ fontSize: 16, fontWeight: 800, color: '#22c55e' }}>
                 You Have Reached 100+ XP! League Entry Unlocked
@@ -663,27 +861,27 @@ function LeaderboardContent() {
               boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
             }}
           >
-            🎖️ Join Ranked League Now
+            Join Ranked League Now
           </button>
         </div>
       ) : null}
 
-      {/* ── Mode Switcher Sub-Tabs (Task 10: 3 Sub-Tabs + 1 Promotion/Demotion) ── */}
+      {/* ── Mode Switcher Sub-Tabs (Reduced by 30%, Emojis Purged per Task 3) ── */}
       <div style={{
         display: 'flex',
-        gap: 8,
-        padding: '6px',
-        borderRadius: 14,
+        gap: 6,
+        padding: '4px',
+        borderRadius: 10,
         background: 'var(--bg2)',
         border: '1px solid var(--border)',
-        marginBottom: 22,
+        marginBottom: 16,
         overflowX: 'auto'
       }}>
         {[
-          { id: 'region_college', icon: '🏛️', label: 'Region / College' },
-          { id: 'global', icon: '🌐', label: 'Global Leaderboard' },
-          { id: 'guild_projects', icon: '🛡️', label: 'Guild Projects' },
-          { id: 'weekly_leagues', icon: '🏆', label: 'League Promotion & Demotion' },
+          { id: 'region_college', label: 'Region / College' },
+          { id: 'global', label: 'Global Leaderboard' },
+          { id: 'guild_projects', label: 'Guild Projects' },
+          { id: 'weekly_leagues', label: 'League Promotion & Demotion' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -691,25 +889,23 @@ function LeaderboardContent() {
             onClick={() => setActiveTab(tab.id as TabMode)}
             style={{
               flex: 1,
-              minWidth: 180,
-              padding: '11px 16px',
-              borderRadius: 10,
+              minWidth: 125,
+              padding: '7px 12px',
+              borderRadius: 8,
               border: activeTab === tab.id ? '1.5px solid var(--accent)' : '1px solid transparent',
               background: activeTab === tab.id
                 ? 'var(--accent-light)'
                 : 'transparent',
               color: activeTab === tab.id ? 'var(--accent-hover, var(--brand-bright, #4f46e5))' : 'var(--t2)',
               fontWeight: 800,
-              fontSize: 14,
+              fontSize: 12,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 8,
               transition: 'all 0.15s ease'
             }}
           >
-            <span>{tab.icon}</span>
             <span>{tab.label}</span>
           </button>
         ))}
@@ -777,7 +973,20 @@ function LeaderboardContent() {
             {/* Modal Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ fontSize: 24 }}>⚔️</div>
+                <div style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 10,
+                  background: 'rgba(99, 102, 241, 0.12)',
+                  border: '1.5px solid rgba(99, 102, 241, 0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
                 <div>
                   <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.3px' }}>
                     Competitive Division Vault
@@ -807,7 +1016,10 @@ function LeaderboardContent() {
                   transition: 'all 0.15s ease',
                 }}
               >
-                ✕
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
               </button>
             </div>
 
@@ -918,7 +1130,7 @@ function LeaderboardContent() {
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="🔍 Search student, role, or college..."
+            placeholder="Search student, role, or college..."
             style={{
               padding: '8px 16px',
               borderRadius: 10,
@@ -934,8 +1146,8 @@ function LeaderboardContent() {
         </div>
       )}
 
-      {/* ── TOP 3 CHAMPIONS PODIUM SHOWCASE ─────────────────────────── */}
-      {activeTab !== 'guild_projects' && filteredEntries.length >= 3 && !loading && (
+      {/* ── TOP 3 CHAMPIONS PODIUM SHOWCASE (Temporarily disabled per Task 2) ── */}
+      {false && activeTab !== 'guild_projects' && filteredEntries.length >= 3 && !loading && (
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -943,7 +1155,7 @@ function LeaderboardContent() {
           marginBottom: 24,
           alignItems: 'end',
         }}>
-          {/* 🥈 Rank 2: Silver Pedestal (Left) */}
+          {/* Rank 2: Silver Pedestal (Left) */}
           {filteredEntries[1] && (
             <div style={{
               background: 'linear-gradient(180deg, rgba(148, 163, 184, 0.12) 0%, var(--card) 100%)',
@@ -971,7 +1183,7 @@ function LeaderboardContent() {
                 textTransform: 'uppercase',
                 boxShadow: '0 2px 10px rgba(148, 163, 184, 0.4)',
               }}>
-                🥈 2nd Place Contender
+                2nd Place Contender
               </div>
               <div style={{ position: 'relative', marginTop: 6, marginBottom: 12 }}>
                 <Image
@@ -989,12 +1201,6 @@ function LeaderboardContent() {
                   }}
                   unoptimized
                 />
-                <span style={{
-                  position: 'absolute',
-                  bottom: -4,
-                  right: -4,
-                  fontSize: 18,
-                }}>🥈</span>
               </div>
               <div style={{ fontSize: 16.5, fontWeight: 900, color: filteredEntries[1].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                 {filteredEntries[1].name}
@@ -1011,19 +1217,19 @@ function LeaderboardContent() {
                 </span>
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', fontSize: 12.5, fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
-                    ⚔️ {filteredEntries[1].eloRating} ELO
+                    {filteredEntries[1].eloRating} ELO
                   </span>
                 )}
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                    ★ {(filteredEntries[1].leagueScore ?? (filteredEntries[1].weeklyXp + Math.round(Math.max(0, filteredEntries[1].eloRating - 100) * 1.5))).toLocaleString()} pts
+                    {(filteredEntries[1].leagueScore ?? (filteredEntries[1].weeklyXp + Math.round(Math.max(0, filteredEntries[1].eloRating - 100) * 1.5))).toLocaleString()} pts
                   </span>
                 )}
               </div>
             </div>
           )}
 
-          {/* 👑 Rank 1: Gold Pedestal (Center - Elevated!) */}
+          {/* Rank 1: Gold Pedestal (Center - Elevated!) */}
           {filteredEntries[0] && (
             <div style={{
               background: 'linear-gradient(180deg, rgba(245, 158, 11, 0.18) 0%, var(--card) 100%)',
@@ -1053,7 +1259,7 @@ function LeaderboardContent() {
                 textTransform: 'uppercase',
                 boxShadow: '0 4px 16px rgba(245, 158, 11, 0.5)',
               }}>
-                👑 1st Place · Division Leader
+                1st Place · Division Leader
               </div>
               <div style={{ position: 'relative', marginTop: 4, marginBottom: 12 }}>
                 <Image
@@ -1071,12 +1277,6 @@ function LeaderboardContent() {
                   }}
                   unoptimized
                 />
-                <span style={{
-                  position: 'absolute',
-                  bottom: -6,
-                  right: -6,
-                  fontSize: 22,
-                }}>👑</span>
               </div>
               <div style={{ fontSize: 18, fontWeight: 900, color: filteredEntries[0].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                 {filteredEntries[0].name}
@@ -1093,19 +1293,19 @@ function LeaderboardContent() {
                 </span>
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '5px 12px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.15)', color: '#dc2626', fontSize: 13.5, fontWeight: 900, border: '1px solid rgba(239, 68, 68, 0.3)' }}>
-                    ⚔️ {filteredEntries[0].eloRating} ELO
+                    {filteredEntries[0].eloRating} ELO
                   </span>
                 )}
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '5px 14px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.2)', color: '#059669', fontSize: 13.5, fontWeight: 900, fontFamily: 'var(--font-mono)', border: '1px solid rgba(16, 185, 129, 0.35)' }}>
-                    ★ {(filteredEntries[0].leagueScore ?? (filteredEntries[0].weeklyXp + Math.round(Math.max(0, filteredEntries[0].eloRating - 100) * 1.5))).toLocaleString()} pts
+                    {(filteredEntries[0].leagueScore ?? (filteredEntries[0].weeklyXp + Math.round(Math.max(0, filteredEntries[0].eloRating - 100) * 1.5))).toLocaleString()} pts
                   </span>
                 )}
               </div>
             </div>
           )}
 
-          {/* 🥉 Rank 3: Bronze Pedestal (Right) */}
+          {/* Rank 3: Bronze Pedestal (Right) */}
           {filteredEntries[2] && (
             <div style={{
               background: 'linear-gradient(180deg, rgba(217, 119, 6, 0.12) 0%, var(--card) 100%)',
@@ -1133,7 +1333,7 @@ function LeaderboardContent() {
                 textTransform: 'uppercase',
                 boxShadow: '0 2px 10px rgba(217, 119, 6, 0.4)',
               }}>
-                🥉 3rd Place Challenger
+                3rd Place Challenger
               </div>
               <div style={{ position: 'relative', marginTop: 6, marginBottom: 12 }}>
                 <Image
@@ -1151,12 +1351,6 @@ function LeaderboardContent() {
                   }}
                   unoptimized
                 />
-                <span style={{
-                  position: 'absolute',
-                  bottom: -4,
-                  right: -4,
-                  fontSize: 18,
-                }}>🥉</span>
               </div>
               <div style={{ fontSize: 16.5, fontWeight: 900, color: filteredEntries[2].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                 {filteredEntries[2].name}
@@ -1173,12 +1367,12 @@ function LeaderboardContent() {
                 </span>
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', fontSize: 12.5, fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
-                    ⚔️ {filteredEntries[2].eloRating} ELO
+                    {filteredEntries[2].eloRating} ELO
                   </span>
                 )}
                 {activeTab === 'weekly_leagues' && (
                   <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                    ★ {(filteredEntries[2].leagueScore ?? (filteredEntries[2].weeklyXp + Math.round(Math.max(0, filteredEntries[2].eloRating - 100) * 1.5))).toLocaleString()} pts
+                    {(filteredEntries[2].leagueScore ?? (filteredEntries[2].weeklyXp + Math.round(Math.max(0, filteredEntries[2].eloRating - 100) * 1.5))).toLocaleString()} pts
                   </span>
                 )}
               </div>
@@ -1213,13 +1407,14 @@ function LeaderboardContent() {
                           height: 52,
                           borderRadius: 26,
                           background: 'rgba(56, 189, 248, 0.12)',
-                          border: '1px solid rgba(56, 189, 248, 0.3)',
+                          border: '1.5px solid rgba(56, 189, 248, 0.3)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          fontSize: 24,
                         }}>
-                          🛡️
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                          </svg>
                         </div>
                         <div style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)' }}>
                           No Active Student Guild Squads This Sprint
@@ -1244,7 +1439,7 @@ function LeaderboardContent() {
                             boxShadow: '0 2px 10px rgba(37, 99, 235, 0.25)',
                           }}
                         >
-                          ⚡ Launch Squad in Projects Hub →
+                          Launch Squad in Projects Hub →
                         </Link>
                       </div>
                     </td>
@@ -1253,7 +1448,7 @@ function LeaderboardContent() {
                   guilds.map((guild) => (
                     <tr key={guild.guildId} style={{ borderBottom: '1px solid var(--border)' }}>
                       <td style={{ padding: '16px 20px', fontWeight: 900, color: guild.rank === 1 ? '#d97706' : guild.rank === 2 ? '#64748b' : guild.rank === 3 ? '#b45309' : 'var(--t3)' }}>
-                        {guild.rank === 1 ? '🥇' : guild.rank === 2 ? '🥈' : guild.rank === 3 ? '🥉' : `#${guild.rank}`}
+                        #{guild.rank}
                       </td>
                       <td style={{ padding: '16px 20px', fontWeight: 800, color: 'var(--t1)' }}>
                         {guild.guildName}
@@ -1265,11 +1460,11 @@ function LeaderboardContent() {
                         {guild.teamLeadName}
                       </td>
                       <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
-                        👥 {guild.membersCount} Contributors
+                        {guild.membersCount} Contributors
                       </td>
                       <td style={{ padding: '16px 20px' }}>
                         <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', fontWeight: 900, fontSize: 14 }}>
-                          ⚡ {guild.completedProjectsCount} Projects
+                          {guild.completedProjectsCount} Projects
                         </span>
                       </td>
                       <td style={{ padding: '16px 20px' }}>
@@ -1326,7 +1521,7 @@ function LeaderboardContent() {
                 ) : (
                   filteredEntries.map((entry, idx) => {
                     const isTop3 = entry.rank <= 3;
-                    const rankIcon = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : `#${entry.rank}`;
+                    const rankLabel = `#${entry.rank}`;
                     const isPromoting = entry.zone === 'promotion';
                     const isDemoting = entry.zone === 'demotion';
 
@@ -1361,8 +1556,8 @@ function LeaderboardContent() {
                           }}
                         >
                           {/* Rank */}
-                          <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 17.5 : 14.5, color: entry.rank === 1 ? '#d97706' : entry.rank === 2 ? '#64748b' : entry.rank === 3 ? '#b45309' : 'var(--t3)' }}>
-                            {rankIcon}
+                          <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 16 : 14, color: entry.rank === 1 ? '#d97706' : entry.rank === 2 ? '#64748b' : entry.rank === 3 ? '#b45309' : 'var(--t3)' }}>
+                            {rankLabel}
                           </td>
 
                           {/* Student Candidate & Avatar */}
@@ -1415,7 +1610,7 @@ function LeaderboardContent() {
                           {activeTab === 'weekly_leagues' && (
                             <td style={{ padding: '16px 20px' }}>
                               <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.12)', color: '#dc2626', fontWeight: 800, fontSize: 13, border: '1px solid rgba(239,68,68,0.25)' }}>
-                                ⚔️ {entry.eloRating} ELO
+                                {entry.eloRating} ELO
                               </span>
                             </td>
                           )}
@@ -1424,7 +1619,7 @@ function LeaderboardContent() {
                           <td style={{ padding: '16px 20px' }}>
                             {activeTab === 'weekly_leagues' ? (
                               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 900, color: '#10b981' }}>
-                                ★ {calculatedLeagueScore.toLocaleString()}
+                                {calculatedLeagueScore.toLocaleString()} pts
                               </span>
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1440,15 +1635,15 @@ function LeaderboardContent() {
                             {activeTab === 'weekly_leagues' ? (
                               isPromoting ? (
                                 <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#059669', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(16,185,129,0.3)' }}>
-                                  ⬆️ Promoting
+                                  Promoting
                                 </span>
                               ) : isDemoting ? (
                                 <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', color: '#dc2626', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(239,68,68,0.3)' }}>
-                                  ⬇️ Demoting
+                                  Demoting
                                 </span>
                               ) : (
                                 <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(99,102,241,0.12)', color: '#4f46e5', fontWeight: 700, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                                  ⏸️ Safe Zone
+                                  Safe Zone
                                 </span>
                               )
                             ) : (
@@ -1465,7 +1660,7 @@ function LeaderboardContent() {
                             <td colSpan={7} style={{ padding: 0 }}>
                               <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #10b981, #10b981 8px, transparent 8px, transparent 16px)' }} />
                               <div style={{ padding: '4px 20px', background: 'rgba(16,185,129,0.1)', color: '#059669', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                                ⬆️ Promotion Cutoff Line — Top 10% advance to higher league
+                                Promotion Cutoff Line — Top 10% advance to higher league
                               </div>
                             </td>
                           </tr>
@@ -1477,7 +1672,7 @@ function LeaderboardContent() {
                             <td colSpan={7} style={{ padding: 0 }}>
                               <div style={{ height: 2, background: 'repeating-linear-gradient(90deg, #ef4444, #ef4444 8px, transparent 8px, transparent 16px)' }} />
                               <div style={{ padding: '4px 20px', background: 'rgba(239,68,68,0.1)', color: '#dc2626', fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                                ⬇️ Demotion Cutoff Line — Bottom 10% demote to lower league
+                                Demotion Cutoff Line — Bottom 10% demote to lower league
                               </div>
                             </td>
                           </tr>

@@ -324,7 +324,9 @@ export async function GET(req: Request) {
         : 'browns';
 
       const rawElo = (p as any).arena_elo;
-      const eloRating = (rawElo !== undefined && rawElo !== null && Number(rawElo) > 0)
+      // Sanitize legacy 1200 default from old SQL migration: baseline is 100
+      const isLegacy1200 = rawElo === 1200 && (!(p as any).arena_wins || (p as any).arena_wins === 0);
+      const eloRating = (rawElo !== undefined && rawElo !== null && Number(rawElo) > 0 && !isLegacy1200)
         ? Number(rawElo)
         : (100 + Math.min(60, Math.round(Math.sqrt(totalXp) * 0.8)));
 
@@ -449,7 +451,8 @@ export async function GET(req: Request) {
           const myDefense = Math.min(100, Math.max(0, Number(myProfile.ats_score) || 0));
 
           const myRawElo = (myProfile as any).arena_elo;
-          const myEloRating = (myRawElo !== undefined && myRawElo !== null && Number(myRawElo) > 0)
+          const isMyLegacy1200 = myRawElo === 1200 && (!(myProfile as any).arena_wins || (myProfile as any).arena_wins === 0);
+          const myEloRating = (myRawElo !== undefined && myRawElo !== null && Number(myRawElo) > 0 && !isMyLegacy1200)
             ? Number(myRawElo)
             : (100 + Math.min(60, Math.round(Math.sqrt(myTotalXp) * 0.8)));
           const myEloGain = Math.max(0, myEloRating - 100);
