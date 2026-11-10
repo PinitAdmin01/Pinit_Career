@@ -5,23 +5,23 @@ export type { DayConfig };
 export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "React Server Components & Streaming SSR Architecture",
-    "desc": "Understand client-server boundaries, non-blocking asynchronous event loop, and isomorphic JavaScript.",
+    "title": "Full-Stack Architecture: Client vs Server Execution & Isomorphic JavaScript",
+    "desc": "Master client-server runtime boundaries, the asynchronous V8 event loop, Node.js process globals vs Browser DOM, and isomorphic JavaScript sanitization.",
     "syllabus": [
-      "Client vs Server Execution: Browser DOM environment vs Node.js runtime process.",
-      "The Event Loop Architecture: Call stack, Microtask Queue (Promises), and Macrotask Queue (Timers).",
-      "Isomorphic JavaScript: Writing code that runs safely on both frontend and backend."
+      "Client vs Server Execution: Browser DOM environment (window, document) vs Node.js runtime process (process, global, Buffer).",
+      "The Event Loop Architecture: Call stack, Microtask Queue (Promises, process.nextTick), and Macrotask Queue (Timers, I/O).",
+      "Isomorphic JavaScript: Writing code that runs safely on both frontend and backend without runtime reference errors."
     ],
     "eTitle": "Server Environment Runtime Validator",
-    "eDesc": "Implement function isServerRuntime(env) that looks at an environment object and returns true when it describes a Node.js server: env.window is undefined and env.process.versions.node exists. (Your code runs in the browser, so the checks pass in pretend environments.)",
-    "eStarter": "function isServerRuntime(env) {\n  // env looks like { window, process }.\n  // A Node.js server has no window, and has process.versions.node.\n  \n}",
-    "eHint": "Return env.window === undefined && Boolean(env.process && env.process.versions && env.process.versions.node).",
-    "eTest": "const server = { window: undefined, process: { versions: { node: '20.11.0' } } };\nconst browser = { window: {}, process: undefined };\nconst worker = { window: undefined, process: undefined };\nif (isServerRuntime(server) !== true) throw new Error('A Node.js server environment should return true');\nif (isServerRuntime(browser) !== false) throw new Error('A browser environment (window exists) should return false');\nif (isServerRuntime(worker) !== false) throw new Error('No process.versions.node means it is not Node.js, so return false');",
+    "eDesc": "Implement function isServerRuntime(env) that inspects an execution environment descriptor object and returns true strictly when it represents a Node.js server runtime: env.window is undefined, and env.process.versions.node exists as a non-empty string. If env.window exists, or if env.process.versions.node is absent, return false.",
+    "eStarter": "/**\n * Inspects an environment descriptor object to verify if code is running in a Node.js server runtime.\n * @param {object} env - Environment descriptor containing window and process objects\n * @returns {boolean} - true if Node.js server, false if browser or worker\n */\nfunction isServerRuntime(env) {\n  // Return true if env has no window, and has a valid process.versions.node string\n  \n}",
+    "eHint": "Check that env is a valid object, env.window === undefined, and Boolean(env.process && env.process.versions && typeof env.process.versions.node === 'string' && env.process.versions.node.length > 0).",
+    "eTest": "const server = { window: undefined, process: { versions: { node: '20.11.0' } } };\nconst browser = { window: {}, process: undefined };\nconst worker = { window: undefined, process: undefined };\nconst nullEnv = null;\nconst fakeNode = { window: undefined, process: { versions: { node: '' } } };\nif (isServerRuntime(server) !== true) throw new Error('A Node.js server environment should return true');\nif (isServerRuntime(browser) !== false) throw new Error('A browser environment (window exists) should return false');\nif (isServerRuntime(worker) !== false) throw new Error('No process.versions.node means it is not Node.js, so return false');\nif (isServerRuntime(nullEnv) !== false) throw new Error('null environment should safely return false');\nif (isServerRuntime(fakeNode) !== false) throw new Error('Empty node version string should return false');",
     "aTitle": "Client-Server Safe Config Sanitizer",
-    "aDesc": "Implement function sanitizeClientConfig(serverConfig) that strips private API keys and database credentials before sending config to client.",
-    "aStarter": "function sanitizeClientConfig(cfg) {\n  // Destructure out private secrets (dbPassword, jwtSecret, stripeSecretKey) and return only public attributes.\n  \n}",
-    "aHint": "Destructure out private secrets (dbPassword, jwtSecret, stripeSecretKey) and return only public attributes.",
-    "aTest": "const secretCfg = { appName: 'PinIT', apiUrl: 'https://api.pinit.io', jwtSecret: 'super-secret', dbPassword: 'root' };\nconst clean = sanitizeClientConfig(secretCfg);\nif (clean.jwtSecret || clean.dbPassword || clean.appName !== 'PinIT') throw new Error('Private secrets leaked to client');"
+    "aDesc": "Implement function sanitizeClientConfig(serverConfig) that accepts a full server configuration object and returns a sanitized shallow clone containing only public attributes, strictly removing private secrets (dbPassword, jwtSecret, stripeSecretKey, privateKey, internalHost). Throws TypeError if serverConfig is not a valid non-null object.",
+    "aStarter": "/**\n * Strips sensitive backend credentials from a server configuration object before transmitting to the client.\n * @param {Record<string, unknown>} cfg - Raw server configuration object\n * @returns {Record<string, unknown>} - Sanitized client-safe configuration clone\n */\nfunction sanitizeClientConfig(cfg) {\n  // Validate cfg is a non-null object. Omit dbPassword, jwtSecret, stripeSecretKey, privateKey, internalHost.\n  \n}",
+    "aHint": "Validate cfg is a non-null object (throw TypeError otherwise). Clone cfg while omitting keys in ['dbPassword', 'jwtSecret', 'stripeSecretKey', 'privateKey', 'internalHost'].",
+    "aTest": "const secretCfg = { appName: 'PinIT', apiUrl: 'https://api.pinit.io', jwtSecret: 'super-secret', dbPassword: 'root', stripeSecretKey: 'sk_live_123', features: { beta: true } };\nconst clean = sanitizeClientConfig(secretCfg);\nif (clean.jwtSecret || clean.dbPassword || clean.stripeSecretKey) throw new Error('Private secrets leaked to client');\nif (clean.appName !== 'PinIT' || clean.apiUrl !== 'https://api.pinit.io' || !clean.features.beta) throw new Error('Public configuration was improperly altered or removed');\nif (secretCfg.jwtSecret !== 'super-secret' || secretCfg.dbPassword !== 'root') throw new Error('Original server configuration object must not be mutated');\nlet threwOnNull = false;\ntry { sanitizeClientConfig(null); } catch (e) { threwOnNull = true; }\nif (!threwOnNull) throw new Error('sanitizeClientConfig(null) must throw a TypeError');"
   },
   {
     "day": 2,
