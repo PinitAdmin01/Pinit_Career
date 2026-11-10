@@ -4578,7 +4578,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "Establish Service Level Objectives (SLOs) and configure multi-window error budget burn rate alerting rules."
       ]
     },
-    "recap": "In Day 27 (CI/CD Pipelines with GitHub Actions, Semantic Versioning & Automated Multi-Arch Docker Builds), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 28 (Cloud Observability, OpenTelemetry (OTel), Prometheus Metrics & Distributed Tracing with Grafana/Jaeger), we build directly on that foundation by mastering The Three Pillars of Observability: Metrics, Structured Logs & Distributed Traces and OpenTelemetry (OTel) Standard & W3C Distributed Context Propagation."
+    "recap": "In Day 27 (CI/CD Pipelines with GitHub Actions, Semantic Versioning & Automated Multi-Arch Docker Builds), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 28 (Cloud Observability, OpenTelemetry (OTel), Prometheus Metrics & Distributed Tracing with Grafana/Jaeger), we build directly on that foundation by mastering The Three Pillars of Observability: Metrics, Structured Logs & Distributed Traces and OpenTelemetry (OTel) Standard & W3C Distributed Context Propagation.",
+    "coursePrefix": "fullstack-js",
+    "goal": "Master enterprise cloud observability using OpenTelemetry (OTel), distributed W3C trace context propagation, Jaeger span DAGs, Prometheus RED method metrics, and Grafana SLO dashboards.",
+    "minutes": 45
   },
   {
     "day": 29,
