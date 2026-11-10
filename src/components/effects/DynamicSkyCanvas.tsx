@@ -6,6 +6,9 @@ interface DynamicSkyCanvasProps {
   theme: 'dark' | 'light';
   lastToggleTime?: number;
   opacity?: number;
+  disableMeteors?: boolean;
+  disableSun?: boolean;
+  immediate?: boolean;
 }
 
 // ── Particle Interfaces ────────────────────────────────────────────────────────
@@ -89,7 +92,10 @@ interface Shockwave {
 export default function DynamicSkyCanvas({
   theme,
   lastToggleTime = 0,
-  opacity = 0.8 // Faded 20% by default for elegant background balance
+  opacity = 0.8, // Faded 20% by default for elegant background balance
+  disableMeteors = false,
+  disableSun = false,
+  immediate = false
 }: DynamicSkyCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animFrameIdRef = useRef<number | null>(null);
@@ -285,7 +291,7 @@ export default function DynamicSkyCanvas({
 
     let lastTime = performance.now();
     const startTime = performance.now();
-    const effectiveToggleTime = lastToggleTime > 0 ? lastToggleTime : Date.now();
+    const effectiveToggleTime = immediate ? Date.now() - 5000 : (lastToggleTime > 0 ? lastToggleTime : Date.now());
 
     // ── MAIN RENDER LOOP ───────────────────────────────────────────────────────
     const render = (now: number) => {
@@ -390,7 +396,8 @@ export default function DynamicSkyCanvas({
         ctx.fill();
 
         // 2. Render Fast Meteors (Zero-GC, 3-Stage Hardware Line Rasterization)
-        ctx.globalCompositeOperation = 'lighter';
+        if (!disableMeteors) {
+          ctx.globalCompositeOperation = 'lighter';
         ctx.lineCap = 'round';
         const visibleMeteorsCount = Math.max(4, Math.round(meteors.length * particleScale));
         for (let i = 0; i < visibleMeteorsCount; i++) {
@@ -449,6 +456,7 @@ export default function DynamicSkyCanvas({
             ctx.fill();
           }
         }
+        }
 
         ctx.restore();
 
@@ -461,17 +469,27 @@ export default function DynamicSkyCanvas({
         const sunY = 0;
 
         // 1. Ambient Warm Golden Atmosphere Glow
-        const skyGlow = ctx.createRadialGradient(sunX, sunY, 30, sunX, sunY, Math.max(width, height) * 0.95);
-        skyGlow.addColorStop(0, `rgba(251, 191, 36, ${0.28 * easeIntensity})`);
-        skyGlow.addColorStop(0.3, `rgba(${warningRgb}, ${0.12 * easeIntensity})`);
-        skyGlow.addColorStop(0.7, `rgba(217, 119, 6, ${0.03 * easeIntensity})`);
-        skyGlow.addColorStop(1, 'rgba(251, 191, 36, 0)');
-        ctx.fillStyle = skyGlow;
-        ctx.fillRect(0, 0, width, height);
+        if (!disableSun) {
+          const skyGlow = ctx.createRadialGradient(sunX, sunY, 30, sunX, sunY, Math.max(width, height) * 0.95);
+          skyGlow.addColorStop(0, `rgba(251, 191, 36, ${0.28 * easeIntensity})`);
+          skyGlow.addColorStop(0.3, `rgba(${warningRgb}, ${0.12 * easeIntensity})`);
+          skyGlow.addColorStop(0.7, `rgba(217, 119, 6, ${0.03 * easeIntensity})`);
+          skyGlow.addColorStop(1, 'rgba(251, 191, 36, 0)');
+          ctx.fillStyle = skyGlow;
+          ctx.fillRect(0, 0, width, height);
+        } else {
+          // Gentle ambient atmospheric shimmer across entire viewport
+          const ambientSky = ctx.createLinearGradient(0, 0, width, height);
+          ambientSky.addColorStop(0, `rgba(56, 189, 248, ${0.04 * easeIntensity})`);
+          ambientSky.addColorStop(1, `rgba(251, 191, 36, ${0.03 * easeIntensity})`);
+          ctx.fillStyle = ambientSky;
+          ctx.fillRect(0, 0, width, height);
+        }
 
         const maxDiag = Math.hypot(width, height);
 
         // 2. Volumetric Breathing Sunbeams (Subtle crepuscular shafts)
+        if (!disableSun) {
         ctx.save();
         sunbeams.forEach((beam) => {
           const sway = Math.sin(totalElapsed * beam.swaySpeed + beam.phase) * beam.swayAmp;
@@ -497,8 +515,10 @@ export default function DynamicSkyCanvas({
           ctx.fill();
         });
         ctx.restore();
+        }
 
         // 3. Layer 2: Rapid Photon Streamer Rays (scaled when 3D avatar active)
+        if (!disableSun) {
         ctx.save();
         const activeStreamersCount = Math.max(16, Math.round(streamers.length * particleScale));
         for (let i = 0; i < activeStreamersCount; i++) {
@@ -547,6 +567,7 @@ export default function DynamicSkyCanvas({
           ctx.fill();
         }
         ctx.restore();
+        }
 
         // 4. Layer 1: Soft Atmospheric Tyndall Dust Motes (scaled when 3D avatar active)
         ctx.save();
@@ -632,6 +653,7 @@ export default function DynamicSkyCanvas({
         ctx.restore();
 
         // 5. Layer 4: Prismatic Lens Glints Along Axis
+        if (!disableSun) {
         ctx.save();
         glints.forEach((g) => {
           const gx = sunX - g.axisDistPercent * width;
@@ -649,11 +671,13 @@ export default function DynamicSkyCanvas({
           ctx.fill();
         });
         ctx.restore();
+        }
 
         // ======================================================================
         // ☀️ 6. 25% VISIBLE RADIANT SUN DISC AT TOP-RIGHT CORNER APEX (width, 0)
         // Only the bottom-left 25% quadrant shines directly into the viewport!
         // ======================================================================
+        if (!disableSun) {
         ctx.save();
         const sunPulse = 1 + 0.05 * Math.sin(totalElapsed * 1.5);
         
@@ -705,6 +729,7 @@ export default function DynamicSkyCanvas({
         ctx.stroke();
 
         ctx.restore();
+        }
 
         ctx.restore();
       }
@@ -721,7 +746,7 @@ export default function DynamicSkyCanvas({
       window.removeEventListener('pinit_vroid_active', handleAvatarToggle);
       if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
     };
-  }, [theme, lastToggleTime, opacity]);
+  }, [theme, lastToggleTime, opacity, disableMeteors, disableSun, immediate]);
 
   return (
     <canvas
