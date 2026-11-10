@@ -46,8 +46,7 @@ function ArenaContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const rawTab = searchParams?.get('tab');
-  const initialTab: 'code_wars' | 'hackathons' | 'viva' =
-    (rawTab === 'hackathons' || rawTab === 'viva') ? rawTab : 'code_wars';
+  const initialTab: 'code_wars' | 'hackathons' | 'viva' = 'code_wars';
   const roomQueryCode = searchParams?.get('room');
 
   const { user, refresh } = useAuth();
@@ -154,15 +153,16 @@ function ArenaContent() {
 
   const [activeTab, setActiveTab] = useState<'code_wars' | 'hackathons' | 'viva'>(initialTab);
 
-  // Sync tab with URL query parameter
+  // Sync tab with URL query parameter (normalized strictly to code_wars)
   useEffect(() => {
     const tabParam = searchParams?.get('tab');
     if (tabParam === 'hackathons' || tabParam === 'viva') {
-      setActiveTab(tabParam);
+      setActiveTab('code_wars');
+      router.replace('/arena?tab=code_wars', { scroll: false });
     } else {
       setActiveTab('code_wars');
     }
-  }, [searchParams]);
+  }, [searchParams, router]);
 
   // Code Wars & PvP State
   const [problems] = useState<CodeWarsProblem[]>(CODE_WARS_PROBLEMS_CATALOG);
@@ -966,8 +966,6 @@ function ArenaContent() {
       }}>
         {[
           { id: 'code_wars', label: '1v1 Code Wars', badge: 'Live PvP Arena' },
-          { id: 'hackathons', label: 'Hackathon Squads', badge: 'Squad Collab' },
-          { id: 'viva', label: 'AI STAR Viva Defenses', badge: 'Live Voice' },
         ].map(tab => {
           const isSelected = activeTab === tab.id;
           return (
@@ -986,7 +984,7 @@ function ArenaContent() {
                 background: isSelected ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
                 border: isSelected ? '1px solid var(--accent)' : '1px solid transparent',
                 color: isSelected ? 'var(--t1)' : 'var(--t2)',
-                fontWeight: isSelected ? 800 : 600,
+                fontWeight: 800,
                 fontSize: 14.5,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
@@ -1008,181 +1006,6 @@ function ArenaContent() {
           );
         })}
       </div>
-
-      {/* ── Tab Content (Frosted Glass Squad / Viva Overview Cards) ── */}
-      {(activeTab === 'hackathons' || activeTab === 'viva') && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
-          {/* Card 2: Hackathon Squads */}
-          {activeTab === 'hackathons' && (
-          <div style={{
-            padding: '28px 26px',
-            borderRadius: 20,
-            background: 'var(--card)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid var(--border)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            position: 'relative',
-            overflow: 'hidden',
-            boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-          }}>
-            {/* Ambient Purple Accent Glow */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: 160,
-              height: 160,
-              background: 'radial-gradient(circle at top right, rgba(168, 85, 247, 0.12), transparent 70%)',
-              pointerEvents: 'none'
-            }} />
-
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <span style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '4px 12px',
-                  borderRadius: 20,
-                  background: 'rgba(168, 85, 247, 0.12)',
-                  border: '1px solid rgba(168, 85, 247, 0.25)',
-                  color: '#c084fc',
-                  fontSize: 12,
-                  fontWeight: 800,
-                  letterSpacing: '0.04em'
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#a855f7', boxShadow: '0 0 6px #a855f7' }} />
-                  SQUAD COLLABORATION
-                </span>
-              </div>
-              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, letterSpacing: '-0.3px' }}>
-                Squad Collaboration &amp; Projects
-              </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 20 }}>
-                Collaborate on production-grade capstone products in the Projects hub. Form multi-disciplinary teams with Frontend, Backend, and AI roles to build portfolio-grade software.
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Role Slot Allocation</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Milestone Tracker</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ GitHub Workspaces</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Portfolio Capstones</span>
-              </div>
-            </div>
-            <Link
-              href="/projects"
-              style={{
-                width: '100%',
-                padding: '14px',
-                borderRadius: 14,
-                background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                color: '#fff',
-                fontWeight: 800,
-                fontSize: 15.5,
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                textDecoration: 'none',
-                boxShadow: '0 4px 16px rgba(168, 85, 247, 0.35)',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              Enter Squads &amp; Projects →
-            </Link>
-          </div>
-          )}
-
-          {/* Card 3: AI STAR Viva */}
-          {activeTab === 'viva' && (
-          <div style={{
-            padding: '28px 26px',
-            borderRadius: 20,
-            background: 'var(--card)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid var(--border)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            position: 'relative',
-            overflow: 'hidden',
-            boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-          }}>
-            {/* Ambient Blue Accent Glow */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: 160,
-              height: 160,
-              background: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 70%)',
-              pointerEvents: 'none'
-            }} />
-
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <span style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '4px 12px',
-                  borderRadius: 20,
-                  background: 'rgba(59, 130, 246, 0.12)',
-                  border: '1px solid rgba(59, 130, 246, 0.25)',
-                  color: '#60a5fa',
-                  fontSize: 12,
-                  fontWeight: 800,
-                  letterSpacing: '0.04em'
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', boxShadow: '0 0 6px #3b82f6' }} />
-                  LIVE AI DEFENSE
-                </span>
-              </div>
-              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, letterSpacing: '-0.3px' }}>
-                AI STAR Mock Interview Viva
-              </h3>
-              <p style={{ color: 'var(--t2)', fontSize: 14.5, lineHeight: 1.6, marginBottom: 20 }}>
-                Face off against strict corporate AI recruiters with full voice-to-voice interaction. Defend your code, build architecture canvases, and answer high-pressure STAR behavioral drills.
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ STAR Methodology</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ System Design Canvas</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Live Voice STT/TTS</span>
-                <span style={{ padding: '6px 12px', borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t2)', fontWeight: 600 }}>✔ Recruiter Personas</span>
-              </div>
-            </div>
-            <Link
-              href="/interview"
-              style={{
-                width: '100%',
-                padding: '14px',
-                borderRadius: 14,
-                background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                color: '#fff',
-                fontWeight: 800,
-                fontSize: 15.5,
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                textDecoration: 'none',
-                boxShadow: '0 4px 16px rgba(59, 130, 246, 0.35)',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              Start AI Mock Interview →
-            </Link>
-          </div>
-          )}
-        </div>
-      )}
 
       {/* ── 1v1 CODE WARS TAB ──────────────────────────────────── */}
       {activeTab === 'code_wars' && (
