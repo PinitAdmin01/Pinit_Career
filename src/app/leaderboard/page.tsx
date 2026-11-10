@@ -68,12 +68,12 @@ function LeaderboardContent() {
   const cOS = useCareerOS();
   const searchParams = useSearchParams();
 
-  // Mode initial state
-  const rawMode = searchParams?.get('mode');
+  // Mode initial state (supports both ?mode= and ?tab= cross-links from Arena)
+  const rawMode = searchParams?.get('mode') || searchParams?.get('tab');
   const initialMode: TabMode =
     rawMode === 'global' ? 'global' :
     rawMode === 'guild_projects' ? 'guild_projects' :
-    rawMode === 'weekly_leagues' ? 'weekly_leagues' :
+    (rawMode === 'weekly_leagues' || rawMode === 'code_wars') ? 'weekly_leagues' :
     rawMode === 'region_college' ? 'region_college' :
     'weekly_leagues';
 
@@ -112,6 +112,7 @@ function LeaderboardContent() {
   });
 
   const handleJoinLeague = async () => {
+    console.log('[LEADERBOARD_CLIENT][Join League Triggered]', { userId: user?.id, userTotalXp });
     if (userTotalXp < 100) {
       toast.error('League Locked', `You need 100 XP to join the Weekly Ranked League. You currently have ${userTotalXp} XP.`);
       return;
@@ -125,6 +126,7 @@ function LeaderboardContent() {
     if (user?.id) {
       try {
         await supabase.from('users').update({ league_tier: 'browns' }).eq('id', user.id);
+        console.log('[LEADERBOARD_CLIENT][Persisted league_tier: browns to Supabase]');
       } catch (err) {
         console.warn('[Leaderboard] Failed to persist league_tier to Supabase:', err);
       }
@@ -150,15 +152,86 @@ function LeaderboardContent() {
   // Real-time synchronization trigger when combat matches settle
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+  // Synchronize joinedLeague reactively when user hydrates or server profile arrives
   useEffect(() => {
-    const handleProfileUpdate = () => {
+    if (typeof window === 'undefined') return;
+    if ((user as any)?.league_tier || serverCurrentUser?.leagueTier) {
+      setJoinedLeague(true);
+      return;
+    }
+    if (user?.id) {
+      const stored = localStorage.getItem(`pinit_joined_league_${user.id}`);
+      if (stored === 'true') {
+        setJoinedLeague(true);
+      }
+    }
+  }, [user, serverCurrentUser]);
+
+  // Modal Escape key listener and body scroll-lock
+  useEffect(() => {
+    if (!isLeagueModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsLeagueModalOpen(false);
+      }
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isLeagueModalOpen]);
+
+  useEffect(() => {
+    const handleProfileUpdate = (e: any) => {
+      console.log('[LEADERBOARD_CLIENT][Profile Update Event Received]', e?.detail);
+      if (e?.detail) {
+        if (e.detail.league_tier) {
+          setJoinedLeague(true);
+        }
+        const updatedElo = typeof e.detail.arena_elo === 'number' 
+          ? e.detail.arena_elo 
+          : (typeof e.detail.elo === 'number' ? e.detail.elo : undefined);
+        const updatedWeeklyXp = typeof e.detail.weekly_xp === 'number' 
+          ? e.detail.weekly_xp 
+          : (typeof e.detail.weeklyXp === 'number' ? e.detail.weeklyXp : undefined);
+        const updatedTotalXp = typeof e.detail.xp_total === 'number' 
+          ? e.detail.xp_total 
+          : (typeof e.detail.totalXp === 'number' ? e.detail.totalXp : (typeof e.detail.xp === 'number' ? e.detail.xp : undefined));
+
+        if (user) {
+          if (typeof updatedElo === 'number') (user as any).arena_elo = updatedElo;
+          if (typeof updatedWeeklyXp === 'number') (user as any).weekly_xp = updatedWeeklyXp;
+          if (typeof updatedTotalXp === 'number') (user as any).xp_total = updatedTotalXp;
+        }
+
+        // Instant HUD recalculation with 0ms latency
+        setServerCurrentUser(prev => {
+          if (!prev) return null;
+          const elo = typeof updatedElo === 'number' ? updatedElo : prev.eloRating;
+          const weeklyXp = typeof updatedWeeklyXp === 'number' ? updatedWeeklyXp : prev.weeklyXp;
+          const totalXp = typeof updatedTotalXp === 'number' ? updatedTotalXp : prev.totalXp;
+          const eloGain = Math.max(0, elo - 100);
+          const leagueScore = weeklyXp + Math.round(eloGain * 1.5);
+          return {
+            ...prev,
+            eloRating: elo,
+            eloGain,
+            weeklyXp,
+            totalXp,
+            leagueScore,
+          };
+        });
+      }
       setRefreshTrigger(prev => prev + 1);
     };
     if (typeof window !== 'undefined') {
-      window.addEventListener('pinit:user_profile_updated', handleProfileUpdate);
-      return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate);
+      window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
+      return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
     }
-  }, []);
+  }, [user]);
 
   // Fetch real leaderboard telemetry from server
   useEffect(() => {
@@ -182,6 +255,13 @@ function LeaderboardContent() {
           }
         } catch {}
 
+        console.log('[LEADERBOARD_CLIENT][Fetch Inflight]', {
+          mode: activeTab,
+          league: selectedLeague,
+          userId: user?.id || 'guest',
+        });
+        const clientStartTime = performance.now();
+
         const res = await fetch(`/api/leaderboard?${params.toString()}`, {
           headers: {
             ...authHeader,
@@ -190,6 +270,15 @@ function LeaderboardContent() {
           cache: 'no-store',
         });
         const data = await res.json();
+        const clientDuration = Math.round(performance.now() - clientStartTime);
+
+        console.log('[LEADERBOARD_CLIENT][Fetch Complete]', {
+          ok: data.ok,
+          entries: data.leaderboard?.length,
+          guilds: data.guilds?.length,
+          userRank: data.currentUser?.rank,
+          clientDurationMs: clientDuration,
+        });
 
         if (data.ok && isMounted) {
           setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
@@ -291,8 +380,15 @@ function LeaderboardContent() {
       return matchesSearch && matchesDomain;
     });
 
-    if (currentUserEntry && !searchQuery && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
-      result.push(currentUserEntry);
+    if (currentUserEntry && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
+      const matchesSearch = !searchQuery ||
+        currentUserEntry.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        currentUserEntry.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        currentUserEntry.programTitle.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesDomain = domainFilter === 'all' || currentUserEntry.programTitle.toLowerCase().includes(domainFilter);
+      if (matchesSearch && matchesDomain) {
+        result.push(currentUserEntry);
+      }
     }
 
     return result;
@@ -327,6 +423,8 @@ function LeaderboardContent() {
           data-testid="interactive-league-emblem-btn"
           onClick={() => setIsLeagueModalOpen(true)}
           title="Click to inspect all competitive divisions"
+          aria-haspopup="dialog"
+          aria-expanded={isLeagueModalOpen}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -658,10 +756,15 @@ function LeaderboardContent() {
           `}</style>
           <div
             data-testid="league-division-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Competitive Division Vault"
             onClick={e => e.stopPropagation()}
             style={{
               width: '100%',
               maxWidth: 960,
+              maxHeight: 'min(90vh, 760px)',
+              overflowY: 'auto',
               background: 'linear-gradient(145deg, var(--card) 0%, var(--bg3) 100%)',
               border: `1.5px solid ${activeLeagueMeta.color}60`,
               borderRadius: 22,
@@ -688,6 +791,7 @@ function LeaderboardContent() {
                 type="button"
                 onClick={() => setIsLeagueModalOpen(false)}
                 data-testid="close-league-modal-btn"
+                aria-label="Close division vault"
                 style={{
                   background: 'rgba(255, 255, 255, 0.06)',
                   border: '1px solid var(--border)',
@@ -722,6 +826,7 @@ function LeaderboardContent() {
                     className="pinit-vault-tier-card"
                     data-testid={`select-league-${tier}`}
                     onClick={() => {
+                      console.log('[LEADERBOARD_CLIENT][Division Switched]', { from: selectedLeague, to: tier });
                       setSelectedLeague(tier);
                       hasManuallySelectedRef.current = true;
                       setIsLeagueModalOpen(false);
@@ -1393,7 +1498,7 @@ function LeaderboardContent() {
 
 export default function LeaderboardPage() {
   return (
-    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>Loading Competency & Weekly Leagues...</div>}>
+    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>Loading Leaderboard & Leagues...</div>}>
       <LeaderboardContent />
     </Suspense>
   );

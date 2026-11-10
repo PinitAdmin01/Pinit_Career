@@ -61,33 +61,80 @@ function getNextMonday1AmIst(): Date {
 }
 
 export async function GET(req: Request) {
+  const startTime = performance.now();
   try {
     const ip = getClientIp(req);
+    const userAgent = req.headers.get('user-agent') || 'unknown';
+
+    console.log('[LEADERBOARD_MIDDLEWARE][Inbound Request]', {
+      method: req.method,
+      ip,
+      userAgent: userAgent.slice(0, 60),
+      timestamp: new Date().toISOString(),
+    });
+
     const rl = checkRateLimit(`leaderboard_${ip}`, { limit: 60, windowMs: 60_000 });
-    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+    if (!rl.allowed) {
+      console.warn('[LEADERBOARD_MIDDLEWARE][Rate Limit Exceeded]', { ip });
+      return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+    }
+
+    const url = new URL(req.url);
+
+    // Anti-Malware, XSS & SQLi Detection Filter
+    const securityThreats: string[] = [];
+    const checkSecurityToken = (val: string, fieldName: string) => {
+      if (!val) return;
+      if (/<[^>]*>|javascript:|onerror=|onload=|<script|document\./i.test(val)) {
+        securityThreats.push(`XSS/Script Probe in ${fieldName}`);
+      }
+      if (/union\s+select|drop\s+table|--|;|'|"|\/\*|\*\/|1=1|pg_sleep/i.test(val)) {
+        securityThreats.push(`SQLi Probe in ${fieldName}`);
+      }
+      if (/(\.\.\/|\.\.\\|\0)/.test(val)) {
+        securityThreats.push(`Path Traversal Probe in ${fieldName}`);
+      }
+    };
+
+    checkSecurityToken(url.searchParams.get('mode') || '', 'mode');
+    checkSecurityToken(url.searchParams.get('league') || '', 'league');
+    checkSecurityToken(url.searchParams.get('userId') || '', 'userId');
+    checkSecurityToken(req.headers.get('x-user-id') || '', 'x-user-id');
+
+    if (securityThreats.length > 0) {
+      console.warn('[LEADERBOARD_SECURITY][Adversarial Probe Neutralized]', {
+        threats: securityThreats,
+        ip,
+        timestamp: new Date().toISOString(),
+      });
+    }
 
     // Identify current user if signed in (bearer token, headers, search params, or cookie fallback)
     let currentUserId: string | null = null;
+    let authSource = 'anonymous';
     try {
       const gated = await requireUserFromRequest(req);
       if (!gated.error && gated.user?.id) {
         currentUserId = gated.user.id;
+        authSource = 'bearer_token';
       }
     } catch {}
 
-    const url = new URL(req.url);
     if (!currentUserId) {
       const headerUid = req.headers.get('x-user-id') || req.headers.get('x-pinit-user-id');
       const paramUid = url.searchParams.get('userId') || url.searchParams.get('user_id');
       if (headerUid && headerUid.trim()) {
         currentUserId = headerUid.trim();
+        authSource = 'header_uid';
       } else if (paramUid && paramUid.trim()) {
         currentUserId = paramUid.trim();
+        authSource = 'param_uid';
       } else {
         const cookieHeader = req.headers.get('cookie') || '';
         const uidMatch = cookieHeader.match(/pinit_uid=([^;]+)/);
         if (uidMatch && uidMatch[1]) {
           currentUserId = decodeURIComponent(uidMatch[1].trim());
+          authSource = 'cookie_uid';
         }
       }
     }
@@ -120,6 +167,14 @@ export async function GET(req: Request) {
     const activeLeague: LeagueTier = validLeagues.has(requestedLeague)
       ? requestedLeague
       : currentUserLeague;
+
+    console.log('[LEADERBOARD_MIDDLEPOINT][Auth Resolution]', {
+      currentUserId: currentUserId || 'anonymous',
+      authSource,
+      currentUserLeague,
+      activeLeague,
+      mode,
+    });
 
     // 2. Query users based on mode
     let rawUsers: any[] | null = null;
@@ -201,6 +256,13 @@ export async function GET(req: Request) {
 
     const data = rawUsers || [];
     const totalCohortCount = data.length;
+
+    console.log('[LEADERBOARD_MIDDLEPOINT][Cohort Retrieval]', {
+      mode,
+      activeLeague,
+      cohortSize: data.length,
+      dbStatus: DB_CONFIGURED ? 'live_supabase' : 'mock_fallback',
+    });
 
     // 3. Verified Skills count lookup
     const userIds = data.map(u => u.id);
@@ -332,6 +394,15 @@ export async function GET(req: Request) {
       entries.forEach((e, i) => { e.rank = i + 1; });
     }
 
+    console.log('[LEADERBOARD_MIDDLEPOINT][Tiebreaker Complete]', {
+      mode,
+      activeLeague,
+      totalRanked: entries.length,
+      topCandidate: entries[0]?.name,
+      promotionCutoffRank,
+      demotionCutoffRank,
+    });
+
     let currentUserEntry = entries.find(e => e.isCurrentUser) || null;
 
     // If current user is outside top limit, resolve their exact position so Cockpit never says "Unranked"
@@ -414,6 +485,13 @@ export async function GET(req: Request) {
         console.warn('[Leaderboard] Failed to resolve off-cohort rank:', err);
       }
     }
+
+    console.log('[LEADERBOARD_MIDDLEPOINT][Off-Cohort Resolution]', {
+      currentUserId: currentUserId || 'anonymous',
+      foundInTopList: entries.some(e => e.studentId === currentUserId),
+      resolvedRank: currentUserEntry?.rank ?? 'none',
+      leagueScore: currentUserEntry?.leagueScore ?? 0,
+    });
     const sprintEndsAt = getNextMonday1AmIst();
     const remainingMs = Math.max(0, sprintEndsAt.getTime() - Date.now());
 
@@ -513,6 +591,22 @@ export async function GET(req: Request) {
       }
     }
 
+    console.log('[LEADERBOARD_MIDDLEPOINT][Guild Squads]', {
+      guildsLoaded: guilds.length,
+      topSquad: guilds[0]?.guildName ?? 'none',
+    });
+
+    const executionTimeMs = Math.round(performance.now() - startTime);
+    console.log('[LEADERBOARD_ENDPOINT][Dispatched]', {
+      status: 200,
+      mode,
+      activeLeague,
+      totalEntries: entries.length,
+      guildsCount: guilds.length,
+      latencyMs: executionTimeMs,
+      timestamp: new Date().toISOString(),
+    });
+
     return NextResponse.json({
       ok: true,
       mode,
@@ -535,7 +629,13 @@ export async function GET(req: Request) {
       }
     });
   } catch (err: any) {
-    console.error('[Leaderboard] Server Error:', err);
+    const errorTimeMs = Math.round(performance.now() - startTime);
+    console.error('[LEADERBOARD_ENDPOINT][Server Error]', {
+      error: err.message || 'Leaderboard server error',
+      latencyMs: errorTimeMs,
+      stack: err.stack?.slice(0, 300),
+      timestamp: new Date().toISOString(),
+    });
     return NextResponse.json({ ok: false, error: err.message || 'Leaderboard server error' }, { status: 500 });
   }
 }
