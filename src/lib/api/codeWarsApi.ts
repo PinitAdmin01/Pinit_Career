@@ -5,6 +5,7 @@
 
 import { PathwayApiService } from './pathwayApi';
 import { EvidenceDifficulty } from '../pathway/competencySchema';
+import { CODEWARS_PROBLEM_REGISTRY } from '@/lib/data/codeWarsRegistryData';
 
 export interface CodeWarsProblem {
   id: string;
@@ -6578,47 +6579,68 @@ export class CodeWarsApiService {
         } | null = null;
 
         if (typeof window !== 'undefined') {
-          try {
-            let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+          // Tier 3 Fast-Path: If browser is completely offline (WiFi drop / airplane mode), evaluate immediately client-side
+          const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+          if (isOffline) {
+            console.log(`[CodeWarsApi] Browser offline (navigator.onLine=false), executing zero-delay client-side universal evaluator`);
+            const localUniversal = CodeWarsApiService.evaluateClientSideUniversal(problem.id, code, language);
+            evalResult = {
+              passed: localUniversal.passed,
+              status: localUniversal.status,
+              testsPassed: localUniversal.testsPassed,
+              totalTests: localUniversal.totalTests,
+              error: localUniversal.error,
+            };
+          } else {
+            // Tier 1 & 2: Authoritative server evaluation with strict 3000ms AbortController watchdog
             try {
-              const { supabase } = await import('@/lib/supabaseClient');
-              const { data: { session } } = await supabase.auth.getSession();
-              if (session?.access_token) {
-                headers['Authorization'] = `Bearer ${session.access_token}`;
-              }
-            } catch {}
+              let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+              try {
+                const { supabase } = await import('@/lib/supabaseClient');
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.access_token) {
+                  headers['Authorization'] = `Bearer ${session.access_token}`;
+                }
+              } catch {}
 
-            const res = await fetch('/api/code/evaluate', {
-              method: 'POST',
-              headers,
-              body: JSON.stringify({
-                problemId: problem.id,
-                code,
-                language,
-              }),
-            });
-            if (res.ok) {
-              evalResult = await res.json();
-            } else {
-              console.warn(`[CodeWarsApi] Remote evaluation endpoint returned HTTP ${res.status}, activating resilient in-browser evaluator fallback`);
+              const controller = new AbortController();
+              const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+              const res = await fetch('/api/code/evaluate', {
+                method: 'POST',
+                headers,
+                signal: controller.signal,
+                body: JSON.stringify({
+                  problemId: problem.id,
+                  code,
+                  language,
+                }),
+              });
+              clearTimeout(timeoutId);
+
+              if (res.ok) {
+                evalResult = await res.json();
+              } else {
+                console.warn(`[CodeWarsApi] Remote evaluation endpoint returned HTTP ${res.status}, activating resilient universal evaluator fallback`);
+              }
+            } catch (fetchErr: any) {
+              console.warn(`[CodeWarsApi] Network error or timeout during evaluation (${fetchErr?.message}), activating zero-delay universal evaluator fallback`);
             }
-          } catch (fetchErr: any) {
-            console.warn(`[CodeWarsApi] Network error during evaluation (${fetchErr?.message}), activating resilient in-browser evaluator fallback`);
           }
 
+          // Tier 3 Safety Net: If server was unreachable, timed out, or returned non-200, evaluate client-side with 0ms delay
           if (!evalResult) {
-            // Multi-Option Failover: When network is down or remote endpoint unreachable, evaluate student code directly in-browser
             try {
-              const localPoly = CodeWarsApiService.evaluatePolyglotSolution(code, language, problem);
+              const localUniversal = CodeWarsApiService.evaluateClientSideUniversal(problem.id, code, language);
               evalResult = {
-                passed: localPoly.testsPassed === totalTests,
-                status: localPoly.testsPassed === totalTests ? 'SUCCESS' : 'FAILED',
-                testsPassed: localPoly.testsPassed,
-                totalTests,
-                error: localPoly.evalErrorLog,
+                passed: localUniversal.passed,
+                status: localUniversal.status,
+                testsPassed: localUniversal.testsPassed,
+                totalTests: localUniversal.totalTests,
+                error: localUniversal.error,
               };
-            } catch (localErr: any) {
-              evalErrorLog = `Evaluation fallback error: ${localErr?.message || 'Execution failed'}`;
+            } catch (fallbackErr: any) {
+              evalErrorLog = `Universal fallback error: ${fallbackErr?.message || 'Execution failed'}`;
             }
           }
         } else {
@@ -6769,6 +6791,84 @@ export class CodeWarsApiService {
         });
       } catch {}
     }
+  }
+
+  /**
+   * Resilient Zero-Delay Client-Side Evaluator:
+   * Evaluates solution code directly in the browser across all 180 questions with single-digit millisecond latency.
+   * Defends students against WiFi drops, packet loss, or server container restarts during live 1v1 duels.
+   */
+  static evaluateClientSideUniversal(
+    problemId: string,
+    rawCode: string,
+    language: string
+  ): { passed: boolean; status: string; testsPassed: number; totalTests: number; error?: string } {
+    const config = CODEWARS_PROBLEM_REGISTRY[problemId];
+    if (!config) {
+      return {
+        passed: false,
+        status: 'UNSUPPORTED_PROBLEM',
+        testsPassed: 0,
+        totalTests: 0,
+        error: `Problem '${problemId}' not found in registry.`
+      };
+    }
+
+    const isJsOrTs = ['javascript', 'typescript', 'js', 'ts'].includes((language || 'typescript').toLowerCase());
+    if (isJsOrTs) {
+      const cleanCode = CodeWarsApiService.cleanTypeScriptForExecution(rawCode);
+      try {
+        const harness = `
+          "use strict";
+          var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
+          function TreeNode(val, left, right) {
+            this.val = (val === undefined ? 0 : val);
+            this.left = (left === undefined ? null : left);
+            this.right = (right === undefined ? null : right);
+          }
+          ${cleanCode}
+          ${config.evaluatorCode}
+        `;
+        const runner = new Function(harness);
+        const res = runner();
+        return {
+          passed: Boolean(res && res.passed),
+          status: res && res.status ? res.status : (res && res.passed ? 'SUCCESS' : 'FAILED'),
+          testsPassed: typeof res?.testsPassed === 'number' ? res.testsPassed : 0,
+          totalTests: config.totalTests,
+          error: res && res.error ? String(res.error).slice(0, 200) : undefined
+        };
+      } catch (err: any) {
+        return {
+          passed: false,
+          status: 'RUNTIME_ERROR',
+          testsPassed: 0,
+          totalTests: config.totalTests,
+          error: err?.message || 'Client evaluation runtime error'
+        };
+      }
+    }
+
+    // Python offline fallback: Use polyglot evaluator or structural verification
+    const problem = CodeWarsApiService.getAuthoritativeProblem(problemId);
+    if (problem) {
+      const poly = CodeWarsApiService.evaluatePolyglotSolution(rawCode, language, problem);
+      return {
+        passed: poly.testsPassed === config.totalTests,
+        status: poly.testsPassed === config.totalTests ? 'SUCCESS' : 'FAILED',
+        testsPassed: poly.testsPassed,
+        totalTests: config.totalTests,
+        error: poly.evalErrorLog
+      };
+    }
+
+    return {
+      passed: false,
+      status: 'FAILED',
+      testsPassed: 0,
+      totalTests: config.totalTests,
+      error: 'Client evaluation unavailable'
+    };
   }
 
   static cleanTypeScriptForExecution(tsCode: string): string {
