@@ -8344,13 +8344,19 @@ export async function runEvaluationInSandbox(data: SandboxExecutionParams): Prom
           if (!settled) {
             settled = true;
             clearTimeout(timer);
-            resolve({
-              passed: false,
-              status: 'RUNTIME_ERROR',
-              testsPassed: 0,
-              totalTests: data.totalTests,
-              error: err?.message || 'Worker thread execution error',
-            });
+            // Multi-Option Failover: If OS worker thread fails, fail over to direct isolated VM
+            try {
+              console.warn(`[codeWarsSandbox] Worker thread error (${err?.message}), failing over to direct VM isolation`);
+              resolve(runEvaluationInVmDirectly(data));
+            } catch (vmErr: any) {
+              resolve({
+                passed: false,
+                status: 'RUNTIME_ERROR',
+                testsPassed: 0,
+                totalTests: data.totalTests,
+                error: vmErr?.message || err?.message || 'Worker thread execution error',
+              });
+            }
           }
         });
 
@@ -8358,6 +8364,14 @@ export async function runEvaluationInSandbox(data: SandboxExecutionParams): Prom
           if (!settled) {
             settled = true;
             clearTimeout(timer);
+            // Multi-Option Failover: If worker exited unexpectedly, attempt direct isolated VM before failing
+            if (code !== 0) {
+              try {
+                console.warn(`[codeWarsSandbox] Worker exited with code ${code}, failing over to direct VM isolation`);
+                resolve(runEvaluationInVmDirectly(data));
+                return;
+              } catch {}
+            }
             resolve({
               passed: false,
               status: 'RUNTIME_ERROR',

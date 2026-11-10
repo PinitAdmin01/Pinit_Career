@@ -6597,9 +6597,29 @@ export class CodeWarsApiService {
                 language,
               }),
             });
-            evalResult = await res.json();
+            if (res.ok) {
+              evalResult = await res.json();
+            } else {
+              console.warn(`[CodeWarsApi] Remote evaluation endpoint returned HTTP ${res.status}, activating resilient in-browser evaluator fallback`);
+            }
           } catch (fetchErr: any) {
-            evalErrorLog = `Sandbox evaluation request failed: ${fetchErr?.message || 'Network error'}`;
+            console.warn(`[CodeWarsApi] Network error during evaluation (${fetchErr?.message}), activating resilient in-browser evaluator fallback`);
+          }
+
+          if (!evalResult) {
+            // Multi-Option Failover: When network is down or remote endpoint unreachable, evaluate student code directly in-browser
+            try {
+              const localPoly = CodeWarsApiService.evaluatePolyglotSolution(code, language, problem);
+              evalResult = {
+                passed: localPoly.testsPassed === totalTests,
+                status: localPoly.testsPassed === totalTests ? 'SUCCESS' : 'FAILED',
+                testsPassed: localPoly.testsPassed,
+                totalTests,
+                error: localPoly.evalErrorLog,
+              };
+            } catch (localErr: any) {
+              evalErrorLog = `Evaluation fallback error: ${localErr?.message || 'Execution failed'}`;
+            }
           }
         } else {
           // Server / test CLI environment: execute in secure isolated node:vm sandbox (no raw new Function)
