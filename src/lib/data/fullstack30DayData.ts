@@ -268,20 +268,20 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "title": "Redis In-Memory Caching & Cache-Aside Invalidation",
     "desc": "Accelerate database read queries with Cache-Aside strategy, TTL expirations, and cache stampede protection.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Redis In-Memory Caching & Cache-Aside Invalidation.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "In-Memory Key-Value Architecture & Redis Primitives: RAM Access Latency, Data Structures (Strings, Hashes, Sorted Sets), and Memory Footprint",
+      "Cache-Aside & Invalidation Physics: Lazy-Loading Workflows, Write-Through/Behind Trade-offs, and Active Invalidation on Mutation",
+      "TTL Expirations & Stampede Defense: TTL Jitter, Thundering Herd Singleflight Locks, and Stale-While-Revalidate Soft Expirations"
     ],
     "eTitle": "Cache-Aside Store & Invalidation Manager",
-    "eDesc": "Implement function getWithCacheAside(cache, key, ttl, fetchFromDb) returning cached value or fetching from DB and populating cache. The result must have the field: `fromCache`.",
-    "eStarter": "async function getWithCacheAside(cache, key, ttl, fetchFromDb) {\n  // Check if cache has unexpired entry; if not, query DB, cache it with expiresAt, and return.\n  \n}",
-    "eHint": "Check if cache has unexpired entry; if not, query DB, cache it with expiresAt, and return.",
-    "eTest": "const memCache = new Map();\nlet dbHits = 0;\nconst fetchUser = async () => { dbHits++; return { id: 1, name: 'Alex' }; };\nconst res1 = await getWithCacheAside(memCache, 'user:1', 1000, fetchUser);\nif (res1.fromCache !== false || dbHits !== 1) throw new Error('First call must hit DB');\nconst res2 = await getWithCacheAside(memCache, 'user:1', 1000, fetchUser);\nif (res2.fromCache !== true || dbHits !== 1) throw new Error('Second call must hit Cache without DB query');",
-    "aTitle": "Cache Key Generator",
-    "aDesc": "Implement function buildCacheKey(entity, id) returning formatted string entity:id.",
-    "aStarter": "function buildCacheKey(entity, id) {\n  // TODO: write your code here\n}",
-    "aHint": "Format entity:id string.",
-    "aTest": "if (buildCacheKey('users', 101) !== 'users:101') throw new Error('Cache key format failed');"
+    "eDesc": "Implement function getWithCacheAside(cache, key, ttlMs, fetchFromDb) returning { data, fromCache: boolean }, populating cache with TTL expiration on DB misses.",
+    "eStarter": "/**\n * Executes a Cache-Aside (Lazy Loading) query with in-memory TTL expiration.\n * @param {Map} cache - In-memory Map storing cache entries\n * @param {string} key - Cache lookup key\n * @param {number} ttlMs - Time-to-live in milliseconds\n * @param {Function} fetchFromDb - Asynchronous fallback query to fetch data from database\n * @returns {Promise<object>} { data: any, fromCache: boolean }\n */\nasync function getWithCacheAside(cache, key, ttlMs = 1000, fetchFromDb) {\n  // 1. Check if cache has key and is unexpired (entry.expiresAt > Date.now())\n  // 2. If cached, return { data: entry.data, fromCache: true }\n  // 3. Otherwise call fetchFromDb(), store in cache with expiresAt = Date.now() + ttlMs\n  // 4. Return { data, fromCache: false }\n  \n}",
+    "eHint": "const now = Date.now(); const cached = cache.get(key); if (cached && cached.expiresAt > now) return { data: cached.data, fromCache: true }; const data = await fetchFromDb(); cache.set(key, { data, expiresAt: now + ttlMs }); return { data, fromCache: false };",
+    "eTest": "const memCache = new Map();\nlet dbHits = 0;\nconst fetchUser = async () => { dbHits++; return { id: 1, name: 'Alex' }; };\n\nconst res1 = await getWithCacheAside(memCache, 'user:1', 1000, fetchUser);\nif (res1.fromCache !== false || dbHits !== 1 || res1.data.name !== 'Alex') throw new Error('First call must hit DB');\n\nconst res2 = await getWithCacheAside(memCache, 'user:1', 1000, fetchUser);\nif (res2.fromCache !== true || dbHits !== 1 || res2.data.name !== 'Alex') throw new Error('Second call must hit Cache without DB query');\n\nmemCache.get('user:1').expiresAt = Date.now() - 10;\nconst res3 = await getWithCacheAside(memCache, 'user:1', 1000, fetchUser);\nif (res3.fromCache !== false || dbHits !== 2) throw new Error('Expired entry must re-query DB');",
+    "aTitle": "Cache Key Generator with Namespace Isolation",
+    "aDesc": "Implement function buildCacheKey(entity, id, namespace = '') returning formatted string [namespace:]entity:id.",
+    "aStarter": "/**\n * Constructs a normalized Redis cache key with optional namespace prefix.\n * @param {string} entity - Resource entity name (e.g. 'users', 'orders')\n * @param {string|number} id - Unique record identifier\n * @param {string} [namespace=''] - Optional multi-tenant or service namespace\n * @returns {string} Formatted cache key (e.g. 'users:101' or 'tenantA:users:101')\n */\nfunction buildCacheKey(entity, id, namespace = '') {\n  // Format and return cache key string\n  \n}",
+    "aHint": "return namespace && namespace.trim() ? `${namespace.trim()}:${entity}:${id}` : `${entity}:${id}`;",
+    "aTest": "if (buildCacheKey('users', 101) !== 'users:101') throw new Error('Standard cache key format failed');\nif (buildCacheKey('orders', 'ord_99', 'tenantA') !== 'tenantA:orders:ord_99') throw new Error('Namespaced cache key format failed');"
   },
   {
     "day": 15,
