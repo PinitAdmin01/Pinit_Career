@@ -345,23 +345,23 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 18,
-    "title": "Real-Time Bidirectional Streaming with WebSockets & Server-Sent Events (SSE)",
-    "desc": "Process multi-gigabyte file uploads using streaming parsers (Busboy/Multer) and S3 presigned upload URLs.",
+    "title": "Streaming File Processing & Cloud Storage Architecture: Multipart Form-Data, Busboy & S3 Presigned Uploads",
+    "desc": "Process multi-gigabyte file uploads using streaming parsers (Busboy/Multer), backpressure flow control, and S3 presigned upload URLs with cryptographic expiration.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Multipart Streaming File Uploads & Cloud Object Storage (S3).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Core Foundations: RFC 7578 Multipart Form-Data Streaming, Boundary Delimiters & Memory Physics",
+      "Operational Architecture: Busboy Stream Parsing, Backpressure Pipeline & Direct-to-S3 Uploads",
+      "Production Best Practices: Presigned PUT URLs, Magic Number Byte Inspection & Defense-in-Depth Storage Safety"
     ],
-    "eTitle": "Presigned S3 Upload URL Generator (Real-Time Bidirectional Streaming with WebSockets & Server-Sent Events)",
-    "eDesc": "Implement function generatePresignedUploadUrl(bucket, key, expiresInSeconds = 900) returning signed upload URL structure. The result must have the field: `uploadUrl`.",
-    "eStarter": "function generatePresignedUploadUrl(bucket, key, expiresInSeconds = 900) {\n  // Generate S3 bucket URL with expiration and signed query parameters.\n  \n}",
-    "eHint": "Generate S3 bucket URL with expiration and signed query parameters.",
-    "eTest": "const presigned = generatePresignedUploadUrl('pinit-assets', 'avatars/user-101.png', 600);\nif (!presigned.uploadUrl.includes('pinit-assets.s3.amazonaws.com') || presigned.key !== 'avatars/user-101.png') throw new Error('Presigned S3 URL structure invalid');",
+    "eTitle": "Presigned S3 Upload URL Generator",
+    "eDesc": "Implement function generatePresignedUploadUrl(bucket, key, expiresInSeconds = 900) returning signed upload URL structure. The result must have the field: uploadUrl.",
+    "eStarter": "/**\n * Generates an S3 presigned upload URL with strict expiration and query parameters.\n * @param {string} bucket - S3 bucket name\n * @param {string} key - S3 object key / path\n * @param {number} expiresInSeconds - Expiration window in seconds (1 to 604800, default: 900)\n * @returns {{ bucket: string, key: string, expiresInSeconds: number, uploadUrl: string }}\n */\nfunction generatePresignedUploadUrl(bucket, key, expiresInSeconds = 900) {\n  // Generate S3 bucket URL with expiration and signed query parameters.\n  \n}",
+    "eHint": "Verify bucket and key are non-empty strings. Validate that expiresInSeconds is between 1 and 604800 (7 days). Compute a signature query string and construct an uploadUrl targeting https://${bucket}.s3.amazonaws.com/${key} with X-Amz-Algorithm, X-Amz-Expires, and X-Amz-Signature parameters.",
+    "eTest": "const presigned = generatePresignedUploadUrl('pinit-assets', 'avatars/user-101.png', 600);\nif (!presigned.uploadUrl.includes('pinit-assets.s3.amazonaws.com') || presigned.key !== 'avatars/user-101.png') throw new Error('Presigned S3 URL structure invalid');\nif (!presigned.uploadUrl.includes('X-Amz-Expires=600') || !presigned.uploadUrl.includes('X-Amz-Signature=')) throw new Error('Missing required AWS query parameters');\nlet threw = false;\ntry { generatePresignedUploadUrl('pinit-assets', 'avatars/user-101.png', 999999); } catch (e) { threw = true; }\nif (!threw) throw new Error('Expiration exceeding 604800 seconds must throw an error');",
     "aTitle": "File MIME Type Validator",
-    "aDesc": "Implement function isAllowedImageMime(mimeType) allowing image/png, image/jpeg, image/webp.",
-    "aStarter": "function isAllowedImageMime(mime) {\n  // Check if mime is in allowed array.\n  \n}",
-    "aHint": "Check if mime is in allowed array.",
-    "aTest": "if (isAllowedImageMime('image/png') !== true || isAllowedImageMime('application/pdf') !== false) throw new Error('MIME validation failed');"
+    "aDesc": "Implement function isAllowedImageMime(mimeType) allowing image/png, image/jpeg, image/webp with case-insensitive validation.",
+    "aStarter": "/**\n * Validates whether the supplied MIME type is an authorized image format.\n * Allowed formats: image/png, image/jpeg, image/webp.\n * @param {string} mime - MIME type string\n * @returns {boolean} True if allowed image MIME, false otherwise\n */\nfunction isAllowedImageMime(mime) {\n  // Check if mime is in allowed array.\n  \n}",
+    "aHint": "Check if the supplied mime is a string, normalize it with .toLowerCase(), and check against a Set containing 'image/png', 'image/jpeg', and 'image/webp'.",
+    "aTest": "if (isAllowedImageMime('image/png') !== true || isAllowedImageMime('application/pdf') !== false) throw new Error('MIME validation failed');\nif (isAllowedImageMime('IMAGE/JPEG') !== true || isAllowedImageMime('image/webp') !== true) throw new Error('Case-insensitive or webp validation failed');\nif (isAllowedImageMime('') !== false || isAllowedImageMime(null) !== false) throw new Error('Invalid input must return false');"
   },
   {
     "day": 19,
