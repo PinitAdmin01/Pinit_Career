@@ -5325,7 +5325,665 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     hint: "Check for nodes with two parents. If found, test removing the second edge first using Disjoint Set Union (DSU) to check for cycles. If no dual-parent node exists, DSU will directly detect the edge creating a cycle.",
     complexityTarget: "Time: O(N * alpha(N)) | Space: O(N)",
   },
-];
+    // --- BATCH EXPANSION: 30 NEW QUESTIONS (151 to 180) ---
+    // BASIC 51-60
+    {
+      id: 'war_distribute_candies_51',
+      title: "Distribute Candies (Fair Quota Load Balancer)",
+      difficulty: 'basic',
+      competencyId: 'comp_hash_set_distribute_candies_l1',
+      description: "Alice has n candies, where the ith candy is of type candyType[i]. Alice noticed that she started to gain weight, so she visited a doctor. The doctor advised Alice to only eat n / 2 of the candies she has (n is always even). Alice likes her candies very much, and she wants to eat the maximum number of different types of candies while still following the doctor's advice. Return the maximum number of unique candy types Alice can eat.",
+      starterCode: {
+        typescript: "function distributeCandies(candyType: number[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def distribute_candies(candyType: list[int]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "candyType = [1,1,2,2,3,3]", expectedOutput: "3", explanation: "Alice can eat 3 candies of different types [1, 2, 3]." },
+        { input: "candyType = [1,1,2,3]", expectedOutput: "2", explanation: "Alice can eat 2 candies; maximum unique is 2." },
+        { input: "candyType = [6,6,6,6]", expectedOutput: "1", explanation: "Only one unique type of candy available." },
+        { input: "candyType = [1,2,3,4,5,6,7,8]", expectedOutput: "4", explanation: "Half length is 4, all 8 are unique." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Hash Set","Greedy"],
+      hint: "The maximum number of candies Alice can eat is n/2. The maximum number of unique candies available is uniqueCount. Return min(uniqueCount, n / 2).",
+      complexityTarget: "Time: O(N) | Space: O(N)",
+    },
+    {
+      id: 'war_baseball_game_52',
+      title: "Baseball Game (Reversible Event Stream Ledger)",
+      difficulty: 'basic',
+      competencyId: 'comp_stack_baseball_game_l1',
+      description: "You are keeping score for a baseball game with strange rules. At the beginning of the game, you start with an empty record. You are given a list of strings operations, where operations[i] is the ith operation you must apply to the record: An integer x (record a new score of x), '+' (record sum of previous two scores), 'D' (record double of previous score), 'C' (invalidate and remove previous score). Return the sum of all the scores on the record after applying all the operations.",
+      starterCode: {
+        typescript: "function calPoints(operations: string[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def cal_points(operations: list[str]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "operations = ['5','2','C','D','+']", expectedOutput: "30", explanation: "Scores: [5] -> [5,2] -> [5] -> [5,10] -> [5,10,15]. Sum = 30." },
+        { input: "operations = ['5','-2','4','C','D','9','+','+']", expectedOutput: "27", explanation: "Scores total 27." },
+        { input: "operations = ['1','C']", expectedOutput: "0", explanation: "Invalidated single score, sum = 0." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Stack","Array","Simulation"],
+      hint: "Use an array as a stack to simulate push, pop, double last element, and sum last two elements.",
+      complexityTarget: "Time: O(N) | Space: O(N)",
+    },
+    {
+      id: 'war_flood_fill_basic_53',
+      title: "Flood Fill (Image Processing Canvas Paint Bucket)",
+      difficulty: 'basic',
+      competencyId: 'comp_graph_dfs_flood_fill_l1',
+      description: "An image is represented by an m x n integer grid image where image[i][j] represents the pixel value. You are given three integers sr, sc, and color. Perform a flood fill on the image starting from the pixel image[sr][sc]. To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color, plus any pixels connected 4-directionally to those pixels, and so on. Replace the color of all of the aforementioned pixels with color.",
+      starterCode: {
+        typescript: "function floodFill(image: number[][], sr: number, sc: number, color: number): number[][] {\n  // Your solution here\n  return image;\n}",
+        python: "def flood_fill(image: list[list[int]], sr: int, sc: int, color: int) -> list[list[int]]:\n    # Your solution here\n    return image",
+      },
+      testCases: [
+        { input: "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", expectedOutput: "[[2,2,2],[2,2,0],[2,0,1]]", explanation: "Center pixel and connected 1s filled to 2." },
+        { input: "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", expectedOutput: "[[0,0,0],[0,0,0]]", explanation: "Start color is already target color, no change." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Depth-First Search","Breadth-First Search","Matrix"],
+      hint: "Check if startColor === targetColor early to avoid infinite recursion. Recurse 4-directionally for matching pixels.",
+      complexityTarget: "Time: O(M * N) | Space: O(M * N)",
+    },
+    {
+      id: 'war_toeplitz_matrix_54',
+      title: "Toeplitz Matrix (Linear System Filter Verification)",
+      difficulty: 'basic',
+      competencyId: 'comp_matrix_toeplitz_diagonal_l1',
+      description: "Given an m x n matrix, return true if the matrix is Toeplitz. A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements.",
+      starterCode: {
+        typescript: "function isToeplitzMatrix(matrix: number[][]): boolean {\n  // Your solution here\n  return false;\n}",
+        python: "def is_toeplitz_matrix(matrix: list[list[int]]) -> bool:\n    # Your solution here\n    return False",
+      },
+      testCases: [
+        { input: "matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]", expectedOutput: "true", explanation: "All diagonals match down-right." },
+        { input: "matrix = [[1,2],[2,2]]", expectedOutput: "false", explanation: "Diagonal [1, 2] has mismatched values." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Matrix"],
+      hint: "Iterate r from 0 to R-2 and c from 0 to C-2. If matrix[r][c] !== matrix[r+1][c+1], return false.",
+      complexityTarget: "Time: O(M * N) | Space: O(1)",
+    },
+    {
+      id: 'war_jewels_and_stones_55',
+      title: "Jewels and Stones (Telemetry Metric Tag Matcher)",
+      difficulty: 'basic',
+      competencyId: 'comp_hash_set_jewels_stones_l1',
+      description: "You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels. Letters are case sensitive, so 'a' is considered a different type of stone from 'A'.",
+      starterCode: {
+        typescript: "function numJewelsInStones(jewels: string, stones: string): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def num_jewels_in_stones(jewels: str, stones: str) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "jewels = 'aA', stones = 'aAAbbbb'", expectedOutput: "3", explanation: "'a', 'A', 'A' are jewels." },
+        { input: "jewels = 'z', stones = 'ZZ'", expectedOutput: "0", explanation: "No 'z' matches case-sensitive 'Z'." },
+        { input: "jewels = 'abc', stones = 'aabbccdef'", expectedOutput: "6", explanation: "Two 'a's, two 'b's, two 'c's." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Hash Table","String"],
+      hint: "Store jewels in a Set for O(1) membership check, then iterate through stones and increment counter.",
+      complexityTarget: "Time: O(J + S) | Space: O(J)",
+    },
+    {
+      id: 'war_unique_morse_representations_56',
+      title: "Unique Morse Code Words (Packet Encoding Collision Detector)",
+      difficulty: 'basic',
+      competencyId: 'comp_string_morse_representations_l1',
+      description: "International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes. Given an array of strings words where each word can be written as a concatenation of the Morse code of each letter, return the number of different transformations among all words we have.",
+      starterCode: {
+        typescript: "function uniqueMorseRepresentations(words: string[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def unique_morse_representations(words: list[str]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "words = ['gin','zen','gig','msg']", expectedOutput: "2", explanation: "'gin' and 'zen' map to '--...-.', 'gig' and 'msg' map to '--...--.'." },
+        { input: "words = ['a']", expectedOutput: "1", explanation: "Single letter maps to '.-'." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Hash Table","String"],
+      hint: "Map each character to its 26-element morse table, build concatenated string, and add to a Set.",
+      complexityTarget: "Time: O(Total characters) | Space: O(Total characters)",
+    },
+    {
+      id: 'war_flipping_an_image_57',
+      title: "Flipping an Image (Hardware Display Frame Mirror)",
+      difficulty: 'basic',
+      competencyId: 'comp_matrix_flip_invert_image_l1',
+      description: "Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image. To flip an image horizontally means that each row of the image is reversed. To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0.",
+      starterCode: {
+        typescript: "function flipAndInvertImage(image: number[][]): number[][] {\n  // Your solution here\n  return image;\n}",
+        python: "def flip_and_invert_image(image: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return image",
+      },
+      testCases: [
+        { input: "image = [[1,1,0],[1,0,1],[0,0,0]]", expectedOutput: "[[1,0,0],[0,1,0],[1,1,1]]", explanation: "Flip row: [0,1,1], invert: [1,0,0]." },
+        { input: "image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]", expectedOutput: "[[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]", explanation: "4x4 matrix flipped and inverted." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Two Pointers","Matrix","Simulation"],
+      hint: "For each row, reverse elements and XOR each element with 1.",
+      complexityTarget: "Time: O(N^2) | Space: O(N^2)",
+    },
+    {
+      id: 'war_transpose_matrix_58',
+      title: "Transpose Matrix (Columnar Memory Layout Transposition)",
+      difficulty: 'basic',
+      competencyId: 'comp_matrix_transpose_l1',
+      description: "Given a 2D integer array matrix, return the transpose of matrix. The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.",
+      starterCode: {
+        typescript: "function transpose(matrix: number[][]): number[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]", expectedOutput: "[[1,4,7],[2,5,8],[3,6,9]]", explanation: "3x3 transpose matrix." },
+        { input: "matrix = [[1,2,3],[4,5,6]]", expectedOutput: "[[1,4],[2,5],[3,6]]", explanation: "2x3 transposed to 3x2." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Matrix","Simulation"],
+      hint: "If matrix is R x C, output is C x R with res[c][r] = matrix[r][c].",
+      complexityTarget: "Time: O(R * C) | Space: O(R * C)",
+    },
+    {
+      id: 'war_fair_candy_swap_59',
+      title: "Fair Candy Swap (Bilateral Asset Clearing House Rebalancer)",
+      difficulty: 'basic',
+      competencyId: 'comp_hash_set_fair_candy_swap_l1',
+      description: "Alice and Bob have a different total number of candies. You are given two integer arrays aliceSizes and bobSizes where aliceSizes[i] is the number of candies of the ith box of candy that Alice has and bobSizes[j] is the number of candies of the jth box of candy that Bob has. Since they are friends, they would like to exchange one candy box each so that after the exchange, they both have the same total amount of candy. Return an integer array answer where answer[0] is the number of candies in the box that Alice must exchange, and answer[1] is the number of candies in the box that Bob must exchange.",
+      starterCode: {
+        typescript: "function fairCandySwap(aliceSizes: number[], bobSizes: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+        python: "def fair_candy_swap(aliceSizes: list[int], bobSizes: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "aliceSizes = [1,1], bobSizes = [2,2]", expectedOutput: "[1,2]", explanation: "Alice gives 1, Bob gives 2. Both now have 2." },
+        { input: "aliceSizes = [1,2], bobSizes = [2,3]", expectedOutput: "[1,2]", explanation: "Both reach total 4." },
+        { input: "aliceSizes = [2], bobSizes = [1,3]", expectedOutput: "[2,3]", explanation: "Both reach total 3." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Hash Table","Binary Search"],
+      hint: "SumA - x + y = SumB - y + x implies y = x - (SumA - SumB) / 2. Store Bob's sizes in a set and lookup y.",
+      complexityTarget: "Time: O(A + B) | Space: O(B)",
+    },
+    {
+      id: 'war_sort_array_by_parity_60',
+      title: "Sort Array By Parity (Priority Queue Buffer Segregator)",
+      difficulty: 'basic',
+      competencyId: 'comp_two_pointers_parity_sort_l1',
+      description: "Given an integer array nums, move all the even integers at the beginning of the array followed by all the odd integers. Return any array that satisfies this condition.",
+      starterCode: {
+        typescript: "function sortArrayByParity(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+        python: "def sort_array_by_parity(nums: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "nums = [3,1,2,4]", expectedOutput: "[2,4,3,1]", explanation: "[4,2,3,1], [2,4,1,3], and [4,2,1,3] are also acceptable." },
+        { input: "nums = [0]", expectedOutput: "[0]", explanation: "Single element array." }
+      ],
+      timeLimitSeconds: 180,
+      memoryLimitMb: 64,
+      xpReward: 100,
+      tags: ["Array","Two Pointers","Sorting"],
+      hint: "Filter evens and odds, or use two pointers from left and right swapping when left is odd and right is even.",
+      complexityTarget: "Time: O(N) | Space: O(N)",
+    },
+
+    // INTERMEDIATE 54-63
+    {
+      id: 'war_subsets_54',
+      title: "Subsets (Feature Flag Combinatorial Matrix)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_backtracking_subsets_power_set_l2',
+      description: "Given an integer array nums of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution sorted or canonicalized.",
+      starterCode: {
+        typescript: "function subsets(nums: number[]): number[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def subsets(nums: list[int]) -> list[list[int]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "nums = [1,2,3]", expectedOutput: "[[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]", explanation: "All 2^3 = 8 subsets." },
+        { input: "nums = [0]", expectedOutput: "[[],[0]]", explanation: "2 subsets for single element." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Backtracking","Bit Manipulation"],
+      hint: "Use recursion/backtracking: for each element at index i, choose to include it or skip it, exploring branches.",
+      complexityTarget: "Time: O(2^N) | Space: O(2^N)",
+    },
+    {
+      id: 'war_permutations_55',
+      title: "Permutations (Job Scheduler Workflow Sequencer)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_backtracking_permutations_l2',
+      description: "Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.",
+      starterCode: {
+        typescript: "function permute(nums: number[]): number[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def permute(nums: list[int]) -> list[list[int]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "nums = [1,2,3]", expectedOutput: "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]", explanation: "All 6 permutations of [1,2,3]." },
+        { input: "nums = [0,1]", expectedOutput: "[[0,1],[1,0]]", explanation: "2 permutations of [0,1]." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Backtracking"],
+      hint: "Maintain a visited array or swap elements in-place to generate all N! permutations.",
+      complexityTarget: "Time: O(N * N!) | Space: O(N * N!)",
+    },
+    {
+      id: 'war_pacific_atlantic_water_flow_56',
+      title: "Pacific Atlantic Water Flow (Dual-Egress Watershed Router)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_graph_bfs_pacific_atlantic_l2',
+      description: "There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges. Rain water can flow to neighboring cells directly north, south, east, and west if the neighboring cell's height is less than or equal to the current cell's height. Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.",
+      starterCode: {
+        typescript: "function pacificAtlantic(heights: number[][]): number[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def pacific_atlantic(heights: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]", expectedOutput: "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]", explanation: "Cells reaching both oceans." },
+        { input: "heights = [[1]]", expectedOutput: "[[0,0]]", explanation: "Single cell touches both oceans." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Depth-First Search","Breadth-First Search","Matrix"],
+      hint: "Run DFS/BFS backward from ocean boundaries climbing uphill (height >= current). Find intersection of Pacific and Atlantic visited matrices.",
+      complexityTarget: "Time: O(M * N) | Space: O(M * N)",
+    },
+    {
+      id: 'war_longest_consecutive_sequence_57',
+      title: "Longest Consecutive Sequence (O(n) Financial Tick Streak Analyzer)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_hash_set_longest_consecutive_l2',
+      description: "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+      starterCode: {
+        typescript: "function longestConsecutive(nums: number[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def longest_consecutive(nums: list[int]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "nums = [100,4,200,1,3,2]", expectedOutput: "4", explanation: "Longest consecutive elements sequence is [1, 2, 3, 4]. Length is 4." },
+        { input: "nums = [0,3,7,2,5,8,4,6,0,1]", expectedOutput: "9", explanation: "Sequence 0 to 8 has length 9." },
+        { input: "nums = []", expectedOutput: "0", explanation: "Empty array yields 0." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Hash Table","Union Find"],
+      hint: "Insert all numbers into a Set. Only start counting streaks from numbers x where x - 1 is not in the set.",
+      complexityTarget: "Time: O(N) | Space: O(N)",
+    },
+    {
+      id: 'war_evaluate_reverse_polish_notation_58',
+      title: "Evaluate Reverse Polish Notation (Bytecode Stack VM Executor)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_stack_eval_rpn_l2',
+      description: "You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation. Evaluate the expression. Return an integer that represents the value of the expression. Division between two integers always truncates toward zero.",
+      starterCode: {
+        typescript: "function evalRPN(tokens: string[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def eval_rpn(tokens: list[str]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "tokens = ['2','1','+','3','*']", expectedOutput: "9", explanation: "((2 + 1) * 3) = 9." },
+        { input: "tokens = ['4','13','5','/','+']", expectedOutput: "6", explanation: "(4 + (13 / 5)) = 6." },
+        { input: "tokens = ['10','6','9','3','+','-11','*','/','*','17','+','5','+']", expectedOutput: "22", explanation: "Complex RPN evaluates to 22." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Math","Stack"],
+      hint: "Iterate through tokens. When a number is encountered, push it to stack. When an operator is encountered, pop b and a, compute, and push result. Use Math.trunc for division.",
+      complexityTarget: "Time: O(N) | Space: O(N)",
+    },
+    {
+      id: 'war_course_schedule_ii_59',
+      title: "Course Schedule II (Build Graph Dependency Ordering)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_graph_topological_sort_order_l2',
+      description: "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai. Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.",
+      starterCode: {
+        typescript: "function findOrder(numCourses: number, prerequisites: number[][]): number[] {\n  // Your solution here\n  return [];\n}",
+        python: "def find_order(numCourses: int, prerequisites: list[list[int]]) -> list[int]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "numCourses = 2, prerequisites = [[1,0]]", expectedOutput: "[0,1]", explanation: "Take 0 then 1." },
+        { input: "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]", expectedOutput: "[0,1,2,3]", explanation: "Valid topological order." },
+        { input: "numCourses = 2, prerequisites = [[0,1],[1,0]]", expectedOutput: "[]", explanation: "Cyclic dependency, impossible." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Depth-First Search","Breadth-First Search","Graph","Topological Sort"],
+      hint: "Use Kahn's algorithm with an in-degree array and queue. If order length equals numCourses return order, else [].",
+      complexityTarget: "Time: O(V + E) | Space: O(V + E)",
+    },
+    {
+      id: 'war_task_scheduler_60',
+      title: "Task Scheduler (CPU Cooldown Queue Optimizer)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_greedy_task_scheduler_cooldown_l2',
+      description: "Given a characters array tasks, representing the tasks a CPU needs to do, where each letter represents a different task. Tasks could be done in any order. Each task is done in one unit of time. For each unit of time, the CPU could complete either one task or be idle. However, there is a non-negative integer n that represents the cooldown period between two same tasks. Return the least number of units of times that the CPU will take to finish all the given tasks.",
+      starterCode: {
+        typescript: "function leastInterval(tasks: string[], n: number): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def least_interval(tasks: list[str], n: int) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "tasks = ['A','A','A','B','B','B'], n = 2", expectedOutput: "8", explanation: "A -> B -> idle -> A -> B -> idle -> A -> B." },
+        { input: "tasks = ['A','A','A','B','B','B'], n = 0", expectedOutput: "6", explanation: "No cooldown needed." },
+        { input: "tasks = ['A','A','A','A','A','A','B','C','D','E','F','G'], n = 2", expectedOutput: "16", explanation: "Optimal schedule requires 16 units." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Hash Table","Greedy","Sorting","Heap"],
+      hint: "Count task frequencies. Find max frequency. Compute empty slots between max frequency instances: (maxFreq - 1) * (n - (countOfMaxFreq - 1)).",
+      complexityTarget: "Time: O(N) | Space: O(1)",
+    },
+    {
+      id: 'war_accounts_merge_61',
+      title: "Accounts Merge (CRM Identity Graph Disjoint Set Merger)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_graph_dsu_accounts_merge_l2',
+      description: "Given a list of accounts where each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, and the rest of the elements are emails representing emails of the account. Two accounts definitely belong to the same person if there is some common email to both accounts. Merge these accounts and return accounts where each account has the name followed by sorted unique emails.",
+      starterCode: {
+        typescript: "function accountsMerge(accounts: string[][]): string[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def accounts_merge(accounts: list[list[str]]) -> list[list[str]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "accounts = [['John','johnsmith@mail.com','john_newyork@mail.com'],['John','johnsmith@mail.com','john00@mail.com'],['Mary','mary@mail.com'],['John','johnnybravo@mail.com']]", expectedOutput: "[['John','john00@mail.com','john_newyork@mail.com','johnsmith@mail.com'],['John','johnnybravo@mail.com'],['Mary','mary@mail.com']]", explanation: "Merged accounts sharing johnsmith@mail.com." },
+        { input: "accounts = [['Gabe','Gabe0@m.co','Gabe3@m.co'],['Kevin','Kevin3@m.co','Kevin5@m.co'],['Gabe','Gabe1@m.co','Gabe2@m.co'],['Gabe','Gabe3@m.co','Gabe4@m.co']]", expectedOutput: "[['Gabe','Gabe0@m.co','Gabe1@m.co','Gabe2@m.co','Gabe3@m.co','Gabe4@m.co'],['Kevin','Kevin3@m.co','Kevin5@m.co']]", explanation: "Multiple accounts of same user merged transitively." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Hash Table","String","Depth-First Search","Breadth-First Search","Union Find"],
+      hint: "Use Disjoint Set Union (DSU) where each email is a node. Union all emails in the same account to the first email.",
+      complexityTarget: "Time: O(N * alpha(N) + N log N) | Space: O(N)",
+    },
+    {
+      id: 'war_minimum_size_subarray_sum_62',
+      title: "Minimum Size Subarray Sum (TCP Congestion Window Sizer)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_sliding_window_min_subarray_sum_l2',
+      description: "Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.",
+      starterCode: {
+        typescript: "function minSubArrayLen(target: number, nums: number[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def min_sub_array_len(target: int, nums: list[int]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "target = 7, nums = [2,3,1,2,4,3]", expectedOutput: "2", explanation: "Subarray [4,3] has the minimal length 2." },
+        { input: "target = 4, nums = [1,4,4]", expectedOutput: "1", explanation: "Subarray [4] has length 1." },
+        { input: "target = 11, nums = [1,1,1,1,1,1,1,1]", expectedOutput: "0", explanation: "No subarray sums to >= 11." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Binary Search","Sliding Window","Prefix Sum"],
+      hint: "Expand the right boundary adding to sum. While sum >= target, update minLen and shrink left boundary.",
+      complexityTarget: "Time: O(N) | Space: O(1)",
+    },
+    {
+      id: 'war_asteroid_collision_63',
+      title: "Asteroid Collision (Bidirectional Mesh Packet Collision Arbitrator)",
+      difficulty: 'intermediate',
+      competencyId: 'comp_stack_monotonic_asteroid_collision_l2',
+      description: "We are given an array asteroids of integers representing asteroids in a row. For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed. Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.",
+      starterCode: {
+        typescript: "function asteroidCollision(asteroids: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+        python: "def asteroid_collision(asteroids: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "asteroids = [5,10,-5]", expectedOutput: "[5,10]", explanation: "10 and -5 collide; 10 wins." },
+        { input: "asteroids = [8,-8]", expectedOutput: "[]", explanation: "8 and -8 collide and both explode." },
+        { input: "asteroids = [10,2,-5]", expectedOutput: "[10]", explanation: "2 explodes against -5, then -5 explodes against 10." },
+        { input: "asteroids = [-2,-1,1,2]", expectedOutput: "[-2,-1,1,2]", explanation: "Negative moving left and positive right never meet." }
+      ],
+      timeLimitSeconds: 240,
+      memoryLimitMb: 128,
+      xpReward: 150,
+      tags: ["Array","Stack","Simulation"],
+      hint: "Use a stack. A collision only happens when current asteroid is negative and top of stack is positive.",
+      complexityTarget: "Time: O(N) | Space: O(N)",
+    },
+
+    // ADVANCED 51-60
+    {
+      id: 'war_the_skyline_problem_51',
+      title: "The Skyline Problem (LiDAR Silhouette Bounding Envelope)",
+      difficulty: 'advanced',
+      competencyId: 'comp_sweep_line_skyline_heap_l3',
+      description: "A city's skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Given the locations and heights of all the buildings, return the skyline formed by these buildings collectively. The geometric information of each building is given in the array buildings where buildings[i] = [lefti, righti, heighti]. The output is a list of 'key points' [x, y] sorted by their x-coordinate.",
+      starterCode: {
+        typescript: "function getSkyline(buildings: number[][]): number[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def get_skyline(buildings: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]", expectedOutput: "[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]", explanation: "Skyline critical contour points." },
+        { input: "buildings = [[0,2,3],[2,5,3]]", expectedOutput: "[[0,3],[5,0]]", explanation: "Contiguous buildings of same height form a single flat roof." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Binary Indexed Tree","Segment Tree","Line Sweep","Heap (Priority Queue)"],
+      hint: "Treat building edges as events: left edge enters with height, right edge leaves. Sort events by x coordinate and maintain live heights.",
+      complexityTarget: "Time: O(N log N) | Space: O(N)",
+    },
+    {
+      id: 'war_concatenated_words_52',
+      title: "Concatenated Words (Compiler Compound Keyword Synthesizer)",
+      difficulty: 'advanced',
+      competencyId: 'comp_trie_dp_concatenated_words_l3',
+      description: "Given an array of strings words (without duplicates), return all the concatenated words in the given list of words. A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array. Return the words in lexicographical order.",
+      starterCode: {
+        typescript: "function findAllConcatenatedWordsInADict(words: string[]): string[] {\n  // Your solution here\n  return [];\n}",
+        python: "def find_all_concatenated_words_in_a_dict(words: list[str]) -> list[str]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "words = ['cat','cats','catsdogcats','dog','dogcatsdog','hippopotamuses','rat','ratcatdogcat']", expectedOutput: "['catsdogcats','dogcatsdog','ratcatdogcat']", explanation: "Compound words formed from dictionary words." },
+        { input: "words = ['cat','dog','catdog']", expectedOutput: "['catdog']", explanation: "'catdog' = 'cat' + 'dog'." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Array","String","Dynamic Programming","Depth-First Search","Trie"],
+      hint: "Store words in a hash set. For each word, use memoized DFS to check if it can be split into prefix (in set) and suffix (in set or recursively split).",
+      complexityTarget: "Time: O(N * L^2) | Space: O(N * L)",
+    },
+    {
+      id: 'war_sliding_puzzle_53',
+      title: "Sliding Puzzle (Robotic Grid State A* / BFS Planner)",
+      difficulty: 'advanced',
+      competencyId: 'comp_graph_bfs_sliding_puzzle_l3',
+      description: "On an 2 x 3 board, there are five tiles labeled from 1 to 5, and an empty square represented by 0. A move consists of choosing 0 and a 4-directionally adjacent number and swapping it. The state of the board is solved if and only if the board is [[1,2,3],[4,5,0]]. Given the puzzle board board, return the least number of moves required so that the state of the board is solved. If it is impossible for the state of the board to be solved, return -1.",
+      starterCode: {
+        typescript: "function slidingPuzzle(board: number[][]): number {\n  // Your solution here\n  return -1;\n}",
+        python: "def sliding_puzzle(board: list[list[int]]) -> int:\n    # Your solution here\n    return -1",
+      },
+      testCases: [
+        { input: "board = [[1,2,3],[4,0,5]]", expectedOutput: "1", explanation: "Swap 0 and 5: 1 move." },
+        { input: "board = [[1,2,3],[5,4,0]]", expectedOutput: "-1", explanation: "No sequence of moves can solve this parity-inverted board." },
+        { input: "board = [[4,1,2],[5,0,3]]", expectedOutput: "5", explanation: "Optimal BFS reaches target in 5 swaps." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Array","Breadth-First Search","Matrix"],
+      hint: "Model the 2x3 grid as a string of length 6. Precompute the valid adjacency swap indices for each position and run BFS.",
+      complexityTarget: "Time: O(6!) | Space: O(6!)",
+    },
+    {
+      id: 'war_critical_connections_network_54',
+      title: "Critical Connections in a Network (VPC Backbone Tarjan Bridge Detector)",
+      difficulty: 'advanced',
+      competencyId: 'comp_graph_tarjan_critical_bridges_l3',
+      description: "There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections forming a network where connections[i] = [ai, bi] represents a connection between servers ai and bi. Any server can reach other servers directly or indirectly through the network. A critical connection is a connection that, if removed, will make some servers unable to reach some other server. Return all critical connections in the network in any order.",
+      starterCode: {
+        typescript: "function criticalConnections(n: number, connections: number[][]): number[][] {\n  // Your solution here\n  return [];\n}",
+        python: "def critical_connections(n: int, connections: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]", expectedOutput: "[[1,3]]", explanation: "Removing [1,3] disconnects server 3." },
+        { input: "n = 2, connections = [[0,1]]", expectedOutput: "[[0,1]]", explanation: "Single connection is critical." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Graph","Depth-First Search","Biconnected Component"],
+      hint: "Use Tarjan's bridge-finding algorithm with discovery time and low-link values. An edge (u, v) is a bridge if low[v] > disc[u].",
+      complexityTarget: "Time: O(V + E) | Space: O(V + E)",
+    },
+    {
+      id: 'war_count_smaller_after_self_55',
+      title: "Count of Smaller Numbers After Self (HFT Order Inversion Fenwick Tree)",
+      difficulty: 'advanced',
+      competencyId: 'comp_fenwick_tree_count_smaller_after_self_l3',
+      description: "Given an integer array nums, return an integer array counts where counts[i] is the number of smaller elements to the right of nums[i].",
+      starterCode: {
+        typescript: "function countSmaller(nums: number[]): number[] {\n  // Your solution here\n  return [];\n}",
+        python: "def count_smaller(nums: list[int]) -> list[int]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "nums = [5,2,6,1]", expectedOutput: "[2,1,1,0]", explanation: "To the right of 5: [2, 1] (2). To the right of 2: [1] (1). To the right of 6: [1] (1). Right of 1: [] (0)." },
+        { input: "nums = [-1]", expectedOutput: "[0]", explanation: "Single element has 0 smaller elements to the right." },
+        { input: "nums = [-1,-1]", expectedOutput: "[0,0]", explanation: "Identical elements." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Array","Binary Search","Divide and Conquer","Binary Indexed Tree","Segment Tree"],
+      hint: "Coordinate-compress nums into ranks 1..M. Iterate from right to left, query BIT for sum(rank - 1), then update BIT with rank.",
+      complexityTarget: "Time: O(N log N) | Space: O(N)",
+    },
+    {
+      id: 'war_ipo_capital_maximization_56',
+      title: "IPO Capital Maximization (Dual-Heap Liquidity Optimizer)",
+      difficulty: 'advanced',
+      competencyId: 'comp_dual_heap_ipo_capital_l3',
+      description: "Suppose LeetCode will start its IPO soon. To sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects. You are given n projects where the ith project has a pure profit profits[i] and a minimum capital of capital[i] is needed to start it. Initially, you have w capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital. Return the maximized capital after finishing at most k distinct projects.",
+      starterCode: {
+        typescript: "function findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {\n  // Your solution here\n  return 0;\n}",
+        python: "def find_maximized_capital(k: int, w: int, profits: list[int], capital: list[int]) -> int:\n    # Your solution here\n    return 0",
+      },
+      testCases: [
+        { input: "k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]", expectedOutput: "4", explanation: "Start project 0 (capital 0, profit 1) -> w=1. Then start project 2 (capital 1, profit 3) -> w=4." },
+        { input: "k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]", expectedOutput: "6", explanation: "Finish project 0, then 1, then 2. Capital becomes 6." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Array","Greedy","Sorting","Heap (Priority Queue)"],
+      hint: "Sort projects by required capital. Push available projects into a Max-Heap of profits whenever w >= capital. Greedily pick the highest profit.",
+      complexityTarget: "Time: O(N log N + K log N) | Space: O(N)",
+    },
+    {
+      id: 'war_design_in_memory_file_system_57',
+      title: "In-Memory File System (POSIX Ephemeral VFS Directory Engine)",
+      difficulty: 'advanced',
+      competencyId: 'comp_trie_vfs_file_system_l3',
+      description: "Design a data structure that simulates an in-memory file system. Implement simulateFileSystem(operations: string[], args: string[][]): (string[] | string | null)[]. Operations: ls(path), mkdir(path), addContentToFile(filePath, content), readContentFromFile(filePath).",
+      starterCode: {
+        typescript: "function simulateFileSystem(operations: string[], args: string[][]): (string[] | string | null)[] {\n  // Your solution here\n  return [];\n}",
+        python: "def simulate_file_system(operations: list[str], args: list[list[str]]) -> list:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        {
+          input: "operations = ['ls','mkdir','addContentToFile','ls','readContentFromFile'], args = [['/'],['/a/b/c'],['/a/b/c/d','hello'],['/'],['/a/b/c/d']]",
+          expectedOutput: "[[],null,null,['a'],'hello']",
+          explanation: "Standard POSIX file system lifecycle."
+        },
+        {
+          input: "operations = ['mkdir','ls'], args = [['/a'],['/']]",
+          expectedOutput: "[null,['a']]",
+          explanation: "Root directory lists newly created folder."
+        }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Design","Trie","Hash Table","String"],
+      hint: "Model directories as a Trie where each node has a map of child nodes, a boolean isDir, and a string content.",
+      complexityTarget: "Time: O(Path length) per operation | Space: O(Total file content and path depth)",
+    },
+    {
+      id: 'war_reconstruct_itinerary_58',
+      title: "Reconstruct Itinerary (Hierholzer Eulerian Air Cargo Dispatcher)",
+      difficulty: 'advanced',
+      competencyId: 'comp_graph_eulerian_reconstruct_itinerary_l3',
+      description: "You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival airports of one flight. Reconstruct the itinerary in order and return it. All of the tickets belong to a man who departs from 'JFK', thus, the itinerary must begin with 'JFK'. If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. You must use all the tickets once and only once.",
+      starterCode: {
+        typescript: "function findItinerary(tickets: string[][]): string[] {\n  // Your solution here\n  return [];\n}",
+        python: "def find_itinerary(tickets: list[list[str]]) -> list[str]:\n    # Your solution here\n    return []",
+      },
+      testCases: [
+        { input: "tickets = [['MUC','LHR'],['JFK','MUC'],['SFO','SJC'],['LHR','SFO']]", expectedOutput: "['JFK','MUC','LHR','SFO','SJC']", explanation: "Unique Eulerian path starting at JFK." },
+        { input: "tickets = [['JFK','SFO'],['JFK','ATL'],['SFO','ATL'],['ATL','JFK'],['ATL','SFO']]", expectedOutput: "['JFK','ATL','JFK','SFO','ATL','SFO']", explanation: "Lexicographically smallest route choosing ATL before SFO." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Depth-First Search","Graph","Eulerian Circuit"],
+      hint: "Use Hierholzer's algorithm: sort adjacency destinations reverse-lexicographically, traverse DFS popping destinations, and push to route on backtrack.",
+      complexityTarget: "Time: O(E log E) | Space: O(V + E)",
+    },
+    {
+      id: 'war_longest_duplicate_substring_59',
+      title: "Longest Duplicate Substring (Rabin-Karp Rolling Hash Deduplication Chunk)",
+      difficulty: 'advanced',
+      competencyId: 'comp_rabin_karp_longest_duplicate_substring_l3',
+      description: "Given a string s, consider all duplicated substrings: substrings of s that occur 2 or more times. The occurrences may overlap. Return any duplicated substring that has the longest possible length. If s does not have a duplicated substring, the answer is ''.",
+      starterCode: {
+        typescript: "function longestDupSubstring(s: string): string {\n  // Your solution here\n  return '';\n}",
+        python: "def longest_dup_substring(s: str) -> str:\n    # Your solution here\n    return ''",
+      },
+      testCases: [
+        { input: "s = 'banana'", expectedOutput: "'ana'", explanation: "'ana' appears twice at index 1 and index 3." },
+        { input: "s = 'abcd'", expectedOutput: "''", explanation: "No duplicate substring." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["String","Binary Search","Sliding Window","Rolling Hash","Suffix Array"],
+      hint: "Binary search the length L of duplicate substring from 1 to N-1. Check for duplicate substring of length L in O(N) using Rabin-Karp rolling hash.",
+      complexityTarget: "Time: O(N log N) | Space: O(N)",
+    },
+    {
+      id: 'war_bus_routes_bfs_60',
+      title: "Bus Routes (Multi-Modal Transfer BFS Graph Reducer)",
+      difficulty: 'advanced',
+      competencyId: 'comp_graph_bfs_bus_routes_l3',
+      description: "You are given an array routes representing bus routes where routes[i] is a bus route that the ith bus repeats forever. For example, if routes[0] = [1, 5, 7], this means that the 0th bus travels in the sequence 1 -> 5 -> 7 -> 1 -> 5 -> 7 -> ... forever. You start at the bus stop source, and you want to go to the bus stop target. You can travel between bus stops only by taking the bus. Return the least number of buses you must take to travel from source to target. If it is impossible, return -1.",
+      starterCode: {
+        typescript: "function numBusesToDestination(routes: number[][], source: number, target: number): number {\n  // Your solution here\n  return -1;\n}",
+        python: "def num_buses_to_destination(routes: list[list[int]], source: int, target: int) -> int:\n    # Your solution here\n    return -1",
+      },
+      testCases: [
+        { input: "routes = [[1,2,7],[3,6,7]], source = 1, target = 6", expectedOutput: "2", explanation: "Take bus 0 to stop 7, then bus 1 to stop 6. Total = 2 buses." },
+        { input: "routes = [[7,12],[4,5,15],[6],[15,19],[9,12,13]], source = 15, target = 12", expectedOutput: "-1", explanation: "No route connects stop 15 to stop 12." }
+      ],
+      timeLimitSeconds: 360,
+      memoryLimitMb: 128,
+      xpReward: 200,
+      tags: ["Array","Hash Table","Breadth-First Search"],
+      hint: "Map stop -> list of bus routes. Run BFS by route levels (visited routes and visited stops) to guarantee shortest path without exploding queue.",
+      complexityTarget: "Time: O(Sum of route lengths) | Space: O(Sum of route lengths)",
+    },
+  ];
 
 export class CodeWarsApiService {
   private static localMatchesKey = (studentId: string) => `pinit_${studentId}_codewars_matches`;

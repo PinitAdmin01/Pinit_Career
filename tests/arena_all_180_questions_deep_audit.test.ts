@@ -2812,6 +2812,706 @@ function findRedundantDirectedConnection(edges: number[][]): number[] {
   return cand2!;
 }
   `,
+
+  // --- NEW 30 QUESTIONS (151 to 180) ---
+  // war_distribute_candies_51
+  war_distribute_candies_51: `
+function distributeCandies(candyType: number[]): number {
+  const unique = new Set(candyType).size;
+  return Math.min(unique, candyType.length / 2);
+}
+  `,
+  // war_baseball_game_52
+  war_baseball_game_52: `
+function calPoints(operations: string[]): number {
+  const stack: number[] = [];
+  for (const op of operations) {
+    if (op === '+') {
+      stack.push(stack[stack.length - 1] + stack[stack.length - 2]);
+    } else if (op === 'D') {
+      stack.push(stack[stack.length - 1] * 2);
+    } else if (op === 'C') {
+      stack.pop();
+    } else {
+      stack.push(parseInt(op, 10));
+    }
+  }
+  return stack.reduce((acc, val) => acc + val, 0);
+}
+  `,
+  // war_flood_fill_basic_53
+  war_flood_fill_basic_53: `
+function floodFill(image: number[][], sr: number, sc: number, color: number): number[][] {
+  const startColor = image[sr][sc];
+  if (startColor === color) return image;
+  const rows = image.length, cols = image[0].length;
+  function dfs(r: number, c: number) {
+    if (r < 0 || r >= rows || c < 0 || c >= cols || image[r][c] !== startColor) return;
+    image[r][c] = color;
+    dfs(r + 1, c);
+    dfs(r - 1, c);
+    dfs(r, c + 1);
+    dfs(r, c - 1);
+  }
+  dfs(sr, sc);
+  return image;
+}
+  `,
+  // war_toeplitz_matrix_54
+  war_toeplitz_matrix_54: `
+function isToeplitzMatrix(matrix: number[][]): boolean {
+  for (let r = 0; r < matrix.length - 1; r++) {
+    for (let c = 0; c < matrix[0].length - 1; c++) {
+      if (matrix[r][c] !== matrix[r + 1][c + 1]) return false;
+    }
+  }
+  return true;
+}
+  `,
+  // war_jewels_and_stones_55
+  war_jewels_and_stones_55: `
+function numJewelsInStones(jewels: string, stones: string): number {
+  const set = new Set(jewels);
+  let count = 0;
+  for (const s of stones) {
+    if (set.has(s)) count++;
+  }
+  return count;
+}
+  `,
+  // war_unique_morse_representations_56
+  war_unique_morse_representations_56: `
+function uniqueMorseRepresentations(words: string[]): number {
+  const MORSE = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."];
+  const seen = new Set<string>();
+  for (const word of words) {
+    let code = '';
+    for (let i = 0; i < word.length; i++) {
+      code += MORSE[word.charCodeAt(i) - 97];
+    }
+    seen.add(code);
+  }
+  return seen.size;
+}
+  `,
+  // war_flipping_an_image_57
+  war_flipping_an_image_57: `
+function flipAndInvertImage(image: number[][]): number[][] {
+  const n = image.length;
+  return image.map(row => {
+    const res = new Array(n);
+    for (let i = 0; i < n; i++) {
+      res[i] = row[n - 1 - i] ^ 1;
+    }
+    return res;
+  });
+}
+  `,
+  // war_transpose_matrix_58
+  war_transpose_matrix_58: `
+function transpose(matrix: number[][]): number[][] {
+  const R = matrix.length, C = matrix[0].length;
+  const res: number[][] = Array.from({ length: C }, () => new Array(R));
+  for (let r = 0; r < R; r++) {
+    for (let c = 0; c < C; c++) {
+      res[c][r] = matrix[r][c];
+    }
+  }
+  return res;
+}
+  `,
+  // war_fair_candy_swap_59
+  war_fair_candy_swap_59: `
+function fairCandySwap(aliceSizes: number[], bobSizes: number[]): number[] {
+  const sumA = aliceSizes.reduce((a, b) => a + b, 0);
+  const sumB = bobSizes.reduce((a, b) => a + b, 0);
+  const diff = (sumA - sumB) / 2;
+  const setB = new Set(bobSizes);
+  for (const x of aliceSizes) {
+    const y = x - diff;
+    if (setB.has(y)) return [x, y];
+  }
+  return [];
+}
+  `,
+  // war_sort_array_by_parity_60
+  war_sort_array_by_parity_60: `
+function sortArrayByParity(nums: number[]): number[] {
+  const evens = nums.filter(x => x % 2 === 0);
+  const odds = nums.filter(x => x % 2 !== 0);
+  return [...evens, ...odds];
+}
+  `,
+  // war_subsets_54
+  war_subsets_54: `
+function subsets(nums: number[]): number[][] {
+  const res: number[][] = [];
+  function backtrack(start: number, current: number[]) {
+    res.push([...current]);
+    for (let i = start; i < nums.length; i++) {
+      current.push(nums[i]);
+      backtrack(i + 1, current);
+      current.pop();
+    }
+  }
+  backtrack(0, []);
+  res.forEach(sub => sub.sort((a, b) => a - b));
+  res.sort((a, b) => a.length - b.length || a.join(',').localeCompare(b.join(',')));
+  return res;
+}
+  `,
+  // war_permutations_55
+  war_permutations_55: `
+function permute(nums: number[]): number[][] {
+  const res: number[][] = [];
+  const used = new Array(nums.length).fill(false);
+  function backtrack(curr: number[]) {
+    if (curr.length === nums.length) {
+      res.push([...curr]);
+      return;
+    }
+    for (let i = 0; i < nums.length; i++) {
+      if (used[i]) continue;
+      used[i] = true;
+      curr.push(nums[i]);
+      backtrack(curr);
+      curr.pop();
+      used[i] = false;
+    }
+  }
+  backtrack([]);
+  res.sort((a, b) => a.join(',').localeCompare(b.join(',')));
+  return res;
+}
+  `,
+  // war_pacific_atlantic_water_flow_56
+  war_pacific_atlantic_water_flow_56: `
+function pacificAtlantic(heights: number[][]): number[][] {
+  if (!heights.length) return [];
+  const R = heights.length, C = heights[0].length;
+  const pac = Array.from({ length: R }, () => new Array(C).fill(false));
+  const atl = Array.from({ length: R }, () => new Array(C).fill(false));
+
+  function dfs(r: number, c: number, visited: boolean[][]) {
+    visited[r][c] = true;
+    const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    for (const [dr, dc] of dirs) {
+      const nr = r + dr, nc = c + dc;
+      if (nr >= 0 && nr < R && nc >= 0 && nc < C && !visited[nr][nc] && heights[nr][nc] >= heights[r][c]) {
+        dfs(nr, nc, visited);
+      }
+    }
+  }
+
+  for (let r = 0; r < R; r++) {
+    dfs(r, 0, pac);
+    dfs(r, C - 1, atl);
+  }
+  for (let c = 0; c < C; c++) {
+    dfs(0, c, pac);
+    dfs(R - 1, c, atl);
+  }
+
+  const res: number[][] = [];
+  for (let r = 0; r < R; r++) {
+    for (let c = 0; c < C; c++) {
+      if (pac[r][c] && atl[r][c]) res.push([r, c]);
+    }
+  }
+  return res.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+}
+  `,
+  // war_longest_consecutive_sequence_57
+  war_longest_consecutive_sequence_57: `
+function longestConsecutive(nums: number[]): number {
+  if (nums.length === 0) return 0;
+  const set = new Set(nums);
+  let maxStreak = 0;
+  for (const num of set) {
+    if (!set.has(num - 1)) {
+      let currentNum = num;
+      let currentStreak = 1;
+      while (set.has(currentNum + 1)) {
+        currentNum++;
+        currentStreak++;
+      }
+      maxStreak = Math.max(maxStreak, currentStreak);
+    }
+  }
+  return maxStreak;
+}
+  `,
+  // war_evaluate_reverse_polish_notation_58
+  war_evaluate_reverse_polish_notation_58: `
+function evalRPN(tokens: string[]): number {
+  const stack: number[] = [];
+  for (const t of tokens) {
+    if (t === '+') {
+      const b = stack.pop()!, a = stack.pop()!;
+      stack.push(a + b);
+    } else if (t === '-') {
+      const b = stack.pop()!, a = stack.pop()!;
+      stack.push(a - b);
+    } else if (t === '*') {
+      const b = stack.pop()!, a = stack.pop()!;
+      stack.push(a * b);
+    } else if (t === '/') {
+      const b = stack.pop()!, a = stack.pop()!;
+      stack.push(Math.trunc(a / b));
+    } else {
+      stack.push(parseInt(t, 10));
+    }
+  }
+  return stack[0];
+}
+  `,
+  // war_course_schedule_ii_59
+  war_course_schedule_ii_59: `
+function findOrder(numCourses: number, prerequisites: number[][]): number[] {
+  const inDegree = new Array(numCourses).fill(0);
+  const adj: number[][] = Array.from({ length: numCourses }, () => []);
+  for (const [course, pre] of prerequisites) {
+    adj[pre].push(course);
+    inDegree[course]++;
+  }
+  const queue: number[] = [];
+  for (let i = 0; i < numCourses; i++) {
+    if (inDegree[i] === 0) queue.push(i);
+  }
+  const order: number[] = [];
+  while (queue.length > 0) {
+    const u = queue.shift()!;
+    order.push(u);
+    for (const v of adj[u]) {
+      inDegree[v]--;
+      if (inDegree[v] === 0) queue.push(v);
+    }
+  }
+  return order.length === numCourses ? order : [];
+}
+  `,
+  // war_task_scheduler_60
+  war_task_scheduler_60: `
+function leastInterval(tasks: string[], n: number): number {
+  const counts: Record<string, number> = {};
+  for (const t of tasks) counts[t] = (counts[t] || 0) + 1;
+  const freqs = Object.values(counts);
+  const maxFreq = Math.max(...freqs);
+  const maxCount = freqs.filter(f => f === maxFreq).length;
+  const partCount = maxFreq - 1;
+  const emptySlots = partCount * (n - (maxCount - 1));
+  const availableTasks = tasks.length - maxFreq * maxCount;
+  const idles = Math.max(0, emptySlots - availableTasks);
+  return tasks.length + idles;
+}
+  `,
+  // war_accounts_merge_61
+  war_accounts_merge_61: `
+function accountsMerge(accounts: string[][]): string[][] {
+  const parent = new Map<string, string>();
+  const emailToName = new Map<string, string>();
+  function find(x: string): string {
+    if (parent.get(x) !== x) parent.set(x, find(parent.get(x)!));
+    return parent.get(x)!;
+  }
+  function union(x: string, y: string) {
+    const rx = find(x), ry = find(y);
+    if (rx !== ry) parent.set(rx, ry);
+  }
+  for (const acc of accounts) {
+    const name = acc[0];
+    for (let i = 1; i < acc.length; i++) {
+      const email = acc[i];
+      if (!parent.has(email)) parent.set(email, email);
+      emailToName.set(email, name);
+      union(acc[1], email);
+    }
+  }
+  const groups = new Map<string, string[]>();
+  for (const email of parent.keys()) {
+    const root = find(email);
+    if (!groups.has(root)) groups.set(root, []);
+    groups.get(root)!.push(email);
+  }
+  const res: string[][] = [];
+  for (const [root, emails] of groups.entries()) {
+    emails.sort();
+    res.push([emailToName.get(root)!, ...emails]);
+  }
+  return res.sort((a, b) => a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]));
+}
+  `,
+  // war_minimum_size_subarray_sum_62
+  war_minimum_size_subarray_sum_62: `
+function minSubArrayLen(target: number, nums: number[]): number {
+  let left = 0, sum = 0, minLen = Infinity;
+  for (let right = 0; right < nums.length; right++) {
+    sum += nums[right];
+    while (sum >= target) {
+      minLen = Math.min(minLen, right - left + 1);
+      sum -= nums[left++];
+    }
+  }
+  return minLen === Infinity ? 0 : minLen;
+}
+  `,
+  // war_asteroid_collision_63
+  war_asteroid_collision_63: `
+function asteroidCollision(asteroids: number[]): number[] {
+  const stack: number[] = [];
+  for (const ast of asteroids) {
+    let alive = true;
+    while (alive && ast < 0 && stack.length > 0 && stack[stack.length - 1] > 0) {
+      const top = stack[stack.length - 1];
+      if (top < -ast) {
+        stack.pop();
+      } else if (top === -ast) {
+        stack.pop();
+        alive = false;
+      } else {
+        alive = false;
+      }
+    }
+    if (alive) stack.push(ast);
+  }
+  return stack;
+}
+  `,
+  // war_the_skyline_problem_51
+  war_the_skyline_problem_51: `
+function getSkyline(buildings: number[][]): number[][] {
+  const events: [number, number][] = [];
+  for (const [l, r, h] of buildings) {
+    events.push([l, -h]);
+    events.push([r, h]);
+  }
+  events.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+
+  const heights = [0];
+  const res: number[][] = [];
+  let prevMax = 0;
+
+  for (const [x, h] of events) {
+    if (h < 0) {
+      heights.push(-h);
+      heights.sort((a, b) => a - b);
+    } else {
+      const idx = heights.indexOf(h);
+      if (idx !== -1) heights.splice(idx, 1);
+    }
+    const currMax = heights[heights.length - 1];
+    if (currMax !== prevMax) {
+      res.push([x, currMax]);
+      prevMax = currMax;
+    }
+  }
+  return res;
+}
+  `,
+  // war_concatenated_words_52
+  war_concatenated_words_52: `
+function findAllConcatenatedWordsInADict(words: string[]): string[] {
+  const wordSet = new Set(words);
+  const memo = new Map<string, boolean>();
+
+  function canForm(word: string): boolean {
+    if (memo.has(word)) return memo.get(word)!;
+    for (let i = 1; i < word.length; i++) {
+      const prefix = word.substring(0, i);
+      const suffix = word.substring(i);
+      if (wordSet.has(prefix) && (wordSet.has(suffix) || canForm(suffix))) {
+        memo.set(word, true);
+        return true;
+      }
+    }
+    memo.set(word, false);
+    return false;
+  }
+
+  const res: string[] = [];
+  for (const w of words) {
+    if (canForm(w)) res.push(w);
+  }
+  return res.sort();
+}
+  `,
+  // war_sliding_puzzle_53
+  war_sliding_puzzle_53: `
+function slidingPuzzle(board: number[][]): number {
+  const target = '123450';
+  const start = board.flat().join('');
+  if (start === target) return 0;
+  const neighbors: number[][] = [
+    [1, 3],       // 0
+    [0, 2, 4],    // 1
+    [1, 5],       // 2
+    [0, 4],       // 3
+    [1, 3, 5],    // 4
+    [2, 4]        // 5
+  ];
+  const queue: [string, number][] = [[start, 0]];
+  const visited = new Set<string>([start]);
+
+  while (queue.length > 0) {
+    const [curr, steps] = queue.shift()!;
+    if (curr === target) return steps;
+    const zeroIdx = curr.indexOf('0');
+    for (const nextIdx of neighbors[zeroIdx]) {
+      const arr = curr.split('');
+      [arr[zeroIdx], arr[nextIdx]] = [arr[nextIdx], arr[zeroIdx]];
+      const nextState = arr.join('');
+      if (!visited.has(nextState)) {
+        visited.add(nextState);
+        queue.push([nextState, steps + 1]);
+      }
+    }
+  }
+  return -1;
+}
+  `,
+  // war_critical_connections_network_54
+  war_critical_connections_network_54: `
+function criticalConnections(n: number, connections: number[][]): number[][] {
+  const adj: number[][] = Array.from({ length: n }, () => []);
+  for (const [u, v] of connections) {
+    adj[u].push(v);
+    adj[v].push(u);
+  }
+  const disc = new Array(n).fill(-1);
+  const low = new Array(n).fill(-1);
+  const bridges: number[][] = [];
+  let time = 0;
+
+  function dfs(u: number, parent: number) {
+    disc[u] = low[u] = ++time;
+    for (const v of adj[u]) {
+      if (v === parent) continue;
+      if (disc[v] !== -1) {
+        low[u] = Math.min(low[u], disc[v]);
+      } else {
+        dfs(v, u);
+        low[u] = Math.min(low[u], low[v]);
+        if (low[v] > disc[u]) {
+          bridges.push(u < v ? [u, v] : [v, u]);
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < n; i++) {
+    if (disc[i] === -1) dfs(i, -1);
+  }
+  return bridges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+}
+  `,
+  // war_count_smaller_after_self_55
+  war_count_smaller_after_self_55: `
+function countSmaller(nums: number[]): number[] {
+  const sorted = Array.from(new Set(nums)).sort((a, b) => a - b);
+  const rank = new Map<number, number>();
+  sorted.forEach((val, idx) => rank.set(val, idx + 1));
+
+  const bit = new Array(sorted.length + 1).fill(0);
+  function update(idx: number, delta: number) {
+    for (; idx < bit.length; idx += idx & -idx) bit[idx] += delta;
+  }
+  function query(idx: number): number {
+    let sum = 0;
+    for (; idx > 0; idx -= idx & -idx) sum += bit[idx];
+    return sum;
+  }
+
+  const res: number[] = new Array(nums.length);
+  for (let i = nums.length - 1; i >= 0; i--) {
+    const r = rank.get(nums[i])!;
+    res[i] = query(r - 1);
+    update(r, 1);
+  }
+  return res;
+}
+  `,
+  // war_ipo_capital_maximization_56
+  war_ipo_capital_maximization_56: `
+function findMaximizedCapital(k: number, w: number, profits: number[], capital: number[]): number {
+  const projects = capital.map((c, i) => ({ cap: c, prof: profits[i] }));
+  projects.sort((a, b) => a.cap - b.cap);
+
+  const maxProfits: number[] = [];
+  let projIdx = 0;
+
+  for (let round = 0; round < k; round++) {
+    while (projIdx < projects.length && projects[projIdx].cap <= w) {
+      maxProfits.push(projects[projIdx].prof);
+      projIdx++;
+    }
+    if (maxProfits.length === 0) break;
+    maxProfits.sort((a, b) => a - b);
+    w += maxProfits.pop()!;
+  }
+  return w;
+}
+  `,
+  // war_design_in_memory_file_system_57
+  war_design_in_memory_file_system_57: `
+class FSNode {
+  isDir: boolean;
+  content: string = '';
+  children: Map<string, FSNode> = new Map();
+  constructor(isDir: boolean) { this.isDir = isDir; }
+}
+
+function simulateFileSystem(operations: string[], args: string[][]): (string[] | string | null)[] {
+  const root = new FSNode(true);
+
+  function getNode(path: string): { node: FSNode; name: string } {
+    const parts = path.split('/').filter(Boolean);
+    let curr = root;
+    for (const part of parts) {
+      if (!curr.children.has(part)) {
+        curr.children.set(part, new FSNode(true));
+      }
+      curr = curr.children.get(part)!;
+    }
+    return { node: curr, name: parts.length > 0 ? parts[parts.length - 1] : '' };
+  }
+
+  const output: (string[] | string | null)[] = [];
+  for (let i = 0; i < operations.length; i++) {
+    const op = operations[i];
+    const arg = args[i];
+    if (op === 'ls') {
+      const path = arg[0];
+      const { node, name } = getNode(path);
+      if (!node.isDir) {
+        output.push([name]);
+      } else {
+        const list = Array.from(node.children.keys()).sort();
+        output.push(list);
+      }
+    } else if (op === 'mkdir') {
+      getNode(arg[0]);
+      output.push(null);
+    } else if (op === 'addContentToFile') {
+      const { node } = getNode(arg[0]);
+      node.isDir = false;
+      node.content += arg[1];
+      output.push(null);
+    } else if (op === 'readContentFromFile') {
+      const { node } = getNode(arg[0]);
+      output.push(node.content);
+    }
+  }
+  return output;
+}
+  `,
+  // war_reconstruct_itinerary_58
+  war_reconstruct_itinerary_58: `
+function findItinerary(tickets: string[][]): string[] {
+  const adj = new Map<string, string[]>();
+  for (const [from, to] of tickets) {
+    if (!adj.has(from)) adj.set(from, []);
+    adj.get(from)!.push(to);
+  }
+  for (const list of adj.values()) {
+    list.sort().reverse();
+  }
+  const route: string[] = [];
+  function dfs(curr: string) {
+    const destinations = adj.get(curr);
+    while (destinations && destinations.length > 0) {
+      dfs(destinations.pop()!);
+    }
+    route.push(curr);
+  }
+  dfs('JFK');
+  return route.reverse();
+}
+  `,
+  // war_longest_duplicate_substring_59
+  war_longest_duplicate_substring_59: `
+function longestDupSubstring(s: string): string {
+  const n = s.length;
+  const MOD = 1000000007;
+  const BASE = 31;
+
+  function search(len: number): string | null {
+    if (len === 0) return '';
+    let hash = 0;
+    let basePow = 1;
+    for (let i = 0; i < len; i++) {
+      hash = (hash * BASE + s.charCodeAt(i)) % MOD;
+      if (i > 0) basePow = (basePow * BASE) % MOD;
+    }
+    const seen = new Map<number, number[]>([[hash, [0]]]);
+    for (let i = len; i < n; i++) {
+      hash = (hash - (s.charCodeAt(i - len) * basePow) % MOD + MOD) % MOD;
+      hash = (hash * BASE + s.charCodeAt(i)) % MOD;
+      const startIdx = i - len + 1;
+      const sub = s.substring(startIdx, i + 1);
+      if (seen.has(hash)) {
+        for (const prevStart of seen.get(hash)!) {
+          if (s.substring(prevStart, prevStart + len) === sub) {
+            return sub;
+          }
+        }
+        seen.get(hash)!.push(startIdx);
+      } else {
+        seen.set(hash, [startIdx]);
+      }
+    }
+    return null;
+  }
+
+  let low = 1, high = n - 1;
+  let best = '';
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const candidate = search(mid);
+    if (candidate !== null) {
+      best = candidate;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return best;
+}
+  `,
+  // war_bus_routes_bfs_60
+  war_bus_routes_bfs_60: `
+function numBusesToDestination(routes: number[][], source: number, target: number): number {
+  if (source === target) return 0;
+  const stopToRoutes = new Map<number, number[]>();
+  routes.forEach((route, rIdx) => {
+    for (const stop of route) {
+      if (!stopToRoutes.has(stop)) stopToRoutes.set(stop, []);
+      stopToRoutes.get(stop)!.push(rIdx);
+    }
+  });
+
+  if (!stopToRoutes.has(source) || !stopToRoutes.has(target)) return -1;
+
+  const queue: [number, number][] = [[source, 0]];
+  const visitedStops = new Set<number>([source]);
+  const visitedRoutes = new Set<number>();
+
+  while (queue.length > 0) {
+    const [stop, buses] = queue.shift()!;
+    if (stop === target) return buses;
+    for (const rIdx of stopToRoutes.get(stop) || []) {
+      if (visitedRoutes.has(rIdx)) continue;
+      visitedRoutes.add(rIdx);
+      for (const nextStop of routes[rIdx]) {
+        if (!visitedStops.has(nextStop)) {
+          visitedStops.add(nextStop);
+          queue.push([nextStop, buses + 1]);
+        }
+      }
+    }
+  }
+  return -1;
+}
+  `,
 };
 
 export const PY_SOLUTIONS: Record<string, string> = {
@@ -5140,17 +5840,604 @@ def find_redundant_directed_connection(edges: list[list[int]]) -> list[int]:
         root[pv] = pu
     return cand2
   `,
+
+  // --- NEW 30 QUESTIONS (151 to 180) ---
+  // war_distribute_candies_51
+  war_distribute_candies_51: `
+def distributeCandies(candyType: list[int]) -> int:
+    return min(len(set(candyType)), len(candyType) // 2)
+
+  `,
+  // war_baseball_game_52
+  war_baseball_game_52: `
+def calPoints(operations: list[str]) -> int:
+    stack = []
+    for op in operations:
+        if op == '+':
+            stack.append(stack[-1] + stack[-2])
+        elif op == 'D':
+            stack.append(stack[-1] * 2)
+        elif op == 'C':
+            stack.pop()
+        else:
+            stack.append(int(op))
+    return sum(stack)
+
+  `,
+  // war_flood_fill_basic_53
+  war_flood_fill_basic_53: `
+def floodFill(image: list[list[int]], sr: int, sc: int, color: int) -> list[list[int]]:
+    startColor = image[sr][sc]
+    if startColor == color:
+        return image
+    rows, cols = len(image), len(image[0])
+    def dfs(r, c):
+        if r < 0 or r >= rows or c < 0 or c >= cols or image[r][c] != startColor:
+            return
+        image[r][c] = color
+        dfs(r + 1, c)
+        dfs(r - 1, c)
+        dfs(r, c + 1)
+        dfs(r, c - 1)
+    dfs(sr, sc)
+    return image
+
+  `,
+  // war_toeplitz_matrix_54
+  war_toeplitz_matrix_54: `
+def isToeplitzMatrix(matrix: list[list[int]]) -> bool:
+    for r in range(len(matrix) - 1):
+        for c in range(len(matrix[0]) - 1):
+            if matrix[r][c] != matrix[r + 1][c + 1]:
+                return False
+    return True
+
+  `,
+  // war_jewels_and_stones_55
+  war_jewels_and_stones_55: `
+def numJewelsInStones(jewels: str, stones: str) -> int:
+    jset = set(jewels)
+    return sum(1 for s in stones if s in jset)
+
+  `,
+  // war_unique_morse_representations_56
+  war_unique_morse_representations_56: `
+def uniqueMorseRepresentations(words: list[str]) -> int:
+    MORSE = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+    seen = set()
+    for w in words:
+        code = "".join(MORSE[ord(c) - ord('a')] for c in w)
+        seen.add(code)
+    return len(seen)
+
+  `,
+  // war_flipping_an_image_57
+  war_flipping_an_image_57: `
+def flipAndInvertImage(image: list[list[int]]) -> list[list[int]]:
+    return [[1 - pixel for pixel in reversed(row)] for row in image]
+
+  `,
+  // war_transpose_matrix_58
+  war_transpose_matrix_58: `
+def transpose(matrix: list[list[int]]) -> list[list[int]]:
+    return [list(row) for row in zip(*matrix)]
+
+  `,
+  // war_fair_candy_swap_59
+  war_fair_candy_swap_59: `
+def fairCandySwap(aliceSizes: list[int], bobSizes: list[int]) -> list[int]:
+    diff = (sum(aliceSizes) - sum(bobSizes)) // 2
+    setB = set(bobSizes)
+    for x in aliceSizes:
+        if (x - diff) in setB:
+            return [x, x - diff]
+    return []
+
+  `,
+  // war_sort_array_by_parity_60
+  war_sort_array_by_parity_60: `
+def sortArrayByParity(nums: list[int]) -> list[int]:
+    return [x for x in nums if x % 2 == 0] + [x for x in nums if x % 2 != 0]
+
+  `,
+  // war_subsets_54
+  war_subsets_54: `
+def subsets(nums: list[int]) -> list[list[int]]:
+    res = []
+    def backtrack(start, current):
+        res.append(list(current))
+        for i in range(start, len(nums)):
+            current.append(nums[i])
+            backtrack(i + 1, current)
+            current.pop()
+    backtrack(0, [])
+    for sub in res:
+        sub.sort()
+    res.sort(key=lambda s: (len(s), s))
+    return res
+
+  `,
+  // war_permutations_55
+  war_permutations_55: `
+def permute(nums: list[int]) -> list[list[int]]:
+    res = []
+    used = [False] * len(nums)
+    def backtrack(curr):
+        if len(curr) == len(nums):
+            res.append(list(curr))
+            return
+        for i in range(len(nums)):
+            if used[i]:
+                continue
+            used[i] = True
+            curr.append(nums[i])
+            backtrack(curr)
+            curr.pop()
+            used[i] = False
+    backtrack([])
+    res.sort()
+    return res
+
+  `,
+  // war_pacific_atlantic_water_flow_56
+  war_pacific_atlantic_water_flow_56: `
+def pacificAtlantic(heights: list[list[int]]) -> list[list[int]]:
+    if not heights:
+        return []
+    R, C = len(heights), len(heights[0])
+    pac = [[False] * C for _ in range(R)]
+    atl = [[False] * C for _ in range(R)]
+    def dfs(r, c, visited):
+        visited[r][c] = True
+        for dr, dc in [(1,0), (-1,0), (0,1), (0,-1)]:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < R and 0 <= nc < C and not visited[nr][nc] and heights[nr][nc] >= heights[r][c]:
+                dfs(nr, nc, visited)
+    for r in range(R):
+        dfs(r, 0, pac)
+        dfs(r, C - 1, atl)
+    for c in range(C):
+        dfs(0, c, pac)
+        dfs(R - 1, c, atl)
+    res = [[r, c] for r in range(R) for c in range(C) if pac[r][c] and atl[r][c]]
+    res.sort()
+    return res
+
+  `,
+  // war_longest_consecutive_sequence_57
+  war_longest_consecutive_sequence_57: `
+def longestConsecutive(nums: list[int]) -> int:
+    if not nums:
+        return 0
+    s = set(nums)
+    max_streak = 0
+    for num in s:
+        if num - 1 not in s:
+            curr = num
+            streak = 1
+            while curr + 1 in s:
+                curr += 1
+                streak += 1
+            max_streak = max(max_streak, streak)
+    return max_streak
+
+  `,
+  // war_evaluate_reverse_polish_notation_58
+  war_evaluate_reverse_polish_notation_58: `
+def evalRPN(tokens: list[str]) -> int:
+    stack = []
+    for t in tokens:
+        if t == '+':
+            b, a = stack.pop(), stack.pop()
+            stack.append(a + b)
+        elif t == '-':
+            b, a = stack.pop(), stack.pop()
+            stack.append(a - b)
+        elif t == '*':
+            b, a = stack.pop(), stack.pop()
+            stack.append(a * b)
+        elif t == '/':
+            b, a = stack.pop(), stack.pop()
+            stack.append(int(a / b))
+        else:
+            stack.append(int(t))
+    return stack[0]
+
+  `,
+  // war_course_schedule_ii_59
+  war_course_schedule_ii_59: `
+from collections import deque
+def findOrder(numCourses: int, prerequisites: list[list[int]]) -> list[int]:
+    in_degree = [0] * numCourses
+    adj = [[] for _ in range(numCourses)]
+    for c, p in prerequisites:
+        adj[p].append(c)
+        in_degree[c] += 1
+    queue = deque([i for i in range(numCourses) if in_degree[i] == 0])
+    order = []
+    while queue:
+        u = queue.popleft()
+        order.append(u)
+        for v in adj[u]:
+            in_degree[v] -= 1
+            if in_degree[v] == 0:
+                queue.append(v)
+    return order if len(order) == numCourses else []
+
+  `,
+  // war_task_scheduler_60
+  war_task_scheduler_60: `
+def leastInterval(tasks: list[str], n: int) -> int:
+    from collections import Counter
+    counts = Counter(tasks)
+    max_freq = max(counts.values())
+    max_count = sum(1 for c in counts.values() if c == max_freq)
+    part_count = max_freq - 1
+    empty_slots = part_count * (n - (max_count - 1))
+    available_tasks = len(tasks) - max_freq * max_count
+    idles = max(0, empty_slots - available_tasks)
+    return len(tasks) + idles
+
+  `,
+  // war_accounts_merge_61
+  war_accounts_merge_61: `
+def accountsMerge(accounts: list[list[str]]) -> list[list[str]]:
+    parent = {}
+    email_to_name = {}
+    def find(x):
+        if parent[x] != x:
+            parent[x] = find(parent[x])
+        return parent[x]
+    def union(x, y):
+        rx, ry = find(x), find(y)
+        if rx != ry:
+            parent[rx] = ry
+    for acc in accounts:
+        name = acc[0]
+        for email in acc[1:]:
+            if email not in parent:
+                parent[email] = email
+            email_to_name[email] = name
+            union(acc[1], email)
+    groups = {}
+    for email in parent:
+        root = find(email)
+        groups.setdefault(root, []).append(email)
+    res = []
+    for root, emails in groups.items():
+        res.append([email_to_name[root]] + sorted(emails))
+    res.sort(key=lambda x: (x[0], x[1]))
+    return res
+
+  `,
+  // war_minimum_size_subarray_sum_62
+  war_minimum_size_subarray_sum_62: `
+def minSubArrayLen(target: int, nums: list[int]) -> int:
+    left = 0
+    curr_sum = 0
+    min_len = float('inf')
+    for right in range(len(nums)):
+        curr_sum += nums[right]
+        while curr_sum >= target:
+            min_len = min(min_len, right - left + 1)
+            curr_sum -= nums[left]
+            left += 1
+    return 0 if min_len == float('inf') else min_len
+
+  `,
+  // war_asteroid_collision_63
+  war_asteroid_collision_63: `
+def asteroidCollision(asteroids: list[int]) -> list[int]:
+    stack = []
+    for ast in asteroids:
+        alive = True
+        while alive and ast < 0 and stack and stack[-1] > 0:
+            top = stack[-1]
+            if top < -ast:
+                stack.pop()
+            elif top == -ast:
+                stack.pop()
+                alive = False
+            else:
+                alive = False
+        if alive:
+            stack.append(ast)
+    return stack
+
+  `,
+  // war_the_skyline_problem_51
+  war_the_skyline_problem_51: `
+import heapq
+def getSkyline(buildings: list[list[int]]) -> list[list[int]]:
+    events = []
+    for l, r, h in buildings:
+        events.append((l, -h, r))
+        events.append((r, 0, 0))
+    events.sort(key=lambda x: (x[0], x[1]))
+    res = []
+    live = [(0, float('inf'))]
+    for x, neg_h, r in events:
+        while live and live[0][1] <= x:
+            heapq.heappop(live)
+        if neg_h != 0:
+            heapq.heappush(live, (neg_h, r))
+        curr_h = -live[0][0]
+        if not res or res[-1][1] != curr_h:
+            res.append([x, curr_h])
+    return res
+
+  `,
+  // war_concatenated_words_52
+  war_concatenated_words_52: `
+def findAllConcatenatedWordsInADict(words: list[str]) -> list[str]:
+    word_set = set(words)
+    memo = {}
+    def can_form(word):
+        if word in memo:
+            return memo[word]
+        for i in range(1, len(word)):
+            prefix = word[:i]
+            suffix = word[i:]
+            if prefix in word_set and (suffix in word_set or can_form(suffix)):
+                memo[word] = True
+                return True
+        memo[word] = False
+        return False
+    res = [w for w in words if can_form(w)]
+    res.sort()
+    return res
+
+  `,
+  // war_sliding_puzzle_53
+  war_sliding_puzzle_53: `
+from collections import deque
+def slidingPuzzle(board: list[list[int]]) -> int:
+    target = '123450'
+    start = "".join(str(cell) for row in board for cell in row)
+    if start == target:
+        return 0
+    neighbors = {
+        0: [1, 3],
+        1: [0, 2, 4],
+        2: [1, 5],
+        3: [0, 4],
+        4: [1, 3, 5],
+        5: [2, 4]
+    }
+    queue = deque([(start, 0)])
+    visited = {start}
+    while queue:
+        curr, steps = queue.popleft()
+        if curr == target:
+            return steps
+        zero_idx = curr.index('0')
+        for nxt in neighbors[zero_idx]:
+            arr = list(curr)
+            arr[zero_idx], arr[nxt] = arr[nxt], arr[zero_idx]
+            nxt_state = "".join(arr)
+            if nxt_state not in visited:
+                visited.add(nxt_state)
+                queue.append((nxt_state, steps + 1))
+    return -1
+
+  `,
+  // war_critical_connections_network_54
+  war_critical_connections_network_54: `
+def criticalConnections(n: int, connections: list[list[int]]) -> list[list[int]]:
+    adj = [[] for _ in range(n)]
+    for u, v in connections:
+        adj[u].append(v)
+        adj[v].append(u)
+    disc = [-1] * n
+    low = [-1] * n
+    bridges = []
+    time = 0
+    def dfs(u, parent):
+        nonlocal time
+        time += 1
+        disc[u] = low[u] = time
+        for v in adj[u]:
+            if v == parent:
+                continue
+            if disc[v] != -1:
+                low[u] = min(low[u], disc[v])
+            else:
+                dfs(v, u)
+                low[u] = min(low[u], low[v])
+                if low[v] > disc[u]:
+                    bridges.append([min(u, v), max(u, v)])
+    for i in range(n):
+        if disc[i] == -1:
+            dfs(i, -1)
+    bridges.sort()
+    return bridges
+
+  `,
+  // war_count_smaller_after_self_55
+  war_count_smaller_after_self_55: `
+def countSmaller(nums: list[int]) -> list[int]:
+    sorted_unique = sorted(set(nums))
+    rank = {val: idx + 1 for idx, val in enumerate(sorted_unique)}
+    bit = [0] * (len(sorted_unique) + 1)
+    def update(idx, delta):
+        while idx < len(bit):
+            bit[idx] += delta
+            idx += idx & -idx
+    def query(idx):
+        s = 0
+        while idx > 0:
+            s += bit[idx]
+            idx -= idx & -idx
+        return s
+    res = [0] * len(nums)
+    for i in range(len(nums) - 1, -1, -1):
+        r = rank[nums[i]]
+        res[i] = query(r - 1)
+        update(r, 1)
+    return res
+
+  `,
+  // war_ipo_capital_maximization_56
+  war_ipo_capital_maximization_56: `
+import heapq
+def findMaximizedCapital(k: int, w: int, profits: list[int], capital: list[int]) -> int:
+    projects = sorted(zip(capital, profits))
+    max_heap = []
+    idx = 0
+    n = len(projects)
+    for _ in range(k):
+        while idx < n and projects[idx][0] <= w:
+            heapq.heappush(max_heap, -projects[idx][1])
+            idx += 1
+        if not max_heap:
+            break
+        w += -heapq.heappop(max_heap)
+    return w
+
+  `,
+  // war_design_in_memory_file_system_57
+  war_design_in_memory_file_system_57: `
+class FSNode:
+    def __init__(self, is_dir=True):
+        self.is_dir = is_dir
+        self.content = ""
+        self.children = {}
+
+def simulateFileSystem(operations: list[str], args: list[list[str]]) -> list:
+    root = FSNode(True)
+    def get_node(path):
+        parts = [p for p in path.split('/') if p]
+        curr = root
+        for p in parts:
+            if p not in curr.children:
+                curr.children[p] = FSNode(True)
+            curr = curr.children[p]
+        return curr, parts[-1] if parts else ""
+
+    output = []
+    for op, arg in zip(operations, args):
+        if op == 'ls':
+            node, name = get_node(arg[0])
+            if not node.is_dir:
+                output.append([name])
+            else:
+                output.append(sorted(node.children.keys()))
+        elif op == 'mkdir':
+            get_node(arg[0])
+            output.append(None)
+        elif op == 'addContentToFile':
+            node, _ = get_node(arg[0])
+            node.is_dir = False
+            node.content += arg[1]
+            output.append(None)
+        elif op == 'readContentFromFile':
+            node, _ = get_node(arg[0])
+            output.append(node.content)
+    return output
+
+  `,
+  // war_reconstruct_itinerary_58
+  war_reconstruct_itinerary_58: `
+from collections import defaultdict
+def findItinerary(tickets: list[list[str]]) -> list[str]:
+    adj = defaultdict(list)
+    for u, v in tickets:
+        adj[u].append(v)
+    for u in adj:
+        adj[u].sort(reverse=True)
+    route = []
+    def dfs(curr):
+        while adj[curr]:
+            dfs(adj[curr].pop())
+        route.append(curr)
+    dfs('JFK')
+    return route[::-1]
+
+  `,
+  // war_longest_duplicate_substring_59
+  war_longest_duplicate_substring_59: `
+def longestDupSubstring(s: str) -> str:
+    n = len(s)
+    MOD = 10**9 + 7
+    BASE = 31
+    def search(length):
+        if length == 0:
+            return ""
+        h = 0
+        base_pow = 1
+        for i in range(length):
+            h = (h * BASE + ord(s[i])) % MOD
+            if i > 0:
+                base_pow = (base_pow * BASE) % MOD
+        seen = {h: [0]}
+        for i in range(length, n):
+            h = (h - ord(s[i - length]) * base_pow) % MOD
+            h = (h * BASE + ord(s[i])) % MOD
+            start = i - length + 1
+            sub = s[start:i + 1]
+            if h in seen:
+                for prev in seen[h]:
+                    if s[prev:prev + length] == sub:
+                        return sub
+                seen[h].append(start)
+            else:
+                seen[h] = [start]
+        return None
+
+    low, high = 1, n - 1
+    best = ""
+    while low <= high:
+        mid = (low + high) // 2
+        cand = search(mid)
+        if cand is not None:
+            best = cand
+            low = mid + 1
+        else:
+            high = mid - 1
+    return best
+
+  `,
+  // war_bus_routes_bfs_60
+  war_bus_routes_bfs_60: `
+from collections import deque, defaultdict
+def numBusesToDestination(routes: list[list[int]], source: int, target: int) -> int:
+    if source == target:
+        return 0
+    stop_to_routes = defaultdict(list)
+    for r_idx, route in enumerate(routes):
+        for stop in route:
+            stop_to_routes[stop].append(r_idx)
+    if source not in stop_to_routes or target not in stop_to_routes:
+        return -1
+    queue = deque([(source, 0)])
+    visited_stops = {source}
+    visited_routes = set()
+    while queue:
+        stop, buses = queue.popleft()
+        if stop == target:
+            return buses
+        for r_idx in stop_to_routes[stop]:
+            if r_idx in visited_routes:
+                continue
+            visited_routes.add(r_idx)
+            for next_stop in routes[r_idx]:
+                if next_stop not in visited_stops:
+                    visited_stops.add(next_stop)
+                    queue.append((next_stop, buses + 1))
+    return -1
+
+  `,
 };
 
-describe('Arena All 150 Questions Deep Audit & Adversarial Verification', () => {
+describe('Arena All 180 Questions Deep Audit & Adversarial Verification', () => {
   it('Catalog contains exactly 90 calibrated problems across all 3 tiers (30 Basic, 30 Intermediate, 30 Advanced)', () => {
-    assert.strictEqual(CODE_WARS_PROBLEMS_CATALOG.length, 150, 'Catalog must contain 150 problems');
+    assert.strictEqual(CODE_WARS_PROBLEMS_CATALOG.length, 180, 'Catalog must contain 180 problems');
     const basic = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === 'basic');
     const intermediate = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === 'intermediate');
     const advanced = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === 'advanced');
-    assert.strictEqual(basic.length, 50, 'Must have 50 basic problems');
-    assert.strictEqual(intermediate.length, 50, 'Must have 50 intermediate problems');
-    assert.strictEqual(advanced.length, 50, 'Must have 50 advanced problems');
+    assert.strictEqual(basic.length, 60, 'Must have 60 basic problems');
+    assert.strictEqual(intermediate.length, 60, 'Must have 60 intermediate problems');
+    assert.strictEqual(advanced.length, 60, 'Must have 60 advanced problems');
   });
 
   for (let idx = 0; idx < CODE_WARS_PROBLEMS_CATALOG.length; idx++) {

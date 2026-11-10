@@ -323,6 +323,7 @@ function LeaderboardContent() {
         {/* Card 1: Active League & Interactive Division Selector Trigger */}
         <button
           type="button"
+          className="pinit-emblem-launcher"
           data-testid="interactive-league-emblem-btn"
           onClick={() => setIsLeagueModalOpen(true)}
           title="Click to inspect all competitive divisions"
@@ -634,8 +635,27 @@ function LeaderboardContent() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: 20,
+            animation: 'pinitOverlayFade 0.2s ease-out',
           }}
         >
+          <style>{`
+            @keyframes pinitOverlayFade {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+            @keyframes pinitVaultEntrance {
+              from { opacity: 0; transform: scale(0.95) translateY(10px); }
+              to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            .pinit-vault-tier-card:hover {
+              transform: translateY(-4px);
+              box-shadow: 0 10px 28px rgba(0,0,0,0.4) !important;
+            }
+            .pinit-emblem-launcher:hover {
+              background: rgba(255, 255, 255, 0.05) !important;
+              transform: scale(1.02);
+            }
+          `}</style>
           <div
             data-testid="league-division-modal"
             onClick={e => e.stopPropagation()}
@@ -648,6 +668,7 @@ function LeaderboardContent() {
               padding: '24px 28px',
               boxShadow: `0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px ${activeLeagueMeta.color}25`,
               position: 'relative',
+              animation: 'pinitVaultEntrance 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
             {/* Modal Header */}
@@ -698,6 +719,7 @@ function LeaderboardContent() {
                   <button
                     key={tier}
                     type="button"
+                    className="pinit-vault-tier-card"
                     data-testid={`select-league-${tier}`}
                     onClick={() => {
                       setSelectedLeague(tier);
