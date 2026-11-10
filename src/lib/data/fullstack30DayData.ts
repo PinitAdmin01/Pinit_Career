@@ -406,22 +406,22 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 21,
     "title": "Next.js Route Handlers, Web Streams & Edge Streaming Architecture",
-    "desc": "Milestone 3: Build a production real-time full-stack application with WebSocket rooms, client reconnection recovery, and optimistic UI mutations.",
+    "desc": "Build high-throughput streaming API endpoints in Next.js using W3C Web Streams (ReadableStream, TransformStream), Server-Sent Events (SSE), and edge runtime environments.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of ⭐ MILESTONE 3: Real-Time Collaborative Canvas & Multi-Room Chat Hub.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Core Foundations: Next.js App Router Route Handlers & W3C Web Streams (ReadableStream, TransformStream)",
+      "Operational Architecture: Server-Sent Events (SSE) Protocol Engineering, NDJSON Framing & Edge Runtime Physics",
+      "Production Best Practices: Client AbortSignals, Backpressure Flow Control & Stream Pipeline Composition"
     ],
-    "eTitle": "Collaborative State Synchronization Engine",
-    "eDesc": "Implement class CollaborativeCanvas supporting applyMutation(userId, action) and getSnapshot() with rollback on conflict. The result must have the field: `lastUpdatedBy`.",
-    "eStarter": "class CollaborativeCanvas {\n  constructor() {\n    // Apply mutations to shape Map, record history entry, and return current version snapshot.\n    \n  }\n  applyMutation(userId, action) {\n    // Apply mutations to shape Map, record history entry, and return current version snapshot.\n    \n  }\n  getSnapshot() {\n    // Apply mutations to shape Map, record history entry, and return current version snapshot.\n    \n  }\n\n}",
-    "eHint": "Apply mutations to shape Map, record history entry, and return current version snapshot.",
-    "eTest": "const canvas = new CollaborativeCanvas();\ncanvas.applyMutation('user_A', { id: 'rect_1', type: 'rectangle', x: 10, y: 20 });\ncanvas.applyMutation('user_B', { id: 'rect_1', type: 'rectangle', x: 15, y: 25 });\nconst snapshot = canvas.getSnapshot();\nif (snapshot['rect_1'].x !== 15 || snapshot['rect_1'].lastUpdatedBy !== 'user_B') throw new Error('Collaborative mutation sync failed');",
-    "aTitle": "Optimistic Action ID Generator",
-    "aDesc": "Implement function generateClientActionId(clientId) returning unique temporary ID.",
-    "aStarter": "function generateClientActionId(clientId) {\n  // TODO: write your code here\n}",
-    "aHint": "Combine temp prefix with clientId and timestamp.",
-    "aTest": "if (!generateClientActionId('client1').startsWith('temp_client1')) throw new Error('Action ID format failed');"
+    "eTitle": "Server-Sent Events (SSE) Stream Formatter",
+    "eDesc": "Implement function formatSseChunk(event, data, id) formatting compliant W3C Server-Sent Event wire strings with double-newline termination.",
+    "eStarter": "/**\n * Formats a Server-Sent Events (SSE) wire chunk according to the W3C EventSource standard.\n * @param {string} event - Event name (e.g., 'message', 'token', 'error')\n * @param {any} data - Data payload (strings serialized directly, objects serialized to JSON)\n * @param {string|number} [id] - Optional monotonic event identifier\n * @returns {string} Formatted SSE wire string terminated with double newlines\n */\nfunction formatSseChunk(event, data, id) {\n  // Format event, data, and optional id lines separated by \\n and terminated with \\n\\n\n  \n}",
+    "eHint": "Verify event is a non-empty string. Add 'event: ' + event. If id is present, add 'id: ' + id. Serialize data: if typeof data === 'object' and data !== null use JSON.stringify(data), otherwise String(data). Split data by '\\n' and prepend each line with 'data: '. Join all lines with '\\n' and terminate with '\\n\\n'.",
+    "eTest": "const chunk1 = formatSseChunk('message', { token: 'Hello' });\nif (!chunk1.startsWith('event: message\\n') || !chunk1.endsWith('\\n\\n') || !chunk1.includes('\"token\":\"Hello\"')) throw new Error('SSE chunk format invalid');\n\nconst chunk2 = formatSseChunk('update', 'status_ok', 101);\nif (!chunk2.includes('id: 101\\n') || !chunk2.includes('data: status_ok\\n\\n')) throw new Error('SSE chunk with id failed');\n\nlet threw = false;\ntry { formatSseChunk('', 'data'); } catch (e) { threw = true; }\nif (!threw) throw new Error('Event name must be a non-empty string');",
+    "aTitle": "SSE Response Headers Configuration",
+    "aDesc": "Implement function getSseHeaders() returning standardized HTTP response headers for Server-Sent Events ensuring edge cache bypass and persistent streaming.",
+    "aStarter": "/**\n * Returns standardized HTTP headers for Server-Sent Events (SSE) streaming responses.\n * @returns {Record<string, string>} Headers object\n */\nfunction getSseHeaders() {\n  // Return headers for Content-Type, Cache-Control, Connection, and edge streaming bypass\n  \n}",
+    "aHint": "Return object with 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache, no-transform', 'Connection': 'keep-alive', and 'X-Accel-Buffering': 'no'.",
+    "aTest": "const headers = getSseHeaders();\nif (headers['Content-Type'] !== 'text/event-stream') throw new Error('SSE headers failed: invalid Content-Type');\nif (!headers['Cache-Control'] || !headers['Cache-Control'].includes('no-cache')) throw new Error('SSE headers failed: Cache-Control must include no-cache');\nif (headers['Connection'] !== 'keep-alive') throw new Error('SSE headers failed: Connection must be keep-alive');\nif (headers['X-Accel-Buffering'] !== 'no') throw new Error('SSE headers failed: X-Accel-Buffering must be no');"
   },
   {
     "day": 22,
