@@ -165,23 +165,23 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 9,
-    "title": "Advanced Routing Architecture: Intercepting Routes & Parallel Slots",
-    "desc": "Master stateless authentication, HMAC-SHA256 signatures, header-payload-signature tokens, and token tampering detection.",
+    "title": "Authentication Architecture: Stateless JWTs, Cryptographic Signatures & Token Lifecycle",
+    "desc": "Master stateless token authentication: RFC 7519 JWT specification, Base64URL encoding, HMAC-SHA256 signature verification, claims validation (exp, iat, sub, iss), and token tampering detection.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of JSON Web Tokens (JWT), Cryptographic Signatures & Verification.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Stateless Identity & Token Anatomy: RFC 7519 Specification, Header/Payload/Signature Triad, and Base64URL Encoding Physics",
+      "Cryptographic Integrity & Signature Verification: Symmetric HMAC-SHA256 vs Asymmetric RS256, Secret Entropy, and Timing-Safe Comparisons",
+      "Token Lifecycle, Expiration Claims & Defense-in-Depth: Standard Claims (exp, iat, sub, iss), Clock Skew Leeway, and Tamper Detection"
     ],
-    "eTitle": "JWT Payload Encoder & Signature Verifier",
-    "eDesc": "Implement function verifyJwtSignature(token, secret) returning the decoded payload if the signature is valid, or throwing an Error if it was tampered with. In this teaching token the three parts are header.payload.signature, each base64 (btoa), and the signature is btoa(header + '.' + payload + ':' + secret).",
-    "eStarter": "function verifyJwtSignature(token, secret) {\n  // Split the token into header, payload and signature.\n  // Expected signature: btoa(header + '.' + payload + ':' + secret).\n  // If it matches, return JSON.parse(atob(payload)); otherwise throw new Error('Invalid signature').\n  \n}",
-    "eHint": "const [h, p, s] = token.split('.'); compare s with btoa(`${h}.${p}:${secret}`).",
-    "eTest": "const payload = JSON.stringify({ userId: 101, role: 'ADMIN' });\nconst h = btoa(JSON.stringify({ alg: 'HS256' }));\nconst p = btoa(payload);\nconst s = btoa(`${h}.${p}:my-secret`);\nconst validToken = `${h}.${p}.${s}`;\nconst user = verifyJwtSignature(validToken, 'my-secret');\nif (user.userId !== 101 || user.role !== 'ADMIN') throw new Error('Valid JWT verification failed');\nlet tampered = false;\ntry { verifyJwtSignature(validToken, 'wrong-secret'); } catch (e) { tampered = true; }\nif (!tampered) throw new Error('Tampered JWT was not rejected');",
-    "aTitle": "JWT Expiration Validator (Advanced Routing Architecture)",
-    "aDesc": "Implement function isJwtExpired(expTimestamp) returning true if expired.",
-    "aStarter": "function isJwtExpired(expTimestamp) {\n  // Compare current unix timestamp with expiration.\n  \n}",
-    "aHint": "Compare current unix timestamp with expiration.",
-    "aTest": "if (isJwtExpired(Date.now() / 1000 - 100) !== true || isJwtExpired(Date.now() / 1000 + 1000) !== false) throw new Error('JWT expiration check failed');"
+    "eTitle": "Stateless JWT Verification & Cryptographic Signature Validator",
+    "eDesc": "Implement function verifyJwtSignature(token, secret) that parses a tripartite token (header.payload.signature), validates cryptographic signature integrity against secret, and returns the parsed payload object. Throws an Error with message 'Invalid signature' if the signature does not match or if the token structure is malformed.",
+    "eStarter": "/**\n * Validates cryptographic signature of a tripartite JWT and returns parsed payload.\n * @param {string} token - Tripartite token string (header.payload.signature)\n * @param {string} secret - Shared HMAC signing secret key\n * @returns {object} Decoded JSON payload object\n */\nfunction verifyJwtSignature(token, secret) {\n  // 1. Validate token string and split by '.' into header, payload, signature\n  // 2. Recompute expected signature: btoa(header + '.' + payload + ':' + secret)\n  // 3. Compare signature; if mismatch, throw new Error('Invalid signature')\n  // 4. Decode payload from base64 (atob) and parse JSON, returning user object\n  \n}",
+    "eHint": "Split token by '.'; ensure exactly 3 segments exist. Compute expected = btoa(`${parts[0]}.${parts[1]}:${secret}`). If parts[2] !== expected throw new Error('Invalid signature'). Return JSON.parse(atob(parts[1])).",
+    "eTest": "const payload = JSON.stringify({ userId: 101, role: 'ADMIN' });\nconst h = btoa(JSON.stringify({ alg: 'HS256' }));\nconst p = btoa(payload);\nconst s = btoa(`${h}.${p}:my-secret`);\nconst validToken = `${h}.${p}.${s}`;\n\nconst user = verifyJwtSignature(validToken, 'my-secret');\nif (!user || user.userId !== 101 || user.role !== 'ADMIN') throw new Error('Valid JWT verification failed');\n\nlet tampered = false;\ntry {\n  verifyJwtSignature(validToken, 'wrong-secret');\n} catch (e) {\n  tampered = true;\n}\nif (!tampered) throw new Error('Tampered JWT with wrong secret was not rejected');\n\nlet badFormat = false;\ntry {\n  verifyJwtSignature('invalid.token.with.extra.parts', 'my-secret');\n} catch (e) {\n  badFormat = true;\n}\nif (!badFormat) throw new Error('Malformed token with wrong segment count was not rejected');",
+    "aTitle": "JWT Expiration & Clock Skew Validator",
+    "aDesc": "Implement function isJwtExpired(expTimestamp, toleranceSeconds = 0) that evaluates an expiration UNIX timestamp (in seconds) against current clock time. Returns true if expired, false if valid. Accounts for clock skew leeway.",
+    "aStarter": "/**\n * Determines whether a token is expired given its expiration timestamp and clock tolerance.\n * @param {number} expTimestamp - Expiration time in Unix epoch seconds\n * @param {number} [toleranceSeconds=0] - Clock skew allowance in seconds\n * @returns {boolean} True if expired, false otherwise\n */\nfunction isJwtExpired(expTimestamp, toleranceSeconds = 0) {\n  // 1. Current time in seconds: Date.now() / 1000\n  // 2. Token is expired if current time >= (expTimestamp + toleranceSeconds)\n  \n}",
+    "aHint": "const now = Date.now() / 1000; return now >= (expTimestamp + toleranceSeconds);",
+    "aTest": "const nowSec = Date.now() / 1000;\nif (isJwtExpired(nowSec - 100) !== true) throw new Error('Past timestamp must be expired');\nif (isJwtExpired(nowSec + 1000) !== false) throw new Error('Future timestamp must not be expired');\nif (isJwtExpired(nowSec - 10, 30) !== false) throw new Error('Token within clock skew tolerance window must remain valid');"
   },
   {
     "day": 10,
