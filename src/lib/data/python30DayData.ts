@@ -578,17 +578,18 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "print = _capturing_print",
       "_fn = globals().get('add_item')",
       "original = ['Tea']",
-      "result = None",
+      "result = None; _r2 = None",
       "try:",
       "    if callable(_fn):",
       "        result = _fn(original, 'Bus')",
+      "        _r2 = _fn([1, 2], 3)",
       "finally:",
       "    print = _orig_print",
       "if callable(_fn) and result is None and original == ['Tea', 'Bus']:",
       "    assert False, \"items.append(item) changes the original list in-place and returns None! Use 'return items + [item]' instead.\"",
       "if callable(_fn) and result == ['Tea', 'Bus'] and original != ['Tea']:",
       "    assert False, \"The original list was changed! Use 'return items + [item]' or copy the list first with 'items.copy()' so the original stays ['Tea'].\"",
-      "assert result == ['Tea', 'Bus'], \"Expected add_item(['Tea'], 'Bus') to return ['Tea', 'Bus']\"",
+      "assert result == ['Tea', 'Bus'] and _r2 == [1, 2, 3], \"Expected add_item(['Tea'], 'Bus') to return ['Tea', 'Bus'] and add_item([1, 2], 3) to return [1, 2, 3]\"",
       "assert original == ['Tea'], \"The original list was changed\"",
       done
     )
@@ -681,10 +682,11 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    except Exception: pass",
       "print = _capturing_print",
       "_fn = globals().get('make_expense')",
-      "e = None",
+      "e = None; e2 = None",
       "try:",
       "    if callable(_fn):",
       "        e = _fn('Tea', 20, 'food')",
+      "        e2 = _fn('Bus', 45, 'travel')",
       "finally:",
       "    print = _orig_print",
       "_cap = globals().get('_captured_stdout_', '')",
@@ -693,7 +695,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "    assert False, \"make_expense() printed the dictionary instead of returning it. Use 'return'!\"",
       "if isinstance(e, dict) and {k.lower() for k in e.keys()} == {'item', 'amount', 'category'} and set(e.keys()) != {'item', 'amount', 'category'}:",
       "    assert False, \"Dictionary keys are case-sensitive! Use lowercase 'item', 'amount', and 'category'.\"",
-      "assert e == {'item': 'Tea', 'amount': 20, 'category': 'food'}, \"Expected {'item': 'Tea', 'amount': 20, 'category': 'food'}\"",
+      "assert e == {'item': 'Tea', 'amount': 20, 'category': 'food'} and e2 == {'item': 'Bus', 'amount': 45, 'category': 'travel'}, \"Expected {'item': 'Tea', 'amount': 20, 'category': 'food'}\"",
       done
     ),
     aTitle: "Price Lookup",
@@ -753,9 +755,12 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]",
       "_fn = globals().get('by_category')",
       "result = _fn(data, 'food') if callable(_fn) else None",
-      "assert isinstance(result, list), \"Expected by_category() to return a list\"",
+      "_r_travel = _fn(data, 'travel') if callable(_fn) else None",
+      "_r_none = _fn(data, 'rent') if callable(_fn) else None",
+      "assert isinstance(result, list) and isinstance(_r_travel, list) and _r_none == [], \"Expected by_category() to return a list of matching expenses\"",
       "_items = [e['item'] if isinstance(e, dict) else e for e in result]",
-      "assert _items == ['Tea', 'Lunch'], \"Expected by_category(data, 'food') to keep only the 'Tea' and 'Lunch' food expenses\"",
+      "_travel_items = [e['item'] if isinstance(e, dict) else e for e in _r_travel]",
+      "assert _items == ['Tea', 'Lunch'] and _travel_items == ['Bus'], \"Expected by_category(data, 'food') to keep only the 'Tea' and 'Lunch' food expenses\"",
       done
     )
   },
@@ -775,9 +780,12 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "data = [{'category': 'food'}, {'category': 'travel'}, {'category': 'food'}]",
       "_fn = globals().get('unique_categories')",
       "_res = _fn(data) if callable(_fn) else None",
+      "_res2 = _fn([{'category': 'rent'}, {'category': 'bills'}, {'category': 'rent'}]) if callable(_fn) else None",
       "if isinstance(_res, set) and _res == {'food', 'travel'}:",
       "    _res = sorted(_res)",
-      "assert _res == ['food', 'travel'], \"Expected unique_categories(data) to return ['food', 'travel']\"",
+      "if isinstance(_res2, set) and _res2 == {'bills', 'rent'}:",
+      "    _res2 = sorted(_res2)",
+      "assert _res == ['food', 'travel'] and _res2 == ['bills', 'rent'], \"Expected unique_categories(data) to return ['food', 'travel']\"",
       done
     ),
     aTitle: "Smallest and Largest",
@@ -966,8 +974,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "import json as _json",
       "_fn = globals().get('to_json')",
       "_res = _fn([{'item': 'Tea', 'amount': 20}]) if callable(_fn) else None",
-      "assert isinstance(_res, str), \"Expected to_json(expenses) to return a JSON string using json.dumps(expenses)\"",
-      "assert _json.loads(_res) == [{'item': 'Tea', 'amount': 20}], \"Expected json.dumps(expenses) output\"",
+      "_res2 = _fn([]) if callable(_fn) else None",
+      "assert isinstance(_res, str) and isinstance(_res2, str), \"Expected to_json(expenses) to return a JSON string using json.dumps(expenses)\"",
+      "assert _json.loads(_res) == [{'item': 'Tea', 'amount': 20}] and _json.loads(_res2) == [], \"Expected json.dumps(expenses) output\"",
       done
     ),
     aTitle: "Safe Load",
@@ -1001,14 +1010,15 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "self.item = item; self.amount = amount; label returns f'{self.item}: {self.amount}'",
     eTest: lines(
       "e = Expense('Tea', 20)",
+      "e2 = Expense('Bus', 45)",
       "_attrs_ok = False",
       "try:",
-      "    _attrs_ok = (e.item == 'Tea' and e.amount == 20)",
+      "    _attrs_ok = (e.item == 'Tea' and e.amount == 20 and e2.item == 'Bus' and e2.amount == 45)",
       "except AttributeError:",
       "    _attrs_ok = False",
       "assert _attrs_ok, \"Save self.item = item and self.amount = amount inside __init__\"",
-      "_lbl = e.label()",
-      "assert _lbl == 'Tea: 20', f\"Expected e.label() to return 'Tea: 20', got {_lbl!r}\"",
+      "_lbl = e.label(); _lbl2 = e2.label()",
+      "assert _lbl == 'Tea: 20' and _lbl2 == 'Bus: 45', f\"Expected e.label() to return 'Tea: 20' and 'Bus: 45', got {_lbl!r}\"",
       done
     ),
     aTitle: "A Wallet",
@@ -1039,14 +1049,15 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "    def __str__(self):", "        # return f'{self.item} (Rs {self.amount})'", "        pass"),
     eHint: "return f'{self.item} (Rs {self.amount})'",
     eTest: lines(
-      "_s = None; _t_err = False",
+      "_s = None; _s2 = None; _t_err = False",
       "try:",
       "    _s = str(Expense('Tea', 20))",
+      "    _s2 = str(Expense('Bus', 45))",
       "except TypeError:",
       "    _t_err = True",
       "if _t_err:",
       "    assert False, \"__str__() must return a string! Use: return f'{self.item} (Rs {self.amount})'\"",
-      "assert _s == 'Tea (Rs 20)', f\"Expected str(Expense('Tea', 20)) == 'Tea (Rs 20)', got {_s!r}\"",
+      "assert _s == 'Tea (Rs 20)' and _s2 == 'Bus (Rs 45)', f\"Expected str(Expense('Tea', 20)) == 'Tea (Rs 20)', got {_s!r}\"",
       done
     ),
     aTitle: "Subscription",
@@ -1055,8 +1066,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return self.amount * 12",
     aTest: lines(
       "s = Subscription('Music app', 99)",
-      "assert s.item == 'Music app'",
-      "assert s.yearly_cost() == 1188, \"Expected yearly_cost() to return self.amount * 12 (1188)\"",
+      "s2 = Subscription('Cloud', 50)",
+      "assert s.item == 'Music app' and s2.item == 'Cloud'",
+      "assert s.yearly_cost() == 1188 and s2.yearly_cost() == 600, \"Expected yearly_cost() to return self.amount * 12 (1188)\"",
       "assert isinstance(s, Expense), \"Subscription must inherit from Expense: class Subscription(Expense):\"",
       done
     )
@@ -1070,7 +1082,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "pip, virtual environments and requirements.txt."
     ],
     eTitle: "Clean Up Typed Amounts",
-    eDesc: "People type amounts with spaces. Write `parse_amount(text)` that removes spaces and returns the amount as a float, or `None` if it is not a number.",
+    eDesc: "People type amounts with spaces. Write `parse_amount(text)` that removes spaces and returns the amount as a float, or `None` if it is not a number. (Because the browser editor runs automatically without waiting for keyboard typing, this function takes the text that `input()` would return as its `text` parameter.)",
     eStarter: lines("def parse_amount(text):", "    # strip(), then float(), inside try/except", "    pass"),
     eHint: "try: return float(text.strip()) / except ValueError: return None",
     eTest: lines(
@@ -1089,7 +1101,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Menu Choice",
-    aDesc: "Write `menu_choice(text)` that returns the number 1, 2 or 3 when the user typed one of them, otherwise `None`.",
+    aDesc: "Write `menu_choice(text)` that returns the number 1, 2 or 3 when the user typed one of them, otherwise `None`. (Just like in Task 1, `text` is the string that `input()` would return.)",
     aStarter: lines("def menu_choice(text):", "    # compare text.strip() with '1', '2', '3'", "    pass"),
     aHint: "value = text.strip(); return int(value) if value in ('1', '2', '3') else None",
     aTest: lines(
@@ -1206,9 +1218,11 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]",
       "_fn = globals().get('group_by_category')",
       "_res = _fn(data) if callable(_fn) else None",
+      "_res_empty = _fn([]) if callable(_fn) else None",
+      "_res2 = _fn([{'item': 'Rent', 'category': 'home'}]) if callable(_fn) else None",
       "if isinstance(_res, dict) and isinstance(_res.get('food'), list) and len(_res['food']) > 0 and isinstance(_res['food'][0], dict):",
       "    assert False, \"Almost! Append only the item name e['item'] to each category list, not the whole dictionary e.\"",
-      "assert _res == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}, \"Expected {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}\"",
+      "assert _res == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']} and _res_empty == {} and _res2 == {'home': ['Rent']}, \"Expected {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}\"",
       done
     )
   },
@@ -1221,9 +1235,9 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "Neat output with f-strings."
     ],
     eTitle: "Add an Expense",
-    eDesc: "Write `add_expense(expenses, item, amount, category, date)` that returns a NEW list with the new expense added. Its `'id'` is one more than the number of expenses. Remove extra spaces from item and category.",
+    eDesc: "Write `add_expense(expenses, item, amount, category, date)` that returns a NEW list with the new expense added. Give it the next `'id'` (starting at 1, using `max((e['id'] for e in expenses), default=0) + 1` or `len(expenses) + 1`) and remove extra spaces from `item` and `category`.",
     eStarter: lines("def add_expense(expenses, item, amount, category, date):", "    new = {", "        # id, item, amount, category, date", "    }", "    return expenses + [new]"),
-    eHint: "new = {'id': len(expenses) + 1, 'item': item.strip(), 'amount': amount, 'category': category.strip(), 'date': date}",
+    eHint: "next_id = max((e['id'] for e in expenses), default=0) + 1; new = {'id': next_id, 'item': item.strip(), 'amount': amount, 'category': category.strip(), 'date': date}",
     eTest: lines(
       "result = add_expense([], ' Tea ', 20, 'food ', '2026-09-28')",
       "if isinstance(result, list) and len(result) == 1 and isinstance(result[0], dict):",
@@ -1241,9 +1255,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTest: lines(
       "_fn = globals().get('format_expense')",
       "_res = _fn({'item': 'Tea', 'amount': 20, 'category': 'food'}) if callable(_fn) else None",
+      "_res2 = _fn({'item': 'Bus', 'amount': 45.5, 'category': 'travel'}) if callable(_fn) else None",
       "if _res == 'Tea - Rs 20 (food)':",
       "    assert False, \"Almost! Format the amount with 2 decimal places using :.2f -> Rs {e['amount']:.2f}\"",
-      "assert _res == 'Tea - Rs 20.00 (food)', f\"Expected 'Tea - Rs 20.00 (food)', got {_res!r}\"",
+      "assert _res == 'Tea - Rs 20.00 (food)' and _res2 == 'Bus - Rs 45.50 (travel)', f\"Expected 'Tea - Rs 20.00 (food)', got {_res!r}\"",
       done
     )
   },
@@ -1283,7 +1298,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "totals[e['category']] = totals.get(e['category'], 0) + e['amount']",
     aTest: lines(
       "data = [{'category': 'food', 'amount': 20}, {'category': 'travel', 'amount': 45}, {'category': 'food', 'amount': 150}]",
-      "assert category_totals(data) == {'food': 170, 'travel': 45}, \"Expected {'food': 170, 'travel': 45}\"",
+      "assert category_totals(data) == {'food': 170, 'travel': 45} and category_totals([]) == {} and category_totals([{'category': 'bills', 'amount': 300}]) == {'bills': 300}, \"Expected {'food': 170, 'travel': 45}\"",
       done
     )
   },
@@ -1383,9 +1398,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eHint: "Lists start at position 0, not 1: use range(len(expenses)) or range(0, len(expenses)).",
     eTest: lines(
       "_res = total_amount([{'amount': 100}, {'amount': 200}, {'amount': 300}])",
+      "_res2 = total_amount([{'amount': 20}, {'amount': 45}])",
       "if _res == 500:",
       "    assert False, \"total_amount() returned 500 instead of 600 because range(1, len(expenses)) skips index 0! Change 1 to 0.\"",
-      "assert _res == 600, f'Expected 600, got {_res}'",
+      "assert _res == 600 and _res2 == 65 and total_amount([]) == 0, f'Expected 600, got {_res}'",
       done
     ),
     aTitle: "Find the Bad Record",
@@ -1425,7 +1441,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aHint: "return [s for s in needed if s not in readme]",
     aTest: lines(
       "text = '# Expense API\\n## About\\nTrack spending\\n## Setup\\npip install -r requirements.txt'",
-      "assert missing_sections(text) == ['## Features'], \"Expected ['## Features']\"",
+      "assert missing_sections(text) == ['## Features'] and missing_sections('## About\\n## Features\\n## Setup') == [] and missing_sections('') == ['## About', '## Features', '## Setup'], \"Expected ['## Features']\"",
       done
     )
   },
@@ -1459,9 +1475,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTest: lines(
       "_fn = globals().get('reverse_words')",
       "_r = _fn('I love Python') if callable(_fn) else None",
+      "_r2 = _fn('hello world') if callable(_fn) else None",
       "if _r == 'nohtyP evol I':",
       "    assert False, \"That reversed the letters ('nohtyP evol I') instead of the words! Split into words first: ' '.join(sentence.split()[::-1]).\"",
-      "assert _r == 'Python love I', f\"Expected 'Python love I', got {_r!r}\"",
+      "assert _r == 'Python love I' and _r2 == 'world hello', f\"Expected 'Python love I', got {_r!r}\"",
       done
     )
   }

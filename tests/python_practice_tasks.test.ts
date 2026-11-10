@@ -132,7 +132,12 @@ const SOLUTIONS: [string, string][] = [
   ],
 ];
 
-const hasPython = spawnSync('python3', ['--version']).status === 0;
+const pythonBin =
+  spawnSync('python3', ['--version'], { stdio: ['ignore', 'pipe', 'pipe'] }).status === 0
+    ? 'python3'
+    : spawnSync('python', ['--version'], { stdio: ['ignore', 'pipe', 'pipe'] }).status === 0
+    ? 'python'
+    : null;
 
 /** Grades code the way /api/code/run-python does: code saved as solution.py, checks run after `from solution import *`. */
 function gradeLikeServer(code: string, testSuite: string) {
@@ -143,7 +148,7 @@ function gradeLikeServer(code: string, testSuite: string) {
     fs.writeFileSync(path.join(dir, 'solution.py'), code);
     const indented = testSuite.split('\n').map((line) => '    ' + line).join('\n');
     fs.writeFileSync(path.join(dir, 'runner.py'), `from solution import *\ntry:\n${indented}\n    print('PASSED')\nexcept AssertionError as e:\n    raise SystemExit(f'AssertionError: {e}')\n`);
-    const r = spawnSync('python3', ['runner.py'], { cwd: dir, encoding: 'utf8', timeout: 10000 });
+    const r = spawnSync(pythonBin!, ['runner.py'], { cwd: dir, encoding: 'utf8', timeout: 10000, stdio: ['ignore', 'pipe', 'pipe'] });
     return { ok: r.status === 0 && r.stdout.includes('PASSED'), out: `${r.stdout}${r.stderr}` };
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -163,7 +168,7 @@ test('no Python practice task needs input(), which the browser cannot provide', 
   }
 });
 
-test('every Python practice task: the right answer passes and the starter code fails', { skip: !hasPython && 'python3 not installed' }, () => {
+test('every Python practice task: the right answer passes and the starter code fails', { skip: !pythonBin && 'python not installed' }, () => {
   PYTHON_30_DAYS_CONFIGS.forEach((cfg, i) => {
     const tasks = [
       { name: 'Practice 1', starter: cfg.eStarter, check: cfg.eTest, solution: SOLUTIONS[i][0] },
@@ -178,4 +183,30 @@ test('every Python practice task: the right answer passes and the starter code f
       assert.ok(!bad.ok, `${label}: the unfinished starter code already passes`);
     }
   });
+});
+
+test('Days 8-30 practice tasks reject hardcoded returns of the prompt example', { skip: !pythonBin && 'python not installed' }, () => {
+  const hardcodedAttempts: { day: number; task: 1 | 2; code: string }[] = [
+    { day: 8, task: 2, code: "def add_item(items, item):\n    return ['Tea', 'Bus']" },
+    { day: 10, task: 1, code: "def make_expense(item, amount, category):\n    return {'item': 'Tea', 'amount': 20, 'category': 'food'}" },
+    { day: 11, task: 2, code: "def by_category(expenses, category):\n    return [{'item': 'Tea', 'category': 'food'}, {'item': 'Lunch', 'category': 'food'}]" },
+    { day: 12, task: 1, code: "def unique_categories(expenses):\n    return ['food', 'travel']" },
+    { day: 17, task: 1, code: "def to_json(expenses):\n    return '[{\"item\": \"Tea\", \"amount\": 20}]'" },
+    { day: 18, task: 1, code: "class Expense:\n    def __init__(self, item, amount):\n        self.item = 'Tea'\n        self.amount = 20\n    def label(self):\n        return 'Tea: 20'" },
+    { day: 19, task: 1, code: "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n    def __str__(self):\n        return 'Tea (Rs 20)'" },
+    { day: 19, task: 2, code: "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\nclass Subscription(Expense):\n    def yearly_cost(self):\n        return 1188" },
+    { day: 23, task: 2, code: "def group_by_category(expenses):\n    return {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}" },
+    { day: 24, task: 2, code: "def format_expense(e):\n    return 'Tea - Rs 20.00 (food)'" },
+    { day: 25, task: 2, code: "def category_totals(expenses):\n    return {'food': 170, 'travel': 45}" },
+    { day: 28, task: 1, code: "def total_amount(expenses):\n    return 600" },
+    { day: 29, task: 2, code: "def missing_sections(readme):\n    return ['## Features']" },
+    { day: 30, task: 2, code: "def reverse_words(sentence):\n    return 'Python love I'" },
+  ];
+
+  for (const h of hardcodedAttempts) {
+    const cfg = PYTHON_30_DAYS_CONFIGS[h.day - 1];
+    const check = h.task === 1 ? cfg.eTest! : cfg.aTest!;
+    const res = gradeLikeServer(h.code, check);
+    assert.ok(!res.ok, `Day ${h.day} Practice ${h.task} (${cfg.title}) accepted a hardcoded example return!`);
+  }
 });
