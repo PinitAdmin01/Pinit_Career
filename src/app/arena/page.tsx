@@ -28,6 +28,7 @@ import {
   CombatEvent,
   createCombatEvent,
 } from '@/lib/arena/codeWarRules';
+import LeagueBadge, { LEAGUE_CONFIGS, LeagueTier, normalizeLeagueTier } from '@/components/pins/LeagueBadge';
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react').then(mod => mod.default),
@@ -225,6 +226,58 @@ function ArenaContent() {
   const [failedAttempts, setFailedAttempts] = useState<number>(0);
   const [showRulesDrawer, setShowRulesDrawer] = useState<boolean>(false);
   const [showBattleReport, setShowBattleReport] = useState<boolean>(false);
+  const [isStrategyExpanded, setIsStrategyExpanded] = useState<boolean>(true);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  // Detect Light/Dark theme changes for Monaco & UI precision
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const checkTheme = () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light' || document.body.classList.contains('light-theme');
+        setTheme(isLight ? 'light' : 'dark');
+      };
+      checkTheme();
+      const observer = new MutationObserver(checkTheme);
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+      return () => observer.disconnect();
+    }
+  }, []);
+
+  const handleCopyText = (text: string, field: string) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 1800);
+    }
+  };
+
+  const isGameActive = activeRoom?.status === 'in_progress' || soloMatch?.status === 'active';
+
+  // Game Mode: Vanish sidebars and topbars during active combat
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (isGameActive) {
+        document.body.setAttribute('data-arena-active', 'true');
+      } else {
+        document.body.removeAttribute('data-arena-active');
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.removeAttribute('data-arena-active');
+      }
+    };
+  }, [isGameActive]);
+
+  // Determine user's League Tier from XP & ELO
+  const userLeagueTier: LeagueTier = React.useMemo(() => {
+    if (xp >= 6000 || eloRating >= 400) return 'ruby';
+    if (xp >= 3000 || eloRating >= 280) return 'platinum';
+    if (xp >= 1500 || eloRating >= 200) return 'gold';
+    if (xp >= 500 || eloRating >= 140) return 'silver';
+    return 'browns';
+  }, [xp, eloRating]);
 
   // Determine current active problem
   const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || (selectedProblemId !== 'auto' ? selectedProblemId : ''))) || problems[0];
@@ -1137,10 +1190,17 @@ function ArenaContent() {
           {/* STATE 1: LOBBY (No active battle or room) */}
           {!activeRoom && !soloMatch && (
             <div>
+              {/* Heading: Matchmaking Cards (Image 1 Style) */}
+              <div style={{ marginBottom: 18 }}>
+                <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
+                  Matchmaking Cards
+                </h2>
+              </div>
+
               {/* Top Quick Actions Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 20, marginBottom: 32 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20, marginBottom: 28 }}>
                 
-                {/* Mode A: 1v1 Quick Matchmaking */}
+                {/* Mode A: Quick Duel */}
                 <div style={{
                   padding: '28px 24px',
                   borderRadius: 20,
@@ -1150,11 +1210,12 @@ function ArenaContent() {
                   boxShadow: isQueueing ? '0 0 28px rgba(99, 102, 241, 0.3)' : 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  minHeight: 280,
+                  transition: 'border 0.2s ease, box-shadow 0.2s ease'
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      
                       <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -1173,10 +1234,10 @@ function ArenaContent() {
                       </span>
                     </div>
                     <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                      1v1 Algorithmic Duel
+                      Quick Duel
                     </h3>
                     <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Queue up to spar against the Turing Benchmark AI or share room links for live peer battles.
+                      Compete 1v1 coding arena and queue with dashboard. Spar against calibrated Turing AI or live student peers.
                     </p>
 
                     {isQueueing ? (
@@ -1262,12 +1323,12 @@ function ArenaContent() {
                         boxShadow: '0 4px 12px rgba(79, 70, 229, 0.35)'
                       }}
                     >
-                      Find 1v1 Opponent (10 Pins)
+                      Instant Queue ⚡ (10 Pins)
                     </button>
                   )}
                 </div>
 
-                {/* Mode B: Create Custom Battle Room */}
+                {/* Mode B: Create Private Room */}
                 <div style={{
                   padding: '28px 24px',
                   borderRadius: 20,
@@ -1277,11 +1338,11 @@ function ArenaContent() {
                   boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  minHeight: 280
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      
                       <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -1303,7 +1364,7 @@ function ArenaContent() {
                       Create Private Room
                     </h3>
                     <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Host a private duel, choose problem difficulty & time limit, and share an invite code/link with friends.
+                      Host a private duel, choose problem difficulty &amp; time limit, and share an invite code/link with friends.
                     </p>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
@@ -1388,11 +1449,11 @@ function ArenaContent() {
                   boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  minHeight: 280
                 }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      
                       <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -1411,10 +1472,10 @@ function ArenaContent() {
                       </span>
                     </div>
                     <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                      Join Friend's Room
+                      Join via Code
                     </h3>
                     <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Have an invite code from a friend? Enter it below to immediately jump into their lobby.
+                      Have an invite code from a friend? Enter it below to immediately jump into their battle lobby.
                     </p>
 
                     <div style={{ marginBottom: 16 }}>
@@ -1422,7 +1483,7 @@ function ArenaContent() {
                         type="text"
                         value={roomInputCode}
                         onChange={e => setRoomInputCode(e.target.value.toUpperCase())}
-                        placeholder="e.g. ARENA-8F2A"
+                        placeholder="6-digit PIN (e.g. ARENA-8F2A)"
                         maxLength={12}
                         style={{
                           width: '100%',
@@ -1518,270 +1579,142 @@ function ArenaContent() {
                 </div>
               </div>
 
-              {/* ARENA COMPETITIVE INTELLIGENCE & LEAGUE LADDER HUB */}
-              <div style={{ marginTop: 28, display: 'flex', flexDirection: 'column', gap: 24 }}>
-                {/* 1. Competitive League Divisions Ladder */}
-                <div style={{
-                  padding: 24,
-                  borderRadius: 18,
+              {/* LEADERBOARD LEAGUES ROADMAP (Image 1 Aesthetic + Reused Badges) */}
+              <div
+                data-testid="leaderboard-leagues-roadmap"
+                style={{
+                  marginTop: 28,
+                  padding: '24px 28px',
+                  borderRadius: 20,
                   background: 'var(--card)',
+                  backdropFilter: 'blur(16px)',
                   border: '1px solid var(--border)',
-                  boxShadow: 'var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.04))',
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
-                          Competitive Division Ladder
-                        </h3>
-                        <span style={{
-                          padding: '2px 8px',
-                          borderRadius: 6,
-                          background: 'rgba(99, 102, 241, 0.12)',
-                          color: '#6366f1',
-                          fontSize: 11.5,
-                          fontWeight: 700,
-                          textTransform: 'uppercase',
-                        }}>
-                          Live Elo Ranks
-                        </span>
-                      </div>
-                      <p style={{ fontSize: 13.5, color: 'var(--t3)', margin: '4px 0 0' }}>
-                        Climb through algorithmic leagues. Opponents and challenges are auto-calibrated to your verified learning edge.
-                      </p>
-                    </div>
+                  boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
+                  <div>
+                    <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
+                      Leaderboard Leagues
+                    </h3>
+                    <p style={{ fontSize: 13.5, color: 'var(--t3)', margin: '4px 0 0' }}>
+                      Seasonal progression across verified divisions. Compete in 1v1 battles to promote through the ranks.
+                    </p>
+                  </div>
 
-                    <div style={{
-                      display: 'flex',
+                  <Link
+                    href="/leaderboard?mode=weekly_leagues"
+                    style={{
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      gap: 12,
-                      padding: '8px 16px',
+                      gap: 8,
+                      padding: '8px 18px',
                       borderRadius: 12,
-                      background: 'var(--bg2)',
-                      border: '1px solid var(--border)',
-                    }}>
-                      <div style={{ fontSize: 24 }}>{eloTier.icon}</div>
-                      <div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Your Division</div>
-                        <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{eloTier.name} ({eloRating} Elo)</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Division Cards Grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
-                    {[
-                      { name: 'Bronze Cadet', range: '100 - 139', icon: '🔰', badge: 'Tier 1 Foundations', color: '#cd7f32', isCurrent: eloRating < 140, syllabus: 'Variables, Pointers & Array Scans' },
-                      { name: 'Silver Tactician', range: '140 - 199', icon: '⚡', badge: 'Tier 1+ Linear DS', color: '#94a3b8', isCurrent: eloRating >= 140 && eloRating < 200, syllabus: 'Hash Maps, Two Pointers & Freq Tables' },
-                      { name: 'Gold Architect', range: '200 - 279', icon: '⚔️', badge: 'Tier 2 Intermediate', color: '#f59e0b', isCurrent: eloRating >= 200 && eloRating < 280, syllabus: 'Stacks, Windows & Greedy Intervals' },
-                      { name: 'Platinum Vanguard', range: '280 - 399', icon: '🛡️', badge: 'Tier 2+ Algorithms', color: '#38bdf8', isCurrent: eloRating >= 280 && eloRating < 400, syllabus: 'Binary Search, Binary Trees & DFS/BFS' },
-                      { name: 'Diamond Apex', range: '400 - 499', icon: '💎', badge: 'Tier 3 Master', color: '#a855f7', isCurrent: eloRating >= 400 && eloRating < 500, syllabus: 'Dynamic Programming & Graph Traversal' },
-                      { name: 'Grandmaster Apex', range: '500+', icon: '👑', badge: 'Tier 3+ Systems', color: '#ec4899', isCurrent: eloRating >= 500, syllabus: 'Concurrency, Deadlock Locks & B-Trees' },
-                    ].map((div) => (
-                      <div
-                        key={div.name}
-                        style={{
-                          padding: '14px 12px',
-                          borderRadius: 12,
-                          background: div.isCurrent ? 'rgba(99, 102, 241, 0.08)' : 'var(--bg2)',
-                          border: div.isCurrent ? `2px solid ${div.color}` : '1px solid var(--border)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 6,
-                          position: 'relative',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        {div.isCurrent && (
-                          <span style={{
-                            position: 'absolute',
-                            top: 6,
-                            right: 6,
-                            fontSize: 9.5,
-                            fontWeight: 800,
-                            padding: '2px 6px',
-                            borderRadius: 4,
-                            background: div.color,
-                            color: '#fff',
-                            textTransform: 'uppercase',
-                          }}>
-                            Active
-                          </span>
-                        )}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                          <span style={{ fontSize: 20 }}>{div.icon}</span>
-                          <div>
-                            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>{div.name}</div>
-                            <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>{div.range} Elo</div>
-                          </div>
-                        </div>
-                        <div style={{ fontSize: 11, color: 'var(--t2)', lineHeight: 1.3, marginTop: 2 }}>
-                          {div.syllabus}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      background: 'rgba(99, 102, 241, 0.12)',
+                      border: '1px solid rgba(99, 102, 241, 0.25)',
+                      color: 'var(--accent, #6366f1)',
+                      fontSize: 13.5,
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <span>View Full Leaderboard →</span>
+                  </Link>
                 </div>
 
-                {/* 2. Combat Intelligence & Mystery AI Sparring Hub */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
-                  {/* Calibrated AI Sparring Launcher */}
-                  <div style={{
-                    padding: 24,
-                    borderRadius: 18,
-                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%)',
-                    border: '1px solid rgba(99, 102, 241, 0.25)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                        <span style={{
-                          padding: '3px 8px',
-                          borderRadius: 6,
-                          background: 'rgba(99, 102, 241, 0.15)',
-                          color: '#818cf8',
-                          fontSize: 11,
-                          fontWeight: 800,
-                          textTransform: 'uppercase',
-                        }}>
-                          AI Turing Combatant
-                        </span>
-                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>Zero-Wait Sparring</span>
-                      </div>
-                      <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
-                        Calibrated AI Sparring Duel
-                      </h4>
-                      <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 16px' }}>
-                        Face a virtual bot calibrated to your exact Elo rating and knowledge edge. A fresh, unseen problem is drawn at battle start with full slow-reader hints.
-                      </p>
-                    </div>
+                {/* 5 League Divisions Track */}
+                <div style={{ position: 'relative', marginTop: 16, marginBottom: 8 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
+                    {[
+                      { tier: 'browns' as LeagueTier, label: 'Browns', range: '100 - 139 Elo', eloBase: 100, xpMin: 0, title: 'Cadet' },
+                      { tier: 'silver' as LeagueTier, label: 'Silver', range: '140 - 199 Elo', eloBase: 140, xpMin: 500, title: 'Tactician' },
+                      { tier: 'gold' as LeagueTier, label: 'Gold', range: '200 - 279 Elo', eloBase: 200, xpMin: 1500, title: 'Architect' },
+                      { tier: 'platinum' as LeagueTier, label: 'Platinum', range: '280 - 399 Elo', eloBase: 280, xpMin: 3000, title: 'Vanguard' },
+                      { tier: 'ruby' as LeagueTier, label: 'Ruby', range: '400+ Elo', eloBase: 400, xpMin: 6000, title: 'Apex' },
+                    ].map((league) => {
+                      const isActive = userLeagueTier === league.tier;
+                      const cfg = LEAGUE_CONFIGS[league.tier];
+                      return (
+                        <div
+                          key={league.tier}
+                          style={{
+                            padding: '16px 14px',
+                            borderRadius: 14,
+                            background: isActive
+                              ? (theme === 'light' ? 'rgba(99, 102, 241, 0.08)' : 'rgba(99, 102, 241, 0.12)')
+                              : 'var(--bg2)',
+                            border: isActive ? `2px solid ${cfg.color}` : '1px solid var(--border)',
+                            boxShadow: isActive ? `0 0 20px ${cfg.glowColor}` : 'none',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            position: 'relative',
+                            transition: 'all 0.2s ease',
+                          }}
+                        >
+                          {isActive && (
+                            <span style={{
+                              position: 'absolute',
+                              top: 8,
+                              right: 8,
+                              fontSize: 9.5,
+                              fontWeight: 800,
+                              padding: '2px 7px',
+                              borderRadius: 4,
+                              background: cfg.color,
+                              color: '#fff',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.5px'
+                            }}>
+                              Active
+                            </span>
+                          )}
 
-                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                      <button
-                        onClick={() => handleStartSoloSparring()}
-                        style={{
-                          flex: 1,
-                          minWidth: 160,
-                          padding: '12px 18px',
-                          borderRadius: 12,
-                          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                          color: '#fff',
-                          fontWeight: 700,
-                          fontSize: 14,
-                          border: 'none',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: 8,
-                          boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)',
-                        }}
-                      >
-                        <span>⚔️</span>
-                        <span>Start Auto-Calibrated Spar</span>
-                      </button>
+                          <div style={{ marginBottom: 10 }}>
+                            <LeagueBadge tier={league.tier} size="md" glow={isActive} />
+                          </div>
 
-                      <button
-                        onClick={() => handleStartSoloSparring('basic')}
-                        style={{
-                          padding: '12px 14px',
-                          borderRadius: 12,
-                          background: 'var(--bg2)',
-                          border: '1px solid var(--border)',
-                          color: 'var(--t1)',
-                          fontWeight: 600,
-                          fontSize: 13,
-                          cursor: 'pointer',
-                        }}
-                        title="Practice Foundational Problems (Days 1–15)"
-                      >
-                        🟢 Novice
-                      </button>
-
-                      <button
-                        onClick={() => handleStartSoloSparring('intermediate')}
-                        style={{
-                          padding: '12px 14px',
-                          borderRadius: 12,
-                          background: 'var(--bg2)',
-                          border: '1px solid var(--border)',
-                          color: 'var(--t1)',
-                          fontWeight: 600,
-                          fontSize: 13,
-                          cursor: 'pointer',
-                        }}
-                        title="Practice Intermediate Structures (Days 16–30)"
-                      >
-                        🟡 Apprentice
-                      </button>
-
-                      <button
-                        onClick={() => handleStartSoloSparring('advanced')}
-                        style={{
-                          padding: '12px 14px',
-                          borderRadius: 12,
-                          background: 'var(--bg2)',
-                          border: '1px solid var(--border)',
-                          color: 'var(--t1)',
-                          fontWeight: 600,
-                          fontSize: 13,
-                          cursor: 'pointer',
-                        }}
-                        title="Practice Master Algorithms (Days 31–60)"
-                      >
-                        🔴 Master
-                      </button>
-                    </div>
+                          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
+                            {league.label} {league.title}
+                          </div>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: cfg.color, marginTop: 2 }}>
+                            {league.range}
+                          </div>
+                          <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
+                            Min {league.xpMin.toLocaleString()} XP
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
 
-                  {/* Combatant Knowledge & Security Dossier */}
-                  <div style={{
-                    padding: 24,
-                    borderRadius: 18,
-                    background: 'var(--card)',
-                    border: '1px solid var(--border)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                        <span style={{
-                          padding: '3px 8px',
-                          borderRadius: 6,
-                          background: 'rgba(16, 185, 129, 0.15)',
-                          color: '#10b981',
-                          fontSize: 11,
-                          fontWeight: 800,
-                          textTransform: 'uppercase',
-                        }}>
-                          Curriculum Integrity
-                        </span>
-                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>Anti-Cheat Protocol</span>
-                      </div>
-                      <h4 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
-                        Knowledge Affinity & Polyglot Engine
-                      </h4>
-                      <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 14px' }}>
-                        Questions remain strictly concealed until match start to preserve competitive integrity. Both combatants receive the identical real-world problem evaluated across Python 3.11 and TypeScript runtimes.
-                      </p>
+                  {/* Horizontal Single-Axis Progress Track */}
+                  <div style={{ marginTop: 20, padding: '0 8px' }}>
+                    <div style={{
+                      height: 6,
+                      borderRadius: 3,
+                      background: 'var(--bg3)',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      border: '1px solid var(--border)'
+                    }}>
+                      <div style={{
+                        width: `${Math.min(100, Math.max(10, Math.round(((eloRating - 100) / 400) * 100)))}%`,
+                        height: '100%',
+                        borderRadius: 3,
+                        background: 'linear-gradient(90deg, #d97706 0%, #38bdf8 35%, #f59e0b 60%, #60a5fa 85%, #ef4444 100%)',
+                        boxShadow: '0 0 10px rgba(99, 102, 241, 0.5)',
+                        transition: 'width 0.4s ease'
+                      }} />
                     </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
-                      <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: '#6366f1' }}>{CODE_WARS_PROBLEMS_CATALOG.length}</div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Active Challenges</div>
-                      </div>
-                      <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: '#10b981' }}>2</div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Polyglot Runtimes</div>
-                      </div>
-                      <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)', textAlign: 'center' }}>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: '#f59e0b' }}>{solvedProblemIds.size}</div>
-                        <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Cleared by You</div>
-                      </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 11.5, color: 'var(--t3)', fontWeight: 600 }}>
+                      <span>100 ELO (Base)</span>
+                      <span>140 ELO</span>
+                      <span>200 ELO</span>
+                      <span>280 ELO</span>
+                      <span>400+ ELO</span>
                     </div>
                   </div>
                 </div>
@@ -2120,267 +2053,416 @@ function ArenaContent() {
                 </div>
               )}
 
-              {/* Top Combat Battle Bar (You vs Rival) */}
+              {/* ── VERSUS HUD BAR (Image 2 Top HUD Precision) ── */}
               <div style={{
-                padding: '14px 20px',
-                borderRadius: 14,
-                background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
-                border: '1px solid var(--border)',
+                padding: '16px 28px',
+                borderRadius: 20,
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.92)' : 'rgba(15, 23, 42, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: theme === 'light' ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: theme === 'light' ? '0 8px 30px rgba(0,0,0,0.06)' : '0 12px 40px rgba(0,0,0,0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: 16,
+                gap: 20,
                 marginBottom: 20
               }}>
-                {/* Left: You Progress */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 260 }}>
-                  <Image
-                    width={44}
-                    height={44}
-                    src={studentAvatar}
-                    alt="You"
-                    style={{ width: 44, height: 44, borderRadius: '50%', border: '2px solid #6366f1', objectFit: 'cover' }}
-                  />
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>{studentName} (You)</span>
-                      <span style={{
-                        fontSize: 11,
-                        padding: '2px 7px',
-                        borderRadius: 4,
-                        background: language === 'python' ? '#3b82f6' : '#6366f1',
-                        color: '#fff',
-                        fontWeight: 800,
-                        letterSpacing: '0.5px'
-                      }}>
-                        {language === 'python' ? '🐍 PY' : '⚡ TS'}
+                {/* Left: Player Avatar, Name & Tests Passed */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 280, flex: 1 }}>
+                  <div style={{
+                    position: 'relative',
+                    width: 52,
+                    height: 52,
+                    borderRadius: '50%',
+                    padding: 2,
+                    border: '2.5px solid #10b981',
+                    boxShadow: '0 0 16px rgba(16, 185, 129, 0.55)',
+                    flexShrink: 0,
+                  }}>
+                    <Image
+                      src={studentAvatar}
+                      alt={studentName}
+                      width={48}
+                      height={48}
+                      style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                      <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                        {studentName} ({eloTier.name})
                       </span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <div style={{
-                        width: 120,
-                        height: 8,
-                        borderRadius: 4,
+                        flex: 1,
+                        maxWidth: 180,
+                        height: 6,
+                        borderRadius: 3,
                         background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
                       }}>
                         <div style={{
                           width: `${Math.min(100, ((testResult?.testsPassed || myProgress?.testsPassed || 0) / (activeProblem.testCases.length || 5)) * 100)}%`,
                           height: '100%',
                           background: '#10b981',
+                          boxShadow: '0 0 8px #10b981',
                           transition: 'width 0.3s ease'
                         }} />
                       </div>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--green, #059669)' }}>
-                        {testResult?.testsPassed || myProgress?.testsPassed || 0}/{activeProblem.testCases.length} Tests
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#10b981', whiteSpace: 'nowrap' }}>
+                        {testResult?.testsPassed || myProgress?.testsPassed || 0}/{activeProblem.testCases.length} test cases passed
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Center: Countdown Timer & Sync Indicator */}
-                <div style={{ textAlign: 'center' }}>
+                {/* Center: Glowing Amber Countdown Capsule */}
+                <div style={{
+                  padding: '6px 36px',
+                  borderRadius: 28,
+                  border: '2px solid #f59e0b',
+                  background: 'rgba(245, 158, 11, 0.1)',
+                  boxShadow: '0 0 24px rgba(245, 158, 11, 0.35)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minWidth: 160,
+                  flexShrink: 0
+                }}>
                   <div style={{
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: '#10b981',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 6,
-                    marginBottom: 4
-                  }}>
-                    <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
-                    Peer Synced ({activeProblem.testCases.length} Tests)
-                  </div>
-                  <div style={{
-                    padding: '8px 20px',
-                    borderRadius: 12,
-                    background: timeRemaining < 60 ? 'rgba(239, 68, 68, 0.15)' : 'var(--bg2)',
-                    border: timeRemaining < 60 ? '1px solid #ef4444' : '1px solid var(--border)',
-                    color: timeRemaining < 60 ? '#ef4444' : 'var(--accent)',
+                    fontSize: 11,
                     fontWeight: 800,
-                    fontSize: 22,
-                    fontFamily: 'monospace',
-                    letterSpacing: '1px',
-                    boxShadow: timeRemaining < 60 ? '0 0 16px rgba(239, 68, 68, 0.4)' : 'none'
+                    textTransform: 'uppercase',
+                    letterSpacing: '2px',
+                    color: '#f59e0b',
+                    lineHeight: 1
                   }}>
-                    {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, '0')}
+                    Countdown
+                  </div>
+                  <div style={{
+                    fontSize: 32,
+                    fontWeight: 900,
+                    fontFamily: "'JetBrains Mono', monospace",
+                    color: '#fef08a',
+                    textShadow: '0 0 14px rgba(245, 158, 11, 0.65)',
+                    lineHeight: 1.1,
+                    marginTop: 2
+                  }}>
+                    {Math.floor(timeRemaining / 60).toString().padStart(2, '0')}:{(timeRemaining % 60).toString().padStart(2, '0')}
                   </div>
                 </div>
 
-                {/* Right: Opponent Progress */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 260, justifyContent: 'flex-end' }}>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
-                      <span style={{
-                        fontSize: 11,
-                        padding: '2px 7px',
-                        borderRadius: 4,
-                        background: (isHost ? activeRoom?.guestLanguage : activeRoom?.hostLanguage) === 'python' ? '#3b82f6' : '#6366f1',
-                        color: '#fff',
-                        fontWeight: 800,
-                        letterSpacing: '0.5px'
-                      }}>
-                        {(isHost ? activeRoom?.guestLanguage : activeRoom?.hostLanguage) === 'python' ? '🐍 PY' : '⚡ TS'}
-                      </span>
-                      <span style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>
-                        {activeRoom ? opponentName : (soloMatch?.opponent?.name || 'Turing AI')}
+                {/* Right: Opponent Info & Progress */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 14, minWidth: 280, flex: 1 }}>
+                  <div style={{ textAlign: 'right', flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, marginBottom: 6 }}>
+                      <span style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                        {activeRoom ? opponentName : (soloMatch?.opponent?.name || 'AI Bot / Rival')} (Benchmark)
                       </span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4, justifyContent: 'flex-end' }}>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--red, #dc2626)' }}>
-                        {activeRoom ? `${opponentProgress?.testsPassed || 0}/${activeProblem.testCases.length} Tests` : `${Math.round(soloMatch?.opponent?.progressPct || 0)}% Completed`}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', whiteSpace: 'nowrap' }}>
+                        {activeRoom
+                          ? `${opponentProgress?.testsPassed || 0}/${activeProblem.testCases.length} test cases passed`
+                          : `${Math.round(soloMatch?.opponent?.progressPct || 0)}% test cases passed`}
                       </span>
                       <div style={{
-                        width: 120,
-                        height: 8,
-                        borderRadius: 4,
+                        flex: 1,
+                        maxWidth: 180,
+                        height: 6,
+                        borderRadius: 3,
                         background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
                       }}>
                         <div style={{
                           width: activeRoom
                             ? `${Math.min(100, ((opponentProgress?.testsPassed || 0) / (activeProblem.testCases.length || 5)) * 100)}%`
                             : `${soloMatch?.opponent?.progressPct || 0}%`,
                           height: '100%',
-                          background: '#ef4444',
+                          background: '#94a3b8',
+                          boxShadow: '0 0 8px rgba(148, 163, 184, 0.5)',
                           transition: 'width 0.3s ease'
                         }} />
                       </div>
                     </div>
                   </div>
-                  <Image
-                    width={44}
-                    height={44}
-                    src={activeRoom ? (opponentAvatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80') : (soloMatch?.opponent?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80')}
-                    alt="Rival"
-                    style={{ width: 44, height: 44, borderRadius: '50%', border: '2px solid #ef4444', objectFit: 'cover' }}
-                  />
+                  <div style={{
+                    position: 'relative',
+                    width: 52,
+                    height: 52,
+                    borderRadius: '50%',
+                    padding: 2,
+                    border: '2.5px solid rgba(148, 163, 184, 0.6)',
+                    boxShadow: '0 0 16px rgba(148, 163, 184, 0.35)',
+                    flexShrink: 0
+                  }}>
+                    <Image
+                      src={activeRoom ? (opponentAvatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80') : (soloMatch?.opponent?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80')}
+                      alt="Opponent"
+                      width={48}
+                      height={48}
+                      style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Battle Workstation: Split view problem and code editor */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 20 }}>
-                {/* Left: Problem Details */}
+              {/* ── BATTLE WORKSTATION (Image 2 Split Screen: Problem Statement & Monaco Editor) ── */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.35fr', gap: 20 }}>
+                {/* Left Column: Problem Details & Strategy Blueprint */}
                 <div style={{
                   padding: 24,
-                  borderRadius: 16,
-                  background: 'var(--bg2)',
+                  borderRadius: 18,
+                  background: 'var(--card)',
+                  backdropFilter: 'blur(16px)',
                   border: '1px solid var(--border)',
-                  height: '620px',
-                  overflowY: 'auto'
+                  boxShadow: 'var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.04))',
+                  maxHeight: 'calc(100vh - 200px)',
+                  overflowY: 'auto',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 18
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-                    <span style={{
-                      padding: '4px 10px',
-                      borderRadius: 6,
-                      background: 'rgba(99, 102, 241, 0.15)',
-                      color: '#a5b4fc',
-                      fontWeight: 700,
-                      fontSize: 13,
-                      textTransform: 'uppercase'
-                    }}>
-                      {activeProblem.difficulty}
-                    </span>
-                    <span style={{ fontSize: 13, color: solvedProblemIds.has(activeProblem.id) ? '#34d399' : 'var(--t3)' }}>
-                      {solvedProblemIds.has(activeProblem.id) ? '✓ Cleared (+0 Practice XP)' : `XP Reward: +${activeProblem.xpReward}`}
-                    </span>
-                  </div>
+                  {/* Problem Title & Badges */}
+                  <div>
+                    <h2 style={{ fontSize: 24, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px' }}>
+                      {activeProblem.title}
+                    </h2>
 
-                  <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: '0 0 8px' }}>
-                    {activeProblem.title}
-                  </h2>
-
-                  {/* Topic Tags & Target Complexity Badges */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
-                    {activeProblem.tags?.map(tag => (
-                      <span key={tag} style={{
-                        fontSize: 11.5,
-                        fontWeight: 600,
-                        padding: '2px 8px',
-                        borderRadius: 6,
-                        background: 'rgba(99, 102, 241, 0.1)',
-                        color: '#818cf8',
-                        border: '1px solid rgba(99, 102, 241, 0.25)',
-                      }}>
-                        {tag}
-                      </span>
-                    ))}
-                    {activeProblem.complexityTarget && (
+                    {/* Image 2 Badges: Difficulty, Time Complexity, Tags */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                       <span style={{
-                        fontSize: 11.5,
-                        fontWeight: 600,
-                        padding: '2px 8px',
-                        borderRadius: 6,
-                        background: 'rgba(16, 185, 129, 0.1)',
-                        color: '#34d399',
-                        border: '1px solid rgba(16, 185, 129, 0.25)',
+                        padding: '4px 12px',
+                        borderRadius: 20,
+                        background: 'rgba(245, 158, 11, 0.15)',
+                        border: '1px solid rgba(245, 158, 11, 0.3)',
+                        color: '#f59e0b',
+                        fontWeight: 700,
+                        fontSize: 12.5,
                       }}>
-                        🎯 {activeProblem.complexityTarget}
+                        Difficulty: {activeProblem.difficulty ? activeProblem.difficulty.charAt(0).toUpperCase() + activeProblem.difficulty.slice(1) : 'Medium'}
                       </span>
-                    )}
+
+                      <span style={{
+                        padding: '4px 12px',
+                        borderRadius: 20,
+                        background: 'rgba(16, 185, 129, 0.15)',
+                        border: '1px solid rgba(16, 185, 129, 0.3)',
+                        color: '#10b981',
+                        fontWeight: 700,
+                        fontSize: 12.5,
+                      }}>
+                        Time Complexity: {activeProblem.complexityTarget || 'O(N)'}
+                      </span>
+
+                      <span style={{
+                        padding: '4px 12px',
+                        borderRadius: 20,
+                        background: 'rgba(148, 163, 184, 0.15)',
+                        border: '1px solid rgba(148, 163, 184, 0.3)',
+                        color: '#94a3b8',
+                        fontWeight: 600,
+                        fontSize: 12.5,
+                      }}>
+                        Tags: {activeProblem.tags?.join(', ') || 'Hash Map, Arrays'}
+                      </span>
+                    </div>
                   </div>
 
-                  <div style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, whiteSpace: 'pre-line', marginBottom: 18 }}>
+                  {/* Problem Description */}
+                  <div style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
                     {activeProblem.description}
                   </div>
 
-                  {/* Slow Reader Strategy Blueprint */}
-                  {activeProblem.hint && (
-                    <div style={{
-                      padding: '12px 14px',
-                      borderRadius: 10,
-                      background: 'rgba(59, 130, 246, 0.08)',
-                      border: '1px solid rgba(59, 130, 246, 0.25)',
-                      marginBottom: 18,
-                      fontSize: 13.5,
-                      lineHeight: 1.5,
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: '#60a5fa', marginBottom: 4 }}>
-                        <span>💡</span>
-                        <span>Slow Reader Strategy Blueprint:</span>
-                      </div>
-                      <p style={{ margin: 0, color: 'var(--t2)', fontSize: 13 }}>
-                        {activeProblem.hint}
-                      </p>
+                  {/* Sample Inputs Block (Image 2 style with copy button) */}
+                  <div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 6 }}>
+                      Sample Inputs
                     </div>
-                  )}
-
-                  <h4 style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>Test Cases</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {activeProblem.testCases.map((tc, idx) => (
-                      <div key={idx} style={{ padding: 12, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 13 }}>
-                        <div style={{ color: 'var(--t3)', marginBottom: 4 }}>Example {idx + 1}:</div>
-                        <div><strong style={{ color: 'var(--t2)' }}>Input:</strong> <code style={{ color: '#818cf8' }}>{tc.input}</code></div>
-                        <div style={{ marginTop: 2 }}><strong style={{ color: 'var(--t2)' }}>Expected:</strong> <code style={{ color: 'var(--green, #059669)' }}>{tc.expectedOutput}</code></div>
-                        {tc.explanation && (
-                          <div style={{ marginTop: 4, color: 'var(--t3)', fontSize: 12, fontStyle: 'italic' }}>
-                            Why: {tc.explanation}
-                          </div>
-                        )}
+                    <div style={{
+                      position: 'relative',
+                      padding: '14px 16px',
+                      borderRadius: 12,
+                      background: 'var(--bg3)',
+                      border: '1px solid var(--border)',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: 13,
+                      color: 'var(--t2)'
+                    }}>
+                      <button
+                        onClick={() => handleCopyText(`nums = ${activeProblem.testCases[0]?.input || '[2, 7, 11, 15]'}\nOutput = ${activeProblem.testCases[0]?.expectedOutput || '[0, 1]'}`, 'sample_input')}
+                        title="Copy sample input"
+                        style={{
+                          position: 'absolute',
+                          top: 8,
+                          right: 8,
+                          padding: '4px 8px',
+                          borderRadius: 6,
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t3)',
+                          cursor: 'pointer',
+                          fontSize: 11,
+                          fontWeight: 600
+                        }}
+                      >
+                        {copiedField === 'sample_input' ? '✓ Copied' : 'Copy'}
+                      </button>
+                      <div style={{ color: '#818cf8', marginBottom: 2 }}>
+                        input = {activeProblem.testCases[0]?.input || '[2, 7, 11, 15]'}
                       </div>
-                    ))}
+                      <div style={{ color: '#10b981' }}>
+                        output = {activeProblem.testCases[0]?.expectedOutput || '[0, 1]'}
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Right: Code Editor & Test Console */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                  {/* Editor Header */}
+                  {/* Outputs Block (Image 2 style with copy button) */}
+                  <div>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 6 }}>
+                      Outputs
+                    </div>
+                    <div style={{
+                      position: 'relative',
+                      padding: '14px 16px',
+                      borderRadius: 12,
+                      background: 'var(--bg3)',
+                      border: '1px solid var(--border)',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: 13,
+                      color: 'var(--t2)'
+                    }}>
+                      <button
+                        onClick={() => handleCopyText(`input = ${activeProblem.testCases[1]?.input || '[3, 2, 4]'}\noutput = ${activeProblem.testCases[1]?.expectedOutput || '[1, 2]'}`, 'sample_output')}
+                        title="Copy sample output"
+                        style={{
+                          position: 'absolute',
+                          top: 8,
+                          right: 8,
+                          padding: '4px 8px',
+                          borderRadius: 6,
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t3)',
+                          cursor: 'pointer',
+                          fontSize: 11,
+                          fontWeight: 600
+                        }}
+                      >
+                        {copiedField === 'sample_output' ? '✓ Copied' : 'Copy'}
+                      </button>
+                      <div style={{ color: '#818cf8', marginBottom: 2 }}>
+                        input = {activeProblem.testCases[1]?.input || '[3, 2, 4]'}
+                      </div>
+                      <div style={{ color: '#10b981' }}>
+                        output = {activeProblem.testCases[1]?.expectedOutput || '[1, 2]'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Collapsible Strategy Blueprint Accordion (Image 2 style) */}
                   <div style={{
-                    padding: '10px 16px',
                     borderRadius: 12,
                     background: 'var(--bg2)',
                     border: '1px solid var(--border)',
+                    overflow: 'hidden'
+                  }}>
+                    <button
+                      onClick={() => setIsStrategyExpanded(prev => !prev)}
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        background: 'transparent',
+                        border: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        color: 'var(--t1)'
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 700 }}>
+                        <span>💡</span>
+                        <span>Strategy Blueprint</span>
+                      </span>
+                      <span style={{ fontSize: 13, color: 'var(--t3)', transition: 'transform 0.2s ease', transform: isStrategyExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                        ▼
+                      </span>
+                    </button>
+                    {isStrategyExpanded && (
+                      <div style={{ padding: '0 16px 14px', fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.5, borderTop: '1px solid var(--border)' }}>
+                        <p style={{ margin: '10px 0 0', color: 'var(--t2)' }}>
+                          {activeProblem.hint || 'Analyze edge cases, frequency maps, or pointer increments before full submission.'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Test Cases Checklist Preview */}
+                  <div>
+                    <h4 style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', margin: '0 0 10px' }}>Test Cases</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {activeProblem.testCases.map((tc, idx) => (
+                        <div key={idx} style={{ padding: 10, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12.5 }}>
+                          <div><strong style={{ color: 'var(--t2)' }}>Input:</strong> <code style={{ color: '#818cf8' }}>{tc.input}</code></div>
+                          <div style={{ marginTop: 2 }}><strong style={{ color: 'var(--t2)' }}>Expected:</strong> <code style={{ color: 'var(--green, #059669)' }}>{tc.expectedOutput}</code></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Code Editor & Bottom Action Dock (Image 2 Style) */}
+                <div style={{
+                  borderRadius: 18,
+                  background: 'var(--card)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid var(--border)',
+                  boxShadow: 'var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.04))',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  maxHeight: 'calc(100vh - 200px)',
+                  overflow: 'hidden'
+                }}>
+                  {/* Top Editor Tab Bar */}
+                  <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    padding: '8px 16px',
+                    borderBottom: '1px solid var(--border)',
+                    background: theme === 'light' ? 'rgba(0,0,0,0.02)' : 'rgba(255, 255, 255, 0.02)'
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 14.5, color: 'var(--t3)', fontWeight: 600 }}>Language:</span>
+                    {/* Active File Tab */}
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '6px 14px',
+                      borderRadius: '8px 8px 0 0',
+                      background: theme === 'light' ? 'rgba(0,0,0,0.06)' : 'rgba(255, 255, 255, 0.08)',
+                      border: '1px solid var(--border)',
+                      borderBottom: 'none',
+                      color: 'var(--t1)',
+                      fontSize: 13,
+                      fontWeight: 700,
+                      fontFamily: 'monospace'
+                    }}>
+                      <span style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: '50%',
+                        background: language === 'python' ? '#38bdf8' : language === 'java' ? '#f59e0b' : '#3b82f6',
+                        display: 'inline-block'
+                      }} />
+                      <span>{language === 'python' ? 'solution.py' : language === 'java' ? 'Solution.java' : 'code.ts'}</span>
+                      <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 4 }}>✕</span>
+                    </div>
+
+                    {/* Right Tools: Language Selector & Reset */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <select
                         value={language}
                         onChange={e => setLanguage(e.target.value as any)}
@@ -2390,7 +2472,7 @@ function ArenaContent() {
                           background: 'var(--bg3)',
                           border: '1px solid var(--border)',
                           color: 'var(--t1)',
-                          fontSize: 14.5,
+                          fontSize: 13,
                           fontWeight: 600,
                           cursor: 'pointer'
                         }}
@@ -2399,133 +2481,152 @@ function ArenaContent() {
                         <option value="python">Python</option>
                         <option value="java">Java</option>
                       </select>
-                    </div>
 
-                    <button
-                      onClick={() => setCode(activeProblem.starterCode[language] || activeProblem.starterCode.typescript || '')}
-                      style={{
-                        padding: '6px 12px',
-                        borderRadius: 8,
-                        background: 'transparent',
-                        border: '1px solid var(--border)',
-                        color: 'var(--t3)',
-                        fontSize: 13,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Reset Starter Code
-                    </button>
+                      <button
+                        onClick={() => setCode(activeProblem.starterCode[language] || activeProblem.starterCode.typescript || '')}
+                        title="Reset code template"
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: 8,
+                          background: 'transparent',
+                          border: '1px solid var(--border)',
+                          color: 'var(--t3)',
+                          fontSize: 12.5,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Reset
+                      </button>
+                    </div>
                   </div>
 
                   {/* Monaco Code Editor */}
-                  <div style={{ position: 'relative', height: '360px', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                  <div style={{ position: 'relative', flex: 1, minHeight: '380px', overflow: 'hidden' }}>
                     <MonacoEditor
                       height="100%"
                       language={language === 'python' ? 'python' : language === 'java' ? 'java' : 'typescript'}
-                      theme="vs-dark"
+                      theme={theme === 'light' ? 'vs' : 'vs-dark'}
                       value={code}
                       onChange={(val) => setCode(val || '')}
                       options={{
-                        fontSize: 15,
+                        fontSize: 14,
                         minimap: { enabled: false },
                         scrollBeyondLastLine: false,
                         tabSize: 2,
                         automaticLayout: true,
-                        fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                        fontFamily: "'JetBrains Mono', Consolas, Monaco, monospace",
                       }}
                     />
                   </div>
 
-                  {/* Console / Test Runner Output */}
+                  {/* Inline Test Output Drawer */}
                   {testResult && (
                     <div style={{
-                      padding: 14,
-                      borderRadius: 12,
-                      background: testResult.passed ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                      border: testResult.passed ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
-                      maxHeight: 130,
+                      padding: '12px 16px',
+                      borderTop: '1px solid var(--border)',
+                      background: testResult.passed
+                        ? (theme === 'light' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(16, 185, 129, 0.12)')
+                        : (theme === 'light' ? 'rgba(239, 68, 68, 0.08)' : 'rgba(239, 68, 68, 0.12)'),
+                      maxHeight: 120,
                       overflowY: 'auto'
                     }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                        <span style={{ fontWeight: 700, fontSize: 14.5, color: testResult.passed ? '#34d399' : '#f87171' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                        <span style={{ fontWeight: 800, fontSize: 13.5, color: testResult.passed ? '#10b981' : '#ef4444' }}>
                           {testResult.passed ? '✔ All Test Cases Passed!' : '✖ Tests Failed'}
                         </span>
-                        <span style={{ fontSize: 13, color: 'var(--t3)' }}>
+                        <span style={{ fontSize: 12, color: 'var(--t3)' }}>
                           Score: {testResult.score}% ({testResult.testsPassed}/{testResult.totalTests})
                         </span>
                       </div>
-                      <pre style={{ margin: 0, fontSize: 13, color: 'var(--t2)', whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
+                      <pre style={{ margin: 0, fontSize: 12, color: 'var(--t2)', whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>
                         {testResult.logs}
                       </pre>
                     </div>
                   )}
 
-                  {/* Battle Controls */}
-                  <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 4 }}>
+                  {/* Pinned Bottom Action Dock (Image 2 Style) */}
+                  <div style={{
+                    padding: '14px 20px',
+                    borderTop: '1px solid var(--border)',
+                    background: theme === 'light' ? 'rgba(0,0,0,0.02)' : 'rgba(255, 255, 255, 0.02)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 16
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      {/* Secondary Glass Button: Run Tests */}
+                      <button
+                        onClick={handleRunTests}
+                        disabled={Boolean(isRunningTests || isSubmitting || isMatchOver || runCooldownRemaining > 0)}
+                        style={{
+                          padding: '11px 24px',
+                          borderRadius: 12,
+                          background: runCooldownRemaining > 0
+                            ? 'rgba(99, 102, 241, 0.15)'
+                            : (theme === 'light' ? 'rgba(0,0,0,0.06)' : 'rgba(255, 255, 255, 0.08)'),
+                          border: runCooldownRemaining > 0 ? '1.5px solid #6366f1' : '1px solid var(--border)',
+                          color: runCooldownRemaining > 0 ? '#818cf8' : 'var(--t1)',
+                          fontWeight: 700,
+                          fontSize: 14,
+                          cursor: isRunningTests || isMatchOver || runCooldownRemaining > 0 ? 'not-allowed' : 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          transition: 'all 0.15s ease'
+                        }}
+                      >
+                        {runCooldownRemaining > 0 ? (
+                          <>
+                            <span>🛡️</span> Cooldown ({(runCooldownRemaining / 1000).toFixed(1)}s)
+                          </>
+                        ) : (
+                          <>
+                            <span>Run Tests</span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* Primary Glowing Emerald Button: Submit Solution */}
+                      <button
+                        onClick={handleSubmitSolution}
+                        disabled={Boolean(isSubmitting || isRunningTests || isMatchOver)}
+                        style={{
+                          padding: '11px 36px',
+                          borderRadius: 12,
+                          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                          color: '#fff',
+                          fontWeight: 800,
+                          fontSize: 14.5,
+                          border: 'none',
+                          cursor: isSubmitting || isMatchOver ? 'not-allowed' : 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          boxShadow: '0 0 20px rgba(16, 185, 129, 0.45)',
+                          transition: 'all 0.15s ease'
+                        }}
+                      >
+                        {isSubmitting ? 'Submitting...' : 'Submit Solution'}
+                      </button>
+                    </div>
+
+                    {/* Danger Red Ghost Button: Forfeit Match */}
                     <button
                       onClick={handleLeaveRoom}
                       style={{
-                        padding: '10px 18px',
+                        padding: '9px 18px',
                         borderRadius: 10,
-                        background: 'rgba(239, 68, 68, 0.12)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
+                        background: 'transparent',
+                        border: '1px solid rgba(239, 68, 68, 0.35)',
                         color: '#ef4444',
                         fontWeight: 600,
-                        fontSize: 14.5,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Forfeit Match
-                    </button>
-
-                    <button
-                      onClick={handleRunTests}
-                      disabled={Boolean(isRunningTests || isSubmitting || isMatchOver || runCooldownRemaining > 0)}
-                      style={{
-                        padding: '10px 20px',
-                        borderRadius: 10,
-                        background: runCooldownRemaining > 0 ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg3)',
-                        border: runCooldownRemaining > 0 ? '1.5px solid #6366f1' : '1px solid var(--border)',
-                        color: runCooldownRemaining > 0 ? '#818cf8' : 'var(--t1)',
-                        fontWeight: 700,
-                        fontSize: 14.5,
-                        cursor: isRunningTests || isMatchOver || runCooldownRemaining > 0 ? 'not-allowed' : 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 6,
+                        fontSize: 13.5,
+                        cursor: 'pointer',
                         transition: 'all 0.15s ease'
                       }}
                     >
-                      {runCooldownRemaining > 0 ? (
-                        <>
-                          <span>🛡️</span> Cooldown ({(runCooldownRemaining / 1000).toFixed(1)}s)
-                        </>
-                      ) : (
-                        <>
-                          <span>▶️</span> {isRunningTests ? 'Running...' : 'Run Tests'}
-                        </>
-                      )}
-                    </button>
-
-                    <button
-                      onClick={handleSubmitSolution}
-                      disabled={Boolean(isSubmitting || isRunningTests || isMatchOver)}
-                      style={{
-                        padding: '10px 26px',
-                        borderRadius: 10,
-                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                        color: '#fff',
-                        fontWeight: 700,
-                        fontSize: 14.5,
-                        border: 'none',
-                        cursor: isSubmitting || isMatchOver ? 'not-allowed' : 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
-                      }}
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Submit Solution'}
+                      Forfeit
                     </button>
                   </div>
                 </div>
@@ -2741,215 +2842,6 @@ function ArenaContent() {
           )}
         </div>
       )}
-
-      {/* ── BOTTOM COMBAT MASTERY & TELEMETRY DOCK (Screenshot 2 Relocated + 2 Progress Bars) ── */}
-      <div
-        data-testid="arena-bottom-telemetry-dock"
-        style={{
-          marginTop: 40,
-          padding: '26px 30px',
-          borderRadius: 20,
-          background: 'var(--card)',
-          border: '1px solid var(--border)',
-          boxShadow: 'var(--shadow-md, 0 4px 20px rgba(0,0,0,0.06))',
-          backdropFilter: 'blur(16px)'
-        }}
-      >
-        {/* Top row: Title + Screenshot 2 Components (Arena XP, Combat Pins, Leaderboard) */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 16,
-            paddingBottom: 20,
-            borderBottom: '1px solid var(--border)',
-            marginBottom: 20
-          }}
-        >
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 20 }}>⚔️</span>
-              <h2 style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
-                Combat Mastery &amp; Season Telemetry
-              </h2>
-            </div>
-            <p style={{ margin: 0, fontSize: 13.5, color: 'var(--t3)' }}>
-              Real-time calibration of your competitive rating, win precision, and combat pin reserves.
-            </p>
-          </div>
-
-          {/* Screenshot 2 Components: Arena XP, Combat Pins, Leaderboard */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-            <div
-              style={{
-                padding: '9px 18px',
-                borderRadius: 12,
-                background: 'rgba(245, 158, 11, 0.12)',
-                border: '1px solid rgba(245, 158, 11, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10
-              }}
-            >
-              <div>
-                <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--amber-dark, #b45309)', fontWeight: 800, letterSpacing: '0.04em' }}>
-                  Arena XP
-                </div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
-                  {xp.toLocaleString()}
-                </div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: '9px 18px',
-                borderRadius: 12,
-                background: 'rgba(234, 179, 8, 0.12)',
-                border: '1px solid rgba(234, 179, 8, 0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10
-              }}
-            >
-              <div>
-                <div style={{ fontSize: 10.5, textTransform: 'uppercase', color: 'var(--t2)', fontWeight: 800, letterSpacing: '0.04em' }}>
-                  Pins Balance
-                </div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
-                  {pins.toLocaleString()}
-                </div>
-              </div>
-            </div>
-
-            <Link
-              href="/leaderboard?mode=weekly_leagues"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '11px 20px',
-                borderRadius: 12,
-                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                color: '#ffffff',
-                fontWeight: 700,
-                fontSize: 14.5,
-                textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(79, 70, 229, 0.35)',
-                transition: 'transform 0.15s ease'
-              }}
-            >
-              <span>🏆</span>
-              <span>Leaderboard</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* 2 Dynamic Progress Bars Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
-          {/* Progress Bar 1: Arena Elo Tier & Advancement */}
-          <div
-            style={{
-              padding: '16px 20px',
-              borderRadius: 16,
-              background: 'var(--bg2)',
-              border: '1px solid var(--border)'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 16 }}>{eloTier.icon}</span>
-                <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>
-                  Tier: {eloTier.name}
-                </span>
-              </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#f59e0b' }}>
-                {eloRating} / {eloTier.target} ELO
-              </span>
-            </div>
-
-            {/* Glowing Gradient Bar */}
-            <div
-              style={{
-                width: '100%',
-                height: 10,
-                borderRadius: 10,
-                background: 'var(--bg3)',
-                overflow: 'hidden',
-                position: 'relative'
-              }}
-            >
-              <div
-                style={{
-                  width: `${eloProgressPct}%`,
-                  height: '100%',
-                  borderRadius: 10,
-                  background: 'linear-gradient(90deg, #f59e0b 0%, #ef4444 100%)',
-                  boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)',
-                  transition: 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 11.5, color: 'var(--t3)' }}>
-              <span>Base Floor: {eloTier.base} ELO</span>
-              <span>{eloProgressPct}% to {eloTier.next}</span>
-            </div>
-          </div>
-
-          {/* Progress Bar 2: Combat Precision & Win Ratio */}
-          <div
-            style={{
-              padding: '16px 20px',
-              borderRadius: 16,
-              background: 'var(--bg2)',
-              border: '1px solid var(--border)'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 16 }}>🎯</span>
-                <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>
-                  Combat Precision &amp; Win Rate
-                </span>
-              </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#10b981' }}>
-                {totalBattles > 0 ? `${winRatePct}% Win Ratio` : 'Placement Phase'}
-              </span>
-            </div>
-
-            {/* Dual-tone Precision Bar */}
-            <div
-              style={{
-                width: '100%',
-                height: 10,
-                borderRadius: 10,
-                background: 'var(--bg3)',
-                overflow: 'hidden',
-                position: 'relative'
-              }}
-            >
-              <div
-                style={{
-                  width: `${totalBattles > 0 ? Math.max(6, winRatePct) : 0}%`,
-                  height: '100%',
-                  borderRadius: 10,
-                  background: 'linear-gradient(90deg, #10b981 0%, #06b6d4 100%)',
-                  boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)',
-                  transition: 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
-              />
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 11.5, color: 'var(--t3)' }}>
-              <span>{totalBattles > 0 ? `${winsCount} Victories • ${totalBattles - winsCount} Defeats` : '0 battles recorded'}</span>
-              <span>{totalBattles > 0 ? `${totalBattles} Total Duels` : 'Play a 1v1 match to calibrate'}</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* ARENA RULES CODEX MODAL (Task 15) */}
       {showRulesDrawer && (

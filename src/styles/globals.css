@@ -1465,21 +1465,44 @@ textarea:focus {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent) !important;
 }
 
-/* Fullscreen Immersive Mode: Hide sidebars during active interview */
+/* Fullscreen Immersive Mode: Hide sidebars during active interview or Code War */
 body[data-interview-active="true"] aside,
 body[data-interview-active="true"] [data-sidebar="true"],
 body[data-interview-active="true"] .right-student-sidebar,
-body[data-interview-active="true"] .sidebar-left {
+body[data-interview-active="true"] .sidebar-left,
+body[data-arena-active="true"] aside,
+body[data-arena-active="true"] [data-sidebar="true"],
+body[data-arena-active="true"] .right-student-sidebar,
+body[data-arena-active="true"] .sidebar-left,
+body[data-arena-active="true"] .sidebar,
+body[data-arena-active="true"] .topbar,
+body[data-arena-active="true"] .app-header,
+body[data-arena-active="true"] header,
+body[data-arena-active="true"] .avatar-mentor-widget,
+body[data-arena-active="true"] .mentor-widget {
   display: none !important;
 }
 
 body[data-interview-active="true"] main,
-body[data-interview-active="true"] .main-content-area {
+body[data-interview-active="true"] .main-content-area,
+body[data-arena-active="true"] .main-area,
+body[data-arena-active="true"] main,
+body[data-arena-active="true"] .main-content-area,
+body[data-arena-active="true"] .page-content {
   margin-left: 0 !important;
   margin-right: 0 !important;
+  margin-top: 0 !important;
   padding: 12px 20px !important;
-  width: 100% !important;
-  max-width: 100% !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+/* Ensure Monaco Editor internal input textarea never floats or resizes visibly */
+.monaco-editor .inputarea {
+  position: absolute !important;
+  opacity: 0 !important;
+  resize: none !important;
+  pointer-events: none !important;
 }
 
 /* == THEME-AWARE AI INTERVIEW SUITE == */
