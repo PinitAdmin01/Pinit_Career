@@ -1152,14 +1152,27 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Good Commit Message",
     eDesc: "Write `is_good_commit_message(msg)` that returns `True` when the message is between 10 and 72 characters long.",
-    eStarter: lines("def is_good_commit_message(msg):", "    pass"),
+    eStarter: lines("def is_good_commit_message(msg):", "    # return 10 <= len(msg) <= 72", "    pass"),
     eHint: "return 10 <= len(msg) <= 72",
-    eTest: lines("assert is_good_commit_message('Add expense summary by category') is True", "assert is_good_commit_message('fix') is False", done),
+    eTest: lines(
+      "_fn = globals().get('is_good_commit_message')",
+      "_v1 = _fn('Add expense summary by category') if callable(_fn) else None",
+      "_v2 = _fn('fix') if callable(_fn) else None",
+      "assert _v1 is True and _v2 is False, \"Expected is_good_commit_message('Add expense summary by category') is True and is_good_commit_message('fix') is False\"",
+      done
+    ),
     aTitle: "Branch Name",
     aDesc: "Write `branch_name(task)` that turns `'Add Monthly Report'` into `'feature/add-monthly-report'`.",
-    aStarter: lines("def branch_name(task):", "    # lower case, spaces become '-'", "    pass"),
+    aStarter: lines("def branch_name(task):", "    # lower case, split words and join with '-'", "    pass"),
     aHint: "return 'feature/' + '-'.join(task.lower().split())",
-    aTest: lines("assert branch_name('Add Monthly Report') == 'feature/add-monthly-report'", "assert branch_name('  Fix  total ') == 'feature/fix-total'", done)
+    aTest: lines(
+      "_fn = globals().get('branch_name')",
+      "_v1 = _fn('Add Monthly Report') if callable(_fn) else None",
+      "_v2 = _fn('  Fix  total ') if callable(_fn) else None",
+      "assert _v1 == 'feature/add-monthly-report', f\"Expected 'feature/add-monthly-report', got {_v1!r}\"",
+      "assert _v2 in ('feature/fix-total', 'feature/fix--total'), f\"Expected 'feature/fix-total', got {_v2!r}\"",
+      done
+    )
   },
   {
     title: "Planning Your Expense Tracker",
@@ -1171,14 +1184,33 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Newest First",
     eDesc: "Write `sort_by_date(expenses)` that returns a new list sorted by `'date'` (text like `'2026-09-01'`), newest first. The original must not change.",
-    eStarter: lines("def sort_by_date(expenses):", "    # sorted(..., key=..., reverse=True)", "    pass"),
+    eStarter: lines("def sort_by_date(expenses):", "    # sorted(expenses, key=lambda e: e['date'], reverse=True)", "    pass"),
     eHint: "return sorted(expenses, key=lambda e: e['date'], reverse=True)",
-    eTest: lines("data = [{'id': 1, 'date': '2026-09-01'}, {'id': 2, 'date': '2026-09-20'}, {'id': 3, 'date': '2026-09-10'}]", "assert [e['id'] for e in sort_by_date(data)] == [2, 3, 1]", "assert data[0]['id'] == 1, 'The original list was changed'", done),
+    eTest: lines(
+      "data = [{'id': 1, 'date': '2026-09-01'}, {'id': 2, 'date': '2026-09-20'}, {'id': 3, 'date': '2026-09-10'}]",
+      "_fn = globals().get('sort_by_date')",
+      "_res = _fn(data) if callable(_fn) else None",
+      "if _res is None and data[0]['id'] == 2:",
+      "    assert False, \"expenses.sort() changes the list in-place and returns None! Use 'return sorted(expenses, key=lambda e: e[\\\"date\\\"], reverse=True)'.\"",
+      "if isinstance(_res, list) and [e['id'] for e in _res] == [1, 3, 2]:",
+      "    assert False, \"Almost! That sorted oldest-first. Add 'reverse=True' inside sorted() for newest-first.\"",
+      "assert isinstance(_res, list) and [e['id'] for e in _res] == [2, 3, 1], \"Expected sort_by_date() to return expenses ordered newest first\"",
+      "assert data[0]['id'] == 1, \"The original list was changed\"",
+      done
+    ),
     aTitle: "Group by Category",
     aDesc: "Write `group_by_category(expenses)` that returns a dictionary like `{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}` with item names.",
-    aStarter: lines("def group_by_category(expenses):", "    groups = {}", "    # add each item name to groups[category]", "    return groups"),
-    aHint: "groups.setdefault(e['category'], []).append(e['item'])",
-    aTest: lines("data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]", "assert group_by_category(data) == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}", done)
+    aStarter: lines("def group_by_category(expenses):", "    groups = {}", "    # loop over expenses; if category not in groups, set groups[category] = []", "    return groups"),
+    aHint: "for e in expenses: cat = e['category']; if cat not in groups: groups[cat] = []; groups[cat].append(e['item'])",
+    aTest: lines(
+      "data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]",
+      "_fn = globals().get('group_by_category')",
+      "_res = _fn(data) if callable(_fn) else None",
+      "if isinstance(_res, dict) and isinstance(_res.get('food'), list) and len(_res['food']) > 0 and isinstance(_res['food'][0], dict):",
+      "    assert False, \"Almost! Append only the item name e['item'] to each category list, not the whole dictionary e.\"",
+      "assert _res == {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}, \"Expected {'food': ['Tea', 'Lunch'], 'travel': ['Bus']}\"",
+      done
+    )
   },
   {
     title: "Project Build 1: Adding and Listing Expenses",
@@ -1192,12 +1224,28 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `add_expense(expenses, item, amount, category, date)` that returns a NEW list with the new expense added. Its `'id'` is one more than the number of expenses. Remove extra spaces from item and category.",
     eStarter: lines("def add_expense(expenses, item, amount, category, date):", "    new = {", "        # id, item, amount, category, date", "    }", "    return expenses + [new]"),
     eHint: "new = {'id': len(expenses) + 1, 'item': item.strip(), 'amount': amount, 'category': category.strip(), 'date': date}",
-    eTest: lines("result = add_expense([], ' Tea ', 20, 'food ', '2026-09-28')", "assert result == [{'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food', 'date': '2026-09-28'}], result", "second = add_expense(result, 'Bus', 45, 'travel', '2026-09-28')", "assert second[1]['id'] == 2 and len(result) == 1", done),
+    eTest: lines(
+      "result = add_expense([], ' Tea ', 20, 'food ', '2026-09-28')",
+      "if isinstance(result, list) and len(result) == 1 and isinstance(result[0], dict):",
+      "    if result[0].get('item') == ' Tea ' or result[0].get('category') == 'food ':",
+      "        assert False, \"Almost! Remove extra spaces from item and category using item.strip() and category.strip().\"",
+      "assert result == [{'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food', 'date': '2026-09-28'}], f\"Unexpected result: {result!r}\"",
+      "second = add_expense(result, 'Bus', 45, 'travel', '2026-09-28')",
+      "assert second[1]['id'] == 2 and len(result) == 1, \"Expected id 2 on second expense and original list unchanged\"",
+      done
+    ),
     aTitle: "Format an Expense",
     aDesc: "Write `format_expense(e)` that returns text like `'Tea - Rs 20.00 (food)'`.",
-    aStarter: lines("def format_expense(e):", "    pass"),
+    aStarter: lines("def format_expense(e):", "    # f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"", "    pass"),
     aHint: "return f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"",
-    aTest: lines("assert format_expense({'item': 'Tea', 'amount': 20, 'category': 'food'}) == 'Tea - Rs 20.00 (food)'", done)
+    aTest: lines(
+      "_fn = globals().get('format_expense')",
+      "_res = _fn({'item': 'Tea', 'amount': 20, 'category': 'food'}) if callable(_fn) else None",
+      "if _res == 'Tea - Rs 20 (food)':",
+      "    assert False, \"Almost! Format the amount with 2 decimal places using :.2f -> Rs {e['amount']:.2f}\"",
+      "assert _res == 'Tea - Rs 20.00 (food)', f\"Expected 'Tea - Rs 20.00 (food)', got {_res!r}\"",
+      done
+    )
   },
   {
     title: "Project Build 2: Summaries and Saving",
@@ -1211,12 +1259,33 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `summary(expenses)` that returns `{'total': ..., 'count': ..., 'biggest': ...}` where biggest is the item name of the largest expense, or `None` for an empty list.",
     eStarter: lines("def summary(expenses):", "    # max(expenses, key=...) finds the biggest", "    pass"),
     eHint: "biggest = max(expenses, key=lambda e: e['amount'])['item'] if expenses else None",
-    eTest: lines("data = [{'item': 'Tea', 'amount': 20}, {'item': 'Rent', 'amount': 8000}, {'item': 'Bus', 'amount': 45}]", "assert summary(data) == {'total': 8065, 'count': 3, 'biggest': 'Rent'}", "assert summary([]) == {'total': 0, 'count': 0, 'biggest': None}", done),
+    eTest: lines(
+      "data = [{'item': 'Tea', 'amount': 20}, {'item': 'Rent', 'amount': 8000}, {'item': 'Bus', 'amount': 45}]",
+      "_fn = globals().get('summary')",
+      "_s1 = None; _s2 = None; _v_err = False",
+      "try:",
+      "    if callable(_fn):",
+      "        _s1 = _fn(data)",
+      "        _s2 = _fn([])",
+      "except ValueError:",
+      "    _v_err = True",
+      "if _v_err:",
+      "    assert False, \"summary([]) crashed on max() because the list is empty! Check 'if expenses:' before calling max(), and use None when empty.\"",
+      "if isinstance(_s1, dict) and _s1.get('biggest') == 8000:",
+      "    assert False, \"Almost! 'biggest' should be the item name ('Rent'), not the amount (8000).\"",
+      "assert _s1 == {'total': 8065, 'count': 3, 'biggest': 'Rent'}, f\"Expected {{'total': 8065, 'count': 3, 'biggest': 'Rent'}}, got {_s1!r}\"",
+      "assert _s2 == {'total': 0, 'count': 0, 'biggest': None}, f\"Expected {{'total': 0, 'count': 0, 'biggest': None}} for [], got {_s2!r}\"",
+      done
+    ),
     aTitle: "Totals per Category",
     aDesc: "Write `category_totals(expenses)` that returns a dictionary like `{'food': 170, 'travel': 45}`.",
     aStarter: lines("def category_totals(expenses):", "    totals = {}", "    # add each amount to totals[category]", "    return totals"),
     aHint: "totals[e['category']] = totals.get(e['category'], 0) + e['amount']",
-    aTest: lines("data = [{'category': 'food', 'amount': 20}, {'category': 'travel', 'amount': 45}, {'category': 'food', 'amount': 150}]", "assert category_totals(data) == {'food': 170, 'travel': 45}", done)
+    aTest: lines(
+      "data = [{'category': 'food', 'amount': 20}, {'category': 'travel', 'amount': 45}, {'category': 'food', 'amount': 150}]",
+      "assert category_totals(data) == {'food': 170, 'travel': 45}, \"Expected {'food': 170, 'travel': 45}\"",
+      done
+    )
   },
   {
     title: "Calling Web APIs",
@@ -1228,14 +1297,36 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Read the Answer",
     eDesc: "APIs often answer like `{'results': [...]}`. Write `parse_results(data)` that returns `data['results']`, or `[]` if it is missing.",
-    eStarter: lines("def parse_results(data):", "    pass"),
+    eStarter: lines("def parse_results(data):", "    # return data.get('results', [])", "    pass"),
     eHint: "return data.get('results', [])",
-    eTest: lines("assert parse_results({'results': [1, 2]}) == [1, 2]", "assert parse_results({}) == []", done),
+    eTest: lines(
+      "_fn = globals().get('parse_results')",
+      "_r1 = None; _r2 = None; _k_err = False",
+      "try:",
+      "    if callable(_fn):",
+      "        _r1 = _fn({'results': [1, 2]})",
+      "        _r2 = _fn({})",
+      "except KeyError:",
+      "    _k_err = True",
+      "if _k_err:",
+      "    assert False, \"KeyError when 'results' is missing! Use data.get('results', []) so a missing key returns [].\"",
+      "assert _r1 == [1, 2] and _r2 == [], \"Expected parse_results({'results': [1, 2]}) == [1, 2] and parse_results({}) == []\"",
+      done
+    ),
     aTitle: "Status Message",
     aDesc: "Write `status_message(code)` that returns `'OK'` for 200, `'Not found'` for 404, and `'Something went wrong'` for anything else.",
-    aStarter: lines("def status_message(code):", "    pass"),
+    aStarter: lines("def status_message(code):", "    # check 200, 404, and anything else", "    pass"),
     aHint: "if code == 200: return 'OK'; if code == 404: return 'Not found'; return 'Something went wrong'",
-    aTest: lines("assert status_message(200) == 'OK'", "assert status_message(404) == 'Not found'", "assert status_message(500) == 'Something went wrong'", done)
+    aTest: lines(
+      "_fn = globals().get('status_message')",
+      "_s1 = _fn(200) if callable(_fn) else None",
+      "_s2 = _fn(404) if callable(_fn) else None",
+      "_s3 = _fn(500) if callable(_fn) else None",
+      "assert isinstance(_s1, str) and _s1.upper() == 'OK', \"Expected 'OK' for 200\"",
+      "assert isinstance(_s2, str) and _s2.lower() == 'not found', \"Expected 'Not found' for 404\"",
+      "assert isinstance(_s3, str) and _s3.lower() == 'something went wrong', \"Expected 'Something went wrong' for 500\"",
+      done
+    )
   },
   {
     title: "Building Your Own API with FastAPI",
@@ -1247,14 +1338,36 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Check Incoming Data",
     eDesc: "Write `validate_expense(data)` that returns a list of errors: `'item is required'` if item is missing or empty, and `'amount must be more than 0'` if amount is missing or not above 0.",
-    eStarter: lines("def validate_expense(data):", "    errors = []", "    # append the error messages", "    return errors"),
-    eHint: "if not str(data.get('item', '')).strip(): errors.append(...); amount = data.get('amount'); if not isinstance(amount, (int, float)) or amount <= 0: errors.append(...)",
-    eTest: lines("assert validate_expense({'item': 'Tea', 'amount': 20}) == []", "assert validate_expense({'item': ' ', 'amount': 0}) == ['item is required', 'amount must be more than 0']", "assert validate_expense({}) == ['item is required', 'amount must be more than 0']", done),
+    eStarter: lines("def validate_expense(data):", "    errors = []", "    # append 'item is required' and/or 'amount must be more than 0'", "    return errors"),
+    eHint: "if not str(data.get('item', '')).strip(): errors.append('item is required'); amount = data.get('amount'); if not isinstance(amount, (int, float)) or amount <= 0: errors.append('amount must be more than 0')",
+    eTest: lines(
+      "_fn = globals().get('validate_expense')",
+      "_v1 = None; _v2 = None; _v3 = None; _t_err = False",
+      "try:",
+      "    if callable(_fn):",
+      "        _v1 = _fn({'item': 'Tea', 'amount': 20})",
+      "        _v2 = _fn({'item': ' ', 'amount': 0})",
+      "        _v3 = _fn({})",
+      "except TypeError:",
+      "    _t_err = True",
+      "if _t_err:",
+      "    assert False, \"TypeError when 'amount' is missing (None)! Use data.get('amount', 0) <= 0 or check isinstance(amount, (int, float)) first.\"",
+      "assert _v1 == [] and _v2 == ['item is required', 'amount must be more than 0'] and _v3 == ['item is required', 'amount must be more than 0'], \"Expected [] for valid data and ['item is required', 'amount must be more than 0'] when both are invalid\"",
+      done
+    ),
     aTitle: "Pages of Results (Building Your Own API with FastAPI)",
     aDesc: "APIs send long lists in pages. Write `paginate(items, page, size)` that returns the items for that page, where page 1 is the first page.",
-    aStarter: lines("def paginate(items, page, size):", "    # slice from (page - 1) * size", "    pass"),
+    aStarter: lines("def paginate(items, page, size):", "    # start = (page - 1) * size", "    pass"),
     aHint: "start = (page - 1) * size; return items[start:start + size]",
-    aTest: lines("items = list(range(1, 8))", "assert paginate(items, 1, 3) == [1, 2, 3]", "assert paginate(items, 3, 3) == [7]", "assert paginate(items, 4, 3) == []", done)
+    aTest: lines(
+      "items = list(range(1, 8))",
+      "_fn = globals().get('paginate')",
+      "_p1 = _fn(items, 1, 3) if callable(_fn) else None",
+      "if _p1 == [4, 5, 6]:",
+      "    assert False, \"Almost! Page 1 should start at index 0. Use start = (page - 1) * size.\"",
+      "assert _p1 == [1, 2, 3] and _fn(items, 3, 3) == [7] and _fn(items, 4, 3) == [], \"Expected paginate(items, 1, 3) == [1, 2, 3], page 3 == [7], page 4 == []\"",
+      done
+    )
   },
   {
     title: "Debugging: Reading Tracebacks",
@@ -1267,13 +1380,27 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Fix the Bug",
     eDesc: "This function should add up every expense's amount, but it has a bug. Find it and fix it.",
     eStarter: lines("def total_amount(expenses):", "    total = 0", "    for i in range(1, len(expenses)):", "        total = total + expenses[i]['amount']", "    return total"),
-    eHint: "Lists start at position 0, not 1.",
-    eTest: lines("assert total_amount([{'amount': 100}, {'amount': 200}, {'amount': 300}]) == 600, 'Expected 600'", done),
+    eHint: "Lists start at position 0, not 1: use range(len(expenses)) or range(0, len(expenses)).",
+    eTest: lines(
+      "_res = total_amount([{'amount': 100}, {'amount': 200}, {'amount': 300}])",
+      "if _res == 500:",
+      "    assert False, \"total_amount() returned 500 instead of 600 because range(1, len(expenses)) skips index 0! Change 1 to 0.\"",
+      "assert _res == 600, f'Expected 600, got {_res}'",
+      done
+    ),
     aTitle: "Find the Bad Record",
     aDesc: "Write `first_invalid(expenses)` that returns the first expense whose amount is 0 or less, or `None` if all are fine.",
-    aStarter: lines("def first_invalid(expenses):", "    pass"),
+    aStarter: lines("def first_invalid(expenses):", "    # return the first expense with e['amount'] <= 0, or None", "    pass"),
     aHint: "for e in expenses: if e['amount'] <= 0: return e. After the loop, return None.",
-    aTest: lines("data = [{'id': 1, 'amount': 20}, {'id': 2, 'amount': 0}, {'id': 3, 'amount': -5}]", "assert first_invalid(data)['id'] == 2", "assert first_invalid([{'id': 1, 'amount': 5}]) is None", done)
+    aTest: lines(
+      "data = [{'id': 1, 'amount': 20}, {'id': 2, 'amount': 0}, {'id': 3, 'amount': -5}]",
+      "_r1 = first_invalid(data)",
+      "_r2 = first_invalid([{'id': 1, 'amount': 5}])",
+      "if isinstance(_r1, dict) and _r1.get('id') == 3:",
+      "    assert False, \"Almost! An amount of 0 is also invalid. Check 'if e[\\\"amount\\\"] <= 0:' instead of '< 0'.\"",
+      "assert isinstance(_r1, dict) and _r1.get('id') == 2 and _r2 is None, \"Expected first_invalid(data) to return {'id': 2, 'amount': 0} and None when all are valid\"",
+      done
+    )
   },
   {
     title: "Putting Your API Online",
@@ -1285,14 +1412,22 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Which Address?",
     eDesc: "Write `base_url(env)` that returns `'https://expense-api.onrender.com'` for `'production'` and `'http://127.0.0.1:8000'` for anything else.",
-    eStarter: lines("def base_url(env):", "    pass"),
+    eStarter: lines("def base_url(env):", "    # check if env == 'production'", "    pass"),
     eHint: "return 'https://expense-api.onrender.com' if env == 'production' else 'http://127.0.0.1:8000'",
-    eTest: lines("assert base_url('production') == 'https://expense-api.onrender.com'", "assert base_url('development') == 'http://127.0.0.1:8000'", done),
+    eTest: lines(
+      "assert base_url('production') == 'https://expense-api.onrender.com', \"Expected 'https://expense-api.onrender.com' for 'production'\"",
+      "assert base_url('development') == 'http://127.0.0.1:8000', \"Expected 'http://127.0.0.1:8000' for 'development'\"",
+      done
+    ),
     aTitle: "README Checker",
     aDesc: "Write `missing_sections(readme)` that returns which of `'## About'`, `'## Features'`, `'## Setup'` are missing from the README text, in that order.",
-    aStarter: lines("def missing_sections(readme):", "    needed = ['## About', '## Features', '## Setup']", "    pass"),
+    aStarter: lines("def missing_sections(readme):", "    needed = ['## About', '## Features', '## Setup']", "    # return [s for s in needed if s not in readme]", "    pass"),
     aHint: "return [s for s in needed if s not in readme]",
-    aTest: lines("text = '# Expense API\\n## About\\nTrack spending\\n## Setup\\npip install -r requirements.txt'", "assert missing_sections(text) == ['## Features']", done)
+    aTest: lines(
+      "text = '# Expense API\\n## About\\nTrack spending\\n## Setup\\npip install -r requirements.txt'",
+      "assert missing_sections(text) == ['## Features'], \"Expected ['## Features']\"",
+      done
+    )
   },
   {
     title: "Interview Practice and Your Next Steps",
@@ -1306,12 +1441,29 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `fizz_buzz(n)` that returns `'FizzBuzz'` if n divides by 3 and 5, `'Fizz'` if by 3, `'Buzz'` if by 5, otherwise the number as text.",
     eStarter: lines("def fizz_buzz(n):", "    # check 3 and 5 together first", "    pass"),
     eHint: "if n % 15 == 0: return 'FizzBuzz' ... return str(n)",
-    eTest: lines("assert fizz_buzz(15) == 'FizzBuzz'", "assert fizz_buzz(9) == 'Fizz'", "assert fizz_buzz(10) == 'Buzz'", "assert fizz_buzz(7) == '7'", done),
+    eTest: lines(
+      "_fn = globals().get('fizz_buzz')",
+      "_f15 = _fn(15) if callable(_fn) else None",
+      "_f9 = _fn(9) if callable(_fn) else None",
+      "_f10 = _fn(10) if callable(_fn) else None",
+      "_f7 = _fn(7) if callable(_fn) else None",
+      "if _f15 in ('Fizz', 'Buzz'):",
+      "    assert False, \"fizz_buzz(15) returned \" + repr(_f15) + \" instead of 'FizzBuzz'! Check 'if n % 3 == 0 and n % 5 == 0:' FIRST.\"",
+      "assert _f15 == 'FizzBuzz' and _f9 == 'Fizz' and _f10 == 'Buzz' and str(_f7) == '7' and _f7 is not None, \"Expected fizz_buzz(15)=='FizzBuzz', (9)=='Fizz', (10)=='Buzz', (7)=='7'\"",
+      done
+    ),
     aTitle: "Reverse the Words",
     aDesc: "Write `reverse_words(sentence)` that reverses the order of the words. Example: `'I love Python'` gives `'Python love I'`.",
     aStarter: lines("def reverse_words(sentence):", "    # split, reverse, join", "    pass"),
     aHint: "return ' '.join(reversed(sentence.split()))",
-    aTest: lines("assert reverse_words('I love Python') == 'Python love I'", done)
+    aTest: lines(
+      "_fn = globals().get('reverse_words')",
+      "_r = _fn('I love Python') if callable(_fn) else None",
+      "if _r == 'nohtyP evol I':",
+      "    assert False, \"That reversed the letters ('nohtyP evol I') instead of the words! Split into words first: ' '.join(sentence.split()[::-1]).\"",
+      "assert _r == 'Python love I', f\"Expected 'Python love I', got {_r!r}\"",
+      done
+    )
   }
 ];
 
