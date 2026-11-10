@@ -662,17 +662,35 @@ for idx, (tree_arr, p, q, expected) in enumerate(cases):
   war_concurrency_deadlock_02: {
     functionName: 'acquireResourcesDeterministically',
     pythonFunctionName: 'acquire_resources_deterministically',
-    totalTests: 2,
+    totalTests: 4,
     evaluator: (fn) => CodeWarsApiService.evaluateConcurrencyTestCases(fn),
     evaluatorCode: `
       var cases = [
         {
-          requests: [{ threadId: 'T1', resourceIds: ['R2', 'R1'] }, { threadId: 'T2', resourceIds: ['R1', 'R2'] }],
-          expected: ['R1', 'R2']
+          requests: [
+            { threadId: "T1", resourceIds: ["R2", "R1"] },
+            { threadId: "T2", resourceIds: ["R1", "R2"] }
+          ],
+          expected: ["R1", "R2"]
         },
         {
-          requests: [{ threadId: 'T1', resourceIds: ['R3', 'R1', 'R2'] }],
-          expected: ['R1', 'R2', 'R3']
+          requests: [
+            { threadId: "T1", resourceIds: ["R3", "R1", "R2"] }
+          ],
+          expected: ["R1", "R2", "R3"]
+        },
+        {
+          requests: [
+            { threadId: "T1", resourceIds: ["R5"] }
+          ],
+          expected: ["R5"]
+        },
+        {
+          requests: [
+            { threadId: "T1", resourceIds: ["R4", "R2"] },
+            { threadId: "T2", resourceIds: ["R3", "R1"] }
+          ],
+          expected: ["R1", "R2", "R3", "R4"]
         }
       ];
 
@@ -716,7 +734,9 @@ fn = globals().get('acquire_resources_deterministically') or globals().get('acqu
 assert fn is not None, "Function acquire_resources_deterministically not found"
 cases = [
     ([{"threadId": "T1", "resourceIds": ["R2", "R1"]}, {"threadId": "T2", "resourceIds": ["R1", "R2"]}], ["R1", "R2"]),
-    ([{"threadId": "T1", "resourceIds": ["R3", "R1", "R2"]}], ["R1", "R2", "R3"])
+    ([{"threadId": "T1", "resourceIds": ["R3", "R1", "R2"]}], ["R1", "R2", "R3"]),
+    ([{"threadId": "T1", "resourceIds": ["R5"]}], ["R5"]),
+    ([{"threadId": "T1", "resourceIds": ["R4", "R2"]}, {"threadId": "T2", "resourceIds": ["R3", "R1"]}], ["R1", "R2", "R3", "R4"])
 ]
 for idx, (reqs, expected) in enumerate(cases):
     ans = list(fn(reqs))
@@ -728,21 +748,33 @@ for idx, (reqs, expected) in enumerate(cases):
   war_sql_btree_query_03: {
     functionName: 'generateOptimalCompositeIndex',
     pythonFunctionName: 'generate_optimal_composite_index',
-    totalTests: 2,
+    totalTests: 4,
     evaluator: (fn) => CodeWarsApiService.evaluateSqlTestCases(fn),
     evaluatorCode: `
       var cases = [
         {
-          table: 'orders',
-          eq: ['tenant_id', 'status'],
-          range: 'created_at',
-          expected: 'CREATE INDEX idx_orders_tenant_id_status_created_at ON orders (tenant_id, status, created_at);'
+          table: "orders",
+          eq: ["tenant_id", "status"],
+          range: "created_at",
+          expected: "CREATE INDEX idx_orders_tenant_id_status_created_at ON orders (tenant_id, status, created_at);"
         },
         {
-          table: 'logs',
-          eq: ['service_id'],
-          range: 'timestamp',
-          expected: 'CREATE INDEX idx_logs_service_id_timestamp ON logs (service_id, timestamp);'
+          table: "logs",
+          eq: ["service_id"],
+          range: "timestamp",
+          expected: "CREATE INDEX idx_logs_service_id_timestamp ON logs (service_id, timestamp);"
+        },
+        {
+          table: "users",
+          eq: ["org_id", "department_id", "team_id"],
+          range: "joined_date",
+          expected: "CREATE INDEX idx_users_org_id_department_id_team_id_joined_date ON users (org_id, department_id, team_id, joined_date);"
+        },
+        {
+          table: "trades",
+          eq: ["symbol"],
+          range: "price",
+          expected: "CREATE INDEX idx_trades_symbol_price ON trades (symbol, price);"
         }
       ];
 
@@ -785,8 +817,10 @@ for idx, (reqs, expected) in enumerate(cases):
 fn = globals().get('generate_optimal_composite_index') or globals().get('generateOptimalCompositeIndex')
 assert fn is not None, "Function generate_optimal_composite_index not found"
 cases = [
-    ("orders", ["tenant_id", "status"], "created_at", "create index idx_orders_tenant_id_status_created_at on orders (tenant_id, status, created_at);"),
-    ("logs", ["service_id"], "timestamp", "create index idx_logs_service_id_timestamp on logs (service_id, timestamp);")
+    ("orders", ["tenant_id", "status"], "created_at", "CREATE INDEX idx_orders_tenant_id_status_created_at ON orders (tenant_id, status, created_at);"),
+    ("logs", ["service_id"], "timestamp", "CREATE INDEX idx_logs_service_id_timestamp ON logs (service_id, timestamp);"),
+    ("users", ["org_id", "department_id", "team_id"], "joined_date", "CREATE INDEX idx_users_org_id_department_id_team_id_joined_date ON users (org_id, department_id, team_id, joined_date);"),
+    ("trades", ["symbol"], "price", "CREATE INDEX idx_trades_symbol_price ON trades (symbol, price);")
 ]
 for idx, (tbl, eq, rng, expected) in enumerate(cases):
     ans = " ".join(str(fn(tbl, eq, rng)).strip().lower().split())
@@ -6869,11 +6903,13 @@ for idx, (ops, expected) in enumerate(cases):
   war_flood_fill_basic_53: {
     functionName: 'floodFill',
     pythonFunctionName: 'flood_fill',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { img: [[1,1,1],[1,1,0],[1,0,1]], sr: 1, sc: 1, color: 2, expected: [[2,2,2],[2,2,0],[2,0,1]] },
-        { img: [[0,0,0],[0,0,0]], sr: 0, sc: 0, color: 0, expected: [[0,0,0],[0,0,0]] }
+        { img: [[0,0,0],[0,0,0]], sr: 0, sc: 0, color: 0, expected: [[0,0,0],[0,0,0]] },
+        { img: [[0]], sr: 0, sc: 0, color: 5, expected: [[5]] },
+        { img: [[1,0,1],[0,1,0],[1,0,1]], sr: 0, sc: 0, color: 9, expected: [[9,0,1],[0,1,0],[1,0,1]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -6896,7 +6932,9 @@ fn = globals().get('flood_fill') or globals().get('floodFill')
 assert fn is not None, "Function flood_fill not found"
 cases = [
     ([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2, [[2,2,2],[2,2,0],[2,0,1]]),
-    ([[0,0,0],[0,0,0]], 0, 0, 0, [[0,0,0],[0,0,0]])
+    ([[0,0,0],[0,0,0]], 0, 0, 0, [[0,0,0],[0,0,0]]),
+    ([[0]], 0, 0, 5, [[5]]),
+    ([[1,0,1],[0,1,0],[1,0,1]], 0, 0, 9, [[9,0,1],[0,1,0],[1,0,1]])
 ]
 for idx, (img, sr, sc, color, expected) in enumerate(cases):
     ans = fn([list(r) for r in img], sr, sc, color)
@@ -6907,11 +6945,13 @@ for idx, (img, sr, sc, color, expected) in enumerate(cases):
   war_toeplitz_matrix_54: {
     functionName: 'isToeplitzMatrix',
     pythonFunctionName: 'is_toeplitz_matrix',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { mat: [[1,2,3,4],[5,1,2,3],[9,5,1,2]], expected: true },
-        { mat: [[1,2],[2,2]], expected: false }
+        { mat: [[1,2],[2,2]], expected: false },
+        { mat: [[1,2,3]], expected: true },
+        { mat: [[1],[2],[3]], expected: true }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -6933,7 +6973,9 @@ fn = globals().get('is_toeplitz_matrix') or globals().get('isToeplitzMatrix')
 assert fn is not None, "Function is_toeplitz_matrix not found"
 cases = [
     ([[1,2,3,4],[5,1,2,3],[9,5,1,2]], True),
-    ([[1,2],[2,2]], False)
+    ([[1,2],[2,2]], False),
+    ([[1,2,3]], True),
+    ([[1],[2],[3]], True)
 ]
 for idx, (mat, expected) in enumerate(cases):
     ans = fn([list(r) for r in mat])
@@ -6983,11 +7025,13 @@ for idx, (j, s, expected) in enumerate(cases):
   war_unique_morse_representations_56: {
     functionName: 'uniqueMorseRepresentations',
     pythonFunctionName: 'unique_morse_representations',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { w: ["gin","zen","gig","msg"], expected: 2 },
-        { w: ["a"], expected: 1 }
+        { w: ["a"], expected: 1 },
+        { w: ["a","b","c"], expected: 3 },
+        { w: ["hello","world","hello"], expected: 2 }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7009,7 +7053,9 @@ fn = globals().get('unique_morse_representations') or globals().get('uniqueMorse
 assert fn is not None, "Function unique_morse_representations not found"
 cases = [
     (["gin","zen","gig","msg"], 2),
-    (["a"], 1)
+    (["a"], 1),
+    (["a","b","c"], 3),
+    (["hello","world","hello"], 2)
 ]
 for idx, (w, expected) in enumerate(cases):
     ans = fn(list(w))
@@ -7020,11 +7066,13 @@ for idx, (w, expected) in enumerate(cases):
   war_flipping_an_image_57: {
     functionName: 'flipAndInvertImage',
     pythonFunctionName: 'flip_and_invert_image',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { img: [[1,1,0],[1,0,1],[0,0,0]], expected: [[1,0,0],[0,1,0],[1,1,1]] },
-        { img: [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]], expected: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]] }
+        { img: [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]], expected: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]] },
+        { img: [[0]], expected: [[1]] },
+        { img: [[1,1],[1,1]], expected: [[0,0],[0,0]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7047,7 +7095,9 @@ fn = globals().get('flip_and_invert_image') or globals().get('flipAndInvertImage
 assert fn is not None, "Function flip_and_invert_image not found"
 cases = [
     ([[1,1,0],[1,0,1],[0,0,0]], [[1,0,0],[0,1,0],[1,1,1]]),
-    ([[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]], [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]])
+    ([[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]], [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]),
+    ([[0]], [[1]]),
+    ([[1,1],[1,1]], [[0,0],[0,0]])
 ]
 for idx, (img, expected) in enumerate(cases):
     ans = fn([list(r) for r in img])
@@ -7058,11 +7108,13 @@ for idx, (img, expected) in enumerate(cases):
   war_transpose_matrix_58: {
     functionName: 'transpose',
     pythonFunctionName: 'transpose',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { mat: [[1,2,3],[4,5,6],[7,8,9]], expected: [[1,4,7],[2,5,8],[3,6,9]] },
-        { mat: [[1,2,3],[4,5,6]], expected: [[1,4],[2,5],[3,6]] }
+        { mat: [[1,2,3],[4,5,6]], expected: [[1,4],[2,5],[3,6]] },
+        { mat: [[1,2,3,4]], expected: [[1],[2],[3],[4]] },
+        { mat: [[1],[2],[3],[4]], expected: [[1,2,3,4]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7085,7 +7137,9 @@ fn = globals().get('transpose')
 assert fn is not None, "Function transpose not found"
 cases = [
     ([[1,2,3],[4,5,6],[7,8,9]], [[1,4,7],[2,5,8],[3,6,9]]),
-    ([[1,2,3],[4,5,6]], [[1,4],[2,5],[3,6]])
+    ([[1,2,3],[4,5,6]], [[1,4],[2,5],[3,6]]),
+    ([[1,2,3,4]], [[1],[2],[3],[4]]),
+    ([[1],[2],[3],[4]], [[1,2,3,4]])
 ]
 for idx, (mat, expected) in enumerate(cases):
     ans = fn([list(r) for r in mat])
@@ -7135,11 +7189,13 @@ for idx, (a, b, expected) in enumerate(cases):
   war_sort_array_by_parity_60: {
     functionName: 'sortArrayByParity',
     pythonFunctionName: 'sort_array_by_parity',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { nums: [3,1,2,4] },
-        { nums: [0] }
+        { nums: [0] },
+        { nums: [2,4,6,8] },
+        { nums: [1,3,5,7] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7170,7 +7226,9 @@ fn = globals().get('sort_array_by_parity') or globals().get('sortArrayByParity')
 assert fn is not None, "Function sort_array_by_parity not found"
 cases = [
     [3,1,2,4],
-    [0]
+    [0],
+    [2,4,6,8],
+    [1,3,5,7]
 ]
 for idx, nums in enumerate(cases):
     ans = fn(list(nums))
@@ -7188,11 +7246,13 @@ for idx, nums in enumerate(cases):
   war_subsets_54: {
     functionName: 'subsets',
     pythonFunctionName: 'subsets',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { nums: [1,2,3], expected: [[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]] },
-        { nums: [0], expected: [[],[0]] }
+        { nums: [0], expected: [[],[0]] },
+        { nums: [1,2], expected: [[],[1],[2],[1,2]] },
+        { nums: [9], expected: [[],[9]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7217,7 +7277,9 @@ fn = globals().get('subsets')
 assert fn is not None, "Function subsets not found"
 cases = [
     ([1,2,3], [[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]),
-    ([0], [[],[0]])
+    ([0], [[],[0]]),
+    ([1,2], [[],[1],[2],[1,2]]),
+    ([9], [[],[9]])
 ]
 for idx, (nums, expected) in enumerate(cases):
     ans = fn(list(nums))
@@ -7231,11 +7293,13 @@ for idx, (nums, expected) in enumerate(cases):
   war_permutations_55: {
     functionName: 'permute',
     pythonFunctionName: 'permute',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { nums: [1,2,3], expected: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]] },
-        { nums: [0,1], expected: [[0,1],[1,0]] }
+        { nums: [0,1], expected: [[0,1],[1,0]] },
+        { nums: [1], expected: [[1]] },
+        { nums: [2,1], expected: [[1,2],[2,1]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7259,7 +7323,9 @@ fn = globals().get('permute')
 assert fn is not None, "Function permute not found"
 cases = [
     ([1,2,3], [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]),
-    ([0,1], [[0,1],[1,0]])
+    ([0,1], [[0,1],[1,0]]),
+    ([1], [[1]]),
+    ([2,1], [[1,2],[2,1]])
 ]
 for idx, (nums, expected) in enumerate(cases):
     ans = fn(list(nums))
@@ -7271,11 +7337,13 @@ for idx, (nums, expected) in enumerate(cases):
   war_pacific_atlantic_water_flow_56: {
     functionName: 'pacificAtlantic',
     pythonFunctionName: 'pacific_atlantic',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { h: [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]], expected: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]] },
-        { h: [[1]], expected: [[0,0]] }
+        { h: [[1]], expected: [[0,0]] },
+        { h: [[2,2],[2,2]], expected: [[0,0],[0,1],[1,0],[1,1]] },
+        { h: [[1,2],[3,4]], expected: [[0,1],[1,0],[1,1]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7301,7 +7369,9 @@ fn = globals().get('pacific_atlantic') or globals().get('pacificAtlantic')
 assert fn is not None, "Function pacific_atlantic not found"
 cases = [
     ([[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]], [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]),
-    ([[1]], [[0,0]])
+    ([[1]], [[0,0]]),
+    ([[2,2],[2,2]], [[0,0],[0,1],[1,0],[1,1]]),
+    ([[1,2],[3,4]], [[0,1],[1,0],[1,1]])
 ]
 for idx, (h, expected) in enumerate(cases):
     ans = fn([list(r) for r in h])
@@ -7313,12 +7383,17 @@ for idx, (h, expected) in enumerate(cases):
   war_longest_consecutive_sequence_57: {
     functionName: 'longestConsecutive',
     pythonFunctionName: 'longest_consecutive',
-    totalTests: 3,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { nums: [100,4,200,1,3,2], expected: 4 },
         { nums: [0,3,7,2,5,8,4,6,0,1], expected: 9 },
-        { nums: [], expected: 0 }
+        { nums: [], expected: 0 },
+        (function() {
+          var arr = [];
+          for (var k = 0; k < 2000; k++) arr.push((k * 7919) % 2000);
+          return { nums: arr, expected: 2000 };
+        })()
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7341,7 +7416,8 @@ assert fn is not None, "Function longest_consecutive not found"
 cases = [
     ([100,4,200,1,3,2], 4),
     ([0,3,7,2,5,8,4,6,0,1], 9),
-    ([], 0)
+    ([], 0),
+    ([(k * 7919) % 2000 for k in range(2000)], 2000)
 ]
 for idx, (nums, expected) in enumerate(cases):
     ans = fn(list(nums))
@@ -7487,7 +7563,7 @@ for idx, (t, n, expected) in enumerate(cases):
   war_accounts_merge_61: {
     functionName: 'accountsMerge',
     pythonFunctionName: 'accounts_merge',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         {
@@ -7497,6 +7573,14 @@ for idx, (t, n, expected) in enumerate(cases):
         {
           acc: [["Gabe","Gabe0@m.co","Gabe3@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co"],["Gabe","Gabe1@m.co","Gabe2@m.co"],["Gabe","Gabe3@m.co","Gabe4@m.co"]],
           expected: [["Gabe","Gabe0@m.co","Gabe3@m.co","Gabe4@m.co"],["Gabe","Gabe1@m.co","Gabe2@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co"]]
+        },
+        {
+          acc: [["David","david@mail.com","david01@mail.com"]],
+          expected: [["David","david01@mail.com","david@mail.com"]]
+        },
+        {
+          acc: [["Alex","a@mail.com","b@mail.com"],["Alex","b@mail.com","c@mail.com"],["Alex","c@mail.com","d@mail.com"]],
+          expected: [["Alex","a@mail.com","b@mail.com","c@mail.com","d@mail.com"]]
         }
       ];
       var passedCount = 0;
@@ -7523,7 +7607,9 @@ fn = globals().get('accounts_merge') or globals().get('accountsMerge')
 assert fn is not None, "Function accounts_merge not found"
 cases = [
     ([["John","johnsmith@mail.com","john_newyork@mail.com"],["John","johnsmith@mail.com","john00@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]], [["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],["John","johnnybravo@mail.com"],["Mary","mary@mail.com"]]),
-    ([["Gabe","Gabe0@m.co","Gabe3@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co"],["Gabe","Gabe1@m.co","Gabe2@m.co"],["Gabe","Gabe3@m.co","Gabe4@m.co"]], [["Gabe","Gabe0@m.co","Gabe3@m.co","Gabe4@m.co"],["Gabe","Gabe1@m.co","Gabe2@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co"]])
+    ([["Gabe","Gabe0@m.co","Gabe3@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co"],["Gabe","Gabe1@m.co","Gabe2@m.co"],["Gabe","Gabe3@m.co","Gabe4@m.co"]], [["Gabe","Gabe0@m.co","Gabe3@m.co","Gabe4@m.co"],["Gabe","Gabe1@m.co","Gabe2@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co"]]),
+    ([["David","david@mail.com","david01@mail.com"]], [["David","david01@mail.com","david@mail.com"]]),
+    ([["Alex","a@mail.com","b@mail.com"],["Alex","b@mail.com","c@mail.com"],["Alex","c@mail.com","d@mail.com"]], [["Alex","a@mail.com","b@mail.com","c@mail.com","d@mail.com"]])
 ]
 for idx, (acc, expected) in enumerate(cases):
     ans = fn([list(r) for r in acc])
@@ -7535,12 +7621,17 @@ for idx, (acc, expected) in enumerate(cases):
   war_minimum_size_subarray_sum_62: {
     functionName: 'minSubArrayLen',
     pythonFunctionName: 'min_sub_array_len',
-    totalTests: 3,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { target: 7, nums: [2,3,1,2,4,3], expected: 2 },
         { target: 4, nums: [1,4,4], expected: 1 },
-        { target: 11, nums: [1,1,1,1,1,1,1,1], expected: 0 }
+        { target: 11, nums: [1,1,1,1,1,1,1,1], expected: 0 },
+        (function() {
+          var arr = [];
+          for (var k = 0; k < 3000; k++) arr.push(1);
+          return { target: 1500, nums: arr, expected: 1500 };
+        })()
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7563,7 +7654,8 @@ assert fn is not None, "Function min_sub_array_len not found"
 cases = [
     (7, [2,3,1,2,4,3], 2),
     (4, [1,4,4], 1),
-    (11, [1,1,1,1,1,1,1,1], 0)
+    (11, [1,1,1,1,1,1,1,1], 0),
+    (1500, [1] * 3000, 1500)
 ]
 for idx, (target, nums, expected) in enumerate(cases):
     ans = fn(target, list(nums))
@@ -7616,11 +7708,13 @@ for idx, (a, expected) in enumerate(cases):
   war_the_skyline_problem_51: {
     functionName: 'getSkyline',
     pythonFunctionName: 'get_skyline',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { b: [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]], expected: [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]] },
-        { b: [[0,2,3],[2,5,3]], expected: [[0,3],[5,0]] }
+        { b: [[0,2,3],[2,5,3]], expected: [[0,3],[5,0]] },
+        { b: [[1,2,1],[3,4,2]], expected: [[1,1],[2,0],[3,2],[4,0]] },
+        { b: [[1,5,10],[2,4,5]], expected: [[1,10],[5,0]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7643,7 +7737,9 @@ fn = globals().get('get_skyline') or globals().get('getSkyline')
 assert fn is not None, "Function get_skyline not found"
 cases = [
     ([[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]], [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]),
-    ([[0,2,3],[2,5,3]], [[0,3],[5,0]])
+    ([[0,2,3],[2,5,3]], [[0,3],[5,0]]),
+    ([[1,2,1],[3,4,2]], [[1,1],[2,0],[3,2],[4,0]]),
+    ([[1,5,10],[2,4,5]], [[1,10],[5,0]])
 ]
 for idx, (b, expected) in enumerate(cases):
     ans = fn([list(r) for r in b])
@@ -7654,11 +7750,13 @@ for idx, (b, expected) in enumerate(cases):
   war_concatenated_words_52: {
     functionName: 'findAllConcatenatedWordsInADict',
     pythonFunctionName: 'find_all_concatenated_words_in_a_dict',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { w: ["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"], expected: ["catsdogcats","dogcatsdog","ratcatdogcat"] },
-        { w: ["cat","dog","catdog"], expected: ["catdog"] }
+        { w: ["cat","dog","catdog"], expected: ["catdog"] },
+        { w: ["a","b","c"], expected: [] },
+        { w: ["a","b","c","ab","abc"], expected: ["ab","abc"] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7681,7 +7779,9 @@ fn = globals().get('find_all_concatenated_words_in_a_dict') or globals().get('fi
 assert fn is not None, "Function find_all_concatenated_words_in_a_dict not found"
 cases = [
     (["cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat"], ["catsdogcats","dogcatsdog","ratcatdogcat"]),
-    (["cat","dog","catdog"], ["catdog"])
+    (["cat","dog","catdog"], ["catdog"]),
+    (["a","b","c"], []),
+    (["a","b","c","ab","abc"], ["ab","abc"])
 ]
 for idx, (w, expected) in enumerate(cases):
     ans = fn(list(w))
@@ -7733,11 +7833,13 @@ for idx, (b, expected) in enumerate(cases):
   war_critical_connections_network_54: {
     functionName: 'criticalConnections',
     pythonFunctionName: 'critical_connections',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { n: 4, c: [[0,1],[1,2],[2,0],[1,3]], expected: [[1,3]] },
-        { n: 2, c: [[0,1]], expected: [[0,1]] }
+        { n: 2, c: [[0,1]], expected: [[0,1]] },
+        { n: 3, c: [[0,1],[1,2],[2,0]], expected: [] },
+        { n: 3, c: [[0,1],[1,2]], expected: [[0,1],[1,2]] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7764,7 +7866,9 @@ fn = globals().get('critical_connections') or globals().get('criticalConnections
 assert fn is not None, "Function critical_connections not found"
 cases = [
     (4, [[0,1],[1,2],[2,0],[1,3]], [[1,3]]),
-    (2, [[0,1]], [[0,1]])
+    (2, [[0,1]], [[0,1]]),
+    (3, [[0,1],[1,2],[2,0]], []),
+    (3, [[0,1],[1,2]], [[0,1],[1,2]])
 ]
 for idx, (n, c, expected) in enumerate(cases):
     ans = fn(n, [list(r) for r in c])
@@ -7777,12 +7881,20 @@ for idx, (n, c, expected) in enumerate(cases):
   war_count_smaller_after_self_55: {
     functionName: 'countSmaller',
     pythonFunctionName: 'count_smaller',
-    totalTests: 3,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { nums: [5,2,6,1], expected: [2,1,1,0] },
         { nums: [-1], expected: [0] },
-        { nums: [-1,-1], expected: [0,0] }
+        { nums: [-1,-1], expected: [0,0] },
+        (function() {
+          var arr = [], exp = [];
+          for (var k = 0; k < 2000; k++) {
+            arr.push(2000 - k);
+            exp.push(1999 - k);
+          }
+          return { nums: arr, expected: exp };
+        })()
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7805,7 +7917,8 @@ assert fn is not None, "Function count_smaller not found"
 cases = [
     ([5,2,6,1], [2,1,1,0]),
     ([-1], [0]),
-    ([-1,-1], [0,0])
+    ([-1,-1], [0,0]),
+    ([2000 - k for k in range(2000)], [1999 - k for k in range(2000)])
 ]
 for idx, (nums, expected) in enumerate(cases):
     ans = fn(list(nums))
@@ -7816,11 +7929,13 @@ for idx, (nums, expected) in enumerate(cases):
   war_ipo_capital_maximization_56: {
     functionName: 'findMaximizedCapital',
     pythonFunctionName: 'find_maximized_capital',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { k: 2, w: 0, p: [1,2,3], c: [0,1,1], expected: 4 },
-        { k: 3, w: 0, p: [1,2,3], c: [0,1,2], expected: 6 }
+        { k: 3, w: 0, p: [1,2,3], c: [0,1,2], expected: 6 },
+        { k: 1, w: 0, p: [1,2,3], c: [1,1,2], expected: 0 },
+        { k: 10, w: 5, p: [2,3], c: [1,2], expected: 10 }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7842,7 +7957,9 @@ fn = globals().get('find_maximized_capital') or globals().get('findMaximizedCapi
 assert fn is not None, "Function find_maximized_capital not found"
 cases = [
     (2, 0, [1,2,3], [0,1,1], 4),
-    (3, 0, [1,2,3], [0,1,2], 6)
+    (3, 0, [1,2,3], [0,1,2], 6),
+    (1, 0, [1,2,3], [1,1,2], 0),
+    (10, 5, [2,3], [1,2], 10)
 ]
 for idx, (k, w, p, c, expected) in enumerate(cases):
     ans = fn(k, w, list(p), list(c))
@@ -7853,7 +7970,7 @@ for idx, (k, w, p, c, expected) in enumerate(cases):
   war_design_in_memory_file_system_57: {
     functionName: 'simulateFileSystem',
     pythonFunctionName: 'simulate_file_system',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         {
@@ -7865,6 +7982,15 @@ for idx, (k, w, p, c, expected) in enumerate(cases):
           ops: ["mkdir", "ls"],
           args: [["/a"], ["/"]],
           expected: [null, ["a"]]
+        },
+        {
+          ops: ["mkdir", "addContentToFile", "addContentToFile", "ls"],
+          args: [["/docs"], ["/docs/z.txt", "end"], ["/docs/a.txt", "start"], ["/docs"]],
+          expected: [null, null, null, ["a.txt", "z.txt"]]
+        },
+        {
+          ops: ["addContentToFile", "addContentToFile", "readContentFromFile"],
+          args: [["/log.txt", "hello "], ["/log.txt", "world"], ["/log.txt"]], expected: [null, null, "hello world"]
         }
       ];
       var passedCount = 0;
@@ -7887,7 +8013,9 @@ fn = globals().get('simulate_file_system') or globals().get('simulateFileSystem'
 assert fn is not None, "Function simulate_file_system not found"
 cases = [
     (["ls", "mkdir", "addContentToFile", "ls", "readContentFromFile"], [["/"], ["/a/b/c"], ["/a/b/c/d", "hello"], ["/"], ["/a/b/c/d"]], [[], None, None, ["a"], "hello"]),
-    (["mkdir", "ls"], [["/a"], ["/"]], [None, ["a"]])
+    (["mkdir", "ls"], [["/a"], ["/"]], [None, ["a"]]),
+    (["mkdir", "addContentToFile", "addContentToFile", "ls"], [["/docs"], ["/docs/z.txt", "end"], ["/docs/a.txt", "start"], ["/docs"]], [None, None, None, ["a.txt", "z.txt"]]),
+    (["addContentToFile", "addContentToFile", "readContentFromFile"], [["/log.txt", "hello "], ["/log.txt", "world"], ["/log.txt"]], [None, None, "hello world"])
 ]
 for idx, (ops, args, expected) in enumerate(cases):
     ans = fn(list(ops), [list(r) for r in args])
@@ -7898,11 +8026,13 @@ for idx, (ops, args, expected) in enumerate(cases):
   war_reconstruct_itinerary_58: {
     functionName: 'findItinerary',
     pythonFunctionName: 'find_itinerary',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { t: [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]], expected: ["JFK","MUC","LHR","SFO","SJC"] },
-        { t: [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]], expected: ["JFK","ATL","JFK","SFO","ATL","SFO"] }
+        { t: [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]], expected: ["JFK","ATL","JFK","SFO","ATL","SFO"] },
+        { t: [["JFK","KUL"],["KUL","JFK"]], expected: ["JFK","KUL","JFK"] },
+        { t: [["JFK","NRT"],["JFK","KUL"],["KUL","JFK"]], expected: ["JFK","KUL","JFK","NRT"] }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7925,7 +8055,9 @@ fn = globals().get('find_itinerary') or globals().get('findItinerary')
 assert fn is not None, "Function find_itinerary not found"
 cases = [
     ([["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]], ["JFK","MUC","LHR","SFO","SJC"]),
-    ([["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]], ["JFK","ATL","JFK","SFO","ATL","SFO"])
+    ([["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]], ["JFK","ATL","JFK","SFO","ATL","SFO"]),
+    ([["JFK","KUL"],["KUL","JFK"]], ["JFK","KUL","JFK"]),
+    ([["JFK","NRT"],["JFK","KUL"],["KUL","JFK"]], ["JFK","KUL","JFK","NRT"])
 ]
 for idx, (t, expected) in enumerate(cases):
     ans = fn([list(r) for r in t])
@@ -7936,11 +8068,13 @@ for idx, (t, expected) in enumerate(cases):
   war_longest_duplicate_substring_59: {
     functionName: 'longestDupSubstring',
     pythonFunctionName: 'longest_dup_substring',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { s: "banana", expected: "ana" },
-        { s: "abcd", expected: "" }
+        { s: "abcd", expected: "" },
+        { s: "aaaaa", expected: "aaaa" },
+        { s: "aa", expected: "a" }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -7962,7 +8096,9 @@ fn = globals().get('longest_dup_substring') or globals().get('longestDupSubstrin
 assert fn is not None, "Function longest_dup_substring not found"
 cases = [
     ("banana", "ana"),
-    ("abcd", "")
+    ("abcd", ""),
+    ("aaaaa", "aaaa"),
+    ("aa", "a")
 ]
 for idx, (s, expected) in enumerate(cases):
     ans = fn(s)
@@ -7973,11 +8109,13 @@ for idx, (s, expected) in enumerate(cases):
   war_bus_routes_bfs_60: {
     functionName: 'numBusesToDestination',
     pythonFunctionName: 'num_buses_to_destination',
-    totalTests: 2,
+    totalTests: 4,
     evaluatorCode: `
       var cases = [
         { r: [[1,2,7],[3,6,7]], s: 1, t: 6, expected: 2 },
-        { r: [[7,12],[4,5,15],[6],[15,19],[9,12,13]], s: 15, t: 12, expected: -1 }
+        { r: [[7,12],[4,5,15],[6],[15,19],[9,12,13]], s: 15, t: 12, expected: -1 },
+        { r: [[1,2,3]], s: 2, t: 2, expected: 0 },
+        { r: [[1,2,3,4]], s: 1, t: 4, expected: 1 }
       ];
       var passedCount = 0;
       for (var i = 0; i < cases.length; i++) {
@@ -8000,7 +8138,9 @@ fn = globals().get('num_buses_to_destination') or globals().get('numBusesToDesti
 assert fn is not None, "Function num_buses_to_destination not found"
 cases = [
     ([[1,2,7],[3,6,7]], 1, 6, 2),
-    ([[7,12],[4,5,15],[6],[15,19],[9,12,13]], 15, 12, -1)
+    ([[7,12],[4,5,15],[6],[15,19],[9,12,13]], 15, 12, -1),
+    ([[1,2,3]], 2, 2, 0),
+    ([[1,2,3,4]], 1, 4, 1)
 ]
 for idx, (r, s, t, expected) in enumerate(cases):
     ans = fn([list(row) for row in r], s, t)

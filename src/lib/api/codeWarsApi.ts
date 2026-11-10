@@ -19,6 +19,12 @@ export interface CodeWarsProblem {
     isHidden?: boolean;
     explanation?: string;
   }>;
+  hiddenTestCases?: Array<{
+    input: string;
+    expectedOutput: string;
+    isHidden?: boolean;
+    explanation?: string;
+  }>;
   timeLimitSeconds: number;
   memoryLimitMb: number;
   xpReward: number;
@@ -263,7 +269,7 @@ export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
     title: 'Atomic Resource Allocator (Deadlock Prevention)',
     difficulty: 'advanced',
     competencyId: 'comp_concurrency_threads_l2',
-    description: 'Implement a deadlock-free concurrent resource allocation manager for a cluster with N resources.',
+    description: 'In a multi-tenant cloud scheduler, concurrent worker threads request multiple mutual-exclusion resource locks (e.g., shared disk volumes, GPUs, database connection pools). To prevent circular-wait conditions (Coffman\'s 4th condition for deadlock), implement a deterministic resource locker that orders resource requests globally before acquisition.',
     starterCode: {
       typescript: `interface ResourceRequest { threadId: string; resourceIds: string[]; }
 
@@ -275,8 +281,28 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     return []`
     },
     testCases: [
-      { input: 'requests = [{threadId: "T1", resourceIds: ["R2", "R1"]}, {threadId: "T2", resourceIds: ["R1", "R2"]}]', expectedOutput: '["R1", "R2"]', explanation: 'Sorting resource locks eliminates circular wait.' },
-      { input: 'requests = [{threadId: "T1", resourceIds: ["R3", "R1", "R2"]}]', expectedOutput: '["R1", "R2", "R3"]', isHidden: true }
+          {
+                "input": "requests = [{threadId: \"T1\", resourceIds: [\"R2\", \"R1\"]}, {threadId: \"T2\", resourceIds: [\"R1\", \"R2\"]}]",
+                "expectedOutput": "[\"R1\", \"R2\"]",
+                "explanation": "Sorting resource locks eliminates circular wait."
+          },
+          {
+                "input": "requests = [{threadId: \"T1\", resourceIds: [\"R3\", \"R1\", \"R2\"]}]",
+                "expectedOutput": "[\"R1\", \"R2\", \"R3\"]",
+                "isHidden": true
+          },
+          {
+                "input": "requests = [{threadId: \"T1\", resourceIds: [\"R5\"]}]",
+                "expectedOutput": "[\"R5\"]",
+                "isHidden": true,
+                "explanation": "Single resource lock request."
+          },
+          {
+                "input": "requests = [{threadId: \"T1\", resourceIds: [\"R4\", \"R2\"]}, {threadId: \"T2\", resourceIds: [\"R3\", \"R1\"]}]",
+                "expectedOutput": "[\"R1\", \"R2\", \"R3\", \"R4\"]",
+                "isHidden": true,
+                "explanation": "Multiple concurrent requests merged and sorted globally."
+          }
     ],
     timeLimitSeconds: 360,
     memoryLimitMb: 256,
@@ -290,7 +316,7 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     title: 'B-Tree Composite Index Query Optimizer',
     difficulty: 'advanced',
     competencyId: 'comp_database_sql_internals_l3',
-    description: 'Analyze multi-column range and equality filters to generate the optimal composite index definition.',
+    description: 'In relational database optimization (PostgreSQL / MySQL InnoDB), query planner execution plans degrade significantly when composite indexes misorder filter predicates. Given table metadata, equality filter columns, and a range filter column, generate the optimal DDL composite B-Tree index definition honoring the fundamental database rule: equality columns first, range column last.',
     starterCode: {
       typescript: `function generateOptimalCompositeIndex(tableName: string, equalityCols: string[], rangeCol: string): string {
   // Return CREATE INDEX DDL statement
@@ -300,8 +326,25 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     return ""`
     },
     testCases: [
-      { input: 'table = "orders", eq = ["tenant_id", "status"], range = "created_at"', expectedOutput: 'CREATE INDEX idx_orders_tenant_id_status_created_at ON orders (tenant_id, status, created_at);' },
-      { input: 'table = "logs", eq = ["service_id"], range = "timestamp"', expectedOutput: 'CREATE INDEX idx_logs_service_id_timestamp ON logs (service_id, timestamp);', isHidden: true }
+          {
+                "input": "table = \"orders\", eq = [\"tenant_id\", \"status\"], range = \"created_at\"",
+                "expectedOutput": "CREATE INDEX idx_orders_tenant_id_status_created_at ON orders (tenant_id, status, created_at);"
+          },
+          {
+                "input": "table = \"logs\", eq = [\"service_id\"], range = \"timestamp\"",
+                "expectedOutput": "CREATE INDEX idx_logs_service_id_timestamp ON logs (service_id, timestamp);",
+                "isHidden": true
+          },
+          {
+                "input": "table = \"users\", eq = [\"org_id\", \"department_id\", \"team_id\"], range = \"joined_date\"",
+                "expectedOutput": "CREATE INDEX idx_users_org_id_department_id_team_id_joined_date ON users (org_id, department_id, team_id, joined_date);",
+                "isHidden": true
+          },
+          {
+                "input": "table = \"trades\", eq = [\"symbol\"], range = \"price\"",
+                "expectedOutput": "CREATE INDEX idx_trades_symbol_price ON trades (symbol, price);",
+                "isHidden": true
+          }
     ],
     timeLimitSeconds: 240,
     memoryLimitMb: 128,
@@ -508,7 +551,7 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     title: 'Merge Sorted Arrays',
     difficulty: 'basic',
     competencyId: 'comp_two_pointers_merge_l1',
-    description: 'Given two sorted integer arrays nums1 and nums2, merge them into a single sorted array.',
+    description: 'In an observability time-series pipeline, two Kafka partitions emit metric logs strictly ordered by ascending millisecond timestamps. To aggregate telemetry without allocating secondary heap buffers, merge the sorted stream nums2 directly into the sorted stream nums1, returning a unified timestamp-sorted array in O(M + N) time.',
     starterCode: {
       typescript: `function mergeSortedArrays(nums1: number[], nums2: number[]): number[] {\n  // Your solution here\n  return [];\n}`,
       python: `def merge_sorted_arrays(nums1, nums2):\n    # Your solution here\n    return []`
@@ -659,7 +702,7 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     title: 'Longest Substring Without Repeating Characters',
     difficulty: 'intermediate',
     competencyId: 'comp_sliding_window_unique_l2',
-    description: 'Given a string s, find the length of the longest substring without repeating characters.',
+    description: 'In a real-time network protocol gateway, sliding-window transmission buffers must maintain completely unique byte tokens to prevent replay attacks and framing errors. Given a network payload s, determine the maximum payload window length that contains zero duplicated characters in O(N) runtime.',
     starterCode: {
       typescript: `function lengthOfLongestSubstring(s: string): number {\n  // Your solution here\n  return 0;\n}`,
       python: `def length_of_longest_substring(s):\n    # Your solution here\n    return 0`
@@ -1020,7 +1063,7 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     title: 'Kth Largest Element in an Array',
     difficulty: 'advanced',
     competencyId: 'comp_heap_quickselect_l3',
-    description: 'Given an integer array nums and an integer k, return the kth largest element in sorted order.',
+    description: 'In a distributed microservice latency monitor, request response times (in ms) are continuously sampled. To compute P99 or P90 SLA violations without performing an expensive O(N log N) full sort on live high-throughput traffic, extract the kth largest latency value using Quickselect or a Min-Heap in amortized O(N) time.',
     starterCode: {
       typescript: `function findKthLargest(nums: number[], k: number): number {\n  // Your solution here\n  return 0;\n}`,
       python: `def find_kth_largest(nums, k):\n    # Your solution here\n    return 0`
@@ -5383,9 +5426,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def flood_fill(image: list[list[int]], sr: int, sc: int, color: int) -> list[list[int]]:\n    # Your solution here\n    return image",
       },
       testCases: [
-        { input: "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", expectedOutput: "[[2,2,2],[2,2,0],[2,0,1]]", explanation: "Center pixel and connected 1s filled to 2." },
-        { input: "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", expectedOutput: "[[0,0,0],[0,0,0]]", explanation: "Start color is already target color, no change." }
-      ],
+          {
+                "input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2",
+                "expectedOutput": "[[2,2,2],[2,2,0],[2,0,1]]",
+                "explanation": "Center pixel and connected 1s filled to 2."
+          },
+          {
+                "input": "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0",
+                "expectedOutput": "[[0,0,0],[0,0,0]]",
+                "explanation": "Start color is already target color, no change."
+          },
+          {
+                "input": "image = [[0]], sr = 0, sc = 0, color = 5",
+                "expectedOutput": "[[5]]",
+                "isHidden": true,
+                "explanation": "Single pixel canvas filled."
+          },
+          {
+                "input": "image = [[1,0,1],[0,1,0],[1,0,1]], sr = 0, sc = 0, color = 9",
+                "expectedOutput": "[[9,0,1],[0,1,0],[1,0,1]]",
+                "isHidden": true,
+                "explanation": "Diagonals are not 4-directionally connected."
+          }
+    ],
       timeLimitSeconds: 180,
       memoryLimitMb: 64,
       xpReward: 100,
@@ -5404,9 +5467,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def is_toeplitz_matrix(matrix: list[list[int]]) -> bool:\n    # Your solution here\n    return False",
       },
       testCases: [
-        { input: "matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]", expectedOutput: "true", explanation: "All diagonals match down-right." },
-        { input: "matrix = [[1,2],[2,2]]", expectedOutput: "false", explanation: "Diagonal [1, 2] has mismatched values." }
-      ],
+          {
+                "input": "matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]",
+                "expectedOutput": "true",
+                "explanation": "All diagonals match down-right."
+          },
+          {
+                "input": "matrix = [[1,2],[2,2]]",
+                "expectedOutput": "false",
+                "explanation": "Diagonal [1, 2] has mismatched values."
+          },
+          {
+                "input": "matrix = [[1,2,3]]",
+                "expectedOutput": "true",
+                "isHidden": true,
+                "explanation": "1xN single row matrix is always Toeplitz."
+          },
+          {
+                "input": "matrix = [[1],[2],[3]]",
+                "expectedOutput": "true",
+                "isHidden": true,
+                "explanation": "Mx1 single column matrix is always Toeplitz."
+          }
+    ],
       timeLimitSeconds: 180,
       memoryLimitMb: 64,
       xpReward: 100,
@@ -5447,9 +5530,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def unique_morse_representations(words: list[str]) -> int:\n    # Your solution here\n    return 0",
       },
       testCases: [
-        { input: "words = ['gin','zen','gig','msg']", expectedOutput: "2", explanation: "'gin' and 'zen' map to '--...-.', 'gig' and 'msg' map to '--...--.'." },
-        { input: "words = ['a']", expectedOutput: "1", explanation: "Single letter maps to '.-'." }
-      ],
+          {
+                "input": "words = ['gin','zen','gig','msg']",
+                "expectedOutput": "2",
+                "explanation": "'gin' and 'zen' map to '--...-.', 'gig' and 'msg' map to '--...--.'."
+          },
+          {
+                "input": "words = ['a']",
+                "expectedOutput": "1",
+                "explanation": "Single letter maps to '.-'."
+          },
+          {
+                "input": "words = ['a','b','c']",
+                "expectedOutput": "3",
+                "isHidden": true,
+                "explanation": "All distinct Morse codes."
+          },
+          {
+                "input": "words = ['hello','world','hello']",
+                "expectedOutput": "2",
+                "isHidden": true,
+                "explanation": "Duplicate word matches."
+          }
+    ],
       timeLimitSeconds: 180,
       memoryLimitMb: 64,
       xpReward: 100,
@@ -5468,9 +5571,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def flip_and_invert_image(image: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return image",
       },
       testCases: [
-        { input: "image = [[1,1,0],[1,0,1],[0,0,0]]", expectedOutput: "[[1,0,0],[0,1,0],[1,1,1]]", explanation: "Flip row: [0,1,1], invert: [1,0,0]." },
-        { input: "image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]", expectedOutput: "[[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]", explanation: "4x4 matrix flipped and inverted." }
-      ],
+          {
+                "input": "image = [[1,1,0],[1,0,1],[0,0,0]]",
+                "expectedOutput": "[[1,0,0],[0,1,0],[1,1,1]]",
+                "explanation": "Flip row: [0,1,1], invert: [1,0,0]."
+          },
+          {
+                "input": "image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]",
+                "expectedOutput": "[[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]",
+                "explanation": "4x4 matrix flipped and inverted."
+          },
+          {
+                "input": "image = [[0]]",
+                "expectedOutput": "[[1]]",
+                "isHidden": true,
+                "explanation": "1x1 pixel 0 flipped and inverted to 1."
+          },
+          {
+                "input": "image = [[1,1],[1,1]]",
+                "expectedOutput": "[[0,0],[0,0]]",
+                "isHidden": true,
+                "explanation": "All 1s inverted to all 0s."
+          }
+    ],
       timeLimitSeconds: 180,
       memoryLimitMb: 64,
       xpReward: 100,
@@ -5489,9 +5612,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]", expectedOutput: "[[1,4,7],[2,5,8],[3,6,9]]", explanation: "3x3 transpose matrix." },
-        { input: "matrix = [[1,2,3],[4,5,6]]", expectedOutput: "[[1,4],[2,5],[3,6]]", explanation: "2x3 transposed to 3x2." }
-      ],
+          {
+                "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+                "expectedOutput": "[[1,4,7],[2,5,8],[3,6,9]]",
+                "explanation": "3x3 transpose matrix."
+          },
+          {
+                "input": "matrix = [[1,2,3],[4,5,6]]",
+                "expectedOutput": "[[1,4],[2,5],[3,6]]",
+                "explanation": "2x3 transposed to 3x2."
+          },
+          {
+                "input": "matrix = [[1,2,3,4]]",
+                "expectedOutput": "[[1],[2],[3],[4]]",
+                "isHidden": true,
+                "explanation": "1x4 row vector transposed to 4x1 column."
+          },
+          {
+                "input": "matrix = [[1],[2],[3],[4]]",
+                "expectedOutput": "[[1,2,3,4]]",
+                "isHidden": true,
+                "explanation": "4x1 column transposed to 1x4 row vector."
+          }
+    ],
       timeLimitSeconds: 180,
       memoryLimitMb: 64,
       xpReward: 100,
@@ -5532,9 +5675,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def sort_array_by_parity(nums: list[int]) -> list[int]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "nums = [3,1,2,4]", expectedOutput: "[2,4,3,1]", explanation: "[4,2,3,1], [2,4,1,3], and [4,2,1,3] are also acceptable." },
-        { input: "nums = [0]", expectedOutput: "[0]", explanation: "Single element array." }
-      ],
+          {
+                "input": "nums = [3,1,2,4]",
+                "expectedOutput": "[2,4,3,1]",
+                "explanation": "[4,2,3,1], [2,4,1,3], and [4,2,1,3] are also acceptable."
+          },
+          {
+                "input": "nums = [0]",
+                "expectedOutput": "[0]",
+                "explanation": "Single element array."
+          },
+          {
+                "input": "nums = [2,4,6,8]",
+                "expectedOutput": "[2,4,6,8]",
+                "isHidden": true,
+                "explanation": "All even numbers remain before empty odds."
+          },
+          {
+                "input": "nums = [1,3,5,7]",
+                "expectedOutput": "[1,3,5,7]",
+                "isHidden": true,
+                "explanation": "All odd numbers are valid."
+          }
+    ],
       timeLimitSeconds: 180,
       memoryLimitMb: 64,
       xpReward: 100,
@@ -5555,9 +5718,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def subsets(nums: list[int]) -> list[list[int]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "nums = [1,2,3]", expectedOutput: "[[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]", explanation: "All 2^3 = 8 subsets." },
-        { input: "nums = [0]", expectedOutput: "[[],[0]]", explanation: "2 subsets for single element." }
-      ],
+          {
+                "input": "nums = [1,2,3]",
+                "expectedOutput": "[[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]",
+                "explanation": "All 2^3 = 8 subsets."
+          },
+          {
+                "input": "nums = [0]",
+                "expectedOutput": "[[],[0]]",
+                "explanation": "2 subsets for single element."
+          },
+          {
+                "input": "nums = [1,2]",
+                "expectedOutput": "[[],[1],[2],[1,2]]",
+                "isHidden": true,
+                "explanation": "All 4 subsets for 2 elements."
+          },
+          {
+                "input": "nums = [9]",
+                "expectedOutput": "[[],[9]]",
+                "isHidden": true,
+                "explanation": "Single positive element."
+          }
+    ],
       timeLimitSeconds: 240,
       memoryLimitMb: 128,
       xpReward: 150,
@@ -5576,9 +5759,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def permute(nums: list[int]) -> list[list[int]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "nums = [1,2,3]", expectedOutput: "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]", explanation: "All 6 permutations of [1,2,3]." },
-        { input: "nums = [0,1]", expectedOutput: "[[0,1],[1,0]]", explanation: "2 permutations of [0,1]." }
-      ],
+          {
+                "input": "nums = [1,2,3]",
+                "expectedOutput": "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]",
+                "explanation": "All 6 permutations of [1,2,3]."
+          },
+          {
+                "input": "nums = [0,1]",
+                "expectedOutput": "[[0,1],[1,0]]",
+                "explanation": "2 permutations of [0,1]."
+          },
+          {
+                "input": "nums = [1]",
+                "expectedOutput": "[[1]]",
+                "isHidden": true,
+                "explanation": "Single element permutation."
+          },
+          {
+                "input": "nums = [2,1]",
+                "expectedOutput": "[[1,2],[2,1]]",
+                "isHidden": true,
+                "explanation": "Two elements sorted lexicographically."
+          }
+    ],
       timeLimitSeconds: 240,
       memoryLimitMb: 128,
       xpReward: 150,
@@ -5597,9 +5800,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def pacific_atlantic(heights: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]", expectedOutput: "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]", explanation: "Cells reaching both oceans." },
-        { input: "heights = [[1]]", expectedOutput: "[[0,0]]", explanation: "Single cell touches both oceans." }
-      ],
+          {
+                "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+                "expectedOutput": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]",
+                "explanation": "Cells reaching both oceans."
+          },
+          {
+                "input": "heights = [[1]]",
+                "expectedOutput": "[[0,0]]",
+                "explanation": "Single cell touches all oceans."
+          },
+          {
+                "input": "heights = [[2,2],[2,2]]",
+                "expectedOutput": "[[0,0],[0,1],[1,0],[1,1]]",
+                "isHidden": true,
+                "explanation": "Flat 2x2 plateau reaches both oceans."
+          },
+          {
+                "input": "heights = [[1,2],[3,4]]",
+                "expectedOutput": "[[0,1],[1,0],[1,1]]",
+                "isHidden": true,
+                "explanation": "Diagonal slope watershed cells."
+          }
+    ],
       timeLimitSeconds: 240,
       memoryLimitMb: 128,
       xpReward: 150,
@@ -5621,7 +5844,14 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         { input: "nums = [100,4,200,1,3,2]", expectedOutput: "4", explanation: "Longest consecutive elements sequence is [1, 2, 3, 4]. Length is 4." },
         { input: "nums = [0,3,7,2,5,8,4,6,0,1]", expectedOutput: "9", explanation: "Sequence 0 to 8 has length 9." },
         { input: "nums = []", expectedOutput: "0", explanation: "Empty array yields 0." }
-      ],
+      ,
+      {
+        input: "nums = Array.from({length: 2000}, (_, i) => (i * 7919) % 2000)",
+        expectedOutput: "2000",
+        isHidden: true,
+        explanation: "Scale benchmark: 2,000 shuffled consecutive elements O(N) constraint check."
+      }
+    ],
       timeLimitSeconds: 240,
       memoryLimitMb: 128,
       xpReward: 150,
@@ -5706,9 +5936,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def accounts_merge(accounts: list[list[str]]) -> list[list[str]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "accounts = [['John','johnsmith@mail.com','john_newyork@mail.com'],['John','johnsmith@mail.com','john00@mail.com'],['Mary','mary@mail.com'],['John','johnnybravo@mail.com']]", expectedOutput: "[['John','john00@mail.com','john_newyork@mail.com','johnsmith@mail.com'],['John','johnnybravo@mail.com'],['Mary','mary@mail.com']]", explanation: "Merged accounts sharing johnsmith@mail.com." },
-        { input: "accounts = [['Gabe','Gabe0@m.co','Gabe3@m.co'],['Kevin','Kevin3@m.co','Kevin5@m.co'],['Gabe','Gabe1@m.co','Gabe2@m.co'],['Gabe','Gabe3@m.co','Gabe4@m.co']]", expectedOutput: "[['Gabe','Gabe0@m.co','Gabe1@m.co','Gabe2@m.co','Gabe3@m.co','Gabe4@m.co'],['Kevin','Kevin3@m.co','Kevin5@m.co']]", explanation: "Multiple accounts of same user merged transitively." }
-      ],
+          {
+                "input": "accounts = [['John','johnsmith@mail.com','john_newyork@mail.com'],['John','johnsmith@mail.com','john00@mail.com'],['Mary','mary@mail.com'],['John','johnnybravo@mail.com']]",
+                "expectedOutput": "[['John','john00@mail.com','john_newyork@mail.com','johnsmith@mail.com'],['John','johnnybravo@mail.com'],['Mary','mary@mail.com']]",
+                "explanation": "Merged accounts sharing johnsmith@mail.com."
+          },
+          {
+                "input": "accounts = [['Gabe','Gabe0@m.co','Gabe3@m.co'],['Kevin','Kevin3@m.co','Kevin5@m.co'],['Gabe','Gabe1@m.co','Gabe2@m.co'],['Gabe','Gabe3@m.co','Gabe4@m.co']]",
+                "expectedOutput": "[['Gabe','Gabe0@m.co','Gabe3@m.co','Gabe4@m.co'],['Gabe','Gabe1@m.co','Gabe2@m.co'],['Kevin','Kevin3@m.co','Kevin5@m.co']]",
+                "explanation": "Multiple accounts of same user merged transitively."
+          },
+          {
+                "input": "accounts = [['David','david@mail.com','david01@mail.com']]",
+                "expectedOutput": "[['David','david01@mail.com','david@mail.com']]",
+                "isHidden": true,
+                "explanation": "Single account with sorted emails."
+          },
+          {
+                "input": "accounts = [['Alex','a@mail.com','b@mail.com'],['Alex','b@mail.com','c@mail.com'],['Alex','c@mail.com','d@mail.com']]",
+                "expectedOutput": "[['Alex','a@mail.com','b@mail.com','c@mail.com','d@mail.com']]",
+                "isHidden": true,
+                "explanation": "Transitive chain of emails unified."
+          }
+    ],
       timeLimitSeconds: 240,
       memoryLimitMb: 128,
       xpReward: 150,
@@ -5730,7 +5980,14 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         { input: "target = 7, nums = [2,3,1,2,4,3]", expectedOutput: "2", explanation: "Subarray [4,3] has the minimal length 2." },
         { input: "target = 4, nums = [1,4,4]", expectedOutput: "1", explanation: "Subarray [4] has length 1." },
         { input: "target = 11, nums = [1,1,1,1,1,1,1,1]", expectedOutput: "0", explanation: "No subarray sums to >= 11." }
-      ],
+      ,
+      {
+        input: "target = 1500, nums = [1, 1, ..., 1] (length 3,000)",
+        expectedOutput: "1500",
+        isHidden: true,
+        explanation: "Scale benchmark: 3,000 elements O(N) sliding window constraint check."
+      }
+    ],
       timeLimitSeconds: 240,
       memoryLimitMb: 128,
       xpReward: 150,
@@ -5774,9 +6031,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def get_skyline(buildings: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]", expectedOutput: "[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]", explanation: "Skyline critical contour points." },
-        { input: "buildings = [[0,2,3],[2,5,3]]", expectedOutput: "[[0,3],[5,0]]", explanation: "Contiguous buildings of same height form a single flat roof." }
-      ],
+          {
+                "input": "buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]",
+                "expectedOutput": "[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]",
+                "explanation": "Skyline critical contour points."
+          },
+          {
+                "input": "buildings = [[0,2,3],[2,5,3]]",
+                "expectedOutput": "[[0,3],[5,0]]",
+                "explanation": "Contiguous buildings of same height form a single flat roof."
+          },
+          {
+                "input": "buildings = [[1,2,1],[3,4,2]]",
+                "expectedOutput": "[[1,1],[2,0],[3,2],[4,0]]",
+                "isHidden": true,
+                "explanation": "Completely separated disjoint buildings."
+          },
+          {
+                "input": "buildings = [[1,5,10],[2,4,5]]",
+                "expectedOutput": "[[1,10],[5,0]]",
+                "isHidden": true,
+                "explanation": "Nested building completely enveloped inside higher roof."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5795,9 +6072,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def find_all_concatenated_words_in_a_dict(words: list[str]) -> list[str]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "words = ['cat','cats','catsdogcats','dog','dogcatsdog','hippopotamuses','rat','ratcatdogcat']", expectedOutput: "['catsdogcats','dogcatsdog','ratcatdogcat']", explanation: "Compound words formed from dictionary words." },
-        { input: "words = ['cat','dog','catdog']", expectedOutput: "['catdog']", explanation: "'catdog' = 'cat' + 'dog'." }
-      ],
+          {
+                "input": "words = ['cat','cats','catsdogcats','dog','dogcatsdog','hippopotamuses','rat','ratcatdogcat']",
+                "expectedOutput": "['catsdogcats','dogcatsdog','ratcatdogcat']",
+                "explanation": "Compound words formed from dictionary words."
+          },
+          {
+                "input": "words = ['cat','dog','catdog']",
+                "expectedOutput": "['catdog']",
+                "explanation": "'catdog' = 'cat' + 'dog'."
+          },
+          {
+                "input": "words = ['a','b','c']",
+                "expectedOutput": "[]",
+                "isHidden": true,
+                "explanation": "No compound words."
+          },
+          {
+                "input": "words = ['a','b','c','ab','abc']",
+                "expectedOutput": "['ab','abc']",
+                "isHidden": true,
+                "explanation": "Multi-hop chained concatenation."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5838,9 +6135,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def critical_connections(n: int, connections: list[list[int]]) -> list[list[int]]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]", expectedOutput: "[[1,3]]", explanation: "Removing [1,3] disconnects server 3." },
-        { input: "n = 2, connections = [[0,1]]", expectedOutput: "[[0,1]]", explanation: "Single connection is critical." }
-      ],
+          {
+                "input": "n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]",
+                "expectedOutput": "[[1,3]]",
+                "explanation": "Removing [1,3] disconnects server 3."
+          },
+          {
+                "input": "n = 2, connections = [[0,1]]",
+                "expectedOutput": "[[0,1]]",
+                "explanation": "Single connection is critical."
+          },
+          {
+                "input": "n = 3, connections = [[0,1],[1,2],[2,0]]",
+                "expectedOutput": "[]",
+                "isHidden": true,
+                "explanation": "Complete triangle cycle K3 has 0 critical bridges."
+          },
+          {
+                "input": "n = 3, connections = [[0,1],[1,2]]",
+                "expectedOutput": "[[0,1],[1,2]]",
+                "isHidden": true,
+                "explanation": "Linear chain where every edge is a critical bridge."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5862,7 +6179,14 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         { input: "nums = [5,2,6,1]", expectedOutput: "[2,1,1,0]", explanation: "To the right of 5: [2, 1] (2). To the right of 2: [1] (1). To the right of 6: [1] (1). Right of 1: [] (0)." },
         { input: "nums = [-1]", expectedOutput: "[0]", explanation: "Single element has 0 smaller elements to the right." },
         { input: "nums = [-1,-1]", expectedOutput: "[0,0]", explanation: "Identical elements." }
-      ],
+      ,
+      {
+        input: "nums = [2000, 1999, ..., 1]",
+        expectedOutput: "[1999, 1998, ..., 0]",
+        isHidden: true,
+        explanation: "Scale benchmark: 2,000 reverse-sorted elements O(N log N) Fenwick / Merge-sort check."
+      }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5881,9 +6205,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def find_maximized_capital(k: int, w: int, profits: list[int], capital: list[int]) -> int:\n    # Your solution here\n    return 0",
       },
       testCases: [
-        { input: "k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]", expectedOutput: "4", explanation: "Start project 0 (capital 0, profit 1) -> w=1. Then start project 2 (capital 1, profit 3) -> w=4." },
-        { input: "k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]", expectedOutput: "6", explanation: "Finish project 0, then 1, then 2. Capital becomes 6." }
-      ],
+          {
+                "input": "k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]",
+                "expectedOutput": "4",
+                "explanation": "Start project 0 (capital 0, profit 1) -> w=1. Then start project 2 (capital 1, profit 3) -> w=4."
+          },
+          {
+                "input": "k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]",
+                "expectedOutput": "6",
+                "explanation": "Finish project 0, then 1, then 2. Capital becomes 6."
+          },
+          {
+                "input": "k = 1, w = 0, profits = [1,2,3], capital = [1,1,2]",
+                "expectedOutput": "0",
+                "isHidden": true,
+                "explanation": "Insufficient starting capital to undertake any project."
+          },
+          {
+                "input": "k = 10, w = 5, profits = [2,3], capital = [1,2]",
+                "expectedOutput": "10",
+                "isHidden": true,
+                "explanation": "Available capital affords all available projects."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5902,17 +6246,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def simulate_file_system(operations: list[str], args: list[list[str]]) -> list:\n    # Your solution here\n    return []",
       },
       testCases: [
-        {
-          input: "operations = ['ls','mkdir','addContentToFile','ls','readContentFromFile'], args = [['/'],['/a/b/c'],['/a/b/c/d','hello'],['/'],['/a/b/c/d']]",
-          expectedOutput: "[[],null,null,['a'],'hello']",
-          explanation: "Standard POSIX file system lifecycle."
-        },
-        {
-          input: "operations = ['mkdir','ls'], args = [['/a'],['/']]",
-          expectedOutput: "[null,['a']]",
-          explanation: "Root directory lists newly created folder."
-        }
-      ],
+          {
+                "input": "operations = ['ls','mkdir','addContentToFile','ls','readContentFromFile'], args = [['/'],['/a/b/c'],['/a/b/c/d','hello'],['/'],['/a/b/c/d']]",
+                "expectedOutput": "[[],null,null,['a'],'hello']",
+                "explanation": "Standard POSIX file system lifecycle."
+          },
+          {
+                "input": "operations = ['mkdir','ls'], args = [['/a'],['/']]",
+                "expectedOutput": "[null,['a']]",
+                "explanation": "Root directory lists newly created folder."
+          },
+          {
+                "input": "operations = ['mkdir','addContentToFile','addContentToFile','ls'], args = [['/docs'],['/docs/z.txt','end'],['/docs/a.txt','start'],['/docs']]",
+                "expectedOutput": "[null,null,null,['a.txt','z.txt']]",
+                "isHidden": true,
+                "explanation": "Directory file listing is sorted lexicographically."
+          },
+          {
+                "input": "operations = ['addContentToFile','addContentToFile','readContentFromFile'], args = [['/log.txt','line1\\n'],['/log.txt','line2'],['/log.txt']]",
+                "expectedOutput": "[null,null,'line1\\nline2']",
+                "isHidden": true,
+                "explanation": "Appended content is concatenated to existing file."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5931,9 +6287,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def find_itinerary(tickets: list[list[str]]) -> list[str]:\n    # Your solution here\n    return []",
       },
       testCases: [
-        { input: "tickets = [['MUC','LHR'],['JFK','MUC'],['SFO','SJC'],['LHR','SFO']]", expectedOutput: "['JFK','MUC','LHR','SFO','SJC']", explanation: "Unique Eulerian path starting at JFK." },
-        { input: "tickets = [['JFK','SFO'],['JFK','ATL'],['SFO','ATL'],['ATL','JFK'],['ATL','SFO']]", expectedOutput: "['JFK','ATL','JFK','SFO','ATL','SFO']", explanation: "Lexicographically smallest route choosing ATL before SFO." }
-      ],
+          {
+                "input": "tickets = [['MUC','LHR'],['JFK','MUC'],['SFO','SJC'],['LHR','SFO']]",
+                "expectedOutput": "['JFK','MUC','LHR','SFO','SJC']",
+                "explanation": "Unique Eulerian path starting at JFK."
+          },
+          {
+                "input": "tickets = [['JFK','SFO'],['JFK','ATL'],['SFO','ATL'],['ATL','JFK'],['ATL','SFO']]",
+                "expectedOutput": "['JFK','ATL','JFK','SFO','ATL','SFO']",
+                "explanation": "Lexicographically smallest route choosing ATL before SFO."
+          },
+          {
+                "input": "tickets = [['JFK','KUL'],['KUL','JFK']]",
+                "expectedOutput": "['JFK','KUL','JFK']",
+                "isHidden": true,
+                "explanation": "Single complete round-trip loop."
+          },
+          {
+                "input": "tickets = [['JFK','NRT'],['JFK','KUL'],['KUL','JFK']]",
+                "expectedOutput": "['JFK','KUL','JFK','NRT']",
+                "isHidden": true,
+                "explanation": "Hierholzer backtrack visiting loop before terminal airport."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5952,9 +6328,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def longest_dup_substring(s: str) -> str:\n    # Your solution here\n    return ''",
       },
       testCases: [
-        { input: "s = 'banana'", expectedOutput: "'ana'", explanation: "'ana' appears twice at index 1 and index 3." },
-        { input: "s = 'abcd'", expectedOutput: "''", explanation: "No duplicate substring." }
-      ],
+          {
+                "input": "s = 'banana'",
+                "expectedOutput": "'ana'",
+                "explanation": "'ana' appears twice at index 1 and index 3."
+          },
+          {
+                "input": "s = 'abcd'",
+                "expectedOutput": "''",
+                "explanation": "No duplicate substring."
+          },
+          {
+                "input": "s = 'aaaaa'",
+                "expectedOutput": "'aaaa'",
+                "isHidden": true,
+                "explanation": "Overlapping duplicate substring of repeated characters."
+          },
+          {
+                "input": "s = 'aa'",
+                "expectedOutput": "'a'",
+                "isHidden": true,
+                "explanation": "Smallest repeated single character."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
@@ -5973,9 +6369,29 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
         python: "def num_buses_to_destination(routes: list[list[int]], source: int, target: int) -> int:\n    # Your solution here\n    return -1",
       },
       testCases: [
-        { input: "routes = [[1,2,7],[3,6,7]], source = 1, target = 6", expectedOutput: "2", explanation: "Take bus 0 to stop 7, then bus 1 to stop 6. Total = 2 buses." },
-        { input: "routes = [[7,12],[4,5,15],[6],[15,19],[9,12,13]], source = 15, target = 12", expectedOutput: "-1", explanation: "No route connects stop 15 to stop 12." }
-      ],
+          {
+                "input": "routes = [[1,2,7],[3,6,7]], source = 1, target = 6",
+                "expectedOutput": "2",
+                "explanation": "Take bus 0 to stop 7, then bus 1 to stop 6. Total = 2 buses."
+          },
+          {
+                "input": "routes = [[7,12],[4,5,15],[6],[15,19],[9,12,13]], source = 15, target = 12",
+                "expectedOutput": "-1",
+                "explanation": "No route connects stop 15 to stop 12."
+          },
+          {
+                "input": "routes = [[1,2,3]], source = 2, target = 2",
+                "expectedOutput": "0",
+                "isHidden": true,
+                "explanation": "Source equals target, 0 buses required."
+          },
+          {
+                "input": "routes = [[1,2,3,4]], source = 1, target = 4",
+                "expectedOutput": "1",
+                "isHidden": true,
+                "explanation": "Single direct bus."
+          }
+    ],
       timeLimitSeconds: 360,
       memoryLimitMb: 128,
       xpReward: 200,
