@@ -150,15 +150,57 @@ function LeaderboardContent() {
   // Real-time synchronization trigger when combat matches settle
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+  // Synchronize joinedLeague reactively when user hydrates or server profile arrives
   useEffect(() => {
-    const handleProfileUpdate = () => {
+    if (typeof window === 'undefined') return;
+    if ((user as any)?.league_tier || serverCurrentUser?.leagueTier) {
+      setJoinedLeague(true);
+      return;
+    }
+    if (user?.id) {
+      const stored = localStorage.getItem(`pinit_joined_league_${user.id}`);
+      if (stored === 'true') {
+        setJoinedLeague(true);
+      }
+    }
+  }, [user, serverCurrentUser]);
+
+  // Modal Escape key listener and body scroll-lock
+  useEffect(() => {
+    if (!isLeagueModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsLeagueModalOpen(false);
+      }
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isLeagueModalOpen]);
+
+  useEffect(() => {
+    const handleProfileUpdate = (e: any) => {
+      if (e?.detail) {
+        if (e.detail.league_tier) {
+          setJoinedLeague(true);
+        }
+        if (user) {
+          if (typeof e.detail.elo === 'number') (user as any).arena_elo = e.detail.elo;
+          if (typeof e.detail.weeklyXp === 'number') (user as any).weekly_xp = e.detail.weeklyXp;
+          if (typeof e.detail.totalXp === 'number') (user as any).xp_total = e.detail.totalXp;
+        }
+      }
       setRefreshTrigger(prev => prev + 1);
     };
     if (typeof window !== 'undefined') {
-      window.addEventListener('pinit:user_profile_updated', handleProfileUpdate);
-      return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate);
+      window.addEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
+      return () => window.removeEventListener('pinit:user_profile_updated', handleProfileUpdate as EventListener);
     }
-  }, []);
+  }, [user]);
 
   // Fetch real leaderboard telemetry from server
   useEffect(() => {
@@ -291,8 +333,15 @@ function LeaderboardContent() {
       return matchesSearch && matchesDomain;
     });
 
-    if (currentUserEntry && !searchQuery && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
-      result.push(currentUserEntry);
+    if (currentUserEntry && !result.some(e => e.studentId === currentUserEntry.studentId || e.isCurrentUser)) {
+      const matchesSearch = !searchQuery ||
+        currentUserEntry.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        currentUserEntry.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        currentUserEntry.programTitle.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesDomain = domainFilter === 'all' || currentUserEntry.programTitle.toLowerCase().includes(domainFilter);
+      if (matchesSearch && matchesDomain) {
+        result.push(currentUserEntry);
+      }
     }
 
     return result;
@@ -327,6 +376,8 @@ function LeaderboardContent() {
           data-testid="interactive-league-emblem-btn"
           onClick={() => setIsLeagueModalOpen(true)}
           title="Click to inspect all competitive divisions"
+          aria-haspopup="dialog"
+          aria-expanded={isLeagueModalOpen}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -658,10 +709,15 @@ function LeaderboardContent() {
           `}</style>
           <div
             data-testid="league-division-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Competitive Division Vault"
             onClick={e => e.stopPropagation()}
             style={{
               width: '100%',
               maxWidth: 960,
+              maxHeight: 'min(90vh, 760px)',
+              overflowY: 'auto',
               background: 'linear-gradient(145deg, var(--card) 0%, var(--bg3) 100%)',
               border: `1.5px solid ${activeLeagueMeta.color}60`,
               borderRadius: 22,
@@ -688,6 +744,7 @@ function LeaderboardContent() {
                 type="button"
                 onClick={() => setIsLeagueModalOpen(false)}
                 data-testid="close-league-modal-btn"
+                aria-label="Close division vault"
                 style={{
                   background: 'rgba(255, 255, 255, 0.06)',
                   border: '1px solid var(--border)',
@@ -1393,7 +1450,7 @@ function LeaderboardContent() {
 
 export default function LeaderboardPage() {
   return (
-    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>Loading Competency & Weekly Leagues...</div>}>
+    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>Loading Leaderboard & Leagues...</div>}>
       <LeaderboardContent />
     </Suspense>
   );
