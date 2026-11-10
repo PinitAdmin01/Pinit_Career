@@ -325,23 +325,23 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 17,
-    "title": "End-to-End Type Safety with tRPC & Zod Invariants",
+    "title": "API Rate Limiting Architecture: Token Bucket Algorithms, Leaky Bucket & Sliding Window Traffic Shaping",
     "desc": "Protect API endpoints against DDoS attacks and brute-force cracking using memory-efficient Token Bucket rate limiters.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Rate Limiting Algorithms: Token Bucket & Leaky Bucket.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Threat Landscapes & Rate Limiting Algorithmic Models: Fixed Window, Sliding Window Log, Sliding Window Counter, and Token Bucket",
+      "Token Bucket Physics & Continuous Mathematical Refill: Eliminating Active Timers via Elapsed-Time State Transitions",
+      "HTTP Telemetry & Backoff Resilience: RFC 6585 HTTP 429 Protocols, Retry-After Headers, and Distributed Redis Lua Atomicity"
     ],
     "eTitle": "Token Bucket Rate Limiter",
-    "eDesc": "Implement class TokenBucketLimiter with constructor(capacity, refillRatePerSec) and allowRequest(tokens = 1).",
-    "eStarter": "class TokenBucketLimiter {\n  constructor(capacity, refillRatePerSec) {\n    // Calculate elapsed time since last refill, add tokens up to capacity, and deduct cost if sufficient.\n    \n  }\n  _refill() {\n    // Calculate elapsed time since last refill, add tokens up to capacity, and deduct cost if sufficient.\n    \n  }\n  allowRequest(cost = 1) {\n    // Calculate elapsed time since last refill, add tokens up to capacity, and deduct cost if sufficient.\n    \n  }\n\n}",
-    "eHint": "Calculate elapsed time since last refill, add tokens up to capacity, and deduct cost if sufficient.",
-    "eTest": "const limiter = new TokenBucketLimiter(2, 1);\nif (!limiter.allowRequest() || !limiter.allowRequest()) throw new Error('Failed initial burst');\nif (limiter.allowRequest() !== false) throw new Error('Exceeded token bucket rate limit should return false');",
+    "eDesc": "Implement class TokenBucketLimiter with constructor(capacity, refillRatePerSec) and allowRequest(cost = 1) that continuously refills tokens based on elapsed time without timers.",
+    "eStarter": "/**\n * Memory-efficient Token Bucket Rate Limiter with continuous mathematical replenishment.\n */\nclass TokenBucketLimiter {\n  constructor(capacity, refillRatePerSec) {\n    this.capacity = capacity;\n    this.refillRate = refillRatePerSec;\n    this.tokens = capacity;\n    this.lastRefill = Date.now();\n  }\n\n  _refill() {\n    // 1. Calculate elapsed seconds since lastRefill: (now - lastRefill) / 1000\n    // 2. Add tokens = elapsed * refillRate\n    // 3. Clamp tokens to this.capacity and update this.lastRefill\n    \n  }\n\n  allowRequest(cost = 1) {\n    // 1. Refill tokens\n    // 2. If tokens >= cost, deduct cost and return true; else return false\n    \n  }\n}",
+    "eHint": "In _refill(), const now = Date.now(); const delta = (now - this.lastRefill) / 1000; this.tokens = Math.min(this.capacity, this.tokens + delta * this.refillRate); this.lastRefill = now. In allowRequest(), call this._refill(); if (this.tokens >= cost) { this.tokens -= cost; return true; } return false;",
+    "eTest": "const limiter = new TokenBucketLimiter(2, 1);\nif (!limiter.allowRequest() || !limiter.allowRequest()) throw new Error('Failed initial burst within capacity');\nif (limiter.allowRequest() !== false) throw new Error('Exceeded token bucket rate limit should return false');\n\n// Artificially advance clock by 1.1 seconds to test continuous refill\nlimiter.lastRefill = Date.now() - 1100;\nif (limiter.allowRequest() !== true) throw new Error('Token bucket failed to refill after elapsed time');\nif (limiter.allowRequest() !== false) throw new Error('Token bucket allowed request without sufficient refilled tokens');",
     "aTitle": "Rate Limit Exceeded Header Formatter",
-    "aDesc": "Implement function formatRateLimitHeaders(limit, remaining, resetSeconds) returning headers object.",
-    "aStarter": "function formatRateLimitHeaders(limit, remaining, reset) {\n  // Return object with limit, remaining, and Retry-After headers.\n  \n}",
-    "aHint": "Return object with limit, remaining, and Retry-After headers.",
-    "aTest": "const h = formatRateLimitHeaders(100, 0, 60);\nif (h['Retry-After'] !== '60') throw new Error('Rate limit header failed');"
+    "aDesc": "Implement function formatRateLimitHeaders(limit, remaining, resetSeconds) returning headers object with standard rate limiting telemetry.",
+    "aStarter": "/**\n * Formats standardized HTTP rate limiting headers according to RFC 6585.\n * @param {number} limit - Maximum request quota per window\n * @param {number} remaining - Remaining quota\n * @param {number} resetSeconds - Seconds until quota refills\n * @returns {object} Object with rate limit header strings\n */\nfunction formatRateLimitHeaders(limit, remaining, resetSeconds) {\n  // Format and return headers object\n  \n}",
+    "aHint": "return { 'X-RateLimit-Limit': String(limit), 'X-RateLimit-Remaining': String(Math.max(0, remaining)), 'X-RateLimit-Reset': String(resetSeconds), 'Retry-After': String(resetSeconds) };",
+    "aTest": "const h = formatRateLimitHeaders(100, 0, 60);\nif (h['Retry-After'] !== '60') throw new Error('Retry-After header failed');\nif (h['X-RateLimit-Limit'] !== '100') throw new Error('X-RateLimit-Limit header failed');\nif (h['X-RateLimit-Remaining'] !== '0') throw new Error('X-RateLimit-Remaining header failed');\nif (h['X-RateLimit-Reset'] !== '60') throw new Error('X-RateLimit-Reset header failed');"
   },
   {
     "day": 18,
