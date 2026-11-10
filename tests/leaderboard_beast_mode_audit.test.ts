@@ -78,27 +78,19 @@ test('Mock Cohorts: All 5 divisions have calibrated cohorts for testing', () => 
 });
 
 // ── 3. BEAST-TIER UI/UX & PODIUM SHOWCASE AUDIT ──────────────────────────────
-test('Podium Showcase: Top 3 pedestal cards with Gold, Silver, and Bronze elevation', () => {
-  // Per Task 2, podium showcase is temporarily disabled from rendering
+test('Podium Showcase: Temporarily removed per Task 2', () => {
+  // Per Task 2, podium showcase is temporarily removed from rendering
   assert.ok(
-    leaderboardPage.includes('Temporarily disabled per Task 2'),
-    'Podium showcase must be marked temporarily disabled per Task 2'
+    leaderboardPage.includes('TOP 3 CHAMPIONS PODIUM SHOWCASE (Temporarily removed per Task 2)'),
+    'Podium showcase must be marked temporarily removed per Task 2'
   );
   assert.ok(
-    leaderboardPage.includes('1st Place · Division Leader'),
-    'Pedestal markup must preserve 1st Place title without emojis'
+    !leaderboardPage.includes('2nd Place Contender'),
+    'Podium component 2nd Place Contender must be removed per Task 2'
   );
   assert.ok(
-    leaderboardPage.includes('2nd Place Contender'),
-    'Pedestal markup must preserve 2nd Place title without emojis'
-  );
-  assert.ok(
-    leaderboardPage.includes('3rd Place Challenger'),
-    'Pedestal markup must preserve 3rd Place title without emojis'
-  );
-  assert.ok(
-    leaderboardPage.includes("transform: 'scale(1.03)'"),
-    'Gold 1st place card must be visually elevated with scale(1.03)'
+    !leaderboardPage.includes('3rd Place Challenger'),
+    'Podium component 3rd Place Challenger must be removed per Task 2'
   );
 });
 

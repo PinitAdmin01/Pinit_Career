@@ -59,7 +59,7 @@ test('Python long lessons are complete, full-length classes with zero robotic bo
     assert.ok(estimateSpokenMinutes(lesson) >= 9, `${where}: only ${estimateSpokenMinutes(lesson)} minutes of teaching`);
     assert.ok(lesson.summary.length >= 3, `${where}: summary too short`);
     assert.ok(lesson.projectStep && lesson.projectStep.steps.length > 0, `${where}: missing project step`);
-    if (lesson.day <= 30 && lesson.recap) {
+    if (lesson.recap) {
       assert.ok(
         !lesson.recap.includes('Today you will build a rock-solid mental model of'),
         `${where}: contains synthetic robotic recap`
@@ -67,18 +67,25 @@ test('Python long lessons are complete, full-length classes with zero robotic bo
     }
     for (const part of lesson.parts) {
       assert.ok(part.say.length >= 3, `${where} "${part.title}": teacher explanation too short`);
-      if (lesson.day <= 30) {
-        for (const paragraph of part.say as string[]) {
-          assert.ok(
-            !paragraph.startsWith('When studying ') &&
-              !paragraph.startsWith('In production engineering and operational workflows,'),
-            `${where} "${part.title}": contains synthetic boilerplate paragraph`
-          );
-        }
+      for (const paragraph of part.say as string[]) {
+        assert.ok(
+          !paragraph.startsWith('When studying ') &&
+            !paragraph.startsWith('In production engineering and operational workflows,') &&
+            !paragraph.includes('novice approaches') &&
+            !paragraph.includes('seasoned specialist') &&
+            !paragraph.includes('directly to day-to-day practice') &&
+            !paragraph.includes('common pitfall when implementing') &&
+            !paragraph.includes('mentally trace what happens if the primary input') &&
+            !paragraph.includes('plain-language justification') &&
+            !paragraph.includes('absorbs that shock') &&
+            !paragraph.includes('Why does this distinction matter so much when working through') &&
+            !paragraph.includes('verifying the underlying assumptions before acting on the headline figure'),
+          `${where} "${part.title}": contains synthetic boilerplate paragraph`
+        );
       }
       const { options, answer, why } = part.check!;
       assert.ok(options.length >= 2 && answer! >= 0 && answer! < options.length, `${where} "${part.title}": bad check question`);
-      if (lesson.day <= 30 && why) {
+      if (why) {
         assert.ok(
           !/\b(the last one is a task|the first option|the last option|both of the above|all of the above)\b/i.test(why),
           `${where} "${part.title}": check explanation relies on unshuffled option position`

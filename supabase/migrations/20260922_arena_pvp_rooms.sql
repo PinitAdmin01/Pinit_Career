@@ -49,7 +49,7 @@ CREATE INDEX IF NOT EXISTS idx_arena_queue_status_diff ON public.arena_matchmaki
 
 -- 3. Add arena_elo column to users table if not exists
 ALTER TABLE public.users
-  ADD COLUMN IF NOT EXISTS arena_elo INTEGER DEFAULT 1200,
+  ADD COLUMN IF NOT EXISTS arena_elo INTEGER DEFAULT 100,
   ADD COLUMN IF NOT EXISTS arena_wins INTEGER DEFAULT 0,
   ADD COLUMN IF NOT EXISTS arena_losses INTEGER DEFAULT 0;
 

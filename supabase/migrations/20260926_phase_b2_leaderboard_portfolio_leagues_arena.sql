@@ -41,7 +41,7 @@ alter table public.users
   add column if not exists batch_year         integer,
   add column if not exists full_name          text,
   add column if not exists voice_print        jsonb,
-  add column if not exists arena_elo          integer default 1200,
+  add column if not exists arena_elo          integer default 100,
   add column if not exists arena_wins         integer default 0,
   add column if not exists arena_losses       integer default 0,
   add column if not exists league_tier        text default 'browns',

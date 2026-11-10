@@ -16,10 +16,10 @@ test('TASK 1: Removal of old buttons and replacement with 2 dynamic circles side
   assert.ok(!leaderboardPage.includes('1v1 Battle Arena</Link>'), 'Old 1v1 Battle Arena button must be removed from HUD');
   assert.ok(!leaderboardPage.includes('Pins Wallet</Link>'), 'Old Pins Wallet button must be removed from HUD');
 
-  // 2. Circle 1: Vanishes when requirement is met (userTotalXp >= 100 or joinedLeague)
+  // 2. Circle 1: Vanishes when requirement is met (userTotalXp >= 100)
   assert.ok(
-    leaderboardPage.includes('(userTotalXp < 100 && !joinedLeague) &&'),
-    'Circle 1 must conditionally render only when userTotalXp < 100 and !joinedLeague'
+    leaderboardPage.includes('userTotalXp < 100 && ('),
+    'Circle 1 must conditionally render when userTotalXp < 100 and vanish when requirement is met'
   );
   assert.ok(
     leaderboardPage.includes('League Entry Requirement: 100 XP Needed to Join'),
@@ -42,14 +42,22 @@ test('TASK 1: Removal of old buttons and replacement with 2 dynamic circles side
 });
 
 // ── TASK 2: TEMPORARILY REMOVE TOP 3 PODIUM SHOWCASE ──────────────────────────
-test('TASK 2: Top 3 Podium Showcase is temporarily disabled from rendering', () => {
+test('TASK 2: Top 3 Podium Showcase is cleanly removed from rendering without fake flags', () => {
   assert.ok(
-    leaderboardPage.includes('Temporarily disabled per Task 2'),
-    'Top 3 Podium Showcase must be commented or guarded as disabled'
+    leaderboardPage.includes('TOP 3 CHAMPIONS PODIUM SHOWCASE (Temporarily removed per Task 2)'),
+    'Top 3 Podium Showcase must be documented as temporarily removed per Task 2'
   );
   assert.ok(
-    leaderboardPage.includes('false && activeTab !== \'guild_projects\' && filteredEntries.length >= 3'),
-    'Podium JSX condition must be guarded with false && to prevent rendering DOM elements'
+    !leaderboardPage.includes('2nd Place Contender'),
+    'Podium DOM elements (2nd Place Contender) must be completely excised from JSX'
+  );
+  assert.ok(
+    !leaderboardPage.includes('3rd Place Challenger'),
+    'Podium DOM elements (3rd Place Challenger) must be completely excised from JSX'
+  );
+  assert.ok(
+    !leaderboardPage.includes('false && activeTab !=='),
+    'Zero fake-flag boolean hacks allowed in JSX'
   );
 });
 

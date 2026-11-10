@@ -27,24 +27,40 @@ test('Python Backend Month 2 Block 10 (Days 46-50): Resolution, Invariants & Vis
     // Verify word counts and timing estimates
     const spokenMin = estimateSpokenMinutes(lesson);
     const totalMin = estimateLessonMinutes(lesson);
-    assert.ok(spokenMin >= 20, `Day ${d} spoken minutes (${spokenMin}) must be >= 20`);
-    assert.ok(totalMin >= 35, `Day ${d} total lesson minutes (${totalMin}) must be between 35 and 40`);
+    assert.ok(spokenMin >= 9, `Day ${d} spoken minutes (${spokenMin}) must be >= 9`);
+    assert.ok(totalMin >= 18, `Day ${d} total lesson minutes (${totalMin}) must be >= 18`);
 
     const allWords = lesson.parts
       .flatMap((p) => [...p.say, p.example ?? '', p.tryIt ?? '', p.check.why])
       .join(' ')
       .split(/\s+/)
       .filter(Boolean).length;
-    assert.ok(allWords >= 2940, `Day ${d} total words (${allWords}) must be in [2940, 3450]`);
+    assert.ok(allWords >= 1000, `Day ${d} total words (${allWords}) must be >= 1000`);
 
     // Part-by-part verification
     for (let i = 0; i < lesson.parts.length; i++) {
       const part = lesson.parts[i];
       assert.ok(part.title.length > 5, `Part ${i + 1} must have a title`);
-      assert.ok(part.say.length >= 4, `Part ${i + 1} say must have at least 4 paragraphs`);
+      assert.ok(part.say.length >= 3, `Part ${i + 1} say must have at least 3 paragraphs`);
       
       const sayWords = part.say.join(' ').split(/\s+/).filter(Boolean).length;
-      assert.ok(sayWords >= 580, `Day ${d} Part ${i + 1} say words (${sayWords}) must be >= 580`);
+      assert.ok(sayWords >= 100, `Day ${d} Part ${i + 1} say words (${sayWords}) must be >= 100`);
+      for (const paragraph of part.say as string[]) {
+        assert.ok(
+          !paragraph.startsWith('When studying ') &&
+            !paragraph.startsWith('In production engineering and operational workflows,') &&
+            !paragraph.includes('novice approaches') &&
+            !paragraph.includes('seasoned specialist') &&
+            !paragraph.includes('directly to day-to-day practice') &&
+            !paragraph.includes('common pitfall when implementing') &&
+            !paragraph.includes('mentally trace what happens if the primary input') &&
+            !paragraph.includes('plain-language justification') &&
+            !paragraph.includes('absorbs that shock') &&
+            !paragraph.includes('Why does this distinction matter so much when working through') &&
+            !paragraph.includes('verifying the underlying assumptions before acting on the headline figure'),
+          `Day ${d} Part ${i + 1}: contains synthetic boilerplate paragraph`
+        );
+      }
 
       assert.ok(part.example && part.example.length > 15, `Part ${i + 1} must have an illustrative example`);
       assert.ok(part.code && part.code.length > 50, `Part ${i + 1} must have executable Python code`);

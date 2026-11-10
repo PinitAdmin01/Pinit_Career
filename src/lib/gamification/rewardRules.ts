@@ -114,17 +114,20 @@ export const REWARD_RULES = {
 
 // ── Rating & Tier Boundaries ─────────────────────────────────────────────
 export const ELO_TIERS = [
-  { min: 1800, max: Infinity, tier: 'Grandmaster', badge: '👑', color: '#f59e0b', kFactor: 16 },
-  { min: 1400, max: 1799,     tier: 'Warrior',     badge: '⚔️', color: '#8b5cf6', kFactor: 24 },
-  { min: 1000, max: 1399,     tier: 'Cadet',       badge: '🛡️', color: '#38bdf8', kFactor: 32 },
+  { min: 500, max: Infinity, tier: 'Grandmaster Apex', badge: '👑', color: '#f59e0b', kFactor: 16 },
+  { min: 400, max: 499,      tier: 'Diamond Apex',     badge: '💎', color: '#06b6d4', kFactor: 20 },
+  { min: 280, max: 399,      tier: 'Platinum Vanguard',badge: '🛡️', color: '#8b5cf6', kFactor: 24 },
+  { min: 200, max: 279,      tier: 'Gold Architect',   badge: '⚔️', color: '#eab308', kFactor: 28 },
+  { min: 140, max: 199,      tier: 'Silver Tactician', badge: '⚡', color: '#94a3b8', kFactor: 32 },
+  { min: 100, max: 139,      tier: 'Bronze Cadet',     badge: '🔰', color: '#b45309', kFactor: 32 },
 ] as const;
 
 export function getEloTier(rating: number) {
-  const r = Math.max(1000, Number(rating) || 1200);
+  const r = Math.max(100, Number(rating) || 100);
   for (const t of ELO_TIERS) {
     if (r >= t.min) return t;
   }
-  return ELO_TIERS[2]; // Cadet fallback
+  return ELO_TIERS[ELO_TIERS.length - 1]; // Bronze Cadet fallback
 }
 
 /**
@@ -132,8 +135,8 @@ export function getEloTier(rating: number) {
  * Tells players upfront: "If you win: +X Elo | If you lose: -Y Elo".
  */
 export function calculateStakesPreview(myRating: number, opponentRating: number) {
-  const myR = Math.max(1000, Number(myRating) || 1200);
-  const oppR = Math.max(1000, Number(opponentRating) || 1200);
+  const myR = Math.max(100, Number(myRating) || 100);
+  const oppR = Math.max(100, Number(opponentRating) || 100);
 
   const myExpected = 1 / (1 + Math.pow(10, (oppR - myR) / 400));
   const myTier = getEloTier(myR);

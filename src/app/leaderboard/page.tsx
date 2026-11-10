@@ -119,6 +119,13 @@ function LeaderboardContent() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Auto-heal legacy 1200 database rows in Supabase
+  useEffect(() => {
+    if (user?.id && (user as any)?.arena_elo === 1200 && !(user as any)?.arena_wins) {
+      Promise.resolve(supabase.from('users').update({ arena_elo: 100 }).eq('id', user.id)).catch(() => {});
+    }
+  }, [user]);
+
   // Task 10: 100 XP League Gate State
   const userTotalXp = typeof cOS?.xp === 'number' && Number.isFinite(cOS.xp)
     ? cOS.xp
@@ -541,7 +548,7 @@ function LeaderboardContent() {
         {/* Right Section: Two Dynamic Circles Side-by-Side (Task 1) */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 16 }}>
           {/* Circle 1: League Entry Requirement: 100 XP Needed to Join (Vanishes when requirement met) */}
-          {(userTotalXp < 100 && !joinedLeague) && (
+          {userTotalXp < 100 && (
             <div ref={xpReqRef} style={{ position: 'relative' }}>
               <button
                 type="button"
@@ -1170,242 +1177,9 @@ function LeaderboardContent() {
         </div>
       )}
 
-      {/* ── TOP 3 CHAMPIONS PODIUM SHOWCASE (Temporarily disabled per Task 2) ── */}
-      {false && activeTab !== 'guild_projects' && filteredEntries.length >= 3 && !loading && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 16,
-          marginBottom: 24,
-          alignItems: 'end',
-        }}>
-          {/* Rank 2: Silver Pedestal (Left) */}
-          {filteredEntries[1] && (
-            <div style={{
-              background: 'linear-gradient(180deg, rgba(148, 163, 184, 0.12) 0%, var(--card) 100%)',
-              border: '1.5px solid rgba(148, 163, 184, 0.4)',
-              borderRadius: 20,
-              padding: '24px 20px 20px',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              position: 'relative',
-              boxShadow: 'var(--shadow-md), 0 0 24px rgba(148, 163, 184, 0.15)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            }}>
-              <div style={{
-                position: 'absolute',
-                top: -12,
-                padding: '4px 14px',
-                borderRadius: 20,
-                background: 'linear-gradient(135deg, #94a3b8, #64748b)',
-                color: '#ffffff',
-                fontSize: 11.5,
-                fontWeight: 900,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                boxShadow: '0 2px 10px rgba(148, 163, 184, 0.4)',
-              }}>
-                2nd Place Contender
-              </div>
-              <div style={{ position: 'relative', marginTop: 6, marginBottom: 12 }}>
-                <Image
-                  src={filteredEntries[1].avatarUrl}
-                  alt={filteredEntries[1].name}
-                  width={68}
-                  height={68}
-                  style={{
-                    width: 68,
-                    height: 68,
-                    borderRadius: 34,
-                    border: '3px solid #94a3b8',
-                    boxShadow: '0 0 16px rgba(148, 163, 184, 0.5)',
-                    objectFit: 'cover',
-                  }}
-                  unoptimized
-                />
-              </div>
-              <div style={{ fontSize: 16.5, fontWeight: 900, color: filteredEntries[1].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                {filteredEntries[1].name}
-                {filteredEntries[1].isCurrentUser && (
-                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>YOU</span>
-                )}
-              </div>
-              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2, marginBottom: 12 }}>
-                {filteredEntries[1].college}
-              </div>
-              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(217, 119, 6, 0.12)', color: '#d97706', fontSize: 12.5, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
-                  +{activeTab === 'weekly_leagues' ? filteredEntries[1].weeklyXp.toLocaleString() : filteredEntries[1].totalXp.toLocaleString()} XP
-                </span>
-                {activeTab === 'weekly_leagues' && (
-                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', fontSize: 12.5, fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
-                    {filteredEntries[1].eloRating} ELO
-                  </span>
-                )}
-                {activeTab === 'weekly_leagues' && (
-                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                    {(filteredEntries[1].leagueScore ?? (filteredEntries[1].weeklyXp + Math.round(Math.max(0, filteredEntries[1].eloRating - 100) * 1.5))).toLocaleString()} pts
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
+      {/* ── TOP 3 CHAMPIONS PODIUM SHOWCASE (Temporarily removed per Task 2) ── */}
 
-          {/* Rank 1: Gold Pedestal (Center - Elevated!) */}
-          {filteredEntries[0] && (
-            <div style={{
-              background: 'linear-gradient(180deg, rgba(245, 158, 11, 0.18) 0%, var(--card) 100%)',
-              border: '2px solid rgba(245, 158, 11, 0.65)',
-              borderRadius: 22,
-              padding: '30px 22px 24px',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              position: 'relative',
-              boxShadow: 'var(--shadow-lg), 0 0 36px rgba(245, 158, 11, 0.25)',
-              transform: 'scale(1.03)',
-              zIndex: 2,
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            }}>
-              <div style={{
-                position: 'absolute',
-                top: -14,
-                padding: '5px 18px',
-                borderRadius: 20,
-                background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                color: '#ffffff',
-                fontSize: 12,
-                fontWeight: 900,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                boxShadow: '0 4px 16px rgba(245, 158, 11, 0.5)',
-              }}>
-                1st Place · Division Leader
-              </div>
-              <div style={{ position: 'relative', marginTop: 4, marginBottom: 12 }}>
-                <Image
-                  src={filteredEntries[0].avatarUrl}
-                  alt={filteredEntries[0].name}
-                  width={80}
-                  height={80}
-                  style={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: 40,
-                    border: '3.5px solid #f59e0b',
-                    boxShadow: '0 0 24px rgba(245, 158, 11, 0.65)',
-                    objectFit: 'cover',
-                  }}
-                  unoptimized
-                />
-              </div>
-              <div style={{ fontSize: 18, fontWeight: 900, color: filteredEntries[0].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                {filteredEntries[0].name}
-                {filteredEntries[0].isCurrentUser && (
-                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>YOU</span>
-                )}
-              </div>
-              <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2, marginBottom: 14 }}>
-                {filteredEntries[0].college}
-              </div>
-              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
-                <span style={{ padding: '5px 12px', borderRadius: 8, background: 'rgba(217, 119, 6, 0.15)', color: '#d97706', fontSize: 13.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                  +{activeTab === 'weekly_leagues' ? filteredEntries[0].weeklyXp.toLocaleString() : filteredEntries[0].totalXp.toLocaleString()} XP
-                </span>
-                {activeTab === 'weekly_leagues' && (
-                  <span style={{ padding: '5px 12px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.15)', color: '#dc2626', fontSize: 13.5, fontWeight: 900, border: '1px solid rgba(239, 68, 68, 0.3)' }}>
-                    {filteredEntries[0].eloRating} ELO
-                  </span>
-                )}
-                {activeTab === 'weekly_leagues' && (
-                  <span style={{ padding: '5px 14px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.2)', color: '#059669', fontSize: 13.5, fontWeight: 900, fontFamily: 'var(--font-mono)', border: '1px solid rgba(16, 185, 129, 0.35)' }}>
-                    {(filteredEntries[0].leagueScore ?? (filteredEntries[0].weeklyXp + Math.round(Math.max(0, filteredEntries[0].eloRating - 100) * 1.5))).toLocaleString()} pts
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Rank 3: Bronze Pedestal (Right) */}
-          {filteredEntries[2] && (
-            <div style={{
-              background: 'linear-gradient(180deg, rgba(217, 119, 6, 0.12) 0%, var(--card) 100%)',
-              border: '1.5px solid rgba(217, 119, 6, 0.4)',
-              borderRadius: 20,
-              padding: '24px 20px 20px',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              position: 'relative',
-              boxShadow: 'var(--shadow-md), 0 0 24px rgba(217, 119, 6, 0.15)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            }}>
-              <div style={{
-                position: 'absolute',
-                top: -12,
-                padding: '4px 14px',
-                borderRadius: 20,
-                background: 'linear-gradient(135deg, #d97706, #b45309)',
-                color: '#ffffff',
-                fontSize: 11.5,
-                fontWeight: 900,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                boxShadow: '0 2px 10px rgba(217, 119, 6, 0.4)',
-              }}>
-                3rd Place Challenger
-              </div>
-              <div style={{ position: 'relative', marginTop: 6, marginBottom: 12 }}>
-                <Image
-                  src={filteredEntries[2].avatarUrl}
-                  alt={filteredEntries[2].name}
-                  width={68}
-                  height={68}
-                  style={{
-                    width: 68,
-                    height: 68,
-                    borderRadius: 34,
-                    border: '3px solid #d97706',
-                    boxShadow: '0 0 16px rgba(217, 119, 6, 0.5)',
-                    objectFit: 'cover',
-                  }}
-                  unoptimized
-                />
-              </div>
-              <div style={{ fontSize: 16.5, fontWeight: 900, color: filteredEntries[2].isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                {filteredEntries[2].name}
-                {filteredEntries[2].isCurrentUser && (
-                  <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>YOU</span>
-                )}
-              </div>
-              <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 2, marginBottom: 12 }}>
-                {filteredEntries[2].college}
-              </div>
-              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(217, 119, 6, 0.12)', color: '#d97706', fontSize: 12.5, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
-                  +{activeTab === 'weekly_leagues' ? filteredEntries[2].weeklyXp.toLocaleString() : filteredEntries[2].totalXp.toLocaleString()} XP
-                </span>
-                {activeTab === 'weekly_leagues' && (
-                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', fontSize: 12.5, fontWeight: 800, border: '1px solid rgba(239, 68, 68, 0.25)' }}>
-                    {filteredEntries[2].eloRating} ELO
-                  </span>
-                )}
-                {activeTab === 'weekly_leagues' && (
-                  <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', color: '#059669', fontSize: 12.5, fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
-                    {(filteredEntries[2].leagueScore ?? (filteredEntries[2].weeklyXp + Math.round(Math.max(0, filteredEntries[2].eloRating - 100) * 1.5))).toLocaleString()} pts
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* ── TAB CONTENT: GUILD PROJECTS TABLE ──────────────────────────── */}
+            {/* ── TAB CONTENT: GUILD PROJECTS TABLE ──────────────────────────── */}
       {activeTab === 'guild_projects' ? (
         <div data-testid="guild-projects-table-container" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ overflowX: 'auto' }}>
