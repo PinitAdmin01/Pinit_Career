@@ -4,7 +4,8 @@ import { loadPyodide, type PyodideInterface } from 'pyodide';
 
 import { PYTHON_LONG_LESSONS } from '../src/lib/data/pythonLongLessons';
 import { PYTHON_30_DAYS_CONFIGS } from '../src/lib/data/python30DayData';
-import { estimateSpokenMinutes, getLongLessonLanguage } from '../src/lib/data/longLessons';
+import { estimateSpokenMinutes, getLongLessonLanguage } from '../src/lib/data/longLessonTypes';
+import { getTestQuestions } from '../src/lib/data/courseTests';
 
 /**
  * Runs a sample the way the lesson page does (public/python-worker.js + useLessonEngine):
@@ -43,7 +44,7 @@ test('every Python long lesson code sample shows exactly its stated output in th
   }
 });
 
-test('Python long lessons are complete, full-length classes', () => {
+test('Python long lessons are complete, full-length classes with zero robotic boilerplate', () => {
   assert.equal(getLongLessonLanguage('python'), 'python');
   const days = PYTHON_LONG_LESSONS.map((l) => l.day);
   assert.equal(new Set(days).size, days.length, 'a day is written twice');
@@ -58,10 +59,44 @@ test('Python long lessons are complete, full-length classes', () => {
     assert.ok(estimateSpokenMinutes(lesson) >= 9, `${where}: only ${estimateSpokenMinutes(lesson)} minutes of teaching`);
     assert.ok(lesson.summary.length >= 3, `${where}: summary too short`);
     assert.ok(lesson.projectStep && lesson.projectStep.steps.length > 0, `${where}: missing project step`);
+    if (lesson.day <= 30 && lesson.recap) {
+      assert.ok(
+        !lesson.recap.includes('Today you will build a rock-solid mental model of'),
+        `${where}: contains synthetic robotic recap`
+      );
+    }
     for (const part of lesson.parts) {
       assert.ok(part.say.length >= 3, `${where} "${part.title}": teacher explanation too short`);
-      const { options, answer } = part.check;
-      assert.ok(options.length >= 2 && answer >= 0 && answer < options.length, `${where} "${part.title}": bad check question`);
+      if (lesson.day <= 30) {
+        for (const paragraph of part.say as string[]) {
+          assert.ok(
+            !paragraph.startsWith('When studying ') &&
+              !paragraph.startsWith('In production engineering and operational workflows,'),
+            `${where} "${part.title}": contains synthetic boilerplate paragraph`
+          );
+        }
+      }
+      const { options, answer, why } = part.check!;
+      assert.ok(options.length >= 2 && answer! >= 0 && answer! < options.length, `${where} "${part.title}": bad check question`);
+      if (lesson.day <= 30 && why) {
+        assert.ok(
+          !/\b(the last one is a task|the first option|the last option|both of the above|all of the above)\b/i.test(why),
+          `${where} "${part.title}": check explanation relies on unshuffled option position`
+        );
+      }
+    }
+  }
+
+  // Verify all six 5-day block tests (Days 1-5 through 26-30) generate 10 valid, self-contained questions
+  for (let start = 1; start <= 26; start += 5) {
+    const end = start + 4;
+    const questions = getTestQuestions('python', start, end);
+    assert.equal(questions.length, 10, `5-day test ${start}-${end} must have 10 questions`);
+    for (const q of questions) {
+      assert.ok(q.question.length > 10, `5-day test ${start}-${end} has empty/short question`);
+      assert.ok(q.options.length >= 2, `5-day test ${start}-${end} question has < 2 options`);
+      assert.ok(q.answerIndex >= 0 && q.answerIndex < q.options.length, `5-day test ${start}-${end} bad answerIndex`);
+      assert.ok(q.explanation.length > 10, `5-day test ${start}-${end} missing explanation`);
     }
   }
 });
