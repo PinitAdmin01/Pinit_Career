@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS public.arena_matchmaking_queue (
   student_name TEXT NOT NULL,
   student_avatar TEXT,
   difficulty VARCHAR(32) DEFAULT 'any',
-  elo_rating INTEGER DEFAULT 1200,
+  elo_rating INTEGER DEFAULT 100,
   status VARCHAR(32) DEFAULT 'searching' CHECK (status IN ('searching', 'matched', 'cancelled')),
   matched_room_code VARCHAR(16),
   created_at TIMESTAMPTZ DEFAULT NOW()

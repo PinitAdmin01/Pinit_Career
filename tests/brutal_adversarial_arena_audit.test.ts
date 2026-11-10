@@ -8,7 +8,7 @@ import {
   createCombatEvent,
 } from '../src/lib/arena/codeWarRules';
 import { calculateStudentKnowledge } from '../src/lib/arena/knowledgeEngine';
-import { calculateEloMatch } from '../src/lib/arena/eloEngine';
+import { calculateEloMatch, ELO_CONFIG } from '../src/lib/arena/eloEngine';
 import { ArenaPvPStore, ArenaRoom } from '../src/lib/services/arenaPvPStore';
 import { judgeCodeWarsSubmission } from '../src/lib/server/codeWarsJudge';
 import { validateVmCodeSecurity } from '../src/lib/server/codeWarsSandbox';
@@ -289,17 +289,17 @@ def is_palindrome(s: str) -> bool:
   });
 
   describe('Vector 7: Rating Floor & Authoritative Settlement Invariants', () => {
-    it('strictly defends the 1000 Elo rating floor against repeated catastrophic losses', () => {
+    it('strictly defends the Elo rating floor against repeated catastrophic losses', () => {
       const match = calculateEloMatch({
         hostId: 'cadet_underdog',
         guestId: 'grandmaster',
-        hostElo: 1000,
+        hostElo: ELO_CONFIG.FLOOR_ELO,
         guestElo: 2200,
         winnerId: 'grandmaster',
       });
 
-      assert.strictEqual(match.hostCurrentElo, 1000);
-      assert.strictEqual(match.hostNewElo, 1000, 'Cadet rating must never drop below 1000 floor');
+      assert.strictEqual(match.hostCurrentElo, ELO_CONFIG.FLOOR_ELO);
+      assert.strictEqual(match.hostNewElo, ELO_CONFIG.FLOOR_ELO, 'Cadet rating must never drop below floor');
     });
 
     it('settles room with Clean Execution and First Blood bonuses applied atomically', async () => {

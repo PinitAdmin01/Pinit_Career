@@ -544,7 +544,7 @@ create table if not exists public.arena_matchmaking_queue (
   student_name text not null,
   student_avatar text,
   difficulty varchar(32) default 'any',
-  elo_rating integer default 1200,
+  elo_rating integer default 100,
   status varchar(32) default 'searching' check (status in ('searching', 'matched', 'cancelled')),
   matched_room_code varchar(16),
   created_at timestamptz default now()

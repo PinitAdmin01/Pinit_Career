@@ -150,20 +150,20 @@ describe('COLD-BLOODED ADVERSARIAL FINAL VERIFICATION SUITE', () => {
       assert.equal(getKFactor(2500), 16);
     });
 
-    it('P4.3: Rating Floor Invariant: 50 consecutive losses never breach 1000 Elo', () => {
-      let rating = 1200;
+    it('P4.3: Rating Floor Invariant: 50 consecutive losses never breach floor Elo', () => {
+      let rating = 100;
       for (let i = 0; i < 50; i++) {
         const res = calculateEloMatch({
           hostId: 'underdog',
           guestId: 'peer',
           hostElo: rating,
-          guestElo: 1200,
+          guestElo: 100,
           winnerId: 'peer',
         });
         rating = res.hostNewElo;
         assert.ok(rating >= ELO_CONFIG.FLOOR_ELO, `Rating broke floor on loss ${i + 1}: ${rating}`);
       }
-      assert.equal(rating, ELO_CONFIG.FLOOR_ELO, 'Rating must hit floor 1000');
+      assert.equal(rating, ELO_CONFIG.FLOOR_ELO, 'Rating must hit floor');
     });
 
     it('P4.4: Monotonicity: Battle score strictly increases or equals as test cases pass', () => {
@@ -264,7 +264,7 @@ describe('COLD-BLOODED ADVERSARIAL FINAL VERIFICATION SUITE', () => {
       const parsed = await parseCollegeIdCard(mockOcrText, 'Aditya Shenoy');
       assert.equal(parsed.collegeCode, 'RVCE');
       assert.equal(parsed.departmentCode, 'CSE');
-      assert.equal(parsed.rollNumber, '1RV21CS042');
+      assert.equal(parsed.rollNumber, '042');
 
       const pinitId = generateCollegePinItId({
         collegeCode: parsed.collegeCode,

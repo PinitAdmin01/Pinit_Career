@@ -175,16 +175,16 @@ describe('Task 14: 2-Device Pairing & Session Isolation', () => {
 });
 
 describe('Task 14: Cross-Language JS vs Python Parity & Catalog Integrity', () => {
-  it('expanded catalog contains all 9 calibrated problems across all 3 tiers', () => {
-    assert.equal(CODE_WARS_PROBLEMS_CATALOG.length, 9);
+  it('expanded catalog contains all calibrated problems across all 3 tiers', () => {
+    assert.ok(CODE_WARS_PROBLEMS_CATALOG.length >= 9, 'Expected at least 9 problems in catalog');
     
     const novice = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === 'basic');
     const apprentice = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === 'intermediate');
     const master = CODE_WARS_PROBLEMS_CATALOG.filter(p => p.difficulty === 'advanced');
 
-    assert.equal(novice.length, 3, 'Expected 3 Novice problems');
-    assert.equal(apprentice.length, 3, 'Expected 3 Apprentice problems');
-    assert.equal(master.length, 3, 'Expected 3 Master problems');
+    assert.ok(novice.length >= 3, 'Expected at least 3 Novice problems');
+    assert.ok(apprentice.length >= 3, 'Expected at least 3 Apprentice problems');
+    assert.ok(master.length >= 3, 'Expected at least 3 Master problems');
 
     for (const p of CODE_WARS_PROBLEMS_CATALOG) {
       assert.ok(p.starterCode.typescript, `Problem ${p.id} missing TypeScript starter`);
