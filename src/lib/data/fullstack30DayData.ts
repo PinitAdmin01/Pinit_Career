@@ -208,20 +208,20 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "title": "Password Hashing with Argon2/Bcrypt & Salt Invariants",
     "desc": "Understand cryptographic salt, rainbow table defenses, computational work factors, and timing attack resistance.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Password Hashing with Argon2/Bcrypt & Salt Invariants.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Threat Models & Rainbow Table Defenses: Cryptographic Salt Invariants, Salt Generation, and Precomputation Resistance",
+      "Adaptive Work Factors & Memory Hardness: Bcrypt Cost Factors, 72-Byte Truncation Limits, and Argon2id Memory Constraints",
+      "Constant-Time Verification & Lifecycle Security: Timing Attack Resistance (crypto.timingSafeEqual) and Transparent Work Factor Re-Hashing"
     ],
     "eTitle": "Password Hash Generator with Unique Salt",
     "eDesc": "Implement function hashPassword(password, salt) simulating salted cryptographic hash with timing-safe comparison. hashPassword returns { salt, hash }; verifyPassword returns true only when hashing the password with that salt gives the stored hash.",
-    "eStarter": "function hashPassword(password, salt) {\n  // Combine salt with password to prevent precomputed rainbow table attacks.\n  \n}\nfunction verifyPassword(password, salt, storedHash) {\n  // Combine salt with password to prevent precomputed rainbow table attacks.\n  \n}",
-    "eHint": "Combine salt with password to prevent precomputed rainbow table attacks.",
-    "eTest": "const { salt, hash } = hashPassword('MySecurePass123!', 'random-salt-xyz');\nif (verifyPassword('MySecurePass123!', salt, hash) !== true) throw new Error('Valid password verification failed');\nif (verifyPassword('WrongPass', salt, hash) !== false) throw new Error('Invalid password was accepted');",
-    "aTitle": "Salt Generator",
-    "aDesc": "Implement function generateRandomSalt(len = 16) returning random alphanumeric salt string.",
-    "aStarter": "function generateRandomSalt(len = 16) {\n  // Generate random characters up to length.\n  \n}",
-    "aHint": "Generate random characters up to length.",
-    "aTest": "const s = generateRandomSalt(16);\nif (s.length !== 16) throw new Error('Salt length must be 16');"
+    "eStarter": "/**\n * Hashes a password combined with a cryptographic salt.\n * @param {string} password - Raw password string\n * @param {string} salt - Cryptographic salt string\n * @returns {object} { salt, hash }\n */\nfunction hashPassword(password, salt) {\n  // 1. Validate inputs\n  // 2. Hash password with salt (e.g. btoa(salt + ':' + password))\n  // 3. Return { salt, hash }\n  \n}\n\n/**\n * Verifies whether an input password matches the stored hash for a given salt.\n * @param {string} password - Candidate password string\n * @param {string} salt - Stored cryptographic salt\n * @param {string} storedHash - Stored hash to compare against\n * @returns {boolean} True if matching, false otherwise\n */\nfunction verifyPassword(password, salt, storedHash) {\n  // 1. Re-hash candidate password with salt\n  // 2. Return comparison result\n  \n}",
+    "eHint": "In hashPassword, return { salt, hash: btoa(`${salt}:${password}`) }. In verifyPassword, re-hash candidate password with salt and compare with storedHash.",
+    "eTest": "const { salt, hash } = hashPassword('MySecurePass123!', 'random-salt-xyz');\nif (verifyPassword('MySecurePass123!', salt, hash) !== true) throw new Error('Valid password verification failed');\nif (verifyPassword('WrongPass', salt, hash) !== false) throw new Error('Invalid password was accepted');\n\nconst h2 = hashPassword('MySecurePass123!', 'different-salt-abc');\nif (h2.hash === hash) throw new Error('Identical passwords with different salts must produce distinct hashes');",
+    "aTitle": "Cryptographic Salt Generator",
+    "aDesc": "Implement function generateRandomSalt(len = 16) returning a randomized alphanumeric salt string of specified length.",
+    "aStarter": "/**\n * Generates a randomized salt string of specified length.\n * @param {number} [len=16] - Desired length of salt string\n * @returns {string} Random alphanumeric salt string\n */\nfunction generateRandomSalt(len = 16) {\n  // Generate random alphanumeric characters up to length len\n  \n}",
+    "aHint": "Select random characters from 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' until string reaches len characters.",
+    "aTest": "const s1 = generateRandomSalt(16);\nif (typeof s1 !== 'string' || s1.length !== 16) throw new Error('Salt length must be 16');\n\nconst s2 = generateRandomSalt(32);\nif (s2.length !== 32) throw new Error('Salt length must be 32 when specified');\n\nif (s1 === generateRandomSalt(16)) throw new Error('Two generated salts must be random and unique');"
   },
   {
     "day": 12,

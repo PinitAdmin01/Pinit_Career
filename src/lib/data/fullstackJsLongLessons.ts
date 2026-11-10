@@ -1512,7 +1512,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
     "title": "Password Hashing with Argon2/Bcrypt & Salt Invariants",
     "goal": "Master modern cryptographic password storage architectures, including unique salt generation, adaptive work factors in Bcrypt and Argon2id, constant-time timing attack mitigations, and seamless credential re-hashing lifecycles.",
     "minutes": 36,
-    "recap": "Welcome to Day 11 of the Full-Stack JavaScript Engineering Masterclass. Having mastered the Next.js App Router and Edge Architecture in Milestone 2, we now enter the Security, Persistence & Relational Data Engineering tier. Today, we dissect modern password security, cryptographically secure salts, adaptive work factors, and timing-safe authentication engines.",
+    "recap": "Welcome to Day 11 of the Full-Stack JavaScript Engineering Masterclass. In Days 9 and 10, we engineered stateless authentication with JSON Web Tokens and fortified session transport using secure HttpOnly cookies with Refresh Token Rotation. Today, we dissect the foundational defense of user persistence: modern password security, cryptographically secure salts, adaptive work factors in Bcrypt and Argon2id, and timing-safe authentication engines.",
     "parts": [
       {
         "title": "Pillar 1: Threat Models, Rainbow Table Defenses & Salt Invariants",
