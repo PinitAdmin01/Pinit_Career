@@ -68,12 +68,12 @@ function LeaderboardContent() {
   const cOS = useCareerOS();
   const searchParams = useSearchParams();
 
-  // Mode initial state
-  const rawMode = searchParams?.get('mode');
+  // Mode initial state (supports both ?mode= and ?tab= cross-links from Arena)
+  const rawMode = searchParams?.get('mode') || searchParams?.get('tab');
   const initialMode: TabMode =
     rawMode === 'global' ? 'global' :
     rawMode === 'guild_projects' ? 'guild_projects' :
-    rawMode === 'weekly_leagues' ? 'weekly_leagues' :
+    (rawMode === 'weekly_leagues' || rawMode === 'code_wars') ? 'weekly_leagues' :
     rawMode === 'region_college' ? 'region_college' :
     'weekly_leagues';
 
@@ -191,11 +191,39 @@ function LeaderboardContent() {
         if (e.detail.league_tier) {
           setJoinedLeague(true);
         }
+        const updatedElo = typeof e.detail.arena_elo === 'number' 
+          ? e.detail.arena_elo 
+          : (typeof e.detail.elo === 'number' ? e.detail.elo : undefined);
+        const updatedWeeklyXp = typeof e.detail.weekly_xp === 'number' 
+          ? e.detail.weekly_xp 
+          : (typeof e.detail.weeklyXp === 'number' ? e.detail.weeklyXp : undefined);
+        const updatedTotalXp = typeof e.detail.xp_total === 'number' 
+          ? e.detail.xp_total 
+          : (typeof e.detail.totalXp === 'number' ? e.detail.totalXp : (typeof e.detail.xp === 'number' ? e.detail.xp : undefined));
+
         if (user) {
-          if (typeof e.detail.elo === 'number') (user as any).arena_elo = e.detail.elo;
-          if (typeof e.detail.weeklyXp === 'number') (user as any).weekly_xp = e.detail.weeklyXp;
-          if (typeof e.detail.totalXp === 'number') (user as any).xp_total = e.detail.totalXp;
+          if (typeof updatedElo === 'number') (user as any).arena_elo = updatedElo;
+          if (typeof updatedWeeklyXp === 'number') (user as any).weekly_xp = updatedWeeklyXp;
+          if (typeof updatedTotalXp === 'number') (user as any).xp_total = updatedTotalXp;
         }
+
+        // Instant HUD recalculation with 0ms latency
+        setServerCurrentUser(prev => {
+          if (!prev) return null;
+          const elo = typeof updatedElo === 'number' ? updatedElo : prev.eloRating;
+          const weeklyXp = typeof updatedWeeklyXp === 'number' ? updatedWeeklyXp : prev.weeklyXp;
+          const totalXp = typeof updatedTotalXp === 'number' ? updatedTotalXp : prev.totalXp;
+          const eloGain = Math.max(0, elo - 100);
+          const leagueScore = weeklyXp + Math.round(eloGain * 1.5);
+          return {
+            ...prev,
+            eloRating: elo,
+            eloGain,
+            weeklyXp,
+            totalXp,
+            leagueScore,
+          };
+        });
       }
       setRefreshTrigger(prev => prev + 1);
     };

@@ -70,7 +70,6 @@ export async function POST(req: NextRequest) {
           arena_losses: newLosses,
           xp_total: newXpTotal,
           weekly_xp: newWeeklyXp,
-          pins: newPins,
         }).eq('id', studentId);
 
         await admin.from('xp_ledger').insert({
@@ -95,7 +94,7 @@ export async function POST(req: NextRequest) {
       xpAwarded,
       newXp: newXpTotal,
       newWeeklyXp,
-      pinsAwarded,
+      pinsAwarded: 0,
       newPins,
       arenaWins: newWins,
       arenaLosses: newLosses,

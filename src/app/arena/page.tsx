@@ -69,8 +69,11 @@ function ArenaContent() {
   // Synchronize dynamic profile events across tabs and contexts
   useEffect(() => {
     const handleProfileUpdate = (e: any) => {
-      if (e?.detail?.arena_elo && typeof e.detail.arena_elo === 'number') {
-        setLiveElo(e.detail.arena_elo);
+      const incomingElo = typeof e?.detail?.arena_elo === 'number'
+        ? e.detail.arena_elo
+        : (typeof e?.detail?.elo === 'number' ? e.detail.elo : null);
+      if (typeof incomingElo === 'number' && Number.isFinite(incomingElo)) {
+        setLiveElo(incomingElo);
       }
     };
     if (typeof window !== 'undefined') {
@@ -791,19 +794,30 @@ function ArenaContent() {
     roomSettledRef.current = roomKey;
 
     const myNewElo = isHost ? activeRoom.hostNewElo : activeRoom.guestNewElo;
+    const myXpAward = isHost ? activeRoom.hostXpAward : activeRoom.guestXpAward;
     if (typeof myNewElo === 'number' && myNewElo > 0) {
       setLiveElo(myNewElo);
       try {
         localStorage.setItem(`pinit_user_elo_${studentId}`, String(myNewElo));
       } catch {}
       if (typeof window !== 'undefined') {
+        const currentWeeklyXp = Number((user as any)?.weekly_xp) || 0;
+        const currentTotalXp = Number((user as any)?.xp_total) || xp || 0;
+        const addXp = typeof myXpAward === 'number' && myXpAward > 0 ? myXpAward : 0;
         window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
-          detail: { arena_elo: myNewElo }
+          detail: {
+            arena_elo: myNewElo,
+            elo: myNewElo,
+            weekly_xp: currentWeeklyXp + addXp,
+            weeklyXp: currentWeeklyXp + addXp,
+            xp_total: currentTotalXp + addXp,
+            totalXp: currentTotalXp + addXp,
+          }
         }));
       }
       if (refresh) refresh().catch(() => {});
     }
-  }, [isMatchOver, activeRoom, isHost, studentId, refresh]);
+  }, [isMatchOver, activeRoom, isHost, studentId, refresh, user, xp]);
 
   // Authoritative Turing AI Sparring Settlement
   const soloSettledRef = useRef<string | null>(null);
@@ -841,7 +855,14 @@ function ArenaContent() {
         }
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('pinit:user_profile_updated', {
-            detail: { arena_elo: data.newElo, weekly_xp: data.newWeeklyXp, xp_total: data.newXp }
+            detail: {
+              arena_elo: data.newElo,
+              elo: data.newElo,
+              weekly_xp: data.newWeeklyXp,
+              weeklyXp: data.newWeeklyXp,
+              xp_total: data.newXp,
+              totalXp: data.newXp,
+            }
           }));
         }
         if (refresh) refresh().catch(() => {});
@@ -2867,7 +2888,7 @@ function ArenaContent() {
             </div>
 
             <Link
-              href="/leaderboard?tab=code_wars"
+              href="/leaderboard?mode=weekly_leagues"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

@@ -760,8 +760,8 @@ export class ArenaPvPStore {
     const hostId = room.hostId;
     const guestId = room.guestId || 'guest';
     console.log(`[ArenaPvPStore.settleMatch] Settling match ${room.roomCode} | Winner: ${room.winnerId} | Host: ${hostId} | Guest: ${guestId}`);
-    let hostElo = 1200;
-    let guestElo = 1200;
+    let hostElo = 100;
+    let guestElo = 100;
 
 
 
@@ -886,19 +886,11 @@ export class ArenaPvPStore {
       if (hostProfile) {
 
         await admin.from('users').update({
-
           arena_elo: result.hostNewElo,
-
           arena_wins: (hostProfile.arena_wins || 0) + (isHostWin ? 1 : 0),
-
           arena_losses: (hostProfile.arena_losses || 0) + (isHostLoss ? 1 : 0),
-
           xp_total: (hostProfile.xp_total || 0) + result.hostXpAward,
-
           weekly_xp: (hostProfile.weekly_xp || 0) + result.hostXpAward,
-
-          pins: (hostProfile.pins || 0) + result.hostPinsAward,
-
         }).eq('id', hostId);
 
 
@@ -938,21 +930,12 @@ export class ArenaPvPStore {
 
 
         if (guestProfile) {
-
           await admin.from('users').update({
-
             arena_elo: result.guestNewElo,
-
             arena_wins: (guestProfile.arena_wins || 0) + (isGuestWin ? 1 : 0),
-
             arena_losses: (guestProfile.arena_losses || 0) + (isGuestLoss ? 1 : 0),
-
             xp_total: (guestProfile.xp_total || 0) + result.guestXpAward,
-
             weekly_xp: (guestProfile.weekly_xp || 0) + result.guestXpAward,
-
-            pins: (guestProfile.pins || 0) + result.guestPinsAward,
-
           }).eq('id', guestId);
 
 
@@ -1106,7 +1089,7 @@ export class ArenaPvPStore {
           studentName: cand.student_name,
           studentAvatar: cand.student_avatar || undefined,
           difficulty: cand.difficulty || 'any',
-          eloRating: cand.elo_rating || 1200,
+          eloRating: cand.elo_rating || 100,
           enqueuedAt: Date.now(),
           preferredLanguage: inMemHost?.preferredLanguage || 'typescript',
           completedQuests: inMemHost?.completedQuests || [],
