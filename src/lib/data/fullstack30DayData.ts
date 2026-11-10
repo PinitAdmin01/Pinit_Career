@@ -185,23 +185,23 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 10,
-    "title": "⭐ Milestone 2 Capstone: Distributed Enterprise SaaS & E-Commerce Core Architecture",
-    "desc": "Protect against XSS token theft with HttpOnly, Secure, SameSite cookies and refresh token rotation pipelines.",
+    "title": "Session Security & Token Transport: Secure HttpOnly Cookies, SameSite Policies & Refresh Token Rotation",
+    "desc": "Protect against XSS token theft with HttpOnly, Secure, SameSite cookies, scoped path directives, and refresh token rotation pipelines.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Secure HttpOnly Cookies & Refresh Token Rotation.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "The Storage Dilemma: LocalStorage vs In-Memory vs HttpOnly Cookies and XSS Exfiltration Vectors",
+      "RFC 6265 Cookie Directives: HttpOnly, Secure, Max-Age vs Expires, Path Scoping, and SameSite Policies (Strict, Lax, None)",
+      "Refresh Token Rotation (RTR) Architecture: Cryptographic Token Families, Replay Detection, and Session Invalidation"
     ],
     "eTitle": "Set-Cookie Header Builder with Security Directives",
-    "eDesc": "Implement function buildSecureCookieHeader(name, value, maxAgeSeconds) returning proper Set-Cookie string with HttpOnly; Secure; SameSite=Strict.",
-    "eStarter": "function buildSecureCookieHeader(name, value, maxAgeSeconds = 3600) {\n  // Append HttpOnly, Secure, and SameSite=Strict directives to prevent XSS and CSRF token access.\n  \n}",
-    "eHint": "Append HttpOnly, Secure, and SameSite=Strict directives to prevent XSS and CSRF token access.",
-    "eTest": "const cookie = buildSecureCookieHeader('refreshToken', 'token123', 86400);\nif (!cookie.includes('HttpOnly') || !cookie.includes('Secure') || !cookie.includes('SameSite=Strict')) throw new Error('Missing critical security flags in cookie header');",
+    "eDesc": "Implement function buildSecureCookieHeader(name, value, maxAgeSeconds, options) returning proper Set-Cookie string with HttpOnly; Secure; SameSite=Strict.",
+    "eStarter": "/**\n * Generates an RFC 6265 compliant Set-Cookie header with enterprise security flags.\n * @param {string} name - Cookie identifier name\n * @param {string} value - Cookie payload or token string\n * @param {number} [maxAgeSeconds=3600] - Lifespan in seconds\n * @param {object} [options={}] - Additional options (path, sameSite)\n * @returns {string} Sanitized Set-Cookie header string\n */\nfunction buildSecureCookieHeader(name, value, maxAgeSeconds = 3600, options = {}) {\n  // 1. Sanitize name and value\n  // 2. Set Max-Age, Path (default '/'), HttpOnly, Secure, and SameSite (default 'Strict')\n  // 3. Assemble and return cookie string\n  \n}",
+    "eHint": "Assemble `name=value; Max-Age=${maxAgeSeconds}; Path=${options.path || '/'}; HttpOnly; Secure; SameSite=${options.sameSite || 'Strict'}`.",
+    "eTest": "const cookie = buildSecureCookieHeader('refreshToken', 'token123', 86400);\nif (!cookie.includes('refreshToken=token123')) throw new Error('Cookie missing name=value pair');\nif (!cookie.includes('HttpOnly')) throw new Error('Missing HttpOnly security flag');\nif (!cookie.includes('Secure')) throw new Error('Missing Secure directive');\nif (!cookie.includes('SameSite=Strict')) throw new Error('Missing SameSite=Strict directive');\nif (!cookie.includes('Max-Age=86400')) throw new Error('Missing or incorrect Max-Age directive');\n\nconst customCookie = buildSecureCookieHeader('sid', 'sess_99', 300, { path: '/api/auth', sameSite: 'Lax' });\nif (!customCookie.includes('Path=/api/auth')) throw new Error('Custom path option was not respected');\nif (!customCookie.includes('SameSite=Lax')) throw new Error('Custom sameSite option was not respected');",
     "aTitle": "Cookie Header Parser",
     "aDesc": "Implement function parseCookieHeader(cookieString) returning key-value map. The result must have these fields: `user`, `session`.",
-    "aStarter": "function parseCookieHeader(str = '') {\n  // Split string by semicolons and decode key-value pairs.\n  \n}",
-    "aHint": "Split string by semicolons and decode key-value pairs.",
-    "aTest": "const parsed = parseCookieHeader('user=Alex; session=abc123');\nif (parsed.user !== 'Alex' || parsed.session !== 'abc123') throw new Error('Cookie parser failed');"
+    "aStarter": "/**\n * Parses an incoming HTTP Cookie request header string into a key-value map.\n * @param {string} cookieString - Raw Cookie header value (e.g. 'user=Alex; session=abc123')\n * @returns {object} Parsed key-value map of cookies\n */\nfunction parseCookieHeader(cookieString = '') {\n  // 1. Return empty object if string is falsy or non-string\n  // 2. Split by ';' and iterate through each pair\n  // 3. Split by first '=' into key and value, trim both, and populate map\n  \n}",
+    "aHint": "Split cookieString by ';', loop through tokens, split on the first '=' character, decodeURIComponent the value, and assign to results map.",
+    "aTest": "const parsed = parseCookieHeader('user=Alex; session=abc123');\nif (parsed.user !== 'Alex' || parsed.session !== 'abc123') throw new Error('Cookie parser failed on basic pairs');\n\nconst complex = parseCookieHeader('  theme=dark;   token=xyz%3D%3D;  visited=true  ');\nif (complex.theme !== 'dark' || complex.visited !== 'true') throw new Error('Whitespace trimming failed');\nif (complex.token !== 'xyz==' && complex.token !== 'xyz%3D%3D') throw new Error('Value extraction failed');\n\nconst empty = parseCookieHeader('');\nif (typeof empty !== 'object' || Object.keys(empty).length !== 0) throw new Error('Empty header must return empty object');"
   },
   {
     "day": 11,
