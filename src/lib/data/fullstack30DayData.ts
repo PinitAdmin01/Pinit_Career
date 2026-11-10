@@ -286,22 +286,22 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 15,
     "title": "⭐ Milestone 3 Capstone: Enterprise Multi-Tenant Authentication & Session Hub",
-    "desc": "Milestone 2: Build an enterprise-grade authentication system featuring multi-tenancy, JWT access tokens, HttpOnly refresh token rotation, and Redis session blacklisting.",
+    "desc": "Milestone 3: Build an enterprise-grade authentication system featuring multi-tenancy, JWT access tokens, HttpOnly refresh token rotation, and Redis session blacklisting.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of ⭐ MILESTONE 2: Enterprise Multi-Tenant Authentication & Session Hub.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Tenant Isolation & Context Partitioning: Pooled Discriminator Schemas, Subdomain Routing, and Zero Cross-Tenant Leakage",
+      "Cryptographic Integrity & Timing-Safe Security: Argon2id Password Hashing, Asymmetric Signatures, and Constant-Time Verification",
+      "Distributed Session State & Revocation Architecture: Redis Cluster Storage, Sliding-Window Heartbeats, and Instant Token Blacklisting"
     ],
     "eTitle": "Multi-Tenant Auth Token Issuer & Revocation Engine",
     "eDesc": "Implement class AuthHub supporting login(tenantId, userId), validate(token), and revoke(token). validate(token) returns { valid: true, tenantId, userId } for a good token and { valid: false, error: 'TOKEN_REVOKED' } after revoke(token).",
-    "eStarter": "class AuthHub {\n  constructor(secret) {\n    // Track revoked tokens in blacklist Set; verify signature and expiration on validation.\n    \n  }\n  login(tenantId, userId) {\n    // Track revoked tokens in blacklist Set; verify signature and expiration on validation.\n    \n  }\n  validate(token) {\n    // Track revoked tokens in blacklist Set; verify signature and expiration on validation.\n    \n  }\n  revoke(token) {\n    // Track revoked tokens in blacklist Set; verify signature and expiration on validation.\n    \n  }\n\n}",
-    "eHint": "Track revoked tokens in blacklist Set; verify signature and expiration on validation.",
-    "eTest": "const auth = new AuthHub('corp-secret');\nconst token = auth.login('tenant_corp', 1001);\nconst valid = auth.validate(token);\nif (!valid.valid || valid.tenantId !== 'tenant_corp' || valid.userId !== 1001) throw new Error('Auth validation failed');\nauth.revoke(token);\nconst revoked = auth.validate(token);\nif (revoked.valid !== false || revoked.error !== 'TOKEN_REVOKED') throw new Error('Revoked token was accepted');",
+    "eStarter": "/**\n * Enterprise Multi-Tenant Authentication and Session Revocation Hub.\n */\nclass AuthHub {\n  constructor(secret) {\n    this.secret = secret;\n    this.revokedTokens = new Set();\n  }\n\n  login(tenantId, userId) {\n    // 1. Create payload with tenantId, userId, iat\n    // 2. Encode and sign token string\n    // 3. Return token\n    \n  }\n\n  validate(token) {\n    // 1. Check if token is in revokedTokens set\n    // 2. If revoked, return { valid: false, error: 'TOKEN_REVOKED' }\n    // 3. Verify signature and parse payload\n    // 4. Return { valid: true, tenantId, userId }\n    \n  }\n\n  revoke(token) {\n    // Add token to revokedTokens set\n    \n  }\n}",
+    "eHint": "Track revoked tokens in this.revokedTokens = new Set(). In login(), return `${btoa(JSON.stringify({ tenantId, userId }))}.${btoa(this.secret)}`. In validate(), check this.revokedTokens.has(token); return { valid: false, error: 'TOKEN_REVOKED' } if revoked, or { valid: true, tenantId, userId } if valid.",
+    "eTest": "const auth = new AuthHub('corp-secret');\nconst token = auth.login('tenant_corp', 1001);\n\nconst valid = auth.validate(token);\nif (!valid.valid || valid.tenantId !== 'tenant_corp' || valid.userId !== 1001) throw new Error('Auth validation failed');\n\nauth.revoke(token);\nconst revoked = auth.validate(token);\nif (revoked.valid !== false || revoked.error !== 'TOKEN_REVOKED') throw new Error('Revoked token was accepted');\n\nconst fake = auth.validate('forged.token.here');\nif (fake.valid !== false) throw new Error('Forged or invalid token must return valid: false');",
     "aTitle": "Extract Bearer Token from Header",
-    "aDesc": "Implement function extractBearerToken(authHeader) stripping 'Bearer ' prefix.",
-    "aStarter": "function extractBearerToken(authHeader = '') {\n  // Check if string starts with Bearer and return slice.\n  \n}",
-    "aHint": "Check if string starts with Bearer and return slice.",
-    "aTest": "if (extractBearerToken('Bearer abc.def') !== 'abc.def') throw new Error('Bearer extraction failed');"
+    "aDesc": "Implement function extractBearerToken(authHeader) stripping 'Bearer ' prefix and trimming whitespace.",
+    "aStarter": "/**\n * Safely extracts a Bearer token from an Authorization header.\n * @param {string} [authHeader=''] - Raw Authorization header string\n * @returns {string|null} Extracted token string, or null if missing/malformed\n */\nfunction extractBearerToken(authHeader = '') {\n  // If string starts with Bearer (case-insensitive), return trimmed token slice\n  \n}",
+    "aHint": "const match = authHeader.match(/^Bearer\\s+(.+)$/i); return match ? match[1].trim() : null;",
+    "aTest": "if (extractBearerToken('Bearer abc.def') !== 'abc.def') throw new Error('Bearer extraction failed');\nif (extractBearerToken('bearer   token123  ') !== 'token123') throw new Error('Case-insensitive or trimmed extraction failed');\nif (extractBearerToken('Basic dXNlcjpwYXNz') !== null && extractBearerToken('Basic dXNlcjpwYXNz') !== '') throw new Error('Non-bearer header must fail');\nif (extractBearerToken('') !== null && extractBearerToken('') !== '') throw new Error('Empty header must fail');"
   },
   {
     "day": 16,
