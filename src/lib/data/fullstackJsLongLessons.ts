@@ -4234,7 +4234,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "Execute a zero-downtime rolling update and verify automated rollback capabilities under synthetic failure conditions."
       ]
     },
-    "recap": "In Day 25 (⭐ Milestone 5 Capstone: Distributed Event-Driven Cloud Microservices Architecture), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 26 (Kubernetes Microservices Orchestration, Helm Charts, ConfigMaps & Secrets), we build directly on that foundation by mastering Kubernetes Architecture: Control Plane, Worker Nodes & Declarative Reconciliation and Pods, ReplicaSets & RollingUpdate Deployment Strategies."
+    "recap": "In Day 25 (⭐ Milestone 5 Capstone: Distributed Event-Driven Cloud Microservices Architecture), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 26 (Kubernetes Microservices Orchestration, Helm Charts, ConfigMaps & Secrets), we build directly on that foundation by mastering Kubernetes Architecture: Control Plane, Worker Nodes & Declarative Reconciliation and Pods, ReplicaSets & RollingUpdate Deployment Strategies.",
+    "coursePrefix": "fullstack-js",
+    "goal": "Master Kubernetes microservices orchestration, declarative reconciliation loops, Pod and Deployment lifecycle, ClusterIP service discovery, ConfigMap/Secret projection, and Helm chart package management.",
+    "minutes": 45
   },
   {
     "day": 27,
