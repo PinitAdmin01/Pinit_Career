@@ -889,14 +889,31 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Circle Area",
     eDesc: "Write `circle_area(r)` that returns the area of a circle (pi times r squared), rounded to 2 decimal places, using the math module.",
-    eStarter: lines("import math", "", "def circle_area(r):", "    # math.pi * r * r", "    pass"),
+    eStarter: lines("import math", "", "def circle_area(r):", "    # round(math.pi * r * r, 2)", "    pass"),
     eHint: "return round(math.pi * r * r, 2)",
-    eTest: lines("assert circle_area(1) == 3.14", "assert circle_area(2) == 12.57", done),
+    eTest: lines(
+      "_fn = globals().get('circle_area')",
+      "_v1 = _fn(1) if callable(_fn) else None",
+      "_v2 = _fn(2) if callable(_fn) else None",
+      "assert isinstance(_v1, (int, float)) and isinstance(_v2, (int, float)), \"Expected circle_area(r) to return a number\"",
+      "assert round(_v1, 2) == 3.14 and round(_v2, 2) == 12.57, \"Expected circle_area(1) == 3.14 and circle_area(2) == 12.57\"",
+      done
+    ),
     aTitle: "Days Between Dates",
     aDesc: "Write `days_between(start, end)` where both are dates as text like `'2026-09-01'`. Return how many days are between them.",
-    aStarter: lines("from datetime import date", "", "def days_between(start, end):", "    # date.fromisoformat(...) turns text into a date", "    pass"),
+    aStarter: lines("from datetime import date", "", "def days_between(start, end):", "    # (date.fromisoformat(end) - date.fromisoformat(start)).days", "    pass"),
     aHint: "return (date.fromisoformat(end) - date.fromisoformat(start)).days",
-    aTest: lines("assert days_between('2026-09-01', '2026-09-28') == 27", "assert days_between('2026-01-01', '2026-01-01') == 0", done)
+    aTest: lines(
+      "_fn = globals().get('days_between')",
+      "_v1 = _fn('2026-09-01', '2026-09-28') if callable(_fn) else None",
+      "_v2 = _fn('2026-01-01', '2026-01-01') if callable(_fn) else None",
+      "if hasattr(_v1, 'days'):",
+      "    assert False, \"Almost! Subtracting two dates returns a timedelta object. Add '.days' at the end: (date.fromisoformat(end) - date.fromisoformat(start)).days\"",
+      "if _v1 == -27:",
+      "    assert False, \"Almost! You subtracted end from start (-27). Subtract start from end: (date.fromisoformat(end) - date.fromisoformat(start)).days\"",
+      "assert _v1 == 27 and _v2 == 0, \"Expected days_between('2026-09-01', '2026-09-28') == 27 and days_between('2026-01-01', '2026-01-01') == 0\"",
+      done
+    )
   },
   {
     title: "Working With Files",
@@ -908,14 +925,30 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Read One Line",
     eDesc: "Write `parse_line(line)` that turns text like `'Tea,20'` into a tuple `('Tea', 20)` with the amount as a whole number. Ignore spaces and the newline at the end.",
-    eStarter: lines("def parse_line(line):", "    # strip(), then split(',')", "    pass"),
+    eStarter: lines("def parse_line(line):", "    # strip(), then split(','), then return (item.strip(), int(amount))", "    pass"),
     eHint: "item, amount = line.strip().split(','); return (item.strip(), int(amount))",
-    eTest: lines("assert parse_line('Tea,20') == ('Tea', 20)", "assert parse_line(' Bus ticket , 45 \\n') == ('Bus ticket', 45)", done),
+    eTest: lines(
+      "_fn = globals().get('parse_line')",
+      "_r1 = _fn('Tea,20') if callable(_fn) else None",
+      "_r2 = _fn(' Bus ticket , 45 \\n') if callable(_fn) else None",
+      "if isinstance(_r1, (tuple, list)) and len(_r1) == 2 and _r1[1] == '20':",
+      "    assert False, \"Almost! The amount '20' is still text (str). Convert it to a whole number with int(amount).\"",
+      "assert isinstance(_r1, (tuple, list)) and len(_r1) == 2 and _r1[0].strip() == 'Tea' and _r1[1] == 20, \"Expected parse_line('Tea,20') to return ('Tea', 20)\"",
+      "assert isinstance(_r2, (tuple, list)) and len(_r2) == 2 and _r2[0].strip() == 'Bus ticket' and _r2[1] == 45, \"Expected parse_line(' Bus ticket , 45 \\\\n') to return ('Bus ticket', 45)\"",
+      done
+    ),
     aTitle: "Write One Line",
     aDesc: "Write `to_line(item, amount)` that returns the line to save, like `'Tea,20'`.",
     aStarter: lines("def to_line(item, amount):", "    # f'{item},{amount}'", "    pass"),
     aHint: "return f'{item},{amount}'",
-    aTest: lines("assert to_line('Tea', 20) == 'Tea,20'", "assert to_line('Bus', 45) == 'Bus,45'", done)
+    aTest: lines(
+      "_fn = globals().get('to_line')",
+      "_r1 = _fn('Tea', 20) if callable(_fn) else None",
+      "_r2 = _fn('Bus', 45) if callable(_fn) else None",
+      "assert isinstance(_r1, str) and _r1.rstrip('\\n') == 'Tea,20', \"Expected to_line('Tea', 20) to return 'Tea,20'\"",
+      "assert isinstance(_r2, str) and _r2.rstrip('\\n') == 'Bus,45', \"Expected to_line('Bus', 45) to return 'Bus,45'\"",
+      done
+    )
   },
   {
     title: "JSON: Saving Structured Data",
@@ -927,14 +960,32 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "To JSON",
     eDesc: "Write `to_json(expenses)` that returns the list as JSON text using json.dumps.",
-    eStarter: lines("import json", "", "def to_json(expenses):", "    pass"),
+    eStarter: lines("import json", "", "def to_json(expenses):", "    # return json.dumps(expenses)", "    pass"),
     eHint: "return json.dumps(expenses)",
-    eTest: lines("assert to_json([{'item': 'Tea', 'amount': 20}]) == '[{\"item\": \"Tea\", \"amount\": 20}]'", done),
+    eTest: lines(
+      "import json as _json",
+      "_fn = globals().get('to_json')",
+      "_res = _fn([{'item': 'Tea', 'amount': 20}]) if callable(_fn) else None",
+      "assert isinstance(_res, str), \"Expected to_json(expenses) to return a JSON string using json.dumps(expenses)\"",
+      "assert _json.loads(_res) == [{'item': 'Tea', 'amount': 20}], \"Expected json.dumps(expenses) output\"",
+      done
+    ),
     aTitle: "Safe Load",
     aDesc: "Write `load_expenses(text)` that turns JSON text into a list, and returns `[]` if the text is broken, empty, or not a list.",
-    aStarter: lines("import json", "", "def load_expenses(text):", "    try:", "        # json.loads, then check it is a list", "        pass", "    except ValueError:", "        return []"),
+    aStarter: lines("import json", "", "def load_expenses(text):", "    try:", "        # json.loads(text), then return it only if isinstance(data, list)", "        pass", "    except ValueError:", "        return []"),
     aHint: "data = json.loads(text); return data if isinstance(data, list) else []",
-    aTest: lines("assert load_expenses('[{\"item\": \"Tea\"}]') == [{'item': 'Tea'}]", "assert load_expenses('broken{') == []", "assert load_expenses('{\"a\": 1}') == []", "assert load_expenses('') == []", done)
+    aTest: lines(
+      "_fn = globals().get('load_expenses')",
+      "_r1 = _fn('[{\"item\": \"Tea\"}]') if callable(_fn) else None",
+      "_r2 = _fn('broken{') if callable(_fn) else None",
+      "_r3 = _fn('{\"a\": 1}') if callable(_fn) else None",
+      "_r4 = _fn('') if callable(_fn) else None",
+      "if _r1 == [{'item': 'Tea'}] and isinstance(_r3, dict):",
+      "    assert False, \"Almost! When the JSON is a dictionary like '{\\\"a\\\": 1}' instead of a list, load_expenses() must return []. Check 'isinstance(data, list)'.\"",
+      "assert _r1 == [{'item': 'Tea'}], \"Expected load_expenses('[{\\\"item\\\": \\\"Tea\\\"}]') == [{'item': 'Tea'}]\"",
+      "assert _r2 == [] and _r3 == [] and _r4 == [], \"Expected load_expenses() to return [] for broken, non-list, or empty text\"",
+      done
+    )
   },
   {
     title: "Classes and Objects",
@@ -946,14 +997,34 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "An Expense Class",
     eDesc: "Write a class `Expense` with `item` and `amount`, and a method `label()` that returns text like `'Tea: 20'`.",
-    eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        # save item and amount on self", "        pass", "", "    def label(self):", "        pass"),
+    eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        # save item and amount on self", "        pass", "", "    def label(self):", "        # return f'{self.item}: {self.amount}'", "        pass"),
     eHint: "self.item = item; self.amount = amount; label returns f'{self.item}: {self.amount}'",
-    eTest: lines("e = Expense('Tea', 20)", "assert e.item == 'Tea' and e.amount == 20", "assert e.label() == 'Tea: 20'", done),
+    eTest: lines(
+      "e = Expense('Tea', 20)",
+      "_attrs_ok = False",
+      "try:",
+      "    _attrs_ok = (e.item == 'Tea' and e.amount == 20)",
+      "except AttributeError:",
+      "    _attrs_ok = False",
+      "assert _attrs_ok, \"Save self.item = item and self.amount = amount inside __init__\"",
+      "_lbl = e.label()",
+      "assert _lbl == 'Tea: 20', f\"Expected e.label() to return 'Tea: 20', got {_lbl!r}\"",
+      done
+    ),
     aTitle: "A Wallet",
     aDesc: "Write a class `Wallet` that starts with a `balance`. Its method `spend(amount)` subtracts the amount and returns `True`, or returns `False` and changes nothing if there is not enough money.",
-    aStarter: lines("class Wallet:", "    def __init__(self, balance):", "        self.balance = balance", "", "    def spend(self, amount):", "        pass"),
+    aStarter: lines("class Wallet:", "    def __init__(self, balance):", "        self.balance = balance", "", "    def spend(self, amount):", "        # if amount > self.balance: return False; otherwise subtract and return True", "        pass"),
     aHint: "if amount > self.balance: return False. Otherwise subtract and return True.",
-    aTest: lines("w = Wallet(100)", "assert w.spend(30) is True and w.balance == 70", "assert w.spend(500) is False and w.balance == 70", done)
+    aTest: lines(
+      "w = Wallet(100)",
+      "_ok1 = w.spend(30)",
+      "assert _ok1 is True and w.balance == 70, \"Expected w.spend(30) on Wallet(100) to return True and leave balance 70\"",
+      "_ok2 = w.spend(500)",
+      "if w.balance < 0:",
+      "    assert False, \"When amount > self.balance, do not subtract from self.balance! Return False without changing balance.\"",
+      "assert _ok2 is False and w.balance == 70, \"Expected w.spend(500) to return False and keep balance at 70\"",
+      done
+    )
   },
   {
     title: "Better Classes: __str__ and Inheritance",
@@ -965,14 +1036,30 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Printable Expense",
     eDesc: "Write a class `Expense` whose `str()` looks like `'Tea (Rs 20)'`.",
-    eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "    def __str__(self):", "        pass"),
+    eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "    def __str__(self):", "        # return f'{self.item} (Rs {self.amount})'", "        pass"),
     eHint: "return f'{self.item} (Rs {self.amount})'",
-    eTest: lines("assert str(Expense('Tea', 20)) == 'Tea (Rs 20)'", done),
+    eTest: lines(
+      "_s = None; _t_err = False",
+      "try:",
+      "    _s = str(Expense('Tea', 20))",
+      "except TypeError:",
+      "    _t_err = True",
+      "if _t_err:",
+      "    assert False, \"__str__() must return a string! Use: return f'{self.item} (Rs {self.amount})'\"",
+      "assert _s == 'Tea (Rs 20)', f\"Expected str(Expense('Tea', 20)) == 'Tea (Rs 20)', got {_s!r}\"",
+      done
+    ),
     aTitle: "Subscription",
     aDesc: "Given an `Expense` class with `item` and `amount`, write `Subscription(Expense)` with a method `yearly_cost()` that returns amount times 12.",
-    aStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "class Subscription(Expense):", "    def yearly_cost(self):", "        pass"),
+    aStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "class Subscription(Expense):", "    def yearly_cost(self):", "        # return self.amount * 12", "        pass"),
     aHint: "return self.amount * 12",
-    aTest: lines("s = Subscription('Music app', 99)", "assert s.item == 'Music app'", "assert s.yearly_cost() == 1188", "assert isinstance(s, Expense)", done)
+    aTest: lines(
+      "s = Subscription('Music app', 99)",
+      "assert s.item == 'Music app'",
+      "assert s.yearly_cost() == 1188, \"Expected yearly_cost() to return self.amount * 12 (1188)\"",
+      "assert isinstance(s, Expense), \"Subscription must inherit from Expense: class Subscription(Expense):\"",
+      done
+    )
   },
   {
     title: "Python on Your Laptop: Scripts, input() and pip",
@@ -986,12 +1073,36 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "People type amounts with spaces. Write `parse_amount(text)` that removes spaces and returns the amount as a float, or `None` if it is not a number.",
     eStarter: lines("def parse_amount(text):", "    # strip(), then float(), inside try/except", "    pass"),
     eHint: "try: return float(text.strip()) / except ValueError: return None",
-    eTest: lines("assert parse_amount(' 250 ') == 250.0", "assert parse_amount('99.5') == 99.5", "assert parse_amount('abc') is None", done),
+    eTest: lines(
+      "_fn = globals().get('parse_amount')",
+      "_v1 = None; _v2 = None; _v3 = 'UNSET'; _v_err = False",
+      "try:",
+      "    if callable(_fn):",
+      "        _v1 = _fn(' 250 ')",
+      "        _v2 = _fn('99.5')",
+      "        _v3 = _fn('abc')",
+      "except ValueError:",
+      "    _v_err = True",
+      "if _v_err:",
+      "    assert False, \"parse_amount('abc') crashed with ValueError! Catch it with 'except ValueError: return None'.\"",
+      "assert _v1 == 250.0 and _v2 == 99.5 and _v3 is None, \"Expected parse_amount(' 250 ') == 250.0, parse_amount('99.5') == 99.5, and parse_amount('abc') is None\"",
+      done
+    ),
     aTitle: "Menu Choice",
     aDesc: "Write `menu_choice(text)` that returns the number 1, 2 or 3 when the user typed one of them, otherwise `None`.",
     aStarter: lines("def menu_choice(text):", "    # compare text.strip() with '1', '2', '3'", "    pass"),
     aHint: "value = text.strip(); return int(value) if value in ('1', '2', '3') else None",
-    aTest: lines("assert menu_choice('2') == 2", "assert menu_choice(' 3 ') == 3", "assert menu_choice('7') is None", "assert menu_choice('x') is None", done)
+    aTest: lines(
+      "_fn = globals().get('menu_choice')",
+      "_v1 = _fn('2') if callable(_fn) else None",
+      "_v2 = _fn(' 3 ') if callable(_fn) else None",
+      "_v3 = _fn('7') if callable(_fn) else 'UNSET'",
+      "_v4 = _fn('x') if callable(_fn) else 'UNSET'",
+      "if _v1 == '2' or _v2 == '3':",
+      "    assert False, \"Almost! menu_choice() returned a string ('2') instead of a number (2). Convert it with int().\"",
+      "assert _v1 == 2 and _v2 == 3 and _v3 is None and _v4 is None, \"Expected menu_choice('2') == 2, menu_choice(' 3 ') == 3, and None for '7' or 'x'\"",
+      done
+    )
   },
   {
     title: "Testing Your Code with assert and pytest",
@@ -1003,14 +1114,31 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     eTitle: "Valid Amount",
     eDesc: "Write `is_valid_amount(value)` that returns `True` only for numbers greater than 0 (int or float, not bool or text).",
-    eStarter: lines("def is_valid_amount(value):", "    # isinstance(value, (int, float)), not bool, and > 0", "    pass"),
+    eStarter: lines("def is_valid_amount(value):", "    # isinstance(value, (int, float)), not isinstance(value, bool), and value > 0", "    pass"),
     eHint: "return isinstance(value, (int, float)) and not isinstance(value, bool) and value > 0",
-    eTest: lines("assert is_valid_amount(20) is True", "assert is_valid_amount(9.5) is True", "assert is_valid_amount(0) is False", "assert is_valid_amount('20') is False", "assert is_valid_amount(True) is False", done),
+    eTest: lines(
+      "_fn = globals().get('is_valid_amount')",
+      "_ok_num = callable(_fn) and _fn(20) is True and _fn(9.5) is True and _fn(0) is False and _fn(-5) is False and _fn('20') is False",
+      "assert _ok_num, \"Expected is_valid_amount() to return True for 20 and 9.5, and False for 0, -5, and '20'\"",
+      done
+    ),
     aTitle: "Your Own Check",
     aDesc: "Write `check_equal(actual, expected)` that returns `True` when they are equal and raises `AssertionError` with the message `'Expected X but got Y'` when they are not.",
-    aStarter: lines("def check_equal(actual, expected):", "    # raise AssertionError(...) when different", "    pass"),
+    aStarter: lines("def check_equal(actual, expected):", "    # if actual != expected: raise AssertionError(f'Expected {expected} but got {actual}')", "    pass"),
     aHint: "if actual != expected: raise AssertionError(f'Expected {expected} but got {actual}'); return True",
-    aTest: lines("assert check_equal(2, 2) is True", "try:", "    check_equal(1, 2)", "    raised = False", "except AssertionError as err:", "    raised = 'Expected 2 but got 1' in str(err)", "assert raised, 'Should raise Expected 2 but got 1'", done)
+    aTest: lines(
+      "assert check_equal(2, 2) is True, \"Expected check_equal(2, 2) to return True\"",
+      "raised = False; _err_msg = ''",
+      "try:",
+      "    check_equal(1, 2)",
+      "except AssertionError as err:",
+      "    _err_msg = str(err)",
+      "    raised = 'Expected 2 but got 1' in _err_msg",
+      "if 'Expected 1 but got 2' in _err_msg:",
+      "    assert False, \"Almost! You swapped expected and actual in the message. Use: f'Expected {expected} but got {actual}'\"",
+      "assert raised, \"Should raise AssertionError('Expected 2 but got 1') when actual=1 and expected=2\"",
+      done
+    )
   },
 
   // ── WEEK 4: Build, ship and get job-ready ─────────────────────────────────
