@@ -228,20 +228,20 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "title": "Prisma ORM, Schema Migrations & Relational Modeling",
     "desc": "Define data models, 1-to-many & many-to-many relations, declarative migrations, and type-safe query builders.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of Prisma ORM, Schema Migrations & Relational Modeling.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Declarative Relational Modeling: Schema Declarations, Referential Integrity, and Cascade Constraints",
+      "Migration Engineering & Drift Invariants: Declarative Migrations, Shadow Databases, and Schema History",
+      "Type-Safe Query Compilation & Transactions: Relational Includes, Interactive $transaction, and Serverless Pooling"
     ],
     "eTitle": "ORM Relational Join Simulator",
-    "eDesc": "Implement function includeUserPosts(users, posts) simulating Prisma include: { posts: true }.",
-    "eStarter": "function includeUserPosts(users, posts) {\n  // Group posts by userId in a Map to join in O(U + P) linear time without N+1 query loop.\n  \n}",
-    "eHint": "Group posts by userId in a Map to join in O(U + P) linear time without N+1 query loop.",
-    "eTest": "const users = [{ id: 1, name: 'Alex' }, { id: 2, name: 'Sam' }];\nconst posts = [{ id: 101, userId: 1, title: 'Post 1' }, { id: 102, userId: 1, title: 'Post 2' }];\nconst joined = includeUserPosts(users, posts);\nif (joined[0].posts.length !== 2 || joined[1].posts.length !== 0) throw new Error('ORM relational join failed');",
+    "eDesc": "Implement function includeUserPosts(users, posts) simulating Prisma include: { posts: true } in O(U + P) linear time using a Map.",
+    "eStarter": "/**\n * Simulates an ORM relational join (include: { posts: true }) in O(U + P) linear time.\n * @param {Array<object>} users - Array of user objects with id\n * @param {Array<object>} posts - Array of post objects with userId\n * @returns {Array<object>} Users with nested posts array property\n */\nfunction includeUserPosts(users = [], posts = []) {\n  // 1. Group posts by userId into a Map in O(P) time\n  // 2. Map over users, attaching their posts array (or empty array) in O(U) time\n  // 3. Return hydrated users array\n  \n}",
+    "eHint": "Group posts by userId in a Map. Return users.map(u => ({ ...u, posts: map.get(u.id) || [] })).",
+    "eTest": "const users = [{ id: 1, name: 'Alex' }, { id: 2, name: 'Sam' }];\nconst posts = [{ id: 101, userId: 1, title: 'Post 1' }, { id: 102, userId: 1, title: 'Post 2' }];\nconst joined = includeUserPosts(users, posts);\n\nif (joined[0].posts.length !== 2 || joined[1].posts.length !== 0) throw new Error('ORM relational join failed');\nif (joined[0].posts[0].id !== 101 || joined[0].posts[1].id !== 102) throw new Error('Posts not correctly mapped to user');\n\nconst empty = includeUserPosts([], []);\nif (!Array.isArray(empty) || empty.length !== 0) throw new Error('Empty collections must return empty array');",
     "aTitle": "Schema Model Field Extractor",
     "aDesc": "Implement function getRequiredFields(schema) returning array of non-optional model properties.",
-    "aStarter": "function getRequiredFields(schema) {\n  // Filter schema keys where required is true.\n  \n}",
-    "aHint": "Filter schema keys where required is true.",
-    "aTest": "const s = { id: { required: true }, bio: { required: false } };\nif (getRequiredFields(s)[0] !== 'id') throw new Error('Required fields check failed');"
+    "aStarter": "/**\n * Extracts all non-optional (required) field names from a schema definition.\n * @param {object} schema - Schema definition object where keys map to field metadata\n * @returns {string[]} Array of required field names\n */\nfunction getRequiredFields(schema = {}) {\n  // 1. Filter schema keys where required is true\n  // 2. Return array of matching field names\n  \n}",
+    "aHint": "return Object.keys(schema).filter(key => schema[key] && schema[key].required === true);",
+    "aTest": "const s = { id: { required: true }, bio: { required: false }, email: { required: true } };\nconst req = getRequiredFields(s);\nif (req.length !== 2 || !req.includes('id') || !req.includes('email')) throw new Error('Required fields check failed');\n\nconst empty = getRequiredFields({});\nif (!Array.isArray(empty) || empty.length !== 0) throw new Error('Empty schema must return empty array');"
   },
   {
     "day": 13,
