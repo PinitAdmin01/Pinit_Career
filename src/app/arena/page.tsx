@@ -44,7 +44,9 @@ const MonacoEditor = dynamic(
 function ArenaContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialTab = (searchParams?.get('tab') as 'code_wars' | 'hackathons' | 'viva') || 'code_wars';
+  const rawTab = searchParams?.get('tab');
+  const initialTab: 'code_wars' | 'hackathons' | 'viva' =
+    (rawTab === 'hackathons' || rawTab === 'viva') ? rawTab : 'code_wars';
   const roomQueryCode = searchParams?.get('room');
 
   const { user, refresh } = useAuth();
@@ -154,8 +156,10 @@ function ArenaContent() {
   // Sync tab with URL query parameter
   useEffect(() => {
     const tabParam = searchParams?.get('tab');
-    if (tabParam && ['code_wars', 'hackathons', 'viva'].includes(tabParam)) {
-      setActiveTab(tabParam as any);
+    if (tabParam === 'hackathons' || tabParam === 'viva') {
+      setActiveTab(tabParam);
+    } else {
+      setActiveTab('code_wars');
     }
   }, [searchParams]);
 

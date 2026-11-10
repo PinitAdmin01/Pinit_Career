@@ -102,6 +102,22 @@ function LeaderboardContent() {
 
   const [showXpReqTooltip, setShowXpReqTooltip] = useState(false);
   const [showResetTooltip, setShowResetTooltip] = useState(false);
+  const xpReqRef = useRef<HTMLDivElement>(null);
+  const resetClockRef = useRef<HTMLDivElement>(null);
+
+  // Auto-dismiss popovers when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (xpReqRef.current && !xpReqRef.current.contains(e.target as Node)) {
+        setShowXpReqTooltip(false);
+      }
+      if (resetClockRef.current && !resetClockRef.current.contains(e.target as Node)) {
+        setShowResetTooltip(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Task 10: 100 XP League Gate State
   const userTotalXp = typeof cOS?.xp === 'number' && Number.isFinite(cOS.xp)
@@ -526,10 +542,13 @@ function LeaderboardContent() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 16 }}>
           {/* Circle 1: League Entry Requirement: 100 XP Needed to Join (Vanishes when requirement met) */}
           {(userTotalXp < 100 && !joinedLeague) && (
-            <div style={{ position: 'relative' }}>
+            <div ref={xpReqRef} style={{ position: 'relative' }}>
               <button
                 type="button"
-                onClick={() => setShowXpReqTooltip(prev => !prev)}
+                onClick={() => {
+                  setShowXpReqTooltip(prev => !prev);
+                  setShowResetTooltip(false);
+                }}
                 title="League Entry Requirement: 100 XP Needed to Join"
                 style={{
                   display: 'flex',
@@ -605,6 +624,7 @@ function LeaderboardContent() {
                     marginTop: 8,
                     zIndex: 100,
                     width: 240,
+                    maxWidth: 'calc(100vw - 40px)',
                     padding: '12px 14px',
                     borderRadius: 12,
                     background: 'var(--card)',
@@ -642,10 +662,13 @@ function LeaderboardContent() {
           )}
 
           {/* Circle 2: Reset Clock to promote or demote users */}
-          <div style={{ position: 'relative' }}>
+          <div ref={resetClockRef} style={{ position: 'relative' }}>
             <button
               type="button"
-              onClick={() => setShowResetTooltip(prev => !prev)}
+              onClick={() => {
+                setShowResetTooltip(prev => !prev);
+                setShowXpReqTooltip(false);
+              }}
               title="Weekly Sprint Reset Clock: Promote & Demote"
               style={{
                 display: 'flex',
@@ -721,6 +744,7 @@ function LeaderboardContent() {
                   marginTop: 8,
                   zIndex: 100,
                   width: 250,
+                  maxWidth: 'calc(100vw - 40px)',
                   padding: '12px 14px',
                   borderRadius: 12,
                   background: 'var(--card)',

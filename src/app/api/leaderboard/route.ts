@@ -182,7 +182,7 @@ export async function GET(req: Request) {
       try {
         // Students only (staff, parents, recruiters are not ranked).
         let query = admin.from('users').select(
-          'id, display_name, avatar_url, college, target_role, ats_score, trust_score, career_dna_score, xp_total, weekly_xp, league_tier, skill_tags, completed_quests, arena_elo'
+          'id, display_name, avatar_url, college, target_role, ats_score, trust_score, career_dna_score, xp_total, weekly_xp, league_tier, skill_tags, completed_quests, arena_elo, arena_wins'
         ).or('role.eq.student,role.eq.Student,role.is.null');
 
         if (mode === 'weekly_leagues') {
@@ -412,7 +412,7 @@ export async function GET(req: Request) {
       try {
         const { data: myProfile } = await admin
           .from('users')
-          .select('id, display_name, avatar_url, college, target_role, ats_score, trust_score, xp_total, weekly_xp, league_tier, completed_quests, arena_elo')
+          .select('id, display_name, avatar_url, college, target_role, ats_score, trust_score, xp_total, weekly_xp, league_tier, completed_quests, arena_elo, arena_wins')
           .eq('id', currentUserId)
           .maybeSingle();
 
@@ -436,7 +436,10 @@ export async function GET(req: Request) {
               }
               rankQuery = rankQuery.gt('weekly_xp', myProfile.weekly_xp || 0);
             } else if (mode === 'code_wars') {
-              rankQuery = rankQuery.gt('arena_elo', myProfile.arena_elo || 100);
+              const effectiveElo = (myProfile.arena_elo === 1200 && (!myProfile.arena_wins || myProfile.arena_wins === 0))
+                ? 100
+                : (myProfile.arena_elo || 100);
+              rankQuery = rankQuery.gt('arena_elo', effectiveElo);
             } else {
               rankQuery = rankQuery.gt('xp_total', myProfile.xp_total || 0);
             }
@@ -452,6 +455,10 @@ export async function GET(req: Request) {
 
           const myRawElo = (myProfile as any).arena_elo;
           const isMyLegacy1200 = myRawElo === 1200 && (!(myProfile as any).arena_wins || (myProfile as any).arena_wins === 0);
+          if (isMyLegacy1200) {
+            // Auto-heal legacy 1200 row in Supabase
+            admin.from('users').update({ arena_elo: 100 }).eq('id', currentUserId).then(() => {}).catch(() => {});
+          }
           const myEloRating = (myRawElo !== undefined && myRawElo !== null && Number(myRawElo) > 0 && !isMyLegacy1200)
             ? Number(myRawElo)
             : (100 + Math.min(60, Math.round(Math.sqrt(myTotalXp) * 0.8)));

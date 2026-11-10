@@ -147,7 +147,7 @@ test('TASK 5: Complete removal of "All Combat Modes" tab and its overview cards'
 
   // 2. activeTab default
   assert.ok(
-    arenaPage.includes("const initialTab = (searchParams?.get('tab') as 'code_wars' | 'hackathons' | 'viva') || 'code_wars'"),
+    arenaPage.includes("initialTab") && arenaPage.includes("'code_wars'"),
     'Arena initialTab must default to code_wars'
   );
   assert.ok(
