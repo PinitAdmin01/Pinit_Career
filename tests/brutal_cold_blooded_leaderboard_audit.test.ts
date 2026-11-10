@@ -270,3 +270,90 @@ test('BRUTAL VECTOR 6: League score formula, zones, and 4-tier tiebreaker', () =
     'Browns league rookies cannot be demoted'
   );
 });
+
+// ── VECTOR 7: FULL-STACK STRUCTURED OBSERVABILITY & TELEMETRY CONTRACT ─────────
+test('BRUTAL VECTOR 7: Comprehensive telemetry logging across middleware, middlepoints and client', () => {
+  // Backend Ingress & Security Middleware logs
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_MIDDLEWARE][Inbound Request]'),
+    'Backend must log inbound request with IP, method, and timestamp'
+  );
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_SECURITY][Adversarial Probe Neutralized]'),
+    'Backend must log neutralized malware/XSS/SQLi security threats'
+  );
+
+  // Backend Middlepoint Telemetry logs
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_MIDDLEPOINT][Auth Resolution]'),
+    'Backend must log auth resolution and resolved league'
+  );
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_MIDDLEPOINT][Cohort Retrieval]'),
+    'Backend must log cohort retrieval size and DB status'
+  );
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_MIDDLEPOINT][Tiebreaker Complete]'),
+    'Backend must log tiebreaker sorting completion and top candidate'
+  );
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_MIDDLEPOINT][Off-Cohort Resolution]'),
+    'Backend must log off-cohort user rank and status'
+  );
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_MIDDLEPOINT][Guild Squads]'),
+    'Backend must log authentic guild squads count'
+  );
+
+  // Backend Egress Dispatch log
+  assert.ok(
+    leaderboardRoute.includes('[LEADERBOARD_ENDPOINT][Dispatched]'),
+    'Backend must log response dispatch with latencyMs'
+  );
+
+  // Frontend Client Telemetry logs
+  assert.ok(
+    leaderboardPage.includes('[LEADERBOARD_CLIENT][Fetch Inflight]'),
+    'Frontend must log fetch inflight parameters'
+  );
+  assert.ok(
+    leaderboardPage.includes('[LEADERBOARD_CLIENT][Fetch Complete]'),
+    'Frontend must log fetch completion with clientDurationMs'
+  );
+  assert.ok(
+    leaderboardPage.includes('[LEADERBOARD_CLIENT][Join League Triggered]'),
+    'Frontend must log join league action'
+  );
+  assert.ok(
+    leaderboardPage.includes('[LEADERBOARD_CLIENT][Profile Update Event Received]'),
+    'Frontend must log real-time profile update event'
+  );
+  assert.ok(
+    leaderboardPage.includes('[LEADERBOARD_CLIENT][Division Switched]'),
+    'Frontend must log division vault switch interaction'
+  );
+});
+
+// ── VECTOR 8: ELO INTEGRITY & NON-NEGATIVE GAIN PROTECTION ─────────────────────
+test('BRUTAL VECTOR 8: 100 baseline ELO with non-negative ELO gain protection', () => {
+  // ELO Gain is strictly non-negative: Math.max(0, eloRating - 100)
+  assert.ok(
+    leaderboardRoute.includes('Math.max(0, eloRating - 100)'),
+    'Backend must clamp eloGain to 0 minimum so ELO losses below 100 never penalize league score'
+  );
+  assert.ok(
+    leaderboardPage.includes('Math.max(0, entry.eloRating - 100)'),
+    'Frontend must clamp eloGain to 0 minimum in pedestal and table calculations'
+  );
+
+  // Default baseline ELO is 100
+  assert.ok(
+    leaderboardPage.includes('Number((user as any).arena_elo) || 100'),
+    'Frontend must fall back to 100 baseline ELO for unrated students'
+  );
+  assert.ok(
+    leaderboardRoute.includes('arena_elo || 100'),
+    'Backend off-cohort query must fall back to 100 baseline ELO'
+  );
+});
+
