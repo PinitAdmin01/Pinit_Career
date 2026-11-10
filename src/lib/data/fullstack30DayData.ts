@@ -248,20 +248,20 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "title": "The N+1 Query Problem & DataLoader Batching",
     "desc": "Eliminate N+1 database queries using single-tick batching and DataLoader primary key deduplication.",
     "syllabus": [
-      "Core Foundations: Principles and mechanisms of The N+1 Query Problem & DataLoader Batching.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+      "Anatomy of N+1 Query Degradation: Latency Equations, Network RTT Explosions, and Iterative Fetching Anti-Patterns",
+      "The DataLoader Architecture: Microtask Queue Coalescing, Primary Key Deduplication, and Array Order Invariants",
+      "Request-Scoped Caching & Multi-Tenant Isolation: Memory Leak Prevention and 1-to-Many Batch Mappings"
     ],
     "eTitle": "DataLoader Batching Queue Simulator",
     "eDesc": "Implement class DataLoader with load(key) and dispatch() fetching all accumulated keys in a single batch query.",
-    "eStarter": "class DataLoader {\n  constructor(batchFn) {\n    // Deduplicate keys in queue and execute batchFn once for all pending requests.\n    \n  }\n  load(key) {\n    // Deduplicate keys in queue and execute batchFn once for all pending requests.\n    \n  }\n  async dispatch() {\n    // Deduplicate keys in queue and execute batchFn once for all pending requests.\n    \n  }\n\n}",
-    "eHint": "Deduplicate keys in queue and execute batchFn once for all pending requests.",
-    "eTest": "let dbCalls = 0;\nconst batchFetchUsers = async (ids) => { dbCalls++; return ids.map(id => ({ id, name: `User_${id}` })); };\nconst loader = new DataLoader(batchFetchUsers);\nconst p1 = loader.load(1); const p2 = loader.load(2); const p3 = loader.load(1);\nawait loader.dispatch();\nconst [u1, u2, u3] = await Promise.all([p1, p2, p3]);\nif (dbCalls !== 1 || u1.name !== 'User_1' || u3.name !== 'User_1') throw new Error('DataLoader failed to batch into single DB query');",
+    "eStarter": "/**\n * Coalesces individual load(key) calls into a single batched query roundtrip.\n */\nclass DataLoader {\n  constructor(batchFn) {\n    this.batchFn = batchFn;\n    this.queue = [];\n    this.cache = new Map();\n  }\n\n  load(key) {\n    // 1. Return cached promise if key was previously requested\n    // 2. Otherwise create deferred promise, enqueue, and return promise\n    \n  }\n\n  async dispatch() {\n    // 1. Drain current queue and extract unique keys\n    // 2. Invoke batchFn with deduplicated keys\n    // 3. Resolve promises for all queued keys with their matching results\n    \n  }\n}",
+    "eHint": "Cache promises in a Map. In dispatch(), get unique keys with [...new Set(queue.map(q => q.key))], call await this.batchFn(uniqueKeys), and resolve each queued deferred with its matching item.",
+    "eTest": "let dbCalls = 0;\nconst batchFetchUsers = async (ids) => {\n  dbCalls++;\n  return ids.map(id => ({ id, name: `User_${id}` }));\n};\nconst loader = new DataLoader(batchFetchUsers);\nconst p1 = loader.load(1);\nconst p2 = loader.load(2);\nconst p3 = loader.load(1);\n\nawait loader.dispatch();\n\nconst [u1, u2, u3] = await Promise.all([p1, p2, p3]);\nif (dbCalls !== 1 || u1.name !== 'User_1' || u3.name !== 'User_1') throw new Error('DataLoader failed to batch into single DB query');",
     "aTitle": "Deduplicate Primary Keys",
-    "aDesc": "Implement function deduplicateIds(ids) returning unique array.",
-    "aStarter": "function deduplicateIds(ids) {\n  // TODO: write your code here\n}",
-    "aHint": "Use Set to remove duplicate IDs.",
-    "aTest": "if (deduplicateIds([1, 2, 2, 3, 1]).length !== 3) throw new Error('Deduplication failed');"
+    "aDesc": "Implement function deduplicateIds(ids) returning an array of unique primary keys preserving order of first appearance.",
+    "aStarter": "/**\n * Deduplicates an array of primary keys.\n * @param {Array<number|string>} ids - Array containing duplicate keys\n * @returns {Array<number|string>} Unique keys array\n */\nfunction deduplicateIds(ids = []) {\n  // Return unique keys preserving order of first appearance\n  \n}",
+    "aHint": "return [...new Set(ids)];",
+    "aTest": "const deduped = deduplicateIds([1, 2, 2, 3, 1]);\nif (deduped.length !== 3 || deduped[0] !== 1 || deduped[1] !== 2 || deduped[2] !== 3) throw new Error('Deduplication failed');\n\nconst empty = deduplicateIds([]);\nif (!Array.isArray(empty) || empty.length !== 0) throw new Error('Empty array deduplication failed');"
   },
   {
     "day": 14,
