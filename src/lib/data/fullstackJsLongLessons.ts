@@ -4517,9 +4517,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "When a ConfigMap mounted as a projected volume is modified in Kubernetes, how does the kubelet ensure atomic updates on the container filesystem?",
           "options": [
             "It creates a new timestamped directory and atomically swaps the ..data symlink using POSIX rename()",
-            "It kills the container and deletes the overlay storage layer",
-            "It executes an FTP transfer into the running container",
-            "It restarts all worker nodes simultaneously, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It pauses the container cgroup freezer and overwrites the mounted file descriptors in place",
+            "It triggers an etcd webhook that patches /proc/pid/environ variables inside the running Pod",
+            "It unmounts the projected volume briefly, truncates old files, and remounts the new ConfigMap"
           ],
           "answer": 0,
           "why": "The kubelet writes new configuration data into a hidden timestamped directory and atomically updates the ..data symlink, preventing partial read corruption during file writes.",
@@ -4544,10 +4544,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In Helm, what happens internally when executing a `helm rollback <release> <revision>` command?",
           "options": [
-            "It deletes all previous records from cluster etcd, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It mutates the target historical Secret in place and truncates all subsequent Helm revisions in etcd",
             "It creates a new incremented release revision that applies the manifests from the target historical revision",
-            "It permanently erases the git repository history, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It rolls back the worker node operating system kernel, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It executes kubectl delete on the running Deployment before reinstalling the historical chart cleanly",
+            "It reverts running container image tags in the node runtime without modifying active ReplicaSet specs"
           ],
           "answer": 1,
           "why": "Helm maintains an append-only release history; rolling back does not delete history, but rather synthesizes a new revision containing the exact configuration of the chosen target revision.",
@@ -4601,10 +4601,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In continuous integration engineering, what is the primary structural advantage of modeling pipeline stages as a Directed Acyclic Graph (DAG)?",
           "options": [
-            "It forces every single step to execute in a strictly sequential single thread",
-            "It removes the need for unit tests, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It serializes every job onto a single shared runner container to avoid filesystem permission conflicts",
+            "It disables cache invalidation checks so Docker builds bypass lockfile hash verification automatically",
             "It allows independent stages without upstream dependencies to execute in parallel, minimizing total build latency",
-            "It automatically writes business logic code, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It retries failed deployment stages automatically before upstream unit and lint checks finish executing"
           ],
           "answer": 2,
           "why": "A DAG models exact dependencies between tasks, enabling parallel execution of independent jobs (such as linting, typechecking, and unit testing) and fast-failing before expensive downstream jobs run.",
@@ -4630,9 +4630,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In GitHub Actions workflows, how does the `needs` keyword affect job execution order?",
           "options": [
-            "It causes all jobs to run concurrently on a single CPU core",
-            "It automatically converts YAML into Python scripts, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It forces the job to download external npm dependencies, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It mounts the local runner filesystem across separate matrix jobs so build artifacts merge automatically",
+            "It forces workflows in separate concurrency groups to share an identical pnpm store cache key",
+            "It triggers parallel matrix execution across Ubuntu and macOS runners without waiting for checkout steps",
             "It establishes an explicit execution dependency, ensuring dependent jobs only run after prerequisite jobs succeed"
           ],
           "answer": 3,
@@ -4660,9 +4660,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why is OpenID Connect (OIDC) strongly preferred over static IAM secrets in enterprise CI/CD pipelines?",
           "options": [
             "OIDC generates short-lived, verifiable cryptographically signed tokens on demand, eliminating permanently stored static cloud credentials that could leak",
-            "OIDC runs 500% faster than bash scripts, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "OIDC eliminates the need for Docker containers, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "OIDC automatically formats TypeScript files with Prettier, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "OIDC bypasses IAM role policy evaluations in AWS STS, granting workflows cluster-admin access across every staging namespace",
+            "OIDC caches repository GitHub Secrets permanently inside BuildKit layers so offline self-hosted runners skip STS verification",
+            "OIDC encrypts container images with RSA private keys embedded statically inside .github/workflows YAML files across branches"
           ],
           "answer": 0,
           "why": "OIDC allows CI runners to exchange ephemeral signed identity tokens for temporary cloud credentials, completely eliminating permanent static secret keys stored inside repository settings.",
@@ -4688,10 +4688,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "When deploying containerized microservices across mixed AWS x86 and ARM Graviton clusters, why is Docker Buildx multi-arch compilation necessary?",
           "options": [
-            "It compresses the JavaScript code into binary assembly, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It bundles live QEMU user-space emulators inside every production pod so ARM64 binaries run inside Alpine containers directly",
             "It publishes an OCI Image Index referencing both amd64 and arm64 binaries, allowing each node to run natively without emulation failures",
-            "It eliminates the need for Kubernetes namespaces, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It replaces npm packages with native Rust extensions, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It transpiles native C++ Node-API addons back into pure JavaScript bundles at push time before uploading to ghcr.io registries",
+            "It strips platform-specific OS system headers during Trivy scanning so amd64 layers execute natively on Graviton CPU nodes"
           ],
           "answer": 1,
           "why": "Docker Buildx produces a multi-platform manifest list; the container runtime inspects the node CPU architecture and pulls the exact matching binary layer, preventing exec format crashes.",
@@ -4722,7 +4722,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
             "chore: update dependencies",
             "fix(db): correct connection pool size",
             "feat(auth): add biometric passkey authentication",
-            "docs: update readme, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "docs(readme): document local environment setup"
           ],
           "answer": 2,
           "why": "In Conventional Commits, the 'feat' prefix represents new backward-compatible functionality, which strictly triggers a MINOR semantic version increment.",
@@ -4779,9 +4779,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why are raw text logs insufficient for debugging distributed microservices compared to structured logs correlated with distributed traces?",
           "options": [
-            "Raw text logs consume more disk space than JSON, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Raw text logs cannot be parsed by grep, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Raw text logs are prohibited by the Linux kernel, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Raw text logs cannot preserve chronological ordering across threads inside a single Node.js worker process",
+            "Raw text logs lack UTF-8 character encoding guarantees when emitted through standard Kubernetes container runtimes",
+            "Raw text logs automatically block the V8 event loop synchronously unless serialized as compressed protocol buffers",
             "Raw text logs lack standardized machine-queryable metadata and distributed trace IDs to correlate events across multiple independent microservices"
           ],
           "answer": 3,
@@ -4869,10 +4869,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In distributed trace analysis, what information does a span waterfall chart provide that isolated server logs cannot?",
           "options": [
-            "It predicts future stock prices, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It compiles TypeScript directly into machine assembly, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It aggregates historical database query plans into normalized relational schemas for schema migration validation",
+            "It captures full heap memory snapshots from each worker process at regular intervals to track garbage collection",
             "It visually maps out exact execution duration, start-time offsets, and parent-child causal relationships across multiple microservices",
-            "It restarts crashed Docker containers, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It enforces strict distributed transaction locking across downstream HTTP endpoints during concurrent request bursts"
           ],
           "answer": 2,
           "why": "Trace waterfall charts display exact time offsets, durations, and parent-child relationships, immediately revealing which downstream microservice or database operation is responsible for overall latency.",
@@ -4898,9 +4898,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In the Site Reliability Engineering (SRE) framework, what operational action should occur when a product's Error Budget is completely exhausted?",
           "options": [
-            "Deploy more marketing features immediately, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Lower the SLO target from 99.9% to 90% without fixing root causes",
-            "Delete the Prometheus monitoring server, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Scale horizontal pod replicas vertically until request latency returns below the median baseline response window",
+            "Lower the published SLO availability threshold from 99.9% to 90% so deployment pipeline gates turn green again",
+            "Flush rolling Prometheus metric time series buckets at midnight to reset the trailing 30-day compliance calculation",
             "Temporarily freeze feature deployments and redirect engineering effort toward reliability hardening and defect remediation"
           ],
           "answer": 3,
@@ -4958,9 +4958,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "How does Terraform determine the order in which cloud resources must be created, updated, or deleted?",
           "options": [
             "By building and topologically sorting a Directed Acyclic Graph (DAG) based on explicit and implicit resource attribute dependencies",
-            "By the alphabetical order of resource names in the file, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "By executing all resources simultaneously in random order, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "By waiting for user manual confirmation on every single resource, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "By parsing resource blocks strictly sequentially from top to bottom across lexicographically sorted .tf source files",
+            "By querying existing cloud billing tags in the remote backend to prioritize lower-cost control plane APIs before storage",
+            "By delegating resource dependency resolution directly to AWS CloudFormation or GCP Deployment Manager at apply runtime"
           ],
           "answer": 0,
           "why": "Terraform parses explicit dependencies (`depends_on`) and implicit attribute references (`aws_subnet.public.id`) to construct a DAG, determining the exact safe parallel execution order.",
@@ -4988,10 +4988,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is distributed state locking (e.g. via DynamoDB or GCS) essential when using remote backends for Terraform?",
           "options": [
-            "It speeds up internet connection bandwidth, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It encrypts sensitive output variables with symmetric KMS keys inside memory before sending terminal logs to CI runners",
             "It prevents concurrent executions from simultaneously writing to the state file, preventing race conditions and corrupted cloud state",
-            "It converts HCL syntax into JavaScript, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It forces developers to re-enter their passwords on every run, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It periodically mirrors remote state snapshots across multi-region object buckets to reduce S3 backend download latency",
+            "It validates resource IAM permissions locally against the remote provider schema without calling live cloud endpoints"
           ],
           "answer": 1,
           "why": "Distributed state locking ensures mutual exclusion; only one process can mutate infrastructure at a time, completely preventing concurrent writes from corrupting the state file.",
@@ -5019,10 +5019,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is directory-based environment separation (environments/dev, environments/prod) preferred over Terraform Workspaces for mission-critical cloud deployments?",
           "options": [
-            "Workspaces cannot connect to the internet, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Directory-based separation eliminates the need for Git, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Terraform Workspaces bypass input variable validation blocks whenever more than three child modules are instantiated together",
+            "Terraform Workspaces store all workspace state deltas inside a shared local .terraform directory that cannot be encrypted",
             "Directory-based separation provides completely isolated state backends, independent IAM blast radiuses, and explicit version pinning between environments",
-            "Workspaces do not support AWS, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Terraform Workspaces forbid specifying separate AWS regions or Kubernetes provider versions inside parameterized local modules"
           ],
           "answer": 2,
           "why": "Directory separation ensures that dev and prod have isolated state backends and separate access controls, preventing accidental modifications in dev from affecting production.",
@@ -5049,9 +5049,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In the HTTP Cache-Control header, what does the `stale-while-revalidate` directive instruct the Cloudflare CDN edge to do?",
           "options": [
-            "Delete the file immediately upon receipt, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Compress the body with gzip only, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Re-route traffic to an FTP server, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Hold the incoming HTTP request open until the origin completes a synchronous conditional ETag validation round-trip",
+            "Forward uncached client cookies straight to the origin tier while bypassing Brotli compression for dynamic JSON payloads",
+            "Automatically purge all matching regional Tiered Cache hubs whenever an origin health check returns a temporary HTTP 502",
             "Serve the cached (stale) response instantly to the client while asynchronously fetching a fresh copy from origin in the background"
           ],
           "answer": 3,
@@ -5080,9 +5080,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "How does Cloudflare Tunnel (cloudflared) enhance cloud origin security compared to traditional public load balancers?",
           "options": [
             "It establishes outbound-only connections to Cloudflare's edge, allowing origin firewalls to completely close all inbound public ports and eliminate direct IP attacks",
-            "It automatically encrypts files with zip compression, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It removes the need for HTTPS TLS certificates, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It stores all user passwords in public S3 buckets, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It replaces backend Kubernetes Ingress TLS handshakes with unencrypted plaintext HTTP/2 tunnels inside AWS VPC security groups",
+            "It caches user session tokens permanently inside edge Anycast DNS records so origin servers never verify authentication cookies",
+            "It assigns ephemeral public IPv6 anycast addresses directly to backend PostgreSQL pods so bots cannot enumerate static CIDR ranges"
           ],
           "answer": 0,
           "why": "Cloudflare Tunnel creates secure outbound-only tunnels to Cloudflare PoPs, allowing origins to block 100% of inbound internet traffic and eliminating port scan attacks.",
@@ -5139,10 +5139,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In Milestone 6 Capstone, how does Cloudflare Tunnel eliminate origin attack surfaces?",
           "options": [
-            "It forces developers to delete their AWS accounts, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It configures origin Kubernetes NodePort firewalls to accept traffic only from temporary developer workstation VPN ranges",
             "It establishes outbound-only tunnels from inside the Kubernetes cluster, allowing the cloud firewall to deny 100% of inbound internet traffic",
-            "It converts all frontend React code into static HTML files, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It requires all users to authenticate with Twitter, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It terminates backend PostgreSQL connections at Cloudflare Workers so microservices run without cluster TLS certificates",
+            "It automatically rotates internal pod ClusterIP addresses every sixty seconds to defeat DNS enumeration scanners"
           ],
           "answer": 1,
           "why": "Cloudflare Tunnel creates encrypted outbound connections to Cloudflare edge PoPs, allowing origin security groups to reject all inbound internet connections, eliminating port scan exploits.",
@@ -5170,10 +5170,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "During a Kubernetes rolling deployment, what condition prevents a newly scheduled pod from receiving live traffic before its database connection pools are initialized?",
           "options": [
-            "Setting replicaCount: 0, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Restarting the entire worker node operating system",
+            "The Kubernetes scheduler withholds the container IP until CPU limits fall under 10%",
+            "The liveness probe pauses Node.js module imports until PostgreSQL ACKs the first SELECT",
             "A failing readiness probe keeps the pod out of the EndpointSlice until it returns HTTP 200 OK",
-            "Deleting the CoreDNS namespace, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "CoreDNS deletes existing v1 A-records globally until all surging pods complete startup"
           ],
           "answer": 2,
           "why": "Kubernetes service endpoints strictly exclude any pod whose readiness probe has not succeeded, ensuring cold pods cannot receive customer traffic.",
@@ -5200,9 +5200,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In an event-driven Kafka architecture, how does routing events by customer aggregate key preserve business consistency?",
           "options": [
-            "It forces the database to lock all tables, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It converts all JSON messages into CSV files, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It deletes duplicate records from customer browsers, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Consumers pause all unrelated tenant partitions globally until a customer's checkout workflow writes its final SQL row",
+            "Kafka brokers reorder out-of-sequence records across all topic partitions using vector clocks before delivering batches",
+            "Producers lock the Redis BullMQ worker pool whenever duplicate sequence numbers arrive during a temporary network partition",
             "MurmurHash2 key hashing guarantees all events for a given customer land in the exact same partition, enforcing strict chronological order"
           ],
           "answer": 3,
@@ -5231,9 +5231,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why must distributed context (W3C traceparent) be preserved across asynchronous message brokers like Apache Kafka in addition to synchronous HTTP/gRPC?",
           "options": [
             "To allow tracing engines to reconstruct the unbroken end-to-end causal journey of an operation as it transitions from synchronous frontend calls to asynchronous background workers",
-            "To format JSON messages with Prettier, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Kafka rejects messages that lack traceparent headers, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To reduce CPU heat in the server room, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "To allow Kafka partition leaders to prioritize delivery throughput by routing requests with matching hex trace IDs onto dedicated SSD segments",
+            "To prevent Prometheus from dropping high-cardinality histogram exemplars whenever consumer group offsets lag behind producer write rates",
+            "To ensure Pino logger instances across worker pods share a synchronized Unix epoch clock without requiring NTP synchronization on container nodes"
           ],
           "answer": 0,
           "why": "Preserving traceparent headers in Kafka message metadata enables unified observability, correlating asynchronous background tasks back to the originating user web request.",
@@ -5256,16 +5256,16 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "Finally, operational excellence requires disciplined post-incident reviews and blameless postmortem culture. Certified Principal Architects establish automated runbooks for incident remediation, document mean time to detect (MTTD) and mean time to resolve (MTTR), and track recurring failure modes across services. By coupling rigorous postmortems with automated chaos drills and immutable audit logging, the engineering organization continuously hardens its production systems against unforeseen real-world failures."
         ],
         "example": "During the final architectural review, the engineering director simulates an abrupt failure of worker node 2 while initiating a canary rollout. The Kubernetes control plane self-heals, Kafka rebalances consumer groups without data loss, and Jaeger captures the entire incident with zero dropped user requests, achieving unconditional certification.",
-        "code": "// Capstone Gate 5: 5-Gate Architecture Viva Voce Defense & Master Certification Matrix\ninterface CertificationGateResult {\n  gateNumber: number;\n  gateName: string;\n  verified: boolean;\n  score: number;\n  evidence: string;\n}\n\nclass FullStackMasterCertificationMatrix {\n  private candidateName: string;\n  private gates: CertificationGateResult[] = [];\n\n  constructor(candidate: string) {\n    this.candidateName = candidate;\n  }\n\n  // Execute the comprehensive 5-Gate Certification Audit\n  public run5GateDefense(): { passed: boolean; totalScore: number; credentialIssued: string; results: CertificationGateResult[] } {\n    // Gate 1: Edge Ingress & Zero-Trust Defense\n    this.gates.push({\n      gateNumber: 1,\n      gateName: 'Global Edge Ingress & Zero-Trust WAF',\n      verified: true,\n      score: 100,\n      evidence: 'TLS 1.3 terminated < 5ms at Cloudflare edge; OWASP SQLi blocked with HTTP 403; zero inbound open ports via cloudflared tunnel.'\n    });\n\n    // Gate 2: Kubernetes Mesh & Zero-Downtime Rollout\n    this.gates.push({\n      gateNumber: 2,\n      gateName: 'Kubernetes Mesh & Zero-Downtime Rollout',\n      verified: true,\n      score: 100,\n      evidence: 'RollingUpdate maxUnavailable:0/maxSurge:1 verified; readiness probes gate traffic until /healthz succeeds; CoreDNS resolves FQDNs.'\n    });\n\n    // Gate 3: Asynchronous Event Fabric & DLQ Quarantine\n    this.gates.push({\n      gateNumber: 3,\n      gateName: 'Asynchronous Event Fabric & DLQ Quarantine',\n      verified: true,\n      score: 100,\n      evidence: 'MurmurHash2 per-customer partition order guaranteed; duplicate sequence PID suppressed; poison pill quarantined to DLQ.'\n    });\n\n    // Gate 4: Observability, OpenTelemetry & SRE Error Budgets\n    this.gates.push({\n      gateNumber: 4,\n      gateName: 'Full-Stack Observability & SRE Governance',\n      verified: true,\n      score: 100,\n      evidence: 'W3C traceparent propagated across gRPC & Kafka; P99 latency < 80ms; PromQL 10x burn rate alert triggers PagerDuty escalation.'\n    });\n\n    // Gate 5: Viva Voce Architectural Defense\n    this.gates.push({\n      gateNumber: 5,\n      gateName: 'Principal Architecture Board Viva Voce Defense',\n      verified: true,\n      score: 100,\n      evidence: 'Candidate defended edge streaming, gRPC binary protocols, OIDC zero-trust CI/CD, and declarative Terraform IaC under peer interrogation.'\n    });\n\n    const totalScore = this.gates.reduce((sum, g) => sum + g.score, 0);\n    const passed = this.gates.every(g => g.verified) && totalScore === 500;\n\n    return {\n      passed,\n      totalScore,\n      credentialIssued: passed ? 'PINIT-CERT-FULLSTACK-JS-PRINCIPAL-ARCHITECT-2026' : 'NONE',\n      results: this.gates\n    };\n  }\n}\n\n// Execution Trace\nconst certification = new FullStackMasterCertificationMatrix('Senior Engineering Lead');\n\nconsole.log('======================================================================');\nconsole.log('   PINIT CAREER OS: 5-GATE GRAND MASTER ARCHITECT DEFENSE MATRIX      ');\nconsole.log('======================================================================');\nconst defense = certification.run5GateDefense();\n\nfor (const g of defense.results) {\n  console.log(`[GATE ${g.gateNumber}: ${g.gateName}] -> Score: ${g.score}/100 (${g.verified ? 'PASSED' : 'FAILED'})`);\n  console.log(`   Evidence: ${g.evidence}`);\n}\n\nconsole.log('\\n----------------------------------------------------------------------');\nconsole.log(`Total Certification Score: ${defense.totalScore} / 500`);\nconsole.log(`Defense Outcome: ${defense.passed ? 'UNANIMOUS ARCHITECT APPROVAL' : 'REJECTED'}`);\nconsole.log(`Official Credential ID: ${defense.credentialIssued}`);\nconsole.log('======================================================================');",
+        "code": "// Capstone Gate 5: 5-Gate Architecture Viva Voce Defense & Master Certification Matrix\ninterface CertificationGateResult {\n  gateNumber: number;\n  gateName: string;\n  verified: boolean;\n  score: number;\n  evidence: string;\n}\n\nclass FullStackMasterCertificationMatrix {\n  private candidateName: string;\n  private gates: CertificationGateResult[] = [];\n\n  constructor(candidate: string) {\n    this.candidateName = candidate;\n  }\n\n  // Execute the comprehensive 5-Gate Certification Audit\n  public run5GateDefense(): { passed: boolean; totalScore: number; credentialIssued: string; results: CertificationGateResult[] } {\n    // Gate 1: Edge Ingress & Zero-Trust Defense\n    this.gates.push({\n      gateNumber: 1,\n      gateName: 'Global Edge Ingress & Zero-Trust WAF',\n      verified: true,\n      score: 100,\n      evidence: 'TLS 1.3 terminated < 5ms at Cloudflare edge; OWASP SQLi blocked with HTTP 403; zero inbound open ports via cloudflared tunnel.'\n    });\n\n    // Gate 2: Kubernetes Mesh & Zero-Downtime Rollout\n    this.gates.push({\n      gateNumber: 2,\n      gateName: 'Kubernetes Mesh & Zero-Downtime Rollout',\n      verified: true,\n      score: 100,\n      evidence: 'RollingUpdate maxUnavailable:0/maxSurge:1 verified; readiness probes gate traffic until /healthz succeeds; CoreDNS resolves FQDNs.'\n    });\n\n    // Gate 3: Asynchronous Event Fabric & DLQ Quarantine\n    this.gates.push({\n      gateNumber: 3,\n      gateName: 'Asynchronous Event Fabric & DLQ Quarantine',\n      verified: true,\n      score: 100,\n      evidence: 'MurmurHash2 per-customer partition order guaranteed; duplicate sequence PID suppressed; poison pill quarantined to DLQ.'\n    });\n\n    // Gate 4: Observability, OpenTelemetry & SRE Error Budgets\n    this.gates.push({\n      gateNumber: 4,\n      gateName: 'Full-Stack Observability & SRE Governance',\n      verified: true,\n      score: 100,\n      evidence: 'W3C traceparent propagated across gRPC & Kafka; P99 latency < 80ms; PromQL 10x burn rate alert triggers PagerDuty escalation.'\n    });\n\n    // Gate 5: Viva Voce Architectural Defense\n    this.gates.push({\n      gateNumber: 5,\n      gateName: 'Principal Architecture Board Viva Voce Defense',\n      verified: true,\n      score: 100,\n      evidence: 'Candidate defended edge streaming, gRPC binary protocols, OIDC zero-trust CI/CD, and declarative Terraform IaC under peer interrogation.'\n    });\n\n    const totalScore = this.gates.reduce((sum, g) => sum + g.score, 0);\n    const passed = this.gates.every(g => g.verified) && totalScore === 500;\n\n    return {\n      passed,\n      totalScore,\n      credentialIssued: passed ? 'PINIT-CERT-FULLSTACK-JS-PRINCIPAL-ARCHITECT-2026' : 'NONE',\n      results: this.gates\n    };\n  }\n}\n\n// Execution Trace\nconst certification = new FullStackMasterCertificationMatrix('Senior Engineering Lead');\n\nconsole.log('======================================================================');\nconsole.log('   PINIT CAREER OS: 5-GATE GRAND MASTER ARCHITECT DEFENSE MATRIX');\nconsole.log('======================================================================');\nconst defense = certification.run5GateDefense();\n\nfor (const g of defense.results) {\n  console.log(`[GATE ${g.gateNumber}: ${g.gateName}] -> Score: ${g.score}/100 (${g.verified ? 'PASSED' : 'FAILED'})`);\n  console.log(`   Evidence: ${g.evidence}`);\n}\n\nconsole.log('\\n----------------------------------------------------------------------');\nconsole.log(`Total Certification Score: ${defense.totalScore} / 500`);\nconsole.log(`Defense Outcome: ${defense.passed ? 'UNANIMOUS ARCHITECT APPROVAL' : 'REJECTED'}`);\nconsole.log(`Official Credential ID: ${defense.credentialIssued}`);\nconsole.log('======================================================================');",
         "output": "======================================================================\n   PINIT CAREER OS: 5-GATE GRAND MASTER ARCHITECT DEFENSE MATRIX\n======================================================================\n[GATE 1: Global Edge Ingress & Zero-Trust WAF] -> Score: 100/100 (PASSED)\n   Evidence: TLS 1.3 terminated < 5ms at Cloudflare edge; OWASP SQLi blocked with HTTP 403; zero inbound open ports via cloudflared tunnel.\n[GATE 2: Kubernetes Mesh & Zero-Downtime Rollout] -> Score: 100/100 (PASSED)\n   Evidence: RollingUpdate maxUnavailable:0/maxSurge:1 verified; readiness probes gate traffic until /healthz succeeds; CoreDNS resolves FQDNs.\n[GATE 3: Asynchronous Event Fabric & DLQ Quarantine] -> Score: 100/100 (PASSED)\n   Evidence: MurmurHash2 per-customer partition order guaranteed; duplicate sequence PID suppressed; poison pill quarantined to DLQ.\n[GATE 4: Full-Stack Observability & SRE Governance] -> Score: 100/100 (PASSED)\n   Evidence: W3C traceparent propagated across gRPC & Kafka; P99 latency < 80ms; PromQL 10x burn rate alert triggers PagerDuty escalation.\n[GATE 5: Principal Architecture Board Viva Voce Defense] -> Score: 100/100 (PASSED)\n   Evidence: Candidate defended edge streaming, gRPC binary protocols, OIDC zero-trust CI/CD, and declarative Terraform IaC under peer interrogation.\n\n----------------------------------------------------------------------\nTotal Certification Score: 500 / 500\nDefense Outcome: UNANIMOUS ARCHITECT APPROVAL\nOfficial Credential ID: PINIT-CERT-FULLSTACK-JS-PRINCIPAL-ARCHITECT-2026\n======================================================================",
         "tryIt": "Inspect the 5-Gate defense outputs and confirm that all 5 pillars of enterprise cloud software engineering are validated with a perfect 500/500 score.",
         "check": {
           "question": "What is the primary architectural purpose of the 5-Gate Defense Matrix in the Milestone 6 Capstone?",
           "options": [
-            "To generate marketing promotional emails, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "To benchmark synthetic single-threaded browser rendering frames per second in isolation before compiling production Docker container artifacts",
             "To rigorously validate that every tier of the full-stack cloud platform—edge, microservices, event streams, observability, and architecture rationale—functions with deterministic resilience under chaos conditions",
-            "To delete the project source code repository, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To downgrade production servers to single-core virtual machines, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "To replace automated CI/CD unit tests and Terraform remote state locks with manual checklist approvals performed once after production release",
+            "To consolidate every decoupled microservice and distributed Kafka consumer group back into a single shared PostgreSQL monolith for simpler billing metrics"
           ],
           "answer": 1,
           "why": "The 5-Gate Defense Matrix verifies the end-to-end resilience of the entire platform across edge security, container orchestration, event streaming, observability, and architectural design.",
