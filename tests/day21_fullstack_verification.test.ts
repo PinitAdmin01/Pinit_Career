@@ -138,12 +138,13 @@ describe('Day 21 Full-Stack Certification Invariant Verification', () => {
 
   it('Day 21 Assignment (getSseHeaders): valid implementation passes automated test suite', async () => {
     const studentCode = `
-      function getSseHeaders() {
+      function getSseHeaders(customHeaders = {}) {
         return {
           'Content-Type': 'text/event-stream',
           'Cache-Control': 'no-cache, no-transform',
           'Connection': 'keep-alive',
-          'X-Accel-Buffering': 'no'
+          'X-Accel-Buffering': 'no',
+          ...(customHeaders || {})
         };
       }
     `;

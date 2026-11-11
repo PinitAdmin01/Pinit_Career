@@ -3,8 +3,7 @@
  * This list must shrink to empty by the end of Phase 3 / F-18 as each course is upgraded.
  */
 export const KNOWN_CONSTANT_TASKS = new Set<string>([
-  // course-fullstack-js (43 tasks)
-  'fullstack-js-assign-day-17', 'fullstack-js-assign-day-20', 'fullstack-js-assign-day-21', 'fullstack-js-assign-day-26',
+  // course-fullstack-js (39 tasks)
   'fullstack-js-exam-day-33', 'fullstack-js-assign-day-33', 'fullstack-js-assign-day-34', 'fullstack-js-assign-day-35',
   'fullstack-js-assign-day-41', 'fullstack-js-assign-day-42', 'fullstack-js-assign-day-43', 'fullstack-js-assign-day-44',
   'fullstack-js-assign-day-48', 'fullstack-js-assign-day-51', 'fullstack-js-assign-day-56', 'fullstack-js-exam-day-60',
