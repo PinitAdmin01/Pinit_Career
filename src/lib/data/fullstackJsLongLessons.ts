@@ -9905,15 +9905,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
     "minutes": 120,
     "parts": [
       {
-        "tryIt": "In the Cross-Micro-Frontend Shell Routing & Deep-Link Synchronization code editor, adjust interface (currently 404) and RouteConfig to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "Register a third cross-app route `{ path: \"/billing\", remoteName: \"billingApp\", component: \"InvoiceLedger\" }` on `router` and call `router.navigate(\"/billing\")` followed by `router.getCurrentPath()` to inspect resolved micro-frontend routing.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "By forcing all remote micro-frontends to recompile into a single monolithic bundle whenever a route path changes. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "By embedding each remote team's repository directly into the shell router via monorepo workspace imports at build time to skip network manifest lookups completely.",
             "By matching URI path prefixes in the shell router and dynamically fetching remote container manifests at runtime without requiring compile-time monolithic bundle coupling.",
-            "By reloading the entire web browser window from scratch on every single internal hyperlink click. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By disabling the browser history API and only allowing users to navigate using physical keyboard arrows. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "By triggering full server-rendered browser page reloads on every internal route change so remote sub-applications never share browser history state.",
+            "By mounting all remote UI applications simultaneously inside hidden full-screen iframes that proxy hash-fragment navigation through postMessage events."
           ],
           "question": "How does a decoupled micro-frontend router maintain independent deployment autonomy while supporting deep linking?",
           "why": "A decoupled shell router dynamically maps URL paths to remote containers, fetching and mounting remote entry manifests on demand while preserving independent deployment autonomy."
@@ -9935,15 +9935,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Cross-Micro-Frontend Shell Routing & Deep-Link Synchronization"
       },
       {
-        "tryIt": "In the Shared Dependency Singleton Negotiation & Strict Version Matrices code editor, adjust interface (currently 18.2) and SharedDependency to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "Register a shared `'dateUtils'` dependency with `singleton: false` on `sharedScope.registerDependency(...)` or change the second `'react'` entry to `'18.2.0'` to verify how shared dependency mismatch warnings behave.",
         "check": {
           "answer": 2,
           "answerIndex": 2,
           "options": [
-            "Because Webpack cannot compile JavaScript files unless all dependencies are marked as singletons. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because web browsers only allow a maximum of 100 kilobytes of total memory for external libraries. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "Because Webpack forbids bundling JSX syntax inside federated remote chunks unless React major versions match exactly across every CDN package manifest.",
+            "Because loading two React minor releases triggers synchronous garbage collection pauses across Shadow DOM boundaries whenever any component prop updates.",
             "Because React relies on global internal hook dispatcher pointers that throw invalid hook call exceptions if multiple instances execute simultaneously in DOM memory.",
-            "Because React components are automatically converted to raw HTML strings by the browser. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because browsers drop CSS custom properties between parent shell components and remote containers whenever duplicate package entries appear inside bundle maps."
           ],
           "question": "Why is declaring React as a shared singleton mandatory when assembling micro-frontends via Module Federation?",
           "why": "Stateful libraries like React rely on a single global hook dispatcher in memory; loading multiple instances breaks hook state tracking and triggers invalid hook call crashes."
@@ -9965,14 +9965,14 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Shared Dependency Singleton Negotiation & Strict Version Matrices"
       },
       {
-        "tryIt": "In the Decentralized Event Bus & Cross-Micro-Frontend State Coordination code editor, adjust interface (currently 100) and MFEEvent to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "Capture the unsubscribe callback returned by `bus.subscribe(\"auth:login\", ...)` and invoke it prior to a second decentralized `bus.publish(\"auth:login\", ...)` event, verifying unsubscribed listeners stop receiving payloads.",
         "check": {
           "answer": 3,
           "answerIndex": 3,
           "options": [
-            "It guarantees that all event messages are permanently stored in an on-premise relational SQL database table.",
-            "It compresses all JSON payloads into 16-bit binary integers to reduce network latency. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "It forces all users to log out whenever a new event is published. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "It compiles all remote state stores into one shared Redux slice at build time so type checks cross container repositories without event payloads.",
+            "It guarantees deterministic synchronous order across cross-origin iframes by pausing React renders until every peer container confirms packet delivery.",
+            "It shares mutable window global objects directly across domain squads so components call sibling update hooks synchronously without topic subscriptions.",
             "It completely decouples sender and receiver codebases, allowing remotes to communicate via typed event topics without build-time dependency imports."
           ],
           "question": "What is the primary architectural advantage of using an asynchronous Publish-Subscribe event bus for cross-micro-frontend communication?",
@@ -9996,15 +9996,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Decentralized Event Bus & Cross-Micro-Frontend State Coordination"
       },
       {
-        "tryIt": "In the CSS Style Isolation, Shadow DOM & Design System Governance code editor, adjust StyleIsolationContainer (currently 100) and private to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "Mount a second widget `'promoBanner'` through `container.mountComponent(...)` with two additional style rules, verifying how `[data-mfe-container=\"promoBanner\"]` enforces CSS isolation and shifts `rendered.length`.",
         "check": {
           "answer": 0,
           "answerIndex": 0,
           "options": [
             "By prefixing all component CSS rules with a unique container attribute selector, ensuring that rules cannot apply to elements outside that specific container boundary.",
-            "By deleting all CSS stylesheets from the web page and rendering raw unstyled text. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By converting all CSS rules into JavaScript alert popup dialogues. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By requiring the end-user to manually approve each stylesheet before it is applied. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "By converting every CSS stylesheet into inline JavaScript SVG filters at build time so parent cascade inheritance cannot reach child DOM subtrees.",
+            "By mounting remote micro-frontends inside completely unstyled HTML iframes that forbid sharing root CSS custom properties or inherited typography scales.",
+            "By stripping all class selectors from remote stylesheets and applying `!important` overrides uniformly to every global element tag on container mount."
           ],
           "question": "How does attribute container scoping prevent cascading CSS style collisions between independent micro-frontends?",
           "why": "Attribute container scoping namespaces all CSS selectors with a unique parent attribute (e.g. data-mfe-container), strictly containing style effects to the designated component boundary."
@@ -10027,15 +10027,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "CSS Style Isolation, Shadow DOM & Design System Governance"
       },
       {
-        "tryIt": "In the The Micro-Frontend Sentinel & Resilient Failure Quarantine code editor, adjust interface (currently 0) and RemoteHealth to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "Call `sentinel.recordLoadResult(\"recsApp\", true)` after the three simulated failures and print `consecutiveFailures` and `status` to observe how the micro-frontend breaker recovers back to `HEALTHY`.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "It permanently cuts off electrical power to the user computer if an HTTP 404 error occurs. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "It retries failing CDN script fetches infinitely inside tight synchronous loops until the remote bundle resolves, pausing all other browser components.",
             "It detects consecutive remote loading failures and quarantines the degraded remote, rendering graceful fallback UI while keeping the remaining 99% of the portal functional.",
-            "It automatically rewrites the entire remote codebase using machine learning in under ten milliseconds. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "It prevents users from clicking buttons more than once per minute. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "It automatically unmounts the entire parent application shell whenever a peripheral remote widget returns HTTP 502, forcing a full user session redirect.",
+            "It blocks feature teams from deploying remote manifests independently unless the host repository recompiles and statically bundles every fallback view."
           ],
           "question": "What role does the Circuit Breaker pattern play in a production micro-frontend application shell?",
           "why": "The circuit breaker quarantines failing or degraded remotes after consecutive errors, rendering fallbacks and preventing isolated component failures from crashing the entire host shell."
@@ -10084,15 +10084,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
     "minutes": 120,
     "parts": [
       {
-        "tryIt": "In the Flash Sale Concurrency & Race Conditions code editor, adjust InventoryStore (currently 5) and private to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In InventoryStore, change the initial flash sale inventory passed into the store and invoke atomicPurchase concurrently before inspecting getStock() to confirm how atomic guards prevent negative inventory under contention.",
         "check": {
           "answer": 2,
           "answerIndex": 2,
           "options": [
-            "Because relational databases automatically delete table records when more than ten users query the same row simultaneously. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because JavaScript numbers cannot represent inventory values greater than one hundred. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "Because read replicas propagate uncommitted row locks slower than primary nodes, allowing stale replica reads to skip database unique constraints during checkout bursts.",
+            "Because Node.js event loop microtasks pause database connection pools whenever async promises resolve, forcing sequential HTTP handlers to overwrite uncommitted mutations.",
             "Because multiple concurrent requests can read the same initial stock count before any write commits, causing all of them to pass stock checks and catastrophically oversell inventory.",
-            "Because read queries cannot be executed if write queries are queued in memory. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because relational isolation levels serialize non-indexed WHERE predicates automatically, causing concurrent queries to return cached negative stock integers prematurely."
           ],
           "question": "Why is the Read-Modify-Write pattern hazardous when managing inventory during high-concurrency flash sales?",
           "why": "When multiple concurrent requests execute read-modify-write without serialization, they all observe non-zero stock simultaneously, leading to severe overselling."
@@ -10106,7 +10106,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "Think of a flash sale checkout race condition like a single physical concert ticket booth with only five front-row VIP tickets left in the safe. Imagine ten thousand eager fans suddenly sprinting up to the ticket window at the exact same millisecond, each holding cash and shouting their order. If the ticket clerk checks the safe, shouts to the crowd 'Yes, tickets are available!', and begins writing receipts for the first five hundred fans who hand over money without locking the safe or counting down tickets atomically, the venue will accidentally sell five hundred tickets for only five physical chairs. When fans arrive at the concert venue, four hundred and ninety-five of them will be furious, demanding refunds and filing lawsuits.",
           "In software engineering, this is the classic Read-Modify-Write Concurrency Bug. A naive web application developer writes checkout code in two separate database steps: first, querying the inventory table with `const product = await db.find(id)`; second, evaluating `if (product.stock >= quantity) { await db.update(id, { stock: product.stock - quantity }); }`. Under normal low-traffic conditions, this code appears to function perfectly. But during a flash sale or limited sneaker drop where thousands of concurrent HTTP requests hit Node.js worker threads simultaneously, hundreds of requests query the database at the exact same millisecond before any transaction has committed.",
           "Every single one of those concurrent requests reads the original stock balance (e.g., `stock = 5`). Every single one evaluates the `if` condition as true. And every single one executes an update statement that subtracts items from inventory, plunging the database into a catastrophic negative inventory state (such as `stock = -495`). The business has oversold goods it does not possess, resulting in massive customer dissatisfaction, costly payment chargeback fees, and reputational damage.",
-          "To eliminate race conditions without sacrificing throughput, high-scale checkout architectures deploy Atomic Conditional Updates directly within the relational database engine. In PostgreSQL or MySQL, rather than reading and modifying in two separate application steps, the application issues an atomic SQL statement: `UPDATE products SET stock = stock - 1 WHERE id = 22 AND stock >= $1`. The database engine's row-level lock serializes the evaluation: the condition `stock >= $1` is evaluated atomically at the hardware storage engine level. If stock is insufficient, the update affects exactly zero rows, allowing the application layer to instantly reject the purchase without race conditions.",
+          "To eliminate race conditions without sacrificing throughput, high-scale checkout architectures deploy Atomic Conditional Updates directly within the relational database engine. In PostgreSQL or MySQL, rather than reading and modifying in two separate application steps, the application issues an atomic SQL statement: `UPDATE products SET stock = stock - $1 WHERE id = $2 AND stock >= $1`. The database engine's row-level lock serializes the evaluation: the condition `stock >= $1` is evaluated atomically at the hardware storage engine level. If stock is insufficient, the update affects exactly zero rows, allowing the application layer to instantly reject the purchase without race conditions.",
           "Furthermore, enterprise platforms deploy Paged Inventory Sharding to eliminate row-level lock contention. If ten thousand transactions attempt to lock the exact same database row simultaneously, database CPU utilization spikes to one hundred percent as transactions queue up waiting for the lock. By splitting a single SKU's inventory into multiple discrete inventory buckets across rows or partitions (e.g., ten rows of five hundred items each), concurrent checkouts distribute their atomic decrement operations across different rows, multiplying write throughput by an order of magnitude.",
           "In addition, understanding database isolation levels is essential when architecting financial and inventory transactions. Under PostgreSQL's default `READ COMMITTED` isolation level, each statement inside a transaction sees a new snapshot of data committed up to the start of that individual query. If an application requires strict consistency across multiple related tables—such as checking a user's loyalty reward points while decrementing inventory—architects configure `REPEATABLE READ` or `SERIALIZABLE` isolation. Under Serializable isolation, if two concurrent transactions experience write skew or conflicting dependencies, the database engine aborts the later transaction with error code `40001` (serialization_failure). The application layer must wrap checkout database calls in an automated retry loop with exponential jitter, ensuring that aborted transactions retry cleanly without crashing user checkouts.",
           "In the implementation below, we contrast a vulnerable read-modify-write inventory store against an atomic conditional decrement engine. We demonstrate how concurrent purchases for remaining inventory are evaluated deterministically, guaranteeing that inventory cannot be oversold."
@@ -10114,14 +10114,14 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Flash Sale Concurrency & Race Conditions"
       },
       {
-        "tryIt": "In the Distributed Inventory Locks: Redis Redlock vs. Optimistic Decrements code editor, adjust interface (currently 1000000) and ReservationLock to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In DistributedInventoryLock, shorten the TTL passed to acquireReservation so that an inventory lock expires before calling releaseReservation, and observe how distributed reservation reclamation recovers capacity.",
         "check": {
           "answer": 3,
           "answerIndex": 3,
           "options": [
-            "It forces the user computer to restart if they do not purchase the item within sixty seconds. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "It permanently wipes out all customer payment history from the database. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "It converts the reserved item into a digital coupon code. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "It replicates Redis lock keys across multi-region read replicas synchronously before acknowledging the client checkout token response.",
+            "It escalates unconfirmed cart reservations into committed database orders once half of the lease interval has elapsed cleanly.",
+            "It forces browser clients to renew WebSocket heartbeats every millisecond so Redis can persist unpaid cart locks permanently to cold storage.",
             "It automatically frees abandoned cart reservations if a customer fails to complete payment within the allotted time window, preventing permanent inventory lockup."
           ],
           "question": "What core operational safeguard does a time-to-live (TTL) expiration provide for in-memory inventory reservation locks?",
@@ -10144,15 +10144,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Distributed Inventory Locks: Redis Redlock vs. Optimistic Decrements"
       },
       {
-        "tryIt": "In the Idempotent Payment Intent & Stripe Webhook Ingestion Engine code editor, adjust crypto (currently 15000) and node to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In IdempotentWebhookEngine, invoke processWebhook twice with the same payment event ID after passing verifySignature, and verify how idempotent deduplication skips repeated fulfillment cleanly.",
         "check": {
           "answer": 0,
           "answerIndex": 0,
           "options": [
             "Because payment gateways like Stripe retry webhook deliveries over network dropouts, and processing duplicate events without deduplication would result in double-fulfillment.",
-            "Because webhooks can only be delivered if the user is actively logged into the application. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because HTTP POST requests can only contain encrypted hexadecimal characters. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because Stripe disables accounts that acknowledge webhooks with HTTP 200 OK. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because HMAC-SHA256 webhook signatures expire immediately upon transmission unless their raw JSON payloads are persisted inside relational foreign-key audit tables.",
+            "Because HTTP chunked transfer encoding splits large JSON webhook bodies across TCP packets, requiring application handlers to reassemble partial deliveries manually.",
+            "Because relational database triggers reject incoming JSONB inserts unless every webhook endpoint maintains an active TLS session cache per payment customer."
           ],
           "question": "Why must e-commerce webhook ingestion endpoints implement idempotency tables for payment events?",
           "why": "Payment gateways retry unacknowledged webhooks; an idempotency table ensures that retried events are recognized and acknowledged without executing duplicate business actions."
@@ -10175,15 +10175,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Idempotent Payment Intent & Stripe Webhook Ingestion Engine"
       },
       {
-        "tryIt": "In the The Transactional Outbox Pattern & Reliable Order State Machine code editor, adjust interface (currently 250) and OutboxMessage to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In TransactionalOutboxOrderService, trigger createOrderTransaction for multiple orders and inspect queued records before and after flushOutbox runs to trace transactional outbox delivery guarantees.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "By deleting the message broker entirely and sending order notifications via SMS directly from the database server. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "By wrapping external Kafka producer writes and PostgreSQL commits inside browser-managed two-phase HTTP cookies to coordinate broker consensus.",
             "By atomically saving the outbound message into an outbox table within the same database transaction as the business entity update, guaranteeing that messages are never lost.",
-            "By executing all payment transactions in browser local storage before sending them to the backend. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By blocking all incoming HTTP requests until Kafka acknowledges message receipt. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "By streaming uncommitted PostgreSQL write-ahead log pages directly to Kafka consumers before the primary transaction receives a durable fsync.",
+            "By buffering unsent domain events solely inside Node.js worker heap arrays until downstream brokers acknowledge asynchronous batch flushes."
           ],
           "question": "How does the Transactional Outbox Pattern resolve the dual-write problem between relational databases and message brokers?",
           "why": "The Transactional Outbox co-locates domain updates and outgoing event records within a single atomic ACID transaction, eliminating dual-write inconsistencies."
@@ -10205,15 +10205,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "The Transactional Outbox Pattern & Reliable Order State Machine"
       },
       {
-        "tryIt": "In the The High-Scale Checkout Sentinel & Load Shedding Defense code editor, adjust CheckoutLoadShedder (currently 0) and private to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In CheckoutLoadShedder, lower maxCapacity below incoming request concurrency and call processCheckout in a burst loop to observe how high-scale load shedding rejects excess traffic immediately.",
         "check": {
           "answer": 2,
           "answerIndex": 2,
           "options": [
-            "Because web browsers disconnect from the internet if a server takes more than ten milliseconds to reply. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because load shedding permanently deletes all pending database records to save disk space. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "Because Node.js cluster workers terminate any TCP socket whose FIFO queue depth exceeds sixteen pending HTTP keep-alive connections.",
+            "Because reverse proxies convert queued HTTP POST requests into idempotent GET retries automatically once upstream latency crosses fifty milliseconds.",
             "Because queuing requests causes latency to exceed client timeouts, triggering aggressive retries that multiply server load and trigger total cluster collapse.",
-            "Because cloud providers charge double for queued HTTP requests. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because relational connection pools clear active row locks whenever waiting request queues surpass the configured TCP backlog limit."
           ],
           "question": "Why is immediate load shedding preferred over infinite request queuing when traffic exceeds maximum cluster capacity?",
           "why": "Queueing beyond capacity leads to timeout cascading and retry storms; load shedding protects healthy in-flight requests and preserves cluster survival."
@@ -10262,14 +10262,14 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
     "minutes": 120,
     "parts": [
       {
-        "tryIt": "In the Operational Transformation (OT) vs. Conflict-Free Replicated Data Types (CRDTs) code editor, adjust interface (currently 1) and TextOperation to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In SimpleOTEngine, update userBOp.pos so it occurs after userAOp.pos, then invoke transform(userAOp, userBOp) to verify how operational transformation avoids unnecessary index shifts.",
         "check": {
           "answer": 3,
           "answerIndex": 3,
           "options": [
-            "Because Operational Transformation can only run on Windows and cannot execute in web browsers. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because CRDTs completely disable all keyboard input when internet connectivity drops. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because Operational Transformation requires users to manually resolve Git merge conflicts. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "Because OT relies exclusively on TCP sequence numbers to order concurrent edits and drops unacknowledged mutations during network drops.",
+            "Because CRDTs store plain string diffs inside fixed relational schemas that reject concurrent mutations from offline browser tabs.",
+            "Because proving TP2 convergence guarantees in multi-peer OT engines forces every offline client to flush IndexedDB buffers on reconnect.",
             "Because CRDT operations are mathematically commutative and associative, allowing peers to merge updates in any order without requiring a centralized master server."
           ],
           "question": "Why do Conflict-Free Replicated Data Types (CRDTs) excel over Operational Transformation in offline-first applications?",
@@ -10293,15 +10293,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Operational Transformation (OT) vs. Conflict-Free Replicated Data Types (CRDTs)"
       },
       {
-        "tryIt": "In the Ephemeral Cursor & Selection Awareness Channels code editor, adjust interface (currently 1000000) and CursorPresence to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In EphemeralPresenceChannel, call updateCursor repeatedly for an existing peer ID before inspecting getActiveCursors() to confirm how ephemeral cursor channels overwrite transient positions in memory.",
         "check": {
           "answer": 0,
           "answerIndex": 0,
           "options": [
             "Because 60Hz cursor movements produce massive event volumes that would inflate persistent document storage by megabytes within minutes without long-term value.",
-            "Because web browsers crash if cursor coordinates are greater than 500 pixels. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because mouse cursors can only be rendered using server-side HTML canvases. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because the W3C specification strictly bans storing numbers in database tables. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because WebRTC DataChannels encrypt only UDP coordinates above thirty hertz while persistent WebSocket frames carry plain-text user avatars.",
+            "Because requestAnimationFrame interpolation cannot smooth DOM pointer coordinates if IndexedDB transactions hold read-only document snapshots.",
+            "Because CRDT binary encoders discard sixteen-bit floating-point coordinates whenever vector clock timestamps advance faster than network heartbeats."
           ],
           "question": "Why must high-frequency mouse cursor updates be separated from persistent CRDT document state?",
           "why": "Ephemeral presence events have zero historical value after a fraction of a second; routing them through non-persistent broadcast channels prevents catastrophic document storage bloat."
@@ -10324,15 +10324,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Ephemeral Cursor & Selection Awareness Channels"
       },
       {
-        "tryIt": "In the Real-Time WebSocket Multiplexing & Reconnection Recovery Protocols code editor, adjust CollaborativeSocketSession (currently 0) and private to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In CollaborativeSocketSession, invoke sendUpdate multiple times after disconnect() and inspect the array returned by reconnect() to trace offline real-time edit buffering and recovery.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "By deleting all offline edits and reverting the user document to the blank initial template. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "By discarding local IndexedDB mutations cached offline and downloading the server's latest compacted document snapshot cleanly.",
             "By exchanging State Vectors during a two-step handshake, fetching missed remote deltas from the server, and flushing queued in-flight local mutations.",
-            "By prompting the user to re-type all offline edits manually into an alert box. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By disconnecting all other users from the cluster for ten minutes. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "By spawning dedicated TCP sockets per offline keystroke batch and replaying raw JSON payloads without server vector comparison.",
+            "By halting all peer document writes across the cluster until every reconnecting browser flushes its pending binary queue in order."
           ],
           "question": "How does an offline-first collaborative client reconcile pending edits when re-establishing a WebSocket connection?",
           "why": "The two-step state vector handshake enables the client and server to exchange only the precise differential updates missed during disconnection, achieving seamless convergence."
@@ -10355,15 +10355,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Real-Time WebSocket Multiplexing & Reconnection Recovery Protocols"
       },
       {
-        "tryIt": "In the CRDT Transaction Log Compaction & Snapshot State Vector Garbage Collection code editor, adjust interface (currently 1) and CRDTItem to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In CompactableCRDTDoc, call delete on additional nodes before running compactSnapshot() and compare purged transaction counts against getText() to confirm visible content stays unchanged.",
         "check": {
           "answer": 2,
           "answerIndex": 2,
           "options": [
-            "To permanently encrypt the document so that original authors cannot edit it again. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "To convert text documents into low-resolution PNG images to save server memory. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "To re-index Lamport timestamps sequentially across active characters while discarding offline peer client identifiers from memory.",
+            "To convert binary VLQ snapshot payloads into human-readable JSON diff logs optimized for incremental relational database backups.",
             "To purge historical deletion tombstones that all peers have observed, collapsing historical logs into a compact snapshot and resetting document open times to milliseconds.",
-            "To delete the oldest fifty percent of paragraphs in the document. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "To force active collaborative clients to disconnect briefly so the coordinator can truncate live character trees without conflict resolution."
           ],
           "question": "What is the primary objective of Periodic Snapshot Compaction in long-lived collaborative documents?",
           "why": "Snapshot compaction removes tombstone markers that are past the causal stability horizon, preventing unbounded memory bloat and preserving sub-second initial document open speeds."
@@ -10386,14 +10386,14 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "CRDT Transaction Log Compaction & Snapshot State Vector Garbage Collection"
       },
       {
-        "tryIt": "In the The Collaborative Workspace Sentinel & State Divergence Detection Harness code editor, adjust crypto (currently 0) and node to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In ConvergenceSentinel, alter one character in nodeBText and call verifyConvergence(nodeAText, nodeBText) after inspecting computeStateDigest outputs to test collaborative workspace drift detection.",
         "check": {
           "answer": 3,
           "answerIndex": 3,
           "options": [
-            "By requiring human moderators to read every document paragraph every five minutes. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By restarting the entire database server whenever a user types a vowel. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By forcing all collaborative sessions to operate on a single thread in Singapore. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "By replaying raw HTTP webhook payloads sequentially through centralized master servers every sixty seconds to rebuild consensus.",
+            "By serializing full document JSON trees on every keystroke and diffing character-by-character strings across all browser sessions.",
+            "By halting incoming WebSocket mutations whenever clock skew across distributed NTP servers exceeds five milliseconds in production.",
             "By comparing cryptographic SHA-256 state digests computed across peer replicas with matching vector clocks, sounding alarms if hashes differ."
           ],
           "question": "How does an automated convergence sentinel detect state divergence between collaborative replicas in real time?",
@@ -10443,15 +10443,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
     "minutes": 120,
     "parts": [
       {
-        "tryIt": "In the The Anatomy of a High-Impact RFC: Structuring Vision, Problem Statements, and Constraints code editor, adjust interface (currently 2) and RFCProposal to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In RFCGovernanceEngine, inspect the high-level anatomy of an RFC lifecycle by skipping transitionToReview or passing approve=false to vote() for the second reviewer, then verify how quorum status responds.",
         "check": {
           "answer": 0,
           "answerIndex": 0,
           "options": [
             "Because grounding proposals in measurable business pain and empirical operational metrics bridges engineering rigor with executive priorities and prevents vanity rewrites.",
-            "Because cloud providers refuse to provision infrastructure unless an RFC document is attached to the billing console. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because TypeScript compilers can directly parse Markdown RFC documents into optimized machine code. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because engineering managers require RFC documents to automatically calculate quarterly developer bonuses. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because production microservices require an approved markdown architecture file at container startup before service discovery meshes route live ingress traffic.",
+            "Because TypeScript workspace linters enforce RFC issue links on pull requests before incremental build caches permit cross-package imports to compile cleanly.",
+            "Because relational schema migrations cannot lock production tables unless compliance auditors first verify multi-quarter capacity models inside Git history."
           ],
           "question": "Why must an enterprise architectural RFC begin with a quantified business problem statement rather than technology preferences?",
           "why": "Quantifying technical problems with concrete business metrics aligns diverse stakeholders and prevents costly, directionless technology migrations driven by novelty rather than business necessity."
@@ -10467,21 +10467,21 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "Following the problem statement, an RFC rigorously articulates its Architectural Constraints and Non-Functional Requirements (NFRs). These include strict limits on cloud infrastructure spending, maximum allowable round-trip network latency, compliance mandates such as GDPR or HIPAA, and team cognitive load budgets. An architectural proposal that solves a latency problem by introducing seven new distributed databases and five specialized caching tiers is dead on arrival if the platform operations team consists of three engineers who cannot maintain that complexity. Every architectural decision is an exercise in managing finite complexity budgets.",
           "The core of the RFC is the Proposed Architecture Specification. This section details data schemas, component communication protocols, state management paradigms, API boundary contracts, and failure domain boundaries. It utilizes clear architectural diagrams and sequence flows to demonstrate how data moves through the system under nominal conditions, peak load spikes, and partial network partitions. Crucially, the RFC defines what the system WILL NOT do—explicit non-goals prevent insidious scope creep that derails multi-quarter initiatives.",
           "Beyond defining boundaries, the RFC must establish concrete Rollout Horizons and Verification Milestones. It must answer: How will engineering teams measure success during each migration phase? What quantitative key performance indicators (KPIs) determine whether the architectural intervention delivered its intended value? By defining automated verification smoke tests, telemetry dashboards, and canary observation windows directly within the RFC document, the Principal Engineer provides the entire organization with an objective, observable roadmap that leaves zero room for subjective speculation or wishful thinking.",
-          "Finally, the RFC establishes a formal Governance and Review Lifecycle. An RFC progresses through explicit operational states: Draft, In Review, Approved, or Rejected. It specifies required stakeholder approvals—such as the Staff Infrastructure Architect, Security Lead, and VP of Engineering—preventing architectural decisions from being made through shadow consensus or bureaucratic inertia. In the interactive TypeScript implementation below, we build the core RFCGovernanceEngine, modeling lifecycle state machines and cryptographic multi-signature quorum consensus.",
+          "Finally, the RFC establishes a formal Governance and Review Lifecycle. An RFC progresses through explicit operational states: Draft, In Review, Approved, or Rejected. It specifies required stakeholder approvals—such as the Staff Infrastructure Architect, Security Lead, and VP of Engineering—preventing architectural decisions from being made through shadow consensus or bureaucratic inertia. In the interactive TypeScript implementation below, we build the core RFCGovernanceEngine, modeling lifecycle state machines and quorum-based multi-reviewer approval consensus.",
           "Study how the RFC governance engine maintains deterministic lifecycle transitions and requires explicit peer consensus before promoting an architectural proposal to approved status. This systematic rigor transforms architectural alignment from subjective debates into repeatable, auditable engineering governance."
         ],
         "title": "The Anatomy of a High-Impact RFC: Structuring Vision, Problem Statements, and Constraints"
       },
       {
-        "tryIt": "In the Rigorous Trade-Off Matrices: Monolith vs Microservices vs Serverless Total Cost of Ownership code editor, adjust interface (currently 2) and ArchitectureOption to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In DecisionScoringMatrix.evaluate, adjust developerVelocity and operationalComplexity to conduct a rigorous trade-off comparison across candidate topologies and verify the resulting matrix score.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "Because microservices cannot execute TypeScript or connect to SQL databases under any circumstances. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "Because containerized microservices disable TypeScript strict type checking at compile time whenever internal endpoints serialize JSON over HTTP.",
             "Because modular monoliths provide high developer velocity, in-memory function calls, and low operational overhead without the distributed network taxes of microservices.",
-            "Because modular monoliths are completely immune to any software bugs, crashes, or memory leaks. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because cloud providers charge ten times more per gigabyte of memory for microservices than monoliths. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because single-process monoliths eliminate all database lock contention by storing relational tables inside local Node.js heap structures cleanly.",
+            "Because public cloud providers bill inter-service HTTP calls at exponentially higher rates than external end-user CDN egress traffic worldwide."
           ],
           "question": "Why is a modular monolith often superior to microservices for early to mid-stage engineering teams?",
           "why": "Modular monoliths preserve compile-time type safety, fast local integration testing, and single-artifact deployments while avoiding the distributed network latency, eventual consistency, and operational monitoring complexity of microservices."
@@ -10503,15 +10503,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Rigorous Trade-Off Matrices: Monolith vs Microservices vs Serverless Total Cost of Ownership"
       },
       {
-        "tryIt": "In the Monorepo Architecture & Build Topology: Nx, Turborepo, and Shared Code Boundary Enforcement code editor, adjust DependencyGraph (currently 100) and private to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In DependencyGraph, register an additional package via addNode and re-run getExecutionOrder() to inspect how monorepo architecture enforces dependency-first build ordering.",
         "check": {
           "answer": 2,
           "answerIndex": 2,
           "options": [
-            "It sorts source files alphabetically to ensure git commits remain smaller. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "It converts frontend CSS stylesheets into WebGL binary vertex shaders. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "It bundles all workspace packages into a single monolithic Webpack output file, removing the need for isolated TypeScript declaration caches.",
+            "It automatically merges overlapping semver dependencies across workspace packages, rewriting upstream third-party library source code on disk.",
             "It computes the exact dependency-first compilation sequence, ensuring upstream packages compile before downstream dependents without cyclic deadlocks.",
-            "It compresses monorepo git histories to decrease hard drive storage usage. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "It synchronizes remote Git commit timestamps sequentially across developer branches so CI runners execute full workspace rebuilds every push."
           ],
           "question": "What role does topological sorting play in modern monorepo build tools like Turborepo or Nx?",
           "why": "Topological sorting traverses the project dependency graph to determine an optimal, deterministic compilation order where foundational libraries compile before consumer applications."
@@ -10533,14 +10533,14 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Monorepo Architecture & Build Topology: Nx, Turborepo, and Shared Code Boundary Enforcement"
       },
       {
-        "tryIt": "In the Latency Budgets, SLA Modeling, and Cross-Tier Fallback Strategies code editor, adjust interface (currently 15) and LatencyAllocation to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In SystemLatencyBudget, increase databaseMs inside budget above 50 and run calculateTotalP99(budget) to verify how multi-tier latency budgets trigger an SLA compliance violation.",
         "check": {
           "answer": 3,
           "answerIndex": 3,
           "options": [
-            "Because p99 latency is mathematically simpler to calculate on CPU hardware than average latency.",
-            "Because the World Wide Web Consortium requires all websites to report p99 latency in their HTTP response headers.",
-            "Because average latency cannot be recorded in time-series monitoring databases like Prometheus.",
+            "Because mean calculations overflow 32-bit Prometheus gauge counters once daily request volume crosses one million events.",
+            "Because edge CDNs and reverse proxies only enforce SLA timeout termination rules against percentile metrics rather than averages.",
+            "Because distributed request traces discard sub-ten-millisecond spans unless monitoring agents pre-aggregate arithmetic means.",
             "Because average latencies conceal severe tail-latency spikes that degrade the experience of thousands of high-traffic users."
           ],
           "question": "Why should enterprise distributed systems be designed and evaluated against p99 latency rather than average (mean) latency?",
@@ -10563,15 +10563,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Latency Budgets, SLA Modeling, and Cross-Tier Fallback Strategies"
       },
       {
-        "tryIt": "In the The Migration Sentinel: Strangler Fig Patterns, Canary Verification Gates, and Zero-Downtime Rollbacks code editor, adjust interface (currently 1) and MigrationMilestone to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In MigrationGuardSentinel, change measuredP99Ms or phase1.rollbackTriggerP99Ms passed to evaluatePhaseGate and observe how the canary migration sentinel gates automatic rollbacks.",
         "check": {
           "answer": 0,
           "answerIndex": 0,
           "options": [
             "By routing endpoints incrementally via an edge reverse proxy to new services while keeping the legacy system operational until full cutover is complete.",
-            "By taking the entire platform offline over an extended three-day holiday weekend to rebuild all databases. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By duplicating all server hardware in parallel data centers without changing any software code. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By forcing all end users to download a brand new desktop application. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "By draining all active database connections synchronously and locking customer writes until multi-terabyte schema backfills finish.",
+            "By duplicating live production writes only after cutting one hundred percent of DNS traffic cleanly to the replacement microservice fleet.",
+            "By freezing legacy monolith deployments for an entire quarter while forcing client frontends to dual-query both incompatible APIs."
           ],
           "question": "How does the Strangler Fig pattern eliminate downtime during high-stakes enterprise platform migrations?",
           "why": "The Strangler Fig pattern safely replaces legacy subsystems endpoint-by-endpoint at the routing layer, allowing continuous production operation and instant rollback if issues arise."
@@ -10619,15 +10619,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
     "minutes": 120,
     "parts": [
       {
-        "tryIt": "In the Edge Computing, Streaming SSR & Dynamic Reverse Proxy Mesh code editor, adjust interface (currently 60) and EdgeRoutingDecision to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In EdgeMeshRouter, add an APAC regional branch inside routeRequest or change euDecision's countryCode, then inspect streamP99BudgetMs to verify how edge computing routes requests to regional origins.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "By disabling all client-side JavaScript execution and converting web pages into static images. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "By buffering complete dynamic database responses inside edge worker memory until all Suspense queries settle before flushing initial HTML bytes.",
             "By streaming static layout shells immediately from regional edge nodes while asynchronously streaming dynamic data chunks via HTTP/2 as backend queries resolve.",
-            "By downloading all database tables into the user browser local storage before rendering the page. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By compressing video files on edge servers using GPU hardware acceleration. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "By pre-computing per-user HTML templates at build time into immutable 365-day CDN bundles so origin API queries never execute at runtime.",
+            "By forwarding all incoming React Server Component requests exclusively to a primary central region to preserve sequential W3C trace ordering."
           ],
           "question": "How does Next.js streaming SSR combined with edge computing improve global user perceived performance?",
           "why": "Streaming SSR delivers initial HTML shells in milliseconds from nearby edge locations and streams dynamic content progressively, minimizing First Contentful Paint and eliminating render blocking."
@@ -10649,15 +10649,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Edge Computing, Streaming SSR & Dynamic Reverse Proxy Mesh"
       },
       {
-        "tryIt": "In the Multi-Tenant PostgreSQL RLS & Distributed Atomic Ledger code editor, adjust interface (currently 9000) and LedgerAccount to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In DistributedLedgerManager, adjust tenantLedger.availableStock or the quantity passed into executeAtomicReservation to observe how multi-tenant atomic inventory guards prevent overselling cleanly.",
         "check": {
           "answer": 2,
           "answerIndex": 2,
           "options": [
-            "Because RLS automatically encrypts hard drives using twenty-four-character random passwords. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because RLS replaces SQL syntax with GraphQL queries inside database indexes. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "Because RLS automatically shards PostgreSQL tables onto dedicated physical server instances per tenant without connection pooling overhead.",
+            "Because RLS prevents deadlocks during high-concurrency SELECT ... FOR UPDATE balance decrements by queuing cross-tenant transactions globally.",
             "Because RLS enforces tenant isolation at the database engine level, guaranteeing zero cross-tenant data leaks even if application code omits tenant filters.",
-            "Because RLS speeds up database read queries by ten times through automatic hardware overclocking. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because RLS converts PgBouncer session variables into immutable HMAC audit digests before SQL execution plans compile inside storage engines."
           ],
           "question": "Why is PostgreSQL Row-Level Security (RLS) critical in multi-tenant enterprise commerce architectures?",
           "why": "Database-enforced Row-Level Security ensures that every query implicitly filters by the authenticated tenant session context, preventing accidental data exposure across enterprise tenants."
@@ -10680,14 +10680,14 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Multi-Tenant PostgreSQL RLS & Distributed Atomic Ledger"
       },
       {
-        "tryIt": "In the High-Throughput Event Streaming, Transactional Outbox & Job Engine code editor, adjust interface (currently 1) and OutboxMessage to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In TransactionalOutboxRelay, call enqueue with additional domain events and simulate a partial failure inside processPending to verify how high-throughput outbox relays retain unpublished messages safely.",
         "check": {
           "answer": 3,
           "answerIndex": 3,
           "options": [
-            "By sending HTTP webhooks directly to all payment providers before saving orders to disk. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By storing all transaction messages exclusively in volatile server RAM memory. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "By executing dual synchronous database writes simultaneously to two separate cloud regions. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "By emitting synchronous Kafka producer calls inside HTTP handlers first and rolling back local PostgreSQL transactions only if brokers time out.",
+            "By wrapping Redis BullMQ writes and PostgreSQL commits inside browser-driven two-phase commit protocols across microservices during checkout.",
+            "By writing unindexed outbox records directly to dead-letter queues until consumer lag monitors trigger Kubernetes pod scaling automatically.",
             "By saving business entities and outbox events in the same atomic database transaction, ensuring events are reliably dispatched by a background relay worker."
           ],
           "question": "How does the Transactional Outbox pattern guarantee message delivery without distributed transaction dual-write failures?",
@@ -10711,15 +10711,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "High-Throughput Event Streaming, Transactional Outbox & Job Engine"
       },
       {
-        "tryIt": "In the Decentralized Real-Time Collaboration & CRDT State Compaction code editor, adjust interface (currently 10) and CRDTNode to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In SequenceCRDTCompactor, mark an additional node deleted in docNodes or adjust maxRetainedClock in compactDocument to trace tombstone purging in decentralized real-time collaboration.",
         "check": {
           "answer": 0,
           "answerIndex": 0,
           "options": [
             "Because accumulating deleted character tombstones over time causes memory bloat and slows document load times unless compacted past causal stability horizons.",
-            "Because tombstones cause CPU processors to overheat and throttle clock frequencies. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because WebSockets automatically disconnect if a document contains any deleted characters. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "Because web browsers refuse to render fonts when tombstones are present in JSON objects. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "Because Lamport timestamps overflow 64-bit integer counters cleanly unless historical deletion records are reset before client state vector syncs.",
+            "Because decentralized peers cannot compute deterministic SHA-256 convergence digests unless all deleted characters remain present in live text output.",
+            "Because IndexedDB persistence blocks synchronous WebSocket reconnection handshakes whenever compressed Uint8Array deltas include tombstone flags."
           ],
           "question": "Why is tombstone garbage collection essential in long-running CRDT collaborative applications?",
           "why": "Without compaction, deleted tombstones remain in memory forever to guarantee merge commutativity; garbage collection safely prunes them once all peers acknowledge past clock vectors."
@@ -10743,15 +10743,15 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "title": "Decentralized Real-Time Collaboration & CRDT State Compaction"
       },
       {
-        "tryIt": "In the The 5-Gate Grand Master Defense Matrix: Full Enterprise Cluster Viva Gate code editor, adjust interface (currently 5) and VivaGateEvaluation to test boundary conditions, then run the snippet and verify how the computed output responds.",
+        "tryIt": "In GrandMasterVivaEvaluationMatrix, toggle passed to false on any entry in gates and inspect telemetrySummary via evaluatePlatform(gates) to verify how the 5-gate grand master audit flags failures.",
         "check": {
           "answer": 1,
           "answerIndex": 1,
           "options": [
-            "It confirms that the application was written entirely in pure assembly language without any third-party npm packages. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
+            "It certifies solely that individual regional microservices compile with strict TypeScript checking cleanly, deferring cross-tenant security and failover verification to manual post-release sprints.",
             "It mathematically proves that the platform satisfies end-to-end performance SLAs, zero cross-tenant leakage, guaranteed event delivery, collaborative consensus, and zero-downtime resilience under extreme enterprise production load.",
-            "It proves that the entire platform can run on a single mobile smartphone without an internet connection. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees.",
-            "It certifies that the development team completed all pull requests without writing any unit tests. This creates subtle race conditions, bypasses system boundaries, and lacks required production resilience guarantees."
+            "It proves that canary proxies can pause live checkout database writes indefinitely during multi-zone network partitions without enforcing p99 latency SLAs or outbox delivery guarantees.",
+            "It validates synthetic browser UI rendering speeds on desktop workstations while skipping multi-tenant PostgreSQL RLS isolation checks and chaotic availability-zone recovery drills."
           ],
           "question": "What does achieving full certification across the 5-Gate Grand Master Defense Matrix prove about an enterprise full-stack platform?",
           "why": "The 5-gate defense matrix provides holistic, empirical verification that the integrated architecture meets the highest standards of availability, security, consistency, performance, and disaster recovery."
