@@ -188,10 +188,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What happens by default in Node.js when an EventEmitter emits an 'error' event and no error listener has been registered via .on('error', ...)?",
           "options": [
-            "The event is silently ignored and garbage collected",
+            "EventEmitter discards the emitted payload quietly and returns false from the emit() call immediately",
             "Node.js logs an unhandled error to stderr and terminates the entire process with a non-zero exit code",
-            "The operating system restarts the server in safe mode",
-            "The error is automatically emailed to the project repository owner"
+            "The event loop buffers the error inside a dead-letter microtask queue until an async handler registers",
+            "Node.js converts the emitted Error object into a warning written to process.stdout without exiting"
           ],
           "answer": 1,
           "why": "In Node.js, the 'error' event has special semantics. If an error event is emitted without an attached listener, Node.js throws an unhandled exception, causing the entire process to crash by design.",
@@ -1401,9 +1401,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why should production authentication systems incorporate clock skew tolerance (leeway) when evaluating token expiration and not-before claims?",
           "options": [
-            "To allow expired tokens to be reused indefinitely if the database is offline.",
-            "To permit clients to fabricate their own expiration timestamps.",
-            "To bypass signature verification when network latency exceeds 500 milliseconds.",
+            "To keep expired access tokens valid during rolling restarts so database connection pools avoid burst re-auth spikes.",
+            "To allow browser clients to derive local UTC timestamps without synchronizing HTTP Date headers during token renewal.",
+            "To skip HMAC signature comparisons whenever edge gateway TLS termination adds extra handshake propagation latency.",
             "To account for NTP drift and sub-second hardware clock discrepancies across distributed servers, preventing false rejections."
           ],
           "answer": 3,
@@ -1427,9 +1427,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why must a production JWT verification engine strictly enforce an algorithm allowlist rather than trusting the 'alg' header claim?",
           "options": [
             "Because trusting the 'alg' header allows attackers to bypass signature verification entirely by supplying 'alg': 'none'.",
-            "Because standard JSON parsers cannot decode headers containing strings longer than 5 characters.",
-            "Because asymmetric keys require more RAM than symmetric keys.",
-            "Because the HTTP protocol disallows algorithms other than HS256."
+            "Because Node.js JSON web parsers truncate asymmetric key algorithms unless every JWT header matches local PEM length.",
+            "Because RSA public key PEM files increase V8 heap pressure unless every service negotiates identical hashing ciphers.",
+            "Because RFC 7519 reserves symmetric HMAC-SHA256 signing for backend APIs and forbids key rotation across gateway nodes."
           ],
           "answer": 0,
           "why": "If a server blindly trusts the 'alg' parameter specified in the incoming token header, an attacker can supply 'alg': 'none' or alter the algorithm from RS256 to HS256 using the public key as the secret, effectively bypassing authentication.",
@@ -1556,7 +1556,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "In a Refresh Token Rotation (RTR) architecture, what action must the authentication server take when a previously consumed refresh token is presented?",
           "options": [
             "Immediately revoke the entire token family, terminating all active sessions for that user to neutralize the breach.",
-            "Silently re-issue the same token without alerting the user.",
+            "Re-issue the most recent sibling refresh token silently if another browser tab triggered a concurrent rotation.",
             "Queue the refresh request in an asynchronous retry stream until the active session naturally expires.",
             "Lock the database table partition and force the client connection to downgrade to HTTP/1.1 framing."
           ],
@@ -2763,7 +2763,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why does the RFC 6455 specification strictly require all frames sent from client to server to be masked with a random 4-byte XOR key?",
           "options": [
             "To prevent malicious scripts from poisoning intermediate caching proxies with predictable binary byte sequences.",
-            "To compress the payload size by 30% over mobile networks.",
+            "To separate text continuation frames cleanly from control frames before decoding UTF-8 byte sequences.",
             "To provide end-to-end encryption so third-party network sniffers cannot read plain text.",
             "To allow Node.js to determine the length of the string without parsing the entire buffer."
           ],
@@ -3047,10 +3047,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does buffering multipart file uploads in V8 heap memory (e.g., using multer.memoryStorage()) cause fatal Node.js process crashes under concurrent load?",
           "options": [
-            "V8 engines forbid allocating Buffer objects exceeding 1 kilobyte in asynchronous event loops.",
+            "V8 worker isolates compress incoming FormData streams synchronously on the main thread until libuv background threads free unused socket descriptors.",
             "Large in-memory buffers exhaust the contiguous V8 heap limit, triggering stop-the-world garbage collection pauses and unrecoverable out-of-memory fatal crashes.",
-            "Multipart boundaries cannot be parsed unless the file is written to an encrypted hardware security module.",
-            "HTTP/1.1 connections automatically disconnect if the server heap exceeds 25 megabytes."
+            "Multipart boundary delimiters split arbitrary chunks across TCP packets, forcing Busboy parsers to retain previous upload sessions globally.",
+            "Node.js HTTP servers downgrade persistent keep-alive sockets automatically whenever heap snapshots grow past static JSON request limits."
           ],
           "answer": 1,
           "why": "When multiple concurrent uploads accumulate hundreds of megabytes in V8 heap space, the garbage collector enters thrashing cycles trying to find contiguous memory pages, eventually terminating the process with an uncatchable heap out-of-memory error.",
@@ -3099,9 +3099,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is the direct-to-S3 presigned URL architecture vastly superior to proxying uploads through an Express backend?",
           "options": [
-            "S3 presigned URLs encrypt files with AES-512 before sending them across the wire.",
-            "Direct S3 uploads allow unauthenticated anonymous users to write to any bucket key without validation.",
-            "Browsers can only upload files larger than 10 megabytes if they communicate directly with AWS S3 endpoints.",
+            "S3 presigned PUT endpoints perform automatic malware quarantine scanning in edge PoPs before emitting client HTTP 200 confirmations.",
+            "Direct browser PUT uploads skip TLS certificate verification and MIME header enforcement entirely to preserve object transfer throughput.",
+            "AWS SigV4 presigned requests split multi-megabyte client binaries automatically into parallel ETags inside browser fetch streams natively.",
             "The application server bypasses all file byte transit, consuming zero bandwidth and negligible memory for uploads while eliminating the server bottleneck."
           ],
           "answer": 3,
@@ -3126,9 +3126,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why must production file validation inspect magic number bytes rather than trusting the HTTP Content-Type header or file extension?",
           "options": [
             "The Content-Type header and file extension are untrusted client strings that an attacker can forge to upload executable scripts disguised as images.",
-            "Magic number bytes are automatically encrypted by the operating system kernel.",
-            "Node.js stream readers throw syntax errors if they encounter a file extension that does not match the operating system locale.",
-            "Cloud storage buckets automatically delete any file that does not contain a valid file extension in its metadata."
+            "Binary file headers embed cryptographically signed client IP addresses generated by the uploading operating system's network kernel driver.",
+            "Stream readers reject multipart payloads whenever declared filenames omit UTF-8 extensions matching the host OS locale configuration.",
+            "Cloud object stores refuse incoming presigned PUT transfers unless binary magic bytes align strictly with standard IANA registry suffixes."
           ],
           "answer": 0,
           "why": "Clients can send arbitrary headers and extensions; an attacker can name a webshell 'photo.jpg' and send 'image/jpeg', but magic number byte sniffing verifies the actual binary header signatures.",
@@ -3370,9 +3370,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does an enterprise collaborative application employ a hybrid transport strategy (tRPC/HTTP + WebSockets + SSE) rather than forcing all traffic over WebSockets alone?",
           "options": [
-            "Because WebSocket connections cannot negotiate TLS certificates and require unencrypted plaintext port routing",
-            "Because modern web browsers terminate WebSocket connections whenever users navigate between internal route tabs",
-            "Because WebSockets cannot serialize nested JSON objects and require converting all payloads into raw binary buffers",
+            "Because persistent WebSocket upgrades prevent edge proxies from enforcing per-endpoint rate limits cleanly, forcing all backend RPC calls to serialize through single master sockets",
+            "Because HTTP/2 streaming RPC calls maintain lower serialization overhead for high-frequency pointer telemetry, whereas WebSockets must re-establish TCP handshakes per broadcast",
+            "Because full-duplex WebSocket frames bypass browser SameSite cookie checks on every message frame, making all JSON RPC mutations vulnerable unless routed through stateless REST",
             "Because HTTP endpoints benefit from CDN edge caching, standard load-balancer request routing, and granular HTTP status codes, while WebSockets excel specifically at low-latency bidirectional state sync"
           ],
           "answer": 3,
