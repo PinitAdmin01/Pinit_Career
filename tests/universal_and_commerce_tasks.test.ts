@@ -97,19 +97,18 @@ const COURSES_WITH_FIXTURES: Array<{ prefix: string; configs: DayConfig[]; fixtu
   { prefix: 'bcom_ban', configs: BCOM_BANKING_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
   { prefix: 'bcom_law', configs: BCOM_LAW_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
   { prefix: 'bcom_tax', configs: BCOM_TAXATION_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
+  { prefix: 'comp_fund', configs: COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
+  { prefix: 'soft-skills', configs: SOFT_SKILLS_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
+  { prefix: 'excel_viz', configs: EXCEL_DATA_VIZ_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
+  { prefix: 'bcom-accounting', configs: BCOM_ACCOUNTING_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
+  { prefix: 'bcom-finance', configs: BCOM_FINANCE_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
+  { prefix: 'bcom-marketing', configs: BCOM_MARKETING_30_DAYS_CONFIGS, fixtureMap: universalSolutions },
   { prefix: 'quant-systems', configs: QUANT_SYSTEMS_30_DAYS_CONFIGS, fixtureMap: practiceSolutions },
   { prefix: 'ai_prompt', configs: AI_PROMPT_LITERACY_30_DAYS_CONFIGS, fixtureMap: practiceSolutions },
   { prefix: 'nlp', configs: NLP_30_DAYS_CONFIGS, fixtureMap: practiceSolutions },
 ];
 
-const COURSES_STARTER_ONLY: Array<{ prefix: string; configs: DayConfig[] }> = [
-  { prefix: 'comp_fund', configs: COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS },
-  { prefix: 'soft-skills', configs: SOFT_SKILLS_30_DAYS_CONFIGS },
-  { prefix: 'excel_viz', configs: EXCEL_DATA_VIZ_30_DAYS_CONFIGS },
-  { prefix: 'bcom-accounting', configs: BCOM_ACCOUNTING_30_DAYS_CONFIGS },
-  { prefix: 'bcom-finance', configs: BCOM_FINANCE_30_DAYS_CONFIGS },
-  { prefix: 'bcom-marketing', configs: BCOM_MARKETING_30_DAYS_CONFIGS },
-];
+const COURSES_STARTER_ONLY: Array<{ prefix: string; configs: DayConfig[] }> = [];
 
 for (const c of COURSES_WITH_FIXTURES) {
   test(`[${c.prefix}] all 30 days (60 tasks) fail with starter code and pass with reference solution`, () => {

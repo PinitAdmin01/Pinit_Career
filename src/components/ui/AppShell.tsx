@@ -140,6 +140,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [liteUiMode, setLiteUiMode] = useState(false);
   const [isGdCall, setIsGdCall] = useState(false);
   const [isRoleplayParamActive, setIsRoleplayParamActive] = useState(false);
+  const [isArenaDuelActive, setIsArenaDuelActive] = useState(false);
   const [activeTourRoute, setActiveTourRoute] = useState<string | null>(null);
   const [activeTourTabKey, setActiveTourTabKey] = useState<string | null>(null);
 
@@ -298,18 +299,26 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const activeCall = (window.location.pathname.startsWith('/group-discussion') || (window.location.pathname.startsWith('/interview') && window.location.search.includes('tab=gd'))) && window.location.search.includes('call=true');
       setIsGdCall(activeCall);
 
-      const isRoleplay = e?.detail !== undefined
+      const isRoleplay = e?.detail !== undefined && e.detail.active !== undefined
         ? Boolean(e.detail.active)
         : (Boolean((window as any).__pinitMissionsRoleplayActive) || window.location.search.includes('roleplay=true'));
       const activeRoleplay = window.location.pathname.startsWith('/missions') && isRoleplay;
       setIsRoleplayParamActive(activeRoleplay);
+
+      const isDuel = e?.detail !== undefined && e.detail.isArenaDuel !== undefined
+        ? Boolean(e.detail.isArenaDuel)
+        : (Boolean((window as any).__pinitArenaDuelActive) || (window.location.pathname.startsWith('/arena') && window.location.search.includes('duel=true')));
+      const activeDuel = window.location.pathname.startsWith('/arena') && isDuel;
+      setIsArenaDuelActive(activeDuel);
     };
     checkCallAndRoleplay();
     window.addEventListener('popstate', checkCallAndRoleplay);
     window.addEventListener('pinit-roleplay-toggle', checkCallAndRoleplay);
+    window.addEventListener('pinit-arena-duel-toggle', checkCallAndRoleplay);
     return () => {
       window.removeEventListener('popstate', checkCallAndRoleplay);
       window.removeEventListener('pinit-roleplay-toggle', checkCallAndRoleplay);
+      window.removeEventListener('pinit-arena-duel-toggle', checkCallAndRoleplay);
     };
   }, [pathname, searchParams]);
 
@@ -346,7 +355,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isLessonOrDetail = cleanPath.startsWith('/quests/') && cleanPath !== '/quests';
   const isGroupDiscussionCall = isGdCall;
   const isRoleplayActive = isRoleplayParamActive;
-  const effectiveFocusMode = focusMode || isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive;
+  const effectiveFocusMode = focusMode || isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive || isArenaDuelActive;
 
   useEffect(() => {
     if (typeof window !== 'undefined' && user) {
@@ -705,7 +714,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <AppHeader
           isLessonOrDetail={isLessonOrDetail}
           isGroupDiscussionCall={isGroupDiscussionCall}
-          isRoleplayActive={isRoleplayActive}
+          isRoleplayActive={isRoleplayActive || isArenaDuelActive}
           effectiveFocusMode={effectiveFocusMode}
           toggleFocusMode={toggleFocusMode}
           mobileOpen={mobileOpen}
@@ -729,9 +738,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <main 
           className="page-content animate-fade-in"
           style={{
-            padding: (isLessonOrDetail || isRoleplayActive) ? '0px' : (isGroupDiscussionCall ? '16px' : (effectiveFocusMode ? '32px 48px' : undefined)),
-            maxWidth: (isLessonOrDetail || isRoleplayActive) ? '100%' : (isGroupDiscussionCall ? '95%' : (effectiveFocusMode ? 960 : '100%')),
-            margin: (isLessonOrDetail || isRoleplayActive) ? '0' : (isGroupDiscussionCall ? '0 auto' : (effectiveFocusMode ? '0 auto' : '0')),
+            padding: (isLessonOrDetail || isRoleplayActive || isArenaDuelActive) ? '0px' : (isGroupDiscussionCall ? '16px' : (effectiveFocusMode ? '32px 48px' : undefined)),
+            maxWidth: (isLessonOrDetail || isRoleplayActive || isArenaDuelActive) ? '100%' : (isGroupDiscussionCall ? '95%' : (effectiveFocusMode ? 960 : '100%')),
+            margin: (isLessonOrDetail || isRoleplayActive || isArenaDuelActive) ? '0' : (isGroupDiscussionCall ? '0 auto' : (effectiveFocusMode ? '0 auto' : '0')),
             width: '100%',
             transition: 'padding 0.25s, max-width 0.25s'
           }}
@@ -974,7 +983,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </button>
       )}
 
-      {isStudent && !isLandingPage && !isLessonOrDetail && !effectiveFocusMode && !isRoleplayActive && (
+      {isStudent && !isLandingPage && !isLessonOrDetail && !effectiveFocusMode && !isRoleplayActive && !isArenaDuelActive && (
         <GlobalAvatar
           user={user}
           profile={profile}

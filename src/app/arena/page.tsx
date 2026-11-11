@@ -948,12 +948,48 @@ function ArenaContent() {
       });
   }, [isMatchOver, soloMatch, activeProblem.id, timeRemaining, studentId, cOS, refresh]);
 
+  // Synchronize 1v1 Arena Code War battle status with AppShell Gaming / Focus Mode
+  const inDuel = Boolean(((activeRoom && activeRoom.status !== 'waiting') || soloMatch) && !isMatchOver);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const active = Boolean((activeRoom && activeRoom.status !== 'waiting') || soloMatch);
+      (window as any).__pinitArenaDuelActive = active;
+      window.dispatchEvent(new CustomEvent('pinit-arena-duel-toggle', { detail: { isArenaDuel: active } }));
+
+      if (active) {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } else {
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        (window as any).__pinitArenaDuelActive = false;
+        window.dispatchEvent(new CustomEvent('pinit-arena-duel-toggle', { detail: { isArenaDuel: false } }));
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    };
+  }, [activeRoom, soloMatch]);
+
   return (
-    <div style={{ maxWidth: 1380, margin: '0 auto', minHeight: '85vh', paddingBottom: 40 }}>
+    <div style={{
+      maxWidth: inDuel ? '100%' : 1380,
+      margin: '0 auto',
+      minHeight: inDuel ? '100vh' : '85vh',
+      padding: inDuel ? '12px 20px 32px' : '0 0 40px',
+      transition: 'all 0.25s ease'
+    }}>
       
       {/* ── Arena Navigation Tabs (Sleek Glass Segmented Bar) ───────────────────── */}
       <div style={{
-        display: 'flex',
+        display: inDuel ? 'none' : 'flex',
         gap: 8,
         padding: '6px',
         borderRadius: 14,
@@ -1791,24 +1827,75 @@ function ArenaContent() {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setShowRulesDrawer(true)}
-                  style={{
-                    padding: '6px 14px',
-                    borderRadius: 8,
-                    background: 'var(--bg3)',
-                    border: '1px solid var(--border)',
-                    color: 'var(--t1)',
-                    fontSize: 12.5,
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6
-                  }}
-                >
-                  <span>📜</span> Battle Rulebook
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      background: 'rgba(99, 102, 241, 0.14)',
+                      border: '1px solid rgba(99, 102, 241, 0.35)',
+                      color: '#818cf8',
+                      fontSize: 11.5,
+                      fontWeight: 800,
+                      padding: '5px 12px',
+                      borderRadius: 999,
+                      fontFamily: "'JetBrains Mono', monospace",
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      letterSpacing: '0.5px',
+                      boxShadow: '0 0 12px rgba(99,102,241,0.2)',
+                    }}
+                  >
+                    🎮 GAMING MODE ACTIVE · 100% IMMERSIVE
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (typeof document !== 'undefined') {
+                        if (!document.fullscreenElement) {
+                          document.documentElement.requestFullscreen().catch(() => {});
+                        } else {
+                          document.exitFullscreen().catch(() => {});
+                        }
+                      }
+                    }}
+                    style={{
+                      padding: '5px 12px',
+                      borderRadius: 8,
+                      background: 'var(--bg3)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--t1)',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6
+                    }}
+                    title="Toggle Fullscreen"
+                  >
+                    ⛶ Fullscreen
+                  </button>
+
+                  <button
+                    onClick={() => setShowRulesDrawer(true)}
+                    style={{
+                      padding: '5px 12px',
+                      borderRadius: 8,
+                      background: 'var(--bg3)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--t1)',
+                      fontSize: 12,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6
+                    }}
+                  >
+                    <span>📜</span> Rulebook
+                  </button>
+                </div>
               </div>
 
               {/* Pressure Surge Protocol Banner (<90s) */}
