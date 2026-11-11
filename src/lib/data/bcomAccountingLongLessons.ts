@@ -39,7 +39,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Under ASC 606 and IFRS 15, revenue is recognized only when or as performance obligations are satisfied. Upfront cash collections create a contract liability (Deferred Revenue) until the service is delivered."
+          "why": "Under ASC 606 and IFRS 15, revenue is recognized only when or as performance obligations are satisfied. Upfront cash collections create a contract liability (Deferred Revenue) until the service is delivered.",
+          "explanation": "Under ASC 606 and IFRS 15, revenue is recognized only when or as performance obligations are satisfied. Upfront cash collections create a contract liability (Deferred Revenue) until the service is delivered."
         }
       },
       {
@@ -70,7 +71,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "The Fundamental Accounting Equation states that Assets = Liabilities + Equity. All economic resources owned by the firm must be financed either by creditor borrowing (Liabilities) or owner investment and retained earnings (Equity)."
+          "why": "The Fundamental Accounting Equation states that Assets = Liabilities + Equity. All economic resources owned by the firm must be financed either by creditor borrowing (Liabilities) or owner investment and retained earnings (Equity).",
+          "explanation": "The Fundamental Accounting Equation states that Assets = Liabilities + Equity. All economic resources owned by the firm must be financed either by creditor borrowing (Liabilities) or owner investment and retained earnings (Equity)."
         }
       },
       {
@@ -100,7 +102,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Depreciation is an accounting allocation of historical asset cost that reduces Net Income on the Income Statement, but it involves zero cash outflow in the current period. Therefore, it is added back to Net Income to calculate true Operating Cash Flow."
+          "why": "Depreciation is an accounting allocation of historical asset cost that reduces Net Income on the Income Statement, but it involves zero cash outflow in the current period. Therefore, it is added back to Net Income to calculate true Operating Cash Flow.",
+          "explanation": "Depreciation is an accounting allocation of historical asset cost that reduces Net Income on the Income Statement, but it involves zero cash outflow in the current period. Therefore, it is added back to Net Income to calculate true Operating Cash Flow."
         }
       },
       {
@@ -131,7 +134,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Net Book Value (NBV) represents the carrying value of fixed assets on the balance sheet, calculated as Gross Historical Cost minus Accumulated Depreciation (and any cumulative impairment charges)."
+          "why": "Net Book Value (NBV) represents the carrying value of fixed assets on the balance sheet, calculated as Gross Historical Cost minus Accumulated Depreciation (and any cumulative impairment charges).",
+          "explanation": "Net Book Value (NBV) represents the carrying value of fixed assets on the balance sheet, calculated as Gross Historical Cost minus Accumulated Depreciation (and any cumulative impairment charges)."
         }
       },
       {
@@ -162,7 +166,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "The Allowance for Doubtful Accounts is a contra-asset account that offsets gross Accounts Receivable, presenting investors with the net realizable cash value expected to be collected after anticipated defaults."
+          "why": "The Allowance for Doubtful Accounts is a contra-asset account that offsets gross Accounts Receivable, presenting investors with the net realizable cash value expected to be collected after anticipated defaults.",
+          "explanation": "The Allowance for Doubtful Accounts is a contra-asset account that offsets gross Accounts Receivable, presenting investors with the net realizable cash value expected to be collected after anticipated defaults."
         }
       }
     ],
@@ -218,7 +223,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "ASC 842 and IFRS 16 were enacted to eliminate off-balance sheet lease obligations, ensuring investors see transparent Right-of-Use assets and corresponding capitalized debt liabilities."
+          "why": "ASC 842 and IFRS 16 were enacted to eliminate off-balance sheet lease obligations, ensuring investors see transparent Right-of-Use assets and corresponding capitalized debt liabilities.",
+          "explanation": "ASC 842 and IFRS 16 were enacted to eliminate off-balance sheet lease obligations, ensuring investors see transparent Right-of-Use assets and corresponding capitalized debt liabilities."
         }
       },
       {
@@ -249,7 +255,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "CTA reflects paper valuation changes when translating self-sustaining foreign entity balance sheets at spot rates. It does not represent realized operating cash flows, so it is quarantined in AOCI equity."
+          "why": "CTA reflects paper valuation changes when translating self-sustaining foreign entity balance sheets at spot rates. It does not represent realized operating cash flows, so it is quarantined in AOCI equity.",
+          "explanation": "CTA reflects paper valuation changes when translating self-sustaining foreign entity balance sheets at spot rates. It does not represent realized operating cash flows, so it is quarantined in AOCI equity."
         }
       },
       {
@@ -280,7 +287,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "During inflation, FIFO matches earlier, lower procurement costs against modern sales, reducing COGS, increasing reported gross profit, and leaving recent higher-cost inventory on the balance sheet."
+          "why": "During inflation, FIFO matches earlier, lower procurement costs against modern sales, reducing COGS, increasing reported gross profit, and leaving recent higher-cost inventory on the balance sheet.",
+          "explanation": "During inflation, FIFO matches earlier, lower procurement costs against modern sales, reducing COGS, increasing reported gross profit, and leaving recent higher-cost inventory on the balance sheet."
         }
       },
       {
@@ -311,7 +319,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Under US GAAP (ASC 350) and IFRS (IAS 36), recognized goodwill impairment losses can never be reversed in subsequent periods, preventing aggressive management earnings manipulation."
+          "why": "Under US GAAP (ASC 350) and IFRS (IAS 36), recognized goodwill impairment losses can never be reversed in subsequent periods, preventing aggressive management earnings manipulation.",
+          "explanation": "Under US GAAP (ASC 350) and IFRS (IAS 36), recognized goodwill impairment losses can never be reversed in subsequent periods, preventing aggressive management earnings manipulation."
         }
       },
       {
@@ -342,7 +351,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Manual top-side entries posted directly to GL control accounts bypass subledger validation, breaking ledger equilibrium and creating high-risk audit flags for fraud or concealment."
+          "why": "Manual top-side entries posted directly to GL control accounts bypass subledger validation, breaking ledger equilibrium and creating high-risk audit flags for fraud or concealment.",
+          "explanation": "Manual top-side entries posted directly to GL control accounts bypass subledger validation, breaking ledger equilibrium and creating high-risk audit flags for fraud or concealment."
         }
       }
     ],
@@ -399,8 +409,27 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Traditional volume allocation relies on volume drivers like labor hours, which unfairly penalizes high-volume products while subsidizing complex low-volume products that consume disproportionate setup, testing, and batch resources."
-        }
+          "why": "Traditional volume allocation relies on volume drivers like labor hours, which unfairly penalizes high-volume products while subsidizing complex low-volume products that consume disproportionate setup, testing, and batch resources.",
+          "explanation": "Traditional volume allocation relies on volume drivers like labor hours, which unfairly penalizes high-volume products while subsidizing complex low-volume products that consume disproportionate setup, testing, and batch resources."
+        },
+        "codeNotes": [
+          {
+            "line": 7,
+            "note": "Calculates traditional single plant-wide predetermined overhead rate per direct labor hour"
+          },
+          {
+            "line": 14,
+            "note": "Computes Activity-Based Costing driver consumption rates for individual cost pools"
+          },
+          {
+            "line": 23,
+            "note": "Traces overhead consumption directly to products to unmask cross-subsidization distortion"
+          },
+          {
+            "line": 33,
+            "note": "Classifies product line distortion as overcosted subsidizing or undercosted margin bleed"
+          }
+        ]
       },
       {
         "title": "Standard Costing: Direct Materials Price & Quantity Variances",
@@ -430,8 +459,27 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Procuring cheap, poor-quality materials generates a Favorable price variance in purchasing, but causes high defect and scrap rates during manufacturing, yielding an offsetting Unfavorable quantity variance."
-        }
+          "why": "Procuring cheap, poor-quality materials generates a Favorable price variance in purchasing, but causes high defect and scrap rates during manufacturing, yielding an offsetting Unfavorable quantity variance.",
+          "explanation": "Procuring cheap, poor-quality materials generates a Favorable price variance in purchasing, but causes high defect and scrap rates during manufacturing, yielding an offsetting Unfavorable quantity variance."
+        },
+        "codeNotes": [
+          {
+            "line": 9,
+            "note": "Calculates standard quantity allowed by multiplying actual finished units by standard unit input"
+          },
+          {
+            "line": 11,
+            "note": "Isolates Direct Materials Price Variance based on actual quantities purchased"
+          },
+          {
+            "line": 12,
+            "note": "Evaluates Direct Materials Quantity Variance based on actual factory floor consumption"
+          },
+          {
+            "line": 13,
+            "note": "Sums price and quantity components to determine overall net materials variance"
+          }
+        ]
       },
       {
         "title": "Direct Labor Rate & Efficiency Variances",
@@ -461,8 +509,27 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "Multiplying by the Standard Rate isolates physical hour productivity (hours saved vs lost) without confounding the metric with wage rate changes that shop floor supervisors do not control."
-        }
+          "why": "Multiplying by the Standard Rate isolates physical hour productivity (hours saved vs lost) without confounding the metric with wage rate changes that shop floor supervisors do not control.",
+          "explanation": "Multiplying by the Standard Rate isolates physical hour productivity (hours saved vs lost) without confounding the metric with wage rate changes that shop floor supervisors do not control."
+        },
+        "codeNotes": [
+          {
+            "line": 8,
+            "note": "Multiplies actual finished units by standard unit labor allowance to calculate standard hours allowed"
+          },
+          {
+            "line": 10,
+            "note": "Calculates wage rate variance: wage differential multiplied by actual hours worked"
+          },
+          {
+            "line": 11,
+            "note": "Evaluates efficiency variance: labor hour differential multiplied by standard hourly wage benchmark"
+          },
+          {
+            "line": 12,
+            "note": "Sums rate and efficiency components to determine overall direct labor variance"
+          }
+        ]
       },
       {
         "title": "Manufacturing Overhead Variances (Spending, Efficiency & Volume)",
@@ -492,8 +559,27 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "The Fixed Overhead Volume Variance measures capacity utilization: producing fewer units than denominator volume leaves fixed overhead under-absorbed, generating an Unfavorable volume variance."
-        }
+          "why": "The Fixed Overhead Volume Variance measures capacity utilization: producing fewer units than denominator volume leaves fixed overhead under-absorbed, generating an Unfavorable volume variance.",
+          "explanation": "The Fixed Overhead Volume Variance measures capacity utilization: producing fewer units than denominator volume leaves fixed overhead under-absorbed, generating an Unfavorable volume variance."
+        },
+        "codeNotes": [
+          {
+            "line": 10,
+            "note": "Calculates Variable Overhead Spending Variance measuring price inflation in indirect supplies"
+          },
+          {
+            "line": 11,
+            "note": "Calculates Variable Overhead Efficiency Variance tracking indirect utility consumption efficiency"
+          },
+          {
+            "line": 13,
+            "note": "Evaluates Fixed Overhead Budget Spending Variance comparing actual rent/depreciation to master budget"
+          },
+          {
+            "line": 14,
+            "note": "Computes Fixed Overhead Volume Variance measuring plant capacity underutilization"
+          }
+        ]
       },
       {
         "title": "Flexible Budgeting & Master Budget Variance Waterfall",
@@ -504,8 +590,8 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "The corporate variance waterfall decomposes the total Master Budget Variance (Static Budget Variance) into two distinct analytical pillars: the Sales Volume Variance and the Flexible Budget Variance ($Static\\,Variance = Sales\\,Volume\\,Variance + Flexible\\,Budget\\,Variance$).",
           "The Sales Volume Variance measures the profit impact of selling more or fewer units than planned: Sales Volume Variance equals Flexible Budget Operating Income minus Master Budget Operating Income ($Volume\\,Variance = Flex\\,OI - Master\\,OI = (Actual\\,Units - Budgeted\\,Units) \times Budgeted\\,Unit\\,Contribution\\,Margin$). This variance isolates market demand shifts and sales team volume performance while holding standard operating costs constant.",
           "The Flexible Budget Variance measures pure operational execution: Flexible Budget Variance equals Actual Operating Income minus Flexible Budget Operating Income ($Flex\\,Variance = Actual\\,OI - Flex\\,OI$). This variance encapsulates pricing discipline (selling at premium or discount), raw material price and usage variances, direct labor rate and efficiency variances, and overhead spending control.",
-          "Consider a enterprise that planned ten thousand units at fifty dollars price and twenty dollars variable cost, producing one hundred fifty thousand dollars operating income after one hundred fifty thousand fixed costs. If the enterprise sells eleven thousand units at forty-eight dollars price and twenty-one dollars cost, the flexible budget indicates operating income should have been one hundred eighty thousand dollars. Sales volume generated a thirty thousand dollar favorable boost, but operational execution suffered a thirty-eight thousand dollar unfavorable shortfall, resulting in an eight thousand dollar static budget deficit.",
-          "Mastering flexible budget reconciliation enables CFOs to conduct actionable management reviews. By separating volume effects driven by external macroeconomic demand from operational execution variances under management control, corporate leadership identifies exactly where enterprise profit leaked and formulates corrective pricing or cost-containment interventions.",
+          "Consider an enterprise that planned ten thousand units at fifty dollars price and twenty dollars variable cost, producing one hundred fifty thousand dollars operating income after one hundred fifty thousand fixed costs. If the enterprise sells eleven thousand units at forty-eight dollars price and twenty-one dollars cost, the flexible budget indicates operating income should have been one hundred eighty thousand dollars. Sales volume generated a thirty thousand dollar favorable boost, but operational execution suffered a thirty-eight thousand dollar unfavorable shortfall, resulting in an eight thousand dollar static budget deficit.",
+          "Mastering flexible budget reconciliation enables chief financial officers to conduct actionable monthly management reviews across manufacturing divisions and commercial business units. By cleanly separating volume effects driven by external macroeconomic demand from operational execution variances under direct management control, corporate leadership pinpoints exactly where enterprise profit leaked and formulates targeted pricing adjustments, supplier renegotiations, or factory cost-containment interventions.",
           "In multi-product commercial enterprises, corporate FP&A teams dissect the Sales Volume Variance further into the Sales Mix Variance and the Sales Quantity Variance. The Sales Mix Variance measures the profit impact of selling a different proportion of high-margin versus low-margin product lines relative to the planned budget mix. The Sales Quantity Variance measures whether total industry-wide unit volume grew or contracted, holding relative product mix constant.",
           "Modern enterprise performance management combines flexible budgeting with Rolling Forecasts and Zero-Based Budgeting (ZBB). Rather than treating annual static targets as immutable gospel, rolling flexible forecasts continuously calibrate operational targets against leading macroeconomic indicators, supply chain lead times, and verified sales pipeline conversions, ensuring executive decisions reflect dynamic market reality. Executive management utilizes flexible variance dashboards during monthly performance reviews to trigger proactive price adjustments and supply chain optimizations."
         ],
@@ -523,8 +609,27 @@ export const BCOM_ACCOUNTING_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           ],
           "answer": 0,
           "answerIndex": 0,
-          "why": "A flexible budget adjusts for actual volume, allowing management to separate volume deviations (sales volume variance) from operational execution and price efficiency (flexible budget variance)."
-        }
+          "why": "A flexible budget adjusts for actual volume, allowing management to separate volume deviations (sales volume variance) from operational execution and price efficiency (flexible budget variance).",
+          "explanation": "A flexible budget adjusts for actual volume, allowing management to separate volume deviations (sales volume variance) from operational execution and price efficiency (flexible budget variance)."
+        },
+        "codeNotes": [
+          {
+            "line": 14,
+            "note": "Calculates static Master Budget operating income based on original sales volume projections"
+          },
+          {
+            "line": 19,
+            "note": "Calculates Flexible Budget income by applying standard pricing and costs to actual output achieved"
+          },
+          {
+            "line": 26,
+            "note": "Isolates Sales Volume Variance: operating income impact of selling more or fewer units than budgeted"
+          },
+          {
+            "line": 27,
+            "note": "Calculates Flexible Budget Variance: pure operational cost and selling price execution efficiency"
+          }
+        ]
       }
     ],
     "summary": [
