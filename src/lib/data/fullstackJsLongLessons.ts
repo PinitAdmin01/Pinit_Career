@@ -827,10 +827,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does TypeScript interface CreateUserDto { email: string } fail to protect an Express endpoint from receiving a number for email at runtime?",
           "options": [
-            "Because Express only supports Python type systems, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because TypeScript interfaces are completely erased during compilation and do not exist at runtime in JavaScript",
-            "Because Node.js converts all numbers into strings automatically",
-            "Because JSON specifications forbid string types, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because the V8 JavaScript engine only performs runtime type validation when running in strict browser environments",
+            "Because TypeScript interfaces and type declarations are completely erased during compilation and do not exist at JavaScript runtime",
+            "Because the JSON.parse reviver automatically casts incoming numerical strings into generic primitive objects",
+            "Because Express router controllers bypass V8 bytecode compilation and evaluate incoming payloads as raw buffer pointers"
           ],
           "answer": 1,
           "why": "TypeScript types exist strictly at compile-time for developer tooling. When code compiles to JavaScript, all interfaces and type assertions are stripped out completely.",
@@ -856,10 +856,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is schema.safeParse() preferred over schema.parse() in production web middleware?",
           "options": [
-            "parse only works on Windows operating systems, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "safeParse executes on the GPU instead of the CPU, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "safeParse returns a discriminated union ({ success: true, data } | { success: false, error }) without throwing exceptions, preventing unhandled runtime crashes",
-            "safeParse automatically converts JavaScript into Rust, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because parse requires asynchronous event loop ticks while safeParse executes synchronously inside microtasks",
+            "Because parse mutates the global schema prototype while safeParse clones validation rules into isolated worker threads",
+            "Because safeParse returns a discriminated union ({ success: true, data } | { success: false, error }) without throwing unhandled exceptions",
+            "Because safeParse automatically compiles validation AST nodes into WebAssembly machine bytecode for 10x throughput"
           ],
           "answer": 2,
           "why": "safeParse eliminates the CPU overhead and process crashing risk of try/catch by returning a clean discriminated union result.",
@@ -884,10 +884,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What catastrophic security flaw does schema stripping (.strip()) prevent in full-stack web applications?",
           "options": [
-            "Memory leaks in CSS stylesheets, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Cross-Site Scripting in SVG image files, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Buffer overflow in the Node.js V8 heap, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Mass Assignment (Over-Posting), where malicious clients inject unauthorized database attributes like role: 'admin' or isVerified: true"
+            "Cross-Site Request Forgery (CSRF) by rejecting mutated Origin headers on incoming cross-domain mutation requests",
+            "Denial of Service via ReDoS regular expression catastrophic backtracking on large string inputs",
+            "SQL Injection by automatically converting string literals into parameterized prepared statement placeholders",
+            "Mass Assignment (Over-Posting), where malicious clients inject unauthorized database attributes like role: 'admin' or balance: 99999"
           ],
           "answer": 3,
           "why": "Mass assignment occurs when backend endpoints blindly persist req.body into databases. Stripping undeclared keys ensures only explicitly permitted attributes are updated.",
@@ -912,10 +912,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What is the critical semantic difference between HTTP 400 Bad Request and HTTP 422 Unprocessable Entity in REST validation?",
           "options": [
-            "HTTP 400 indicates malformed syntax (e.g. invalid JSON bytes), while HTTP 422 indicates valid syntax that violates semantic validation rules",
-            "HTTP 400 is strictly for GET requests, while 422 is strictly for POST requests",
-            "HTTP 422 can only be returned on Fridays, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "There is no difference; they are completely interchangeable, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "HTTP 400 indicates malformed syntax (e.g. invalid JSON bytes), while HTTP 422 indicates valid syntax that violates semantic schema constraints",
+            "HTTP 400 indicates database connection timeouts, while HTTP 422 indicates missing client TLS certificates",
+            "HTTP 400 applies exclusively to URL query parameters, while HTTP 422 is reserved for binary file upload streams",
+            "HTTP 400 instructs the browser to clear cookies, while HTTP 422 causes the reverse proxy to restart the upstream container"
           ],
           "answer": 0,
           "why": "RFC 9110 and RFC 4918 define 400 as syntactically malformed input, whereas 422 means the server understood the payload syntax, but the contents fail validation constraints.",
@@ -942,10 +942,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does validateRequestBody attach sanitized data to req.validatedBody rather than mutating req.body directly?",
           "options": [
-            "Because JavaScript does not allow modifying properties on objects, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because the HTTP/1.1 specification enforces Object.freeze on req.body at the network socket layer",
             "To preserve the original request integrity for auditing while providing guaranteed type-safe, sanitized data to downstream controllers",
-            "Because mutating req.body restarts the server, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because req.body is encrypted with AES-256, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because Express body-parser streams lock the request buffer from in-memory mutations after the headers flush",
+            "To prevent the V8 garbage collector from deoptimizing hidden classes across subsequent middleware pipeline frames"
           ],
           "answer": 1,
           "why": "Preserving raw input on req.body for auditing/telemetry while exposing validated, stripped data on req.validatedBody prevents subtle mutation bugs.",
@@ -1023,9 +1023,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does a modern fetch() call transmitting application/json trigger an automatic browser preflight OPTIONS request?",
           "options": [
-            "Because OPTIONS is the only method that supports 4G cellular networks, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because JSON files cannot travel over TCP sockets without encryption, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because the browser needs to install a JSON parser from the server, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because modern browsers require an ephemeral TLS handshake for every asynchronous HTTP POST operation",
+            "Because HTTP/2 binary framing protocol mandates that all JSON payloads be preceded by an empty metadata probe",
+            "Because web browsers disable JavaScript execution threads until the server returns an explicit Content-Security-Policy",
             "Because application/json is not a CORS-safelisted content type, requiring the browser to verify server permissions before sending the payload"
           ],
           "answer": 3,
@@ -1051,10 +1051,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why will a modern browser reject a cross-origin request if the server returns Access-Control-Allow-Origin: * along with Access-Control-Allow-Credentials: true?",
           "options": [
-            "The W3C CORS specification explicitly forbids wildcard origins on credentialed requests to prevent any random website from harvesting user session cookies",
-            "Wildcard origins disable TCP packet delivery, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Web browsers require asterisks to be escaped as , which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "JSON payloads cannot be delivered when credentials are true, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "The W3C CORS specification explicitly forbids wildcard origins on credentialed requests to prevent any arbitrary site from harvesting user session cookies",
+            "HTTP/2 multiplexing requires explicit domain hashes in the response header to allocate dedicated bidirectional stream channels",
+            "Browser cookie engines automatically clear the document.cookie store when an asterisk character appears in response headers",
+            "Transport Layer Security algorithms fail certificate pinning checks when wildcard domain origins are encountered in API responses"
           ],
           "answer": 0,
           "why": "To prevent cross-site identity theft, the CORS specification prohibits combining wildcard origins with credentialed access.",
@@ -1079,10 +1079,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What specific attack does the X-Content-Type-Options: nosniff response header prevent?",
           "options": [
-            "Brute-force password guessing attacks, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Cross-Site Request Forgery (CSRF) by preventing browsers from automatically attaching SameSite cookies to cross-domain POST requests",
             "MIME-type sniffing attacks, where a browser executes user-uploaded non-executable files (like images or text) as JavaScript or HTML",
-            "Database connection pool deadlocks, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Out-of-memory garbage collection crashes, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Server-Side Request Forgery (SSRF) by blocking internal cloud metadata IP addresses from being queried via HTTP redirects",
+            "Timing side-channel attacks by randomizing cryptographic token comparison durations across authentication endpoints"
           ],
           "answer": 1,
           "why": "nosniff tells browsers to strictly respect the server's declared Content-Type header and never try to guess (sniff) executable script content from file bytes.",
@@ -1108,10 +1108,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does corsMiddleware terminate preflight OPTIONS requests with status 204 without invoking next()?",
           "options": [
-            "Because web servers can only execute one next() function per hour, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because OPTIONS requests automatically delete user databases, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because the HTTP specification prohibits web servers from parsing URL query parameters during preflight negotiations",
+            "Because Node.js stream controllers automatically deallocate socket memory buffers when next() is called on an OPTIONS verb",
             "Because preflight requests are investigative browser handshakes containing no business logic; halting them at the perimeter preserves backend capacity",
-            "Because status 204 causes the client computer to disconnect from Wi-Fi, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because Express routers cannot match parameterized route handlers unless the request contains an explicit application/json payload body"
           ],
           "answer": 2,
           "why": "Preflight requests only check permissions. Responding immediately with 204 No Content saves CPU and avoids executing downstream route handlers.",
@@ -1163,9 +1163,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why must an enterprise API enforce a strict maximum ceiling (e.g. maxLimit = 100) on the limit query parameter?",
           "options": [
-            "Because web browsers automatically close tabs if more than 100 items are displayed",
-            "Because SQL databases cannot store numbers greater than 100, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because JSON only allows 100 curly braces per document, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because HTTP/1.1 chunked transfer encoding fails if response streams contain more than 100 objects",
+            "Because TCP window flow control automatically drops network frames exceeding 100 array items",
+            "Because Node.js V8 garbage collection freezes the event loop whenever array lengths exceed 100 elements",
             "To prevent clients from requesting millions of records in a single query, which causes server out-of-memory crashes and database connection pool exhaustion"
           ],
           "answer": 3,
@@ -1191,9 +1191,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why does database query performance degrade significantly when using high offset values (e.g. OFFSET 100000) in SQL queries?",
           "options": [
             "The database engine must scan, order, and discard all 100,000 preceding rows before returning the requested slice, incurring severe disk and CPU overhead",
-            "Because SQL engines only support pagination in the cloud, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because offset numbers larger than 1,000 delete database indexes, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because Node.js cannot transmit numbers greater than 10,000 over TCP, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because relational databases deallocate foreign key constraint caches when offset values exceed one thousand rows",
+            "Because SQL query planners automatically convert B-Tree index scans into full table scans on any query containing an OFFSET keyword",
+            "Because TCP socket buffers on database connection pools are capped at 64 kilobytes, dropping rows that exceed buffer memory"
           ],
           "answer": 0,
           "why": "In SQL offset pagination, the database engine cannot skip directly to an arbitrary offset; it must scan and discard all preceding rows up to the offset.",
@@ -1248,10 +1248,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why do parameterized prepared statements ($1, $2) completely eliminate SQL injection vulnerabilities?",
           "options": [
-            "The $ symbol causes SQL databases to switch to read-only mode, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Parameterized queries automatically encrypt the database hard drive, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "The parameterized placeholder symbols automatically invoke SHA-256 integrity verification on database storage blocks",
+            "Database connection pools reject incoming client connections that fail to supply pre-compiled binary bytecode routines",
             "The database engine compiles the SQL query abstract syntax tree before parameter binding, ensuring untrusted values are treated strictly as literal data rather than executable syntax",
-            "Parameterized queries only execute on the client's web browser, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Parameterized queries enforce TLS mutual certificate authentication across all internal database replication channels"
           ],
           "answer": 2,
           "why": "By separating query syntax compilation from parameter data binding, the database treats inputs strictly as literal values, rendering SQL injection syntax harmless.",
@@ -1275,9 +1275,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "How does the high-performance 'Limit + 1' query technique determine whether a subsequent page exists without running an expensive SELECT COUNT(*) query?",
           "options": [
-            "It divides the database table size by 2, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It reboots the PostgreSQL server to read row counts from memory, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It sends an email to the database administrator asking for row counts, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It divides table storage block sizes by average row bytes to estimate remaining row counts within 10 percent accuracy",
+            "It inspects PostgreSQL transaction log write-ahead journals to compute committed row sequences in memory",
+            "It queries database metadata catalogs for estimated reltuples statistics, eliminating the need to read actual disk pages",
             "It requests one extra record beyond the page limit; if the database returns limit + 1 items, hasNext is true and the extra item is popped off the array"
           ],
           "answer": 3,
@@ -1354,7 +1354,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
             "RS256 encrypts the token payload so internal microservices cannot inspect user roles without a private key.",
             "HS256 requires distributing the shared signing secret to every verifying service, meaning a single compromised service can forge tokens for the entire ecosystem.",
             "HS256 signatures are three times larger than RS256 signatures, exceeding HTTP header size limits.",
-            "RS256 tokens do not require an expiration timestamp claim., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "RS256 delegates cryptographic verification to client browser Web Crypto APIs rather than backend CPU cores."
           ],
           "answer": 1,
           "why": "With symmetric HS256, any microservice that verifies tokens must possess the shared secret key, enabling a compromised service to forge arbitrary tokens. Asymmetric RS256 allows services to verify tokens with public keys only, keeping the signing private key secure.",
@@ -1379,7 +1379,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
             "It forces the database to maintain a permanent replica of the token for every active user.",
             "It automatically invalidates the HMAC cryptographic signature on downstream proxy servers.",
             "It causes payload bloat that can exceed HTTP header size limits (triggering HTTP 431 errors) and bloats network egress bandwidth.",
-            "It causes JSON.stringify() to exceed V8 call stack size limits., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It causes V8 inline caches to permanently deoptimize due to polymorphic object shape transitions across microservices."
           ],
           "answer": 2,
           "why": "Embedding large permission sets and profiles bloats the token beyond HTTP header thresholds (4KB - 8KB), triggering HTTP 431 Request Header Fields Too Large and wasting substantial network bandwidth across billions of requests.",
@@ -1531,8 +1531,8 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "How does 'SameSite=Lax' differ from 'SameSite=Strict' in modern web browser cookie behavior?",
           "options": [
             "SameSite=Lax encrypts the cookie with an in-memory session key, while Strict uses disk storage.",
-            "SameSite=Lax allows third-party iframes to read the cookie via JavaScript., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "SameSite=Lax works over plain HTTP connections, while Strict requires HTTPS., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "SameSite=Lax permits cross-origin XMLHttpRequest and fetch requests but blocks standard HTML form submissions.",
+            "SameSite=Lax automatically converts incoming POST requests into idempotent GET requests on third-party domains.",
             "SameSite=Lax permits cookies on top-level safe GET navigations from third-party sites, whereas Strict suppresses cookies on all cross-site requests unconditionally."
           ],
           "answer": 3,
@@ -1557,8 +1557,8 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "options": [
             "Immediately revoke the entire token family, terminating all active sessions for that user to neutralize the breach.",
             "Silently re-issue the same token without alerting the user.",
-            "Charge an additional billing fee to the tenant account., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Downgrade the user's role to read-only for 24 hours., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Queue the refresh request in an asynchronous retry stream until the active session naturally expires.",
+            "Lock the database table partition and force the client connection to downgrade to HTTP/1.1 framing."
           ],
           "answer": 0,
           "why": "A consumed refresh token being presented indicates that either an attacker or a legitimate client is attempting to replay a token; the server must revoke the entire token family immediately to prevent unauthorized access.",
@@ -1580,9 +1580,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "When parsing a raw HTTP Cookie header, why must a parser split strictly on the FIRST '=' sign rather than using string.split('=')?",
           "options": [
-            "Because cookies can only have one character in their name., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because the HTTP parser allocates fixed 16-byte memory slots that overflow when multiple delimiters are evaluated.",
             "Because base64 encoded token values often contain '=' characters for byte padding, which would be corrupted by multiple splits.",
-            "Because RFC 6265 requires all cookie values to be numbers., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because RFC 6265 prohibits cookie names from sharing namespace identifiers with downstream query parameter strings.",
             "Because JavaScript regex engines cannot parse multiple '=' signs in a single loop."
           ],
           "answer": 1,
