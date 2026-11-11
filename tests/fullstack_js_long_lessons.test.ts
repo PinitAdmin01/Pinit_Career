@@ -23,7 +23,7 @@ test('Full-Stack JavaScript Long Lessons: Resolution & Language Invariants', () 
   }
 });
 
-test('Full-Stack JS Day 6: Next.js App Router Data Fetching, Request Memoization & Cache Revalidation', async () => {
+test('Full-Stack JS Day 6: Schema Validation & Runtime Boundary Safety: Zod, Type Coercion & Input Sanitization', async () => {
   const lesson = getLongLesson('fullstack-js', 6);
   assert.ok(lesson, 'fullstack-js Day 6 long lesson must resolve');
   assert.equal(lesson.day, 6);
@@ -66,7 +66,18 @@ test('Full-Stack JS Day 6: Next.js App Router Data Fetching, Request Memoization
       Map,
       Set,
       Array,
-      JSON
+      JSON,
+      Math,
+      Number,
+      isNaN,
+      Object,
+      Buffer,
+      String,
+      Boolean,
+      TypeError,
+      Error,
+      parseInt,
+      URL: global.URL
     };
     vm.createContext(sandbox);
     const compiled = esbuild.transformSync(part.code, { loader: 'ts' });
@@ -76,14 +87,14 @@ test('Full-Stack JS Day 6: Next.js App Router Data Fetching, Request Memoization
   }
 
   // Domain specifics
-  assert.ok(lesson.parts[0].code?.includes('RequestMemoizationEngine'));
-  assert.ok(lesson.parts[1].code?.includes('NextDataCacheEngine'));
-  assert.ok(lesson.parts[2].code?.includes('NextRevalidationCoordinator'));
-  assert.ok(lesson.parts[3].code?.includes('NextRouteCompilerEngine'));
-  assert.ok(lesson.parts[4].code?.includes('EnterpriseDataPipelineMasterEngine'));
+  assert.ok(lesson.parts[0].code?.includes('handleUnsafeSignup'));
+  assert.ok(lesson.parts[1].code?.includes('SimpleUserSchema'));
+  assert.ok(lesson.parts[2].code?.includes('StrictProfileValidator'));
+  assert.ok(lesson.parts[3].code?.includes('formatValidationErrorResponse'));
+  assert.ok(lesson.parts[4].code?.includes('validateRequestBody'));
 });
 
-test('Full-Stack JS Day 7: Server Actions, Form Mutations & Optimistic UI Architecture', async () => {
+test('Full-Stack JS Day 7: CORS Architecture & Web Security Headers: Same-Origin Policy, Preflights & Defense-in-Depth', async () => {
   const lesson = getLongLesson('fullstack-js', 7);
   assert.ok(lesson, 'fullstack-js Day 7 long lesson must resolve');
   assert.equal(lesson.day, 7);
@@ -130,7 +141,14 @@ test('Full-Stack JS Day 7: Server Actions, Form Mutations & Optimistic UI Archit
       Math,
       Number,
       isNaN,
-      Object
+      Object,
+      Buffer,
+      String,
+      Boolean,
+      TypeError,
+      Error,
+      parseInt,
+      URL: global.URL
     };
     vm.createContext(sandbox);
     const compiled = esbuild.transformSync(part.code, { loader: 'ts' });
@@ -140,14 +158,14 @@ test('Full-Stack JS Day 7: Server Actions, Form Mutations & Optimistic UI Archit
   }
 
   // Domain specifics
-  assert.ok(lesson.parts[0].code?.includes('NextServerActionRpcEngine'));
-  assert.ok(lesson.parts[1].code?.includes('FormStateReducerMachine'));
-  assert.ok(lesson.parts[2].code?.includes('OptimisticUiEngine'));
-  assert.ok(lesson.parts[3].code?.includes('ServerActionValidatorEngine'));
-  assert.ok(lesson.parts[4].code?.includes('EnterpriseMutationPipelineMasterEngine'));
+  assert.ok(lesson.parts[0].code?.includes('parseOrigin'));
+  assert.ok(lesson.parts[1].code?.includes('requiresCorsPreflight'));
+  assert.ok(lesson.parts[2].code?.includes('CorsPolicyManager'));
+  assert.ok(lesson.parts[3].code?.includes('securityHeadersMiddleware'));
+  assert.ok(lesson.parts[4].code?.includes('corsMiddleware'));
 });
 
-test('Full-Stack JS Day 8: Edge Middleware, Distributed Session Verification & Request Routing', async () => {
+test('Full-Stack JS Day 8: REST Query Architecture: Pagination Physics, Cursor Streams & Multi-Field Sorting', async () => {
   const lesson = getLongLesson('fullstack-js', 8);
   assert.ok(lesson, 'fullstack-js Day 8 long lesson must resolve');
   assert.equal(lesson.day, 8);
@@ -196,10 +214,12 @@ test('Full-Stack JS Day 8: Edge Middleware, Distributed Session Verification & R
       isNaN,
       Object,
       Buffer,
-      RegExp,
-      URL,
-      encodeURIComponent,
-      crypto
+      String,
+      Boolean,
+      TypeError,
+      Error,
+      parseInt,
+      URL: global.URL
     };
     vm.createContext(sandbox);
     const compiled = esbuild.transformSync(part.code, { loader: 'ts' });
@@ -209,14 +229,14 @@ test('Full-Stack JS Day 8: Edge Middleware, Distributed Session Verification & R
   }
 
   // Domain specifics
-  assert.ok(lesson.parts[0].code?.includes('NextEdgeMiddlewareEngine'));
-  assert.ok(lesson.parts[1].code?.includes('EdgeJwtVerificationEngine'));
-  assert.ok(lesson.parts[2].code?.includes('NextEdgeTransformationCoordinator'));
-  assert.ok(lesson.parts[3].code?.includes('EdgeSlidingWindowRateLimiter'));
-  assert.ok(lesson.parts[4].code?.includes('EnterpriseEdgeSecurityGatewayMasterEngine'));
+  assert.ok(lesson.parts[0].code?.includes('parseCollectionQueryParams'));
+  assert.ok(lesson.parts[1].code?.includes('offsetPagination'));
+  assert.ok(lesson.parts[2].code?.includes('SortParameterParser'));
+  assert.ok(lesson.parts[3].code?.includes('SafeParameterizedQueryBuilder'));
+  assert.ok(lesson.parts[4].code?.includes('paginateCollection'));
 });
 
-test('Full-Stack JS Day 9: Advanced Routing Architecture: Intercepting Routes & Parallel Slots', async () => {
+test('Full-Stack JS Day 9: Authentication Architecture: Stateless JWTs, Cryptographic Signatures & Token Lifecycle', async () => {
   const lesson = getLongLesson('fullstack-js', 9);
   assert.ok(lesson, 'fullstack-js Day 9 long lesson must resolve');
   assert.equal(lesson.day, 9);
@@ -263,7 +283,14 @@ test('Full-Stack JS Day 9: Advanced Routing Architecture: Intercepting Routes & 
       Math,
       Number,
       isNaN,
-      Object
+      Object,
+      Buffer,
+      String,
+      Boolean,
+      TypeError,
+      Error,
+      parseInt,
+      URL: global.URL
     };
     vm.createContext(sandbox);
     const compiled = esbuild.transformSync(part.code, { loader: 'ts' });
@@ -273,14 +300,14 @@ test('Full-Stack JS Day 9: Advanced Routing Architecture: Intercepting Routes & 
   }
 
   // Domain specifics
-  assert.ok(lesson.parts[0].code?.includes('NextParallelRoutesEngine'));
-  assert.ok(lesson.parts[1].code?.includes('NextInterceptingRouteEngine'));
-  assert.ok(lesson.parts[2].code?.includes('NextSlotReconciliationEngine'));
-  assert.ok(lesson.parts[3].code?.includes('NextLayoutHierarchyEngine'));
-  assert.ok(lesson.parts[4].code?.includes('EnterpriseMultiPaneDashboardMasterEngine'));
+  assert.ok(lesson.parts[0].code?.includes('base64UrlEncode'));
+  assert.ok(lesson.parts[1].code?.includes('computeSimulatedSignature'));
+  assert.ok(lesson.parts[2].code?.includes('validateRegisteredClaims'));
+  assert.ok(lesson.parts[3].code?.includes('isJwtExpiredWithLeeway'));
+  assert.ok(lesson.parts[4].code?.includes('verifyEnterpriseJwt'));
 });
 
-test('Full-Stack JS Day 10 ⭐ Milestone 2 Capstone: Distributed Enterprise SaaS & E-Commerce Core Architecture', async () => {
+test('Full-Stack JS Day 10: Session Security & Token Transport: Secure HttpOnly Cookies, SameSite Policies & Refresh Token Rotation', async () => {
   const lesson = getLongLesson('fullstack-js', 10);
   assert.ok(lesson, 'fullstack-js Day 10 long lesson must resolve');
   assert.equal(lesson.day, 10);
@@ -329,7 +356,12 @@ test('Full-Stack JS Day 10 ⭐ Milestone 2 Capstone: Distributed Enterprise SaaS
       isNaN,
       Object,
       Buffer,
-      URL
+      String,
+      Boolean,
+      TypeError,
+      Error,
+      parseInt,
+      URL: global.URL
     };
     vm.createContext(sandbox);
     const compiled = esbuild.transformSync(part.code, { loader: 'ts' });
@@ -339,13 +371,12 @@ test('Full-Stack JS Day 10 ⭐ Milestone 2 Capstone: Distributed Enterprise SaaS
   }
 
   // Domain specifics
-  assert.ok(lesson.parts[0].code?.includes('CapstoneEdgeGatewayEngine'));
-  assert.ok(lesson.parts[1].code?.includes('CapstoneParallelLayoutCoordinator'));
-  assert.ok(lesson.parts[2].code?.includes('CapstoneDataCacheMasterEngine'));
-  assert.ok(lesson.parts[3].code?.includes('CapstoneOptimisticMutationEngine'));
-  assert.ok(lesson.parts[4].code?.includes('EnterpriseFullStackCommerceMasterEngine'));
+  assert.ok(lesson.parts[0].code?.includes('InMemoryTokenStore'));
+  assert.ok(lesson.parts[1].code?.includes('buildSecureCookieHeader'));
+  assert.ok(lesson.parts[2].code?.includes('evaluateCookieInclusion'));
+  assert.ok(lesson.parts[3].code?.includes('RefreshTokenManager'));
+  assert.ok(lesson.parts[4].code?.includes('parseCookieHeader'));
 });
-
 test('Full-Stack JS Day 11: Password Hashing with Argon2/Bcrypt & Salt Invariants', async () => {
   const lesson = getLongLesson('fullstack-js', 11);
   assert.ok(lesson, 'fullstack-js Day 11 long lesson must resolve');
