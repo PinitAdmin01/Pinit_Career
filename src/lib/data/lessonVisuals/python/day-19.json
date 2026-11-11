@@ -3,30 +3,34 @@
   "prefix": "python",
   "day": 19,
   "promptSha": "aad003ca7037e4119581f1f01dae8d80d74fb398f0280370cba2632eca3174e7",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day19",
   "entries": [
     {
       "partTitle": "Making objects print nicely with __str__",
       "codeHash": "aa47bdc072c5f0fb37f686f0103bde76f1c288123ff86b8d5443409483954d6b",
       "spec": {
         "template": "table",
-        "title": "Making objects print nicely with __str__",
+        "title": "Printing Plain vs Expense.__str__",
         "columns": [
-          "Stage",
-          "Concept"
+          "Class",
+          "Expression",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The print concept establishes the core structural baseline.",
+            "caption": "Without __str__, print shows where the object lives in memory.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Making"
+                    "text": "Plain"
                   },
                   {
-                    "text": "objects"
+                    "text": "str(Plain(\"Tea\")).startswith(\"<\")"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +38,81 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The methods logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding __str__ lets print and str return a clear string.",
+            "checks": [
+              "True",
+              "Tea (Rs 20)",
+              "Today: Tea (Rs 20)"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "print"
+                    "text": "Expense"
                   },
                   {
-                    "text": "nicely"
+                    "text": "print(tea)"
+                  },
+                  {
+                    "text": "Tea (Rs 20)"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "\"Today: \" + str(tea)"
+                  },
+                  {
+                    "text": "Today: Tea (Rs 20)"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Change the f-string in __str__ to show two decimals.",
+            "whatIf": "class Plain:\n    def __init__(self, item):\n        self.item = item\n\nclass Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount:.2f})\"\n\nprint(str(Plain(\"Tea\")).startswith(\"<\"))\ntea = Expense(\"Tea\", 20)\nprint(tea)\nprint(\"Today: \" + str(tea))",
+            "checks": [
+              "True",
+              "Tea (Rs 20.00)",
+              "Today: Tea (Rs 20.00)"
+            ],
+            "mustNotShow": [
+              "Tea (Rs 20)"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Plain"
+                  },
+                  {
+                    "text": "print(Plain(\"Tea\"))"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "__str__"
+                  },
+                  {
+                    "text": "{self.amount:.2f}"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +123,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "Making objects print nicely with __str__",
+        "title": "Printing Plain vs Expense.__str__",
         "columns": [
-          "Stage",
-          "Concept"
+          "Class",
+          "Expression",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The print concept establishes the core structural baseline.",
+            "caption": "Without __str__, print shows where the object lives in memory.",
             "rows": [
               {
                 "cells": [
-                  "Making",
-                  "objects"
+                  "Plain",
+                  "str(Plain(\"Tea\")).startswith(\"<\")",
+                  "True"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The methods logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding __str__ lets print and str return a clear string.",
+            "checks": [
+              "True",
+              "Tea (Rs 20)",
+              "Today: Tea (Rs 20)"
+            ],
             "rows": [
               {
                 "cells": [
-                  "print",
-                  "nicely"
+                  "Expense",
+                  "print(tea)",
+                  "Tea (Rs 20)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Expense",
+                  "\"Today: \" + str(tea)",
+                  "Today: Tea (Rs 20)"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Change the f-string in __str__ to show two decimals.",
+            "whatIf": "class Plain:\n    def __init__(self, item):\n        self.item = item\n\nclass Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount:.2f})\"\n\nprint(str(Plain(\"Tea\")).startswith(\"<\"))\ntea = Expense(\"Tea\", 20)\nprint(tea)\nprint(\"Today: \" + str(tea))",
+            "checks": [
+              "True",
+              "Tea (Rs 20.00)",
+              "Today: Tea (Rs 20.00)"
+            ],
+            "mustNotShow": [
+              "Tea (Rs 20)"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Plain",
+                  "print(Plain(\"Tea\"))",
+                  "True"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "Expense",
+                  "__str__",
+                  "{self.amount:.2f}"
                 ],
                 "tone": "ok"
               }
@@ -94,43 +210,110 @@
       "codeHash": "e332d023df63e36332cdd71bcc5080b70d455799a82135354982f7250bd72473",
       "spec": {
         "template": "table",
-        "title": "Inheritance: building on an existing class",
+        "title": "Subscription inheriting from Expense",
         "columns": [
-          "Stage",
-          "Concept"
+          "Member",
+          "Source",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Child class Subscription gets attributes and methods from parent Expense.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Inheritance"
+                    "text": "__init__"
                   },
                   {
-                    "text": "building"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "Music app"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "__str__"
+                  },
+                  {
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "Music app (Rs 99)"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "yearly_cost()"
+                  },
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "1188"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The child logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "A Subscription is a kind of Expense for isinstance checks.",
+            "checks": [
+              "Music app (Rs 99)",
+              "1188",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "existing"
+                    "text": "isinstance(music, Expense)"
                   },
                   {
-                    "text": "class"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling yearly_cost() on Expense raises AttributeError.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount})\"\n\nclass Subscription(Expense):\n    def yearly_cost(self):\n        return self.amount * 12\n\nmusic = Subscription(\"Music app\", 99)\nprint(music)\nprint(music.yearly_cost())\nprint(isinstance(music, Expense))\nExpense(\"Tea\", 20).yearly_cost()",
+            "checks": [
+              "Music app (Rs 99)",
+              "1188",
+              "True",
+              "AttributeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Expense(\"Tea\", 20)"
+                  },
+                  {
+                    "text": "yearly_cost()"
+                  },
+                  {
+                    "text": "AttributeError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -138,35 +321,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "Inheritance: building on an existing class",
+        "title": "Subscription inheriting from Expense",
         "columns": [
-          "Stage",
-          "Concept"
+          "Member",
+          "Source",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Child class Subscription gets attributes and methods from parent Expense.",
             "rows": [
               {
                 "cells": [
-                  "Inheritance",
-                  "building"
+                  "__init__",
+                  "Expense",
+                  "Music app"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "__str__",
+                  "Expense",
+                  "Music app (Rs 99)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "yearly_cost()",
+                  "Subscription",
+                  "1188"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The child logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "A Subscription is a kind of Expense for isinstance checks.",
+            "checks": [
+              "Music app (Rs 99)",
+              "1188",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "existing",
-                  "class"
+                  "isinstance(music, Expense)",
+                  "Expense",
+                  "True"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling yearly_cost() on Expense raises AttributeError.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount})\"\n\nclass Subscription(Expense):\n    def yearly_cost(self):\n        return self.amount * 12\n\nmusic = Subscription(\"Music app\", 99)\nprint(music)\nprint(music.yearly_cost())\nprint(isinstance(music, Expense))\nExpense(\"Tea\", 20).yearly_cost()",
+            "checks": [
+              "Music app (Rs 99)",
+              "1188",
+              "True",
+              "AttributeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Expense(\"Tea\", 20)",
+                  "yearly_cost()",
+                  "AttributeError"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -178,40 +406,109 @@
       "codeHash": "68e04556d659a1ef0457c0ba6426008185fbb32257b999dc64fa492d1da3c64f",
       "spec": {
         "template": "table",
-        "title": "Overriding methods",
+        "title": "Method overriding across classes",
         "columns": [
-          "Stage",
-          "Concept"
+          "Object",
+          "Method Used",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The child concept establishes the core structural baseline.",
+            "caption": "Subscription overrides __str__ and monthly_cost with its own version.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Overriding"
+                    "text": "Expense(\"Tea\", 20)"
                   },
                   {
-                    "text": "methods"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "Tea (Rs 20)"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Subscription(\"Gym\", 900)"
+                  },
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "Gym (Rs 900 every month)"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The lets logic drives deterministic execution.",
+            "caption": "Looping over mixed objects calls each class's own method.",
+            "checks": [
+              "Tea (Rs 20)",
+              "Gym (Rs 900 every month)",
+              "Music app (Rs 99 every month)",
+              "Fixed monthly cost: 999"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Overriding"
+                    "text": "Subscription(\"Music app\", 99)"
                   },
                   {
-                    "text": "methods"
+                    "text": "monthly_cost()"
+                  },
+                  {
+                    "text": "99"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "items"
+                  },
+                  {
+                    "text": "monthly_cost"
+                  },
+                  {
+                    "text": "Fixed monthly cost: 999"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Refund(Expense) overrides __str__ for Refund objects in items.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount})\"\n\n    def monthly_cost(self):\n        return 0\n\nclass Subscription(Expense):\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount} every month)\"\n\n    def monthly_cost(self):\n        return self.amount\n\nclass Refund(Expense):\n    def __str__(self):\n        return f\"{self.item} (-Rs {self.amount})\"\n\nitems = [Expense(\"Tea\", 20), Subscription(\"Gym\", 900), Subscription(\"Music app\", 99), Refund(\"Shoes\", 1200)]\nfor thing in items:\n    print(thing)\nprint(\"Fixed monthly cost:\", sum(t.monthly_cost() for t in items))",
+            "checks": [
+              "Tea (Rs 20)",
+              "Gym (Rs 900 every month)",
+              "Music app (Rs 99 every month)",
+              "Shoes (-Rs 1200)",
+              "Fixed monthly cost: 999"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Refund(\"Shoes\", 1200)"
+                  },
+                  {
+                    "text": "Refund(Expense)"
+                  },
+                  {
+                    "text": "items"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +519,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "Overriding methods",
+        "title": "Method overriding across classes",
         "columns": [
-          "Stage",
-          "Concept"
+          "Object",
+          "Method Used",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The child concept establishes the core structural baseline.",
+            "caption": "Subscription overrides __str__ and monthly_cost with its own version.",
             "rows": [
               {
                 "cells": [
-                  "Overriding",
-                  "methods"
+                  "Expense(\"Tea\", 20)",
+                  "Expense",
+                  "Tea (Rs 20)"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Subscription(\"Gym\", 900)",
+                  "Subscription",
+                  "Gym (Rs 900 every month)"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The lets logic drives deterministic execution.",
+            "caption": "Looping over mixed objects calls each class's own method.",
+            "checks": [
+              "Tea (Rs 20)",
+              "Gym (Rs 900 every month)",
+              "Music app (Rs 99 every month)",
+              "Fixed monthly cost: 999"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Overriding",
-                  "methods"
+                  "Subscription(\"Music app\", 99)",
+                  "monthly_cost()",
+                  "99"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "items",
+                  "monthly_cost",
+                  "Fixed monthly cost: 999"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Refund(Expense) overrides __str__ for Refund objects in items.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount})\"\n\n    def monthly_cost(self):\n        return 0\n\nclass Subscription(Expense):\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount} every month)\"\n\n    def monthly_cost(self):\n        return self.amount\n\nclass Refund(Expense):\n    def __str__(self):\n        return f\"{self.item} (-Rs {self.amount})\"\n\nitems = [Expense(\"Tea\", 20), Subscription(\"Gym\", 900), Subscription(\"Music app\", 99), Refund(\"Shoes\", 1200)]\nfor thing in items:\n    print(thing)\nprint(\"Fixed monthly cost:\", sum(t.monthly_cost() for t in items))",
+            "checks": [
+              "Tea (Rs 20)",
+              "Gym (Rs 900 every month)",
+              "Music app (Rs 99 every month)",
+              "Shoes (-Rs 1200)",
+              "Fixed monthly cost: 999"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Refund(\"Shoes\", 1200)",
+                  "Refund(Expense)",
+                  "items"
                 ],
                 "tone": "ok"
               }
@@ -262,23 +606,41 @@
       "codeHash": "5cc63c22ebf1fea64df6a8d432a5ec04b73a92d58efd8f5f8fa203cc0aaaef94",
       "spec": {
         "template": "table",
-        "title": "super(): reusing the parent's work",
+        "title": "Reusing parent methods with super()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Role",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "super().__init__ calls the parent setup before setting renews_on.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "super"
+                    "text": "super().__init__(item, amount)"
                   },
                   {
-                    "text": "reusing"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "Gym 900 5"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "self.renews_on = renews_on"
+                  },
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "5"
                   }
                 ],
                 "tone": "data"
@@ -287,18 +649,49 @@
           },
           {
             "at": "say3",
-            "caption": "The works logic drives deterministic execution.",
+            "caption": "Child __str__ calls super().__str__() and adds renewal text.",
+            "checks": [
+              "Gym 900 5",
+              "Gym (Rs 900), renews on day 5"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "the"
+                    "text": "super().__str__()"
                   },
                   {
-                    "text": "parent"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "Gym (Rs 900), renews on day 5"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing super().__init__ triggers AttributeError because parent setup skips.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount})\"\n\nclass Subscription(Expense):\n    def __init__(self, item, amount, renews_on):\n        self.renews_on = renews_on\n\n    def __str__(self):\n        return super().__str__() + f\", renews on day {self.renews_on}\"\n\ngym = Subscription(\"Gym\", 900, 5)\nprint(gym.item, gym.amount, gym.renews_on)\nprint(gym)",
+            "checks": [
+              "AttributeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "gym.item"
+                  },
+                  {
+                    "text": "line 11"
+                  },
+                  {
+                    "text": "AttributeError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -306,20 +699,30 @@
       },
       "filled": {
         "template": "table",
-        "title": "super(): reusing the parent's work",
+        "title": "Reusing parent methods with super()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Role",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "super().__init__ calls the parent setup before setting renews_on.",
             "rows": [
               {
                 "cells": [
-                  "super",
-                  "reusing"
+                  "super().__init__(item, amount)",
+                  "Expense",
+                  "Gym 900 5"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "self.renews_on = renews_on",
+                  "Subscription",
+                  "5"
                 ],
                 "tone": "data"
               }
@@ -327,14 +730,37 @@
           },
           {
             "at": "say3",
-            "caption": "The works logic drives deterministic execution.",
+            "caption": "Child __str__ calls super().__str__() and adds renewal text.",
+            "checks": [
+              "Gym 900 5",
+              "Gym (Rs 900), renews on day 5"
+            ],
             "rows": [
               {
                 "cells": [
-                  "the",
-                  "parent"
+                  "super().__str__()",
+                  "Expense",
+                  "Gym (Rs 900), renews on day 5"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing super().__init__ triggers AttributeError because parent setup skips.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def __str__(self):\n        return f\"{self.item} (Rs {self.amount})\"\n\nclass Subscription(Expense):\n    def __init__(self, item, amount, renews_on):\n        self.renews_on = renews_on\n\n    def __str__(self):\n        return super().__str__() + f\", renews on day {self.renews_on}\"\n\ngym = Subscription(\"Gym\", 900, 5)\nprint(gym.item, gym.amount, gym.renews_on)\nprint(gym)",
+            "checks": [
+              "AttributeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "gym.item",
+                  "line 11",
+                  "AttributeError"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -346,23 +772,41 @@
       "codeHash": "68415e6c9b95e2e0095f475b06ce54595524d2eceb4dbf7a465cdd44a08ae3ba",
       "spec": {
         "template": "table",
-        "title": "When to use classes and inheritance",
+        "title": "Shape hierarchy and area calls",
         "columns": [
-          "Stage",
-          "Concept"
+          "Class",
+          "Parent",
+          "Area / Check"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The classes concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "A Square is a kind of Rectangle, making inheritance clear.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "When"
+                    "text": "Rectangle(3, 4)"
                   },
                   {
-                    "text": "use"
+                    "text": "Shape"
+                  },
+                  {
+                    "text": "12"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Square(5)"
+                  },
+                  {
+                    "text": "Rectangle"
+                  },
+                  {
+                    "text": "25"
                   }
                 ],
                 "tone": "data"
@@ -371,15 +815,47 @@
           },
           {
             "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "caption": "Keep inheritance chains shallow like two levels from Shape.",
+            "checks": [
+              "[12, 25]",
+              "True True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "classes"
+                    "text": "Square(2)"
                   },
                   {
-                    "text": "and"
+                    "text": "Rectangle"
+                  },
+                  {
+                    "text": "True True"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Circle(Shape) appends its area to the list.",
+            "whatIf": "class Shape:\n    def area(self):\n        return 0\n\nclass Rectangle(Shape):\n    def __init__(self, w, h):\n        self.w, self.h = w, h\n    def area(self):\n        return self.w * self.h\n\nclass Square(Rectangle):\n    def __init__(self, side):\n        super().__init__(side, side)\n\nclass Circle(Shape):\n    def __init__(self, r):\n        self.r = r\n    def area(self):\n        return 3.14 * self.r * self.r\n\nshapes = [Rectangle(3, 4), Square(5), Circle(1)]\nprint([s.area() for s in shapes])\nprint(isinstance(Square(2), Rectangle), isinstance(Square(2), Shape))",
+            "checks": [
+              "[12, 25, 3.14]",
+              "True True"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Circle(1)"
+                  },
+                  {
+                    "text": "Circle(Shape)"
+                  },
+                  {
+                    "text": "3.14"
                   }
                 ],
                 "tone": "ok"
@@ -390,20 +866,30 @@
       },
       "filled": {
         "template": "table",
-        "title": "When to use classes and inheritance",
+        "title": "Shape hierarchy and area calls",
         "columns": [
-          "Stage",
-          "Concept"
+          "Class",
+          "Parent",
+          "Area / Check"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The classes concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "A Square is a kind of Rectangle, making inheritance clear.",
             "rows": [
               {
                 "cells": [
-                  "When",
-                  "use"
+                  "Rectangle(3, 4)",
+                  "Shape",
+                  "12"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Square(5)",
+                  "Rectangle",
+                  "25"
                 ],
                 "tone": "data"
               }
@@ -411,12 +897,36 @@
           },
           {
             "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "caption": "Keep inheritance chains shallow like two levels from Shape.",
+            "checks": [
+              "[12, 25]",
+              "True True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "classes",
-                  "and"
+                  "Square(2)",
+                  "Rectangle",
+                  "True True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Circle(Shape) appends its area to the list.",
+            "whatIf": "class Shape:\n    def area(self):\n        return 0\n\nclass Rectangle(Shape):\n    def __init__(self, w, h):\n        self.w, self.h = w, h\n    def area(self):\n        return self.w * self.h\n\nclass Square(Rectangle):\n    def __init__(self, side):\n        super().__init__(side, side)\n\nclass Circle(Shape):\n    def __init__(self, r):\n        self.r = r\n    def area(self):\n        return 3.14 * self.r * self.r\n\nshapes = [Rectangle(3, 4), Square(5), Circle(1)]\nprint([s.area() for s in shapes])\nprint(isinstance(Square(2), Rectangle), isinstance(Square(2), Shape))",
+            "checks": [
+              "[12, 25, 3.14]",
+              "True True"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Circle(1)",
+                  "Circle(Shape)",
+                  "3.14"
                 ],
                 "tone": "ok"
               }
@@ -430,40 +940,124 @@
       "codeHash": "fb0a68ba479ee05bda3da5288a46f63a6b365ff499189709e1f16353cb241801",
       "spec": {
         "template": "table",
-        "title": "Putting it together: expenses and subscriptions",
+        "title": "Yearly cost across Expense and Subscription",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Kind",
+          "Yearly / Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "One-time expenses count once while subscriptions multiply by twelve.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "Phone"
                   },
                   {
-                    "text": "together"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "15000"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Music"
+                  },
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "1188"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Gym"
+                  },
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "Yearly total: 26988"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The seeing logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The report loop calls yearly_cost() on every object cleanly.",
+            "checks": [
+              "Phone      Rs  15000",
+              "Music      Rs     99 / month",
+              "Gym        Rs    900 / month",
+              "Yearly total: 26988",
+              "Subscriptions per year: 11988"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "expenses"
+                    "text": "things"
                   },
                   {
-                    "text": "and"
+                    "text": "yearly_cost()"
+                  },
+                  {
+                    "text": "Yearly total: 26988"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "subs"
+                  },
+                  {
+                    "text": "isinstance(t, Subscription)"
+                  },
+                  {
+                    "text": "Subscriptions per year: 11988"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Subscription Cloud raises the subscriptions yearly total.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def yearly_cost(self):\n        return self.amount\n\n    def __str__(self):\n        return f\"{self.item:<10} Rs {self.amount:>6}\"\n\nclass Subscription(Expense):\n    def yearly_cost(self):\n        return self.amount * 12\n\n    def __str__(self):\n        return super().__str__() + \" / month\"\n\nthings = [Expense(\"Phone\", 15000), Subscription(\"Music\", 99), Subscription(\"Gym\", 900), Subscription(\"Cloud\", 75)]\nfor t in things:\n    print(t)\nprint(\"Yearly total:\", sum(t.yearly_cost() for t in things))\nsubs = [t for t in things if isinstance(t, Subscription)]\nprint(\"Subscriptions per year:\", sum(s.yearly_cost() for s in subs))",
+            "checks": [
+              "Yearly total: 27888",
+              "Subscriptions per year: 12888"
+            ],
+            "mustNotShow": [
+              "11988"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Subscription(\"Cloud\", 75)"
+                  },
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "12888"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1068,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: expenses and subscriptions",
+        "title": "Yearly cost across Expense and Subscription",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Kind",
+          "Yearly / Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "One-time expenses count once while subscriptions multiply by twelve.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "Phone",
+                  "Expense",
+                  "15000"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Music",
+                  "Subscription",
+                  "1188"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Gym",
+                  "Subscription",
+                  "Yearly total: 26988"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The seeing logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The report loop calls yearly_cost() on every object cleanly.",
+            "checks": [
+              "Phone      Rs  15000",
+              "Music      Rs     99 / month",
+              "Gym        Rs    900 / month",
+              "Yearly total: 26988",
+              "Subscriptions per year: 11988"
+            ],
             "rows": [
               {
                 "cells": [
-                  "expenses",
-                  "and"
+                  "things",
+                  "yearly_cost()",
+                  "Yearly total: 26988"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "subs",
+                  "isinstance(t, Subscription)",
+                  "Subscriptions per year: 11988"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Subscription Cloud raises the subscriptions yearly total.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def yearly_cost(self):\n        return self.amount\n\n    def __str__(self):\n        return f\"{self.item:<10} Rs {self.amount:>6}\"\n\nclass Subscription(Expense):\n    def yearly_cost(self):\n        return self.amount * 12\n\n    def __str__(self):\n        return super().__str__() + \" / month\"\n\nthings = [Expense(\"Phone\", 15000), Subscription(\"Music\", 99), Subscription(\"Gym\", 900), Subscription(\"Cloud\", 75)]\nfor t in things:\n    print(t)\nprint(\"Yearly total:\", sum(t.yearly_cost() for t in things))\nsubs = [t for t in things if isinstance(t, Subscription)]\nprint(\"Subscriptions per year:\", sum(s.yearly_cost() for s in subs))",
+            "checks": [
+              "Yearly total: 27888",
+              "Subscriptions per year: 12888"
+            ],
+            "mustNotShow": [
+              "11988"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Subscription(\"Cloud\", 75)",
+                  "Subscription",
+                  "12888"
                 ],
                 "tone": "ok"
               }

@@ -992,7 +992,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Read One Line",
     eDesc: "Write `parse_line(line)` that turns text like `'Tea,20'` into a tuple `('Tea', 20)` with the amount as a whole number. Ignore spaces and the newline at the end.",
     eStarter: lines("def parse_line(line):", "    # strip(), then split(','), then return (item.strip(), int(amount))", "    pass"),
-    eHint: "item, amount = line.strip().split(','); return (item.strip(), int(amount))",
+    eHint: lines("def parse_line(line):", "    item, amount = line.strip().split(',')", "    return (item.strip(), int(amount))"),
     eTest: lines(
       "_fn = globals().get('parse_line')",
       "_r1 = _fn('Tea,20') if callable(_fn) else None",
@@ -1006,7 +1006,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Write One Line",
     aDesc: "Write `to_line(item, amount)` that returns the line to save, like `'Tea,20'`.",
     aStarter: lines("def to_line(item, amount):", "    # f'{item},{amount}'", "    pass"),
-    aHint: "return f'{item},{amount}'",
+    aHint: lines("def to_line(item, amount):", "    return f'{item},{amount}'"),
     aTest: lines(
       "_fn = globals().get('to_line')",
       "_r1 = _fn('Tea', 20) if callable(_fn) else None",
@@ -1027,7 +1027,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "To JSON",
     eDesc: "Write `to_json(expenses)` that returns the list as JSON text using json.dumps.",
     eStarter: lines("import json", "", "def to_json(expenses):", "    # return json.dumps(expenses)", "    pass"),
-    eHint: "return json.dumps(expenses)",
+    eHint: lines("import json", "", "def to_json(expenses):", "    return json.dumps(expenses)"),
     eTest: lines(
       "import json as _json",
       "_fn = globals().get('to_json')",
@@ -1040,7 +1040,16 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Safe Load",
     aDesc: "Write `load_expenses(text)` that turns JSON text into a list, and returns `[]` if the text is broken, empty, or not a list.",
     aStarter: lines("import json", "", "def load_expenses(text):", "    try:", "        # json.loads(text), then return it only if isinstance(data, list)", "        pass", "    except ValueError:", "        return []"),
-    aHint: "data = json.loads(text); return data if isinstance(data, list) else []",
+    aHint: lines(
+      "import json",
+      "",
+      "def load_expenses(text):",
+      "    try:",
+      "        data = json.loads(text)",
+      "        return data if isinstance(data, list) else []",
+      "    except ValueError:",
+      "        return []"
+    ),
     aTest: lines(
       "_fn = globals().get('load_expenses')",
       "_r1 = _fn('[{\"item\": \"Tea\"}]') if callable(_fn) else None",
@@ -1065,7 +1074,15 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "An Expense Class",
     eDesc: "Write a class `Expense` with `item` and `amount`, and a method `label()` that returns text like `'Tea: 20'`.",
     eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        # save item and amount on self", "        pass", "", "    def label(self):", "        # return f'{self.item}: {self.amount}'", "        pass"),
-    eHint: "self.item = item; self.amount = amount; label returns f'{self.item}: {self.amount}'",
+    eHint: lines(
+      "class Expense:",
+      "    def __init__(self, item, amount):",
+      "        self.item = item",
+      "        self.amount = amount",
+      "",
+      "    def label(self):",
+      "        return f'{self.item}: {self.amount}'"
+    ),
     eTest: lines(
       "e = Expense('Tea', 20)",
       "e2 = Expense('Bus', 45)",
@@ -1082,7 +1099,17 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "A Wallet",
     aDesc: "Write a class `Wallet` that starts with a `balance`. Its method `spend(amount)` subtracts the amount and returns `True`, or returns `False` and changes nothing if there is not enough money.",
     aStarter: lines("class Wallet:", "    def __init__(self, balance):", "        self.balance = balance", "", "    def spend(self, amount):", "        # if amount > self.balance: return False; otherwise subtract and return True", "        pass"),
-    aHint: "if amount > self.balance: return False. Otherwise subtract and return True.",
+    aHint: lines(
+      "class Wallet:",
+      "    def __init__(self, balance):",
+      "        self.balance = balance",
+      "",
+      "    def spend(self, amount):",
+      "        if amount > self.balance:",
+      "            return False",
+      "        self.balance -= amount",
+      "        return True"
+    ),
     aTest: lines(
       "w = Wallet(100)",
       "_ok1 = w.spend(30)",
@@ -1105,7 +1132,15 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Printable Expense",
     eDesc: "Write a class `Expense` whose `str()` looks like `'Tea (Rs 20)'`.",
     eStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "    def __str__(self):", "        # return f'{self.item} (Rs {self.amount})'", "        pass"),
-    eHint: "return f'{self.item} (Rs {self.amount})'",
+    eHint: lines(
+      "class Expense:",
+      "    def __init__(self, item, amount):",
+      "        self.item = item",
+      "        self.amount = amount",
+      "",
+      "    def __str__(self):",
+      "        return f'{self.item} (Rs {self.amount})'"
+    ),
     eTest: lines(
       "_s = None; _s2 = None; _t_err = False",
       "try:",
@@ -1121,7 +1156,16 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Subscription",
     aDesc: "Given an `Expense` class with `item` and `amount`, write `Subscription(Expense)` with a method `yearly_cost()` that returns amount times 12.",
     aStarter: lines("class Expense:", "    def __init__(self, item, amount):", "        self.item = item", "        self.amount = amount", "", "class Subscription(Expense):", "    def yearly_cost(self):", "        # return self.amount * 12", "        pass"),
-    aHint: "return self.amount * 12",
+    aHint: lines(
+      "class Expense:",
+      "    def __init__(self, item, amount):",
+      "        self.item = item",
+      "        self.amount = amount",
+      "",
+      "class Subscription(Expense):",
+      "    def yearly_cost(self):",
+      "        return self.amount * 12"
+    ),
     aTest: lines(
       "s = Subscription('Music app', 99)",
       "s2 = Subscription('Cloud', 50)",
@@ -1142,7 +1186,13 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Clean Up Typed Amounts",
     eDesc: "People type amounts with spaces. Write `parse_amount(text)` that removes spaces and returns the amount as a float, or `None` if it is not a number. (Because the browser editor runs automatically without waiting for keyboard typing, this function takes the text that `input()` would return as its `text` parameter.)",
     eStarter: lines("def parse_amount(text):", "    # strip(), then float(), inside try/except", "    pass"),
-    eHint: "try: return float(text.strip()) / except ValueError: return None",
+    eHint: lines(
+      "def parse_amount(text):",
+      "    try:",
+      "        return float(text.strip())",
+      "    except ValueError:",
+      "        return None"
+    ),
     eTest: lines(
       "_fn = globals().get('parse_amount')",
       "_v1 = None; _v2 = None; _v3 = 'UNSET'; _v_err = False",
@@ -1161,7 +1211,11 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Menu Choice",
     aDesc: "Write `menu_choice(text)` that returns the number 1, 2 or 3 when the user typed one of them, otherwise `None`. (Just like in Task 1, `text` is the string that `input()` would return.)",
     aStarter: lines("def menu_choice(text):", "    # compare text.strip() with '1', '2', '3'", "    pass"),
-    aHint: "value = text.strip(); return int(value) if value in ('1', '2', '3') else None",
+    aHint: lines(
+      "def menu_choice(text):",
+      "    value = text.strip()",
+      "    return int(value) if value in ('1', '2', '3') else None"
+    ),
     aTest: lines(
       "_fn = globals().get('menu_choice')",
       "_v1 = _fn('2') if callable(_fn) else None",

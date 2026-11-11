@@ -3,30 +3,48 @@
   "prefix": "python",
   "day": 17,
   "promptSha": "91705148946cb413a73a8c34b091155e37ac677471192098358abab7b30fc313",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day17",
   "entries": [
     {
       "partTitle": "What JSON is",
       "codeHash": "c953cd116fe74de1f2710557b60ac5ba774f49183575ae2bc91a0c23c31d729f",
       "spec": {
         "template": "table",
-        "title": "What JSON is",
+        "title": "Python vs JSON syntax",
         "columns": [
-          "Stage",
-          "Concept"
+          "Python",
+          "JSON",
+          "Note"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The json concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "A JSON object looks like a Python dictionary.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "True"
                   },
                   {
-                    "text": "JSON"
+                    "text": "true"
+                  },
+                  {
+                    "text": "lower-case"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "None"
+                  },
+                  {
+                    "text": "null"
+                  },
+                  {
+                    "text": "double quotes"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +52,62 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The matter logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "JSON uses double quotes, true, false, and null.",
+            "checks": [
+              "{\"item\": \"Tea\", \"amount\": 20, \"paid\": true, \"note\": null}",
+              "<class 'str'>"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "expense"
                   },
                   {
-                    "text": "JSON"
+                    "text": "json.dumps(expense)"
+                  },
+                  {
+                    "text": "true"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "type(text)"
+                  },
+                  {
+                    "text": "<class 'str'>"
+                  },
+                  {
+                    "text": "null"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a tags list renders an array in square brackets.",
+            "whatIf": "import json\nexpense = {\"item\": \"Tea\", \"amount\": 20, \"paid\": True, \"note\": None, \"tags\": [\"daily\", \"office\"]}\ntext = json.dumps(expense)\nprint(text)\nprint(type(text))",
+            "checks": [
+              "{\"item\": \"Tea\", \"amount\": 20, \"paid\": true, \"note\": null, \"tags\": [\"daily\", \"office\"]}",
+              "<class 'str'>"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"tags\""
+                  },
+                  {
+                    "text": "[\"daily\", \"office\"]"
+                  },
+                  {
+                    "text": "array"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +118,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "What JSON is",
+        "title": "Python vs JSON syntax",
         "columns": [
-          "Stage",
-          "Concept"
+          "Python",
+          "JSON",
+          "Note"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The json concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "A JSON object looks like a Python dictionary.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "JSON"
+                  "True",
+                  "true",
+                  "lower-case"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "None",
+                  "null",
+                  "double quotes"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The matter logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "JSON uses double quotes, true, false, and null.",
+            "checks": [
+              "{\"item\": \"Tea\", \"amount\": 20, \"paid\": true, \"note\": null}",
+              "<class 'str'>"
+            ],
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "JSON"
+                  "expense",
+                  "json.dumps(expense)",
+                  "true"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "type(text)",
+                  "<class 'str'>",
+                  "null"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a tags list renders an array in square brackets.",
+            "whatIf": "import json\nexpense = {\"item\": \"Tea\", \"amount\": 20, \"paid\": True, \"note\": None, \"tags\": [\"daily\", \"office\"]}\ntext = json.dumps(expense)\nprint(text)\nprint(type(text))",
+            "checks": [
+              "{\"item\": \"Tea\", \"amount\": 20, \"paid\": true, \"note\": null, \"tags\": [\"daily\", \"office\"]}",
+              "<class 'str'>"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "\"tags\"",
+                  "[\"daily\", \"office\"]",
+                  "array"
                 ],
                 "tone": "ok"
               }
@@ -94,23 +200,41 @@
       "codeHash": "c27ac0756cd54a1e6a787a0c669e767d0547bf7e954d29bd8d9c610af10be7cc",
       "spec": {
         "template": "table",
-        "title": "loads: from JSON text back to Python",
+        "title": "Loading JSON text to Python",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result",
+          "Type"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The json concept establishes the core structural baseline.",
+            "caption": "Use loads to turn JSON text into Python data.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "loads"
+                    "text": "json.loads(text)"
                   },
                   {
-                    "text": "from"
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "<class 'list'>"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "expenses[1][\"item\"]"
+                  },
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "list"
                   }
                 ],
                 "tone": "data"
@@ -118,16 +242,83 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The read logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Running dumps then loads completes the round trip.",
+            "checks": [
+              "<class 'list'>",
+              "Bus",
+              "65",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "JSON"
+                    "text": "sum(e[\"amount\"] for e in expenses)"
                   },
                   {
-                    "text": "text"
+                    "text": "65"
+                  },
+                  {
+                    "text": "expenses"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "json.loads(json.dumps(expenses)) == expenses"
+                  },
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "round trip"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a third expense in JSON updates the total.",
+            "whatIf": "import json\ntext = '[{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Bus\", \"amount\": 45}, {\"item\": \"Lunch\", \"amount\": 35}]'\nexpenses = json.loads(text)\nprint(type(expenses))\nprint(expenses[1][\"item\"])\nprint(sum(e[\"amount\"] for e in expenses))\nprint(json.loads(json.dumps(expenses)) == expenses)",
+            "checks": [
+              "<class 'list'>",
+              "Bus",
+              "100",
+              "True"
+            ],
+            "mustNotShow": [
+              "65"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "json.loads(text)"
+                  },
+                  {
+                    "text": "third expense"
+                  },
+                  {
+                    "text": "<class 'list'>"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "expenses"
+                  },
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +329,90 @@
       },
       "filled": {
         "template": "table",
-        "title": "loads: from JSON text back to Python",
+        "title": "Loading JSON text to Python",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result",
+          "Type"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The json concept establishes the core structural baseline.",
+            "caption": "Use loads to turn JSON text into Python data.",
             "rows": [
               {
                 "cells": [
-                  "loads",
-                  "from"
+                  "json.loads(text)",
+                  "Bus",
+                  "<class 'list'>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "expenses[1][\"item\"]",
+                  "Bus",
+                  "list"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The read logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Running dumps then loads completes the round trip.",
+            "checks": [
+              "<class 'list'>",
+              "Bus",
+              "65",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "JSON",
-                  "text"
+                  "sum(e[\"amount\"] for e in expenses)",
+                  "65",
+                  "expenses"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "json.loads(json.dumps(expenses)) == expenses",
+                  "True",
+                  "round trip"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a third expense in JSON updates the total.",
+            "whatIf": "import json\ntext = '[{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Bus\", \"amount\": 45}, {\"item\": \"Lunch\", \"amount\": 35}]'\nexpenses = json.loads(text)\nprint(type(expenses))\nprint(expenses[1][\"item\"])\nprint(sum(e[\"amount\"] for e in expenses))\nprint(json.loads(json.dumps(expenses)) == expenses)",
+            "checks": [
+              "<class 'list'>",
+              "Bus",
+              "100",
+              "True"
+            ],
+            "mustNotShow": [
+              "65"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "json.loads(text)",
+                  "third expense",
+                  "<class 'list'>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "expenses",
+                  "Bus",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -180,38 +428,123 @@
         "template": "table",
         "title": "Saving and loading JSON files",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "File",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The save concept establishes the core structural baseline.",
+            "caption": "Use dump and load to write and read JSON files.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Saving"
+                    "text": "json.dump(expenses, f, indent=2)"
                   },
                   {
-                    "text": "and"
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "food"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "json.load(f)"
+                  },
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The compare logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding indent=2 puts each key on its own line.",
+            "checks": [
+              "[",
+              "  {",
+              "    \"item\": \"Tea\",",
+              "    \"amount\": 20,",
+              "    \"category\": \"food\"",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "loading"
+                    "text": "indent=2"
                   },
                   {
-                    "text": "JSON"
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "\"item\": \"Tea\""
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "loaded == expenses"
+                  },
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing indent=2 keeps one long line that loads the same.",
+            "whatIf": "import json\nexpenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"},\n]\nwith open(\"expenses.json\", \"w\") as f:\n    json.dump(expenses, f)\nwith open(\"expenses.json\") as f:\n    print(\"\\n\".join(f.read().splitlines()[:5]))\nwith open(\"expenses.json\") as f:\n    loaded = json.load(f)\nprint(loaded == expenses)",
+            "checks": [
+              "[{\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}, {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"}]",
+              "True"
+            ],
+            "mustNotShow": [
+              "  {"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "json.dump"
+                  },
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "one long line"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "json.load"
+                  },
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -224,31 +557,88 @@
         "template": "table",
         "title": "Saving and loading JSON files",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "File",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The save concept establishes the core structural baseline.",
+            "caption": "Use dump and load to write and read JSON files.",
             "rows": [
               {
                 "cells": [
-                  "Saving",
-                  "and"
+                  "json.dump(expenses, f, indent=2)",
+                  "expenses.json",
+                  "food"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "json.load(f)",
+                  "expenses.json",
+                  "True"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The compare logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding indent=2 puts each key on its own line.",
+            "checks": [
+              "[",
+              "  {",
+              "    \"item\": \"Tea\",",
+              "    \"amount\": 20,",
+              "    \"category\": \"food\"",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "loading",
-                  "JSON"
+                  "indent=2",
+                  "expenses.json",
+                  "\"item\": \"Tea\""
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "loaded == expenses",
+                  "expenses.json",
+                  "True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing indent=2 keeps one long line that loads the same.",
+            "whatIf": "import json\nexpenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"},\n]\nwith open(\"expenses.json\", \"w\") as f:\n    json.dump(expenses, f)\nwith open(\"expenses.json\") as f:\n    print(\"\\n\".join(f.read().splitlines()[:5]))\nwith open(\"expenses.json\") as f:\n    loaded = json.load(f)\nprint(loaded == expenses)",
+            "checks": [
+              "[{\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}, {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"}]",
+              "True"
+            ],
+            "mustNotShow": [
+              "  {"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "json.dump",
+                  "expenses.json",
+                  "one long line"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "json.load",
+                  "expenses.json",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -262,43 +652,106 @@
       "codeHash": "6235957dbc279961345a638f40e90d22e5248c0d650d7d9b0d45a04fc769d3e4",
       "spec": {
         "template": "table",
-        "title": "Handling broken or unexpected data",
+        "title": "Validating JSON inputs",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input",
+          "Condition",
+          "Returned"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The data concept establishes the core structural baseline.",
+            "caption": "Broken text causes json.loads to raise JSONDecodeError.",
+            "checks": [
+              "[{'item': 'Tea'}]",
+              "[]"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Handling"
+                    "text": "[{\"item\": \"Tea\"}]"
                   },
                   {
-                    "text": "broken"
+                    "text": "isinstance(data, list)"
+                  },
+                  {
+                    "text": "[{'item': 'Tea'}]"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"[{broken\""
+                  },
+                  {
+                    "text": "ValueError"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The even logic drives deterministic execution.",
+            "caption": "Check isinstance(data, list) to reject the wrong shape.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "unexpected"
+                    "text": "\"\""
                   },
                   {
-                    "text": "data"
+                    "text": "ValueError"
+                  },
+                  {
+                    "text": "[]"
                   }
                 ],
-                "tone": "ok"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "{\"item\": \"Tea\"}"
+                  },
+                  {
+                    "text": "isinstance(data, list)"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling json.loads directly raises an error on broken text.",
+            "whatIf": "import json\njson.loads(\"[{broken\")",
+            "checks": [
+              "JSONDecodeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"[{broken\""
+                  },
+                  {
+                    "text": "json.loads"
+                  },
+                  {
+                    "text": "error"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -306,35 +759,76 @@
       },
       "filled": {
         "template": "table",
-        "title": "Handling broken or unexpected data",
+        "title": "Validating JSON inputs",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input",
+          "Condition",
+          "Returned"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The data concept establishes the core structural baseline.",
+            "caption": "Broken text causes json.loads to raise JSONDecodeError.",
+            "checks": [
+              "[{'item': 'Tea'}]",
+              "[]"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Handling",
-                  "broken"
+                  "[{\"item\": \"Tea\"}]",
+                  "isinstance(data, list)",
+                  "[{'item': 'Tea'}]"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"[{broken\"",
+                  "ValueError",
+                  "[]"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The even logic drives deterministic execution.",
+            "caption": "Check isinstance(data, list) to reject the wrong shape.",
             "rows": [
               {
                 "cells": [
-                  "unexpected",
-                  "data"
+                  "\"\"",
+                  "ValueError",
+                  "[]"
                 ],
-                "tone": "ok"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "{\"item\": \"Tea\"}",
+                  "isinstance(data, list)",
+                  "[]"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling json.loads directly raises an error on broken text.",
+            "whatIf": "import json\njson.loads(\"[{broken\")",
+            "checks": [
+              "JSONDecodeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "\"[{broken\"",
+                  "json.loads",
+                  "error"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -346,23 +840,46 @@
       "codeHash": "53ef7a0eabb381195434d03d6b271800c0dcde49a950acf4102fa032275868ad",
       "spec": {
         "template": "table",
-        "title": "Dates and other values JSON cannot store",
+        "title": "Dates, tuples, and sets in JSON",
         "columns": [
-          "Stage",
-          "Concept"
+          "Python Value",
+          "Action",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The json concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Saving a date directly raises a TypeError from json.dumps.",
+            "checks": [
+              "Error: Object of type date is not JSON serializable",
+              "{\"date\": \"2026-09-28\", \"point\": [1, 2]}",
+              "2026 [1, 2]"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Dates"
+                    "text": "date(2026, 9, 28)"
                   },
                   {
-                    "text": "and"
+                    "text": "json.dumps"
+                  },
+                  {
+                    "text": "TypeError"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "(1, 2)"
+                  },
+                  {
+                    "text": "json.dumps"
+                  },
+                  {
+                    "text": "[1, 2]"
                   }
                 ],
                 "tone": "data"
@@ -371,18 +888,59 @@
           },
           {
             "at": "say3",
-            "caption": "The simple logic drives deterministic execution.",
+            "caption": "Convert dates with date.isoformat() before saving.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "other"
+                    "text": "today.isoformat()"
                   },
                   {
-                    "text": "values"
+                    "text": "json.dumps"
+                  },
+                  {
+                    "text": "\"2026-09-28\""
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "date.fromisoformat(back[\"date\"]).year"
+                  },
+                  {
+                    "text": "json.loads"
+                  },
+                  {
+                    "text": "2026"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling json.dumps on a set raises an error without sorted().",
+            "whatIf": "import json\njson.dumps({\"tags\": {\"food\", \"daily\"}})",
+            "checks": [
+              "TypeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "{\"food\", \"daily\"}"
+                  },
+                  {
+                    "text": "json.dumps"
+                  },
+                  {
+                    "text": "error"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,20 +948,35 @@
       },
       "filled": {
         "template": "table",
-        "title": "Dates and other values JSON cannot store",
+        "title": "Dates, tuples, and sets in JSON",
         "columns": [
-          "Stage",
-          "Concept"
+          "Python Value",
+          "Action",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The json concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Saving a date directly raises a TypeError from json.dumps.",
+            "checks": [
+              "Error: Object of type date is not JSON serializable",
+              "{\"date\": \"2026-09-28\", \"point\": [1, 2]}",
+              "2026 [1, 2]"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Dates",
-                  "and"
+                  "date(2026, 9, 28)",
+                  "json.dumps",
+                  "TypeError"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "(1, 2)",
+                  "json.dumps",
+                  "[1, 2]"
                 ],
                 "tone": "data"
               }
@@ -411,14 +984,41 @@
           },
           {
             "at": "say3",
-            "caption": "The simple logic drives deterministic execution.",
+            "caption": "Convert dates with date.isoformat() before saving.",
             "rows": [
               {
                 "cells": [
-                  "other",
-                  "values"
+                  "today.isoformat()",
+                  "json.dumps",
+                  "\"2026-09-28\""
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "date.fromisoformat(back[\"date\"]).year",
+                  "json.loads",
+                  "2026"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling json.dumps on a set raises an error without sorted().",
+            "whatIf": "import json\njson.dumps({\"tags\": {\"food\", \"daily\"}})",
+            "checks": [
+              "TypeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "{\"food\", \"daily\"}",
+                  "json.dumps",
+                  "error"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -430,40 +1030,120 @@
       "codeHash": "91c3f3970ca8ecedc325624e746132bd45b88b46f0210abadfda775821a4f2c4",
       "spec": {
         "template": "table",
-        "title": "Putting it together: a JSON-backed tracker",
+        "title": "JSON Expense Tracker storage",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Function",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The replace concept establishes the core structural baseline.",
+            "caption": "The save and load functions handle JSON files safely.",
+            "checks": [
+              "2 expenses",
+              "UPI",
+              "50"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "load()"
                   },
                   {
-                    "text": "together"
+                    "text": "json.load"
+                  },
+                  {
+                    "text": "[]"
                   }
                 ],
-                "tone": "data"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "save(expenses)"
+                  },
+                  {
+                    "text": "json.dump"
+                  },
+                  {
+                    "text": "2 expenses"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The storage logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding a new field like paid_by needs no change to save or load.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "JSON"
+                    "text": "paid_by"
                   },
                   {
-                    "text": "backed"
+                    "text": "save(expenses)"
+                  },
+                  {
+                    "text": "UPI"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sum(e[\"amount\"] for e in final)"
+                  },
+                  {
+                    "text": "load()"
+                  },
+                  {
+                    "text": "50"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Writing \"oops\" to tracker.json lets load() safely return [].",
+            "whatIf": "import json\nFILE = \"tracker.json\"\nwith open(FILE, \"w\") as f:\n    f.write(\"oops\")\n\ndef save(expenses):\n    with open(FILE, \"w\") as f:\n        json.dump(expenses, f, indent=2)\n\ndef load():\n    try:\n        with open(FILE) as f:\n            data = json.load(f)\n    except (FileNotFoundError, ValueError):\n        return []\n    return data if isinstance(data, list) else []\n\nexpenses = load()\nexpenses.append({\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-28\"})\nsave(expenses)\nexpenses = load()\nexpenses.append({\"item\": \"Metro\", \"amount\": 30, \"category\": \"travel\", \"date\": \"2026-09-28\", \"paid_by\": \"UPI\"})\nsave(expenses)\nfinal = load()\nprint(len(final), \"expenses\")\nprint(final[-1][\"paid_by\"])\nprint(sum(e[\"amount\"] for e in final))",
+            "checks": [
+              "2 expenses",
+              "UPI",
+              "50"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"oops\""
+                  },
+                  {
+                    "text": "load()"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "final"
+                  },
+                  {
+                    "text": "save(expenses)"
+                  },
+                  {
+                    "text": "2 expenses"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1154,85 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: a JSON-backed tracker",
+        "title": "JSON Expense Tracker storage",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Function",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The replace concept establishes the core structural baseline.",
+            "caption": "The save and load functions handle JSON files safely.",
+            "checks": [
+              "2 expenses",
+              "UPI",
+              "50"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "load()",
+                  "json.load",
+                  "[]"
                 ],
-                "tone": "data"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "save(expenses)",
+                  "json.dump",
+                  "2 expenses"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The storage logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding a new field like paid_by needs no change to save or load.",
             "rows": [
               {
                 "cells": [
-                  "JSON",
-                  "backed"
+                  "paid_by",
+                  "save(expenses)",
+                  "UPI"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "sum(e[\"amount\"] for e in final)",
+                  "load()",
+                  "50"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Writing \"oops\" to tracker.json lets load() safely return [].",
+            "whatIf": "import json\nFILE = \"tracker.json\"\nwith open(FILE, \"w\") as f:\n    f.write(\"oops\")\n\ndef save(expenses):\n    with open(FILE, \"w\") as f:\n        json.dump(expenses, f, indent=2)\n\ndef load():\n    try:\n        with open(FILE) as f:\n            data = json.load(f)\n    except (FileNotFoundError, ValueError):\n        return []\n    return data if isinstance(data, list) else []\n\nexpenses = load()\nexpenses.append({\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-28\"})\nsave(expenses)\nexpenses = load()\nexpenses.append({\"item\": \"Metro\", \"amount\": 30, \"category\": \"travel\", \"date\": \"2026-09-28\", \"paid_by\": \"UPI\"})\nsave(expenses)\nfinal = load()\nprint(len(final), \"expenses\")\nprint(final[-1][\"paid_by\"])\nprint(sum(e[\"amount\"] for e in final))",
+            "checks": [
+              "2 expenses",
+              "UPI",
+              "50"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "\"oops\"",
+                  "load()",
+                  "[]"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "final",
+                  "save(expenses)",
+                  "2 expenses"
                 ],
                 "tone": "ok"
               }

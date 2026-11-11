@@ -3,30 +3,34 @@
   "prefix": "python",
   "day": 20,
   "promptSha": "8b7766333bc58e1d685dfb9bc1406db3204f0dcaf7d2f09014af15c2bafe4aeb",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day20",
   "entries": [
     {
       "partTitle": "Installing Python and VS Code",
       "codeHash": "433faa06fda4d172e852d20610b277b4b06a3cefb070184aa203c6f008269cab",
       "spec": {
         "template": "table",
-        "title": "Installing Python and VS Code",
+        "title": "Checking Python setup and version",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Command / Check",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The written concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Install Python from python.org and tick PATH on Windows.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Installing"
+                    "text": "Python"
                   },
                   {
-                    "text": "Python"
+                    "text": "\"Add python.exe to PATH\""
+                  },
+                  {
+                    "text": "Windows"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +38,57 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Check python --version in the terminal and sys.version_info.",
+            "checks": [
+              "Python 3",
+              "Recent enough: True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "major, minor"
                   },
                   {
-                    "text": "Code"
+                    "text": "sys.version_info[:2]"
+                  },
+                  {
+                    "text": "Python 3"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "(major, minor) >= (3, 10)"
+                  },
+                  {
+                    "text": "print"
+                  },
+                  {
+                    "text": "Recent enough: True"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running the same four lines on a laptop gives the same answers.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "laptop"
+                  },
+                  {
+                    "text": "Python 3"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +99,62 @@
       },
       "filled": {
         "template": "table",
-        "title": "Installing Python and VS Code",
+        "title": "Checking Python setup and version",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Command / Check",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The written concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Install Python from python.org and tick PATH on Windows.",
             "rows": [
               {
                 "cells": [
-                  "Installing",
-                  "Python"
+                  "Python",
+                  "\"Add python.exe to PATH\"",
+                  "Windows"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Check python --version in the terminal and sys.version_info.",
+            "checks": [
+              "Python 3",
+              "Recent enough: True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "Code"
+                  "major, minor",
+                  "sys.version_info[:2]",
+                  "Python 3"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "(major, minor) >= (3, 10)",
+                  "print",
+                  "Recent enough: True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running the same four lines on a laptop gives the same answers.",
+            "rows": [
+              {
+                "cells": [
+                  "laptop",
+                  "Python 3",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -94,23 +168,27 @@
       "codeHash": "36f19fce9e9027f54523d2941130fe47f2cc734fd4947e8125269c46644b24c1",
       "spec": {
         "template": "table",
-        "title": "Running a .py file from the terminal",
+        "title": "Running main.py from the terminal",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Command / Guard",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "Save Python code in main.py inside your project folder.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Running"
+                    "text": "main.py"
                   },
                   {
-                    "text": "file"
+                    "text": "def main():"
+                  },
+                  {
+                    "text": "Hello from my laptop"
                   }
                 ],
                 "tone": "data"
@@ -118,16 +196,43 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The terminal logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Run python main.py in the terminal inside the project folder.",
+            "checks": [
+              "Hello from my laptop",
+              "Expense Tracker starting..."
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "from"
+                    "text": "python main.py"
                   },
                   {
-                    "text": "the"
+                    "text": "__name__ == \"__main__\""
+                  },
+                  {
+                    "text": "Expense Tracker starting..."
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running main.py on a laptop prints the same two lines.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "main()"
+                  },
+                  {
+                    "text": "python main.py"
+                  },
+                  {
+                    "text": "Hello from my laptop"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +243,54 @@
       },
       "filled": {
         "template": "table",
-        "title": "Running a .py file from the terminal",
+        "title": "Running main.py from the terminal",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Command / Guard",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "Save Python code in main.py inside your project folder.",
             "rows": [
               {
                 "cells": [
-                  "Running",
-                  "file"
+                  "main.py",
+                  "def main():",
+                  "Hello from my laptop"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The terminal logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Run python main.py in the terminal inside the project folder.",
+            "checks": [
+              "Hello from my laptop",
+              "Expense Tracker starting..."
+            ],
             "rows": [
               {
                 "cells": [
-                  "from",
-                  "the"
+                  "python main.py",
+                  "__name__ == \"__main__\"",
+                  "Expense Tracker starting..."
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running main.py on a laptop prints the same two lines.",
+            "rows": [
+              {
+                "cells": [
+                  "main()",
+                  "python main.py",
+                  "Hello from my laptop"
                 ],
                 "tone": "ok"
               }
@@ -178,23 +304,80 @@
       "codeHash": "f46edb0b32bbe3e6739b6f73cfe184064a58f4f7779a2ff4838a5aa48f77b736",
       "spec": {
         "template": "table",
-        "title": "Reading what the user types with input()",
+        "title": "Parsing typed input with float() and try/except",
         "columns": [
-          "Stage",
-          "Concept"
+          "Typed Text",
+          "Conversion",
+          "Returned"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The laptop concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Convert typed input with float() inside try and except.",
+            "checks": [
+              "' 120 ' -> 120.0",
+              "'99.5' -> 99.5",
+              "'abc' -> None"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Reading"
+                    "text": "\" 120 \""
                   },
                   {
-                    "text": "what"
+                    "text": "float(text.strip())"
+                  },
+                  {
+                    "text": "120.0"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"99.5\""
+                  },
+                  {
+                    "text": "float(text.strip())"
+                  },
+                  {
+                    "text": "99.5"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"abc\""
+                  },
+                  {
+                    "text": "ValueError"
+                  },
+                  {
+                    "text": "None"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Functions without input() take plain values and stay easy to test.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "parse_amount(typed)"
+                  },
+                  {
+                    "text": "text.strip()"
+                  },
+                  {
+                    "text": "99.5"
                   }
                 ],
                 "tone": "data"
@@ -202,19 +385,22 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The input logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Typing letters on your laptop shows a friendly message instead of crashing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "the"
+                    "text": "\"abc\""
                   },
                   {
-                    "text": "user"
+                    "text": "parse_amount"
+                  },
+                  {
+                    "text": "None"
                   }
                 ],
-                "tone": "ok"
+                "tone": "error"
               }
             ]
           }
@@ -222,35 +408,73 @@
       },
       "filled": {
         "template": "table",
-        "title": "Reading what the user types with input()",
+        "title": "Parsing typed input with float() and try/except",
         "columns": [
-          "Stage",
-          "Concept"
+          "Typed Text",
+          "Conversion",
+          "Returned"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The laptop concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Convert typed input with float() inside try and except.",
+            "checks": [
+              "' 120 ' -> 120.0",
+              "'99.5' -> 99.5",
+              "'abc' -> None"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Reading",
-                  "what"
+                  "\" 120 \"",
+                  "float(text.strip())",
+                  "120.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"99.5\"",
+                  "float(text.strip())",
+                  "99.5"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"abc\"",
+                  "ValueError",
+                  "None"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Functions without input() take plain values and stay easy to test.",
+            "rows": [
+              {
+                "cells": [
+                  "parse_amount(typed)",
+                  "text.strip()",
+                  "99.5"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The input logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Typing letters on your laptop shows a friendly message instead of crashing.",
             "rows": [
               {
                 "cells": [
-                  "the",
-                  "user"
+                  "\"abc\"",
+                  "parse_amount",
+                  "None"
                 ],
-                "tone": "ok"
+                "tone": "error"
               }
             ]
           }
@@ -262,40 +486,124 @@
       "codeHash": "1b497db9dfc28a5b7f93e1a0e293a992291406b0a40a46518150eafad9600785",
       "spec": {
         "template": "table",
-        "title": "A menu loop",
+        "title": "Simulated while True menu loop",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input",
+          "Choice",
+          "Effect"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The small concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "The while True menu loop repeats until choice stops with break.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "menu"
+                    "text": "\"1\""
                   },
                   {
-                    "text": "loop"
+                    "text": "menu_choice"
+                  },
+                  {
+                    "text": "Tea             20.00"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"3\""
+                  },
+                  {
+                    "text": "break"
+                  },
+                  {
+                    "text": "Bye!"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The option logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Function menu_choice returns 1, 2, 3, or None for invalid text.",
+            "checks": [
+              "Please type 1, 2 or 3",
+              "Tea             20.00",
+              "Bus             45.00",
+              "Bye!"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "menu"
+                    "text": "\"7\""
                   },
                   {
-                    "text": "loop"
+                    "text": "None"
+                  },
+                  {
+                    "text": "Please type 1, 2 or 3"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"2\""
+                  },
+                  {
+                    "text": "menu_choice"
+                  },
+                  {
+                    "text": "Bus             45.00"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Replacing that choice prints the list twice with no error message.",
+            "whatIf": "def menu_choice(text):\n    value = text.strip()\n    return int(value) if value in (\"1\", \"2\", \"3\") else None\n\nexpenses = []\npretend_typing = [\"1\", \"Tea\", \"20\", \"1\", \"Bus\", \"45\", \"2\", \"2\", \"3\"]\nanswers = iter(pretend_typing)\nwhile True:\n    choice = menu_choice(next(answers))\n    if choice == 1:\n        expenses.append({\"item\": next(answers), \"amount\": float(next(answers))})\n    elif choice == 2:\n        for e in expenses:\n            print(f\"{e['item']:<12}{e['amount']:>9.2f}\")\n    elif choice == 3:\n        print(\"Bye!\")\n        break\n    else:\n        print(\"Please type 1, 2 or 3\")",
+            "checks": [
+              "Tea             20.00",
+              "Bus             45.00",
+              "Bye!"
+            ],
+            "mustNotShow": [
+              "Please type 1, 2 or 3"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"2\""
+                  },
+                  {
+                    "text": "menu_choice"
+                  },
+                  {
+                    "text": "Tea             20.00"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"2\""
+                  },
+                  {
+                    "text": "menu_choice"
+                  },
+                  {
+                    "text": "Bus             45.00"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +614,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "A menu loop",
+        "title": "Simulated while True menu loop",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input",
+          "Choice",
+          "Effect"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The small concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "The while True menu loop repeats until choice stops with break.",
             "rows": [
               {
                 "cells": [
-                  "menu",
-                  "loop"
+                  "\"1\"",
+                  "menu_choice",
+                  "Tea             20.00"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "\"3\"",
+                  "break",
+                  "Bye!"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The option logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Function menu_choice returns 1, 2, 3, or None for invalid text.",
+            "checks": [
+              "Please type 1, 2 or 3",
+              "Tea             20.00",
+              "Bus             45.00",
+              "Bye!"
+            ],
             "rows": [
               {
                 "cells": [
-                  "menu",
-                  "loop"
+                  "\"7\"",
+                  "None",
+                  "Please type 1, 2 or 3"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "\"2\"",
+                  "menu_choice",
+                  "Bus             45.00"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Replacing that choice prints the list twice with no error message.",
+            "whatIf": "def menu_choice(text):\n    value = text.strip()\n    return int(value) if value in (\"1\", \"2\", \"3\") else None\n\nexpenses = []\npretend_typing = [\"1\", \"Tea\", \"20\", \"1\", \"Bus\", \"45\", \"2\", \"2\", \"3\"]\nanswers = iter(pretend_typing)\nwhile True:\n    choice = menu_choice(next(answers))\n    if choice == 1:\n        expenses.append({\"item\": next(answers), \"amount\": float(next(answers))})\n    elif choice == 2:\n        for e in expenses:\n            print(f\"{e['item']:<12}{e['amount']:>9.2f}\")\n    elif choice == 3:\n        print(\"Bye!\")\n        break\n    else:\n        print(\"Please type 1, 2 or 3\")",
+            "checks": [
+              "Tea             20.00",
+              "Bus             45.00",
+              "Bye!"
+            ],
+            "mustNotShow": [
+              "Please type 1, 2 or 3"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "\"2\"",
+                  "menu_choice",
+                  "Tea             20.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"2\"",
+                  "menu_choice",
+                  "Bus             45.00"
                 ],
                 "tone": "ok"
               }
@@ -346,23 +710,27 @@
       "codeHash": "a15ef1d45d6b0b4f74d5cdcdd50199491de87290041cb1ec89e56f5f86f8f7a9",
       "spec": {
         "template": "table",
-        "title": "pip and packages",
+        "title": "Pinned packages in requirements.txt",
         "columns": [
-          "Stage",
-          "Concept"
+          "Package",
+          "Version",
+          "Line"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Use pip install in the terminal to add packages.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "pip"
+                    "text": "requests"
                   },
                   {
-                    "text": "and"
+                    "text": "2.32.3"
+                  },
+                  {
+                    "text": "requests==2.32.3"
                   }
                 ],
                 "tone": "data"
@@ -370,16 +738,58 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The install logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Save exact versions to requirements.txt with pip freeze.",
+            "checks": [
+              "requests   version 2.32.3",
+              "fastapi    version 0.115.0",
+              "pytest     version 8.3.3"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "packages"
+                    "text": "fastapi"
                   },
                   {
-                    "text": "and"
+                    "text": "0.115.0"
+                  },
+                  {
+                    "text": "fastapi    version 0.115.0"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "pytest"
+                  },
+                  {
+                    "text": "8.3.3"
+                  },
+                  {
+                    "text": "pytest     version 8.3.3"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run pip install requests inside a virtual environment and list it.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "pip install requests"
+                  },
+                  {
+                    "text": "2.32.3"
+                  },
+                  {
+                    "text": "requests   version 2.32.3"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +800,63 @@
       },
       "filled": {
         "template": "table",
-        "title": "pip and packages",
+        "title": "Pinned packages in requirements.txt",
         "columns": [
-          "Stage",
-          "Concept"
+          "Package",
+          "Version",
+          "Line"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Use pip install in the terminal to add packages.",
             "rows": [
               {
                 "cells": [
-                  "pip",
-                  "and"
+                  "requests",
+                  "2.32.3",
+                  "requests==2.32.3"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The install logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Save exact versions to requirements.txt with pip freeze.",
+            "checks": [
+              "requests   version 2.32.3",
+              "fastapi    version 0.115.0",
+              "pytest     version 8.3.3"
+            ],
             "rows": [
               {
                 "cells": [
-                  "packages",
-                  "and"
+                  "fastapi",
+                  "0.115.0",
+                  "fastapi    version 0.115.0"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "pytest",
+                  "8.3.3",
+                  "pytest     version 8.3.3"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run pip install requests inside a virtual environment and list it.",
+            "rows": [
+              {
+                "cells": [
+                  "pip install requests",
+                  "2.32.3",
+                  "requests   version 2.32.3"
                 ],
                 "tone": "ok"
               }
@@ -430,23 +870,27 @@
       "codeHash": "95ff0255a44ee177a7fcac55a1875634a507c9a023ed759d692c0005c73d7667",
       "spec": {
         "template": "table",
-        "title": "Virtual environments",
+        "title": "Checking virtual environment isolation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Attribute / Command",
+          "Meaning",
+          "Type / Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The every concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Create .venv inside your project folder and activate it cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Virtual"
+                    "text": "python -m venv .venv"
                   },
                   {
-                    "text": "environments"
+                    "text": ".venv"
+                  },
+                  {
+                    "text": "project"
                   }
                 ],
                 "tone": "data"
@@ -455,15 +899,42 @@
           },
           {
             "at": "say3",
-            "caption": "The venv logic drives deterministic execution.",
+            "caption": "When the venv is active, pip install keeps packages inside this project.",
+            "checks": [
+              "Checking for a virtual environment...",
+              "This check is useful on your laptop: bool"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Virtual"
+                    "text": "sys.prefix != sys.base_prefix"
                   },
                   {
-                    "text": "environments"
+                    "text": "in_venv"
+                  },
+                  {
+                    "text": "bool"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking sys.prefix returns True only when the venv is active.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "print(sys.prefix != sys.base_prefix)"
+                  },
+                  {
+                    "text": "venv"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -474,20 +945,22 @@
       },
       "filled": {
         "template": "table",
-        "title": "Virtual environments",
+        "title": "Checking virtual environment isolation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Attribute / Command",
+          "Meaning",
+          "Type / Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The every concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Create .venv inside your project folder and activate it cleanly.",
             "rows": [
               {
                 "cells": [
-                  "Virtual",
-                  "environments"
+                  "python -m venv .venv",
+                  ".venv",
+                  "project"
                 ],
                 "tone": "data"
               }
@@ -495,12 +968,31 @@
           },
           {
             "at": "say3",
-            "caption": "The venv logic drives deterministic execution.",
+            "caption": "When the venv is active, pip install keeps packages inside this project.",
+            "checks": [
+              "Checking for a virtual environment...",
+              "This check is useful on your laptop: bool"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Virtual",
-                  "environments"
+                  "sys.prefix != sys.base_prefix",
+                  "in_venv",
+                  "bool"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking sys.prefix returns True only when the venv is active.",
+            "rows": [
+              {
+                "cells": [
+                  "print(sys.prefix != sys.base_prefix)",
+                  "venv",
+                  "True"
                 ],
                 "tone": "ok"
               }

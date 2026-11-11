@@ -3,47 +3,128 @@
   "prefix": "python",
   "day": 18,
   "promptSha": "c373c9048bddc5fd6ef0038352ad75374cf5eec694b4a9ee071fb84275d80780",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day18",
   "entries": [
     {
       "partTitle": "What classes and objects are",
       "codeHash": "83ab66fa25d087c8fdee3b58b51859622579b2190dd5df1eefa8c6bab45f893c",
       "spec": {
         "template": "table",
-        "title": "What classes and objects are",
+        "title": "Class blueprint and separate objects",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Class",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The data concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "From one Expense class you can make separate objects.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "tea = Expense()"
                   },
                   {
-                    "text": "classes"
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "Expense"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "tea is bus"
+                  },
+                  {
+                    "text": "Expense"
+                  },
+                  {
+                    "text": "False"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The already logic drives deterministic execution.",
+            "caption": "Strings and lists are objects of Python classes too.",
+            "checks": [
+              "Expense",
+              "False",
+              "str list"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "type(\"hello\").__name__"
                   },
                   {
-                    "text": "objects"
+                    "text": "str"
+                  },
+                  {
+                    "text": "str list"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "type([1, 2]).__name__"
+                  },
+                  {
+                    "text": "list"
+                  },
+                  {
+                    "text": "str list"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Numbers and dictionaries belong to float and dict classes.",
+            "whatIf": "class Expense:\n    pass\n\ntea = Expense()\nbus = Expense()\nprint(type(tea).__name__)\nprint(tea is bus)\nprint(type(\"hello\").__name__, type([1, 2]).__name__)\nprint(type(3.5).__name__, type({}).__name__)",
+            "checks": [
+              "Expense",
+              "False",
+              "str list",
+              "float dict"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "type(3.5).__name__"
+                  },
+                  {
+                    "text": "float"
+                  },
+                  {
+                    "text": "float"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "type({}).__name__"
+                  },
+                  {
+                    "text": "dict"
+                  },
+                  {
+                    "text": "dict"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +135,86 @@
       },
       "filled": {
         "template": "table",
-        "title": "What classes and objects are",
+        "title": "Class blueprint and separate objects",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Class",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The data concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "From one Expense class you can make separate objects.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "classes"
+                  "tea = Expense()",
+                  "Expense",
+                  "Expense"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "tea is bus",
+                  "Expense",
+                  "False"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The already logic drives deterministic execution.",
+            "caption": "Strings and lists are objects of Python classes too.",
+            "checks": [
+              "Expense",
+              "False",
+              "str list"
+            ],
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "objects"
+                  "type(\"hello\").__name__",
+                  "str",
+                  "str list"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "type([1, 2]).__name__",
+                  "list",
+                  "str list"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Numbers and dictionaries belong to float and dict classes.",
+            "whatIf": "class Expense:\n    pass\n\ntea = Expense()\nbus = Expense()\nprint(type(tea).__name__)\nprint(tea is bus)\nprint(type(\"hello\").__name__, type([1, 2]).__name__)\nprint(type(3.5).__name__, type({}).__name__)",
+            "checks": [
+              "Expense",
+              "False",
+              "str list",
+              "float dict"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "type(3.5).__name__",
+                  "float",
+                  "float"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "type({}).__name__",
+                  "dict",
+                  "dict"
                 ],
                 "tone": "ok"
               }
@@ -94,23 +228,46 @@
       "codeHash": "aa156e5e45acd8bf8400b0766669cd31f9fd4e402dbc95296c49c7a861264d67",
       "spec": {
         "template": "table",
-        "title": "__init__ and self: giving objects their data",
+        "title": "Object attributes stored on self",
         "columns": [
-          "Stage",
-          "Concept"
+          "Object",
+          "item",
+          "amount"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The empty concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Inside __init__, attributes store each object's values on self.",
+            "checks": [
+              "Tea 20",
+              "Bus 45",
+              "25 45"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "init"
+                    "text": "tea"
                   },
                   {
-                    "text": "and"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "20"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "bus"
+                  },
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "45"
                   }
                 ],
                 "tone": "data"
@@ -118,16 +275,71 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Each object keeps its own attributes when tea.amount changes.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "self"
+                    "text": "tea"
                   },
                   {
-                    "text": "giving"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "25"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "bus"
+                  },
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "45"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding category stores self.category on tea and bus.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount, category):\n        self.item = item\n        self.amount = amount\n        self.category = category\ntea = Expense(\"Tea\", 20, \"food\")\nbus = Expense(\"Bus\", 45, \"travel\")\nprint(tea.category, bus.category)",
+            "checks": [
+              "food travel"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tea"
+                  },
+                  {
+                    "text": "self.category"
+                  },
+                  {
+                    "text": "\"food\""
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "bus"
+                  },
+                  {
+                    "text": "self.category"
+                  },
+                  {
+                    "text": "Bus"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +350,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "__init__ and self: giving objects their data",
+        "title": "Object attributes stored on self",
         "columns": [
-          "Stage",
-          "Concept"
+          "Object",
+          "item",
+          "amount"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The empty concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Inside __init__, attributes store each object's values on self.",
+            "checks": [
+              "Tea 20",
+              "Bus 45",
+              "25 45"
+            ],
             "rows": [
               {
                 "cells": [
-                  "init",
-                  "and"
+                  "tea",
+                  "Tea",
+                  "20"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "bus",
+                  "Bus",
+                  "45"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Each object keeps its own attributes when tea.amount changes.",
             "rows": [
               {
                 "cells": [
-                  "self",
-                  "giving"
+                  "tea",
+                  "Tea",
+                  "25"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "bus",
+                  "Bus",
+                  "45"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding category stores self.category on tea and bus.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount, category):\n        self.item = item\n        self.amount = amount\n        self.category = category\ntea = Expense(\"Tea\", 20, \"food\")\nbus = Expense(\"Bus\", 45, \"travel\")\nprint(tea.category, bus.category)",
+            "checks": [
+              "food travel"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "tea",
+                  "self.category",
+                  "\"food\""
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "bus",
+                  "self.category",
+                  "Bus"
                 ],
                 "tone": "ok"
               }
@@ -178,40 +440,107 @@
       "codeHash": "10bfb0d6ab9be22c351462bd531f220450a0e35248d59bfe64a3151b0ca3f9f0",
       "spec": {
         "template": "table",
-        "title": "Methods: actions that belong to an object",
+        "title": "Calling methods on Expense objects",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Parameter",
+          "Returned"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The method concept establishes the core structural baseline.",
+            "caption": "A method takes self first to use attributes like item.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Methods"
+                    "text": "lunch.label()"
                   },
                   {
-                    "text": "actions"
+                    "text": "self"
+                  },
+                  {
+                    "text": "Lunch: 120"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The methods logic drives deterministic execution.",
+            "caption": "Methods take extra parameters after self and return values.",
+            "checks": [
+              "Lunch: 120",
+              "141.6",
+              "126.0"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "that"
+                    "text": "lunch.with_gst()"
                   },
                   {
-                    "text": "belong"
+                    "text": "rate=0.18"
+                  },
+                  {
+                    "text": "141.6"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "lunch.with_gst(0.05)"
+                  },
+                  {
+                    "text": "0.05"
+                  },
+                  {
+                    "text": "126.0"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Method is_big(self) returns False for lunch and True for Rent.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def label(self):\n        return f\"{self.item}: {self.amount}\"\n\n    def with_gst(self, rate=0.18):\n        return round(self.amount * (1 + rate), 2)\n\n    def is_big(self):\n        return self.amount > 1000\n\nlunch = Expense(\"Lunch\", 120)\nprint(lunch.label())\nprint(lunch.with_gst())\nprint(lunch.with_gst(0.05))\nprint(lunch.is_big(), Expense(\"Rent\", 8000).is_big())",
+            "checks": [
+              "Lunch: 120",
+              "141.6",
+              "126.0",
+              "False True"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "lunch"
+                  },
+                  {
+                    "text": "is_big(self)"
+                  },
+                  {
+                    "text": "False"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Expense(\"Rent\", 8000)"
+                  },
+                  {
+                    "text": "is_big(self)"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +551,78 @@
       },
       "filled": {
         "template": "table",
-        "title": "Methods: actions that belong to an object",
+        "title": "Calling methods on Expense objects",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Parameter",
+          "Returned"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The method concept establishes the core structural baseline.",
+            "caption": "A method takes self first to use attributes like item.",
             "rows": [
               {
                 "cells": [
-                  "Methods",
-                  "actions"
+                  "lunch.label()",
+                  "self",
+                  "Lunch: 120"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The methods logic drives deterministic execution.",
+            "caption": "Methods take extra parameters after self and return values.",
+            "checks": [
+              "Lunch: 120",
+              "141.6",
+              "126.0"
+            ],
             "rows": [
               {
                 "cells": [
-                  "that",
-                  "belong"
+                  "lunch.with_gst()",
+                  "rate=0.18",
+                  "141.6"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "lunch.with_gst(0.05)",
+                  "0.05",
+                  "126.0"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Method is_big(self) returns False for lunch and True for Rent.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount):\n        self.item = item\n        self.amount = amount\n\n    def label(self):\n        return f\"{self.item}: {self.amount}\"\n\n    def with_gst(self, rate=0.18):\n        return round(self.amount * (1 + rate), 2)\n\n    def is_big(self):\n        return self.amount > 1000\n\nlunch = Expense(\"Lunch\", 120)\nprint(lunch.label())\nprint(lunch.with_gst())\nprint(lunch.with_gst(0.05))\nprint(lunch.is_big(), Expense(\"Rent\", 8000).is_big())",
+            "checks": [
+              "Lunch: 120",
+              "141.6",
+              "126.0",
+              "False True"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "lunch",
+                  "is_big(self)",
+                  "False"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Expense(\"Rent\", 8000)",
+                  "is_big(self)",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -262,40 +636,104 @@
       "codeHash": "2eb734121783a86a8c89f265dda2abe170bea91ee394d3c8dbff3d7c1d7ba7e7",
       "spec": {
         "template": "table",
-        "title": "Methods that change the object",
+        "title": "Wallet balance transitions",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Returned",
+          "w.balance"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The objects concept establishes the core structural baseline.",
+            "caption": "Spending from Wallet updates self.balance over time.",
+            "checks": [
+              "True 70",
+              "False 70",
+              "True 570"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Methods"
+                    "text": "Wallet(100)"
                   },
                   {
-                    "text": "that"
+                    "text": "__init__"
+                  },
+                  {
+                    "text": "100"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "w.spend(30)"
+                  },
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "70"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The method logic drives deterministic execution.",
+            "caption": "Method spend returns False when balance is too low.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "change"
+                    "text": "w.spend(500)"
                   },
                   {
-                    "text": "the"
+                    "text": "False"
+                  },
+                  {
+                    "text": "70"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "w.spend(500)"
+                  },
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "570"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending successful spends updates w.history.",
+            "whatIf": "class Wallet:\n    def __init__(self, balance):\n        self.balance = balance\n        self.history = []\n    def spend(self, amount):\n        if amount > self.balance:\n            return False\n        self.balance -= amount\n        self.history.append(amount)\n        return True\n    def add(self, amount):\n        self.balance += amount\nw = Wallet(100)\nw.spend(30)\nw.spend(500)\nw.add(1000)\nw.spend(500)\nprint(w.history)",
+            "checks": [
+              "[30, 500]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "w.history"
+                  },
+                  {
+                    "text": "self.history = []"
+                  },
+                  {
+                    "text": "[30, 500]"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +744,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "Methods that change the object",
+        "title": "Wallet balance transitions",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Returned",
+          "w.balance"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The objects concept establishes the core structural baseline.",
+            "caption": "Spending from Wallet updates self.balance over time.",
+            "checks": [
+              "True 70",
+              "False 70",
+              "True 570"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Methods",
-                  "that"
+                  "Wallet(100)",
+                  "__init__",
+                  "100"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "w.spend(30)",
+                  "True",
+                  "70"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The method logic drives deterministic execution.",
+            "caption": "Method spend returns False when balance is too low.",
             "rows": [
               {
                 "cells": [
-                  "change",
-                  "the"
+                  "w.spend(500)",
+                  "False",
+                  "70"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "w.spend(500)",
+                  "True",
+                  "570"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending successful spends updates w.history.",
+            "whatIf": "class Wallet:\n    def __init__(self, balance):\n        self.balance = balance\n        self.history = []\n    def spend(self, amount):\n        if amount > self.balance:\n            return False\n        self.balance -= amount\n        self.history.append(amount)\n        return True\n    def add(self, amount):\n        self.balance += amount\nw = Wallet(100)\nw.spend(30)\nw.spend(500)\nw.add(1000)\nw.spend(500)\nprint(w.history)",
+            "checks": [
+              "[30, 500]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "w.history",
+                  "self.history = []",
+                  "[30, 500]"
                 ],
                 "tone": "ok"
               }
@@ -346,40 +826,109 @@
       "codeHash": "93f4d353c58057bab69eeafc51a09688fe55ee0c574079e893c864e14b471c2c",
       "spec": {
         "template": "table",
-        "title": "Many objects in a list",
+        "title": "Sorted and filtered Expense objects",
         "columns": [
-          "Stage",
-          "Concept"
+          "Action",
+          "Object / Filter",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The objects concept establishes the core structural baseline.",
+            "caption": "Sort a list of Expense objects with key=lambda e: e.amount.",
+            "checks": [
+              "Rent (home): 8000",
+              "Lunch (food): 120",
+              "Tea (food): 20",
+              "140"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Many"
+                    "text": "sorted"
                   },
                   {
-                    "text": "objects"
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "Rent (home): 8000"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted"
+                  },
+                  {
+                    "text": "Lunch"
+                  },
+                  {
+                    "text": "Lunch (food): 120"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted"
+                  },
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "Tea (food): 20"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The methods logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Read e.amount with a dot in loops and sums.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "list"
+                    "text": "e.amount"
                   },
                   {
-                    "text": "objects"
+                    "text": "e.category == \"food\""
+                  },
+                  {
+                    "text": "140"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using min returns the cheapest Expense label.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount, category):\n        self.item = item\n        self.amount = amount\n        self.category = category\n\n    def label(self):\n        return f\"{self.item} ({self.category}): {self.amount}\"\n\nexpenses = [Expense(\"Tea\", 20, \"food\"), Expense(\"Rent\", 8000, \"home\"), Expense(\"Lunch\", 120, \"food\")]\nfor e in sorted(expenses, key=lambda e: e.amount, reverse=True):\n    print(e.label())\nprint(sum(e.amount for e in expenses if e.category == \"food\"))\nprint(min(expenses, key=lambda e: e.amount).label())",
+            "checks": [
+              "Rent (home): 8000",
+              "Lunch (food): 120",
+              "Tea (food): 20",
+              "140",
+              "Tea (food): 20"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "min(expenses, key=lambda e: e.amount)"
+                  },
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "Tea (food): 20"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +939,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "Many objects in a list",
+        "title": "Sorted and filtered Expense objects",
         "columns": [
-          "Stage",
-          "Concept"
+          "Action",
+          "Object / Filter",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The objects concept establishes the core structural baseline.",
+            "caption": "Sort a list of Expense objects with key=lambda e: e.amount.",
+            "checks": [
+              "Rent (home): 8000",
+              "Lunch (food): 120",
+              "Tea (food): 20",
+              "140"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Many",
-                  "objects"
+                  "sorted",
+                  "Rent",
+                  "Rent (home): 8000"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "sorted",
+                  "Lunch",
+                  "Lunch (food): 120"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "sorted",
+                  "Tea",
+                  "Tea (food): 20"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The methods logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Read e.amount with a dot in loops and sums.",
             "rows": [
               {
                 "cells": [
-                  "list",
-                  "objects"
+                  "e.amount",
+                  "e.category == \"food\"",
+                  "140"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using min returns the cheapest Expense label.",
+            "whatIf": "class Expense:\n    def __init__(self, item, amount, category):\n        self.item = item\n        self.amount = amount\n        self.category = category\n\n    def label(self):\n        return f\"{self.item} ({self.category}): {self.amount}\"\n\nexpenses = [Expense(\"Tea\", 20, \"food\"), Expense(\"Rent\", 8000, \"home\"), Expense(\"Lunch\", 120, \"food\")]\nfor e in sorted(expenses, key=lambda e: e.amount, reverse=True):\n    print(e.label())\nprint(sum(e.amount for e in expenses if e.category == \"food\"))\nprint(min(expenses, key=lambda e: e.amount).label())",
+            "checks": [
+              "Rent (home): 8000",
+              "Lunch (food): 120",
+              "Tea (food): 20",
+              "140",
+              "Tea (food): 20"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "min(expenses, key=lambda e: e.amount)",
+                  "Tea",
+                  "Tea (food): 20"
                 ],
                 "tone": "ok"
               }
@@ -430,40 +1026,107 @@
       "codeHash": "ffba69782f3b1b97f778efc2ed051978e1c3b4ce6f93cd29d9f8f37300bbf33b",
       "spec": {
         "template": "table",
-        "title": "Putting it together: an ExpenseBook class",
+        "title": "ExpenseBook operations and guard",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Check",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The wrap concept establishes the core structural baseline.",
+            "caption": "ExpenseBook tracks a budget, adds expenses, and computes totals.",
+            "checks": [
+              "Refused: amount must be more than 0",
+              "Spent: 1520",
+              "Left: 3480",
+              "2 expenses"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "book.add(\"Tea\", 20)"
                   },
                   {
-                    "text": "together"
+                    "text": "20"
+                  },
+                  {
+                    "text": "2 expenses"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "book.total()"
+                  },
+                  {
+                    "text": "sum"
+                  },
+                  {
+                    "text": "Spent: 1520"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "book.left()"
+                  },
+                  {
+                    "text": "self.budget - self.total()"
+                  },
+                  {
+                    "text": "Left: 3480"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rest logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Method add raises ValueError when amount is zero or negative.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "ExpenseBook"
+                    "text": "book.add(\"Mistake\", -10)"
                   },
                   {
-                    "text": "class"
+                    "text": "amount <= 0"
+                  },
+                  {
+                    "text": "Refused: amount must be more than 0"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a category parameter lets by_category filter expenses.",
+            "whatIf": "class ExpenseBook:\n    def __init__(self, budget):\n        self.budget = budget\n        self.expenses = []\n    def add(self, item, amount, category):\n        if amount <= 0:\n            raise ValueError(\"amount must be more than 0\")\n        self.expenses.append({\"item\": item, \"amount\": amount, \"category\": category})\n    def by_category(self, category):\n        return [e for e in self.expenses if e[\"category\"] == category]\n    def total(self):\n        return sum(e[\"amount\"] for e in self.expenses)\n    def left(self):\n        return self.budget - self.total()\nbook = ExpenseBook(5000)\nbook.add(\"Tea\", 20, \"food\")\nbook.add(\"Groceries\", 1500, \"food\")\nprint(len(book.by_category(\"food\")))\nprint(\"Spent:\", book.total())\nprint(\"Left:\", book.left())",
+            "checks": [
+              "2",
+              "Spent: 1520",
+              "Left: 3480"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "by_category(self, category)"
+                  },
+                  {
+                    "text": "category"
+                  },
+                  {
+                    "text": "2 expenses"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1137,78 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: an ExpenseBook class",
+        "title": "ExpenseBook operations and guard",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Check",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The wrap concept establishes the core structural baseline.",
+            "caption": "ExpenseBook tracks a budget, adds expenses, and computes totals.",
+            "checks": [
+              "Refused: amount must be more than 0",
+              "Spent: 1520",
+              "Left: 3480",
+              "2 expenses"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "book.add(\"Tea\", 20)",
+                  "20",
+                  "2 expenses"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "book.total()",
+                  "sum",
+                  "Spent: 1520"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "book.left()",
+                  "self.budget - self.total()",
+                  "Left: 3480"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rest logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Method add raises ValueError when amount is zero or negative.",
             "rows": [
               {
                 "cells": [
-                  "ExpenseBook",
-                  "class"
+                  "book.add(\"Mistake\", -10)",
+                  "amount <= 0",
+                  "Refused: amount must be more than 0"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a category parameter lets by_category filter expenses.",
+            "whatIf": "class ExpenseBook:\n    def __init__(self, budget):\n        self.budget = budget\n        self.expenses = []\n    def add(self, item, amount, category):\n        if amount <= 0:\n            raise ValueError(\"amount must be more than 0\")\n        self.expenses.append({\"item\": item, \"amount\": amount, \"category\": category})\n    def by_category(self, category):\n        return [e for e in self.expenses if e[\"category\"] == category]\n    def total(self):\n        return sum(e[\"amount\"] for e in self.expenses)\n    def left(self):\n        return self.budget - self.total()\nbook = ExpenseBook(5000)\nbook.add(\"Tea\", 20, \"food\")\nbook.add(\"Groceries\", 1500, \"food\")\nprint(len(book.by_category(\"food\")))\nprint(\"Spent:\", book.total())\nprint(\"Left:\", book.left())",
+            "checks": [
+              "2",
+              "Spent: 1520",
+              "Left: 3480"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "by_category(self, category)",
+                  "category",
+                  "2 expenses"
                 ],
                 "tone": "ok"
               }
