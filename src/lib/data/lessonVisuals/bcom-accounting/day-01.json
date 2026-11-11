@@ -10,122 +10,103 @@
       "codeHash": "f529929315d64545b190b65e06ff6b4253c18d6681f89eb4e8fc55935e5a27d3",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Accrual Accounting & The Revenue Matching Pri... — General Ledger Verification",
+        "title": "Accrual Accounting & Revenue Matching Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Accrual Accounting & The Revenu...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Corporate enterprise relies on accrual accounting instead of cash methods.",
+            "title": "Corporate Accrual Ledger Entry",
             "isBalanced": true,
-            "totalDebit": 2650,
-            "totalCredit": 2650,
+            "totalDebit": 120000,
+            "totalCredit": 120000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2650,
-                "balance": 2650,
+                "id": "JNL-A1",
+                "account": "Cash Asset Account",
+                "debit": 120000,
+                "balance": 120000,
                 "tone": "data",
-                "memo": "Initial recognition"
+                "memo": "Advance customer payment"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 2650,
+                "id": "JNL-A2",
+                "account": "Deferred Revenue Liability",
+                "credit": 120000,
                 "balance": 0,
                 "tone": "ok",
-                "memo": "Offset control"
+                "memo": "Unearned contract obligation"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Calendar month postings record cash assets alongside deferred liability.",
+            "title": "Monthly Accrual Recognition",
             "isBalanced": true,
-            "totalDebit": 3180,
-            "totalCredit": 3180,
+            "totalDebit": 120000,
+            "totalCredit": 120000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2650,
-                "balance": 2650,
+                "id": "JNL-A1",
+                "account": "Cash Asset Account",
+                "debit": 120000,
+                "balance": 120000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 530,
-                "balance": 3180,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3180,
+                "id": "JNL-A2",
+                "account": "Deferred Revenue Liability",
+                "credit": 120000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Cloud service provider recognizes earned revenue as hosting continues.",
+            "title": "Hosting Service Amortization",
             "isBalanced": true,
-            "totalDebit": 3180,
-            "totalCredit": 3180,
+            "totalDebit": 10000,
+            "totalCredit": 10000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 2650,
-                "balance": 2650,
-                "tone": "ok"
+                "id": "JNL-A3",
+                "account": "Deferred Revenue Liability",
+                "debit": 10000,
+                "balance": 110000,
+                "tone": "ok",
+                "memo": "Relieve deferred liability"
               },
               {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 530,
-                "balance": 3180,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3180,
-                "balance": 0,
-                "tone": "data"
+                "id": "JNL-A4",
+                "account": "Earned Subscription Revenue",
+                "credit": 10000,
+                "balance": 10000,
+                "tone": "data",
+                "memo": "Recognize earned revenue"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Customer enterprise contract establishes unearned revenue liability.",
+            "title": "Contract Opening Entry",
             "isBalanced": true,
-            "totalDebit": 3180,
-            "totalCredit": 3180,
+            "totalDebit": 24000,
+            "totalCredit": 24000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 2650,
-                "balance": 2650,
-                "tone": "ok"
+                "id": "JNL-A5",
+                "account": "Cash Asset Account",
+                "debit": 24000,
+                "balance": 24000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 530,
-                "balance": 3180,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3180,
+                "id": "JNL-A6",
+                "account": "Unearned Revenue Liability",
+                "credit": 24000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -135,122 +116,103 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Accrual Accounting & The Revenue Matching Pri... — General Ledger Verification",
+        "title": "Accrual Accounting & Revenue Matching Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (2650) for Accrual Accounting & The Revenu...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Corporate enterprise relies on accrual accounting instead of cash methods.",
+            "title": "Corporate Accrual Ledger Entry",
             "isBalanced": true,
-            "totalDebit": 2650,
-            "totalCredit": 2650,
+            "totalDebit": 120000,
+            "totalCredit": 120000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2650,
-                "balance": 2650,
+                "id": "JNL-A1",
+                "account": "Cash Asset Account",
+                "debit": 120000,
+                "balance": 120000,
                 "tone": "data",
-                "memo": "Initial recognition"
+                "memo": "Advance customer payment"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 2650,
+                "id": "JNL-A2",
+                "account": "Deferred Revenue Liability",
+                "credit": 120000,
                 "balance": 0,
                 "tone": "ok",
-                "memo": "Offset control"
+                "memo": "Unearned contract obligation"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (530).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Calendar month postings record cash assets alongside deferred liability.",
+            "title": "Monthly Accrual Recognition",
             "isBalanced": true,
-            "totalDebit": 3180,
-            "totalCredit": 3180,
+            "totalDebit": 120000,
+            "totalCredit": 120000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2650,
-                "balance": 2650,
+                "id": "JNL-A1",
+                "account": "Cash Asset Account",
+                "debit": 120000,
+                "balance": 120000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 530,
-                "balance": 3180,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3180,
+                "id": "JNL-A2",
+                "account": "Deferred Revenue Liability",
+                "credit": 120000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3180).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Cloud service provider recognizes earned revenue as hosting continues.",
+            "title": "Hosting Service Amortization",
             "isBalanced": true,
-            "totalDebit": 3180,
-            "totalCredit": 3180,
+            "totalDebit": 10000,
+            "totalCredit": 10000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 2650,
-                "balance": 2650,
-                "tone": "ok"
+                "id": "JNL-A3",
+                "account": "Deferred Revenue Liability",
+                "debit": 10000,
+                "balance": 110000,
+                "tone": "ok",
+                "memo": "Relieve deferred liability"
               },
               {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 530,
-                "balance": 3180,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3180,
-                "balance": 0,
-                "tone": "data"
+                "id": "JNL-A4",
+                "account": "Earned Subscription Revenue",
+                "credit": 10000,
+                "balance": 10000,
+                "tone": "data",
+                "memo": "Recognize earned revenue"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3180 = CR 3180).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Customer enterprise contract establishes unearned revenue liability.",
+            "title": "Contract Opening Entry",
             "isBalanced": true,
-            "totalDebit": 3180,
-            "totalCredit": 3180,
+            "totalDebit": 24000,
+            "totalCredit": 24000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 2650,
-                "balance": 2650,
-                "tone": "ok"
+                "id": "JNL-A5",
+                "account": "Cash Asset Account",
+                "debit": 24000,
+                "balance": 24000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 530,
-                "balance": 3180,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3180,
+                "id": "JNL-A6",
+                "account": "Unearned Revenue Liability",
+                "credit": 24000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -264,124 +226,103 @@
       "codeHash": "0a36a0e0df2b30c34de38cfb13340e3196e1105085859345a56ab6a296f430ea",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Fundamental Accounting Equation & Double-... — General Ledger Verification",
+        "title": "Fundamental Accounting Equation Equilibrium",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for The Fundamental Accounting Equa...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Double entry bookkeeping keeps balance sheet in mathematical equilibrium.",
+            "title": "Equilibrium Verification",
             "isBalanced": true,
-            "totalDebit": 2850,
-            "totalCredit": 2850,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2850,
-                "balance": 2850,
+                "id": "EQ-01",
+                "account": "Total Economic Assets",
+                "debit": 500000,
+                "balance": 500000,
                 "tone": "data",
-                "memo": "Initial recognition"
+                "memo": "Debit asset resources"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 2850,
+                "id": "EQ-02",
+                "account": "Creditor Liabilities Plus Equity",
+                "credit": 500000,
                 "balance": 0,
                 "tone": "ok",
-                "memo": "Offset control"
+                "memo": "Credit claims balance"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Pacioli architecture ensures balance sheet maintains perfect equality.",
+            "title": "Pacioli Dual Aspect Posting",
             "isBalanced": true,
-            "totalDebit": 3420,
-            "totalCredit": 3420,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2850,
-                "balance": 2850,
+                "id": "EQ-01",
+                "account": "Total Economic Assets",
+                "debit": 500000,
+                "balance": 500000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 570,
-                "balance": 3420,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3420,
+                "id": "EQ-02",
+                "account": "Creditor Liabilities Plus Equity",
+                "credit": 500000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Balancing scale matches economic assets against creditor liabilities.",
+            "title": "Scale Balance Demonstration",
             "isBalanced": true,
-            "totalDebit": 3420,
-            "totalCredit": 3420,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 2850,
-                "balance": 2850,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 570,
-                "balance": 3420,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3420,
-                "balance": 0,
+                "id": "EQ-03",
+                "account": "Economic Assets Gold Reserve",
+                "debit": 50000,
+                "balance": 50000,
                 "tone": "data"
+              },
+              {
+                "id": "EQ-04",
+                "account": "Creditor Debt Claims",
+                "credit": 50000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Accounting equation balances equipment cash against debt payable claims.",
+            "title": "Equipment and Debt Audit",
             "isBalanced": true,
-            "totalDebit": 3420,
-            "totalCredit": 3420,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 2850,
-                "balance": 2850,
+                "id": "EQ-05",
+                "account": "Cash And Equipment Assets",
+                "debit": 500000,
+                "balance": 500000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 570,
-                "balance": 3420,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3420,
+                "id": "EQ-06",
+                "account": "Debt And Accounts Payable Claims",
+                "credit": 500000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -389,124 +330,103 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "The Fundamental Accounting Equation & Double-... — General Ledger Verification",
+        "title": "Fundamental Accounting Equation Equilibrium",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (2850) for The Fundamental Accounting Equa...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Double entry bookkeeping keeps balance sheet in mathematical equilibrium.",
+            "title": "Equilibrium Verification",
             "isBalanced": true,
-            "totalDebit": 2850,
-            "totalCredit": 2850,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2850,
-                "balance": 2850,
+                "id": "EQ-01",
+                "account": "Total Economic Assets",
+                "debit": 500000,
+                "balance": 500000,
                 "tone": "data",
-                "memo": "Initial recognition"
+                "memo": "Debit asset resources"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 2850,
+                "id": "EQ-02",
+                "account": "Creditor Liabilities Plus Equity",
+                "credit": 500000,
                 "balance": 0,
                 "tone": "ok",
-                "memo": "Offset control"
+                "memo": "Credit claims balance"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (570).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Pacioli architecture ensures balance sheet maintains perfect equality.",
+            "title": "Pacioli Dual Aspect Posting",
             "isBalanced": true,
-            "totalDebit": 3420,
-            "totalCredit": 3420,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 2850,
-                "balance": 2850,
+                "id": "EQ-01",
+                "account": "Total Economic Assets",
+                "debit": 500000,
+                "balance": 500000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 570,
-                "balance": 3420,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3420,
+                "id": "EQ-02",
+                "account": "Creditor Liabilities Plus Equity",
+                "credit": 500000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3420).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Balancing scale matches economic assets against creditor liabilities.",
+            "title": "Scale Balance Demonstration",
             "isBalanced": true,
-            "totalDebit": 3420,
-            "totalCredit": 3420,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 2850,
-                "balance": 2850,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 570,
-                "balance": 3420,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3420,
-                "balance": 0,
+                "id": "EQ-03",
+                "account": "Economic Assets Gold Reserve",
+                "debit": 50000,
+                "balance": 50000,
                 "tone": "data"
+              },
+              {
+                "id": "EQ-04",
+                "account": "Creditor Debt Claims",
+                "credit": 50000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3420 = CR 3420).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Accounting equation balances equipment cash against debt payable claims.",
+            "title": "Equipment and Debt Audit",
             "isBalanced": true,
-            "totalDebit": 3420,
-            "totalCredit": 3420,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 2850,
-                "balance": 2850,
+                "id": "EQ-05",
+                "account": "Cash And Equipment Assets",
+                "debit": 500000,
+                "balance": 500000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 570,
-                "balance": 3420,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3420,
+                "id": "EQ-06",
+                "account": "Debt And Accounts Payable Claims",
+                "credit": 500000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -518,91 +438,75 @@
       "codeHash": "6af85794348780db01a49c6cb8c63eb11f50b1ef6475513e280cba0406a70b52",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The 3-Statement Financial Model Integration — General Ledger Verification",
+        "title": "Three Statement Financial Integration Flow",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for The three-Statement Financial.",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Corporate financial modeling binds balance sheet to cash flow statements.",
+            "title": "Integrated Statements Model",
             "isBalanced": true,
-            "totalDebit": 3050,
-            "totalCredit": 3050,
+            "totalDebit": 200000,
+            "totalCredit": 200000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3050,
-                "balance": 3050,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "STM-1",
+                "account": "Operating Cash Flow Balance",
+                "debit": 200000,
+                "balance": 200000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 3050,
+                "id": "STM-2",
+                "account": "Retained Earnings Equity",
+                "credit": 200000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Financial statements link operating performance with balance sheet cash.",
+            "title": "Operating Linkage Analysis",
             "isBalanced": true,
-            "totalDebit": 3660,
-            "totalCredit": 3660,
+            "totalDebit": 200000,
+            "totalCredit": 200000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3050,
-                "balance": 3050,
+                "id": "STM-1",
+                "account": "Operating Cash Flow Balance",
+                "debit": 200000,
+                "balance": 200000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 610,
-                "balance": 3660,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3660,
+                "id": "STM-2",
+                "account": "Retained Earnings Equity",
+                "credit": 200000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Circulating blood represents cash flow vital to total balance health.",
+            "title": "Physiological Model Analogy",
             "isBalanced": true,
-            "totalDebit": 3660,
-            "totalCredit": 3660,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3050,
-                "balance": 3050,
+                "id": "STM-3",
+                "account": "Liquid Circulating Cash Reserves",
+                "debit": 50000,
+                "balance": 50000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 610,
-                "balance": 3660,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3660,
+                "id": "STM-4",
+                "account": "Equity Retained Reserves",
+                "credit": 50000,
                 "balance": 0,
                 "tone": "data"
               }
@@ -610,30 +514,30 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Purchasing industrial machine pairs downpayment cash with bank borrowing.",
+            "title": "Financed Machine Purchase Flow",
             "isBalanced": true,
-            "totalDebit": 3660,
-            "totalCredit": 3660,
+            "totalDebit": 30000,
+            "totalCredit": 30000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 3050,
-                "balance": 3050,
+                "id": "STM-5",
+                "account": "Industrial Machine Asset Account",
+                "debit": 30000,
+                "balance": 30000,
+                "tone": "data"
+              },
+              {
+                "id": "STM-6",
+                "account": "Bank Borrowing Liability Note",
+                "credit": 24000,
+                "balance": 6000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 610,
-                "balance": 3660,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3660,
+                "id": "STM-7",
+                "account": "Cash Downpayment Asset Outflow",
+                "credit": 6000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -643,91 +547,75 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "The 3-Statement Financial Model Integration — General Ledger Verification",
+        "title": "Three Statement Financial Integration Flow",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3050) for The 3-Statement Financial Model...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Corporate financial modeling binds balance sheet to cash flow statements.",
+            "title": "Integrated Statements Model",
             "isBalanced": true,
-            "totalDebit": 3050,
-            "totalCredit": 3050,
+            "totalDebit": 200000,
+            "totalCredit": 200000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3050,
-                "balance": 3050,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "STM-1",
+                "account": "Operating Cash Flow Balance",
+                "debit": 200000,
+                "balance": 200000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 3050,
+                "id": "STM-2",
+                "account": "Retained Earnings Equity",
+                "credit": 200000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (610).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Financial statements link operating performance with balance sheet cash.",
+            "title": "Operating Linkage Analysis",
             "isBalanced": true,
-            "totalDebit": 3660,
-            "totalCredit": 3660,
+            "totalDebit": 200000,
+            "totalCredit": 200000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3050,
-                "balance": 3050,
+                "id": "STM-1",
+                "account": "Operating Cash Flow Balance",
+                "debit": 200000,
+                "balance": 200000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 610,
-                "balance": 3660,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3660,
+                "id": "STM-2",
+                "account": "Retained Earnings Equity",
+                "credit": 200000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3660).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Circulating blood represents cash flow vital to total balance health.",
+            "title": "Physiological Model Analogy",
             "isBalanced": true,
-            "totalDebit": 3660,
-            "totalCredit": 3660,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3050,
-                "balance": 3050,
+                "id": "STM-3",
+                "account": "Liquid Circulating Cash Reserves",
+                "debit": 50000,
+                "balance": 50000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 610,
-                "balance": 3660,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3660,
+                "id": "STM-4",
+                "account": "Equity Retained Reserves",
+                "credit": 50000,
                 "balance": 0,
                 "tone": "data"
               }
@@ -735,30 +623,30 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3660 = CR 3660).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Purchasing industrial machine pairs downpayment cash with bank borrowing.",
+            "title": "Financed Machine Purchase Flow",
             "isBalanced": true,
-            "totalDebit": 3660,
-            "totalCredit": 3660,
+            "totalDebit": 30000,
+            "totalCredit": 30000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 3050,
-                "balance": 3050,
+                "id": "STM-5",
+                "account": "Industrial Machine Asset Account",
+                "debit": 30000,
+                "balance": 30000,
+                "tone": "data"
+              },
+              {
+                "id": "STM-6",
+                "account": "Bank Borrowing Liability Note",
+                "credit": 24000,
+                "balance": 6000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 610,
-                "balance": 3660,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3660,
+                "id": "STM-7",
+                "account": "Cash Downpayment Asset Outflow",
+                "credit": 6000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -772,124 +660,101 @@
       "codeHash": "2fc0a0af30d7362d67e7abbbaf220d836025ba655f5dd9eb709eaab698a72736",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Depreciation Schedules & Fixed Asset Accounting — General Ledger Verification",
+        "title": "Fixed Asset Depreciation and Carrying Value",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Depreciation Schedules & Fixed ...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Industrial robotics installation capital expenditure avoids day one expensing.",
+            "title": "Fixed Asset Capitalization",
             "isBalanced": true,
-            "totalDebit": 3250,
-            "totalCredit": 3250,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3250,
-                "balance": 3250,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "DEP-1",
+                "account": "Gross Plant Property Equipment",
+                "debit": 50000,
+                "balance": 50000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 3250,
+                "id": "DEP-2",
+                "account": "Cash Capex Outflow Account",
+                "credit": 50000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Corporation purchases robotics equipment capitalized under fixed assets.",
+            "title": "PP&E Subledger Posting",
             "isBalanced": true,
-            "totalDebit": 3900,
-            "totalCredit": 3900,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3250,
-                "balance": 3250,
+                "id": "DEP-1",
+                "account": "Gross Plant Property Equipment",
+                "debit": 50000,
+                "balance": 50000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 650,
-                "balance": 3900,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3900,
+                "id": "DEP-2",
+                "account": "Cash Capex Outflow Account",
+                "credit": 50000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Commercial delivery van records accumulated depreciation against book value.",
+            "title": "Straight Line Amortization Run",
             "isBalanced": true,
-            "totalDebit": 3900,
-            "totalCredit": 3900,
+            "totalDebit": 7000,
+            "totalCredit": 7000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3250,
-                "balance": 3250,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 650,
-                "balance": 3900,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3900,
-                "balance": 0,
+                "id": "DEP-3",
+                "account": "Annual Depreciation Expense",
+                "debit": 7000,
+                "balance": 7000,
                 "tone": "data"
+              },
+              {
+                "id": "DEP-4",
+                "account": "Accumulated Depreciation Contra Asset",
+                "credit": 7000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Double declining balance computes annual depreciation for machine asset.",
+            "title": "Accelerated Depreciation Posting",
             "isBalanced": true,
-            "totalDebit": 3900,
-            "totalCredit": 3900,
+            "totalDebit": 40000,
+            "totalCredit": 40000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 3250,
-                "balance": 3250,
+                "id": "DEP-5",
+                "account": "Accelerated Depreciation Expense",
+                "debit": 40000,
+                "balance": 40000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 650,
-                "balance": 3900,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3900,
+                "id": "DEP-6",
+                "account": "Accumulated Depreciation Reserve",
+                "credit": 40000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -897,124 +762,101 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Depreciation Schedules & Fixed Asset Accounting — General Ledger Verification",
+        "title": "Fixed Asset Depreciation and Carrying Value",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3250) for Depreciation Schedules & Fixed ...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Industrial robotics installation capital expenditure avoids day one expensing.",
+            "title": "Fixed Asset Capitalization",
             "isBalanced": true,
-            "totalDebit": 3250,
-            "totalCredit": 3250,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3250,
-                "balance": 3250,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "DEP-1",
+                "account": "Gross Plant Property Equipment",
+                "debit": 50000,
+                "balance": 50000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 3250,
+                "id": "DEP-2",
+                "account": "Cash Capex Outflow Account",
+                "credit": 50000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (650).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Corporation purchases robotics equipment capitalized under fixed assets.",
+            "title": "PP&E Subledger Posting",
             "isBalanced": true,
-            "totalDebit": 3900,
-            "totalCredit": 3900,
+            "totalDebit": 50000,
+            "totalCredit": 50000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3250,
-                "balance": 3250,
+                "id": "DEP-1",
+                "account": "Gross Plant Property Equipment",
+                "debit": 50000,
+                "balance": 50000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 650,
-                "balance": 3900,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 3900,
+                "id": "DEP-2",
+                "account": "Cash Capex Outflow Account",
+                "credit": 50000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3900).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Commercial delivery van records accumulated depreciation against book value.",
+            "title": "Straight Line Amortization Run",
             "isBalanced": true,
-            "totalDebit": 3900,
-            "totalCredit": 3900,
+            "totalDebit": 7000,
+            "totalCredit": 7000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3250,
-                "balance": 3250,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 650,
-                "balance": 3900,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 3900,
-                "balance": 0,
+                "id": "DEP-3",
+                "account": "Annual Depreciation Expense",
+                "debit": 7000,
+                "balance": 7000,
                 "tone": "data"
+              },
+              {
+                "id": "DEP-4",
+                "account": "Accumulated Depreciation Contra Asset",
+                "credit": 7000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3900 = CR 3900).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Double declining balance computes annual depreciation for machine asset.",
+            "title": "Accelerated Depreciation Posting",
             "isBalanced": true,
-            "totalDebit": 3900,
-            "totalCredit": 3900,
+            "totalDebit": 40000,
+            "totalCredit": 40000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 3250,
-                "balance": 3250,
+                "id": "DEP-5",
+                "account": "Accelerated Depreciation Expense",
+                "debit": 40000,
+                "balance": 40000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 650,
-                "balance": 3900,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 3900,
+                "id": "DEP-6",
+                "account": "Accumulated Depreciation Reserve",
+                "credit": 40000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -1026,124 +868,101 @@
       "codeHash": "10ed4e1e2f14ef98791d0a26a6ee42943edc7fe1033ee7f8957b38ca8359d4bc",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Accounts Receivable Aging & Expected Credit L... — General Ledger Verification",
+        "title": "Accounts Receivable Aging and Credit Allowance",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Accounts Receivable Aging & Exp...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Commercial credit sales establish accounts receivable subject to default.",
+            "title": "Receivables Recognition",
             "isBalanced": true,
-            "totalDebit": 3450,
-            "totalCredit": 3450,
+            "totalDebit": 850000,
+            "totalCredit": 850000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3450,
-                "balance": 3450,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "AR-01",
+                "account": "Gross Accounts Receivable Asset",
+                "debit": 850000,
+                "balance": 850000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 3450,
+                "id": "AR-02",
+                "account": "B2B Sales Revenue Earned",
+                "credit": 850000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Enterprise delivers professional services creating accounts receivable.",
+            "title": "B2B Service Invoicing",
             "isBalanced": true,
-            "totalDebit": 4140,
-            "totalCredit": 4140,
+            "totalDebit": 850000,
+            "totalCredit": 850000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3450,
-                "balance": 3450,
+                "id": "AR-01",
+                "account": "Gross Accounts Receivable Asset",
+                "debit": 850000,
+                "balance": 850000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 690,
-                "balance": 4140,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 4140,
+                "id": "AR-02",
+                "account": "B2B Sales Revenue Earned",
+                "credit": 850000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Commercial retail clients receive credit while allowance reserve is set.",
+            "title": "Allowance Provision Posting",
             "isBalanced": true,
-            "totalDebit": 4140,
-            "totalCredit": 4140,
+            "totalDebit": 55000,
+            "totalCredit": 55000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3450,
-                "balance": 3450,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 690,
-                "balance": 4140,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 4140,
-                "balance": 0,
+                "id": "AR-03",
+                "account": "Bad Debt Operating Expense",
+                "debit": 55000,
+                "balance": 55000,
                 "tone": "data"
+              },
+              {
+                "id": "AR-04",
+                "account": "Allowance For Doubtful Accounts",
+                "credit": 55000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Bad debt allowance covers delinquent portfolio receivables default.",
+            "title": "Portfolio Allowance Reconciliation",
             "isBalanced": true,
-            "totalDebit": 4140,
-            "totalCredit": 4140,
+            "totalDebit": 55000,
+            "totalCredit": 55000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 3450,
-                "balance": 3450,
+                "id": "AR-05",
+                "account": "Bad Debt Operating Expense",
+                "debit": 55000,
+                "balance": 55000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 690,
-                "balance": 4140,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 4140,
+                "id": "AR-06",
+                "account": "Allowance For Doubtful Accounts",
+                "credit": 55000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -1151,124 +970,101 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Accounts Receivable Aging & Expected Credit L... — General Ledger Verification",
+        "title": "Accounts Receivable Aging and Credit Allowance",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3450) for Accounts Receivable Aging & Exp...",
-            "title": "Day 1 Journal — Initial Posting",
+            "caption": "Commercial credit sales establish accounts receivable subject to default.",
+            "title": "Receivables Recognition",
             "isBalanced": true,
-            "totalDebit": 3450,
-            "totalCredit": 3450,
+            "totalDebit": 850000,
+            "totalCredit": 850000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3450,
-                "balance": 3450,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "AR-01",
+                "account": "Gross Accounts Receivable Asset",
+                "debit": 850000,
+                "balance": 850000,
+                "tone": "data"
               },
               {
-                "id": "JNL-102",
-                "account": "Clearing & Settlement Control",
-                "credit": 3450,
+                "id": "AR-02",
+                "account": "B2B Sales Revenue Earned",
+                "credit": 850000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (690).",
-            "title": "Day 1 Journal — Accrual Adjustment",
+            "caption": "Enterprise delivers professional services creating accounts receivable.",
+            "title": "B2B Service Invoicing",
             "isBalanced": true,
-            "totalDebit": 4140,
-            "totalCredit": 4140,
+            "totalDebit": 850000,
+            "totalCredit": 850000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Primary Operating Asset",
-                "debit": 3450,
-                "balance": 3450,
+                "id": "AR-01",
+                "account": "Gross Accounts Receivable Asset",
+                "debit": 850000,
+                "balance": 850000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 690,
-                "balance": 4140,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Clearing & Settlement Control",
-                "credit": 4140,
+                "id": "AR-02",
+                "account": "B2B Sales Revenue Earned",
+                "credit": 850000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4140).",
-            "title": "Day 1 Journal — Reconciliation Check",
+            "caption": "Commercial retail clients receive credit while allowance reserve is set.",
+            "title": "Allowance Provision Posting",
             "isBalanced": true,
-            "totalDebit": 4140,
-            "totalCredit": 4140,
+            "totalDebit": 55000,
+            "totalCredit": 55000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3450,
-                "balance": 3450,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-102",
-                "account": "Verified Compliance Reserve",
-                "debit": 690,
-                "balance": 4140,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "General Ledger Control Account",
-                "credit": 4140,
-                "balance": 0,
+                "id": "AR-03",
+                "account": "Bad Debt Operating Expense",
+                "debit": 55000,
+                "balance": 55000,
                 "tone": "data"
+              },
+              {
+                "id": "AR-04",
+                "account": "Allowance For Doubtful Accounts",
+                "credit": 55000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4140 = CR 4140).",
-            "title": "Day 1 Journal — Audited Trial Balance",
+            "caption": "Bad debt allowance covers delinquent portfolio receivables default.",
+            "title": "Portfolio Allowance Reconciliation",
             "isBalanced": true,
-            "totalDebit": 4140,
-            "totalCredit": 4140,
+            "totalDebit": 55000,
+            "totalCredit": 55000,
             "entries": [
               {
-                "id": "JNL-101",
-                "account": "Audited Operating Asset",
-                "debit": 3450,
-                "balance": 3450,
+                "id": "AR-05",
+                "account": "Bad Debt Operating Expense",
+                "debit": 55000,
+                "balance": 55000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-102",
-                "account": "Audited Compliance Reserve",
-                "debit": 690,
-                "balance": 4140,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-103",
-                "account": "Audited Treasury Settlement",
-                "credit": 4140,
+                "id": "AR-06",
+                "account": "Allowance For Doubtful Accounts",
+                "credit": 55000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
