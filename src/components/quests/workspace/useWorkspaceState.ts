@@ -355,7 +355,12 @@ export function useWorkspaceState({
   useEffect(() => {
     if (!quest) return;
     const savedCode = cOS.onboardingAnswers?.questCodes?.[questId] || (typeof window !== 'undefined' ? localStorage.getItem(`pinit_code_${userId}_${questId}`) : null);
-    if (savedCode) {
+    
+    // Auto-migrate stale legacy function boilerplate from earlier course iterations on Day 1
+    const isLegacyDay1ExamStarter = questId === 'python-exam-day-1' && savedCode && /^\s*def\s+page_title\s*\(\s*\)\s*:\s*(?:pass|\.\.\.)?\s*$/m.test(savedCode.trim());
+    const isLegacyDay1AssignStarter = questId === 'python-assign-day-1' && savedCode && /^\s*def\s+say_hello\s*\([^)]*\)\s*:\s*(?:pass|\.\.\.)?\s*$/m.test(savedCode.trim());
+
+    if (savedCode && !isLegacyDay1ExamStarter && !isLegacyDay1AssignStarter) {
       setCode(savedCode);
     } else if (quest.starterCode) {
       setCode(quest.starterCode);

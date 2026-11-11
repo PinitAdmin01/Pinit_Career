@@ -14,6 +14,7 @@ interface WorkspaceCodeEditorProps {
   userId: string;
   saveQuestCode?: (questId: string, code: string) => void;
   langInfo: { file: string; label: string; native: boolean };
+  onResetCode?: () => void;
 }
 
 export function WorkspaceCodeEditor({
@@ -30,6 +31,7 @@ export function WorkspaceCodeEditor({
   userId,
   saveQuestCode,
   langInfo,
+  onResetCode,
 }: WorkspaceCodeEditorProps) {
   const lineCount = (code || '').split('\n').length || 1;
   const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
@@ -128,8 +130,38 @@ export function WorkspaceCodeEditor({
         </div>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', background: 'var(--bg3)', border: '1.5px solid var(--border)', borderBottom: 'none', padding: '8px 14px', borderRadius: '12px 12px 0 0' }}>
-        <span data-testid="workspace-file-badge" style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{langInfo.file} ({isExam ? 'Proctored Environment' : langInfo.label})</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', border: '1.5px solid var(--border)', borderBottom: 'none', padding: '8px 14px', borderRadius: '12px 12px 0 0' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span data-testid="workspace-file-badge" style={{ fontSize: 12, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{langInfo.file} ({isExam ? 'Proctored Environment' : langInfo.label})</span>
+          {onResetCode && !editorLocked && (
+            <button
+              data-testid="workspace-reset-code-btn"
+              onClick={onResetCode}
+              title="Reset code to default starter code"
+              style={{
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                color: 'var(--t3)',
+                borderRadius: 6,
+                padding: '2px 8px',
+                fontSize: 11,
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--coral)';
+                e.currentTarget.style.borderColor = 'var(--coral)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--t3)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+              }}
+            >
+              ↺ Reset
+            </button>
+          )}
+        </div>
         <span data-testid="workspace-env-badge" style={{ fontSize: 12, color: editorLocked ? (examTimedOut && !isCompleted ? 'var(--coral)' : 'var(--green)') : (isExam ? 'var(--coral)' : 'var(--accent)'), fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
           {isCompleted ? 'COMPLETED (READ-ONLY)' : (examTimedOut && isExam ? 'TIME EXPIRED (LOCKED)' : (isExam ? 'EXAM ENVIRONMENT' : langInfo.label.toUpperCase()))}
         </span>

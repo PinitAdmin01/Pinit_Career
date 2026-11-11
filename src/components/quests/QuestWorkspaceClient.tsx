@@ -346,6 +346,19 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                 userId={userId}
                 saveQuestCode={saveQuestCode}
                 langInfo={langInfo}
+                onResetCode={() => {
+                  if (quest?.starterCode) {
+                    state.setCode(quest.starterCode);
+                    if (typeof window !== 'undefined') {
+                      try {
+                        localStorage.removeItem(`pinit_code_${userId}_${questId}`);
+                      } catch {}
+                    }
+                    if (typeof saveQuestCode === 'function') {
+                      saveQuestCode(questId, quest.starterCode);
+                    }
+                  }
+                }}
               />
             )}
 

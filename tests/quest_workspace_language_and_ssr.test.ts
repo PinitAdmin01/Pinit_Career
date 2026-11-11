@@ -52,10 +52,12 @@ test('WorkspaceCodeEditor renders grace timer banner, file/env badges, and code 
       onSubmit: () => {},
       userId: 'user-1',
       langInfo: { file: 'solution.py', label: 'Python runtime (Pyodide WASM)', native: true },
+      onResetCode: () => {},
     })
   );
 
   assert.ok(html.includes('data-testid="workspace-code-editor"'));
+  assert.ok(html.includes('data-testid="workspace-reset-code-btn"'));
   assert.ok(html.includes('data-testid="workspace-grace-banner"'));
   assert.ok(html.includes('data-testid="btn-extend-grace"'));
   assert.ok(html.includes('data-testid="workspace-file-badge"'));
