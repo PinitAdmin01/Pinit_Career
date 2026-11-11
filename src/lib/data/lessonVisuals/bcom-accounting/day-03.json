@@ -10,91 +10,84 @@
       "codeHash": "f85978eea5c1276eb0f676e0f27cd0a3c4d531db2b37b87a9524668e9e422edb",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Activity-Based Costing (ABC) vs Traditional V... — General Ledger Verification",
+        "title": "Activity Based Costing Allocation Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Activity-Based Costing (ABC) vs...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Manufacturing production overhead requires activity based cost allocation.",
+            "title": "Overhead Pool Inception",
             "isBalanced": true,
-            "totalDebit": 2950,
-            "totalCredit": 2950,
+            "totalDebit": 400000,
+            "totalCredit": 400000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 2950,
-                "balance": 2950,
+                "id": "ABC-01",
+                "account": "Manufacturing Overhead Clearing Account",
+                "debit": 400000,
+                "balance": 400000,
                 "tone": "data",
-                "memo": "Initial recognition"
+                "memo": "Total plant overhead"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 2950,
+                "id": "ABC-02",
+                "account": "Factory Accounts Payable Control",
+                "credit": 400000,
                 "balance": 0,
                 "tone": "ok",
-                "memo": "Offset control"
+                "memo": "Indirect operating expenses"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Traditional volume allocation creates systematic cost distortions.",
+            "title": "Volume Allocation Comparison",
             "isBalanced": true,
-            "totalDebit": 3540,
-            "totalCredit": 3540,
+            "totalDebit": 400000,
+            "totalCredit": 400000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 2950,
-                "balance": 2950,
+                "id": "ABC-01",
+                "account": "Manufacturing Overhead Clearing Account",
+                "debit": 400000,
+                "balance": 400000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 590,
-                "balance": 3540,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 3540,
+                "id": "ABC-02",
+                "account": "Factory Accounts Payable Control",
+                "credit": 400000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Factory setup and inspection pools allocate overhead across products.",
+            "title": "Activity Pool Distribution",
             "isBalanced": true,
-            "totalDebit": 3540,
-            "totalCredit": 3540,
+            "totalDebit": 400000,
+            "totalCredit": 400000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 2950,
-                "balance": 2950,
+                "id": "ABC-03",
+                "account": "Standard Widget Overhead Absorbed",
+                "debit": 88000,
+                "balance": 88000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 590,
-                "balance": 3540,
+                "id": "ABC-04",
+                "account": "Custom Component Overhead Absorbed",
+                "debit": 312000,
+                "balance": 400000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 3540,
+                "id": "ABC-05",
+                "account": "Manufacturing Overhead Clearing Account",
+                "credit": 400000,
                 "balance": 0,
                 "tone": "data"
               }
@@ -102,30 +95,23 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Setup cost pool expansion increases low volume custom component cost.",
+            "title": "Setup Pool Expansion Run",
             "isBalanced": true,
-            "totalDebit": 3540,
-            "totalCredit": 3540,
+            "totalDebit": 350000,
+            "totalCredit": 350000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 2950,
-                "balance": 2950,
-                "tone": "ok"
+                "id": "ABC-06",
+                "account": "Custom Component Setup Absorption",
+                "debit": 350000,
+                "balance": 350000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 590,
-                "balance": 3540,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 3540,
+                "id": "ABC-07",
+                "account": "Machine Setup Resource Clearing",
+                "credit": 350000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -135,91 +121,84 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Activity-Based Costing (ABC) vs Traditional V... — General Ledger Verification",
+        "title": "Activity Based Costing Allocation Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (2950) for Activity-Based Costing (ABC) vs...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Manufacturing production overhead requires activity based cost allocation.",
+            "title": "Overhead Pool Inception",
             "isBalanced": true,
-            "totalDebit": 2950,
-            "totalCredit": 2950,
+            "totalDebit": 400000,
+            "totalCredit": 400000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 2950,
-                "balance": 2950,
+                "id": "ABC-01",
+                "account": "Manufacturing Overhead Clearing Account",
+                "debit": 400000,
+                "balance": 400000,
                 "tone": "data",
-                "memo": "Initial recognition"
+                "memo": "Total plant overhead"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 2950,
+                "id": "ABC-02",
+                "account": "Factory Accounts Payable Control",
+                "credit": 400000,
                 "balance": 0,
                 "tone": "ok",
-                "memo": "Offset control"
+                "memo": "Indirect operating expenses"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (590).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Traditional volume allocation creates systematic cost distortions.",
+            "title": "Volume Allocation Comparison",
             "isBalanced": true,
-            "totalDebit": 3540,
-            "totalCredit": 3540,
+            "totalDebit": 400000,
+            "totalCredit": 400000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 2950,
-                "balance": 2950,
+                "id": "ABC-01",
+                "account": "Manufacturing Overhead Clearing Account",
+                "debit": 400000,
+                "balance": 400000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 590,
-                "balance": 3540,
-                "tone": "data"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 3540,
+                "id": "ABC-02",
+                "account": "Factory Accounts Payable Control",
+                "credit": 400000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3540).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Factory setup and inspection pools allocate overhead across products.",
+            "title": "Activity Pool Distribution",
             "isBalanced": true,
-            "totalDebit": 3540,
-            "totalCredit": 3540,
+            "totalDebit": 400000,
+            "totalCredit": 400000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 2950,
-                "balance": 2950,
+                "id": "ABC-03",
+                "account": "Standard Widget Overhead Absorbed",
+                "debit": 88000,
+                "balance": 88000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 590,
-                "balance": 3540,
+                "id": "ABC-04",
+                "account": "Custom Component Overhead Absorbed",
+                "debit": 312000,
+                "balance": 400000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 3540,
+                "id": "ABC-05",
+                "account": "Manufacturing Overhead Clearing Account",
+                "credit": 400000,
                 "balance": 0,
                 "tone": "data"
               }
@@ -227,30 +206,23 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3540 = CR 3540).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Setup cost pool expansion increases low volume custom component cost.",
+            "title": "Setup Pool Expansion Run",
             "isBalanced": true,
-            "totalDebit": 3540,
-            "totalCredit": 3540,
+            "totalDebit": 350000,
+            "totalCredit": 350000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 2950,
-                "balance": 2950,
-                "tone": "ok"
+                "id": "ABC-06",
+                "account": "Custom Component Setup Absorption",
+                "debit": 350000,
+                "balance": 350000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 590,
-                "balance": 3540,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 3540,
+                "id": "ABC-07",
+                "account": "Machine Setup Resource Clearing",
+                "credit": 350000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -264,60 +236,65 @@
       "codeHash": "56b1cacde72378b755d636b1b27f8e997eed946bce78b2a0db2955bb9d877c64",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Standard Costing: Direct Materials Price & Qu... — General Ledger Verification",
+        "title": "Direct Materials Price and Quantity Variances",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Standard Costing: Direct Materi...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Standard costing benchmarks direct material prices against actuals.",
+            "title": "Materials Procurement Recording",
             "isBalanced": true,
-            "totalDebit": 3150,
-            "totalCredit": 3150,
+            "totalDebit": 250000,
+            "totalCredit": 250000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3150,
-                "balance": 3150,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "MAT-01",
+                "account": "Raw Material Inventory At Standard",
+                "debit": 250000,
+                "balance": 250000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3150,
+                "id": "MAT-02",
+                "account": "Accounts Payable Vendor Invoices",
+                "credit": 240000,
+                "balance": 10000,
+                "tone": "ok"
+              },
+              {
+                "id": "MAT-03",
+                "account": "Direct Materials Price Variance Favorable",
+                "credit": 10000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Enterprise standards establish baseline prices across raw materials.",
+            "title": "Standard Cost Baseline Entry",
             "isBalanced": true,
-            "totalDebit": 3780,
-            "totalCredit": 3780,
+            "totalDebit": 250000,
+            "totalCredit": 250000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3150,
-                "balance": 3150,
+                "id": "MAT-01",
+                "account": "Raw Material Inventory At Standard",
+                "debit": 250000,
+                "balance": 250000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 630,
-                "balance": 3780,
+                "id": "MAT-02",
+                "account": "Accounts Payable Vendor Invoices",
+                "credit": 240000,
+                "balance": 10000,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 3780,
+                "id": "MAT-03",
+                "account": "Direct Materials Price Variance Favorable",
+                "credit": 10000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -325,61 +302,61 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Manufacturing plant standard resin consumption reveals quantity variance.",
+            "title": "Materials Usage Posting",
             "isBalanced": true,
-            "totalDebit": 3780,
-            "totalCredit": 3780,
+            "totalDebit": 240000,
+            "totalCredit": 240000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3150,
-                "balance": 3150,
+                "id": "MAT-04",
+                "account": "Work In Process Inventory Standard",
+                "debit": 225000,
+                "balance": 225000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 630,
-                "balance": 3780,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 3780,
-                "balance": 0,
+                "id": "MAT-05",
+                "account": "Direct Materials Quantity Variance Unfavorable",
+                "debit": 15000,
+                "balance": 240000,
                 "tone": "data"
+              },
+              {
+                "id": "MAT-06",
+                "account": "Raw Material Inventory At Standard",
+                "credit": 240000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Actual raw material price shifts create unfavorable price variance.",
+            "title": "Procurement Price Revision",
             "isBalanced": true,
-            "totalDebit": 3780,
-            "totalCredit": 3780,
+            "totalDebit": 260000,
+            "totalCredit": 260000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3150,
-                "balance": 3150,
+                "id": "MAT-07",
+                "account": "Raw Material Inventory At Standard",
+                "debit": 250000,
+                "balance": 250000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 630,
-                "balance": 3780,
-                "tone": "ok"
+                "id": "MAT-08",
+                "account": "Direct Materials Price Variance Unfavorable",
+                "debit": 10000,
+                "balance": 260000,
+                "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 3780,
+                "id": "MAT-09",
+                "account": "Accounts Payable Vendor Invoice Cleared",
+                "credit": 260000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -389,60 +366,65 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Standard Costing: Direct Materials Price & Qu... — General Ledger Verification",
+        "title": "Direct Materials Price and Quantity Variances",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3150) for Standard Costing: Direct Materi...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Standard costing benchmarks direct material prices against actuals.",
+            "title": "Materials Procurement Recording",
             "isBalanced": true,
-            "totalDebit": 3150,
-            "totalCredit": 3150,
+            "totalDebit": 250000,
+            "totalCredit": 250000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3150,
-                "balance": 3150,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "MAT-01",
+                "account": "Raw Material Inventory At Standard",
+                "debit": 250000,
+                "balance": 250000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3150,
+                "id": "MAT-02",
+                "account": "Accounts Payable Vendor Invoices",
+                "credit": 240000,
+                "balance": 10000,
+                "tone": "ok"
+              },
+              {
+                "id": "MAT-03",
+                "account": "Direct Materials Price Variance Favorable",
+                "credit": 10000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (630).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Enterprise standards establish baseline prices across raw materials.",
+            "title": "Standard Cost Baseline Entry",
             "isBalanced": true,
-            "totalDebit": 3780,
-            "totalCredit": 3780,
+            "totalDebit": 250000,
+            "totalCredit": 250000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3150,
-                "balance": 3150,
+                "id": "MAT-01",
+                "account": "Raw Material Inventory At Standard",
+                "debit": 250000,
+                "balance": 250000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 630,
-                "balance": 3780,
+                "id": "MAT-02",
+                "account": "Accounts Payable Vendor Invoices",
+                "credit": 240000,
+                "balance": 10000,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 3780,
+                "id": "MAT-03",
+                "account": "Direct Materials Price Variance Favorable",
+                "credit": 10000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -450,61 +432,61 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3780).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Manufacturing plant standard resin consumption reveals quantity variance.",
+            "title": "Materials Usage Posting",
             "isBalanced": true,
-            "totalDebit": 3780,
-            "totalCredit": 3780,
+            "totalDebit": 240000,
+            "totalCredit": 240000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3150,
-                "balance": 3150,
+                "id": "MAT-04",
+                "account": "Work In Process Inventory Standard",
+                "debit": 225000,
+                "balance": 225000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 630,
-                "balance": 3780,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 3780,
-                "balance": 0,
+                "id": "MAT-05",
+                "account": "Direct Materials Quantity Variance Unfavorable",
+                "debit": 15000,
+                "balance": 240000,
                 "tone": "data"
+              },
+              {
+                "id": "MAT-06",
+                "account": "Raw Material Inventory At Standard",
+                "credit": 240000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3780 = CR 3780).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Actual raw material price shifts create unfavorable price variance.",
+            "title": "Procurement Price Revision",
             "isBalanced": true,
-            "totalDebit": 3780,
-            "totalCredit": 3780,
+            "totalDebit": 260000,
+            "totalCredit": 260000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3150,
-                "balance": 3150,
+                "id": "MAT-07",
+                "account": "Raw Material Inventory At Standard",
+                "debit": 250000,
+                "balance": 250000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 630,
-                "balance": 3780,
-                "tone": "ok"
+                "id": "MAT-08",
+                "account": "Direct Materials Price Variance Unfavorable",
+                "debit": 10000,
+                "balance": 260000,
+                "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 3780,
+                "id": "MAT-09",
+                "account": "Accounts Payable Vendor Invoice Cleared",
+                "credit": 260000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -518,60 +500,79 @@
       "codeHash": "6282dae92972c98c494b08cb0dc98db268d5946a4d358822d9fdf64bb57c891c",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Direct Labor Rate & Efficiency Variances — General Ledger Verification",
+        "title": "Direct Labor Rate and Efficiency Variances",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Direct Labor Rate & Efficiency ...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Manufacturing direct labor operations track time sensitive resources.",
+            "title": "Labor Payroll Accrual",
             "isBalanced": true,
-            "totalDebit": 3350,
-            "totalCredit": 3350,
+            "totalDebit": 262200,
+            "totalCredit": 262200,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3350,
-                "balance": 3350,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "LAB-01",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3350,
+                "id": "LAB-02",
+                "account": "Direct Labor Efficiency Variance Favorable",
+                "credit": 13200,
+                "balance": 250800,
+                "tone": "ok"
+              },
+              {
+                "id": "LAB-03",
+                "account": "Direct Labor Rate Variance Unfavorable",
+                "debit": 11400,
+                "balance": 262200,
+                "tone": "data"
+              },
+              {
+                "id": "LAB-04",
+                "account": "Wages Payable Payroll Account",
+                "credit": 262200,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Standard labor hours reflect industrial engineering manufacturing targets.",
+            "title": "Standard Labor Target Benchmark",
             "isBalanced": true,
-            "totalDebit": 4020,
-            "totalCredit": 4020,
+            "totalDebit": 262200,
+            "totalCredit": 262200,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3350,
-                "balance": 3350,
+                "id": "LAB-01",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 670,
-                "balance": 4020,
+                "id": "LAB-02",
+                "account": "Direct Labor Efficiency Variance Favorable",
+                "credit": 13200,
+                "balance": 250800,
+                "tone": "ok"
+              },
+              {
+                "id": "LAB-03",
+                "account": "Direct Labor Rate Variance Unfavorable",
+                "debit": 11400,
+                "balance": 262200,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 4020,
+                "id": "LAB-04",
+                "account": "Wages Payable Payroll Account",
+                "credit": 262200,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -579,61 +580,68 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Technician assembly line labor consumes hours generating rate variance.",
+            "title": "Assembly Line Reconciliation",
             "isBalanced": true,
-            "totalDebit": 4020,
-            "totalCredit": 4020,
+            "totalDebit": 262200,
+            "totalCredit": 262200,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3350,
-                "balance": 3350,
+                "id": "LAB-05",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 670,
-                "balance": 4020,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 4020,
-                "balance": 0,
+                "id": "LAB-06",
+                "account": "Labor Rate Variance Unfavorable",
+                "debit": 11400,
+                "balance": 275400,
                 "tone": "data"
+              },
+              {
+                "id": "LAB-07",
+                "account": "Labor Efficiency Variance Favorable",
+                "credit": 13200,
+                "balance": 262200,
+                "tone": "ok"
+              },
+              {
+                "id": "LAB-08",
+                "account": "Wages Payable Clearing Account",
+                "credit": 262200,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Workforce production delays expand actual hours shifting labor efficiency.",
+            "title": "Overtime Delay Impact",
             "isBalanced": true,
-            "totalDebit": 4020,
-            "totalCredit": 4020,
+            "totalDebit": 286000,
+            "totalCredit": 286000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3350,
-                "balance": 3350,
+                "id": "LAB-09",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 670,
-                "balance": 4020,
-                "tone": "ok"
+                "id": "LAB-10",
+                "account": "Labor Efficiency Variance Unfavorable",
+                "debit": 22000,
+                "balance": 286000,
+                "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 4020,
+                "id": "LAB-11",
+                "account": "Wages Payable Payroll Account",
+                "credit": 286000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -643,60 +651,79 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Direct Labor Rate & Efficiency Variances — General Ledger Verification",
+        "title": "Direct Labor Rate and Efficiency Variances",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3350) for Direct Labor Rate & Efficiency ...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Manufacturing direct labor operations track time sensitive resources.",
+            "title": "Labor Payroll Accrual",
             "isBalanced": true,
-            "totalDebit": 3350,
-            "totalCredit": 3350,
+            "totalDebit": 262200,
+            "totalCredit": 262200,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3350,
-                "balance": 3350,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "LAB-01",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3350,
+                "id": "LAB-02",
+                "account": "Direct Labor Efficiency Variance Favorable",
+                "credit": 13200,
+                "balance": 250800,
+                "tone": "ok"
+              },
+              {
+                "id": "LAB-03",
+                "account": "Direct Labor Rate Variance Unfavorable",
+                "debit": 11400,
+                "balance": 262200,
+                "tone": "data"
+              },
+              {
+                "id": "LAB-04",
+                "account": "Wages Payable Payroll Account",
+                "credit": 262200,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (670).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Standard labor hours reflect industrial engineering manufacturing targets.",
+            "title": "Standard Labor Target Benchmark",
             "isBalanced": true,
-            "totalDebit": 4020,
-            "totalCredit": 4020,
+            "totalDebit": 262200,
+            "totalCredit": 262200,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3350,
-                "balance": 3350,
+                "id": "LAB-01",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 670,
-                "balance": 4020,
+                "id": "LAB-02",
+                "account": "Direct Labor Efficiency Variance Favorable",
+                "credit": 13200,
+                "balance": 250800,
+                "tone": "ok"
+              },
+              {
+                "id": "LAB-03",
+                "account": "Direct Labor Rate Variance Unfavorable",
+                "debit": 11400,
+                "balance": 262200,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 4020,
+                "id": "LAB-04",
+                "account": "Wages Payable Payroll Account",
+                "credit": 262200,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -704,61 +731,68 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4020).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Technician assembly line labor consumes hours generating rate variance.",
+            "title": "Assembly Line Reconciliation",
             "isBalanced": true,
-            "totalDebit": 4020,
-            "totalCredit": 4020,
+            "totalDebit": 262200,
+            "totalCredit": 262200,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3350,
-                "balance": 3350,
+                "id": "LAB-05",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 670,
-                "balance": 4020,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 4020,
-                "balance": 0,
+                "id": "LAB-06",
+                "account": "Labor Rate Variance Unfavorable",
+                "debit": 11400,
+                "balance": 275400,
                 "tone": "data"
+              },
+              {
+                "id": "LAB-07",
+                "account": "Labor Efficiency Variance Favorable",
+                "credit": 13200,
+                "balance": 262200,
+                "tone": "ok"
+              },
+              {
+                "id": "LAB-08",
+                "account": "Wages Payable Clearing Account",
+                "credit": 262200,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4020 = CR 4020).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Workforce production delays expand actual hours shifting labor efficiency.",
+            "title": "Overtime Delay Impact",
             "isBalanced": true,
-            "totalDebit": 4020,
-            "totalCredit": 4020,
+            "totalDebit": 286000,
+            "totalCredit": 286000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3350,
-                "balance": 3350,
+                "id": "LAB-09",
+                "account": "Work In Process Inventory Labor",
+                "debit": 264000,
+                "balance": 264000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 670,
-                "balance": 4020,
-                "tone": "ok"
+                "id": "LAB-10",
+                "account": "Labor Efficiency Variance Unfavorable",
+                "debit": 22000,
+                "balance": 286000,
+                "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 4020,
+                "id": "LAB-11",
+                "account": "Wages Payable Payroll Account",
+                "credit": 286000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -772,60 +806,65 @@
       "codeHash": "4540801dfd576c1a08e37df50a363d239bf711a3986f14e68f24455204c2a0bc",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Manufacturing Overhead Variances (Spending, E... — General Ledger Verification",
+        "title": "Manufacturing Overhead Multi-Variance Reconciliation",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Manufacturing Overhead Variance...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Manufacturing overhead indirect production costs split variable and fixed.",
+            "title": "Overhead Incurred Recording",
             "isBalanced": true,
-            "totalDebit": 3550,
-            "totalCredit": 3550,
+            "totalDebit": 257000,
+            "totalCredit": 257000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3550,
-                "balance": 3550,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "OH-01",
+                "account": "Variable Overhead Control Incurred",
+                "debit": 105000,
+                "balance": 105000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3550,
+                "id": "OH-02",
+                "account": "Fixed Overhead Control Incurred",
+                "debit": 152000,
+                "balance": 257000,
+                "tone": "data"
+              },
+              {
+                "id": "OH-03",
+                "account": "Accounts Payable Overhead Accounts",
+                "credit": 257000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Factory utilities and supervisor salaries form complex overhead pools.",
+            "title": "Indirect Cost Breakdown",
             "isBalanced": true,
-            "totalDebit": 4260,
-            "totalCredit": 4260,
+            "totalDebit": 257000,
+            "totalCredit": 257000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3550,
-                "balance": 3550,
+                "id": "OH-01",
+                "account": "Variable Overhead Control Incurred",
+                "debit": 105000,
+                "balance": 105000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 710,
-                "balance": 4260,
+                "id": "OH-02",
+                "account": "Fixed Overhead Control Incurred",
+                "debit": 152000,
+                "balance": 257000,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 4260,
+                "id": "OH-03",
+                "account": "Accounts Payable Overhead Accounts",
+                "credit": 257000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -833,61 +872,68 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Manufacturing facility overhead absorption records spending variances.",
+            "title": "Overhead Variance Allocation",
             "isBalanced": true,
-            "totalDebit": 4260,
-            "totalCredit": 4260,
+            "totalDebit": 259500,
+            "totalCredit": 259500,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3550,
-                "balance": 3550,
+                "id": "OH-04",
+                "account": "Work In Process Overhead Applied",
+                "debit": 250000,
+                "balance": 250000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 710,
-                "balance": 4260,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 4260,
-                "balance": 0,
+                "id": "OH-05",
+                "account": "Variable Overhead Spending Variance Unfavorable",
+                "debit": 7500,
+                "balance": 257500,
                 "tone": "data"
+              },
+              {
+                "id": "OH-06",
+                "account": "Fixed Overhead Budget Variance Unfavorable",
+                "debit": 2000,
+                "balance": 259500,
+                "tone": "data"
+              },
+              {
+                "id": "OH-07",
+                "account": "Variable Overhead Efficiency Variance Favorable",
+                "credit": 2500,
+                "balance": 257000,
+                "tone": "ok"
+              },
+              {
+                "id": "OH-08",
+                "account": "Manufacturing Overhead Control Cleared",
+                "credit": 257000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Plant capacity under absorption triggers unfavorable volume variance.",
+            "title": "Capacity Under Absorption Run",
             "isBalanced": true,
-            "totalDebit": 4260,
-            "totalCredit": 4260,
+            "totalDebit": 75000,
+            "totalCredit": 75000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3550,
-                "balance": 3550,
-                "tone": "ok"
+                "id": "OH-09",
+                "account": "Fixed Overhead Volume Variance Unfavorable",
+                "debit": 75000,
+                "balance": 75000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 710,
-                "balance": 4260,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 4260,
+                "id": "OH-10",
+                "account": "Fixed Overhead Applied Adjustment",
+                "credit": 75000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -897,60 +943,65 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Manufacturing Overhead Variances (Spending, E... — General Ledger Verification",
+        "title": "Manufacturing Overhead Multi-Variance Reconciliation",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3550) for Manufacturing Overhead Variance...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Manufacturing overhead indirect production costs split variable and fixed.",
+            "title": "Overhead Incurred Recording",
             "isBalanced": true,
-            "totalDebit": 3550,
-            "totalCredit": 3550,
+            "totalDebit": 257000,
+            "totalCredit": 257000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3550,
-                "balance": 3550,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "OH-01",
+                "account": "Variable Overhead Control Incurred",
+                "debit": 105000,
+                "balance": 105000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3550,
+                "id": "OH-02",
+                "account": "Fixed Overhead Control Incurred",
+                "debit": 152000,
+                "balance": 257000,
+                "tone": "data"
+              },
+              {
+                "id": "OH-03",
+                "account": "Accounts Payable Overhead Accounts",
+                "credit": 257000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (710).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Factory utilities and supervisor salaries form complex overhead pools.",
+            "title": "Indirect Cost Breakdown",
             "isBalanced": true,
-            "totalDebit": 4260,
-            "totalCredit": 4260,
+            "totalDebit": 257000,
+            "totalCredit": 257000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3550,
-                "balance": 3550,
+                "id": "OH-01",
+                "account": "Variable Overhead Control Incurred",
+                "debit": 105000,
+                "balance": 105000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 710,
-                "balance": 4260,
+                "id": "OH-02",
+                "account": "Fixed Overhead Control Incurred",
+                "debit": 152000,
+                "balance": 257000,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 4260,
+                "id": "OH-03",
+                "account": "Accounts Payable Overhead Accounts",
+                "credit": 257000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -958,61 +1009,68 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4260).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Manufacturing facility overhead absorption records spending variances.",
+            "title": "Overhead Variance Allocation",
             "isBalanced": true,
-            "totalDebit": 4260,
-            "totalCredit": 4260,
+            "totalDebit": 259500,
+            "totalCredit": 259500,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3550,
-                "balance": 3550,
+                "id": "OH-04",
+                "account": "Work In Process Overhead Applied",
+                "debit": 250000,
+                "balance": 250000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 710,
-                "balance": 4260,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 4260,
-                "balance": 0,
+                "id": "OH-05",
+                "account": "Variable Overhead Spending Variance Unfavorable",
+                "debit": 7500,
+                "balance": 257500,
                 "tone": "data"
+              },
+              {
+                "id": "OH-06",
+                "account": "Fixed Overhead Budget Variance Unfavorable",
+                "debit": 2000,
+                "balance": 259500,
+                "tone": "data"
+              },
+              {
+                "id": "OH-07",
+                "account": "Variable Overhead Efficiency Variance Favorable",
+                "credit": 2500,
+                "balance": 257000,
+                "tone": "ok"
+              },
+              {
+                "id": "OH-08",
+                "account": "Manufacturing Overhead Control Cleared",
+                "credit": 257000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4260 = CR 4260).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Plant capacity under absorption triggers unfavorable volume variance.",
+            "title": "Capacity Under Absorption Run",
             "isBalanced": true,
-            "totalDebit": 4260,
-            "totalCredit": 4260,
+            "totalDebit": 75000,
+            "totalCredit": 75000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3550,
-                "balance": 3550,
-                "tone": "ok"
+                "id": "OH-09",
+                "account": "Fixed Overhead Volume Variance Unfavorable",
+                "debit": 75000,
+                "balance": 75000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 710,
-                "balance": 4260,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 4260,
+                "id": "OH-10",
+                "account": "Fixed Overhead Applied Adjustment",
+                "credit": 75000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -1026,60 +1084,79 @@
       "codeHash": "dfc297ef1facc1dcdec302032da32420783791f52d04dbdad7c83ffcd90df517",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Flexible Budgeting & Master Budget Variance W... — General Ledger Verification",
+        "title": "Master Budget to Flexible Budget Reconciliation",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Flexible Budgeting & Master Bud...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Corporate executive committees approve annual master budget targets.",
+            "title": "Master Budget Benchmark",
             "isBalanced": true,
-            "totalDebit": 3750,
-            "totalCredit": 3750,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3750,
-                "balance": 3750,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "FLX-01",
+                "account": "Target Sales Revenue Master Budget",
+                "debit": 500000,
+                "balance": 500000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3750,
+                "id": "FLX-02",
+                "account": "Budgeted Variable Operating Costs",
+                "credit": 200000,
+                "balance": 300000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-03",
+                "account": "Budgeted Fixed Operating Expenses",
+                "credit": 150000,
+                "balance": 150000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-04",
+                "account": "Target Master Operating Income",
+                "credit": 150000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Market demand fluctuations create variance against static budgets.",
+            "title": "Actual Activity Posting",
             "isBalanced": true,
-            "totalDebit": 4500,
-            "totalCredit": 4500,
+            "totalDebit": 528000,
+            "totalCredit": 528000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3750,
-                "balance": 3750,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 750,
-                "balance": 4500,
+                "id": "FLX-05",
+                "account": "Actual Realized Sales Revenues",
+                "debit": 528000,
+                "balance": 528000,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 4500,
+                "id": "FLX-06",
+                "account": "Actual Variable Production Costs",
+                "credit": 231000,
+                "balance": 297000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-07",
+                "account": "Actual Fixed Overhead Expenses",
+                "credit": 155000,
+                "balance": 142000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-08",
+                "account": "Actual Operating Income Realized",
+                "credit": 142000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -1087,63 +1164,56 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Flexible budget adjusts planned income for actual unit sales volume.",
+            "title": "Flexible Budget Volume Bridge",
             "isBalanced": true,
-            "totalDebit": 4500,
-            "totalCredit": 4500,
+            "totalDebit": 38000,
+            "totalCredit": 38000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3750,
-                "balance": 3750,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 750,
-                "balance": 4500,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 4500,
-                "balance": 0,
+                "id": "FLX-09",
+                "account": "Operational Flexible Budget Shortfall",
+                "debit": 38000,
+                "balance": 38000,
                 "tone": "data"
+              },
+              {
+                "id": "FLX-10",
+                "account": "Sales Volume Variance Boost Credit",
+                "credit": 30000,
+                "balance": 8000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-11",
+                "account": "Net Static Budget Variance Deficit",
+                "credit": 8000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Selling at premium prices turns flexible budget variance favorable.",
+            "title": "Price Premium Variance Bridge",
             "isBalanced": true,
-            "totalDebit": 4500,
-            "totalCredit": 4500,
+            "totalDebit": 44000,
+            "totalCredit": 44000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3750,
-                "balance": 3750,
+                "id": "FLX-12",
+                "account": "Premium Price Sales Revenue Inflow",
+                "debit": 44000,
+                "balance": 44000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 750,
-                "balance": 4500,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 4500,
+                "id": "FLX-13",
+                "account": "Flexible Budget Operating Income Boost",
+                "credit": 44000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -1151,60 +1221,79 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Flexible Budgeting & Master Budget Variance W... — General Ledger Verification",
+        "title": "Master Budget to Flexible Budget Reconciliation",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3750) for Flexible Budgeting & Master Bud...",
-            "title": "Day 3 Journal — Initial Posting",
+            "caption": "Corporate executive committees approve annual master budget targets.",
+            "title": "Master Budget Benchmark",
             "isBalanced": true,
-            "totalDebit": 3750,
-            "totalCredit": 3750,
+            "totalDebit": 500000,
+            "totalCredit": 500000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3750,
-                "balance": 3750,
-                "tone": "data",
-                "memo": "Initial recognition"
+                "id": "FLX-01",
+                "account": "Target Sales Revenue Master Budget",
+                "debit": 500000,
+                "balance": 500000,
+                "tone": "data"
               },
               {
-                "id": "JNL-302",
-                "account": "Clearing & Settlement Control",
-                "credit": 3750,
+                "id": "FLX-02",
+                "account": "Budgeted Variable Operating Costs",
+                "credit": 200000,
+                "balance": 300000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-03",
+                "account": "Budgeted Fixed Operating Expenses",
+                "credit": 150000,
+                "balance": 150000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-04",
+                "account": "Target Master Operating Income",
+                "credit": 150000,
                 "balance": 0,
-                "tone": "ok",
-                "memo": "Offset control"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (750).",
-            "title": "Day 3 Journal — Accrual Adjustment",
+            "caption": "Market demand fluctuations create variance against static budgets.",
+            "title": "Actual Activity Posting",
             "isBalanced": true,
-            "totalDebit": 4500,
-            "totalCredit": 4500,
+            "totalDebit": 528000,
+            "totalCredit": 528000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Primary Operating Asset",
-                "debit": 3750,
-                "balance": 3750,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-302",
-                "account": "Accrued Provision / Tax Control",
-                "debit": 750,
-                "balance": 4500,
+                "id": "FLX-05",
+                "account": "Actual Realized Sales Revenues",
+                "debit": 528000,
+                "balance": 528000,
                 "tone": "data"
               },
               {
-                "id": "JNL-303",
-                "account": "Clearing & Settlement Control",
-                "credit": 4500,
+                "id": "FLX-06",
+                "account": "Actual Variable Production Costs",
+                "credit": 231000,
+                "balance": 297000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-07",
+                "account": "Actual Fixed Overhead Expenses",
+                "credit": 155000,
+                "balance": 142000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-08",
+                "account": "Actual Operating Income Realized",
+                "credit": 142000,
                 "balance": 0,
                 "tone": "ok"
               }
@@ -1212,63 +1301,56 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4500).",
-            "title": "Day 3 Journal — Reconciliation Check",
+            "caption": "Flexible budget adjusts planned income for actual unit sales volume.",
+            "title": "Flexible Budget Volume Bridge",
             "isBalanced": true,
-            "totalDebit": 4500,
-            "totalCredit": 4500,
+            "totalDebit": 38000,
+            "totalCredit": 38000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Verified Asset Sub-Ledger",
-                "debit": 3750,
-                "balance": 3750,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-302",
-                "account": "Verified Compliance Reserve",
-                "debit": 750,
-                "balance": 4500,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "General Ledger Control Account",
-                "credit": 4500,
-                "balance": 0,
+                "id": "FLX-09",
+                "account": "Operational Flexible Budget Shortfall",
+                "debit": 38000,
+                "balance": 38000,
                 "tone": "data"
+              },
+              {
+                "id": "FLX-10",
+                "account": "Sales Volume Variance Boost Credit",
+                "credit": 30000,
+                "balance": 8000,
+                "tone": "ok"
+              },
+              {
+                "id": "FLX-11",
+                "account": "Net Static Budget Variance Deficit",
+                "credit": 8000,
+                "balance": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4500 = CR 4500).",
-            "title": "Day 3 Journal — Audited Trial Balance",
+            "caption": "Selling at premium prices turns flexible budget variance favorable.",
+            "title": "Price Premium Variance Bridge",
             "isBalanced": true,
-            "totalDebit": 4500,
-            "totalCredit": 4500,
+            "totalDebit": 44000,
+            "totalCredit": 44000,
             "entries": [
               {
-                "id": "JNL-301",
-                "account": "Audited Operating Asset",
-                "debit": 3750,
-                "balance": 3750,
+                "id": "FLX-12",
+                "account": "Premium Price Sales Revenue Inflow",
+                "debit": 44000,
+                "balance": 44000,
                 "tone": "ok"
               },
               {
-                "id": "JNL-302",
-                "account": "Audited Compliance Reserve",
-                "debit": 750,
-                "balance": 4500,
-                "tone": "ok"
-              },
-              {
-                "id": "JNL-303",
-                "account": "Audited Treasury Settlement",
-                "credit": 4500,
+                "id": "FLX-13",
+                "account": "Flexible Budget Operating Income Boost",
+                "credit": 44000,
                 "balance": 0,
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
