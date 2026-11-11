@@ -10,12 +10,12 @@
       "codeHash": "5218d399a76991b105556cdd31c47a3d4287abcea0b6c0449a4a65bfb2ac9778",
       "spec": {
         "template": "ledger-sheet",
-        "title": "ASC 820 Fair Value Hierarchy: Quoted, Observa... — General Ledger Verification",
+        "title": "ASC 820 Fair Value Hierarchy: Quoted, Observa... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for ASC multiple Fair Value.",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Review the fair value hierarchy valuation framework.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3100,
             "totalCredit": 3100,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Determine market exit price under orderly transaction.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 3720,
             "totalCredit": 3720,
@@ -71,8 +71,8 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Analyze corporate treasury bonds and observable yields.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 3720,
             "totalCredit": 3720,
@@ -102,8 +102,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Observe how discount rate shifts trigger impairment.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 3720,
             "totalCredit": 3720,
@@ -135,12 +135,12 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "ASC 820 Fair Value Hierarchy: Quoted, Observa... — General Ledger Verification",
+        "title": "ASC 820 Fair Value Hierarchy: Quoted, Observa... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3100) for ASC 820 Fair Value Hierarchy: Q...",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Review the fair value hierarchy valuation framework.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3100,
             "totalCredit": 3100,
@@ -165,8 +165,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (620).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Determine market exit price under orderly transaction.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 3720,
             "totalCredit": 3720,
@@ -196,8 +196,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3720).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Analyze corporate treasury bonds and observable yields.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 3720,
             "totalCredit": 3720,
@@ -227,8 +227,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3720 = CR 3720).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Observe how discount rate shifts trigger impairment.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 3720,
             "totalCredit": 3720,
@@ -264,12 +264,12 @@
       "codeHash": "bd4a35fc564816aee15cd75c120938bb660a873ec86b669608f08d5b508f1dcc",
       "spec": {
         "template": "ledger-sheet",
-        "title": "ASC 326 CECL Lifetime Expected Credit Loss Im... — General Ledger Verification",
+        "title": "ASC 326 CECL Lifetime Expected Credit Loss Im... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for ASC multiple CECL Lifetime.",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Model lifetime expected credit loss impairment reserves.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3300,
             "totalCredit": 3300,
@@ -294,8 +294,8 @@
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Replace legacy incurred loss with credit loss reserves.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 3960,
             "totalCredit": 3960,
@@ -325,8 +325,8 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Evaluate loan portfolio under macroeconomic multiplier.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 3960,
             "totalCredit": 3960,
@@ -356,8 +356,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Simulate consumer collection breakdowns under default.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 3960,
             "totalCredit": 3960,
@@ -389,12 +389,12 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "ASC 326 CECL Lifetime Expected Credit Loss Im... — General Ledger Verification",
+        "title": "ASC 326 CECL Lifetime Expected Credit Loss Im... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3300) for ASC 326 CECL Lifetime Expected ...",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Model lifetime expected credit loss impairment reserves.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3300,
             "totalCredit": 3300,
@@ -419,8 +419,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (660).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Replace legacy incurred loss with credit loss reserves.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 3960,
             "totalCredit": 3960,
@@ -450,8 +450,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3960).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Evaluate loan portfolio under macroeconomic multiplier.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 3960,
             "totalCredit": 3960,
@@ -481,8 +481,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3960 = CR 3960).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Simulate consumer collection breakdowns under default.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 3960,
             "totalCredit": 3960,
@@ -518,12 +518,12 @@
       "codeHash": "861b6889944a08b4e0c15e170a9235d60149de8600173f283083ff1b753ca2ca",
       "spec": {
         "template": "ledger-sheet",
-        "title": "ASC 470 Convertible Debt Bifurcation & Effect... — General Ledger Verification",
+        "title": "ASC 470 Convertible Debt Bifurcation & Effect... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for ASC multiple Convertible Debt.",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Bifurcate convertible debt and amortize debt discount.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3500,
             "totalCredit": 3500,
@@ -548,8 +548,8 @@
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Analyze hybrid securities and corporate borrowing costs.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4200,
             "totalCredit": 4200,
@@ -579,8 +579,8 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Calculate straight debt liability and equity component.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4200,
             "totalCredit": 4200,
@@ -610,8 +610,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Evaluate higher standalone borrowing yields and equity.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4200,
             "totalCredit": 4200,
@@ -643,12 +643,12 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "ASC 470 Convertible Debt Bifurcation & Effect... — General Ledger Verification",
+        "title": "ASC 470 Convertible Debt Bifurcation & Effect... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3500) for ASC 470 Convertible Debt Bifurc...",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Bifurcate convertible debt and amortize debt discount.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3500,
             "totalCredit": 3500,
@@ -673,8 +673,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (700).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Analyze hybrid securities and corporate borrowing costs.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4200,
             "totalCredit": 4200,
@@ -704,8 +704,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4200).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Calculate straight debt liability and equity component.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4200,
             "totalCredit": 4200,
@@ -735,8 +735,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4200 = CR 4200).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Evaluate higher standalone borrowing yields and equity.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4200,
             "totalCredit": 4200,
@@ -772,12 +772,12 @@
       "codeHash": "776dccb8651bbd48a27d7369cc4e23d2d40d60264c46d6f217a1685e963a8db1",
       "spec": {
         "template": "ledger-sheet",
-        "title": "ASC 815 / IFRS 9 Derivative Accounting & Cash... — General Ledger Verification",
+        "title": "ASC 815 / IFRS 9 Derivative Accounting & Cash... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for ASC multiple / IFRS nine.",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Examine derivative accounting and cash flow hedge rules.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3700,
             "totalCredit": 3700,
@@ -802,8 +802,8 @@
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Manage corporate derivative contracts and swaps.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4440,
             "totalCredit": 4440,
@@ -833,8 +833,8 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Compute dollar offset ratio for commodity forward hedge.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4440,
             "totalCredit": 4440,
@@ -864,8 +864,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Inspect derivative ratio failure and de-designation.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4440,
             "totalCredit": 4440,
@@ -897,12 +897,12 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "ASC 815 / IFRS 9 Derivative Accounting & Cash... — General Ledger Verification",
+        "title": "ASC 815 / IFRS 9 Derivative Accounting & Cash... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3700) for ASC 815 / IFRS 9 Derivative Acc...",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Examine derivative accounting and cash flow hedge rules.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3700,
             "totalCredit": 3700,
@@ -927,8 +927,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (740).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Manage corporate derivative contracts and swaps.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4440,
             "totalCredit": 4440,
@@ -958,8 +958,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4440).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Compute dollar offset ratio for commodity forward hedge.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4440,
             "totalCredit": 4440,
@@ -989,8 +989,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4440 = CR 4440).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Inspect derivative ratio failure and de-designation.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4440,
             "totalCredit": 4440,
@@ -1023,15 +1023,15 @@
     },
     {
       "partTitle": "Deploy the Financial Instruments Controller Control Tower",
-      "codeHash": "00ec8f24b91b8bd395cb0d9f749f027176bd756eb4ba38722382111aff8df248",
+      "codeHash": "99ce30ebd69e8716494ef1bb4407a3e8eba6b1600c2437c4d3eab79ba5e1c481",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Deploy the Financial Instruments Controller C... — General Ledger Verification",
+        "title": "Deploy the Financial Instruments Controller C... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary debit entry (multiple) for Deploy the Financial Instrument...",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Deploy the financial instruments controller tower.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3900,
             "totalCredit": 3900,
@@ -1056,8 +1056,8 @@
           },
           {
             "at": "say1",
-            "caption": "Record secondary accrual adjustment (multiple).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Unify enterprise financial instruments across silos.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4680,
             "totalCredit": 4680,
@@ -1087,8 +1087,8 @@
           },
           {
             "at": "example",
-            "caption": "Reconcile sub-ledger balances against control total (multiple).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Synthesize investment portfolio and credit allowance.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4680,
             "totalCredit": 4680,
@@ -1118,8 +1118,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Evaluate macroeconomic shocks across equity reserves.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4680,
             "totalCredit": 4680,
@@ -1151,12 +1151,12 @@
       },
       "filled": {
         "template": "ledger-sheet",
-        "title": "Deploy the Financial Instruments Controller C... — General Ledger Verification",
+        "title": "Deploy the Financial Instruments Controller C... \u2014 General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3900) for Deploy the Financial Instrument...",
-            "title": "Day 4 Journal — Initial Posting",
+            "caption": "Deploy the financial instruments controller tower.",
+            "title": "Day 4 Journal \u2014 Initial Posting",
             "isBalanced": true,
             "totalDebit": 3900,
             "totalCredit": 3900,
@@ -1181,8 +1181,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (780).",
-            "title": "Day 4 Journal — Accrual Adjustment",
+            "caption": "Unify enterprise financial instruments across silos.",
+            "title": "Day 4 Journal \u2014 Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4680,
             "totalCredit": 4680,
@@ -1212,8 +1212,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4680).",
-            "title": "Day 4 Journal — Reconciliation Check",
+            "caption": "Synthesize investment portfolio and credit allowance.",
+            "title": "Day 4 Journal \u2014 Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4680,
             "totalCredit": 4680,
@@ -1243,8 +1243,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4680 = CR 4680).",
-            "title": "Day 4 Journal — Audited Trial Balance",
+            "caption": "Evaluate macroeconomic shocks across equity reserves.",
+            "title": "Day 4 Journal \u2014 Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4680,
             "totalCredit": 4680,
