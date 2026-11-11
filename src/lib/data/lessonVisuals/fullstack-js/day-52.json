@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 52,
-  "promptSha": "d0cb67e3096999b78800159b64980e408db3c5a973b25494ee5fb4723cba3b93",
-  "model": "gemini-2.5-pro",
+  "promptSha": "a95b73c12c256ddd965e2fe278e8d689334ef9a25357208f280112086e51616d",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "JavaScript Performance Ceiling & The WebAssembly Execution Model",
       "codeHash": "eae793b574464c2ebb065289d0b47c4b1aacc511494c0f1307c940b0f160fa8f",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: JavaScript Performance Ceiling & The WebAssembly Execution Model",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "JavaScript Performance Ceiling & The WebAssembly Execution Model",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "JavaScript",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ceiling",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize javascript architecture and execution boundaries.",
+            "values": {
+              "input_code": {
+                "text": "JavaScript Performance"
+              },
+              "engine": {
+                "text": "Compute-Intensive Simulation"
+              },
+              "out": {
+                "text": "software engineering"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how javascript coordinates execution state transitions.",
+            "values": {
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Performance"
+              },
+              "out": {
+                "text": "physics simulations"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the javascript analogy to webassembly execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "executive business"
+              },
+              "engine": {
+                "text": "count"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify javascript constraints and verify resulting performance state.",
+            "values": {
+              "input_code": {
+                "text": "JavaScript Performance"
+              },
+              "engine": {
+                "text": "Ceiling"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "JavaScript Performance Ceiling & The WebAssembly Execution Model",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "JavaScript",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ceiling",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize javascript architecture and execution boundaries.",
+            "values": {
+              "input_code": "JavaScript Performance",
+              "engine": "Compute-Intensive Simulation",
+              "out": "software engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how javascript coordinates execution state transitions.",
+            "values": {
+              "input_code": "However",
+              "engine": "Performance",
+              "out": "physics simulations"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the javascript analogy to webassembly execution invariants.",
+            "values": {
+              "input_code": "executive business",
+              "engine": "count",
+              "out": "Simulated Compute Checksum: 1502868"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify javascript constraints and verify resulting performance state.",
+            "values": {
+              "input_code": "JavaScript Performance",
+              "engine": "Ceiling",
+              "out": "Compute Intensive Baseline Operation"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Compiling & Instantiating WebAssembly Modules in Node.js",
       "codeHash": "5f7aee22fd72df434449b0b0c2969f22738e01d9665863b42be6c22c35d89424",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Compiling & Instantiating WebAssembly Modules in Node.js",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Compiling & Instantiating WebAssembly Modules in Node.js",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Compiling",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Instantiating",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "WebAssembly",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and webassembly boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Compiling"
+              },
+              "engine": {
+                "text": "WebAssembly Binary"
+              },
+              "out": {
+                "text": "Node.js enterprise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates webassembly state transitions.",
+            "values": {
+              "input_code": {
+                "text": "WebAssembly binary"
+              },
+              "engine": {
+                "text": "Instantiating"
+              },
+              "out": {
+                "text": "remainder of"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the webassembly analogy to high execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-performance mechanical"
+              },
+              "engine": {
+                "text": "0x00"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify compiling constraints and verify resulting instantiating state.",
+            "values": {
+              "input_code": {
+                "text": "Compiling"
+              },
+              "engine": {
+                "text": "WebAssembly"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Compiling & Instantiating WebAssembly Modules in Node.js",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Compiling",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Instantiating",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "WebAssembly",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and webassembly boundaries.",
+            "values": {
+              "input_code": "Compiling",
+              "engine": "WebAssembly Binary",
+              "out": "Node.js enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates webassembly state transitions.",
+            "values": {
+              "input_code": "WebAssembly binary",
+              "engine": "Instantiating",
+              "out": "remainder of"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the webassembly analogy to high execution invariants.",
+            "values": {
+              "input_code": "high-performance mechanical",
+              "engine": "0x00",
+              "out": "Wasm add(40, 2) Result: 42"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify compiling constraints and verify resulting instantiating state.",
+            "values": {
+              "input_code": "Compiling",
+              "engine": "WebAssembly",
+              "out": "WebAssembly Binary Instantiation Ver"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Linear Memory Management & Zero-Copy ArrayBuffer Pipelines",
       "codeHash": "5bb22be5d35326bb7f59588f58472a77cc3f21a0c14f051acc37f903c87a4217",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Linear Memory Management & Zero-Copy ArrayBuffer Pipelines",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Linear Memory Management & Zero-Copy ArrayBuffer Pipelines",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Linear",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Management",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize pipelines architecture and passing boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Linear Memory"
+              },
+              "engine": {
+                "text": "Wasm Linear"
+              },
+              "out": {
+                "text": "passing scalar"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how pipelines coordinates passing state transitions.",
+            "values": {
+              "input_code": {
+                "text": "WebAssembly does"
+              },
+              "engine": {
+                "text": "Memory"
+              },
+              "out": {
+                "text": "Memory"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the linear analogy to memory execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "collaborative workshop"
+              },
+              "engine": {
+                "text": "Array.from"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify linear constraints and verify resulting memory state.",
+            "values": {
+              "input_code": {
+                "text": "Linear Memory"
+              },
+              "engine": {
+                "text": "Management"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Linear Memory Management & Zero-Copy ArrayBuffer Pipelines",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Linear",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Management",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize pipelines architecture and passing boundaries.",
+            "values": {
+              "input_code": "Linear Memory",
+              "engine": "Wasm Linear",
+              "out": "passing scalar"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how pipelines coordinates passing state transitions.",
+            "values": {
+              "input_code": "WebAssembly does",
+              "engine": "Memory",
+              "out": "Memory"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the linear analogy to memory execution invariants.",
+            "values": {
+              "input_code": "collaborative workshop",
+              "engine": "Array.from",
+              "out": "Wasm Linear Memory Page Size (bytes)"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify linear constraints and verify resulting memory state.",
+            "values": {
+              "input_code": "Linear Memory",
+              "engine": "Management",
+              "out": "Wasm Linear Memory Management Verifi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "128-bit SIMD Vectorization & High-Throughput Batch Processing",
       "codeHash": "cebcabb69e418602901ab61b658b579b9ed11fa45129e37eb296393d4bd23a49",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: -bit SIMD Vectorization & High-Throughput Batch Processing",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "128-bit SIMD Vectorization & High-Throughput Batch Processing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "SIMD",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Vectorization",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize simd architecture and modern boundaries.",
+            "values": {
+              "input_code": {
+                "text": "128-bit SIMD"
+              },
+              "engine": {
+                "text": "128-bit SIMD"
+              },
+              "out": {
+                "text": "hardware architecture"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how simd coordinates modern state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Historically"
+              },
+              "engine": {
+                "text": "Vectorization"
+              },
+              "out": {
+                "text": "element two"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the processing analogy to simd execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "highway toll"
+              },
+              "engine": {
+                "text": "20.0"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify simd constraints and verify resulting vectorization state.",
+            "values": {
+              "input_code": {
+                "text": "128-bit SIMD"
+              },
+              "engine": {
+                "text": "Throughput"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "128-bit SIMD Vectorization & High-Throughput Batch Processing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "SIMD",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Vectorization",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize simd architecture and modern boundaries.",
+            "values": {
+              "input_code": "128-bit SIMD",
+              "engine": "128-bit SIMD",
+              "out": "hardware architecture"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how simd coordinates modern state transitions.",
+            "values": {
+              "input_code": "Historically",
+              "engine": "Vectorization",
+              "out": "element two"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the processing analogy to simd execution invariants.",
+            "values": {
+              "input_code": "highway toll",
+              "engine": "20.0",
+              "out": "Vectorized SIMD Lane 0: 11.5"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify simd constraints and verify resulting vectorization state.",
+            "values": {
+              "input_code": "128-bit SIMD",
+              "engine": "Throughput",
+              "out": "SIMD 128-bit Vectorization Pipeline "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Wasm Memory Bounds Sentinels & Fallback Engines",
       "codeHash": "eddfa333a9f46884de81fd78ec81b8687052607bfea26e96df14be51f254e77d",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Wasm Memory Bounds Sentinels & Fallback Engines",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Wasm",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize wasm architecture and webassembly boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Resilient Wasm"
+              },
+              "out": {
+                "text": "WebAssembly provides"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how wasm coordinates webassembly state transitions.",
+            "values": {
+              "input_code": {
+                "text": "hazard is"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "thousand when"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the fallback analogy to memory execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "hybrid performance"
+              },
+              "engine": {
+                "text": "compute"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Wasm"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Wasm",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize wasm architecture and webassembly boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Resilient Wasm",
+              "out": "WebAssembly provides"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how wasm coordinates webassembly state transitions.",
+            "values": {
+              "input_code": "hazard is",
+              "engine": "Defense",
+              "out": "thousand when"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the fallback analogy to memory execution invariants.",
+            "values": {
+              "input_code": "hybrid performance",
+              "engine": "compute",
+              "out": "Normal Engine Mode: WASM_ACCELERATED"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Wasm",
+              "out": "Wasm Memory Sentinel & Fallback Engi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

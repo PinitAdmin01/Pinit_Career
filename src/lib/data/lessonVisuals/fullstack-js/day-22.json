@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 22,
-  "promptSha": "9f286703192d5e1eb85d35cbb1bf92897b945fb4795ff71dce8d2dbbec0da987",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "0b2c438b90d6553d78f5569d591d3212778f6ab10dd0c125ffd78bc904b0b834",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Protocol Buffers (Protobuf) Binary Encoding & Schema Invariants",
-      "codeHash": "572c187abb5a15ac34016700d2f7cf5b24cabf5a799a5cffb69293c74ff7a23b",
+      "codeHash": "e35b3ae7c7ae1905d4d38eb2fa21395020d5691504122a3296ed1c638592ba32",
       "spec": {
         "template": "flow",
-        "title": "Protocol Buffers (Protobuf) Binary ... — Execution Pipeline",
+        "title": "Protocol Buffers (Protobuf) Binary Encoding & Schema Invariants",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Protocol",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Protocol Buffers (Protobuf) Binary ...",
+            "id": "engine",
+            "label": "Buffers",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Protobuf",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Protocol Buffers (Protobuf) Binary.",
+            "caption": "Initialize protocol architecture and schema boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Protocol Buffers"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "large-scale distributed"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Protocol Buffers.",
+            "caption": "Trace how protocol coordinates schema state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Protocol Buffers"
+              },
+              "engine": {
+                "text": "Buffers"
+              },
+              "out": {
+                "text": "binary wire"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Protocol Buffers.",
+            "caption": "Connect the protobuf analogy to binary execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "high-frequency algorithmic"
+              },
+              "engine": {
+                "text": "textBytes.length"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Protocol.",
+            "caption": "Modify field constraints and verify resulting wire state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "field tag"
+              },
+              "engine": {
+                "text": "Protobuf"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Protocol Buffers (Protobuf) Binary Encoding & Schema Invariants",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Protocol",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Buffers",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Protobuf",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize protocol architecture and schema boundaries.",
+            "values": {
+              "input_code": "Protocol Buffers",
+              "engine": "Simulation",
+              "out": "large-scale distributed"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how protocol coordinates schema state transitions.",
+            "values": {
+              "input_code": "Protocol Buffers",
+              "engine": "Buffers",
+              "out": "binary wire"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the protobuf analogy to binary execution invariants.",
+            "values": {
+              "input_code": "high-frequency algorithmic",
+              "engine": "textBytes.length",
+              "out": "Protobuf Binary Encoder Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify field constraints and verify resulting wire state.",
+            "values": {
+              "input_code": "field tag",
+              "engine": "Protobuf",
+              "out": "Protobuf Binary Encoding Invariant: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -117,101 +260,244 @@
       "codeHash": "af12c091cb0be0a47cec67a28741b4ab92cff2fdbc0d2657443d45b4478d3afb",
       "spec": {
         "template": "flow",
-        "title": "gRPC Architecture & HTTP/2 Multiple... — Execution Pipeline",
+        "title": "gRPC Architecture & HTTP/2 Multiplexed Transport Mechanics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "gRPC",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. gRPC Architecture & HTTP/2 Multiple...",
+            "id": "engine",
+            "label": "Architecture",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "HTTP",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize gRPC Architecture & HTTP.",
+            "caption": "Initialize grpc architecture and transport boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "gRPC Architecture"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Protocol Buffers"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in gRPC Architecture &.",
+            "caption": "Trace how grpc coordinates transport state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "foundational superpower"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "text": "500ms to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in gRPC Architecture &.",
+            "caption": "Connect the http analogy to grpc execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "payments microservice"
+              },
+              "engine": {
+                "text": "Verification Execution"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in gRPC.",
+            "caption": "Modify http constraints and verify resulting stream state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Stream"
+              },
+              "engine": {
+                "text": "HTTP"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "gRPC Architecture & HTTP/2 Multiplexed Transport Mechanics",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "gRPC",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "HTTP",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize grpc architecture and transport boundaries.",
+            "values": {
+              "input_code": "gRPC Architecture",
+              "engine": "Simulation",
+              "out": "Protocol Buffers"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how grpc coordinates transport state transitions.",
+            "values": {
+              "input_code": "foundational superpower",
+              "engine": "Architecture",
+              "out": "500ms to"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the http analogy to grpc execution invariants.",
+            "values": {
+              "input_code": "payments microservice",
+              "engine": "Verification Execution",
+              "out": "gRPC HTTP/2 Transport Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify http constraints and verify resulting stream state.",
+            "values": {
+              "input_code": "Stream",
+              "engine": "HTTP",
+              "out": "gRPC HTTP/2 Multiplexing Invariant: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -224,101 +510,244 @@
       "codeHash": "4c0b5e6cd80a4b4754541b7e2e971167e499bb7fcf0dc1d22d16a329b151569e",
       "spec": {
         "template": "flow",
-        "title": "Deadlines, Context Cancellation & C... — Execution Pipeline",
+        "title": "Deadlines, Context Cancellation & Cascading Timeout Mitigation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Deadlines",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Deadlines, Context Cancellation & C...",
+            "id": "engine",
+            "label": "Context",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Cancellation",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Deadlines, Context Cancellation &.",
+            "caption": "Initialize cascading architecture and distributed boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Deadlines"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "distributed microservice"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Deadlines, Context.",
+            "caption": "Trace how cascading coordinates distributed state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Traditional HTTP"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "text": "Service"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Deadlines, Context.",
+            "caption": "Connect the commerce analogy to checkout execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "e-commerce checkout"
+              },
+              "engine": {
+                "text": "durationMs"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Deadlines.",
+            "caption": "Modify context constraints and verify resulting cancellation state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "exceeds the"
+              },
+              "engine": {
+                "text": "Cancellation"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Deadlines, Context Cancellation & Cascading Timeout Mitigation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Deadlines",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cancellation",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize cascading architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Deadlines",
+              "engine": "Simulation",
+              "out": "distributed microservice"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how cascading coordinates distributed state transitions.",
+            "values": {
+              "input_code": "Traditional HTTP",
+              "engine": "Context",
+              "out": "Service"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the commerce analogy to checkout execution invariants.",
+            "values": {
+              "input_code": "e-commerce checkout",
+              "engine": "durationMs",
+              "out": "gRPC Deadline Manager Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify context constraints and verify resulting cancellation state.",
+            "values": {
+              "input_code": "exceeds the",
+              "engine": "Cancellation",
+              "out": "gRPC Deadline & Context Cancellation"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -331,101 +760,244 @@
       "codeHash": "89c28e8127068d5feae0b43eda730057de84b8014bee1d4d643531573c257146",
       "spec": {
         "template": "flow",
-        "title": "Bidirectional Streaming & High-Thro... — Execution Pipeline",
+        "title": "Bidirectional Streaming & High-Throughput Event Channelling",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Bidirectional",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Bidirectional Streaming & High-Thro...",
+            "id": "engine",
+            "label": "Streaming",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Throughput",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Bidirectional Streaming &.",
+            "caption": "Initialize bidirectional architecture and streaming boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Bidirectional Streaming"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "unary RPCs"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Bidirectional.",
+            "caption": "Trace how bidirectional coordinates streaming state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Bidirectional Streaming"
+              },
+              "engine": {
+                "text": "Streaming"
+              },
+              "out": {
+                "text": "server sends"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Bidirectional.",
+            "caption": "Connect the bidirectional analogy to traffic execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "traffic control"
+              },
+              "engine": {
+                "text": "this.isTerminated"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify client constraints and verify resulting server state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "client and"
+              },
+              "engine": {
+                "text": "Throughput"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Bidirectional Streaming & High-Throughput Event Channelling",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Bidirectional",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Streaming",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize bidirectional architecture and streaming boundaries.",
+            "values": {
+              "input_code": "Bidirectional Streaming",
+              "engine": "Simulation",
+              "out": "unary RPCs"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how bidirectional coordinates streaming state transitions.",
+            "values": {
+              "input_code": "Bidirectional Streaming",
+              "engine": "Streaming",
+              "out": "server sends"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the bidirectional analogy to traffic execution invariants.",
+            "values": {
+              "input_code": "traffic control",
+              "engine": "this.isTerminated",
+              "out": "Bidirectional Streaming Engine Initi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify client constraints and verify resulting server state.",
+            "values": {
+              "input_code": "client and",
+              "engine": "Throughput",
+              "out": "gRPC Bidirectional Streaming Invaria"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -435,104 +1007,247 @@
     },
     {
       "partTitle": "Service Mesh Architecture & gRPC-to-JSON Transcoding",
-      "codeHash": "a4f5a63fcbba58ce5cdcf816f1cd2dcb47c5e332da54258033a86e988896ceb4",
+      "codeHash": "a08c941704eaec7bf00c134ae97d0279814da93812d0010236801a144328bd17",
       "spec": {
         "template": "flow",
-        "title": "Service Mesh Architecture & gRPC-to... — Execution Pipeline",
+        "title": "Service Mesh Architecture & gRPC-to-JSON Transcoding",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Service",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Service Mesh Architecture & gRPC-to...",
+            "id": "engine",
+            "label": "Mesh",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Service Mesh Architecture &.",
+            "caption": "Initialize grpc architecture and service boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Service Mesh"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "gRPC is"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Service Mesh.",
+            "caption": "Trace how grpc coordinates service state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "solution is"
+              },
+              "engine": {
+                "text": "Mesh"
+              },
+              "out": {
+                "text": "Google HTTP"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Service Mesh.",
+            "caption": "Connect the grpc analogy to json execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "fintech unicorn"
+              },
+              "engine": {
+                "text": "method"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Service.",
+            "caption": "Modify grpc constraints and verify resulting service state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "incoming external"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Service Mesh Architecture & gRPC-to-JSON Transcoding",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Service",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Mesh",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize grpc architecture and service boundaries.",
+            "values": {
+              "input_code": "Service Mesh",
+              "engine": "Simulation",
+              "out": "gRPC is"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how grpc coordinates service state transitions.",
+            "values": {
+              "input_code": "solution is",
+              "engine": "Mesh",
+              "out": "Google HTTP"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the grpc analogy to json execution invariants.",
+            "values": {
+              "input_code": "fintech unicorn",
+              "engine": "method",
+              "out": "Transcoding Engine Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify grpc constraints and verify resulting service state.",
+            "values": {
+              "input_code": "incoming external",
+              "engine": "Architecture",
+              "out": "Service Mesh Transcoding Invariant: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

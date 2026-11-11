@@ -337,19 +337,12 @@ export function constantAnswer(starter: string, firstReturns: Record<string, any
  * This list must shrink to empty by the end of Phase 3 as each course is upgraded.
  */
 export const KNOWN_CONSTANT_TASKS = new Set<string>([
-  // course-fullstack-js (48 tasks)
-  'fullstack-js-assign-day-1', 'fullstack-js-exam-day-10', 'fullstack-js-assign-day-10', 'fullstack-js-assign-day-11',
-  'fullstack-js-exam-day-12', 'fullstack-js-assign-day-12', 'fullstack-js-assign-day-13', 'fullstack-js-assign-day-14',
-  'fullstack-js-assign-day-15', 'fullstack-js-assign-day-17', 'fullstack-js-exam-day-18', 'fullstack-js-assign-day-20',
-  'fullstack-js-assign-day-21', 'fullstack-js-assign-day-22', 'fullstack-js-exam-day-23', 'fullstack-js-assign-day-23',
-  'fullstack-js-assign-day-24', 'fullstack-js-exam-day-26', 'fullstack-js-assign-day-26', 'fullstack-js-assign-day-27',
-  'fullstack-js-assign-day-28', 'fullstack-js-assign-day-29', 'fullstack-js-assign-day-33', 'fullstack-js-assign-day-34',
-  'fullstack-js-assign-day-35', 'fullstack-js-assign-day-41', 'fullstack-js-assign-day-42', 'fullstack-js-assign-day-43',
-  'fullstack-js-assign-day-44', 'fullstack-js-assign-day-48', 'fullstack-js-assign-day-51', 'fullstack-js-assign-day-56',
-  'fullstack-js-exam-day-60', 'fullstack-js-assign-day-69', 'fullstack-js-exam-day-71', 'fullstack-js-assign-day-74',
-  'fullstack-js-assign-day-75', 'fullstack-js-assign-day-76', 'fullstack-js-assign-day-80', 'fullstack-js-assign-day-85',
-  'fullstack-js-assign-day-90', 'fullstack-js-assign-day-91', 'fullstack-js-exam-day-97', 'fullstack-js-exam-day-98',
-  'fullstack-js-exam-day-107', 'fullstack-js-exam-day-111', 'fullstack-js-exam-day-117', 'fullstack-js-exam-day-120',
+  // course-fullstack-js (15 tasks)
+  'fullstack-js-assign-day-69',
+  'fullstack-js-exam-day-71', 'fullstack-js-assign-day-74', 'fullstack-js-assign-day-75', 'fullstack-js-assign-day-76',
+  'fullstack-js-assign-day-80', 'fullstack-js-assign-day-85', 'fullstack-js-assign-day-90', 'fullstack-js-assign-day-91',
+  'fullstack-js-exam-day-97', 'fullstack-js-exam-day-98', 'fullstack-js-exam-day-107', 'fullstack-js-exam-day-111',
+  'fullstack-js-exam-day-117', 'fullstack-js-exam-day-120',
   // course-react-web: 0 tasks (all 60 tasks non-constant and verified)
   // course-cloud-native: 0 tasks (all 60 tasks non-constant and verified)
   // course-devops-cicd: 0 tasks (all 60 tasks non-constant and verified)

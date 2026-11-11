@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 50,
-  "promptSha": "e76290a7d9734a5b4b19fe1c627505f8b669da0af1e7af7ce17af0877cf67429",
-  "model": "gemini-2.5-pro",
+  "promptSha": "08df0dc3b40aabc03b8f612b7c5d41d6725605031ea6a76326499333b4e3c9c4",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Distributed Cluster Architecture & Consistent Sharding Fabric",
-      "codeHash": "9385535ee3bfde653d539ebde360e8c507e12ab170f961377c060189427d48f2",
+      "codeHash": "24c69e599d71e012e7b8ea81e0cc9034f62e9f5909199186d7ba8473115fb620",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Distributed Cluster Architecture & Consistent Sharding Fabric",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Distributed Cluster Architecture & Consistent Sharding Fabric",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Cluster",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and fabric boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Cluster"
+              },
+              "engine": {
+                "text": "ShardHashRing"
+              },
+              "out": {
+                "text": "software engineering"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates fabric state transitions.",
+            "values": {
+              "input_code": {
+                "text": "achieve horizontal"
+              },
+              "engine": {
+                "text": "Cluster"
+              },
+              "out": {
+                "text": "shard node"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international airport"
+              },
+              "engine": {
+                "text": "getNode"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting cluster state.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Cluster"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Distributed Cluster Architecture & Consistent Sharding Fabric",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Cluster",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and fabric boundaries.",
+            "values": {
+              "input_code": "Distributed Cluster",
+              "engine": "ShardHashRing",
+              "out": "software engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates fabric state transitions.",
+            "values": {
+              "input_code": "achieve horizontal",
+              "engine": "Cluster",
+              "out": "shard node"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": "international airport",
+              "engine": "getNode",
+              "out": "Shard Routing: tx_101 -> shard_ap_so"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting cluster state.",
+            "values": {
+              "input_code": "Distributed Cluster",
+              "engine": "Architecture",
+              "out": "Cluster Shard Distribution Verified:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Write-Ahead Logging Engine & Append-Only Block Journaling",
-      "codeHash": "e53d0e84f1026ad592fdf886380a42237772951ed39c8cf73101e3944dfa02f7",
+      "codeHash": "64e7b01f79adacf320ac3e776ed8897604765f89ad32991a93b6daae7ab4d4ad",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Write-Ahead Logging Engine & Append-Only Block Journaling",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Write-Ahead Logging Engine & Append-Only Block Journaling",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Write",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Ahead",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Logging",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize mission architecture and critical boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Write-Ahead Logging"
+              },
+              "engine": {
+                "text": "WALRecord"
+              },
+              "out": {
+                "text": "mission-critical financial"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how mission coordinates critical state transitions.",
+            "values": {
+              "input_code": {
+                "text": "industry-standard"
+              },
+              "engine": {
+                "text": "Ahead"
+              },
+              "out": {
+                "text": "immutable record"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the engine analogy to ship execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "ship"
+              },
+              "engine": {
+                "text": "txId"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify write constraints and verify resulting ahead state.",
+            "values": {
+              "input_code": {
+                "text": "Write-Ahead Logging"
+              },
+              "engine": {
+                "text": "Logging"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Write-Ahead Logging Engine & Append-Only Block Journaling",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Write",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Ahead",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Logging",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize mission architecture and critical boundaries.",
+            "values": {
+              "input_code": "Write-Ahead Logging",
+              "engine": "WALRecord",
+              "out": "mission-critical financial"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how mission coordinates critical state transitions.",
+            "values": {
+              "input_code": "industry-standard",
+              "engine": "Ahead",
+              "out": "immutable record"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the engine analogy to ship execution invariants.",
+            "values": {
+              "input_code": "ship",
+              "engine": "txId",
+              "out": "WAL Journal Entry 1 Hash: Valid"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify write constraints and verify resulting ahead state.",
+            "values": {
+              "input_code": "Write-Ahead Logging",
+              "engine": "Logging",
+              "out": "Cryptographic Block Journal Verified"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Raft Consensus Core & Multi-Node Leader Quorum Orchestration",
       "codeHash": "bd2a39e4cad73ca3343e1bebf5443f5e359315f65585b6c9195204fd941c5a5b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Raft Consensus Core & Multi-Node Leader Quorum Orchestration",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Raft Consensus Core & Multi-Node Leader Quorum Orchestration",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Raft",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Consensus",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Multi",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and consensus boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Raft Consensus"
+              },
+              "engine": {
+                "text": "Raft Consensus"
+              },
+              "out": {
+                "text": "single-node Write-Ahead"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates consensus state transitions.",
+            "values": {
+              "input_code": {
+                "text": "multiple nodes"
+              },
+              "engine": {
+                "text": "Consensus"
+              },
+              "out": {
+                "text": "different segments"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the quorum analogy to three execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "three-judge high"
+              },
+              "engine": {
+                "text": "acks"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify raft constraints and verify resulting consensus state.",
+            "values": {
+              "input_code": {
+                "text": "Raft Consensus"
+              },
+              "engine": {
+                "text": "Multi"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Raft Consensus Core & Multi-Node Leader Quorum Orchestration",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Raft",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Consensus",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Multi",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and consensus boundaries.",
+            "values": {
+              "input_code": "Raft Consensus",
+              "engine": "Raft Consensus",
+              "out": "single-node Write-Ahead"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates consensus state transitions.",
+            "values": {
+              "input_code": "multiple nodes",
+              "engine": "Consensus",
+              "out": "different segments"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the quorum analogy to three execution invariants.",
+            "values": {
+              "input_code": "three-judge high",
+              "engine": "acks",
+              "out": "Cluster Leader Elected: node_1 (Term"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify raft constraints and verify resulting consensus state.",
+            "values": {
+              "input_code": "Raft Consensus",
+              "engine": "Multi",
+              "out": "Raft Multi-Node Consensus Core Verif"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "CQRS Materialized View Projections & Real-Time Balance Ledger",
       "codeHash": "58e2f4af41ee6f7c7050801c5a43f54b5e6463743501e88c94204a077074cf86",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: CQRS Materialized View Projections & Real-Time Balance Ledger",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "CQRS Materialized View Projections & Real-Time Balance Ledger",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "CQRS",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Materialized",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "View",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize ledger architecture and balance boundaries.",
+            "values": {
+              "input_code": {
+                "text": "CQRS Materialized"
+              },
+              "engine": {
+                "text": "CQRS Real-Time"
+              },
+              "out": {
+                "text": "Once"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how ledger coordinates balance state transitions.",
+            "values": {
+              "input_code": {
+                "text": "provide"
+              },
+              "engine": {
+                "text": "Materialized"
+              },
+              "out": {
+                "text": "dedicated"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the balance analogy to real execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bustling stock"
+              },
+              "engine": {
+                "text": "commitTimestamp"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify cqrs constraints and verify resulting materialized state.",
+            "values": {
+              "input_code": {
+                "text": "CQRS Materialized"
+              },
+              "engine": {
+                "text": "View"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "CQRS Materialized View Projections & Real-Time Balance Ledger",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "CQRS",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Materialized",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "View",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize ledger architecture and balance boundaries.",
+            "values": {
+              "input_code": "CQRS Materialized",
+              "engine": "CQRS Real-Time",
+              "out": "Once"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how ledger coordinates balance state transitions.",
+            "values": {
+              "input_code": "provide",
+              "engine": "Materialized",
+              "out": "dedicated"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the balance analogy to real execution invariants.",
+            "values": {
+              "input_code": "bustling stock",
+              "engine": "commitTimestamp",
+              "out": "Projected Account Ledger: acc_alpha "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify cqrs constraints and verify resulting materialized state.",
+            "values": {
+              "input_code": "CQRS Materialized",
+              "engine": "View",
+              "out": "CQRS Real-Time Materialized Ledger V"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The 5-Gate Distributed Ledger Defense Matrix: Full-Cluster Verification",
       "codeHash": "f342942109edcaabb908e4864e0fadce3537ab7ba7f19e66e755246ff7e0967c",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The -Gate Distributed Ledger Defense Matrix: Full-Cluster Verification",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "The 5-Gate Distributed Ledger Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ledger",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and ledger boundaries.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Distributed"
+              },
+              "engine": {
+                "text": "5-Gate Distributed"
+              },
+              "out": {
+                "text": "distributed systems"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates ledger state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Defense Matrix"
+              },
+              "engine": {
+                "text": "Distributed"
+              },
+              "out": {
+                "text": "distributed architecture"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the flight analogy to checklist execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "pre-flight checklist"
+              },
+              "engine": {
+                "text": "passed"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting distributed state.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Distributed"
+              },
+              "engine": {
+                "text": "Ledger"
+              },
+              "out": {
+                "out": 5
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "The 5-Gate Distributed Ledger Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ledger",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and ledger boundaries.",
+            "values": {
+              "input_code": "5-Gate Distributed",
+              "engine": "5-Gate Distributed",
+              "out": "distributed systems"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates ledger state transitions.",
+            "values": {
+              "input_code": "Defense Matrix",
+              "engine": "Distributed",
+              "out": "distributed architecture"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the flight analogy to checklist execution invariants.",
+            "values": {
+              "input_code": "pre-flight checklist",
+              "engine": "passed",
+              "out": "[Gate 1: Shard Fabric] PASS - Ring B"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting distributed state.",
+            "values": {
+              "input_code": "5-Gate Distributed",
+              "engine": "Ledger",
+              "out": "Distributed Ledger Defense Matrix St"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

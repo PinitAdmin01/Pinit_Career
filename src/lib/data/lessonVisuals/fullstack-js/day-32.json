@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 32,
-  "promptSha": "cf290a7d6e029f5380a68edcd654e34c9856ee3a88cf6c42ef09ae3845163b72",
-  "model": "gemini-2.5-pro",
+  "promptSha": "1d52aa071111d00a7cb8a4065816899e3249d9225d9922188ba6554079ff6573",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Node-API (N-API) Fundamentals: ABI Stability, Native Addon Lifecycle & napi_env Isolation",
       "codeHash": "aafff510c0812c38d0738b7ab9e3747f43988aea8d44dc626d4c599b833f0afe",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Node-API (N-API) Fundamentals: ABI Stability, Native Addon Lifecycle & napi_env Isolation",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Node-API (N-API) Fundamentals",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Stability",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Native",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize native architecture and modern boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Node-API"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "JavaScript engines"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how native coordinates modern state transitions.",
+            "values": {
+              "input_code": {
+                "text": "early days"
+              },
+              "engine": {
+                "text": "Stability"
+              },
+              "out": {
+                "text": "ecosystem broke"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the node analogy to addon execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international standard"
+              },
+              "engine": {
+                "text": "invokeNativeMethod"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting fundamentals state.",
+            "values": {
+              "input_code": {
+                "text": "Node-API"
+              },
+              "engine": {
+                "text": "Native"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Node-API (N-API) Fundamentals",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Stability",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Native",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize native architecture and modern boundaries.",
+            "values": {
+              "input_code": "Node-API",
+              "engine": "Simulation",
+              "out": "JavaScript engines"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how native coordinates modern state transitions.",
+            "values": {
+              "input_code": "early days",
+              "engine": "Stability",
+              "out": "ecosystem broke"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the node analogy to addon execution invariants.",
+            "values": {
+              "input_code": "international standard",
+              "engine": "invokeNativeMethod",
+              "out": "Node-API Addon Loaded: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting fundamentals state.",
+            "values": {
+              "input_code": "Node-API",
+              "engine": "Native",
+              "out": "Handle Scopes Cleaned Up: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Memory Transfer & Zero-Copy Buffers: napi_create_buffer_copy vs napi_create_external_buffer",
       "codeHash": "6cdcfae5a4be077c84f352a47e896f76ed14e6f7e4923a4d12f333bcd86e7223",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Memory Transfer & Zero-Copy Buffers: napi_create_buffer_copy vs napi_create_external_buffer",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Memory Transfer & Zero-Copy Buffers",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Transfer",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Zero",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize memory architecture and transmitting boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Memory Transfer"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "transmitting data"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how memory coordinates transmitting state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Node-API provides"
+              },
+              "engine": {
+                "text": "Transfer"
+              },
+              "out": {
+                "text": "napi_create_external_buffer"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the transfer analogy to copy execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "university library"
+              },
+              "engine": {
+                "text": "initialData.length"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify memory constraints and verify resulting transfer state.",
+            "values": {
+              "input_code": {
+                "text": "Memory Transfer"
+              },
+              "engine": {
+                "text": "Zero"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Memory Transfer & Zero-Copy Buffers",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Transfer",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Zero",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize memory architecture and transmitting boundaries.",
+            "values": {
+              "input_code": "Memory Transfer",
+              "engine": "Simulation",
+              "out": "transmitting data"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how memory coordinates transmitting state transitions.",
+            "values": {
+              "input_code": "Node-API provides",
+              "engine": "Transfer",
+              "out": "napi_create_external_buffer"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the transfer analogy to copy execution invariants.",
+            "values": {
+              "input_code": "university library",
+              "engine": "initialData.length",
+              "out": "Zero-Copy Buffer First Byte (0xDE): "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify memory constraints and verify resulting transfer state.",
+            "values": {
+              "input_code": "Memory Transfer",
+              "engine": "Zero",
+              "out": "Post-Finalize Is Freed: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "ThreadSafeFunction (TSFN): Bridging C++ Background Worker Threads to the Node.js Event Loop",
       "codeHash": "7f83701ad4c72a94635b1b7db6acdfb6a584e02d8ed87d572b36e94da7177148",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: ThreadSafeFunction (TSFN): Bridging C++ Background Worker Threads to the Node.js Event Loop",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "ThreadSafeFunction (TSFN)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "ThreadSafeFunction",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "TSFN",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Bridging",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and background boundaries.",
+            "values": {
+              "input_code": {
+                "text": "ThreadSafeFunction"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "dangerous traps"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates background state transitions.",
+            "values": {
+              "input_code": {
+                "text": "solve this"
+              },
+              "engine": {
+                "text": "TSFN"
+              },
+              "out": {
+                "text": "asynchronous message-passing"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the node analogy to event execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-security submarine"
+              },
+              "engine": {
+                "text": "Event Loop"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify tsfn constraints and verify resulting bridging state.",
+            "values": {
+              "input_code": {
+                "text": "ThreadSafeFunction"
+              },
+              "engine": {
+                "text": "Bridging"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "ThreadSafeFunction (TSFN)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "ThreadSafeFunction",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "TSFN",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Bridging",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and background boundaries.",
+            "values": {
+              "input_code": "ThreadSafeFunction",
+              "engine": "Simulation",
+              "out": "dangerous traps"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates background state transitions.",
+            "values": {
+              "input_code": "solve this",
+              "engine": "TSFN",
+              "out": "asynchronous message-passing"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the node analogy to event execution invariants.",
+            "values": {
+              "input_code": "high-security submarine",
+              "engine": "Event Loop",
+              "out": "TSFN Messages Dispatched to Main Thr"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify tsfn constraints and verify resulting bridging state.",
+            "values": {
+              "input_code": "ThreadSafeFunction",
+              "engine": "Bridging",
+              "out": "TSFN Successfully Released: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "High-Performance SIMD Vector Math in Native Addons: Accelerating CPU-Bound Matrix Transformations",
       "codeHash": "516ef170c674cbf432c7d755753a473a4f77625d8cd33d3f75fa1085c6074026",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: High-Performance SIMD Vector Math in Native Addons: Accelerating CPU-Bound Matrix Transformations",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "High-Performance SIMD Vector Math in Native Addons",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "SIMD",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Vector",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize vector architecture and transformations boundaries.",
+            "values": {
+              "input_code": {
+                "text": "High-Performance SIMD"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "data engineering"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how vector coordinates transformations state transitions.",
+            "values": {
+              "input_code": {
+                "text": "architectures"
+              },
+              "engine": {
+                "text": "SIMD"
+              },
+              "out": {
+                "text": "32-bit floating-point"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the simd analogy to packing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "packing oranges"
+              },
+              "engine": {
+                "text": "vecB"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting performance state.",
+            "values": {
+              "input_code": {
+                "text": "High-Performance SIMD"
+              },
+              "engine": {
+                "text": "Vector"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "High-Performance SIMD Vector Math in Native Addons",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "SIMD",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Vector",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize vector architecture and transformations boundaries.",
+            "values": {
+              "input_code": "High-Performance SIMD",
+              "engine": "Simulation",
+              "out": "data engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how vector coordinates transformations state transitions.",
+            "values": {
+              "input_code": "architectures",
+              "engine": "SIMD",
+              "out": "32-bit floating-point"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the simd analogy to packing execution invariants.",
+            "values": {
+              "input_code": "packing oranges",
+              "engine": "vecB",
+              "out": "Scalar Calculation Result: 27"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting performance state.",
+            "values": {
+              "input_code": "High-Performance SIMD",
+              "engine": "Vector",
+              "out": "Vector Lane Iterations (4x Compressi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Memory Leak Prevention & Finalizer Hooks: napi_add_finalizer, Weak References & External Memory Accounting",
       "codeHash": "30429beeee1059500043e4e3257333aab7ec31705fd51c6d357cbf6c092925a4",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Memory Leak Prevention & Finalizer Hooks: napi_add_finalizer, Weak References & External Memory Accounting",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Memory Leak Prevention & Finalizer Hooks",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Leak",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Prevention",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize memory architecture and leak boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Memory Leak"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "insidious failure"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how memory coordinates leak state transitions.",
+            "values": {
+              "input_code": {
+                "text": "understand why"
+              },
+              "engine": {
+                "text": "Leak"
+              },
+              "out": {
+                "text": "tiny twenty-byte"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the memory analogy to external execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "renting"
+              },
+              "engine": {
+                "text": "this.externalBytesAllocated"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify memory constraints and verify resulting leak state.",
+            "values": {
+              "input_code": {
+                "text": "Memory Leak"
+              },
+              "engine": {
+                "text": "Prevention"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Memory Leak Prevention & Finalizer Hooks",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Leak",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Prevention",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize memory architecture and leak boundaries.",
+            "values": {
+              "input_code": "Memory Leak",
+              "engine": "Simulation",
+              "out": "insidious failure"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how memory coordinates leak state transitions.",
+            "values": {
+              "input_code": "understand why",
+              "engine": "Leak",
+              "out": "tiny twenty-byte"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the memory analogy to external execution invariants.",
+            "values": {
+              "input_code": "renting",
+              "engine": "this.externalBytesAllocated",
+              "out": "Total External Memory Tracked: 6000"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify memory constraints and verify resulting leak state.",
+            "values": {
+              "input_code": "Memory Leak",
+              "engine": "Prevention",
+              "out": "GC Recommendation After Finalization"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

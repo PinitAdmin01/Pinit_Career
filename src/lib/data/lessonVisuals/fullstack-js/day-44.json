@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 44,
-  "promptSha": "8cb9ee01a9366a12c75eb6b63490386c5cf2dcf958cde2c2e8a2fe98a5546a33",
-  "model": "gemini-2.5-pro",
+  "promptSha": "fe024944f6fafb0c8178af162c96b81d7ee42273b72d9544e6154dd5764b0a0d",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Zero-Trust Architecture: Beyond Perimeter Defenses to Cryptographic Attestation",
       "codeHash": "6636588d827e010592343c888392595a811d142dc89b9e15017e42ee458b20e3",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Zero-Trust Architecture: Beyond Perimeter Defenses to Cryptographic Attestation",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The Zero-Trust Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trust",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize decades architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Trust Architecture"
+              },
+              "engine": {
+                "text": "Zero-Trust Service"
+              },
+              "out": {
+                "text": "decades"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how decades coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "cloud-native architectures"
+              },
+              "engine": {
+                "text": "Trust"
+              },
+              "out": {
+                "text": "SSRF"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the cryptographic analogy to high execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-security research"
+              },
+              "engine": {
+                "text": "authorized"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting trust state.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Trust Architecture"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The Zero-Trust Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trust",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize decades architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Zero-Trust Architecture",
+              "engine": "Zero-Trust Service",
+              "out": "decades"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how decades coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "cloud-native architectures",
+              "engine": "Trust",
+              "out": "SSRF"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the cryptographic analogy to high execution invariants.",
+            "values": {
+              "input_code": "high-security research",
+              "engine": "authorized",
+              "out": "Payment Service Authorization Status"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting trust state.",
+            "values": {
+              "input_code": "Zero-Trust Architecture",
+              "engine": "Architecture",
+              "out": "Zero-Trust Identity Attestation Enfo"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Mutual TLS (mTLS): Bidirectional x509 Certificate Authentication",
       "codeHash": "fea14ee6cf2b064e5e17f185d5e0de504f18c27fc7331a9a8e4d0d27dc091372",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Mutual TLS (mTLS): Bidirectional x Certificate Authentication",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Mutual TLS (mTLS): Bidirectional x509 Certificate Authentication",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Mutual",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "mTLS",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Bidirectional",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize authentication architecture and certificate boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Mutual TLS"
+              },
+              "engine": {
+                "text": "Mutual TLS"
+              },
+              "out": {
+                "text": "standard Transport"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how authentication coordinates certificate state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Mutual TLS"
+              },
+              "engine": {
+                "text": "mTLS"
+              },
+              "out": {
+                "text": "server validates"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the mutual analogy to mtls execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bank vault"
+              },
+              "engine": {
+                "text": "expired"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify mutual constraints and verify resulting mtls state.",
+            "values": {
+              "input_code": {
+                "text": "Mutual TLS"
+              },
+              "engine": {
+                "text": "Bidirectional"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Mutual TLS (mTLS): Bidirectional x509 Certificate Authentication",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Mutual",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "mTLS",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Bidirectional",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize authentication architecture and certificate boundaries.",
+            "values": {
+              "input_code": "Mutual TLS",
+              "engine": "Mutual TLS",
+              "out": "standard Transport"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how authentication coordinates certificate state transitions.",
+            "values": {
+              "input_code": "Mutual TLS",
+              "engine": "mTLS",
+              "out": "server validates"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the mutual analogy to mtls execution invariants.",
+            "values": {
+              "input_code": "bank vault",
+              "engine": "expired",
+              "out": "Valid mTLS Handshake Status: true | "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify mutual constraints and verify resulting mtls state.",
+            "values": {
+              "input_code": "Mutual TLS",
+              "engine": "Bidirectional",
+              "out": "Mutual TLS (mTLS) Bidirectional Veri"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Asymmetric Cryptographic Payload Signing with Ed25519 & Nonce Timestamps",
-      "codeHash": "ad23c7c1ef9327f2a539c867c9546d8aac2ee925a470ddfc26c81410b09f73f8",
+      "codeHash": "cf94fb8e5d8dd75506771e142ed0845ae0862ad1e0b690ebd1fa0c933bc6451c",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Asymmetric Cryptographic Payload Signing with Ed & Nonce Timestamps",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Asymmetric Cryptographic Payload Signing with Ed25519 & Nonce",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asymmetric",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Cryptographic",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Payload",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize mtls architecture and secures boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Asymmetric Cryptographic"
+              },
+              "engine": {
+                "text": "SignedPayloadEnvelope"
+              },
+              "out": {
+                "text": "mTLS secures"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how mtls coordinates secures state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Because mTLS"
+              },
+              "engine": {
+                "text": "Cryptographic"
+              },
+              "out": {
+                "text": "altered by"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the ancient analogy to royal execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "ancient royal"
+              },
+              "engine": {
+                "text": "messageToSign"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify asymmetric constraints and verify resulting cryptographic state.",
+            "values": {
+              "input_code": {
+                "text": "Asymmetric Cryptographic"
+              },
+              "engine": {
+                "text": "Payload"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Asymmetric Cryptographic Payload Signing with Ed25519 & Nonce",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asymmetric",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Cryptographic",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Payload",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize mtls architecture and secures boundaries.",
+            "values": {
+              "input_code": "Asymmetric Cryptographic",
+              "engine": "SignedPayloadEnvelope",
+              "out": "mTLS secures"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how mtls coordinates secures state transitions.",
+            "values": {
+              "input_code": "Because mTLS",
+              "engine": "Cryptographic",
+              "out": "altered by"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the ancient analogy to royal execution invariants.",
+            "values": {
+              "input_code": "ancient royal",
+              "engine": "messageToSign",
+              "out": "Original Signed Payload Verification"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify asymmetric constraints and verify resulting cryptographic state.",
+            "values": {
+              "input_code": "Asymmetric Cryptographic",
+              "engine": "Payload",
+              "out": "Ed25519 Cryptographic Non-Repudiatio"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Dynamic JSON Web Key Set (JWKS) Key Rotation Architecture",
       "codeHash": "12b0209163eb94bf70a6b6dea0e276702819cf46bf2e8b3e6e76a2f577af4782",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Dynamic JSON Web Key Set (JWKS) Key Rotation Architecture",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Dynamic JSON Web Key Set (JWKS) Key Rotation Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "JSON",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "JWKS",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize json architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Dynamic JSON"
+              },
+              "engine": {
+                "text": "Dynamic JWKS"
+              },
+              "out": {
+                "text": "authentication systems"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how json coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "JSON"
+              },
+              "out": {
+                "text": "corporate security"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the luxury analogy to hotel execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "luxury hotel"
+              },
+              "engine": {
+                "text": "authServer"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify dynamic constraints and verify resulting json state.",
+            "values": {
+              "input_code": {
+                "text": "Dynamic JSON"
+              },
+              "engine": {
+                "text": "JWKS"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Dynamic JSON Web Key Set (JWKS) Key Rotation Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "JSON",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "JWKS",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize json architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Dynamic JSON",
+              "engine": "Dynamic JWKS",
+              "out": "authentication systems"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how json coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "However",
+              "engine": "JSON",
+              "out": "corporate security"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the luxury analogy to hotel execution invariants.",
+            "values": {
+              "input_code": "luxury hotel",
+              "engine": "authServer",
+              "out": "Request 1 Key Resolved: pinit-key-20"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify dynamic constraints and verify resulting json state.",
+            "values": {
+              "input_code": "Dynamic JSON",
+              "engine": "JWKS",
+              "out": "Zero-Downtime Dynamic JWKS Rotation "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Timing Attack Mitigation via crypto.timingSafeEqual",
-      "codeHash": "3034b2044160e04d5578cecb99bf47add90214f02648daef6386635dcd2bd087",
+      "codeHash": "f0dc98c7ceae390d94f838f6a03813809fdd97cd4c7ccc16f2b9332942f9d955",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Timing Attack Mitigation via crypto.timingSafeEqual",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Timing",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize timing architecture and attack boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "TimingSafeAuthenticator"
+              },
+              "out": {
+                "text": "cybersecurity"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how timing coordinates attack state transitions.",
+            "values": {
+              "input_code": {
+                "text": "standard string"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "left to"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the timing analogy to bank execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bank safe"
+              },
+              "engine": {
+                "text": "validHmac"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Timing"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Timing",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize timing architecture and attack boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "TimingSafeAuthenticator",
+              "out": "cybersecurity"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how timing coordinates attack state transitions.",
+            "values": {
+              "input_code": "standard string",
+              "engine": "Defense",
+              "out": "left to"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the timing analogy to bank execution invariants.",
+            "values": {
+              "input_code": "bank safe",
+              "engine": "validHmac",
+              "out": "Authentic HMAC Verified: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Timing",
+              "out": "Zero-Trust Cryptographic Defense Mat"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

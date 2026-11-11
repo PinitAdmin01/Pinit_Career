@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 54,
-  "promptSha": "1ca98d8e3ccc0720f0b117e8d744e0c002364160067e954799ab5b103d49d3c0",
-  "model": "gemini-2.5-pro",
+  "promptSha": "a21cec3b7261e8ff820d8060f63a219bfdf26e4cb6454199f408a34757b9c26e",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Real-Time Collaborative State Conflicts & Centralized Lock Failures",
       "codeHash": "064fe6f8f8938bab6aab13e30e6ae761b9e8135aac6ae95a32f810440edd7993",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Real-Time Collaborative State Conflicts & Centralized Lock Failures",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Real-Time Collaborative State Conflicts & Centralized Lock",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Collaborative",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "State",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize real architecture and time boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Real-Time Collaborative"
+              },
+              "engine": {
+                "text": "Naive Concurrent"
+              },
+              "out": {
+                "text": "full-stack web"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how real coordinates time state transitions.",
+            "values": {
+              "input_code": {
+                "text": "traditional database"
+              },
+              "engine": {
+                "text": "Collaborative"
+              },
+              "out": {
+                "text": "database row"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the centralized analogy to artists execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "artists attempting"
+              },
+              "engine": {
+                "text": "NaiveConcurrentReplica"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify real constraints and verify resulting time state.",
+            "values": {
+              "input_code": {
+                "text": "Real-Time Collaborative"
+              },
+              "engine": {
+                "text": "State"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Real-Time Collaborative State Conflicts & Centralized Lock",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Collaborative",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "State",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize real architecture and time boundaries.",
+            "values": {
+              "input_code": "Real-Time Collaborative",
+              "engine": "Naive Concurrent",
+              "out": "full-stack web"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how real coordinates time state transitions.",
+            "values": {
+              "input_code": "traditional database",
+              "engine": "Collaborative",
+              "out": "database row"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the centralized analogy to artists execution invariants.",
+            "values": {
+              "input_code": "artists attempting",
+              "engine": "NaiveConcurrentReplica",
+              "out": "Node A Unsynchronized Value: Hello W"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify real constraints and verify resulting time state.",
+            "values": {
+              "input_code": "Real-Time Collaborative",
+              "engine": "State",
+              "out": "State Divergence Detected: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Conflict-Free Replicated Data Types (CRDTs): Mathematical Convergence Invariants",
       "codeHash": "1b7db43b849a8d583fdbd209b9f795049bc6e9f8b280ced27f70c5fd1d745bd0",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Conflict-Free Replicated Data Types (CRDTs): Mathematical Convergence Invariants",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Conflict-Free Replicated Data Types (CRDTs)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Conflict",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Free",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Replicated",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize conflict architecture and free boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Conflict-Free Replicated"
+              },
+              "engine": {
+                "text": "CRDT Mathematical"
+              },
+              "out": {
+                "text": "scientific breakthrough"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how conflict coordinates free state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Strong Eventual"
+              },
+              "engine": {
+                "text": "Free"
+              },
+              "out": {
+                "text": "many network"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the mathematical analogy to taking execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "taking the"
+              },
+              "engine": {
+                "text": "CRDTMergeMathEngine.join"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify conflict constraints and verify resulting free state.",
+            "values": {
+              "input_code": {
+                "text": "Conflict-Free Replicated"
+              },
+              "engine": {
+                "text": "Replicated"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Conflict-Free Replicated Data Types (CRDTs)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Conflict",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Free",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Replicated",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize conflict architecture and free boundaries.",
+            "values": {
+              "input_code": "Conflict-Free Replicated",
+              "engine": "CRDT Mathematical",
+              "out": "scientific breakthrough"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how conflict coordinates free state transitions.",
+            "values": {
+              "input_code": "Strong Eventual",
+              "engine": "Free",
+              "out": "many network"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the mathematical analogy to taking execution invariants.",
+            "values": {
+              "input_code": "taking the",
+              "engine": "CRDTMergeMathEngine.join",
+              "out": "Commutative Property Satisfied: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify conflict constraints and verify resulting free state.",
+            "values": {
+              "input_code": "Conflict-Free Replicated",
+              "engine": "Replicated",
+              "out": "CRDT Mathematical Lattice Invariants"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "State-Based CRDTs: Grow-Only Counters (G-Counter) & Positive-Negative Counters (PN-Counter)",
       "codeHash": "77269b85ed970d9d59b649247de8c3b178f2eb25ad633d372ce599f66f314a2d",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: State-Based CRDTs: Grow-Only Counters (G-Counter) & Positive-Negative Counters (PN-Counter)",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "State-Based CRDTs",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "State",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Based",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "CRDTs",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize crdts architecture and based boundaries.",
+            "values": {
+              "input_code": {
+                "text": "State-Based CRDTs"
+              },
+              "engine": {
+                "text": "PN-Counter"
+              },
+              "out": {
+                "text": "distributed systems"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how crdts coordinates based state transitions.",
+            "values": {
+              "input_code": {
+                "text": "foundational State-Based"
+              },
+              "engine": {
+                "text": "Based"
+              },
+              "out": {
+                "text": "overwrite each"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the counter analogy to counters execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "electronic turnstile"
+              },
+              "engine": {
+                "text": "sumN"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify state constraints and verify resulting based state.",
+            "values": {
+              "input_code": {
+                "text": "State-Based CRDTs"
+              },
+              "engine": {
+                "text": "CRDTs"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "State-Based CRDTs",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "State",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Based",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "CRDTs",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize crdts architecture and based boundaries.",
+            "values": {
+              "input_code": "State-Based CRDTs",
+              "engine": "PN-Counter",
+              "out": "distributed systems"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how crdts coordinates based state transitions.",
+            "values": {
+              "input_code": "foundational State-Based",
+              "engine": "Based",
+              "out": "overwrite each"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the counter analogy to counters execution invariants.",
+            "values": {
+              "input_code": "electronic turnstile",
+              "engine": "sumN",
+              "out": "Replica 1 Converged Value: 7"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify state constraints and verify resulting based state.",
+            "values": {
+              "input_code": "State-Based CRDTs",
+              "engine": "CRDTs",
+              "out": "PN-Counter Conflict-Free Convergence"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Observed-Remove Sets (OR-Set) & Last-Write-Wins Element Sets (LWW-Element-Set)",
       "codeHash": "abc792bf648544ebd19c60efffe1f492bc6b0fddfb9834c2399b090d28ae0193",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Observed-Remove Sets (OR-Set) & Last-Write-Wins Element Sets (LWW-Element-Set)",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Observed-Remove Sets (OR-Set) & Last-Write-Wins Element Sets",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Observed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Remove",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sets",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize sets architecture and numeric boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Observed-Remove Sets"
+              },
+              "engine": {
+                "text": "LWW-Element-Set"
+              },
+              "out": {
+                "text": "numeric counters"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how sets coordinates numeric state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Managing distributed"
+              },
+              "engine": {
+                "text": "Remove"
+              },
+              "out": {
+                "text": "exact same"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the collaborative analogy to office execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "collaborative office"
+              },
+              "engine": {
+                "text": "merge"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify observed constraints and verify resulting remove state.",
+            "values": {
+              "input_code": {
+                "text": "Observed-Remove Sets"
+              },
+              "engine": {
+                "text": "Sets"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Observed-Remove Sets (OR-Set) & Last-Write-Wins Element Sets",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Observed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Remove",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sets",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize sets architecture and numeric boundaries.",
+            "values": {
+              "input_code": "Observed-Remove Sets",
+              "engine": "LWW-Element-Set",
+              "out": "numeric counters"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how sets coordinates numeric state transitions.",
+            "values": {
+              "input_code": "Managing distributed",
+              "engine": "Remove",
+              "out": "exact same"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the collaborative analogy to office execution invariants.",
+            "values": {
+              "input_code": "collaborative office",
+              "engine": "merge",
+              "out": "Client Alpha Has Draft: false"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify observed constraints and verify resulting remove state.",
+            "values": {
+              "input_code": "Observed-Remove Sets",
+              "engine": "Sets",
+              "out": "LWW-Element-Set Deterministic Conver"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Vector Clock Drift Sentinels & Convergence Auditing",
       "codeHash": "30b9f218cfc25fed056f6df25c444937c678b6c9b85f47a4bad31c340d18862e",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Vector Clock Drift Sentinels & Convergence Auditing",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Vector",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize sentinels architecture and production boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Vector Clock"
+              },
+              "out": {
+                "text": "systems relying"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how sentinels coordinates production state transitions.",
+            "values": {
+              "input_code": {
+                "text": "primary threat"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "device clock"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the clock analogy to drift execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "synchronized fleet"
+              },
+              "engine": {
+                "text": "Math.abs"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Vector"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Vector",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize sentinels architecture and production boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Vector Clock",
+              "out": "systems relying"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how sentinels coordinates production state transitions.",
+            "values": {
+              "input_code": "primary threat",
+              "engine": "Defense",
+              "out": "device clock"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the clock analogy to drift execution invariants.",
+            "values": {
+              "input_code": "synchronized fleet",
+              "engine": "Math.abs",
+              "out": "Cluster Replicas In Sync: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Vector",
+              "out": "CRDT Vector Clock Convergence Sentin"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 39,
-  "promptSha": "594e49a1c1e76f897d489d52e8b73887c23fe188b3b91a5556793f2daee90d6f",
-  "model": "gemini-2.5-pro",
+  "promptSha": "c5428858f84faac4804511d2f0d01bbe017a4d2fa13c4abd32bf24fb937a8504",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "WebAssembly (Wasm) Core Architecture: Stack Machine, Linear Memory & Binary Encoding",
       "codeHash": "7ee5a36e6d74c8014e3cfdc26ed2bc6fad98802071693b396f8b975e592f6a56",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: WebAssembly (Wasm) Core Architecture: Stack Machine, Linear Memory & Binary Encoding",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "WebAssembly (Wasm) Core Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "WebAssembly",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Wasm",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize machine architecture and binary boundaries.",
+            "values": {
+              "input_code": {
+                "text": "WebAssembly"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "decades"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how machine coordinates binary state transitions.",
+            "values": {
+              "input_code": {
+                "text": "WebAssembly"
+              },
+              "engine": {
+                "text": "Wasm"
+              },
+              "out": {
+                "text": "designed as"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the webassembly analogy to stack execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international banking"
+              },
+              "engine": {
+                "text": "case"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify webassembly constraints and verify resulting wasm state.",
+            "values": {
+              "input_code": {
+                "text": "WebAssembly"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "WebAssembly (Wasm) Core Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "WebAssembly",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Wasm",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize machine architecture and binary boundaries.",
+            "values": {
+              "input_code": "WebAssembly",
+              "engine": "Simulation",
+              "out": "decades"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how machine coordinates binary state transitions.",
+            "values": {
+              "input_code": "WebAssembly",
+              "engine": "Wasm",
+              "out": "designed as"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the webassembly analogy to stack execution invariants.",
+            "values": {
+              "input_code": "international banking",
+              "engine": "case",
+              "out": "WebAssembly Stack Evaluation Result:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify webassembly constraints and verify resulting wasm state.",
+            "values": {
+              "input_code": "WebAssembly",
+              "engine": "Architecture",
+              "out": "Compilation Complexity: O(N) Linear "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Shared Linear Memory & Zero-Copy Pointer Slices: WebAssembly.Memory, Uint8Array & Buffer Interop",
       "codeHash": "8f612e483483badceac52c22f158fb13563ba7c7cc4171c871b1a4dc56c490aa",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Shared Linear Memory & Zero-Copy Pointer Slices: WebAssembly.Memory, UintArray & Buffer Interop",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Shared Linear Memory & Zero-Copy Pointer Slices",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Shared",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Linear",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Memory",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize webassembly architecture and linear boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Shared Linear"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "defining feature"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how webassembly coordinates linear state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Linear Memory"
+              },
+              "engine": {
+                "text": "Linear"
+              },
+              "out": {
+                "text": "megabytes initially"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the memory analogy to webassembly execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "architect and"
+              },
+              "engine": {
+                "text": "this.buffer"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify shared constraints and verify resulting linear state.",
+            "values": {
+              "input_code": {
+                "text": "Shared Linear"
+              },
+              "engine": {
+                "text": "Memory"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Shared Linear Memory & Zero-Copy Pointer Slices",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Shared",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Linear",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Memory",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize webassembly architecture and linear boundaries.",
+            "values": {
+              "input_code": "Shared Linear",
+              "engine": "Simulation",
+              "out": "defining feature"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how webassembly coordinates linear state transitions.",
+            "values": {
+              "input_code": "Linear Memory",
+              "engine": "Linear",
+              "out": "megabytes initially"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the memory analogy to webassembly execution invariants.",
+            "values": {
+              "input_code": "architect and",
+              "engine": "this.buffer",
+              "out": "Wasm Linear Memory Page Size (Bytes)"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify shared constraints and verify resulting linear state.",
+            "values": {
+              "input_code": "Shared Linear",
+              "engine": "Memory",
+              "out": "Zero-Copy Shared Memory Interop: Tru"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "SIMD 128-bit Vector Processing in WebAssembly: Accelerating Machine Learning & Image Filters",
       "codeHash": "f6db3739f05c0c5a02d3f6b6ed7a84a8f27216d5b0f9ff3ebb21dd8b9f64760b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: SIMD -bit Vector Processing in WebAssembly: Accelerating Machine Learning & Image Filters",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "SIMD 128-bit Vector Processing in WebAssembly",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "SIMD",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Vector",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Processing",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize webassembly architecture and machine boundaries.",
+            "values": {
+              "input_code": {
+                "text": "SIMD 128-bit"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "WebAssembly provides"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how webassembly coordinates machine state transitions.",
+            "values": {
+              "input_code": {
+                "text": "unlock hardware-level"
+              },
+              "engine": {
+                "text": "Vector"
+              },
+              "out": {
+                "text": "engines and"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the simd analogy to automotive execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "automotive car"
+              },
+              "engine": {
+                "text": "subB"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify simd constraints and verify resulting vector state.",
+            "values": {
+              "input_code": {
+                "text": "SIMD 128-bit"
+              },
+              "engine": {
+                "text": "Processing"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "SIMD 128-bit Vector Processing in WebAssembly",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "SIMD",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Vector",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Processing",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize webassembly architecture and machine boundaries.",
+            "values": {
+              "input_code": "SIMD 128-bit",
+              "engine": "Simulation",
+              "out": "WebAssembly provides"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how webassembly coordinates machine state transitions.",
+            "values": {
+              "input_code": "unlock hardware-level",
+              "engine": "Vector",
+              "out": "engines and"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the simd analogy to automotive execution invariants.",
+            "values": {
+              "input_code": "automotive car",
+              "engine": "subB",
+              "out": "Total Floating-Point Elements Proces"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify simd constraints and verify resulting vector state.",
+            "values": {
+              "input_code": "SIMD 128-bit",
+              "engine": "Processing",
+              "out": "v128 SIMD Vector Instruction Verifie"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Wasm Component Model & WebAssembly System Interface (WASI): Sandboxed Filesystem & POSIX Virtualization",
       "codeHash": "82dbf8c0c8cdea91fcace6e4f099fe16dfb90fb700762fcb788fa1d673065189",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Wasm Component Model & WebAssembly System Interface (WASI): Sandboxed Filesystem & POSIX Virtualization",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Wasm Component Model & WebAssembly System Interface (WASI)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Wasm",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Component",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Model",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize system architecture and posix boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Wasm Component"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "developers write"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how system coordinates posix state transitions.",
+            "values": {
+              "input_code": {
+                "text": "allow WebAssembly"
+              },
+              "engine": {
+                "text": "Component"
+              },
+              "out": {
+                "text": "WebAssembly System"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the wasi analogy to high execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-security embassy"
+              },
+              "engine": {
+                "text": "Object.keys"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify wasm constraints and verify resulting component state.",
+            "values": {
+              "input_code": {
+                "text": "Wasm Component"
+              },
+              "engine": {
+                "text": "Model"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Wasm Component Model & WebAssembly System Interface (WASI)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Wasm",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Component",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Model",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize system architecture and posix boundaries.",
+            "values": {
+              "input_code": "Wasm Component",
+              "engine": "Simulation",
+              "out": "developers write"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how system coordinates posix state transitions.",
+            "values": {
+              "input_code": "allow WebAssembly",
+              "engine": "Component",
+              "out": "WebAssembly System"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the wasi analogy to high execution invariants.",
+            "values": {
+              "input_code": "high-security embassy",
+              "engine": "Object.keys",
+              "out": "WASI Sandbox File Read Status: SUCCE"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify wasm constraints and verify resulting component state.",
+            "values": {
+              "input_code": "Wasm Component",
+              "engine": "Model",
+              "out": "Capability-Based Security Enforced: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Polyglot Microservices: Embedding Rust & C++ Compiled Wasm in Node.js Event Loops",
       "codeHash": "cac0cf3ed92f10499b7f2c9904a88ff62a750452282194910cd19a732f25c416",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Polyglot Microservices: Embedding Rust & C++ Compiled Wasm in Node.js Event Loops",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Polyglot Microservices",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Polyglot",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Microservices",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Embedding",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize polyglot architecture and node boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Polyglot Microservices"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "ultimate promise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how polyglot coordinates node state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Compiling systems"
+              },
+              "engine": {
+                "text": "Microservices"
+              },
+              "out": {
+                "text": "runs within"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the node analogy to compiled execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international space"
+              },
+              "engine": {
+                "text": "kernelLanguage"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify polyglot constraints and verify resulting microservices state.",
+            "values": {
+              "input_code": {
+                "text": "Polyglot Microservices"
+              },
+              "engine": {
+                "text": "Embedding"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Polyglot Microservices",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Polyglot",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Microservices",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Embedding",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize polyglot architecture and node boundaries.",
+            "values": {
+              "input_code": "Polyglot Microservices",
+              "engine": "Simulation",
+              "out": "ultimate promise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how polyglot coordinates node state transitions.",
+            "values": {
+              "input_code": "Compiling systems",
+              "engine": "Microservices",
+              "out": "runs within"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the node analogy to compiled execution invariants.",
+            "values": {
+              "input_code": "international space",
+              "engine": "kernelLanguage",
+              "out": "Polyglot Kernel Architecture Loaded:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify polyglot constraints and verify resulting microservices state.",
+            "values": {
+              "input_code": "Polyglot Microservices",
+              "engine": "Embedding",
+              "out": "Fault Isolation (Zero Segfault Crash"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 23,
-  "promptSha": "bde0b3f7605ecd7514c9b7cacb114cb4c82b2a8edd3a11514374e8a2654bf618",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "d11064993fdf11d7f0520f8c13ed864a3abd473abc7d90dbb9e7a56539db9122",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Distributed Commit Log: Topics, Partitions & Offsets",
       "codeHash": "0a84d109a3785b3ff8f1793bf84ba6b8ba6ed8a499599161de79e3861b44589f",
       "spec": {
         "template": "flow",
-        "title": "The Distributed Commit Log: Topics,... — Execution Pipeline",
+        "title": "The Distributed Commit Log: Topics, Partitions & Offsets",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The Distributed Commit Log: Topics,...",
+            "id": "engine",
+            "label": "Commit",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Topics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize The Distributed Commit Log.",
+            "caption": "Initialize traditional architecture and relational boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Commit"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "traditional relational"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in The Distributed.",
+            "caption": "Trace how traditional coordinates relational state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Apache Kafka"
+              },
+              "engine": {
+                "text": "Commit"
+              },
+              "out": {
+                "text": "windows"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in The Distributed.",
+            "caption": "Connect the online analogy to banking execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "online banking"
+              },
+              "engine": {
+                "text": "immutable events"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in The.",
+            "caption": "Modify offsets constraints and verify resulting commit state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "reading from"
+              },
+              "engine": {
+                "text": "Topics"
+              },
+              "out": {
+                "out": 8
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "The Distributed Commit Log: Topics, Partitions & Offsets",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Commit",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Topics",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize traditional architecture and relational boundaries.",
+            "values": {
+              "input_code": "Distributed Commit",
+              "engine": "Simulation",
+              "out": "traditional relational"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how traditional coordinates relational state transitions.",
+            "values": {
+              "input_code": "Apache Kafka",
+              "engine": "Commit",
+              "out": "windows"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the online analogy to banking execution invariants.",
+            "values": {
+              "input_code": "online banking",
+              "engine": "immutable events",
+              "out": "Kafka Commit Log Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify offsets constraints and verify resulting commit state.",
+            "values": {
+              "input_code": "reading from",
+              "engine": "Topics",
+              "out": "Kafka Distributed Commit Log Invaria"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -117,101 +260,244 @@
       "codeHash": "0cd6195333770249f338ea8a62d3a8d9768348d5b08b90b6a2398ee8ac8cd981",
       "spec": {
         "template": "flow",
-        "title": "Partition Hashing, Key Ordering & C... — Execution Pipeline",
+        "title": "Partition Hashing, Key Ordering & Consistent Hashing",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Partition",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Partition Hashing, Key Ordering & C...",
+            "id": "engine",
+            "label": "Hashing",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Ordering",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Partition Hashing, Key Ordering &.",
+            "caption": "Initialize ordering architecture and critical boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Partition Hashing"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "critical architectural"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Partition Hashing.",
+            "caption": "Trace how ordering coordinates critical state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kafka solves"
+              },
+              "engine": {
+                "text": "Hashing"
+              },
+              "out": {
+                "text": "Therefore"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Partition Hashing.",
+            "caption": "Connect the hashing analogy to partition execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "e-commerce order"
+              },
+              "engine": {
+                "text": "Test Key"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Partition.",
+            "caption": "Modify partition constraints and verify resulting hashing state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "identical keys"
+              },
+              "engine": {
+                "text": "Ordering"
+              },
+              "out": {
+                "out": 9
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Partition Hashing, Key Ordering & Consistent Hashing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Partition",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hashing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ordering",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize ordering architecture and critical boundaries.",
+            "values": {
+              "input_code": "Partition Hashing",
+              "engine": "Simulation",
+              "out": "critical architectural"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how ordering coordinates critical state transitions.",
+            "values": {
+              "input_code": "Kafka solves",
+              "engine": "Hashing",
+              "out": "Therefore"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the hashing analogy to partition execution invariants.",
+            "values": {
+              "input_code": "e-commerce order",
+              "engine": "Test Key",
+              "out": "Partition Hasher Initialized: TotalP"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify partition constraints and verify resulting hashing state.",
+            "values": {
+              "input_code": "identical keys",
+              "engine": "Ordering",
+              "out": "Partition Hashing Invariant: VERIFIE"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -224,101 +510,244 @@
       "codeHash": "d92897a9940671919f07d85e291225a61f3b3db105ada173e10a581d8f976ffd",
       "spec": {
         "template": "flow",
-        "title": "Consumer Groups, Cooperative Rebala... — Execution Pipeline",
+        "title": "Consumer Groups, Cooperative Rebalancing & Offset Commits",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Consumer",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Consumer Groups, Cooperative Rebala...",
+            "id": "engine",
+            "label": "Groups",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Cooperative",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Consumer Groups, Cooperative.",
+            "caption": "Initialize consumer architecture and groups boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Consumer Groups"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Producing events"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Consumer Groups.",
+            "caption": "Trace how consumer coordinates groups state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Consumer Group"
+              },
+              "engine": {
+                "text": "Groups"
+              },
+              "out": {
+                "text": "assigned to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Consumer Groups.",
+            "caption": "Connect the cooperative analogy to rebalancing execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "image processing"
+              },
+              "engine": {
+                "text": "assignmentMap"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Consumer.",
+            "caption": "Modify consumers constraints and verify resulting join state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "consumers join"
+              },
+              "engine": {
+                "text": "Cooperative"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Consumer Groups, Cooperative Rebalancing & Offset Commits",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Consumer",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Groups",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cooperative",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize consumer architecture and groups boundaries.",
+            "values": {
+              "input_code": "Consumer Groups",
+              "engine": "Simulation",
+              "out": "Producing events"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how consumer coordinates groups state transitions.",
+            "values": {
+              "input_code": "Consumer Group",
+              "engine": "Groups",
+              "out": "assigned to"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the cooperative analogy to rebalancing execution invariants.",
+            "values": {
+              "input_code": "image processing",
+              "engine": "assignmentMap",
+              "out": "Consumer Group Coordinator Initializ"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify consumers constraints and verify resulting join state.",
+            "values": {
+              "input_code": "consumers join",
+              "engine": "Cooperative",
+              "out": "Consumer Group Rebalance Invariant: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -331,101 +760,244 @@
       "codeHash": "f8dd1337608fe3e1068e2c1a18fc69c58cd385b9ab264da639284c52b3027c8c",
       "spec": {
         "template": "flow",
-        "title": "Exactly-Once Semantics (EOS) & Idem... — Execution Pipeline",
+        "title": "Exactly-Once Semantics (EOS) & Idempotent Transactions",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Exactly",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Exactly-Once Semantics (EOS) & Idem...",
+            "id": "engine",
+            "label": "Once",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Semantics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Exactly-Once Semantics (EOS) &.",
+            "caption": "Initialize semantics architecture and once boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Exactly-Once Semantics"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "distributed messaging"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Exactly-Once.",
+            "caption": "Trace how semantics coordinates once state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "At-Least-Once delivery"
+              },
+              "engine": {
+                "text": "Once"
+              },
+              "out": {
+                "text": "drops the"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Exactly-Once.",
+            "caption": "Connect the transactions analogy to stock execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "stock trading"
+              },
+              "engine": {
+                "text": "payload"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify submitting constraints and verify resulting duplicate state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "submitting"
+              },
+              "engine": {
+                "text": "Semantics"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Exactly-Once Semantics (EOS) & Idempotent Transactions",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Exactly",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Once",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Semantics",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize semantics architecture and once boundaries.",
+            "values": {
+              "input_code": "Exactly-Once Semantics",
+              "engine": "Simulation",
+              "out": "distributed messaging"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how semantics coordinates once state transitions.",
+            "values": {
+              "input_code": "At-Least-Once delivery",
+              "engine": "Once",
+              "out": "drops the"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the transactions analogy to stock execution invariants.",
+            "values": {
+              "input_code": "stock trading",
+              "engine": "payload",
+              "out": "Idempotent Producer Mesh Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify submitting constraints and verify resulting duplicate state.",
+            "values": {
+              "input_code": "submitting",
+              "engine": "Semantics",
+              "out": "Kafka Exactly-Once Semantics Invaria"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -435,104 +1007,247 @@
     },
     {
       "partTitle": "Kafka Schema Registry, Avro Serialization & Event Evolution Governance",
-      "codeHash": "75cdc4c50671298831960e19a2f5068e4418da3b0dcd3da7eda805732b3965b1",
+      "codeHash": "534a0b1a3fc4809a0bcbf537a7784c26f4492c318b925811389f546c8caf35b2",
       "spec": {
         "template": "flow",
-        "title": "Kafka Schema Registry, Avro Seriali... — Execution Pipeline",
+        "title": "Kafka Schema Registry, Avro Serialization & Event Evolution",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Kafka",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Kafka Schema Registry, Avro Seriali...",
+            "id": "engine",
+            "label": "Schema",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Registry",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Kafka Schema Registry, Avro.",
+            "caption": "Initialize event architecture and schema boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kafka Schema"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "asynchronous"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Kafka Schema.",
+            "caption": "Trace how event coordinates schema state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Confluent Schema"
+              },
+              "engine": {
+                "text": "Schema"
+              },
+              "out": {
+                "text": "dedicated Schema"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Kafka Schema.",
+            "caption": "Connect the event analogy to schema execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "fintech core"
+              },
+              "engine": {
+                "text": "unpackHeader"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Kafka.",
+            "caption": "Modify schema constraints and verify resulting confluent state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Confluent wire"
+              },
+              "engine": {
+                "text": "Registry"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Kafka Schema Registry, Avro Serialization & Event Evolution",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Kafka",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Schema",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Registry",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and schema boundaries.",
+            "values": {
+              "input_code": "Kafka Schema",
+              "engine": "Simulation",
+              "out": "asynchronous"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates schema state transitions.",
+            "values": {
+              "input_code": "Confluent Schema",
+              "engine": "Schema",
+              "out": "dedicated Schema"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the event analogy to schema execution invariants.",
+            "values": {
+              "input_code": "fintech core",
+              "engine": "unpackHeader",
+              "out": "Schema Registry Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify schema constraints and verify resulting confluent state.",
+            "values": {
+              "input_code": "Confluent wire",
+              "engine": "Registry",
+              "out": "Schema Registry & Wire Format Invari"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

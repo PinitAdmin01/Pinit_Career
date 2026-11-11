@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 24,
-  "promptSha": "9b593d46a20e2ff02d8f71018eabfcd47bce5a84e09432a014fb2bd552044fdc",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "4f82c94a4369a74fcddaa8d14c8948d3aa50a108622e2ab8eb06132e80ce9e65",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Containerization Fundamentals & Docker Layer Caching Mechanics",
       "codeHash": "f3574433184d4d17a733b6f59313766724b441ee1462c0d7f106b0900c14eea1",
       "spec": {
         "template": "flow",
-        "title": "Containerization Fundamentals & Doc... — Execution Pipeline",
+        "title": "Containerization Fundamentals & Docker Layer Caching Mechanics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Containerization",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Containerization Fundamentals & Doc...",
+            "id": "engine",
+            "label": "Docker",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Layer",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Containerization Fundamentals &.",
+            "caption": "Initialize containerization architecture and docker boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Containerization"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "cloud-native engineering"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Containerization.",
+            "caption": "Trace how containerization coordinates docker state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Linux operating"
+              },
+              "engine": {
+                "text": "Docker"
+              },
+              "out": {
+                "text": "Namespaces provide"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Containerization.",
+            "caption": "Connect the high analogy to velocity execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "high-velocity software"
+              },
+              "engine": {
+                "text": "Verification Execution"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify layer constraints and verify resulting application state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "application source"
+              },
+              "engine": {
+                "text": "Layer"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Containerization Fundamentals & Docker Layer Caching Mechanics",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Containerization",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Docker",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Layer",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize containerization architecture and docker boundaries.",
+            "values": {
+              "input_code": "Containerization",
+              "engine": "Simulation",
+              "out": "cloud-native engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how containerization coordinates docker state transitions.",
+            "values": {
+              "input_code": "Linux operating",
+              "engine": "Docker",
+              "out": "Namespaces provide"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to velocity execution invariants.",
+            "values": {
+              "input_code": "high-velocity software",
+              "engine": "Verification Execution",
+              "out": "Docker Cache Engine Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify layer constraints and verify resulting application state.",
+            "values": {
+              "input_code": "application source",
+              "engine": "Layer",
+              "out": "Docker Layer Caching Invariant: VERI"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -117,101 +260,244 @@
       "codeHash": "ac090b016bcaf3fbc1c5e472fbfc3fd93569b6f44b6be1a08db2ffeabc6db9a1",
       "spec": {
         "template": "flow",
-        "title": "Multi-Stage Production Builds & Nex... — Execution Pipeline",
+        "title": "Multi-Stage Production Builds & Next.js Standalone Output",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Multi",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Multi-Stage Production Builds & Nex...",
+            "id": "engine",
+            "label": "Stage",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Builds",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Multi-Stage Production Builds &.",
+            "caption": "Initialize production architecture and standard boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Multi-Stage Production"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "standard development"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Multi-Stage.",
+            "caption": "Trace how production coordinates standard state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Multi-Stage Docker"
+              },
+              "engine": {
+                "text": "Stage"
+              },
+              "out": {
+                "text": "TypeScript"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Multi-Stage.",
+            "caption": "Connect the next analogy to multi execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "SaaS platform"
+              },
+              "engine": {
+                "text": "p.name"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify standalone constraints and verify resulting production state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "standalone dependency"
+              },
+              "engine": {
+                "text": "Builds"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Multi-Stage Production Builds & Next.js Standalone Output",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Stage",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Builds",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize production architecture and standard boundaries.",
+            "values": {
+              "input_code": "Multi-Stage Production",
+              "engine": "Simulation",
+              "out": "standard development"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how production coordinates standard state transitions.",
+            "values": {
+              "input_code": "Multi-Stage Docker",
+              "engine": "Stage",
+              "out": "TypeScript"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the next analogy to multi execution invariants.",
+            "values": {
+              "input_code": "SaaS platform",
+              "engine": "p.name",
+              "out": "Multi-Stage Standalone Builder Initi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify standalone constraints and verify resulting production state.",
+            "values": {
+              "input_code": "standalone dependency",
+              "engine": "Builds",
+              "out": "Next.js Standalone Multi-Stage Invar"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -224,101 +510,244 @@
       "codeHash": "7b6b1a161094f1c2a392c2f472d21545cc6cc0dde71564f3a1856c2d34335d4f",
       "spec": {
         "template": "flow",
-        "title": "Container Hardening: Non-Root Users... — Execution Pipeline",
+        "title": "Container Hardening",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Container",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Container Hardening: Non-Root Users...",
+            "id": "engine",
+            "label": "Hardening",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Root",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Container Hardening: Non-Root.",
+            "caption": "Initialize container architecture and root boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Container Hardening"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "default"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Container Hardening.",
+            "caption": "Trace how container coordinates root state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "container security"
+              },
+              "engine": {
+                "text": "Hardening"
+              },
+              "out": {
+                "text": "USER nextjs"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Container Hardening.",
+            "caption": "Connect the security analogy to container execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "cloud security"
+              },
+              "engine": {
+                "text": "violations.push"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Container.",
+            "caption": "Modify root constraints and verify resulting container state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "non-root execution"
+              },
+              "engine": {
+                "text": "Root"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Container Hardening",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Container",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hardening",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Root",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize container architecture and root boundaries.",
+            "values": {
+              "input_code": "Container Hardening",
+              "engine": "Simulation",
+              "out": "default"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how container coordinates root state transitions.",
+            "values": {
+              "input_code": "container security",
+              "engine": "Hardening",
+              "out": "USER nextjs"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the security analogy to container execution invariants.",
+            "values": {
+              "input_code": "cloud security",
+              "engine": "violations.push",
+              "out": "Container Security Auditor Initializ"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify root constraints and verify resulting container state.",
+            "values": {
+              "input_code": "non-root execution",
+              "engine": "Root",
+              "out": "Container Hardening & Non-Root Invar"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -331,101 +760,244 @@
       "codeHash": "2cf54ee3ea04490b375ceded295b21dadf3a6786478ca71f5457c1ff9aed6d6f",
       "spec": {
         "template": "flow",
-        "title": "Container Lifecycle: Liveness, Read... — Execution Pipeline",
+        "title": "Container Lifecycle: Liveness, Readiness & Graceful Shutdown",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Container",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Container Lifecycle: Liveness, Read...",
+            "id": "engine",
+            "label": "Lifecycle",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Liveness",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Container Lifecycle: Liveness.",
+            "caption": "Initialize container architecture and lifecycle boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Container Lifecycle"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Deploying containers"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Container Lifecycle.",
+            "caption": "Trace how container coordinates lifecycle state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kubernetes models"
+              },
+              "engine": {
+                "text": "Lifecycle"
+              },
+              "out": {
+                "text": "deadlocked"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Container Lifecycle.",
+            "caption": "Connect the readiness analogy to production execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "Next.js service"
+              },
+              "engine": {
+                "text": "readiness"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Container.",
+            "caption": "Modify readiness constraints and verify resulting sigterm state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "SIGTERM triggers"
+              },
+              "engine": {
+                "text": "Liveness"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Container Lifecycle: Liveness, Readiness & Graceful Shutdown",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Container",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Lifecycle",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Liveness",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize container architecture and lifecycle boundaries.",
+            "values": {
+              "input_code": "Container Lifecycle",
+              "engine": "Simulation",
+              "out": "Deploying containers"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how container coordinates lifecycle state transitions.",
+            "values": {
+              "input_code": "Kubernetes models",
+              "engine": "Lifecycle",
+              "out": "deadlocked"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the readiness analogy to production execution invariants.",
+            "values": {
+              "input_code": "Next.js service",
+              "engine": "readiness",
+              "out": "Container Health Probe Manager Initi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify readiness constraints and verify resulting sigterm state.",
+            "values": {
+              "input_code": "SIGTERM triggers",
+              "engine": "Liveness",
+              "out": "Container Lifecycle & Probe Invarian"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -438,101 +1010,244 @@
       "codeHash": "8a15488eaf29551ae0bbdd1bc96f9e394a10aeabad4d37dfb8675ce6f09c6337",
       "spec": {
         "template": "flow",
-        "title": "Docker Compose Orchestration, Volum... — Execution Pipeline",
+        "title": "Docker Compose Orchestration, Volume Persistence & Bridge",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Docker",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Docker Compose Orchestration, Volum...",
+            "id": "engine",
+            "label": "Compose",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Orchestration",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Docker Compose Orchestration.",
+            "caption": "Initialize docker architecture and compose boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Docker Compose"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Local full-stack"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Docker Compose.",
+            "caption": "Trace how docker coordinates compose state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Docker Compose"
+              },
+              "engine": {
+                "text": "Compose"
+              },
+              "out": {
+                "text": "network"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Docker Compose.",
+            "caption": "Connect the docker analogy to compose execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "developer clones"
+              },
+              "engine": {
+                "text": "readyService"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Docker.",
+            "caption": "Modify bridge constraints and verify resulting service state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "service boots"
+              },
+              "engine": {
+                "text": "Orchestration"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Docker Compose Orchestration, Volume Persistence & Bridge",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Docker",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Compose",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Orchestration",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize docker architecture and compose boundaries.",
+            "values": {
+              "input_code": "Docker Compose",
+              "engine": "Simulation",
+              "out": "Local full-stack"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how docker coordinates compose state transitions.",
+            "values": {
+              "input_code": "Docker Compose",
+              "engine": "Compose",
+              "out": "network"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the docker analogy to compose execution invariants.",
+            "values": {
+              "input_code": "developer clones",
+              "engine": "readyService",
+              "out": "Docker Compose Orchestrator Initiali"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify bridge constraints and verify resulting service state.",
+            "values": {
+              "input_code": "service boots",
+              "engine": "Orchestration",
+              "out": "Docker Compose Orchestration Invaria"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

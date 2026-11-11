@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 1,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "b4e70a71d64c614208f4883e72c355dcc49375e367514d6428f51cfb015e3e38",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "React Server Components (RSC): The Zero-Bundle-Size Paradigm",
-      "codeHash": "9cd51d669c5fc76d9221c07ede92f3f16289aaa4c8892e7c541928e1686b1869",
+      "partTitle": "The Modern Full-Stack Continuum: Browser DOM Engines vs Node.js Server Processes",
+      "codeHash": "6fa15edc9b5824a41f01404c4fc1c99f5f3299f16f0da51ad015836d4ab86b49",
       "spec": {
         "template": "flow",
-        "title": "React Server Components (RSC): The Zero-Bundl... — Execution Pipeline",
+        "title": "The Modern Full-Stack Continuum",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Stack",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. React Server Compon...",
+            "id": "engine",
+            "label": "Browser",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Engines",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for React Server Components (RSC): The Zero-...",
+            "caption": "Initialize modern architecture and stack boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Full-Stack Continuum"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "engineering"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in React Server Compon....",
+            "caption": "Trace how modern coordinates stack state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "browser"
+              },
+              "engine": {
+                "text": "Browser"
+              },
+              "out": {
+                "text": "localStorage"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the browser analogy to full execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "international diplomatic"
+              },
+              "engine": {
+                "text": "isServer"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for React Server Components (RSC): Th...",
+            "caption": "Modify node constraints and verify resulting safely state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "safely identify"
+              },
+              "engine": {
+                "text": "Engines"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "React Server Components (RSC): The Zero-Bundl... — Execution Pipeline",
+        "title": "The Modern Full-Stack Continuum",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Stack",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. React Server Compon...",
+            "id": "engine",
+            "label": "Browser",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Engines",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for React Server Components (RSC): The Zero-...",
+            "caption": "Initialize modern architecture and stack boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Full-Stack Continuum",
+              "engine": "Verification",
+              "out": "engineering"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in React Server Compon....",
+            "caption": "Trace how modern coordinates stack state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "browser",
+              "engine": "Browser",
+              "out": "localStorage"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the browser analogy to full execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "international diplomatic",
+              "engine": "isServer",
+              "out": "Runtime Name: Node.js"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for React Server Components (RSC): Th...",
+            "caption": "Modify node constraints and verify resulting safely state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "safely identify",
+              "engine": "Engines",
+              "out": "Active Global Scope: global"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Streaming SSR & Out-of-Order HTML Hydration via Suspense",
-      "codeHash": "48444099eabf5ed5f8bf9b2787f96cc3be87a7656fdc5a0687528bc33d60c36c",
+      "partTitle": "The JavaScript Event Loop: Call Stack, Microtasks & Macrotask Concurrency",
+      "codeHash": "0a18f93e4d99fd8ef6110ffff0132443799fa5c6d0a281af0f6f02ad466a2a68",
       "spec": {
         "template": "flow",
-        "title": "Streaming SSR & Out-of-Order HTML Hydration v... — Execution Pipeline",
+        "title": "The JavaScript Event Loop",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "JavaScript",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Streaming SSR & Out...",
+            "id": "engine",
+            "label": "Event",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Loop",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Streaming SSR & Out-of-Order HTML Hydrat...",
+            "caption": "Initialize stack architecture and javascript boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "JavaScript Event"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "high-throughput full-stack"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Streaming SSR & Out....",
+            "caption": "Trace how stack coordinates javascript state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Node.js and"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "text": "operation is"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the call analogy to stack execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "executive chef"
+              },
+              "engine": {
+                "text": "scheduled in"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Streaming SSR & Out-of-Order HTML...",
+            "caption": "Modify macrotask constraints and verify resulting recursive state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "recursive Promise.resolve"
+              },
+              "engine": {
+                "text": "Loop"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Streaming SSR & Out-of-Order HTML Hydration v... — Execution Pipeline",
+        "title": "The JavaScript Event Loop",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "JavaScript",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Streaming SSR & Out...",
+            "id": "engine",
+            "label": "Event",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Loop",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Streaming SSR & Out-of-Order HTML Hydrat...",
+            "caption": "Initialize stack architecture and javascript boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "JavaScript Event",
+              "engine": "Verification",
+              "out": "high-throughput full-stack"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Streaming SSR & Out....",
+            "caption": "Trace how stack coordinates javascript state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Node.js and",
+              "engine": "Event",
+              "out": "operation is"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the call analogy to stack execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "executive chef",
+              "engine": "scheduled in",
+              "out": "Execution Trace Order:"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Streaming SSR & Out-of-Order HTML...",
+            "caption": "Modify macrotask constraints and verify resulting recursive state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "recursive Promise.resolve",
+              "engine": "Loop",
+              "out": "-> 5: Macrotask Queue (setTimeout 0m"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Server Actions, CSRF Protection & Deterministic Mutations",
-      "codeHash": "2360a860afbf1017678f3307bc494e64ea4908fba780163478899c83b2f878b4",
+      "partTitle": "Isomorphic JavaScript: Designing Universal Code Across Node.js & Browser",
+      "codeHash": "d9b0f1b62c669bb441261c66f42faa51dea22985ccb171726021ff820454a2b1",
       "spec": {
         "template": "flow",
-        "title": "Server Actions, CSRF Protection & Determinist... — Execution Pipeline",
+        "title": "Isomorphic JavaScript",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Isomorphic",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server Actions, CSR...",
+            "id": "engine",
+            "label": "JavaScript",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Designing",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Server Actions, CSRF Protection & Determ...",
+            "caption": "Initialize code architecture and node boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Isomorphic JavaScript"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack architectures"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Server Actions, CSR....",
+            "caption": "Trace how code coordinates node state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "primary challenge"
+              },
+              "engine": {
+                "text": "JavaScript"
+              },
+              "out": {
+                "text": "guaranteed to"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the universal analogy to isomorphic execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "electrical appliance"
+              },
+              "engine": {
+                "text": "fallback to"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Server Actions, CSRF Protection &...",
+            "caption": "Modify browser constraints and verify resulting instantiate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Instantiate the"
+              },
+              "engine": {
+                "text": "Designing"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Server Actions, CSRF Protection & Determinist... — Execution Pipeline",
+        "title": "Isomorphic JavaScript",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Isomorphic",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server Actions, CSR...",
+            "id": "engine",
+            "label": "JavaScript",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Designing",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Server Actions, CSRF Protection & Determ...",
+            "caption": "Initialize code architecture and node boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Isomorphic JavaScript",
+              "engine": "Verification",
+              "out": "full-stack architectures"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Server Actions, CSR....",
+            "caption": "Trace how code coordinates node state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "primary challenge",
+              "engine": "JavaScript",
+              "out": "guaranteed to"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the universal analogy to isomorphic execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "electrical appliance",
+              "engine": "fallback to",
+              "out": "Resolved Value: iso_token_9901"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Server Actions, CSRF Protection &...",
+            "caption": "Modify browser constraints and verify resulting instantiate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Instantiate the",
+              "engine": "Designing",
+              "out": "Storage Strategy: SERVER_MEMORY_FALL"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Data Fetching, Deduplication & The Extended Fetch Cache",
-      "codeHash": "af659607775c9692372a93bd2d4e03a738f77e706abf410efb49ca8d23907c80",
+      "partTitle": "Configuration Hygiene: Environment Variables, Secrets Leakage & Sanitization",
+      "codeHash": "d028c3e9d2cba1670d9cc7633138fa73cb77fdae6ed394f2144055645f940212",
       "spec": {
         "template": "flow",
-        "title": "Data Fetching, Deduplication & The Extended F... — Execution Pipeline",
+        "title": "Configuration Hygiene",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Configuration",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Data Fetching, Dedu...",
+            "id": "engine",
+            "label": "Hygiene",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Environment",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Data Fetching, Deduplication & The Exten...",
+            "caption": "Initialize configuration architecture and environment boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Configuration Hygiene"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "software engineering"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Data Fetching, Dedu....",
+            "caption": "Trace how configuration coordinates environment state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Node.js"
+              },
+              "engine": {
+                "text": "Hygiene"
+              },
+              "out": {
+                "text": "application"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the army analogy to general execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "army general"
+              },
+              "engine": {
+                "text": "server object"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Data Fetching, Deduplication & Th...",
+            "caption": "Modify secrets constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass an"
+              },
+              "engine": {
+                "text": "Environment"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Data Fetching, Deduplication & The Extended F... — Execution Pipeline",
+        "title": "Configuration Hygiene",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Configuration",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Data Fetching, Dedu...",
+            "id": "engine",
+            "label": "Hygiene",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Environment",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Data Fetching, Deduplication & The Exten...",
+            "caption": "Initialize configuration architecture and environment boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Configuration Hygiene",
+              "engine": "Verification",
+              "out": "software engineering"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data Fetching, Dedu....",
+            "caption": "Trace how configuration coordinates environment state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Node.js",
+              "engine": "Hygiene",
+              "out": "application"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the army analogy to general execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "army general",
+              "engine": "server object",
+              "out": "App Name Preserved: PinIT Career OS"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data Fetching, Deduplication & Th...",
+            "caption": "Modify secrets constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass an",
+              "engine": "Environment",
+              "out": "Original Server Object Untouched?: t"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Production Edge Middleware & Isolate strict security safeguards",
-      "codeHash": "a4f2a6ee056fbadbdf99c46505da7c14713750c9eed4937cee56000c4dbb5f40",
+      "partTitle": "Runtime Diagnostics: Memory Footprints, Process Signals & Fault Tolerance",
+      "codeHash": "1fdf73b459003481c3ae6b829aa65eabb73635346d1f3899eb8ec17416cf690b",
       "spec": {
         "template": "flow",
-        "title": "Production Edge Middleware & Isolate Security... — Execution Pipeline",
+        "title": "Runtime Diagnostics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Runtime",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Production Edge Mid...",
+            "id": "engine",
+            "label": "Diagnostics",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Production Edge Middleware & Isolate Sec...",
+            "caption": "Initialize process architecture and memory boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Runtime Diagnostics"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack systems"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Production Edge Mid....",
+            "caption": "Trace how process coordinates memory state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "pillar of"
+              },
+              "engine": {
+                "text": "Diagnostics"
+              },
+              "out": {
+                "text": "ceiling"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the traffic analogy to control execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "traffic control"
+              },
+              "engine": {
+                "text": "initiateGracefulShutdown"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Production Edge Middleware & Isol...",
+            "caption": "Modify simulate constraints and verify resulting hanging state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Memory"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Production Edge Middleware & Isolate Security... — Execution Pipeline",
+        "title": "Runtime Diagnostics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Runtime",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Production Edge Mid...",
+            "id": "engine",
+            "label": "Diagnostics",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Edge Middleware & Isolate Sec...",
+            "caption": "Initialize process architecture and memory boundaries.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Runtime Diagnostics",
+              "engine": "Verification",
+              "out": "full-stack systems"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Edge Mid....",
+            "caption": "Trace how process coordinates memory state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "pillar of",
+              "engine": "Diagnostics",
+              "out": "ceiling"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the traffic analogy to control execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "traffic control",
+              "engine": "initiateGracefulShutdown",
+              "out": "Diagnostics Before Shutdown: { uptim"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Edge Middleware & Isol...",
+            "caption": "Modify simulate constraints and verify resulting hanging state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate",
+              "engine": "Memory",
+              "out": "Graceful Exit Ready: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

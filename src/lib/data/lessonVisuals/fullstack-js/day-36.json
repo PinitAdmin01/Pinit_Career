@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 36,
-  "promptSha": "0c14b8840c7bd357ed8fdb1de7f56a5f36cb38707303718762a1ee61334a78e5",
-  "model": "gemini-2.5-pro",
+  "promptSha": "ffb9043f07f92562abbede36eb53953031783d3d74de5611c69f36015f0e03eb",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Node.js Stream Internals: Readable, Writable, Duplex & Transform State Machines",
       "codeHash": "fb4b2b396bc31d00cc6d2b966cb8cad5a69c1a817f7183ad47e6579c30935cdb",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Node.js Stream Internals: Readable, Writable, Duplex & Transform State Machines",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Node.js Stream Internals",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Stream",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Internals",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize building architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Node.js Stream"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "building enterprise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how building coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Node.js the"
+              },
+              "engine": {
+                "text": "Stream"
+              },
+              "out": {
+                "text": "Duplex"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the readable analogy to stream execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "municipal water"
+              },
+              "engine": {
+                "text": "drainedCount"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting stream state.",
+            "values": {
+              "input_code": {
+                "text": "Node.js Stream"
+              },
+              "engine": {
+                "text": "Internals"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Node.js Stream Internals",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Stream",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Internals",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize building architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Node.js Stream",
+              "engine": "Simulation",
+              "out": "building enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how building coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "Node.js the",
+              "engine": "Stream",
+              "out": "Duplex"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the readable analogy to stream execution invariants.",
+            "values": {
+              "input_code": "municipal water",
+              "engine": "drainedCount",
+              "out": "Stream State Alpha Need Drain: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting stream state.",
+            "values": {
+              "input_code": "Node.js Stream",
+              "engine": "Internals",
+              "out": "Stream State Post Drain Need Drain: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Backpressure Dynamics & highWaterMark Tuning: Buffer Overflow Prevention & Paused/Flowing Modes",
       "codeHash": "fa5efa0c83c26de39593b535ba3cbb28e944545bd849c4d2dfafeeb02bd6bf65",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Backpressure Dynamics & highWaterMark Tuning: Buffer Overflow Prevention & Paused/Flowing Modes",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Backpressure Dynamics & highWaterMark Tuning",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Backpressure",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Dynamics",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "highWaterMark",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize backpressure architecture and defining boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Backpressure Dynamics"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Backpressure is"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how backpressure coordinates defining state transitions.",
+            "values": {
+              "input_code": {
+                "text": "fast producer"
+              },
+              "engine": {
+                "text": "Dynamics"
+              },
+              "out": {
+                "text": "socket without"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the highwatermark analogy to conveyor execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "conveyor belt"
+              },
+              "engine": {
+                "text": "this.log.push"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify backpressure constraints and verify resulting dynamics state.",
+            "values": {
+              "input_code": {
+                "text": "Backpressure Dynamics"
+              },
+              "engine": {
+                "text": "highWaterMark"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Backpressure Dynamics & highWaterMark Tuning",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Backpressure",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Dynamics",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "highWaterMark",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize backpressure architecture and defining boundaries.",
+            "values": {
+              "input_code": "Backpressure Dynamics",
+              "engine": "Simulation",
+              "out": "Backpressure is"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how backpressure coordinates defining state transitions.",
+            "values": {
+              "input_code": "fast producer",
+              "engine": "Dynamics",
+              "out": "socket without"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the highwatermark analogy to conveyor execution invariants.",
+            "values": {
+              "input_code": "conveyor belt",
+              "engine": "this.log.push",
+              "out": "Total Pipeline Events Logged: 5"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify backpressure constraints and verify resulting dynamics state.",
+            "values": {
+              "input_code": "Backpressure Dynamics",
+              "engine": "highWaterMark",
+              "out": "Audit Event 5: Drain Event Fired: Bu"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "stream.pipeline & Asynchronous Iterators: Memory-Leak-Free Error Propagation & AbortSignal Teardown",
       "codeHash": "09b84afdb9379456a2fc1cca507a4661289eac699943baef3d770bcbb9541e1b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: stream.pipeline & Asynchronous Iterators: Memory-Leak-Free Error Propagation & AbortSignal Teardown",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "stream.pipeline & Asynchronous Iterators",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "stream",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "pipeline",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Asynchronous",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize pipeline architecture and stream boundaries.",
+            "values": {
+              "input_code": {
+                "text": "stream.pipeline"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "many years"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how pipeline coordinates stream state transitions.",
+            "values": {
+              "input_code": {
+                "text": "solve this"
+              },
+              "engine": {
+                "text": "pipeline"
+              },
+              "out": {
+                "text": "transactional unit"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the pipeline analogy to stream execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "commercial bank"
+              },
+              "engine": {
+                "text": "Atomic destruction"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify stream constraints and verify resulting pipeline state.",
+            "values": {
+              "input_code": {
+                "text": "stream.pipeline"
+              },
+              "engine": {
+                "text": "Asynchronous"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "stream.pipeline & Asynchronous Iterators",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "stream",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "pipeline",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Asynchronous",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize pipeline architecture and stream boundaries.",
+            "values": {
+              "input_code": "stream.pipeline",
+              "engine": "Simulation",
+              "out": "many years"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how pipeline coordinates stream state transitions.",
+            "values": {
+              "input_code": "solve this",
+              "engine": "pipeline",
+              "out": "transactional unit"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the pipeline analogy to stream execution invariants.",
+            "values": {
+              "input_code": "commercial bank",
+              "engine": "Atomic destruction",
+              "out": "Pipeline Execution Success: false"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify stream constraints and verify resulting pipeline state.",
+            "values": {
+              "input_code": "stream.pipeline",
+              "engine": "Asynchronous",
+              "out": "File Descriptor Leaks Prevented: Tru"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Web Streams API vs Node.js Streams: ReadableStream, WritableStream, TransformStream & BYOB Readers",
       "codeHash": "1278071915729a57e5a8dff326a253c73e672940326cee024eb51824b4132f5b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Web Streams API vs Node.js Streams: ReadableStream, WritableStream, TransformStream & BYOB Readers",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Web Streams API vs Node.js Streams",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Streams",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "ReadableStream",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and streams boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Streams API"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "decade"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates streams state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Streams standard"
+              },
+              "engine": {
+                "text": "Node"
+              },
+              "out": {
+                "text": "WritableStream"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the byob analogy to luxury execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "luxury banquet"
+              },
+              "engine": {
+                "text": "runWebStreamPipeline"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify streams constraints and verify resulting node state.",
+            "values": {
+              "input_code": {
+                "text": "Streams API"
+              },
+              "engine": {
+                "text": "ReadableStream"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Web Streams API vs Node.js Streams",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Streams",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "ReadableStream",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and streams boundaries.",
+            "values": {
+              "input_code": "Streams API",
+              "engine": "Simulation",
+              "out": "decade"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates streams state transitions.",
+            "values": {
+              "input_code": "Streams standard",
+              "engine": "Node",
+              "out": "WritableStream"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the byob analogy to luxury execution invariants.",
+            "values": {
+              "input_code": "luxury banquet",
+              "engine": "runWebStreamPipeline",
+              "out": "Web Stream Read Chunk 1 Byte Length:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify streams constraints and verify resulting node state.",
+            "values": {
+              "input_code": "Streams API",
+              "engine": "ReadableStream",
+              "out": "Web Streams Standard Conformance: 10"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Object Mode vs Binary Streams: High-Throughput ETL Parsing & Memory Chunking",
       "codeHash": "57acb38f0ada680c986b6c95d3a5361d3432536b3ec75eb55f9b3ecf119fd314",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Object Mode vs Binary Streams: High-Throughput ETL Parsing & Memory Chunking",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Object Mode vs Binary Streams",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Mode",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Binary",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Streams",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and throughput boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Mode vs"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "designing high-throughput"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates throughput state transitions.",
+            "values": {
+              "input_code": {
+                "text": "default"
+              },
+              "engine": {
+                "text": "Binary"
+              },
+              "out": {
+                "text": "fast because"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the binary analogy to mode execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "postal sorting"
+              },
+              "engine": {
+                "text": "batchSize"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify mode constraints and verify resulting binary state.",
+            "values": {
+              "input_code": {
+                "text": "Mode vs"
+              },
+              "engine": {
+                "text": "Streams"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Object Mode vs Binary Streams",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Mode",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Binary",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Streams",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and throughput boundaries.",
+            "values": {
+              "input_code": "Mode vs",
+              "engine": "Simulation",
+              "out": "designing high-throughput"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates throughput state transitions.",
+            "values": {
+              "input_code": "default",
+              "engine": "Binary",
+              "out": "fast because"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the binary analogy to mode execution invariants.",
+            "values": {
+              "input_code": "postal sorting",
+              "engine": "batchSize",
+              "out": "Object Mode Records Processed: 500"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify mode constraints and verify resulting binary state.",
+            "values": {
+              "input_code": "Mode vs",
+              "engine": "Streams",
+              "out": "Overhead Reduction Factor (100x Impr"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

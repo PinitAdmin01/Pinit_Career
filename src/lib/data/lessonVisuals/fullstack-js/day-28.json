@@ -2,113 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 28,
-  "promptSha": "7c56af713d939f0e5d20b9144d23edafd405fe949abcb692c2ef8cc21515dd92",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "b27930e367f4a87e45612bd6920731bf97c94fb4bf3d905ff1281733e055dc5f",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Three Pillars of Observability: Metrics, Structured Logs & Distributed Traces",
-      "codeHash": "9f8c8a69933cd81376426577aa83f237bf4943f4bf91e345e0464d92defe4945",
+      "codeHash": "ba3c3ba6b7607e50f9e5ed4066abbc64fe59fc20c40f57ed12fbda09fb213126",
       "spec": {
         "template": "flow",
-        "title": "The Three Pillars of Observabili... — Execution Pipeline",
+        "title": "The Three Pillars of Observability",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Three",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The Three Pillars of Observabili...",
+            "id": "engine",
+            "label": "Pillars",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Observability",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize The Three Pillars of Observabili....",
+            "caption": "Initialize distributed architecture and logs boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Three Pillars"
+              },
+              "engine": {
+                "text": "Observability Telemetry"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in The Three Pillars of.",
+            "caption": "Trace how distributed coordinates logs state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "monitoring answers"
+              },
+              "engine": {
+                "text": "Pillars"
+              },
+              "out": {
+                "text": "system states"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in The Three Pillars of.",
+            "caption": "Connect the distributed analogy to customer execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "customer encounters"
+              },
+              "engine": {
+                "text": "timestamp"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in The Three Pillars of.",
+            "caption": "Modify structured constraints and verify resulting inspect state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Inspect the"
+              },
+              "engine": {
+                "text": "Observability"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "The Three Pillars of Observability",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Three",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Pillars",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Observability",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and logs boundaries.",
+            "values": {
+              "input_code": "Three Pillars",
+              "engine": "Observability Telemetry",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates logs state transitions.",
+            "values": {
+              "input_code": "monitoring answers",
+              "engine": "Pillars",
+              "out": "system states"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the distributed analogy to customer execution invariants.",
+            "values": {
+              "input_code": "customer encounters",
+              "engine": "timestamp",
+              "out": "--- Phase 1: Recording Normal & Fail"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify structured constraints and verify resulting inspect state.",
+            "values": {
+              "input_code": "Inspect the",
+              "engine": "Observability",
+              "out": "{\"timestamp\":\"2026-10-16T12:00:00.00"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -118,108 +257,247 @@
     },
     {
       "partTitle": "OpenTelemetry (OTel) Standard & W3C Distributed Context Propagation",
-      "codeHash": "40e1db8a9f412aab47b1b5c3947ca7a36b2811b1086108816ea02987b2e19922",
+      "codeHash": "dc3237b4961b34eea13fda1e9f039c095ddc145055402d5618c31df857ab566b",
       "spec": {
         "template": "flow",
-        "title": "OpenTelemetry (OTel) Standard & ... — Execution Pipeline",
+        "title": "OpenTelemetry (OTel) Standard & W3C Distributed Context",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "OpenTelemetry",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. OpenTelemetry (OTel) Standard & ...",
+            "id": "engine",
+            "label": "OTel",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Standard",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize OpenTelemetry (OTel) Standard & ....",
+            "caption": "Initialize opentelemetry architecture and otel boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "OpenTelemetry"
+              },
+              "engine": {
+                "text": "TraceContext Header"
+              },
+              "out": {
+                "text": "early days"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in OpenTelemetry (OTel).",
+            "caption": "Trace how opentelemetry coordinates otel state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "OpenTelemetry decouples"
+              },
+              "engine": {
+                "text": "OTel"
+              },
+              "out": {
+                "text": "data via"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in OpenTelemetry (OTel).",
+            "caption": "Connect the otel analogy to distributed execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "client calls"
+              },
+              "engine": {
+                "text": "otel.status_code"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in OpenTelemetry (OTel).",
+            "caption": "Modify pass constraints and verify resulting child state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Pass the"
+              },
+              "engine": {
+                "text": "Standard"
+              },
+              "out": {
+                "out": 9
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "OpenTelemetry (OTel) Standard & W3C Distributed Context",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "OpenTelemetry",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "OTel",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Standard",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize opentelemetry architecture and otel boundaries.",
+            "values": {
+              "input_code": "OpenTelemetry",
+              "engine": "TraceContext Header",
+              "out": "early days"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how opentelemetry coordinates otel state transitions.",
+            "values": {
+              "input_code": "OpenTelemetry decouples",
+              "engine": "OTel",
+              "out": "data via"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the otel analogy to distributed execution invariants.",
+            "values": {
+              "input_code": "client calls",
+              "engine": "otel.status_code",
+              "out": "--- Phase 1: Service A (Edge Ingress"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify pass constraints and verify resulting child state.",
+            "values": {
+              "input_code": "Pass the",
+              "engine": "Standard",
+              "out": "Span: grpc_order_service.create | Du"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -232,105 +510,244 @@
       "codeHash": "7ae7b7441e1472567288acdff1cab49bf104a2d97e8f5e889c9748087ed72867",
       "spec": {
         "template": "flow",
-        "title": "Prometheus Metrics Architecture:... — Execution Pipeline",
+        "title": "Prometheus Metrics Architecture: RED Method & Metric Types",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Prometheus",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Prometheus Metrics Architecture:...",
+            "id": "engine",
+            "label": "Metrics",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Prometheus Metrics Architecture:....",
+            "caption": "Initialize prometheus architecture and distributed boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Prometheus Metrics"
+              },
+              "engine": {
+                "text": "Prometheus Metrics"
+              },
+              "out": {
+                "text": "distributed traces"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Prometheus Metrics.",
+            "caption": "Trace how prometheus coordinates distributed state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Prometheus architecture"
+              },
+              "engine": {
+                "text": "Metrics"
+              },
+              "out": {
+                "text": "thundering herd"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Prometheus Metrics.",
+            "caption": "Connect the metrics analogy to prometheus execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "Node.js microservice"
+              },
+              "engine": {
+                "text": "this.counters.entries"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Prometheus Metrics.",
+            "caption": "Modify observe constraints and verify resulting duration state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Observe"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 17
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Prometheus Metrics Architecture: RED Method & Metric Types",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Prometheus",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Metrics",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize prometheus architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Prometheus Metrics",
+              "engine": "Prometheus Metrics",
+              "out": "distributed traces"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how prometheus coordinates distributed state transitions.",
+            "values": {
+              "input_code": "Prometheus architecture",
+              "engine": "Metrics",
+              "out": "thundering herd"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the metrics analogy to prometheus execution invariants.",
+            "values": {
+              "input_code": "Node.js microservice",
+              "engine": "this.counters.entries",
+              "out": "--- Prometheus /metrics Scrape Expos"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify observe constraints and verify resulting duration state.",
+            "values": {
+              "input_code": "Observe",
+              "engine": "Architecture",
+              "out": "http_request_duration_seconds_count "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -343,105 +760,244 @@
       "codeHash": "15075d6cea66f85f2697756f64b92286f9f5a738de2a526e42930a6b3da2e20c",
       "spec": {
         "template": "flow",
-        "title": "Distributed Tracing Visualizatio... — Execution Pipeline",
+        "title": "Distributed Tracing Visualization",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Tracing Visualizatio...",
+            "id": "engine",
+            "label": "Tracing",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Visualization",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Distributed Tracing Visualizatio....",
+            "caption": "Initialize distributed architecture and tracing boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Tracing"
+              },
+              "engine": {
+                "text": "Distributed Trace"
+              },
+              "out": {
+                "text": "Collecting telemetry"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Distributed Tracing.",
+            "caption": "Trace how distributed coordinates tracing state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "distributed trace"
+              },
+              "engine": {
+                "text": "Tracing"
+              },
+              "out": {
+                "text": "call tree"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Distributed Tracing.",
+            "caption": "Connect the distributed analogy to during execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "During"
+              },
+              "engine": {
+                "text": "Execution Trace"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Distributed Tracing.",
+            "caption": "Modify another constraints and verify resulting leaf state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "another leaf"
+              },
+              "engine": {
+                "text": "Visualization"
+              },
+              "out": {
+                "out": 8
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Distributed Tracing Visualization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tracing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Visualization",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and tracing boundaries.",
+            "values": {
+              "input_code": "Distributed Tracing",
+              "engine": "Distributed Trace",
+              "out": "Collecting telemetry"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates tracing state transitions.",
+            "values": {
+              "input_code": "distributed trace",
+              "engine": "Tracing",
+              "out": "call tree"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the distributed analogy to during execution invariants.",
+            "values": {
+              "input_code": "During",
+              "engine": "Execution Trace",
+              "out": "--- Distributed Trace Waterfall Visu"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify another constraints and verify resulting leaf state.",
+            "values": {
+              "input_code": "another leaf",
+              "engine": "Visualization",
+              "out": "Duration: 710ms (83.5% of total tran"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -454,105 +1010,244 @@
       "codeHash": "b3cdbdc1f790a049d82895c9644de4a2022ceab4da6ed6e4afab278a45b9efca",
       "spec": {
         "template": "flow",
-        "title": "Service Level Objectives (SLOs),... — Execution Pipeline",
+        "title": "Service Level Objectives (SLOs), SLIs, Error Budgets & PromQL",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Service",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Service Level Objectives (SLOs),...",
+            "id": "engine",
+            "label": "Level",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Objectives",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Service Level Objectives (SLOs),....",
+            "caption": "Initialize service architecture and level boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Service Level"
+              },
+              "engine": {
+                "text": "Reliability Engine"
+              },
+              "out": {
+                "text": "cloud reliability"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Service Level.",
+            "caption": "Trace how service coordinates level state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Service Level"
+              },
+              "engine": {
+                "text": "Level"
+              },
+              "out": {
+                "text": "total requests"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Service Level.",
+            "caption": "Connect the service analogy to promql execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "payment service"
+              },
+              "engine": {
+                "text": "CRITICAL_PAGE"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Service Level.",
+            "caption": "Modify adjust constraints and verify resulting total state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Adjust the"
+              },
+              "engine": {
+                "text": "Objectives"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Service Level Objectives (SLOs), SLIs, Error Budgets & PromQL",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Service",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Level",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Objectives",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize service architecture and level boundaries.",
+            "values": {
+              "input_code": "Service Level",
+              "engine": "Reliability Engine",
+              "out": "cloud reliability"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how service coordinates level state transitions.",
+            "values": {
+              "input_code": "Service Level",
+              "engine": "Level",
+              "out": "total requests"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the service analogy to promql execution invariants.",
+            "values": {
+              "input_code": "payment service",
+              "engine": "CRITICAL_PAGE",
+              "out": "--- Scenario 1: Normal Operations (L"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify adjust constraints and verify resulting total state.",
+            "values": {
+              "input_code": "Adjust the",
+              "engine": "Objectives",
+              "out": "Burn Rate: 12.5x -> Alert: CRITICAL_"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

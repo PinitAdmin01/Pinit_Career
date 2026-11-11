@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 37,
-  "promptSha": "118a16bd3f031f9c785affd049126be774e87e38294b5782b617434e7cc00953",
-  "model": "gemini-2.5-pro",
+  "promptSha": "85c9d005d77e17457ad9b1f1f4e1b47cd5e51b46a2ebdbe56ed11875d2335246",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "node:cluster Architecture: Master Process, Worker Forks & SO_REUSEPORT Kernel Load Balancing",
       "codeHash": "9564d963153fbc8ac0917af55bfbe331812ee1a70168c212b80d2693d0dc1554",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: node:cluster Architecture: Master Process, Worker Forks & SO_REUSEPORT Kernel Load Balancing",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "node:cluster Architecture: Master Process, Worker Forks &",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "cluster",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and process boundaries.",
+            "values": {
+              "input_code": {
+                "text": "node"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Because Node.js"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates process state transitions.",
+            "values": {
+              "input_code": {
+                "text": "node"
+              },
+              "engine": {
+                "text": "cluster"
+              },
+              "out": {
+                "text": "possesses its"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the cluster analogy to process execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international airport"
+              },
+              "engine": {
+                "text": "activeList.length"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting cluster state.",
+            "values": {
+              "input_code": {
+                "text": "node"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "node:cluster Architecture: Master Process, Worker Forks &",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "cluster",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and process boundaries.",
+            "values": {
+              "input_code": "node",
+              "engine": "Simulation",
+              "out": "Because Node.js"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates process state transitions.",
+            "values": {
+              "input_code": "node",
+              "engine": "cluster",
+              "out": "possesses its"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the cluster analogy to process execution invariants.",
+            "values": {
+              "input_code": "international airport",
+              "engine": "activeList.length",
+              "out": "Cluster Workers Initialized: 4"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting cluster state.",
+            "values": {
+              "input_code": "node",
+              "engine": "Architecture",
+              "out": "Round-Robin Load Distribution Verifi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Shared Server Sockets & Handle Passing: Passing net.Socket and net.Server via libuv IPC",
       "codeHash": "0baae32af165f4ba4af78f053903b3ef3349b0e38c00a6db0119826a62f341bd",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Shared Server Sockets & Handle Passing: Passing net.Socket and net.Server via libuv IPC",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Shared Server Sockets & Handle Passing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Shared",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Server",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sockets",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize sockets architecture and socket boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Shared Server"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "understand the"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how sockets coordinates socket state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Node.js primary"
+              },
+              "engine": {
+                "text": "Server"
+              },
+              "out": {
+                "text": "POSIX systems"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the socket analogy to handle execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "hotel arrival"
+              },
+              "engine": {
+                "text": "sock"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify shared constraints and verify resulting server state.",
+            "values": {
+              "input_code": {
+                "text": "Shared Server"
+              },
+              "engine": {
+                "text": "Sockets"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Shared Server Sockets & Handle Passing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Shared",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Server",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sockets",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize sockets architecture and socket boundaries.",
+            "values": {
+              "input_code": "Shared Server",
+              "engine": "Simulation",
+              "out": "understand the"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how sockets coordinates socket state transitions.",
+            "values": {
+              "input_code": "Node.js primary",
+              "engine": "Server",
+              "out": "POSIX systems"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the socket analogy to handle execution invariants.",
+            "values": {
+              "input_code": "hotel arrival",
+              "engine": "sock",
+              "out": "Incoming TCP Socket Descriptor Alloc"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify shared constraints and verify resulting server state.",
+            "values": {
+              "input_code": "Shared Server",
+              "engine": "Sockets",
+              "out": "Zero Primary Ingress Bottleneck: Tru"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Inter-Process Communication (IPC) Channels: Structured Cloning, Message Serialization & Channel Backpressure",
       "codeHash": "0731f78d7ad31b123ece8c3b0f5e4c9d518cb7ff402d9c0f63f10272cbc95c05",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Inter-Process Communication (IPC) Channels: Structured Cloning, Message Serialization & Channel Backpressure",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Inter-Process Communication (IPC) Channels",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Inter",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Process",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Communication",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize process architecture and communication boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Inter-Process Communication"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Node.js workers"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how process coordinates communication state transitions.",
+            "values": {
+              "input_code": {
+                "text": "invoke"
+              },
+              "engine": {
+                "text": "Process"
+              },
+              "out": {
+                "text": "Algorithm"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the process analogy to multinational execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "multinational bank"
+              },
+              "engine": {
+                "text": "this.primaryInbox.shift"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify inter constraints and verify resulting process state.",
+            "values": {
+              "input_code": {
+                "text": "Inter-Process Communication"
+              },
+              "engine": {
+                "text": "Communication"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Inter-Process Communication (IPC) Channels",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Inter",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Process",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Communication",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize process architecture and communication boundaries.",
+            "values": {
+              "input_code": "Inter-Process Communication",
+              "engine": "Simulation",
+              "out": "Node.js workers"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how process coordinates communication state transitions.",
+            "values": {
+              "input_code": "invoke",
+              "engine": "Process",
+              "out": "Algorithm"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the process analogy to multinational execution invariants.",
+            "values": {
+              "input_code": "multinational bank",
+              "engine": "this.primaryInbox.shift",
+              "out": "Total IPC Messages Processed: 2"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify inter constraints and verify resulting process state.",
+            "values": {
+              "input_code": "Inter-Process Communication",
+              "engine": "Communication",
+              "out": "Structured Clone Serialization Intac"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Zero-Downtime Rolling Restarts: Graceful Worker Teardown, Connection Draining & Process Substitution",
       "codeHash": "73e27853ce65c770a09a62e4b200c83ebadf0ad9a105f9a98cfe7531f7629464",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Zero-Downtime Rolling Restarts: Graceful Worker Teardown, Connection Draining & Process Substitution",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Zero-Downtime Rolling Restarts",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Downtime",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Rolling",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize zero architecture and downtime boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Downtime Rolling"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "high-availability enterprise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how zero coordinates downtime state transitions.",
+            "values": {
+              "input_code": {
+                "text": "multi-process Node.js"
+              },
+              "engine": {
+                "text": "Downtime"
+              },
+              "out": {
+                "text": "worker processes"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the commercial analogy to airliner execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "commercial airliner"
+              },
+              "engine": {
+                "text": "w.status"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting downtime state.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Downtime Rolling"
+              },
+              "engine": {
+                "text": "Rolling"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Zero-Downtime Rolling Restarts",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Downtime",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Rolling",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize zero architecture and downtime boundaries.",
+            "values": {
+              "input_code": "Zero-Downtime Rolling",
+              "engine": "Simulation",
+              "out": "high-availability enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how zero coordinates downtime state transitions.",
+            "values": {
+              "input_code": "multi-process Node.js",
+              "engine": "Downtime",
+              "out": "worker processes"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the commercial analogy to airliner execution invariants.",
+            "values": {
+              "input_code": "commercial airliner",
+              "engine": "w.status",
+              "out": "Worker 1 Retirement Initiated: RETIR"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting downtime state.",
+            "values": {
+              "input_code": "Zero-Downtime Rolling",
+              "engine": "Rolling",
+              "out": "Zero Client Disconnections Guarantee"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Multi-Worker Shared State: Redis In-Memory Locks, Distributed Semaphores & SharedArrayBuffer",
       "codeHash": "64016da98c44a283ff275a429fec0dd44b29ef619cb1a99481123005a1e9b830",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Multi-Worker Shared State: Redis In-Memory Locks, Distributed Semaphores & SharedArrayBuffer",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Multi-Worker Shared State",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Worker",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Shared",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize memory architecture and state boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Multi-Worker Shared"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Because"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how memory coordinates state state transitions.",
+            "values": {
+              "input_code": {
+                "text": "primary paradigms"
+              },
+              "engine": {
+                "text": "Worker"
+              },
+              "out": {
+                "text": "workers"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the shared analogy to white execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "shared white"
+              },
+              "engine": {
+                "text": "this.sharedMemory"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify multi constraints and verify resulting worker state.",
+            "values": {
+              "input_code": {
+                "text": "Multi-Worker Shared"
+              },
+              "engine": {
+                "text": "Shared"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Multi-Worker Shared State",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Worker",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Shared",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize memory architecture and state boundaries.",
+            "values": {
+              "input_code": "Multi-Worker Shared",
+              "engine": "Simulation",
+              "out": "Because"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how memory coordinates state state transitions.",
+            "values": {
+              "input_code": "primary paradigms",
+              "engine": "Worker",
+              "out": "workers"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the shared analogy to white execution invariants.",
+            "values": {
+              "input_code": "shared white",
+              "engine": "this.sharedMemory",
+              "out": "Total Cluster Requests in Shared Mem"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify multi constraints and verify resulting worker state.",
+            "values": {
+              "input_code": "Multi-Worker Shared",
+              "engine": "Shared",
+              "out": "Zero Network IPC Latency Overhead: T"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

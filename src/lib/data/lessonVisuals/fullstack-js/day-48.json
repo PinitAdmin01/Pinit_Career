@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 48,
-  "promptSha": "e21d28934988d43ef47b8afcecaf4cd232a7c030e7b005f96879be0901d16d92",
-  "model": "gemini-2.5-pro",
+  "promptSha": "7b95ac52809330e73b422db84c2fa4987ca998e50e2ce0d7e1210978e57ef2b8",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Distributed Consensus Challenge & The Raft State Machine",
       "codeHash": "8b36a7583324d8c4308ada62693e7bf98c3a2fd3a2309bbfd2cd47b55b25113f",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Distributed Consensus Challenge & The Raft State Machine",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "The Distributed Consensus Challenge & The Raft State Machine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Consensus",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Challenge",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize machine architecture and modern boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Consensus"
+              },
+              "engine": {
+                "text": "Raft Node"
+              },
+              "out": {
+                "text": "cloud infrastructure"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how machine coordinates modern state transitions.",
+            "values": {
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Consensus"
+              },
+              "out": {
+                "text": "state transitions"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the raft analogy to expedition execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "expedition of"
+              },
+              "engine": {
+                "text": "higherTerm"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting consensus state.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Consensus"
+              },
+              "engine": {
+                "text": "Challenge"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "The Distributed Consensus Challenge & The Raft State Machine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Consensus",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Challenge",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize machine architecture and modern boundaries.",
+            "values": {
+              "input_code": "Distributed Consensus",
+              "engine": "Raft Node",
+              "out": "cloud infrastructure"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how machine coordinates modern state transitions.",
+            "values": {
+              "input_code": "However",
+              "engine": "Consensus",
+              "out": "state transitions"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the raft analogy to expedition execution invariants.",
+            "values": {
+              "input_code": "expedition of",
+              "engine": "higherTerm",
+              "out": "Node Alpha Initial Role: FOLLOWER | "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting consensus state.",
+            "values": {
+              "input_code": "Distributed Consensus",
+              "engine": "Challenge",
+              "out": "Raft State Machine Transitions Opera"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Randomized Election Timeouts & Quorum Majority Voting",
       "codeHash": "0a1891b585301ee2c5724122cd8b66818cce76391b72a5068c3ffd8d26220706",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Randomized Election Timeouts & Quorum Majority Voting",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Randomized Election Timeouts & Quorum Majority Voting",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Randomized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Election",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Timeouts",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize election architecture and distributed boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Randomized Election"
+              },
+              "engine": {
+                "text": "Randomized Election"
+              },
+              "out": {
+                "text": "distributed leader"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how election coordinates distributed state transitions.",
+            "values": {
+              "input_code": {
+                "text": "three-node cluster"
+              },
+              "engine": {
+                "text": "Election"
+              },
+              "out": {
+                "text": "achieves"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the five analogy to people execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "five people"
+              },
+              "engine": {
+                "text": "args.lastLogTerm"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify randomized constraints and verify resulting election state.",
+            "values": {
+              "input_code": {
+                "text": "Randomized Election"
+              },
+              "engine": {
+                "text": "Timeouts"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Randomized Election Timeouts & Quorum Majority Voting",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Randomized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Election",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Timeouts",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize election architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Randomized Election",
+              "engine": "Randomized Election",
+              "out": "distributed leader"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how election coordinates distributed state transitions.",
+            "values": {
+              "input_code": "three-node cluster",
+              "engine": "Election",
+              "out": "achieves"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the five analogy to people execution invariants.",
+            "values": {
+              "input_code": "five people",
+              "engine": "args.lastLogTerm",
+              "out": "Randomized Timeouts Selected: 262 21"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify randomized constraints and verify resulting election state.",
+            "values": {
+              "input_code": "Randomized Election",
+              "engine": "Timeouts",
+              "out": "Raft Quorum Majority Voting Invarian"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Log Replication & AppendEntries Quorum Commitment",
       "codeHash": "fe97e1f200ef7b203d75f6720cf942865e2fc2eb90507ee0b9101f54ec67a97a",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Log Replication & AppendEntries Quorum Commitment",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Log Replication & AppendEntries Quorum Commitment",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Replication",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "AppendEntries",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Quorum",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize once architecture and leader boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Replication"
+              },
+              "engine": {
+                "text": "AppendEntries RPC"
+              },
+              "out": {
+                "text": "Once"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how once coordinates leader state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Leader does"
+              },
+              "engine": {
+                "text": "AppendEntries"
+              },
+              "out": {
+                "text": "replicating the"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the quorum analogy to expedition execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "expedition captain"
+              },
+              "engine": {
+                "text": "cluster"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify replication constraints and verify resulting appendentries state.",
+            "values": {
+              "input_code": {
+                "text": "Replication"
+              },
+              "engine": {
+                "text": "Quorum"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Log Replication & AppendEntries Quorum Commitment",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Replication",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "AppendEntries",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Quorum",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize once architecture and leader boundaries.",
+            "values": {
+              "input_code": "Replication",
+              "engine": "AppendEntries RPC",
+              "out": "Once"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how once coordinates leader state transitions.",
+            "values": {
+              "input_code": "Leader does",
+              "engine": "AppendEntries",
+              "out": "replicating the"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the quorum analogy to expedition execution invariants.",
+            "values": {
+              "input_code": "expedition captain",
+              "engine": "cluster",
+              "out": "Propose Entry 1 Created: 1 | Uncommi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify replication constraints and verify resulting appendentries state.",
+            "values": {
+              "input_code": "Replication",
+              "engine": "Quorum",
+              "out": "AppendEntries Quorum Log Replication"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Network Partitions, Quorum Immunity & Split-Brain Defense",
       "codeHash": "f5bc7f34f5e8355cf2e22fda45e8b5c0f5dcaadd7ca3c9a8f9c10ff809a0ed4b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Network Partitions, Quorum Immunity & Split-Brain Defense",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Network Partitions, Quorum Immunity & Split-Brain Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Network",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Partitions",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Quorum",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize network architecture and quorum boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Network Partitions"
+              },
+              "engine": {
+                "text": "Network Partition"
+              },
+              "out": {
+                "text": "test of"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how network coordinates quorum state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Suppose"
+              },
+              "engine": {
+                "text": "Partitions"
+              },
+              "out": {
+                "text": "nodes"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the corporate analogy to board execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "corporate board"
+              },
+              "engine": {
+                "text": "Leader with"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify network constraints and verify resulting partitions state.",
+            "values": {
+              "input_code": {
+                "text": "Network Partitions"
+              },
+              "engine": {
+                "text": "Quorum"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Network Partitions, Quorum Immunity & Split-Brain Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Network",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Partitions",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Quorum",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize network architecture and quorum boundaries.",
+            "values": {
+              "input_code": "Network Partitions",
+              "engine": "Network Partition",
+              "out": "test of"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how network coordinates quorum state transitions.",
+            "values": {
+              "input_code": "Suppose",
+              "engine": "Partitions",
+              "out": "nodes"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the corporate analogy to board execution invariants.",
+            "values": {
+              "input_code": "corporate board",
+              "engine": "Leader with",
+              "out": "Minority Partition (2 Nodes) Allowed"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify network constraints and verify resulting partitions state.",
+            "values": {
+              "input_code": "Network Partitions",
+              "engine": "Quorum",
+              "out": "Raft Split-Brain Immunity Confirmed:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Raft Telemetry Sentinels & Consensus Quorum Audits",
       "codeHash": "144833a77ce099f2817d67de32cb5437d7bf6c14fcd024fb9c4f888f5e82bf49",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Raft Telemetry Sentinels & Consensus Quorum Audits",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Raft",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize raft architecture and consensus boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Raft Consensus"
+              },
+              "out": {
+                "text": "deployments where"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how raft coordinates consensus state transitions.",
+            "values": {
+              "input_code": {
+                "text": "healthy Raft"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "durations complete"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the telemetry analogy to raft execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "hospital intensive"
+              },
+              "engine": {
+                "text": "currentTerm"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Raft"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Raft",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize raft architecture and consensus boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Raft Consensus",
+              "out": "deployments where"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how raft coordinates consensus state transitions.",
+            "values": {
+              "input_code": "healthy Raft",
+              "engine": "Defense",
+              "out": "durations complete"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the telemetry analogy to raft execution invariants.",
+            "values": {
+              "input_code": "hospital intensive",
+              "engine": "currentTerm",
+              "out": "Healthy Cluster Quorum Available: tr"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Raft",
+              "out": "Enterprise Raft Consensus Sentinel O"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

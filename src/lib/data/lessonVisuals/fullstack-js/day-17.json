@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 17,
-  "promptSha": "d019ad9edc3a08956a80a4e30304f66bd0e9ccfe365034555135787958edd7e0",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "bd705b001004bac155f3e47d41bc0ced15205b3a77aa4820b7cd98359ecf5eb8",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "The End-to-End Type Safety Paradigm: Eliminating Code Generation & API Drift",
-      "codeHash": "e9b4cad8dfa98c86e6b9f549054e8fb1aff050cd1a4390491ba82009de625cf9",
+      "partTitle": "Threat Landscapes & Rate Limiting Algorithmic Models: Fixed Window, Sliding Logs, and Token Buckets",
+      "codeHash": "c7560be072d2dcfef1b857f1d7c711153a98c5921b0bb13aaf6738dc8c420ea1",
       "spec": {
         "template": "flow",
-        "title": "The End-to-End Type Safety Paradigm... — Execution Pipeline",
+        "title": "Threat Landscapes & Rate Limiting Algorithmic Models",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Threat",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The End-to-End Type Safety Paradigm...",
+            "id": "engine",
+            "label": "Landscapes",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Rate",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress operation vector and initialize The End-to-End Type Safety.",
+            "caption": "Initialize rate architecture and limiting boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Threat Landscapes"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "software architecture"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
+            "caption": "Trace how rate coordinates limiting state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "select the"
+              },
+              "engine": {
+                "text": "Landscapes"
+              },
+              "out": {
+                "text": "trivial to"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
+            "caption": "Connect the rate analogy to limiting execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "highway toll"
+              },
+              "engine": {
+                "text": "allowed"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end type safety confirmed for The End-to-End Type Safety.",
+            "caption": "Modify maintains constraints and verify resulting timestamp state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "SlidingWindowLogLimiter"
+              },
+              "engine": {
+                "text": "Rate"
+              },
+              "out": {
+                "out": 11
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The End-to-End Type Safety Paradigm... — Execution Pipeline",
+        "title": "Threat Landscapes & Rate Limiting Algorithmic Models",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Threat",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The End-to-End Type Safety Paradigm...",
+            "id": "engine",
+            "label": "Landscapes",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Rate",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize The End-to-End Type Safety Paradigm....",
+            "caption": "Initialize rate architecture and limiting boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Threat Landscapes",
+              "engine": "Example",
+              "out": "software architecture"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in The End-to-End Type Safety Paradigm....",
+            "caption": "Trace how rate coordinates limiting state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "select the",
+              "engine": "Landscapes",
+              "out": "trivial to"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Connect the rate analogy to limiting execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "highway toll",
+              "engine": "allowed",
+              "out": "--- Window 1 (Tail End) ---"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for The End-to-End Type Safety Paradigm....",
+            "caption": "Modify maintains constraints and verify resulting timestamp state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "SlidingWindowLogLimiter",
+              "engine": "Rate",
+              "out": "Request 10: false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "tRPC Routers, Procedures & The Builder Pattern",
-      "codeHash": "b915a3e91cc408d16d43c7f540da7275a5bc78a4750aeea338b4445878cb9673",
+      "partTitle": "Token Bucket Physics & Continuous Mathematical Refill: Eliminating Active Timers",
+      "codeHash": "b99f6546fb2ab01bd80f1351c43cf7a8d2e6b9bb9b7b0e11819970b9b0ae5b02",
       "spec": {
         "template": "flow",
-        "title": "tRPC Routers, Procedures & The Buil... — Execution Pipeline",
+        "title": "Token Bucket Physics & Continuous Mathematical Refill",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Token",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. tRPC Routers, Procedures & The Buil...",
+            "id": "engine",
+            "label": "Bucket",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Physics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress operation vector and initialize tRPC Routers, Procedures & The.",
+            "caption": "Initialize token architecture and bucket boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Token Bucket"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "common implementation"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
+            "caption": "Trace how token coordinates bucket state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Production-grade rate"
+              },
+              "engine": {
+                "text": "Bucket"
+              },
+              "out": {
+                "text": "capacity"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
+            "caption": "Connect the refill analogy to token execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "espresso machine"
+              },
+              "engine": {
+                "text": "this.tokens"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end type safety confirmed for tRPC Routers, Procedures & The.",
+            "caption": "Modify refill constraints and verify resulting instantiate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Instantiate"
+              },
+              "engine": {
+                "text": "Physics"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "tRPC Routers, Procedures & The Buil... — Execution Pipeline",
+        "title": "Token Bucket Physics & Continuous Mathematical Refill",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Token",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. tRPC Routers, Procedures & The Buil...",
+            "id": "engine",
+            "label": "Bucket",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Physics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize tRPC Routers, Procedures & The Buil....",
+            "caption": "Initialize token architecture and bucket boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Token Bucket",
+              "engine": "Example",
+              "out": "common implementation"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in tRPC Routers, Procedures & The Buil....",
+            "caption": "Trace how token coordinates bucket state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Production-grade rate",
+              "engine": "Bucket",
+              "out": "capacity"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Connect the refill analogy to token execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "espresso machine",
+              "engine": "this.tokens",
+              "out": "Burst 1 (cost 1): true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for tRPC Routers, Procedures & The Buil....",
+            "caption": "Modify refill constraints and verify resulting instantiate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Instantiate",
+              "engine": "Physics",
+              "out": "Burst 4 (over capacity): false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Runtime Input & Output Validation with Zod Schema Invariants",
-      "codeHash": "bb5ae71557fee68a2dc36dd2b999545581604bd705dbd6e98e328666a6c791b0",
+      "partTitle": "Leaky Bucket vs Token Bucket: Burst Tolerance vs Constant-Rate Egress",
+      "codeHash": "4189a05ba59aa30e8096fad05b7e06770e9fcda0b40693a844bd9d307fc68320",
       "spec": {
         "template": "flow",
-        "title": "Runtime Input & Output Validation w... — Execution Pipeline",
+        "title": "Leaky Bucket vs Token Bucket",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Leaky",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Runtime Input & Output Validation w...",
+            "id": "engine",
+            "label": "Bucket",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Token",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress operation vector and initialize Runtime Input & Output Validation.",
+            "caption": "Initialize token architecture and bucket boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Leaky Bucket"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Token Bucket"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
+            "caption": "Trace how token coordinates bucket state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Token Bucket"
+              },
+              "engine": {
+                "text": "Bucket"
+              },
+              "out": {
+                "text": "long-term average"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
+            "caption": "Connect the leaky analogy to bucket execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "hourglass with"
+              },
+              "engine": {
+                "text": "this.queue.length"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end type safety confirmed for Runtime Input & Output Validation.",
+            "caption": "Modify burst constraints and verify resulting contrast state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Contrast the"
+              },
+              "engine": {
+                "text": "Token"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Runtime Input & Output Validation w... — Execution Pipeline",
+        "title": "Leaky Bucket vs Token Bucket",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Leaky",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Runtime Input & Output Validation w...",
+            "id": "engine",
+            "label": "Bucket",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Token",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize Runtime Input & Output Validation w....",
+            "caption": "Initialize token architecture and bucket boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Leaky Bucket",
+              "engine": "Example",
+              "out": "Token Bucket"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in Runtime Input & Output Validation w....",
+            "caption": "Trace how token coordinates bucket state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Token Bucket",
+              "engine": "Bucket",
+              "out": "long-term average"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Connect the leaky analogy to bucket execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "hourglass with",
+              "engine": "this.queue.length",
+              "out": "Dispatching 6 bursty requests instan"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for Runtime Input & Output Validation w....",
+            "caption": "Modify burst constraints and verify resulting contrast state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Contrast the",
+              "engine": "Token",
+              "out": "Job 6 Enqueued: false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Context Middleware, Error Formatting & TrpcClient Link Pipelines",
-      "codeHash": "15a41d4d185a310e8659382f2447ce178f693f23055ba22909463c037249f7ab",
+      "partTitle": "HTTP Telemetry & Backoff Resilience: RFC 6585, RFC 7231, and Retry-After Headers",
+      "codeHash": "18dcb503672672d8726f211b5a821de92e1cdb89c71cb8dc3611d94de65ccf40",
       "spec": {
         "template": "flow",
-        "title": "Context Middleware, Error Formattin... — Execution Pipeline",
+        "title": "HTTP Telemetry & Backoff Resilience",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "HTTP",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Context Middleware, Error Formattin...",
+            "id": "engine",
+            "label": "Telemetry",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Backoff",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress operation vector and initialize Context Middleware, Error.",
+            "caption": "Initialize http architecture and headers boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "HTTP Telemetry"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Enforcing rate"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
+            "caption": "Trace how http coordinates headers state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "governing specification"
+              },
+              "engine": {
+                "text": "Telemetry"
+              },
+              "out": {
+                "text": "7231 specifies"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
+            "caption": "Connect the http analogy to headers execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "polite doctor"
+              },
+              "engine": {
+                "text": "Math.min"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end type safety confirmed for Context Middleware, Error.",
+            "caption": "Modify retry constraints and verify resulting http state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "wrapper function"
+              },
+              "engine": {
+                "text": "Backoff"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Context Middleware, Error Formattin... — Execution Pipeline",
+        "title": "HTTP Telemetry & Backoff Resilience",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "HTTP",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Context Middleware, Error Formattin...",
+            "id": "engine",
+            "label": "Telemetry",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Backoff",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize Context Middleware, Error Formattin....",
+            "caption": "Initialize http architecture and headers boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "HTTP Telemetry",
+              "engine": "Example",
+              "out": "Enforcing rate"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in Context Middleware, Error Formattin....",
+            "caption": "Trace how http coordinates headers state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "governing specification",
+              "engine": "Telemetry",
+              "out": "7231 specifies"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Connect the http analogy to headers execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "polite doctor",
+              "engine": "Math.min",
+              "out": "Engineered RFC 6585 Telemetry Header"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for Context Middleware, Error Formattin....",
+            "caption": "Modify retry constraints and verify resulting http state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "wrapper function",
+              "engine": "Backoff",
+              "out": "Attempt 5: 1839 ms"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Enterprise Multi-Tenant tRPC Router & SuperJSON Serialization",
-      "codeHash": "10206c3fc64c67d94e38b81edcc46627f845e3e83cd4e4754dcf822052e5d6b7",
+      "partTitle": "Distributed Rate Limiting at Scale: Redis Lua Scripts & Cluster Synchronization",
+      "codeHash": "bb20b8550b1e5cfded5a5f0d7c97e5c7a47d7dd2773111538f8733218427b2ee",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Multi-Tenant tRPC Router... — Execution Pipeline",
+        "title": "Distributed Rate Limiting at Scale",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Multi-Tenant tRPC Router...",
+            "id": "engine",
+            "label": "Rate",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Limiting",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress operation vector and initialize Enterprise Multi-Tenant tRPC.",
+            "caption": "Initialize rate architecture and distributed boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Rate"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "single-instance Node.js"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
+            "caption": "Trace how rate coordinates distributed state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "client allocated"
+              },
+              "engine": {
+                "text": "Rate"
+              },
+              "out": {
+                "text": "sees"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
+            "caption": "Connect the distributed analogy to redis execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "shared digital"
+              },
+              "engine": {
+                "text": "Math.floor"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end type safety confirmed for Enterprise Multi-Tenant tRPC.",
+            "caption": "Modify redis constraints and verify resulting write state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Write an"
+              },
+              "engine": {
+                "text": "Limiting"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Multi-Tenant tRPC Router... — Execution Pipeline",
+        "title": "Distributed Rate Limiting at Scale",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress tRPC Operation Vector",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Multi-Tenant tRPC Router...",
+            "id": "engine",
+            "label": "Rate",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Type-Safe SuperJSON Resolution",
+            "label": "Limiting",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize Enterprise Multi-Tenant tRPC Router....",
+            "caption": "Initialize rate architecture and distributed boundaries.",
             "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Distributed Rate",
+              "engine": "Example",
+              "out": "single-instance Node.js"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in Enterprise Multi-Tenant tRPC Router....",
+            "caption": "Trace how rate coordinates distributed state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "client allocated",
+              "engine": "Rate",
+              "out": "sees"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Connect the distributed analogy to redis execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "shared digital",
+              "engine": "Math.floor",
+              "out": "Server Node 1 Handled Request: ALLOW"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for Enterprise Multi-Tenant tRPC Router....",
+            "caption": "Modify redis constraints and verify resulting write state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Write an",
+              "engine": "Limiting",
+              "out": "Server Node 3 Handled Request: DENIE"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

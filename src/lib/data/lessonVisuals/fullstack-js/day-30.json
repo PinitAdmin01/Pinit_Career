@@ -2,113 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 30,
-  "promptSha": "7c56af713d939f0e5d20b9144d23edafd405fe949abcb692c2ef8cc21515dd92",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "0ac76af47f541fe80b5ab1d7bca1349f6b7a7b035536a9e70a6a536a9cc9c07d",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Global Edge Ingress & Zero-Trust CDN Tier",
       "codeHash": "0ef9fe3ff94820ac52a44002c7a036fb6c35ac38cea4528cc57ffd68813a600c",
       "spec": {
         "template": "flow",
-        "title": "Global Edge Ingress & Zero-Trust... — Execution Pipeline",
+        "title": "Global Edge Ingress & Zero-Trust CDN Tier",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Global",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Global Edge Ingress & Zero-Trust...",
+            "id": "engine",
+            "label": "Edge",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Ingress",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Global Edge Ingress & Zero-Trust....",
+            "caption": "Initialize welcome architecture and grand boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Global Edge"
+              },
+              "engine": {
+                "text": "Gate"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Global Edge Ingress &.",
+            "caption": "Trace how welcome coordinates grand state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "outermost perimeter"
+              },
+              "engine": {
+                "text": "Edge"
+              },
+              "out": {
+                "text": "spanning over"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Global Edge Ingress &.",
+            "caption": "Connect the global analogy to zero execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "global user"
+              },
+              "engine": {
+                "text": "Cache Hit"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Global Edge Ingress.",
+            "caption": "Modify edge constraints and verify resulting trigger state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Trigger the"
+              },
+              "engine": {
+                "text": "Ingress"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Global Edge Ingress & Zero-Trust CDN Tier",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Global",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ingress",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize welcome architecture and grand boundaries.",
+            "values": {
+              "input_code": "Global Edge",
+              "engine": "Gate",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how welcome coordinates grand state transitions.",
+            "values": {
+              "input_code": "outermost perimeter",
+              "engine": "Edge",
+              "out": "spanning over"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the global analogy to zero execution invariants.",
+            "values": {
+              "input_code": "global user",
+              "engine": "Cache Hit",
+              "out": "--- Phase 1: Clean GET Request Dispa"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting trigger state.",
+            "values": {
+              "input_code": "Trigger the",
+              "engine": "Ingress",
+              "out": "HTTP 403 | WAF: BLOCKED: OWASP Threa"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -121,105 +260,244 @@
       "codeHash": "5f1c957993c50d880bd430523281e3d39cda233b1d6d44095ab0adf4db7336a3",
       "spec": {
         "template": "flow",
-        "title": "Kubernetes Microservices Mesh & ... — Execution Pipeline",
+        "title": "Kubernetes Microservices Mesh & Rolling Update Orchestrator",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Kubernetes",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Kubernetes Microservices Mesh & ...",
+            "id": "engine",
+            "label": "Microservices",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Mesh",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Kubernetes Microservices Mesh & ....",
+            "caption": "Initialize microservices architecture and kubernetes boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kubernetes Microservices"
+              },
+              "engine": {
+                "text": "Gate"
+              },
+              "out": {
+                "text": "Once incoming"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Kubernetes.",
+            "caption": "Trace how microservices coordinates kubernetes state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "service is"
+              },
+              "engine": {
+                "text": "Microservices"
+              },
+              "out": {
+                "text": "anti-affinity rules"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Kubernetes.",
+            "caption": "Connect the kubernetes analogy to during execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "During"
+              },
+              "engine": {
+                "text": "activeConnections"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Kubernetes.",
+            "caption": "Modify orchestrator constraints and verify resulting update state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Mesh"
+              },
+              "out": {
+                "out": 15
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Kubernetes Microservices Mesh & Rolling Update Orchestrator",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Kubernetes",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Microservices",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize microservices architecture and kubernetes boundaries.",
+            "values": {
+              "input_code": "Kubernetes Microservices",
+              "engine": "Gate",
+              "out": "Once incoming"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how microservices coordinates kubernetes state transitions.",
+            "values": {
+              "input_code": "service is",
+              "engine": "Microservices",
+              "out": "anti-affinity rules"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the kubernetes analogy to during execution invariants.",
+            "values": {
+              "input_code": "During",
+              "engine": "activeConnections",
+              "out": "--- Initial CoreDNS Endpoint Pool (v"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify orchestrator constraints and verify resulting update state.",
+            "values": {
+              "input_code": "Simulate",
+              "engine": "Mesh",
+              "out": "Endpoints: [\"order-pod-v2.0.0-1.clus"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -232,105 +510,244 @@
       "codeHash": "a64b2a97e04d9dc698d107e20a21cf7863688eb87b2f48ca683c36c5ff0583e7",
       "spec": {
         "template": "flow",
-        "title": "Event-Driven Asynchronous Kafka ... — Execution Pipeline",
+        "title": "Event-Driven Asynchronous Kafka Fabric & BullMQ Worker Pools",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Event",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Event-Driven Asynchronous Kafka ...",
+            "id": "engine",
+            "label": "Driven",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Asynchronous",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Event-Driven Asynchronous Kafka ....",
+            "caption": "Initialize event architecture and driven boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Event-Driven Asynchronous"
+              },
+              "engine": {
+                "text": "Gate"
+              },
+              "out": {
+                "text": "synchronous gRPC"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Event-Driven.",
+            "caption": "Trace how event coordinates driven state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "order is"
+              },
+              "engine": {
+                "text": "Driven"
+              },
+              "out": {
+                "text": "MurmurHash2 key"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Event-Driven.",
+            "caption": "Connect the kafka analogy to bullmq execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "customer completes"
+              },
+              "engine": {
+                "text": "this.committedOffsets.get"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Event-Driven.",
+            "caption": "Modify kafka constraints and verify resulting publish state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Publish"
+              },
+              "engine": {
+                "text": "Asynchronous"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Event-Driven Asynchronous Kafka Fabric & BullMQ Worker Pools",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Driven",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Asynchronous",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and driven boundaries.",
+            "values": {
+              "input_code": "Event-Driven Asynchronous",
+              "engine": "Gate",
+              "out": "synchronous gRPC"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates driven state transitions.",
+            "values": {
+              "input_code": "order is",
+              "engine": "Driven",
+              "out": "MurmurHash2 key"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the kafka analogy to bullmq execution invariants.",
+            "values": {
+              "input_code": "customer completes",
+              "engine": "this.committedOffsets.get",
+              "out": "--- Phase 1: Publishing Partitioned "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify kafka constraints and verify resulting publish state.",
+            "values": {
+              "input_code": "Publish",
+              "engine": "Asynchronous",
+              "out": "Poison-Pill Events Diverted to DLQ: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -343,105 +760,244 @@
       "codeHash": "792460f86e8f330b6ea80e7f9d1d1a2f90cb6d37b74f75e8c9994fd90368f346",
       "spec": {
         "template": "flow",
-        "title": "Full-Stack Observability & SRE T... — Execution Pipeline",
+        "title": "Full-Stack Observability & SRE Telemetry Hub",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Stack",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Full-Stack Observability & SRE T...",
+            "id": "engine",
+            "label": "Observability",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Telemetry",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Full-Stack Observability & SRE T....",
+            "caption": "Initialize observability architecture and telemetry boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Full-Stack Observability"
+              },
+              "engine": {
+                "text": "Gate"
+              },
+              "out": {
+                "text": "platform spanning"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Full-Stack.",
+            "caption": "Trace how observability coordinates telemetry state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Context propagation"
+              },
+              "engine": {
+                "text": "Observability"
+              },
+              "out": {
+                "text": "Router server"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Full-Stack.",
+            "caption": "Connect the database analogy to deadlock execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "database deadlock"
+              },
+              "engine": {
+                "text": "allowedFailureRate"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Full-Stack.",
+            "caption": "Modify simulate constraints and verify resulting severe state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Telemetry"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Full-Stack Observability & SRE Telemetry Hub",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Stack",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Observability",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Telemetry",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize observability architecture and telemetry boundaries.",
+            "values": {
+              "input_code": "Full-Stack Observability",
+              "engine": "Gate",
+              "out": "platform spanning"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how observability coordinates telemetry state transitions.",
+            "values": {
+              "input_code": "Context propagation",
+              "engine": "Observability",
+              "out": "Router server"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the database analogy to deadlock execution invariants.",
+            "values": {
+              "input_code": "database deadlock",
+              "engine": "allowedFailureRate",
+              "out": "--- Phase 1: End-to-End Distributed "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify simulate constraints and verify resulting severe state.",
+            "values": {
+              "input_code": "Simulate",
+              "engine": "Telemetry",
+              "out": "Burn Rate: 0x | Alert Level: OK"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -454,105 +1010,244 @@
       "codeHash": "54f6f7c4fad40dd79c5be6559f05831036a087079eb825ed0082f9d2e18bb19c",
       "spec": {
         "template": "flow",
-        "title": "Grand Master Full-Stack Certific... — Execution Pipeline",
+        "title": "Grand Master Full-Stack Certification & 5-Gate Defense Matrix",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Grand",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Grand Master Full-Stack Certific...",
+            "id": "engine",
+            "label": "Stack",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Certification",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Grand Master Full-Stack Certific....",
+            "caption": "Initialize full architecture and stack boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Grand Master"
+              },
+              "engine": {
+                "text": "Gate"
+              },
+              "out": {
+                "text": "Congratulations on"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Grand Master.",
+            "caption": "Trace how full coordinates stack state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "graduate from"
+              },
+              "engine": {
+                "text": "Stack"
+              },
+              "out": {
+                "text": "Viva Voce"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Grand Master.",
+            "caption": "Connect the certification analogy to during execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "During the"
+              },
+              "engine": {
+                "text": "evidence"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Grand Master.",
+            "caption": "Modify gate constraints and verify resulting defense state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Inspect the"
+              },
+              "engine": {
+                "text": "Certification"
+              },
+              "out": {
+                "out": 17
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Grand Master Full-Stack Certification & 5-Gate Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Grand",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Stack",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Certification",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize full architecture and stack boundaries.",
+            "values": {
+              "input_code": "Grand Master",
+              "engine": "Gate",
+              "out": "Congratulations on"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how full coordinates stack state transitions.",
+            "values": {
+              "input_code": "graduate from",
+              "engine": "Stack",
+              "out": "Viva Voce"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the certification analogy to during execution invariants.",
+            "values": {
+              "input_code": "During the",
+              "engine": "evidence",
+              "out": "===================================="
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Inspect the",
+              "engine": "Certification",
+              "out": "===================================="
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 5,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "f2ffaa2888bf0b896c3e982d44d5c28ca7778cf0a1f95f19ffcdad1bfbfdb1be",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Distributed Edge Geo-Routing & V8 Isolate Middleware",
-      "codeHash": "59f36bc6bc30ed36dfa4a4c55b15eb47689c34047d6fdef196d464688e8acb66",
+      "partTitle": "The API Gateway Architectural Pattern: Reverse Proxying & Centralized Ingress",
+      "codeHash": "26554f966fdedaaefb66c00bf9e7a52976d592fe9121bf4ddbe087473dae83a9",
       "spec": {
         "template": "flow",
-        "title": "Distributed Edge Geo-Routing & V8 Isolate Mid... — Execution Pipeline",
+        "title": "The API Gateway Architectural Pattern",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Gateway",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Edge Ge...",
+            "id": "engine",
+            "label": "Architectural",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Pattern",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Distributed Edge Geo-Routing & engine Isolat...",
+            "caption": "Initialize gateway architecture and modern boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Gateway Architectural"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "application engineering"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Distributed Edge Ge....",
+            "caption": "Trace how gateway coordinates modern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Direct client-to-service"
+              },
+              "engine": {
+                "text": "Architectural"
+              },
+              "out": {
+                "text": "dozens of"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the gateway analogy to luxury execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "luxury hotel"
+              },
+              "engine": {
+                "text": "next"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Distributed Edge Geo-Routing & engine...",
+            "caption": "Modify gateway constraints and verify resulting dispatch state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Dispatch"
+              },
+              "engine": {
+                "text": "Pattern"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Edge Geo-Routing & V8 Isolate Mid... — Execution Pipeline",
+        "title": "The API Gateway Architectural Pattern",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Gateway",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Edge Ge...",
+            "id": "engine",
+            "label": "Architectural",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Pattern",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Distributed Edge Geo-Routing & V8 Isolat...",
+            "caption": "Initialize gateway architecture and modern boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Gateway Architectural",
+              "engine": "Verification",
+              "out": "application engineering"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Distributed Edge Ge....",
+            "caption": "Trace how gateway coordinates modern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Direct client-to-service",
+              "engine": "Architectural",
+              "out": "dozens of"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the gateway analogy to luxury execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "luxury hotel",
+              "engine": "next",
+              "out": "Unauthorized Request Status: 401"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Distributed Edge Geo-Routing & V8...",
+            "caption": "Modify gateway constraints and verify resulting dispatch state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Dispatch",
+              "engine": "Pattern",
+              "out": "Returned Gateway Body: {\"status\":\"he"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Distributed Locks & Concurrency Control via Redis Redlock",
-      "codeHash": "6b6e9008e446cf78f17f8234facd47f17bc390019a0e7bacb2a16fbf1e9c536b",
+      "partTitle": "Route Dispatching Trees & Path Matching Mechanics: Static vs Dynamic Routes",
+      "codeHash": "3090141d6ec73da3ff98d6cecfb3619c3e9d2ed165fefae3b8e990f6d61fd0cb",
       "spec": {
         "template": "flow",
-        "title": "Distributed Locks & Concurrency Control via R... — Execution Pipeline",
+        "title": "Route Dispatching Trees & Path Matching Mechanics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Route",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Locks &...",
+            "id": "engine",
+            "label": "Dispatching",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Trees",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Distributed Locks & Concurrency Control ...",
+            "caption": "Initialize route architecture and path boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Route Dispatching"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "computational heart"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Distributed Locks &....",
+            "caption": "Trace how route coordinates path state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "achieve sub-millisecond"
+              },
+              "engine": {
+                "text": "Dispatching"
+              },
+              "out": {
+                "text": "Tree"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the route analogy to looking execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "looking up"
+              },
+              "engine": {
+                "text": "cleanPath.split"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Distributed Locks & Concurrency C...",
+            "caption": "Modify route constraints and verify resulting nested state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "nested parameterized"
+              },
+              "engine": {
+                "text": "Trees"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Locks & Concurrency Control via R... — Execution Pipeline",
+        "title": "Route Dispatching Trees & Path Matching Mechanics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Route",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Locks &...",
+            "id": "engine",
+            "label": "Dispatching",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Trees",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Distributed Locks & Concurrency Control ...",
+            "caption": "Initialize route architecture and path boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Route Dispatching",
+              "engine": "Verification",
+              "out": "computational heart"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Distributed Locks &....",
+            "caption": "Trace how route coordinates path state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "achieve sub-millisecond",
+              "engine": "Dispatching",
+              "out": "Tree"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the route analogy to looking execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "looking up",
+              "engine": "cleanPath.split",
+              "out": "Match /users/me: Current User Profil"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Distributed Locks & Concurrency C...",
+            "caption": "Modify route constraints and verify resulting nested state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "nested parameterized",
+              "engine": "Trees",
+              "out": "Match /users/usr_9942: User Details "
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Database Migrations & The Expand/Contract Pattern",
-      "codeHash": "93c0951e3ca0ad4812144f8949443f64297eb9fca66fd3c34be6a001697d3c0c",
+      "partTitle": "Token Bucket Rate Limiting Physics: Burst Allowance & Sustained Ceilings",
+      "codeHash": "15bfdb6add4c28f54b29304f62188a0ff802e8c4da02d94e7bba695c496caa44",
       "spec": {
         "template": "flow",
-        "title": "Zero-Downtime Database Migrations & The Expan... — Execution Pipeline",
+        "title": "Token Bucket Rate Limiting Physics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Token",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Zero-Downtime Datab...",
+            "id": "engine",
+            "label": "Bucket",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Rate",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Zero-Downtime Database Migrations & The ...",
+            "caption": "Initialize rate architecture and limiting boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Token Bucket"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack systems"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Zero-Downtime Datab....",
+            "caption": "Trace how rate coordinates limiting state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "evolution of"
+              },
+              "engine": {
+                "text": "Bucket"
+              },
+              "out": {
+                "text": "catastrophic boundary"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the token analogy to burst execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "arcade game"
+              },
+              "engine": {
+                "text": "allowed"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Zero-Downtime Database Migrations...",
+            "caption": "Modify bucket constraints and verify resulting simulate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Rate"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Downtime Database Migrations & The Expan... — Execution Pipeline",
+        "title": "Token Bucket Rate Limiting Physics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Token",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Zero-Downtime Datab...",
+            "id": "engine",
+            "label": "Bucket",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Rate",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Zero-Downtime Database Migrations & The ...",
+            "caption": "Initialize rate architecture and limiting boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Token Bucket",
+              "engine": "Verification",
+              "out": "full-stack systems"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Zero-Downtime Datab....",
+            "caption": "Trace how rate coordinates limiting state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "evolution of",
+              "engine": "Bucket",
+              "out": "catastrophic boundary"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the token analogy to burst execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "arcade game",
+              "engine": "allowed",
+              "out": "=== TOKEN BUCKET EXECUTION TRACE ==="
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Zero-Downtime Database Migrations...",
+            "caption": "Modify bucket constraints and verify resulting simulate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate",
+              "engine": "Rate",
+              "out": "Req 4 (Exceeded): THROTTLED (Retry-A"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Multi-Region Eventual Consistency & Conflict-Free Replicated Data Types (CRDTs)",
-      "codeHash": "0c6c759dff4307a8f6026d551e30ab8c298470166288c3c5323e1bd056a6a9ed",
+      "partTitle": "Health Check Probes & Zero-Downtime Traffic Orchestration: Liveness vs Readiness",
+      "codeHash": "076bfe79243ee3aa00bd37c45a2078db62b8859a2b28ac8adffa610f2fa81d40",
       "spec": {
         "template": "flow",
-        "title": "Multi-Region Eventual Consistency & Conflict-... — Execution Pipeline",
+        "title": "Health Check Probes & Zero-Downtime Traffic Orchestration",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Health",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Multi-Region Eventu...",
+            "id": "engine",
+            "label": "Check",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Probes",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Multi-Region Eventual Consistency & Conf...",
+            "caption": "Initialize traffic architecture and orchestration boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Health Check"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "cloud-native architectures"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Multi-Region Eventu....",
+            "caption": "Trace how traffic coordinates orchestration state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Amateur web"
+              },
+              "engine": {
+                "text": "Check"
+              },
+              "out": {
+                "text": "required for"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the liveness analogy to readiness execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "airliner preparing"
+              },
+              "engine": {
+                "text": "this.startTime"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Multi-Region Eventual Consistency...",
+            "caption": "Modify readiness constraints and verify resulting simulate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Probes"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Region Eventual Consistency & Conflict-... — Execution Pipeline",
+        "title": "Health Check Probes & Zero-Downtime Traffic Orchestration",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Health",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Multi-Region Eventu...",
+            "id": "engine",
+            "label": "Check",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Probes",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Region Eventual Consistency & Conf...",
+            "caption": "Initialize traffic architecture and orchestration boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Health Check",
+              "engine": "Verification",
+              "out": "cloud-native architectures"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Region Eventu....",
+            "caption": "Trace how traffic coordinates orchestration state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Amateur web",
+              "engine": "Check",
+              "out": "required for"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the liveness analogy to readiness execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "airliner preparing",
+              "engine": "this.startTime",
+              "out": "--- Container Starting Up ---"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Region Eventual Consistency...",
+            "caption": "Modify readiness constraints and verify resulting simulate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate",
+              "engine": "Probes",
+              "out": "Readiness Health Report Summary: \"UP"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Enterprise Chaos Engineering, Resiliency & SLO Circuit Breakers",
-      "codeHash": "8b658529f9e60a73b781e78d49fc86684acfbf2ed17ca231135be2dd1b609be8",
+      "partTitle": "Assembling Milestone 1: The Production-Ready API Gateway Architecture",
+      "codeHash": "8df751e85f8ac3a2a2bc12b8d863f70316ebd94ae328e5711ea93d2fa49f241a",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Chaos Engineering, Resiliency & SL... — Execution Pipeline",
+        "title": "Assembling Milestone 1",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Assembling",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Chaos En...",
+            "id": "engine",
+            "label": "Milestone",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Ready",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Enterprise Chaos Engineering, Resiliency...",
+            "caption": "Initialize milestone architecture and production boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Assembling Milestone"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "final milestone"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Enterprise Chaos En....",
+            "caption": "Trace how milestone coordinates production state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "review the"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "middleware rejects"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the constructing analogy to high execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "constructing"
+              },
+              "engine": {
+                "text": "handler"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Enterprise Chaos Engineering, Res...",
+            "caption": "Modify register constraints and verify resulting post state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Register"
+              },
+              "engine": {
+                "text": "Ready"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Chaos Engineering, Resiliency & SL... — Execution Pipeline",
+        "title": "Assembling Milestone 1",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Assembling",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Chaos En...",
+            "id": "engine",
+            "label": "Milestone",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Ready",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Enterprise Chaos Engineering, Resiliency...",
+            "caption": "Initialize milestone architecture and production boundaries.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Assembling Milestone",
+              "engine": "Verification",
+              "out": "final milestone"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Enterprise Chaos En....",
+            "caption": "Trace how milestone coordinates production state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "review the",
+              "engine": "Milestone",
+              "out": "middleware rejects"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the constructing analogy to high execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "constructing",
+              "engine": "handler",
+              "out": "1. Unauthorized Gateway Dispatch Sta"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Enterprise Chaos Engineering, Res...",
+            "caption": "Modify register constraints and verify resulting post state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Register",
+              "engine": "Ready",
+              "out": "2. Authorized Gateway User List Coun"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

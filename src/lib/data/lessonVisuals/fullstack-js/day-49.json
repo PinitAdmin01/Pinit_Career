@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 49,
-  "promptSha": "d4f47e77ec793246fa6a8770358f61f494fd588217064a14266bc895fb041699",
-  "model": "gemini-2.5-pro",
+  "promptSha": "f932c09804a2368b75ef7912d114ac38dc9a26d8cc6eafb0347d8e5ae90438c8",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Event Sourcing Paradigm: State as an Immutable Append-Only Stream",
       "codeHash": "15d8c72fe6c133561d0bf21da4057ada591b12fc3ed1481f95fb9e140ee2c9a5",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Event Sourcing Paradigm: State as an Immutable Append-Only Stream",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "The Event Sourcing Paradigm",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sourcing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Paradigm",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize traditional architecture and database boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Event Sourcing"
+              },
+              "engine": {
+                "text": "Immutable Event"
+              },
+              "out": {
+                "text": "traditional database"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how traditional coordinates database state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Overwriting current"
+              },
+              "engine": {
+                "text": "Sourcing"
+              },
+              "out": {
+                "text": "whether that"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the accountant analogy to master execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "accountant"
+              },
+              "engine": {
+                "text": "streamId"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify event constraints and verify resulting sourcing state.",
+            "values": {
+              "input_code": {
+                "text": "Event Sourcing"
+              },
+              "engine": {
+                "text": "Paradigm"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "The Event Sourcing Paradigm",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sourcing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Paradigm",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize traditional architecture and database boundaries.",
+            "values": {
+              "input_code": "Event Sourcing",
+              "engine": "Immutable Event",
+              "out": "traditional database"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how traditional coordinates database state transitions.",
+            "values": {
+              "input_code": "Overwriting current",
+              "engine": "Sourcing",
+              "out": "whether that"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the accountant analogy to master execution invariants.",
+            "values": {
+              "input_code": "accountant",
+              "engine": "streamId",
+              "out": "Reconstructed Account Balance ($): 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify event constraints and verify resulting sourcing state.",
+            "values": {
+              "input_code": "Event Sourcing",
+              "engine": "Paradigm",
+              "out": "Immutable Event Sourcing Core Operat"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Command Query Responsibility Segregation (CQRS) Architecture",
       "codeHash": "3f3899d368061c848a08f481ad2c0571a9e9ad3e37ce27a9fba1df371c38d864",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Command Query Responsibility Segregation (CQRS) Architecture",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Command Query Responsibility Segregation (CQRS) Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Command",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Query",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Responsibility",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize query architecture and command boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Command Query"
+              },
+              "engine": {
+                "text": "CQRS Command"
+              },
+              "out": {
+                "text": "Event Sourcing"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how query coordinates command state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Attempting to"
+              },
+              "engine": {
+                "text": "Query"
+              },
+              "out": {
+                "text": "escalate into"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the command analogy to query execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "premier international"
+              },
+              "engine": {
+                "text": "view.lastUpdated"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify command constraints and verify resulting query state.",
+            "values": {
+              "input_code": {
+                "text": "Command Query"
+              },
+              "engine": {
+                "text": "Responsibility"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Command Query Responsibility Segregation (CQRS) Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Command",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Query",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Responsibility",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize query architecture and command boundaries.",
+            "values": {
+              "input_code": "Command Query",
+              "engine": "CQRS Command",
+              "out": "Event Sourcing"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how query coordinates command state transitions.",
+            "values": {
+              "input_code": "Attempting to",
+              "engine": "Query",
+              "out": "escalate into"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the command analogy to query execution invariants.",
+            "values": {
+              "input_code": "premier international",
+              "engine": "view.lastUpdated",
+              "out": "Query Side Pre-Computed Owner: Alice"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify command constraints and verify resulting query state.",
+            "values": {
+              "input_code": "Command Query",
+              "engine": "Responsibility",
+              "out": "CQRS Command-Query Separation Verifi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Asynchronous Read Projections & Event Sequence Reconciliation",
       "codeHash": "7ca1dbb1205f745f4ed1f80cf945639ce2ee84604eed1e360e76199217b1e838",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Asynchronous Read Projections & Event Sequence Reconciliation",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Asynchronous Read Projections & Event Sequence Reconciliation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asynchronous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Read",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Projections",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize event architecture and read boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Asynchronous Read"
+              },
+              "engine": {
+                "text": "Resilient Event"
+              },
+              "out": {
+                "text": "CQRS architecture"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how event coordinates read state transitions.",
+            "values": {
+              "input_code": {
+                "text": "During this"
+              },
+              "engine": {
+                "text": "Read"
+              },
+              "out": {
+                "text": "updates"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the expert analogy to masonry execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "expert masonry"
+              },
+              "engine": {
+                "text": "evt1"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify asynchronous constraints and verify resulting read state.",
+            "values": {
+              "input_code": {
+                "text": "Asynchronous Read"
+              },
+              "engine": {
+                "text": "Projections"
+              },
+              "out": {
+                "out": 5
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Asynchronous Read Projections & Event Sequence Reconciliation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asynchronous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Read",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Projections",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and read boundaries.",
+            "values": {
+              "input_code": "Asynchronous Read",
+              "engine": "Resilient Event",
+              "out": "CQRS architecture"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates read state transitions.",
+            "values": {
+              "input_code": "During this",
+              "engine": "Read",
+              "out": "updates"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the expert analogy to masonry execution invariants.",
+            "values": {
+              "input_code": "expert masonry",
+              "engine": "evt1",
+              "out": "Post Evt 1 Applied Version: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify asynchronous constraints and verify resulting read state.",
+            "values": {
+              "input_code": "Asynchronous Read",
+              "engine": "Projections",
+              "out": "Event Sequence Reconciliation Operat"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Aggregate Snapshotting & Stream Performance Optimization",
       "codeHash": "4a765ef7156506c461ce1c8e9e641f914efd832e36c4e1302c6e1daf49450681",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Aggregate Snapshotting & Stream Performance Optimization",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Aggregate Snapshotting & Stream Performance Optimization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Aggregate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Snapshotting",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Stream",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize performance architecture and stream boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Aggregate Snapshotting"
+              },
+              "engine": {
+                "text": "Aggregate Snapshotting"
+              },
+              "out": {
+                "text": "Event Sourcing"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how performance coordinates stream state transitions.",
+            "values": {
+              "input_code": {
+                "text": "naive Event"
+              },
+              "engine": {
+                "text": "Snapshotting"
+              },
+              "out": {
+                "text": "transfers hundreds"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the ultra analogy to marathon execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "ultra-marathon athlete"
+              },
+              "engine": {
+                "text": "evt.type"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify aggregate constraints and verify resulting snapshotting state.",
+            "values": {
+              "input_code": {
+                "text": "Aggregate Snapshotting"
+              },
+              "engine": {
+                "text": "Stream"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Aggregate Snapshotting & Stream Performance Optimization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Aggregate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Snapshotting",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Stream",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize performance architecture and stream boundaries.",
+            "values": {
+              "input_code": "Aggregate Snapshotting",
+              "engine": "Aggregate Snapshotting",
+              "out": "Event Sourcing"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how performance coordinates stream state transitions.",
+            "values": {
+              "input_code": "naive Event",
+              "engine": "Snapshotting",
+              "out": "transfers hundreds"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the ultra analogy to marathon execution invariants.",
+            "values": {
+              "input_code": "ultra-marathon athlete",
+              "engine": "evt.type",
+              "out": "Rehydrated Balance ($): 52500"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify aggregate constraints and verify resulting snapshotting state.",
+            "values": {
+              "input_code": "Aggregate Snapshotting",
+              "engine": "Stream",
+              "out": "Snapshot-Optimized Delta Rehydration"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Event Upcasting & Schema Evolution Sentinels",
       "codeHash": "7a17c93ec725f1a3ba484cf845229f1bd1f33e53b8187399e8d452590174797b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Event Upcasting & Schema Evolution Sentinels",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Event",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize event architecture and schema boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Event Upcasting"
+              },
+              "out": {
+                "text": "software systems"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how event coordinates schema state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Event Sourced"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "Rewriting historical"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the prestigious analogy to national execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "prestigious national"
+              },
+              "engine": {
+                "text": "healthy"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Event",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and schema boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Event Upcasting",
+              "out": "software systems"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates schema state transitions.",
+            "values": {
+              "input_code": "Event Sourced",
+              "engine": "Defense",
+              "out": "Rewriting historical"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the prestigious analogy to national execution invariants.",
+            "values": {
+              "input_code": "prestigious national",
+              "engine": "healthy",
+              "out": "Legacy V1 Event Successfully Upcaste"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Event",
+              "out": "Event Upcasting & Projection Sentine"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

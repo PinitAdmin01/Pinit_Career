@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 34,
-  "promptSha": "ec02af660c44c823e3aad978affaf576087afe7086e2f381b265d8aa1d2cff50",
-  "model": "gemini-2.5-pro",
+  "promptSha": "57615c486da6b1767ae708edc96980d8a4b2f59cee3a161391f32af489539cda",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "AsyncLocalStorage (ALS) Fundamentals: Continuation Local Storage & Contextual Scoping Across Async Boundaries",
       "codeHash": "a2d87a72ac5df985d38940fc2d271b9277dd90811d90078800f850edfcf81c55",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: AsyncLocalStorage (ALS) Fundamentals: Continuation Local Storage & Contextual Scoping Across Async Boundaries",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "AsyncLocalStorage (ALS) Fundamentals",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "AsyncLocalStorage",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Continuation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Local",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize enterprise architecture and software boundaries.",
+            "values": {
+              "input_code": {
+                "text": "AsyncLocalStorage"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "software engineering"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how enterprise coordinates software state transitions.",
+            "values": {
+              "input_code": {
+                "text": "multi-threaded programming"
+              },
+              "engine": {
+                "text": "Continuation"
+              },
+              "out": {
+                "text": "operating system"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the high analogy to security execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-security research"
+              },
+              "engine": {
+                "text": "requestStore.getStore"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify fundamentals constraints and verify resulting continuation state.",
+            "values": {
+              "input_code": {
+                "text": "AsyncLocalStorage"
+              },
+              "engine": {
+                "text": "Local"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "AsyncLocalStorage (ALS) Fundamentals",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "AsyncLocalStorage",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Continuation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Local",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize enterprise architecture and software boundaries.",
+            "values": {
+              "input_code": "AsyncLocalStorage",
+              "engine": "Simulation",
+              "out": "software engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how enterprise coordinates software state transitions.",
+            "values": {
+              "input_code": "multi-threaded programming",
+              "engine": "Continuation",
+              "out": "operating system"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to security execution invariants.",
+            "values": {
+              "input_code": "high-security research",
+              "engine": "requestStore.getStore",
+              "out": "Request 1 Result: Processed $250 for"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify fundamentals constraints and verify resulting continuation state.",
+            "values": {
+              "input_code": "AsyncLocalStorage",
+              "engine": "Local",
+              "out": "No Argument Drilling Required: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "W3C Trace Context Standard: traceparent Headers, trace_id, parent_id & Trace Flags",
       "codeHash": "1792b946173c863de2f10d475a429fa9ba2fc88767bbd4804d0e1da4f258d83b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: WC Trace Context Standard: traceparent Headers, trace_id, parent_id & Trace Flags",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "W3C Trace Context Standard",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Trace",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Standard",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize modern architecture and distributed boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Trace Context"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "distributed cloud"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how modern coordinates distributed state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Historically"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "text": "architecture utilized"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to registered execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international registered"
+              },
+              "engine": {
+                "text": "0-9a-f"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify trace constraints and verify resulting context state.",
+            "values": {
+              "input_code": {
+                "text": "Trace Context"
+              },
+              "engine": {
+                "text": "Standard"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "W3C Trace Context Standard",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Trace",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Standard",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize modern architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Trace Context",
+              "engine": "Simulation",
+              "out": "distributed cloud"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how modern coordinates distributed state transitions.",
+            "values": {
+              "input_code": "Historically",
+              "engine": "Context",
+              "out": "architecture utilized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to registered execution invariants.",
+            "values": {
+              "input_code": "international registered",
+              "engine": "0-9a-f",
+              "out": "W3C Trace Header Validated: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify trace constraints and verify resulting context state.",
+            "values": {
+              "input_code": "Trace Context",
+              "engine": "Standard",
+              "out": "Is Distributed Trace Sampled: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Multi-Tenant Context Propagation & Database Connection Affinity: Tenant Isolation Without Argument Drilling",
       "codeHash": "6b7811758228a9e8cd6ca5fbeb55a161f9c6899d9becdce90bb308b6fd145db2",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Multi-Tenant Context Propagation & Database Connection Affinity: Tenant Isolation Without Argument Drilling",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Multi-Tenant Context Propagation & Database Connection Affinity",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tenant",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Context",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize multi architecture and tenant boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Multi-Tenant Context"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Software-as-a-Service"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how multi coordinates tenant state transitions.",
+            "values": {
+              "input_code": {
+                "text": "combining"
+              },
+              "engine": {
+                "text": "Tenant"
+              },
+              "out": {
+                "text": "architectural safety"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the commercial analogy to bank execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "commercial bank"
+              },
+              "engine": {
+                "text": "injection"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify multi constraints and verify resulting tenant state.",
+            "values": {
+              "input_code": {
+                "text": "Multi-Tenant Context"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Multi-Tenant Context Propagation & Database Connection Affinity",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tenant",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Context",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize multi architecture and tenant boundaries.",
+            "values": {
+              "input_code": "Multi-Tenant Context",
+              "engine": "Simulation",
+              "out": "Software-as-a-Service"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how multi coordinates tenant state transitions.",
+            "values": {
+              "input_code": "combining",
+              "engine": "Tenant",
+              "out": "architectural safety"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the commercial analogy to bank execution invariants.",
+            "values": {
+              "input_code": "commercial bank",
+              "engine": "injection",
+              "out": "Tenant A Generated Query: SELECT * F"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify multi constraints and verify resulting tenant state.",
+            "values": {
+              "input_code": "Multi-Tenant Context",
+              "engine": "Context",
+              "out": "Cross-Tenant Data Leak Risk: Zero"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "OpenTelemetry Auto-Instrumentation Architecture: Monkey-Patching, Diagnostics Channels & Context Managers",
       "codeHash": "32b54ba297ffce610dee746a3ca115429c2a39c3479a3ceb03d54ffc1b2b8b36",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: OpenTelemetry Auto-Instrumentation Architecture: Monkey-Patching, Diagnostics Channels & Context Managers",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "OpenTelemetry Auto-Instrumentation Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "OpenTelemetry",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Auto",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Instrumentation",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize opentelemetry architecture and architecture boundaries.",
+            "values": {
+              "input_code": {
+                "text": "OpenTelemetry"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "OpenTelemetry"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how opentelemetry coordinates architecture state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Historically"
+              },
+              "engine": {
+                "text": "Auto"
+              },
+              "out": {
+                "text": "functions in"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the monkey analogy to patching execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "automated traffic"
+              },
+              "engine": {
+                "text": "data.url"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify opentelemetry constraints and verify resulting auto state.",
+            "values": {
+              "input_code": {
+                "text": "OpenTelemetry"
+              },
+              "engine": {
+                "text": "Instrumentation"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "OpenTelemetry Auto-Instrumentation Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "OpenTelemetry",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Auto",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Instrumentation",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize opentelemetry architecture and architecture boundaries.",
+            "values": {
+              "input_code": "OpenTelemetry",
+              "engine": "Simulation",
+              "out": "OpenTelemetry"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how opentelemetry coordinates architecture state transitions.",
+            "values": {
+              "input_code": "Historically",
+              "engine": "Auto",
+              "out": "functions in"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the monkey analogy to patching execution invariants.",
+            "values": {
+              "input_code": "automated traffic",
+              "engine": "data.url",
+              "out": "Diagnostic Channel Span Captured: PO"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify opentelemetry constraints and verify resulting auto state.",
+            "values": {
+              "input_code": "OpenTelemetry",
+              "engine": "Instrumentation",
+              "out": "Zero Direct Monkey Patching Required"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "High-Throughput ALS Performance Optimization: Avoiding Memory Retain Cycles & Context Serialization Pitfalls",
       "codeHash": "23335eecf924b21f3385b06b379d1a9fa83ba31436e646551ac6e1ef69ff72ef",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: High-Throughput ALS Performance Optimization: Avoiding Memory Retain Cycles & Context Serialization Pitfalls",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "High-Throughput ALS Performance Optimization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Throughput",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Optimization",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize context architecture and high boundaries.",
+            "values": {
+              "input_code": {
+                "text": "High-Throughput ALS"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "AsyncLocalStorage"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how context coordinates high state transitions.",
+            "values": {
+              "input_code": {
+                "text": "critical pitfall"
+              },
+              "engine": {
+                "text": "Performance"
+              },
+              "out": {
+                "text": "spawned within"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the context analogy to taking execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "taking"
+              },
+              "engine": {
+                "text": "this.capturedContexts.length"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting throughput state.",
+            "values": {
+              "input_code": {
+                "text": "High-Throughput ALS"
+              },
+              "engine": {
+                "text": "Optimization"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "High-Throughput ALS Performance Optimization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Throughput",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Optimization",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize context architecture and high boundaries.",
+            "values": {
+              "input_code": "High-Throughput ALS",
+              "engine": "Simulation",
+              "out": "AsyncLocalStorage"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how context coordinates high state transitions.",
+            "values": {
+              "input_code": "critical pitfall",
+              "engine": "Performance",
+              "out": "spawned within"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the context analogy to taking execution invariants.",
+            "values": {
+              "input_code": "taking",
+              "engine": "this.capturedContexts.length",
+              "out": "1,000 ALS Context Descriptors Alloca"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting throughput state.",
+            "values": {
+              "input_code": "High-Throughput ALS",
+              "engine": "Optimization",
+              "out": "Flushed Active Contexts: 1000"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

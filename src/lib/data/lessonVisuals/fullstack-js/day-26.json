@@ -2,113 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 26,
-  "promptSha": "7c56af713d939f0e5d20b9144d23edafd405fe949abcb692c2ef8cc21515dd92",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "27e00704f9fcac1a488b5d875d528ef9ee85474386fd551d95e9792831055802",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Kubernetes Architecture: Control Plane, Worker Nodes & Declarative Reconciliation",
       "codeHash": "6431f8a37c680170600535cba5ad55cfd2540f2c699572a9fa73c3b9c0b1172b",
       "spec": {
         "template": "flow",
-        "title": "Kubernetes Architecture: Control... — Execution Pipeline",
+        "title": "Kubernetes Architecture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Kubernetes",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Kubernetes Architecture: Control...",
+            "id": "engine",
+            "label": "Architecture",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Control",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Kubernetes Architecture: Control....",
+            "caption": "Initialize kubernetes architecture and declarative boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kubernetes Architecture"
+              },
+              "engine": {
+                "text": "Kubernetes Declarative"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Kubernetes.",
+            "caption": "Trace how kubernetes coordinates declarative state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kubernetes architecture"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "text": "kube-apiserver"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Kubernetes.",
+            "caption": "Connect the worker analogy to nodes execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "cloud environment"
+              },
+              "engine": {
+                "text": "this.currentPods.size"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Kubernetes.",
+            "caption": "Modify reconciliation constraints and verify resulting worker state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Experiment with"
+              },
+              "engine": {
+                "text": "Control"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Kubernetes Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Kubernetes",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Control",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize kubernetes architecture and declarative boundaries.",
+            "values": {
+              "input_code": "Kubernetes Architecture",
+              "engine": "Kubernetes Declarative",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how kubernetes coordinates declarative state transitions.",
+            "values": {
+              "input_code": "Kubernetes architecture",
+              "engine": "Architecture",
+              "out": "kube-apiserver"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the worker analogy to nodes execution invariants.",
+            "values": {
+              "input_code": "cloud environment",
+              "engine": "this.currentPods.size",
+              "out": "--- Phase 1: Initial Desired State R"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify reconciliation constraints and verify resulting worker state.",
+            "values": {
+              "input_code": "Experiment with",
+              "engine": "Control",
+              "out": "Healed Pods: [{\"id\":\"pod-prod-api-1\""
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -121,105 +260,244 @@
       "codeHash": "96102150c280dceabd22ca24f166b1e283a593779414224978c5380a79333edb",
       "spec": {
         "template": "flow",
-        "title": "Pods, ReplicaSets & RollingUpdat... — Execution Pipeline",
+        "title": "Pods, ReplicaSets & RollingUpdate Deployment Strategies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Pods",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pods, ReplicaSets & RollingUpdat...",
+            "id": "engine",
+            "label": "ReplicaSets",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "RollingUpdate",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Pods, ReplicaSets & RollingUpdat....",
+            "caption": "Initialize pods architecture and replicasets boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pods"
+              },
+              "engine": {
+                "text": "Kubernetes RollingUpdate"
+              },
+              "out": {
+                "text": "understand the"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Pods, ReplicaSets &.",
+            "caption": "Trace how pods coordinates replicasets state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "individual standalone"
+              },
+              "engine": {
+                "text": "ReplicaSets"
+              },
+              "out": {
+                "text": "maintain"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Pods, ReplicaSets &.",
+            "caption": "Connect the deployment analogy to pods execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "During"
+              },
+              "engine": {
+                "text": "this.spec.maxSurge"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Pods, ReplicaSets &.",
+            "caption": "Modify configure constraints and verify resulting maxunavailable state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Configure maxUnavailable"
+              },
+              "engine": {
+                "text": "RollingUpdate"
+              },
+              "out": {
+                "out": 9
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Pods, ReplicaSets & RollingUpdate Deployment Strategies",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Pods",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "ReplicaSets",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "RollingUpdate",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize pods architecture and replicasets boundaries.",
+            "values": {
+              "input_code": "Pods",
+              "engine": "Kubernetes RollingUpdate",
+              "out": "understand the"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how pods coordinates replicasets state transitions.",
+            "values": {
+              "input_code": "individual standalone",
+              "engine": "ReplicaSets",
+              "out": "maintain"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the deployment analogy to pods execution invariants.",
+            "values": {
+              "input_code": "During",
+              "engine": "this.spec.maxSurge",
+              "out": "--- Deployment RollingUpdate Audit L"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify configure constraints and verify resulting maxunavailable state.",
+            "values": {
+              "input_code": "Configure maxUnavailable",
+              "engine": "RollingUpdate",
+              "out": "Rollout Complete: All 3 pods running"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -232,105 +510,244 @@
       "codeHash": "c08bf7d3f6596577eb41f83a57a2d751c76d4850629287dd38da0ee476366598",
       "spec": {
         "template": "flow",
-        "title": "Service Discovery, ClusterIP, In... — Execution Pipeline",
+        "title": "Service Discovery, ClusterIP, Ingress Routing & CoreDNS",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Service",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Service Discovery, ClusterIP, In...",
+            "id": "engine",
+            "label": "Discovery",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "ClusterIP",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Service Discovery, ClusterIP, In....",
+            "caption": "Initialize coredns architecture and kubernetes boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Service Discovery"
+              },
+              "engine": {
+                "text": "Kubernetes CoreDNS"
+              },
+              "out": {
+                "text": "Kubernetes"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Service Discovery.",
+            "caption": "Trace how coredns coordinates kubernetes state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Kubernetes Service"
+              },
+              "engine": {
+                "text": "Discovery"
+              },
+              "out": {
+                "text": "throughout the"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Service Discovery.",
+            "caption": "Connect the ingress analogy to coredns execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "external mobile"
+              },
+              "engine": {
+                "text": "nextPodIp"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Service Discovery.",
+            "caption": "Modify service constraints and verify resulting ingress state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "second service"
+              },
+              "engine": {
+                "text": "ClusterIP"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Service Discovery, ClusterIP, Ingress Routing & CoreDNS",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Service",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Discovery",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "ClusterIP",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize coredns architecture and kubernetes boundaries.",
+            "values": {
+              "input_code": "Service Discovery",
+              "engine": "Kubernetes CoreDNS",
+              "out": "Kubernetes"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how coredns coordinates kubernetes state transitions.",
+            "values": {
+              "input_code": "Kubernetes Service",
+              "engine": "Discovery",
+              "out": "throughout the"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the ingress analogy to coredns execution invariants.",
+            "values": {
+              "input_code": "external mobile",
+              "engine": "nextPodIp",
+              "out": "--- Phase 1: CoreDNS Query ---"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify service constraints and verify resulting ingress state.",
+            "values": {
+              "input_code": "second service",
+              "engine": "ClusterIP",
+              "out": "Request #3 -> HTTP 200 routed to Pod"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -340,108 +757,247 @@
     },
     {
       "partTitle": "Configuration Decoupling: ConfigMaps, Secrets & Projected Volumes",
-      "codeHash": "06c08f26d096a51baa86e0d7be957639771b20ce8f7b55b34d1e122b44369ba7",
+      "codeHash": "2a9ad3914b464817d9656a153d62c629b8de46997d876028bfb16a6938a8cfea",
       "spec": {
         "template": "flow",
-        "title": "Configuration Decoupling: Config... — Execution Pipeline",
+        "title": "Configuration Decoupling",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Configuration",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Configuration Decoupling: Config...",
+            "id": "engine",
+            "label": "Decoupling",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "ConfigMaps",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Configuration Decoupling: Config....",
+            "caption": "Initialize configuration architecture and decoupling boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Configuration Decoupling"
+              },
+              "engine": {
+                "text": "Kubernetes ConfigMap"
+              },
+              "out": {
+                "text": "foundational tenet"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Configuration.",
+            "caption": "Trace how configuration coordinates decoupling state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "ConfigMap stores"
+              },
+              "engine": {
+                "text": "Decoupling"
+              },
+              "out": {
+                "text": "environment variables"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Configuration.",
+            "caption": "Connect the enterprise analogy to payment execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "payment gateway"
+              },
+              "engine": {
+                "text": "newContent"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Configuration.",
+            "caption": "Modify update constraints and verify resulting config state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Update"
+              },
+              "engine": {
+                "text": "ConfigMaps"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Configuration Decoupling",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Configuration",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Decoupling",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "ConfigMaps",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize configuration architecture and decoupling boundaries.",
+            "values": {
+              "input_code": "Configuration Decoupling",
+              "engine": "Kubernetes ConfigMap",
+              "out": "foundational tenet"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how configuration coordinates decoupling state transitions.",
+            "values": {
+              "input_code": "ConfigMap stores",
+              "engine": "Decoupling",
+              "out": "environment variables"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the enterprise analogy to payment execution invariants.",
+            "values": {
+              "input_code": "payment gateway",
+              "engine": "newContent",
+              "out": "--- Initial Projected Volume State -"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify update constraints and verify resulting config state.",
+            "values": {
+              "input_code": "Update",
+              "engine": "ConfigMaps",
+              "out": "Reload Events Fired: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -454,105 +1010,244 @@
       "codeHash": "24c64c5b33605ff248c92376db8b6a4a7c773f993bba81e87aea1fe4e646abe2",
       "spec": {
         "template": "flow",
-        "title": "Helm Package Management: Charts,... — Execution Pipeline",
+        "title": "Helm Package Management",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Helm",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Helm Package Management: Charts,...",
+            "id": "engine",
+            "label": "Package",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Management",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Helm Package Management: Charts,....",
+            "caption": "Initialize helm architecture and package boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Helm Package"
+              },
+              "engine": {
+                "text": "Helm Chart"
+              },
+              "out": {
+                "text": "microservice architectures"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Helm Package.",
+            "caption": "Trace how helm coordinates package state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Helm Package"
+              },
+              "engine": {
+                "text": "Package"
+              },
+              "out": {
+                "text": "version"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Helm Package.",
+            "caption": "Connect the values analogy to helm execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "GitOps CI"
+              },
+              "engine": {
+                "text": "this.history.push"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Helm Package.",
+            "caption": "Modify deploy constraints and verify resulting third state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Deploy"
+              },
+              "engine": {
+                "text": "Management"
+              },
+              "out": {
+                "out": 27
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Helm Package Management",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Helm",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Package",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Management",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize helm architecture and package boundaries.",
+            "values": {
+              "input_code": "Helm Package",
+              "engine": "Helm Chart",
+              "out": "microservice architectures"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how helm coordinates package state transitions.",
+            "values": {
+              "input_code": "Helm Package",
+              "engine": "Package",
+              "out": "version"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the values analogy to helm execution invariants.",
+            "values": {
+              "input_code": "GitOps CI",
+              "engine": "this.history.push",
+              "out": "--- Phase 1: Deploy Revision 1 (v1.0"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify deploy constraints and verify resulting third state.",
+            "values": {
+              "input_code": "Deploy",
+              "engine": "Management",
+              "out": "Final Release History: [{\"rev\":1,\"st"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

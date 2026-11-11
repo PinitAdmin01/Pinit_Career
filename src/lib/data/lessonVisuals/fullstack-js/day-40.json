@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 40,
-  "promptSha": "e7b7eb6086d72035ed682833d7836f70f551ab4a07806e28580d939eb80bc7ec",
-  "model": "gemini-2.5-pro",
+  "promptSha": "f8d717e8262151e6298b7f9a5b348b1fabca8a49b617a7ce8e20fc753be5e062",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Architecture Blueprint: Sovereign High-Throughput Node.js Cluster with Web Streams & Wasm Acceleration",
       "codeHash": "c135db66669dc0219a5fdffae03347084ba866bf61e8dcc001db64096049dc8d",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architecture Blueprint: Sovereign High-Throughput Node.js Cluster with Web Streams & Wasm Acceleration",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architecture Blueprint",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Blueprint",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sovereign",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and high boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architecture Blueprint"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates high state transitions.",
+            "values": {
+              "input_code": {
+                "text": "high-scale enterprise"
+              },
+              "engine": {
+                "text": "Blueprint"
+              },
+              "out": {
+                "text": "cannot saturate"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the high analogy to cluster execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "ultra-modern regional"
+              },
+              "engine": {
+                "text": "layer"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architecture constraints and verify resulting blueprint state.",
+            "values": {
+              "input_code": {
+                "text": "Architecture Blueprint"
+              },
+              "engine": {
+                "text": "Sovereign"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architecture Blueprint",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Blueprint",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sovereign",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and high boundaries.",
+            "values": {
+              "input_code": "Architecture Blueprint",
+              "engine": "Milestone",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates high state transitions.",
+            "values": {
+              "input_code": "high-scale enterprise",
+              "engine": "Blueprint",
+              "out": "cannot saturate"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to cluster execution invariants.",
+            "values": {
+              "input_code": "ultra-modern regional",
+              "engine": "layer",
+              "out": "Milestone 8 Capstone Master Architec"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architecture constraints and verify resulting blueprint state.",
+            "values": {
+              "input_code": "Architecture Blueprint",
+              "engine": "Sovereign",
+              "out": "Zero-Allocation Streaming Readiness:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Zero-Downtime Cluster Worker Mesh & SO_REUSEPORT Ingress",
       "codeHash": "03c78b6882516487301a267c8e34e2b012b806d6a29fc06f6cd350af55399e94",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Zero-Downtime Cluster Worker Mesh & SO_REUSEPORT Ingress",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Zero-Downtime Cluster Worker Mesh & SO_REUSEPORT Ingress",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Downtime",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cluster",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize cluster architecture and mesh boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Downtime Cluster"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "operational subsystem"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how cluster coordinates mesh state transitions.",
+            "values": {
+              "input_code": {
+                "text": "cluster supervisor"
+              },
+              "engine": {
+                "text": "Downtime"
+              },
+              "out": {
+                "text": "hashes incoming"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the worker analogy to high execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-traffic toll"
+              },
+              "engine": {
+                "text": "REPLACED"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting downtime state.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Downtime Cluster"
+              },
+              "engine": {
+                "text": "Cluster"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Zero-Downtime Cluster Worker Mesh & SO_REUSEPORT Ingress",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Downtime",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cluster",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize cluster architecture and mesh boundaries.",
+            "values": {
+              "input_code": "Zero-Downtime Cluster",
+              "engine": "Milestone",
+              "out": "operational subsystem"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how cluster coordinates mesh state transitions.",
+            "values": {
+              "input_code": "cluster supervisor",
+              "engine": "Downtime",
+              "out": "hashes incoming"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the worker analogy to high execution invariants.",
+            "values": {
+              "input_code": "high-traffic toll",
+              "engine": "REPLACED",
+              "out": "Worker 1 Rolling Upgrade Completed: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting downtime state.",
+            "values": {
+              "input_code": "Zero-Downtime Cluster",
+              "engine": "Cluster",
+              "out": "Zero Connection Drop Guarantee: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "High-Throughput Backpressure-Controlled Web Streams Pipeline",
       "codeHash": "5ad0e346327dbc6196b448f985bee1f216beed9023470574478fdbcc404947a1",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: High-Throughput Backpressure-Controlled Web Streams Pipeline",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "High-Throughput Backpressure-Controlled Web Streams Pipeline",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Throughput",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Backpressure",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Controlled",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and throughput boundaries.",
+            "values": {
+              "input_code": {
+                "text": "High-Throughput"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "second operational"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates throughput state transitions.",
+            "values": {
+              "input_code": {
+                "text": "streaming engine"
+              },
+              "engine": {
+                "text": "Backpressure"
+              },
+              "out": {
+                "text": "garbage collection"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the high analogy to pipeline execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "automated industrial"
+              },
+              "engine": {
+                "text": "telemetry.push"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting throughput state.",
+            "values": {
+              "input_code": {
+                "text": "High-Throughput"
+              },
+              "engine": {
+                "text": "Controlled"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "High-Throughput Backpressure-Controlled Web Streams Pipeline",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Throughput",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Backpressure",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Controlled",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and throughput boundaries.",
+            "values": {
+              "input_code": "High-Throughput",
+              "engine": "Milestone",
+              "out": "second operational"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates throughput state transitions.",
+            "values": {
+              "input_code": "streaming engine",
+              "engine": "Backpressure",
+              "out": "garbage collection"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to pipeline execution invariants.",
+            "values": {
+              "input_code": "automated industrial",
+              "engine": "telemetry.push",
+              "out": "Total Stream Chunks Processed: 4"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting throughput state.",
+            "values": {
+              "input_code": "High-Throughput",
+              "engine": "Controlled",
+              "out": "Zero-Allocation BYOB Pipeline Verifi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Embedded WebAssembly SIMD Vector Filtering & Linear Memory Engine",
       "codeHash": "9a1a9c367e2b55718ecec558a03ed64f935418c3d46adc8bb9bcb603e4637173",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Embedded WebAssembly SIMD Vector Filtering & Linear Memory Engine",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Embedded WebAssembly SIMD Vector Filtering & Linear Memory",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Embedded",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "WebAssembly",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "SIMD",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize embedded architecture and webassembly boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Embedded WebAssembly"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "third operational"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how embedded coordinates webassembly state transitions.",
+            "values": {
+              "input_code": {
+                "text": "implementation"
+              },
+              "engine": {
+                "text": "WebAssembly"
+              },
+              "out": {
+                "text": "vectors is"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the vector analogy to linear execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "diamond sorting"
+              },
+              "engine": {
+                "text": "target"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify embedded constraints and verify resulting webassembly state.",
+            "values": {
+              "input_code": {
+                "text": "Embedded WebAssembly"
+              },
+              "engine": {
+                "text": "SIMD"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Embedded WebAssembly SIMD Vector Filtering & Linear Memory",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Embedded",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "WebAssembly",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "SIMD",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize embedded architecture and webassembly boundaries.",
+            "values": {
+              "input_code": "Embedded WebAssembly",
+              "engine": "Milestone",
+              "out": "third operational"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how embedded coordinates webassembly state transitions.",
+            "values": {
+              "input_code": "implementation",
+              "engine": "WebAssembly",
+              "out": "vectors is"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the vector analogy to linear execution invariants.",
+            "values": {
+              "input_code": "diamond sorting",
+              "engine": "target",
+              "out": "Candidate Alpha Similarity Score: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify embedded constraints and verify resulting webassembly state.",
+            "values": {
+              "input_code": "Embedded WebAssembly",
+              "engine": "SIMD",
+              "out": "Wasm v128 SIMD Vector Engine Operati"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The 5-Gate Enterprise Streaming Defense Matrix & Milestone 8 Certification",
       "codeHash": "287a85c9ecbbcd883de8dd8dd9adad1ed9d70fc89a51a3c746cd8eb4a22f35d9",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The -Gate Enterprise Streaming Defense Matrix & Milestone Certification",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The 5-Gate Enterprise Streaming Defense Matrix & Milestone 8",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Streaming",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Defense",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize milestone architecture and gate boundaries.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Enterprise"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "fifth and"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how milestone coordinates gate state transitions.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Defense"
+              },
+              "engine": {
+                "text": "Streaming"
+              },
+              "out": {
+                "text": "Milestone"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the gate analogy to defense execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "commissioning ceremony"
+              },
+              "engine": {
+                "text": "passedCount"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting enterprise state.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Enterprise"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The 5-Gate Enterprise Streaming Defense Matrix & Milestone 8",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Streaming",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Defense",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize milestone architecture and gate boundaries.",
+            "values": {
+              "input_code": "5-Gate Enterprise",
+              "engine": "Milestone",
+              "out": "fifth and"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how milestone coordinates gate state transitions.",
+            "values": {
+              "input_code": "5-Gate Defense",
+              "engine": "Streaming",
+              "out": "Milestone"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the gate analogy to defense execution invariants.",
+            "values": {
+              "input_code": "commissioning ceremony",
+              "engine": "passedCount",
+              "out": "Total Defense Gates Audited: 5"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting enterprise state.",
+            "values": {
+              "input_code": "5-Gate Enterprise",
+              "engine": "Defense",
+              "out": "Milestone 8 Master Architect Certifi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

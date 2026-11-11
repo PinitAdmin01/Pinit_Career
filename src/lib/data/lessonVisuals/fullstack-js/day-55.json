@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 55,
-  "promptSha": "5848ba983a6023c196bbe16af1a443cce44b1e952462b90fb800af50269fe0f4",
-  "model": "gemini-2.5-pro",
+  "promptSha": "a8137bdcabea601f979e7795b3a021652285bb39265107be588c17c6da4ccdc3",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Enterprise Micro-Frontend Mesh & Dynamic Remote Module Federation",
       "codeHash": "bfc443a5ebcc33bf1e0cc8e66e7d3a13b2884ef7b871a2e7f0999e81740be83b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Enterprise Micro-Frontend Mesh & Dynamic Remote Module Federation",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Enterprise Micro-Frontend Mesh & Dynamic Remote Module",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Micro",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Frontend",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize module architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Micro-Frontend Mesh"
+              },
+              "engine": {
+                "text": "RemoteContainer"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how module coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "micro-frontends like"
+              },
+              "engine": {
+                "text": "Frontend"
+              },
+              "out": {
+                "text": "single concrete"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international airport"
+              },
+              "engine": {
+                "text": "unavailable"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify enterprise constraints and verify resulting micro state.",
+            "values": {
+              "input_code": {
+                "text": "Micro-Frontend Mesh"
+              },
+              "engine": {
+                "text": "Mesh"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Enterprise Micro-Frontend Mesh & Dynamic Remote Module",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Micro",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Frontend",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize module architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Micro-Frontend Mesh",
+              "engine": "RemoteContainer",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how module coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "micro-frontends like",
+              "engine": "Frontend",
+              "out": "single concrete"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": "international airport",
+              "engine": "unavailable",
+              "out": "[Host Federation] Remote Loaded: bil"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify enterprise constraints and verify resulting micro state.",
+            "values": {
+              "input_code": "Micro-Frontend Mesh",
+              "engine": "Mesh",
+              "out": "[Host Federation] Calculated Tax: $4"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "High-Performance WebAssembly SIMD Acceleration & Linear Memory Buffers",
       "codeHash": "1f54db291bd2e613802ae6e2a43861312d3c2cca4813c653611c342c86e21682",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: High-Performance WebAssembly SIMD Acceleration & Linear Memory Buffers",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "High-Performance WebAssembly SIMD Acceleration & Linear Memory",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "WebAssembly",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "SIMD",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and performance boundaries.",
+            "values": {
+              "input_code": {
+                "text": "High-Performance WebAssembly"
+              },
+              "engine": {
+                "text": "wasmBinary"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates performance state transitions.",
+            "values": {
+              "input_code": {
+                "text": "WebAssembly like"
+              },
+              "engine": {
+                "text": "WebAssembly"
+              },
+              "out": {
+                "text": "crunching"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the dedicated analogy to formula execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "dedicated Formula"
+              },
+              "engine": {
+                "text": "throw new"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting performance state.",
+            "values": {
+              "input_code": {
+                "text": "High-Performance WebAssembly"
+              },
+              "engine": {
+                "text": "SIMD"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "High-Performance WebAssembly SIMD Acceleration & Linear Memory",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Performance",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "WebAssembly",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "SIMD",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and performance boundaries.",
+            "values": {
+              "input_code": "High-Performance WebAssembly",
+              "engine": "wasmBinary",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates performance state transitions.",
+            "values": {
+              "input_code": "WebAssembly like",
+              "engine": "WebAssembly",
+              "out": "crunching"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the dedicated analogy to formula execution invariants.",
+            "values": {
+              "input_code": "dedicated Formula",
+              "engine": "throw new",
+              "out": "[Wasm Edge] Module Compiled & Instan"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting performance state.",
+            "values": {
+              "input_code": "High-Performance WebAssembly",
+              "engine": "SIMD",
+              "out": "[Wasm Edge] Vector Compute Total: 18"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "W3C Distributed Context Propagation & OpenTelemetry Tracing Sentinel",
-      "codeHash": "2d352381a14566aa14df785cf60aba0c4ad9cf48740fdca3fd9bbc1fc5b5efd2",
+      "codeHash": "cae757d5eebacd4eaaa307e46bd1e2a43e9e9ce632a7f147f46e862f2f810006",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: WC Distributed Context Propagation & OpenTelemetry Tracing Sentinel",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "W3C Distributed Context Propagation & OpenTelemetry Tracing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Propagation",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and tracing boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Context"
+              },
+              "engine": {
+                "text": "TraceSpan"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates tracing state transitions.",
+            "values": {
+              "input_code": {
+                "text": "distributed tracing"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "text": "postal facility"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the universal analogy to international execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "universal international"
+              },
+              "engine": {
+                "text": "traceId"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting context state.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Context"
+              },
+              "engine": {
+                "text": "Propagation"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "W3C Distributed Context Propagation & OpenTelemetry Tracing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Propagation",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and tracing boundaries.",
+            "values": {
+              "input_code": "Distributed Context",
+              "engine": "TraceSpan",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates tracing state transitions.",
+            "values": {
+              "input_code": "distributed tracing",
+              "engine": "Context",
+              "out": "postal facility"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the universal analogy to international execution invariants.",
+            "values": {
+              "input_code": "universal international",
+              "engine": "traceId",
+              "out": "[Trace Context] Active Span: gateway"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting context state.",
+            "values": {
+              "input_code": "Distributed Context",
+              "engine": "Propagation",
+              "out": "[Trace Context] W3C traceparent Head"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Offline-First CRDT State Synchronization & Conflict-Free Convergence",
       "codeHash": "5d53c1f1be8bac8682f128a5ef3455d3a992cea707b181c5a1df38baeeb10045",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Offline-First CRDT State Synchronization & Conflict-Free Convergence",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Offline-First CRDT State Synchronization & Conflict-Free",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Offline",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "CRDT",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "State",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize state architecture and synchronization boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Offline-First CRDT"
+              },
+              "engine": {
+                "text": "CRDTPNState"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how state coordinates synchronization state transitions.",
+            "values": {
+              "input_code": {
+                "text": "CRDT state"
+              },
+              "engine": {
+                "text": "CRDT"
+              },
+              "out": {
+                "text": "Tokyo while"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the bank analogy to tellers execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Bank tellers"
+              },
+              "engine": {
+                "text": "this.state.p"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify offline constraints and verify resulting crdt state.",
+            "values": {
+              "input_code": {
+                "text": "Offline-First CRDT"
+              },
+              "engine": {
+                "text": "State"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Offline-First CRDT State Synchronization & Conflict-Free",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Offline",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "CRDT",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "State",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize state architecture and synchronization boundaries.",
+            "values": {
+              "input_code": "Offline-First CRDT",
+              "engine": "CRDTPNState",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how state coordinates synchronization state transitions.",
+            "values": {
+              "input_code": "CRDT state",
+              "engine": "CRDT",
+              "out": "Tokyo while"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the bank analogy to tellers execution invariants.",
+            "values": {
+              "input_code": "Bank tellers",
+              "engine": "this.state.p",
+              "out": "[CRDT Mesh] East Value: 23"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify offline constraints and verify resulting crdt state.",
+            "values": {
+              "input_code": "Offline-First CRDT",
+              "engine": "State",
+              "out": "[CRDT Mesh] Converged: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The 5-Gate Edge Mesh Defense Matrix: Sovereign Multi-Region Cluster Verification",
-      "codeHash": "d2284e058253af9d4e50179b5d3efcd0744b2458d3ea4067e33ca3f0ffe9caad",
+      "codeHash": "1d8656fcf3df36021b825562704a2c96d42ea431d9f8d8d5248d89850a086555",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The -Gate Edge Mesh Defense Matrix: Sovereign Multi-Region Cluster Verification",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The 5-Gate Edge Mesh Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize edge architecture and sovereign boundaries.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Edge"
+              },
+              "engine": {
+                "text": "AsyncLocalStorage"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how edge coordinates sovereign state transitions.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Defense"
+              },
+              "engine": {
+                "text": "Edge"
+              },
+              "out": {
+                "text": "integrity"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the orbital analogy to space execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "orbital space"
+              },
+              "engine": {
+                "text": "this.p"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting edge state.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Edge"
+              },
+              "engine": {
+                "text": "Mesh"
+              },
+              "out": {
+                "out": 6
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The 5-Gate Edge Mesh Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize edge architecture and sovereign boundaries.",
+            "values": {
+              "input_code": "5-Gate Edge",
+              "engine": "AsyncLocalStorage",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how edge coordinates sovereign state transitions.",
+            "values": {
+              "input_code": "5-Gate Defense",
+              "engine": "Edge",
+              "out": "integrity"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the orbital analogy to space execution invariants.",
+            "values": {
+              "input_code": "orbital space",
+              "engine": "this.p",
+              "out": "=== 5-GATE SOVEREIGN EDGE MESH DEFEN"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting edge state.",
+            "values": {
+              "input_code": "5-Gate Edge",
+              "engine": "Mesh",
+              "out": "=== ALL 5 GATES VERIFIED: SOVEREIGN "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

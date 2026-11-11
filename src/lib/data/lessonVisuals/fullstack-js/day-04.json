@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 4,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "21bbec5d15200e54558faca974faa2d93d168be635ee528e1d9891fc4ef626b4",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Micro-Frontends & Dynamic Webpack 5 Module Federation",
-      "codeHash": "3605a39b5fa92abe824500569a01d21ba124e589c6faca1365dee49822d7fd3d",
+      "partTitle": "The Chain of Responsibility Pattern: The Mechanics of (req, res, next)",
+      "codeHash": "313cd43b463d2be5daf411ff15a689667d8b751d56b73fc6d4961495e1f48b87",
       "spec": {
         "template": "flow",
-        "title": "Micro-Frontends & Dynamic Webpack 5 Module Fe... — Execution Pipeline",
+        "title": "The Chain of Responsibility Pattern",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Chain",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Micro-Frontends & D...",
+            "id": "engine",
+            "label": "Responsibility",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Pattern",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Micro-Frontends & Dynamic Webpack five Modu...",
+            "caption": "Initialize enterprise architecture and full boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Chain of"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack web"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Micro-Frontends & D....",
+            "caption": "Trace how enterprise coordinates full state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "solve this"
+              },
+              "engine": {
+                "text": "Responsibility"
+              },
+              "out": {
+                "text": "ordered linear"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the next analogy to airport execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "airport security"
+              },
+              "engine": {
+                "text": "Date.now"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Micro-Frontends & Dynamic Webpack...",
+            "caption": "Modify remove constraints and verify resulting authorization state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Remove the"
+              },
+              "engine": {
+                "text": "Pattern"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Micro-Frontends & Dynamic Webpack 5 Module Fe... — Execution Pipeline",
+        "title": "The Chain of Responsibility Pattern",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Chain",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Micro-Frontends & D...",
+            "id": "engine",
+            "label": "Responsibility",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Pattern",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Micro-Frontends & Dynamic Webpack 5 Modu...",
+            "caption": "Initialize enterprise architecture and full boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Chain of",
+              "engine": "Verification",
+              "out": "full-stack web"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Micro-Frontends & D....",
+            "caption": "Trace how enterprise coordinates full state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "solve this",
+              "engine": "Responsibility",
+              "out": "ordered linear"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the next analogy to airport execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "airport security",
+              "engine": "Date.now",
+              "out": "1. Logger: Request received for /das"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Micro-Frontends & Dynamic Webpack...",
+            "caption": "Modify remove constraints and verify resulting authorization state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Remove the",
+              "engine": "Pattern",
+              "out": "Pipeline finished. Final response st"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Distributed Tracing & OpenTelemetry Spans across Fullstack JavaScript",
-      "codeHash": "05a825a52eaec122b504605c729f623ebb89c6119a0253419627f28d8cb8c702",
+      "partTitle": "Request Augmentation & Context Propagation: Typed Request Enrichment",
+      "codeHash": "ce82243a5fd3aecd1867808a372604b57a3aa88d8fe9d70c09bbb4ce50fbf3bb",
       "spec": {
         "template": "flow",
-        "title": "Distributed Tracing & OpenTelemetry Spans acr... — Execution Pipeline",
+        "title": "Request Augmentation & Context Propagation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Request",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Tracing...",
+            "id": "engine",
+            "label": "Augmentation",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Context",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Distributed Tracing & OpenTelemetry Span...",
+            "caption": "Initialize request architecture and node boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Request Augmentation"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "Node.js web"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Distributed Tracing....",
+            "caption": "Trace how request coordinates node state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Instead"
+              },
+              "engine": {
+                "text": "Augmentation"
+              },
+              "out": {
+                "text": "instance"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the augmentation analogy to executive execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "executive visitor"
+              },
+              "engine": {
+                "text": "token"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Distributed Tracing & OpenTelemet...",
+            "caption": "Modify pass constraints and verify resulting invalid state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass an"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "out": 8
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Tracing & OpenTelemetry Spans acr... — Execution Pipeline",
+        "title": "Request Augmentation & Context Propagation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Request",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Tracing...",
+            "id": "engine",
+            "label": "Augmentation",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Context",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Distributed Tracing & OpenTelemetry Span...",
+            "caption": "Initialize request architecture and node boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Request Augmentation",
+              "engine": "Verification",
+              "out": "Node.js web"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Distributed Tracing....",
+            "caption": "Trace how request coordinates node state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Instead",
+              "engine": "Augmentation",
+              "out": "instance"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the augmentation analogy to executive execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "executive visitor",
+              "engine": "token",
+              "out": "Augmented Order Response: {"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Distributed Tracing & OpenTelemet...",
+            "caption": "Modify pass constraints and verify resulting invalid state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass an",
+              "engine": "Context",
+              "out": "}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Blue-Green & Canary Zero-Downtime Deployments with Traffic Draining",
-      "codeHash": "cd68a150ab33e0e7c986e2c84ac30c5ff4e549a9b6dbc036a368d97aa452917d",
+      "partTitle": "Async Middleware & Unhandled Promise Rejections: Express 4 vs Express 5",
+      "codeHash": "8659f5da2fb272797ddfb2fa1ba5d1e198da5dec459fd9fe436a17fb72e9f958",
       "spec": {
         "template": "flow",
-        "title": "Blue-Green & Canary Zero-Downtime Deployments... — Execution Pipeline",
+        "title": "Async Middleware & Unhandled Promise Rejections",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Middleware",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Blue-Green & Canary...",
+            "id": "engine",
+            "label": "Unhandled",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Rejections",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Blue-Green & Canary Zero-Downtime Deploy...",
+            "caption": "Initialize middleware architecture and modern boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Middleware"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack development"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Blue-Green & Canary....",
+            "caption": "Trace how middleware coordinates modern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "understand this"
+              },
+              "engine": {
+                "text": "Unhandled"
+              },
+              "out": {
+                "text": "throw new"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the express analogy to unhandled execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "trapeze safety"
+              },
+              "engine": {
+                "text": "else if"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Blue-Green & Canary Zero-Downtime...",
+            "caption": "Modify middleware constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass an"
+              },
+              "engine": {
+                "text": "Rejections"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Blue-Green & Canary Zero-Downtime Deployments... — Execution Pipeline",
+        "title": "Async Middleware & Unhandled Promise Rejections",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Middleware",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Blue-Green & Canary...",
+            "id": "engine",
+            "label": "Unhandled",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Rejections",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Blue-Green & Canary Zero-Downtime Deploy...",
+            "caption": "Initialize middleware architecture and modern boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Middleware",
+              "engine": "Verification",
+              "out": "full-stack development"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Blue-Green & Canary....",
+            "caption": "Trace how middleware coordinates modern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "understand this",
+              "engine": "Unhandled",
+              "out": "throw new"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the express analogy to unhandled execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "trapeze safety",
+              "engine": "else if",
+              "out": "Testing Wrapped Async Middleware:"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Blue-Green & Canary Zero-Downtime...",
+            "caption": "Modify middleware constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass an",
+              "engine": "Rejections",
+              "out": "Global Error Handler caught: Error -"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Strictly Idempotent Webhooks & Redis Distributed Deduplication Locks",
-      "codeHash": "bfea39349bb145bb505ca379997d92d328ddfaf90537612e152d017d9af46768",
+      "partTitle": "The 4-Parameter Error Handling Middleware: Fault Isolation & RFC 7807",
+      "codeHash": "f4362059d1fa1d34cc361569e29c1a6bc1cb96303bd870b046f1a009a4416008",
       "spec": {
         "template": "flow",
-        "title": "Strictly Idempotent Webhooks & Redis Distribu... — Execution Pipeline",
+        "title": "The 4-Parameter Error Handling Middleware",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Parameter",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Strictly Idempotent...",
+            "id": "engine",
+            "label": "Handling",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Middleware",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Strictly Idempotent Webhooks & Redis Dis...",
+            "caption": "Initialize handling architecture and javascript boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "4-Parameter Error"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "JavaScript and"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Strictly Idempotent....",
+            "caption": "Trace how handling coordinates javascript state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "establish rigorous"
+              },
+              "engine": {
+                "text": "Handling"
+              },
+              "out": {
+                "text": "next"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the parameter analogy to middleware execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "assembly line"
+              },
+              "engine": {
+                "text": "nextErr"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Strictly Idempotent Webhooks & Re...",
+            "caption": "Modify pass constraints and verify resulting valid state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass"
+              },
+              "engine": {
+                "text": "Middleware"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Strictly Idempotent Webhooks & Redis Distribu... — Execution Pipeline",
+        "title": "The 4-Parameter Error Handling Middleware",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Parameter",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Strictly Idempotent...",
+            "id": "engine",
+            "label": "Handling",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Middleware",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Strictly Idempotent Webhooks & Redis Dis...",
+            "caption": "Initialize handling architecture and javascript boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "4-Parameter Error",
+              "engine": "Verification",
+              "out": "JavaScript and"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Strictly Idempotent....",
+            "caption": "Trace how handling coordinates javascript state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "establish rigorous",
+              "engine": "Handling",
+              "out": "next"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the parameter analogy to middleware execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "assembly line",
+              "engine": "nextErr",
+              "out": "Centralized Error Result Status: 422"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Strictly Idempotent Webhooks & Re...",
+            "caption": "Modify pass constraints and verify resulting valid state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass",
+              "engine": "Middleware",
+              "out": "RFC 7807 Error Envelope Detail: Inva"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Database Read Replicas & CQRS (Command Query Responsibility Segregation)",
-      "codeHash": "1bd3db72f50845d229bdfeb8ea96daa6c9659f909a8f6226604e3326e13d3370",
+      "partTitle": "Building a Production Observability Pipeline: Timing, Correlated Logging & Rate Limiting",
+      "codeHash": "02a6c3b1238bf6d5e587dc8d05c538b7690b4eb4ab160c3fbb93b30ad45702db",
       "spec": {
         "template": "flow",
-        "title": "Database Read Replicas & CQRS (Command Query ... — Execution Pipeline",
+        "title": "Building a Production Observability Pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Building",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Database Read Repli...",
+            "id": "engine",
+            "label": "Observability",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Pipeline",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Database Read Replicas & CQRS (Command Q...",
+            "caption": "Initialize production architecture and observability boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Building"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "explored individual"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Database Read Repli....",
+            "caption": "Trace how production coordinates observability state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "world-class production"
+              },
+              "engine": {
+                "text": "Observability"
+              },
+              "out": {
+                "text": "Ingress Timer"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the timing analogy to rate execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "toll booth"
+              },
+              "engine": {
+                "text": "originalSend"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Database Read Replicas & CQRS (Co...",
+            "caption": "Modify simulate constraints and verify resulting longer state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Pipeline"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Database Read Replicas & CQRS (Command Query ... — Execution Pipeline",
+        "title": "Building a Production Observability Pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Building",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Database Read Repli...",
+            "id": "engine",
+            "label": "Observability",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Pipeline",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Database Read Replicas & CQRS (Command Q...",
+            "caption": "Initialize production architecture and observability boundaries.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Building",
+              "engine": "Verification",
+              "out": "explored individual"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Database Read Repli....",
+            "caption": "Trace how production coordinates observability state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "world-class production",
+              "engine": "Observability",
+              "out": "Ingress Timer"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the timing analogy to rate execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "toll booth",
+              "engine": "originalSend",
+              "out": "Response Headers: {\"x-response-time\""
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Database Read Replicas & CQRS (Co...",
+            "caption": "Modify simulate constraints and verify resulting longer state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate",
+              "engine": "Pipeline",
+              "out": "Payload delivered safely: ok"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

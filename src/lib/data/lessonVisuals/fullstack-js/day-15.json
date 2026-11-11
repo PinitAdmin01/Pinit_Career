@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 15,
-  "promptSha": "c5262c6a42de445e131e4f8125241f74471bc159ea9925eb69dd8f539c4ed8f4",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "f6499389d655161157c9513c37b8c2d9e64a27732c4500be5e5bb85babc03cd9",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Tenant Isolation Architecture & Request-Scoped Context Partitioning",
       "codeHash": "ced4b11074b118d5b7a4739aa7e0ebd51548e1f521bbe44a112727b4aa58c54d",
       "spec": {
         "template": "flow",
-        "title": "Tenant Isolation Architecture & Req... — Execution Pipeline",
+        "title": "Tenant Isolation Architecture & Request-Scoped Context",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Tenant",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Tenant Isolation Architecture & Req...",
+            "id": "engine",
+            "label": "Isolation",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress tenant credential vector and initialize Tenant Isolation.",
+            "caption": "Initialize isolation architecture and tenant boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Tenant Isolation"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Multi-tenancy is"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
+            "caption": "Trace how isolation coordinates tenant state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Database-per-Tenant provides"
+              },
+              "engine": {
+                "text": "Isolation"
+              },
+              "out": {
+                "text": "Security"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
+            "caption": "Connect the healthcare analogy to saas execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "healthcare SaaS"
+              },
+              "engine": {
+                "text": "TenantContext"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end multi-tenant authentication confirmed for Tenant Isolation.",
+            "caption": "Modify request constraints and verify resulting register state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Register an"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Tenant Isolation Architecture & Req... — Execution Pipeline",
+        "title": "Tenant Isolation Architecture & Request-Scoped Context",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Tenant",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Tenant Isolation Architecture & Req...",
+            "id": "engine",
+            "label": "Isolation",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Tenant Isolation Architecture & Req....",
+            "caption": "Initialize isolation architecture and tenant boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Tenant Isolation",
+              "engine": "Simulation",
+              "out": "Multi-tenancy is"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Tenant Isolation Architecture & Req....",
+            "caption": "Trace how isolation coordinates tenant state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Database-per-Tenant provides",
+              "engine": "Isolation",
+              "out": "Security"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Connect the healthcare analogy to saas execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "healthcare SaaS",
+              "engine": "TenantContext",
+              "out": "Resolved Tenant: tenant_mercy | Corr"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Tenant Isolation Architecture & Req....",
+            "caption": "Modify request constraints and verify resulting register state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Register an",
+              "engine": "Architecture",
+              "out": "Tenant Partitioning Invariant: VERIF"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -233,112 +257,136 @@
     },
     {
       "partTitle": "Cryptographic Credential Verification & Timing-Safe Argon2id Pipeline",
-      "codeHash": "a4244cd82ec7169e9df3bdb5f93a06b6979f5e56453bb2b2cfe4efb8a4aa6906",
+      "codeHash": "a954135705b777cc10f287836722bb976928e789312445f953b6f1845efca66e",
       "spec": {
         "template": "flow",
-        "title": "Cryptographic Credential Verificati... — Execution Pipeline",
+        "title": "Cryptographic Credential Verification & Timing-Safe Argon2id",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Cryptographic",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Cryptographic Credential Verificati...",
+            "id": "engine",
+            "label": "Credential",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Verification",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress tenant credential vector and initialize Cryptographic Credential.",
+            "caption": "Initialize credential architecture and timing boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cryptographic Credential"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Authentication systems"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
+            "caption": "Trace how credential coordinates timing state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "authentication request"
+              },
+              "engine": {
+                "text": "Credential"
+              },
+              "out": {
+                "text": "schema validation"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
+            "caption": "Connect the verification analogy to attacker execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "attacker attempts"
+              },
+              "engine": {
+                "text": "dummyComputed"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end multi-tenant authentication confirmed for Cryptographic.",
+            "caption": "Modify simulate constraints and verify resulting moving state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate moving"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Cryptographic Credential Verificati... — Execution Pipeline",
+        "title": "Cryptographic Credential Verification & Timing-Safe Argon2id",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Cryptographic",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Cryptographic Credential Verificati...",
+            "id": "engine",
+            "label": "Credential",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Verification",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Cryptographic Credential Verificati....",
+            "caption": "Initialize credential architecture and timing boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Cryptographic Credential",
+              "engine": "Simulation",
+              "out": "Authentication systems"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Cryptographic Credential Verificati....",
+            "caption": "Trace how credential coordinates timing state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "authentication request",
+              "engine": "Credential",
+              "out": "schema validation"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Connect the verification analogy to attacker execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "attacker attempts",
+              "engine": "dummyComputed",
+              "out": "Login 1 Valid: true | User: usr_corp"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Cryptographic Credential Verificati....",
+            "caption": "Modify simulate constraints and verify resulting moving state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate moving",
+              "engine": "Verification",
+              "out": "Cryptographic Verification Invariant"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -462,109 +510,133 @@
       "codeHash": "aa57f9adb4bf544bf09c3d16e060e1fb19713884ba30a997a34578b8641bb476",
       "spec": {
         "template": "flow",
-        "title": "Distributed Session Hub with Redis ... — Execution Pipeline",
+        "title": "Distributed Session Hub with Redis Cluster & Sliding-Window",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Session Hub with Redis ...",
+            "id": "engine",
+            "label": "Session",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Redis",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress tenant credential vector and initialize Distributed Session Hub.",
+            "caption": "Initialize distributed architecture and session boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Session"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Stateless JWT"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
+            "caption": "Trace how distributed coordinates session state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Session"
+              },
+              "engine": {
+                "text": "Session"
+              },
+              "out": {
+                "text": "random"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
+            "caption": "Connect the security analogy to officer execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "security officer"
+              },
+              "engine": {
+                "text": "destroySession"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end multi-tenant authentication confirmed for Distributed Session.",
+            "caption": "Modify session constraints and verify resulting notice state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Notice how"
+              },
+              "engine": {
+                "text": "Redis"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Session Hub with Redis ... — Execution Pipeline",
+        "title": "Distributed Session Hub with Redis Cluster & Sliding-Window",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Session Hub with Redis ...",
+            "id": "engine",
+            "label": "Session",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Redis",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Distributed Session Hub with Redis ....",
+            "caption": "Initialize distributed architecture and session boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Distributed Session",
+              "engine": "Simulation",
+              "out": "Stateless JWT"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Distributed Session Hub with Redis ....",
+            "caption": "Trace how distributed coordinates session state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Distributed Session",
+              "engine": "Session",
+              "out": "random"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Connect the security analogy to officer execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "security officer",
+              "engine": "destroySession",
+              "out": "Sessions Created: sess_org_apex_usr_"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Distributed Session Hub with Redis ....",
+            "caption": "Modify session constraints and verify resulting notice state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Notice how",
+              "engine": "Redis",
+              "out": "Distributed Session Hub Invariant: V"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -685,112 +757,136 @@
     },
     {
       "partTitle": "Batched Relational Permissions Resolution via Microtask DataLoader",
-      "codeHash": "ba6ced045c7e6e75fcef97fb0ddb93dd590790b772775578caffe774092ed24d",
+      "codeHash": "67c0b3cc0a3e550e08fd913285dc3dfca3b595ee0ddfee41a34132d78bd8c677",
       "spec": {
         "template": "flow",
-        "title": "Batched Relational Permissions Reso... — Execution Pipeline",
+        "title": "Batched Relational Permissions Resolution via Microtask",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Batched",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Batched Relational Permissions Reso...",
+            "id": "engine",
+            "label": "Relational",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Permissions",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress tenant credential vector and initialize Batched Relational.",
+            "caption": "Initialize permissions architecture and enterprise boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Batched Relational"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "multi-tenant applications"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
+            "caption": "Trace how permissions coordinates enterprise state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "project management"
+              },
+              "engine": {
+                "text": "Relational"
+              },
+              "out": {
+                "text": "cloud environment"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
+            "caption": "Connect the permissions analogy to dataloader execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "office building"
+              },
+              "engine": {
+                "text": "Coalesce into"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end multi-tenant authentication confirmed for Batched Relational.",
+            "caption": "Modify instantiate constraints and verify resulting dispatch state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Instantiate"
+              },
+              "engine": {
+                "text": "Permissions"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Batched Relational Permissions Reso... — Execution Pipeline",
+        "title": "Batched Relational Permissions Resolution via Microtask",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Batched",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Batched Relational Permissions Reso...",
+            "id": "engine",
+            "label": "Relational",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Permissions",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Batched Relational Permissions Reso....",
+            "caption": "Initialize permissions architecture and enterprise boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Batched Relational",
+              "engine": "Example",
+              "out": "multi-tenant applications"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Batched Relational Permissions Reso....",
+            "caption": "Trace how permissions coordinates enterprise state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "project management",
+              "engine": "Relational",
+              "out": "cloud environment"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Connect the permissions analogy to dataloader execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "office building",
+              "engine": "Coalesce into",
+              "out": "[DB Query] Batched 2 permission chec"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Batched Relational Permissions Reso....",
+            "caption": "Modify instantiate constraints and verify resulting dispatch state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Instantiate",
+              "engine": "Permissions",
+              "out": "Can Create: false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -911,112 +1007,136 @@
     },
     {
       "partTitle": "End-to-End Enterprise Auth & Session Verification Test Harness",
-      "codeHash": "ad9161e4b5cbc83ee2f1ba18c84830cd029a89bffa4079d13b76eaba961feb94",
+      "codeHash": "54e6d2bb0f155ac7c019d36d93c5a0bf7b1fcf819f2beb1bb34ab086df50ea5a",
       "spec": {
         "template": "flow",
-        "title": "End-to-End Enterprise Auth & Sessio... — Execution Pipeline",
+        "title": "End-to-End Enterprise Auth & Session Verification Test Harness",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Auth",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. End-to-End Enterprise Auth & Sessio...",
+            "id": "engine",
+            "label": "Session",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Verification",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress tenant credential vector and initialize End-to-End Enterprise.",
+            "caption": "Initialize test architecture and session boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "End-to-End Enterprise"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Milestone"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
+            "caption": "Trace how test coordinates session state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "integration harness"
+              },
+              "engine": {
+                "text": "Session"
+              },
+              "out": {
+                "text": "layer"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
+            "caption": "Connect the harness analogy to session execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "Fortune 500"
+              },
+              "engine": {
+                "text": "this.redisHits"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end multi-tenant authentication confirmed for End-to-End.",
+            "caption": "Modify session constraints and verify resulting step state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "pass an"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "out": 12
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "End-to-End Enterprise Auth & Sessio... — Execution Pipeline",
+        "title": "End-to-End Enterprise Auth & Session Verification Test Harness",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Tenant & Credential Vector",
+            "id": "input_code",
+            "label": "Auth",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. End-to-End Enterprise Auth & Sessio...",
+            "id": "engine",
+            "label": "Session",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Enterprise Session & RBAC State",
+            "label": "Verification",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize End-to-End Enterprise Auth & Sessio....",
+            "caption": "Initialize test architecture and session boundaries.",
             "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "End-to-End Enterprise",
+              "engine": "Simulation",
+              "out": "Milestone"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in End-to-End Enterprise Auth & Sessio....",
+            "caption": "Trace how test coordinates session state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "integration harness",
+              "engine": "Session",
+              "out": "layer"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Connect the harness analogy to session execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "Fortune 500",
+              "engine": "this.redisHits",
+              "out": "--- Step 1: Tenant User Registration"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for End-to-End Enterprise Auth & Sessio....",
+            "caption": "Modify session constraints and verify resulting step state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "pass an",
+              "engine": "Verification",
+              "out": "Milestone 3 Capstone Integration: PA"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

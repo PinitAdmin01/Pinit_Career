@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 42,
-  "promptSha": "1ef9f8dbdebb2b7ca86a142863d3c438c2bac79b5299390d89a11bbee34caa19",
-  "model": "gemini-2.5-pro",
+  "promptSha": "61e4f4610a234f40dd433304c4b06c6406d10671fe4ab82ec0591224ff75da1b",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Asynchronous Task Queues & Event Loop Offloading Architecture",
       "codeHash": "03b6c754bad75e32bdbd78f1a8b5074bb2d67e4562637b4d5ac28c79cfec3454",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Asynchronous Task Queues & Event Loop Offloading Architecture",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Asynchronous Task Queues & Event Loop Offloading Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asynchronous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Task",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Queues",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize modern architecture and full boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Asynchronous Task"
+              },
+              "engine": {
+                "text": "Distributed Job"
+              },
+              "out": {
+                "text": "full-stack web"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how modern coordinates full state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Attempting to"
+              },
+              "engine": {
+                "text": "Task"
+              },
+              "out": {
+                "text": "requests from"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international airport"
+              },
+              "engine": {
+                "text": "catch"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify asynchronous constraints and verify resulting task state.",
+            "values": {
+              "input_code": {
+                "text": "Asynchronous Task"
+              },
+              "engine": {
+                "text": "Queues"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Asynchronous Task Queues & Event Loop Offloading Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asynchronous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Task",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Queues",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize modern architecture and full boundaries.",
+            "values": {
+              "input_code": "Asynchronous Task",
+              "engine": "Distributed Job",
+              "out": "full-stack web"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how modern coordinates full state transitions.",
+            "values": {
+              "input_code": "Attempting to",
+              "engine": "Task",
+              "out": "requests from"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": "international airport",
+              "engine": "catch",
+              "out": "Queued Jobs Pending: 2"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify asynchronous constraints and verify resulting task state.",
+            "values": {
+              "input_code": "Asynchronous Task",
+              "engine": "Queues",
+              "out": "Distributed Queue State Transitions "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Idempotency Keys & Exactly-Once Execution Semantics",
-      "codeHash": "9ec1b59cf01b8998920823403080fa5a1e37c184468b8935a3262421faec4180",
+      "codeHash": "0a61f320bb24d05cb10eb3639d4df7e8a2a02b8be5686eed412da011a9cce055",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Idempotency Keys & Exactly-Once Execution Semantics",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Idempotency Keys & Exactly-Once Execution Semantics",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Idempotency",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Keys",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Exactly",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize once architecture and distributed boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Idempotency Keys"
+              },
+              "engine": {
+                "text": "PaymentJobPayload"
+              },
+              "out": {
+                "text": "distributed computing"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how once coordinates distributed state transitions.",
+            "values": {
+              "input_code": {
+                "text": "distributed message"
+              },
+              "engine": {
+                "text": "Keys"
+              },
+              "out": {
+                "text": "worker died"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the bank analogy to deposit execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bank deposit"
+              },
+              "engine": {
+                "text": "result"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify idempotency constraints and verify resulting keys state.",
+            "values": {
+              "input_code": {
+                "text": "Idempotency Keys"
+              },
+              "engine": {
+                "text": "Exactly"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Idempotency Keys & Exactly-Once Execution Semantics",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Idempotency",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Keys",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Exactly",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize once architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Idempotency Keys",
+              "engine": "PaymentJobPayload",
+              "out": "distributed computing"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how once coordinates distributed state transitions.",
+            "values": {
+              "input_code": "distributed message",
+              "engine": "Keys",
+              "out": "worker died"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the bank analogy to deposit execution invariants.",
+            "values": {
+              "input_code": "bank deposit",
+              "engine": "result",
+              "out": "Attempt 1 Status: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify idempotency constraints and verify resulting keys state.",
+            "values": {
+              "input_code": "Idempotency Keys",
+              "engine": "Exactly",
+              "out": "Zero Duplicate Charge Guarantee Conf"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Exponential Backoff with Full Jitter & Dead-Letter Queue (DLQ) Governance",
       "codeHash": "7ceb1ea06d5e31f79a7acd54090ab018ab25eb255a38f5d460165953f60fa3a1",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Exponential Backoff with Full Jitter & Dead-Letter Queue (DLQ) Governance",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Exponential Backoff with Full Jitter & Dead-Letter Queue (DLQ)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Exponential",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Backoff",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Jitter",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and architectures boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Exponential Backoff"
+              },
+              "engine": {
+                "text": "Exponential Backoff"
+              },
+              "out": {
+                "text": "distributed architectures"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates architectures state transitions.",
+            "values": {
+              "input_code": {
+                "text": "external API"
+              },
+              "engine": {
+                "text": "Backoff"
+              },
+              "out": {
+                "text": "unleash an"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the full analogy to jitter execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "narrow one-lane"
+              },
+              "engine": {
+                "text": "Schedule retry"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify exponential constraints and verify resulting backoff state.",
+            "values": {
+              "input_code": {
+                "text": "Exponential Backoff"
+              },
+              "engine": {
+                "text": "Jitter"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Exponential Backoff with Full Jitter & Dead-Letter Queue (DLQ)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Exponential",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Backoff",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Jitter",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and architectures boundaries.",
+            "values": {
+              "input_code": "Exponential Backoff",
+              "engine": "Exponential Backoff",
+              "out": "distributed architectures"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates architectures state transitions.",
+            "values": {
+              "input_code": "external API",
+              "engine": "Backoff",
+              "out": "unleash an"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the full analogy to jitter execution invariants.",
+            "values": {
+              "input_code": "narrow one-lane",
+              "engine": "Schedule retry",
+              "out": "Attempt 1 State: RETRY_DELAYED | Del"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify exponential constraints and verify resulting backoff state.",
+            "values": {
+              "input_code": "Exponential Backoff",
+              "engine": "Jitter",
+              "out": "Dead-Letter Queue Governance Verifie"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Dynamic Worker Concurrency, Tenant Rate Limiting & Backpressure",
       "codeHash": "e2ad69f3250e1dd0af23a4cc1f20f3e8108871aed3c22148a35f63773ea3a5b1",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Dynamic Worker Concurrency, Tenant Rate Limiting & Backpressure",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Dynamic Worker Concurrency, Tenant Rate Limiting & Backpressure",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Worker",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Concurrency",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize tenant architecture and worker boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Dynamic Worker"
+              },
+              "engine": {
+                "text": "Multi-Tenant Token"
+              },
+              "out": {
+                "text": "multi-tenant SaaS"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how tenant coordinates worker state transitions.",
+            "values": {
+              "input_code": {
+                "text": "enforce multi-tenant"
+              },
+              "engine": {
+                "text": "Worker"
+              },
+              "out": {
+                "text": "architectures implement"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the amusement analogy to park execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "amusement park"
+              },
+              "engine": {
+                "text": "bucket.lastRefillTime"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify dynamic constraints and verify resulting worker state.",
+            "values": {
+              "input_code": {
+                "text": "Dynamic Worker"
+              },
+              "engine": {
+                "text": "Concurrency"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Dynamic Worker Concurrency, Tenant Rate Limiting & Backpressure",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Worker",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Concurrency",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize tenant architecture and worker boundaries.",
+            "values": {
+              "input_code": "Dynamic Worker",
+              "engine": "Multi-Tenant Token",
+              "out": "multi-tenant SaaS"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how tenant coordinates worker state transitions.",
+            "values": {
+              "input_code": "enforce multi-tenant",
+              "engine": "Worker",
+              "out": "architectures implement"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the amusement analogy to park execution invariants.",
+            "values": {
+              "input_code": "amusement park",
+              "engine": "bucket.lastRefillTime",
+              "out": "Alpha Submissions Accepted (Tokens ="
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify dynamic constraints and verify resulting worker state.",
+            "values": {
+              "input_code": "Dynamic Worker",
+              "engine": "Concurrency",
+              "out": "Multi-Tenant Rate Limiting & Fair Sc"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Stalled Job Recovery & Queue Telemetry Sentinels",
       "codeHash": "4a30ba2123ab7e45285d4db26fc0b8fd1e792d6def86e49bdbe397be218deb42",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Stalled Job Recovery & Queue Telemetry Sentinels",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Stalled",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize cloud architecture and native boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Stalled Job"
+              },
+              "out": {
+                "text": "cloud-native production"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how cloud coordinates native state transitions.",
+            "values": {
+              "input_code": {
+                "text": "happens to"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "active"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the deep analogy to diver execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "deep-sea diver"
+              },
+              "engine": {
+                "text": "this.lockTtlMs"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Stalled"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Stalled",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize cloud architecture and native boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Stalled Job",
+              "out": "cloud-native production"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how cloud coordinates native state transitions.",
+            "values": {
+              "input_code": "happens to",
+              "engine": "Defense",
+              "out": "active"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the deep analogy to diver execution invariants.",
+            "values": {
+              "input_code": "deep-sea diver",
+              "engine": "this.lockTtlMs",
+              "out": "Stalled Jobs Successfully Recovered "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Stalled",
+              "out": "Stalled Job Sentinel Operational: Tr"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

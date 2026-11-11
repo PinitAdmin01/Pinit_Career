@@ -111,7 +111,7 @@ test('G3D Day 2: Domain-Specific Content Assertions', () => {
   assert.ok(g3dD2.parts[4].output.includes('Culled Draw Calls Eliminated: 2'));
 });
 
-test('Fullstack-JS Day 2: Resolution & Structural Invariants for Streaming SSR, Server Actions & tRPC', () => {
+test('Fullstack-JS Day 2: Resolution & Structural Invariants for EventEmitter, Buffers, UTF-8 & Backpressure', () => {
   const fsD2 = getLongLesson('fullstack-js', 2);
   assert.ok(fsD2, 'fullstack-js Day 2 long lesson must resolve');
   assert.equal(fsD2.day, 2);
@@ -139,28 +139,28 @@ test('Fullstack-JS Day 2: Domain-Specific Content Assertions', () => {
   const fsD2 = getLongLesson('fullstack-js', 2);
   assert.ok(fsD2);
 
-  // Part 1 – Streaming SSR
-  assert.ok(fsD2.parts[0].title.includes('Streaming SSR'));
-  assert.ok(fsD2.parts[0].output.includes('Out-of-Order Flush Parallelism'));
+  // Part 1 – Observer Pattern / EventEmitter
+  assert.ok(fsD2.parts[0].title.includes('EventEmitter') || fsD2.parts[0].title.includes('Observer Pattern'));
+  assert.ok(fsD2.parts[0].output.includes('Total Audit Logs: 2'));
 
-  // Part 2 – Server Actions with Optimistic Rollbacks
-  assert.ok(fsD2.parts[1].title.includes('Server Actions'));
-  assert.ok(fsD2.parts[1].output.includes('UI Consistency Guarantee: DISPLAY === CONFIRMED = true'));
+  // Part 2 – Binary Data & Memory Buffers
+  assert.ok(fsD2.parts[1].title.includes('Buffers') || fsD2.parts[1].title.includes('Binary Data'));
+  assert.ok(fsD2.parts[1].output.includes('Safe Buffer Verified Zero-Filled: true'));
 
-  // Part 3 – Edge Middleware JWT Auth
-  assert.ok(fsD2.parts[2].title.includes('Edge Middleware'));
-  assert.ok(fsD2.parts[2].output.includes('GDPR geo-rewrite'));
+  // Part 3 – Character Encodings & UTF-8 Multi-Byte Drift
+  assert.ok(fsD2.parts[2].title.includes('Character Encodings') || fsD2.parts[2].title.includes('UTF-8'));
+  assert.ok(fsD2.parts[2].output.includes('ENCODING DRIFT AUDIT MATRIX'));
 
-  // Part 4 – tRPC Type-Safe RPCs
-  assert.ok(fsD2.parts[3].title.includes('tRPC'));
-  assert.ok(fsD2.parts[3].output.includes('ZERO runtime schema validation needed'));
+  // Part 4 – Streaming Data & Backpressure
+  assert.ok(fsD2.parts[3].title.includes('Backpressure') || fsD2.parts[3].title.includes('Streaming Data'));
+  assert.ok(fsD2.parts[3].output.includes('Backpressure Triggered!'));
 
-  // Part 5 – Server-Sent Events (SSE)
-  assert.ok(fsD2.parts[4].title.includes('Server-Sent Events') || fsD2.parts[4].title.includes('SSE'));
-  assert.ok(fsD2.parts[4].output.includes('Last-Event-ID'));
+  // Part 5 – Production Event Bus & Memory Leak Detection
+  assert.ok(fsD2.parts[4].title.includes('Event Bus') || fsD2.parts[4].title.includes('Memory Leak'));
+  assert.ok(fsD2.parts[4].output.includes('After Cleanup - Active Listeners: 1'));
 });
 
-test('Fullstack-JS Day 3: Resolution & Structural Invariants for WebSockets, Redis Sessions & Rate Limiting', () => {
+test('Fullstack-JS Day 3: Resolution & Structural Invariants for HTTP Framing, Verbs, Idempotency & REST Contracts', () => {
   const fsD3 = getLongLesson('fullstack-js', 3);
   assert.ok(fsD3, 'fullstack-js Day 3 long lesson must resolve');
   assert.equal(fsD3.day, 3);
@@ -188,25 +188,25 @@ test('Fullstack-JS Day 3: Domain-Specific Content Assertions', () => {
   const fsD3 = getLongLesson('fullstack-js', 3);
   assert.ok(fsD3);
 
-  // Part 1 – Bidirectional WebSockets, Heartbeats & Backpressure
-  assert.ok(fsD3.parts[0].title.includes('WebSockets') || fsD3.parts[0].title.includes('Backpressure'));
-  assert.ok(fsD3.parts[0].output.includes('Zombie client terminated after ping timeout'));
+  // Part 1 – HTTP/1.1 & HTTP/2 Framing
+  assert.ok(fsD3.parts[0].title.includes('HTTP/1.1') || fsD3.parts[0].title.includes('HTTP/2'));
+  assert.ok(fsD3.parts[0].output.includes('Target Path: /v1/checkout'));
 
-  // Part 2 – Redis Distributed Session Store & Sliding TTL
-  assert.ok(fsD3.parts[1].title.includes('Redis') || fsD3.parts[1].title.includes('Session'));
-  assert.ok(fsD3.parts[1].output.includes('Concurrent Session Limit (Max 2): Evicted oldest session'));
+  // Part 2 – Semantic Verbs & Safe Operations
+  assert.ok(fsD3.parts[1].title.includes('Semantic Verbs') || fsD3.parts[1].title.includes('PATCH'));
+  assert.ok(fsD3.parts[1].output.includes('Created via POST (201)'));
 
-  // Part 3 – Database Connection Pooling & Deadlock Recovery
-  assert.ok(fsD3.parts[2].title.includes('Connection Pooling') || fsD3.parts[2].title.includes('Deadlock'));
-  assert.ok(fsD3.parts[2].output.includes('DETECTED 40P01 & RETRIED SUCCESSFULLY'));
+  // Part 3 – Idempotency Physics
+  assert.ok(fsD3.parts[2].title.includes('Idempotency'));
+  assert.ok(fsD3.parts[2].output.includes('Total Actual Bank Charges Incurred: 1'));
 
-  // Part 4 – CSP Nonce & CORS Preflight
-  assert.ok(fsD3.parts[3].title.includes('CSP') || fsD3.parts[3].title.includes('CORS'));
-  assert.ok(fsD3.parts[3].output.includes("script-src 'self' 'nonce-"));
+  // Part 4 – Status Code Hierarchy & Fault Isolation
+  assert.ok(fsD3.parts[3].title.includes('Status Code') || fsD3.parts[3].title.includes('Fault Isolation'));
+  assert.ok(fsD3.parts[3].output.includes("category: 'SERVER_FAULT'"));
 
-  // Part 5 – Token Bucket Rate Limiting
-  assert.ok(fsD3.parts[4].title.includes('Rate Limiting') || fsD3.parts[4].title.includes('Token Bucket'));
-  assert.ok(fsD3.parts[4].output.includes('HTTP 429 TOO MANY REQUESTS'));
+  // Part 5 – Uniform API Envelopes & RESTful Error Contracts
+  assert.ok(fsD3.parts[4].title.includes('API Envelopes') || fsD3.parts[4].title.includes('Error Contract'));
+  assert.ok(fsD3.parts[4].output.includes('200 Response Success Flag: true'));
 });
 
 test('G3D Day 3: Resolution & Structural Invariants for Skeletal Skinning, SSAO, Compute & BVH', () => {
@@ -258,7 +258,7 @@ test('G3D Day 3: Domain-Specific Content Assertions', () => {
   assert.ok(g3dD3.parts[4].output.includes('HIT at t=15.0'));
 });
 
-test('Fullstack-JS Day 4: Resolution & Structural Invariants for Micro-Frontends, OpenTelemetry & CQRS', () => {
+test('Fullstack-JS Day 4: Resolution & Structural Invariants for Middleware Pipelines, RFC 7807 & Observability', () => {
   const fsD4 = getLongLesson('fullstack-js', 4);
   assert.ok(fsD4, 'fullstack-js Day 4 long lesson must resolve');
   assert.equal(fsD4.day, 4);
@@ -286,30 +286,30 @@ test('Fullstack-JS Day 4: Domain-Specific Content Assertions', () => {
   const fsD4 = getLongLesson('fullstack-js', 4);
   assert.ok(fsD4);
 
-  // Part 1 – Micro-Frontends & Module Federation
-  assert.ok(fsD4.parts[0].title.includes('Micro-Frontends') || fsD4.parts[0].title.includes('Module Federation'));
-  assert.ok(fsD4.parts[0].output.includes('LOADED_CONTAINER_V2'));
-  assert.ok(fsD4.parts[0].output.includes('singleton_react_v19.0.0'));
+  // Part 1 – Chain of Responsibility (req, res, next)
+  assert.ok(fsD4.parts[0].title.includes('Chain of Responsibility') || fsD4.parts[0].title.includes('next'));
+  assert.ok(fsD4.parts[0].output.includes('Logger: Request received for /dashboard'));
+  assert.ok(fsD4.parts[0].output.includes('Final response status: 200'));
 
-  // Part 2 – Distributed Tracing & OpenTelemetry Spans
-  assert.ok(fsD4.parts[1].title.includes('OpenTelemetry') || fsD4.parts[1].title.includes('Distributed Tracing'));
-  assert.ok(fsD4.parts[1].output.includes('GET /api/checkout'));
-  assert.ok(fsD4.parts[1].output.includes('POST https://stripe.com/v1/charges'));
+  // Part 2 – Request Augmentation & Context Propagation
+  assert.ok(fsD4.parts[1].title.includes('Request Augmentation') || fsD4.parts[1].title.includes('Context Propagation'));
+  assert.ok(fsD4.parts[1].output.includes('Augmented Order Response'));
+  assert.ok(fsD4.parts[1].output.includes('ord_771'));
 
-  // Part 3 – Blue-Green & Canary Zero-Downtime Deployments
-  assert.ok(fsD4.parts[2].title.includes('Blue-Green') || fsD4.parts[2].title.includes('Canary'));
-  assert.ok(fsD4.parts[2].output.includes('BLUE -> GREEN'));
-  assert.ok(fsD4.parts[2].output.includes('BLUE_DRAINING'));
+  // Part 3 – Async Middleware & Express 4 vs Express 5
+  assert.ok(fsD4.parts[2].title.includes('Async Middleware') || fsD4.parts[2].title.includes('Express'));
+  assert.ok(fsD4.parts[2].output.includes('Global Error Handler caught'));
+  assert.ok(fsD4.parts[2].output.includes('Database connection timed out'));
 
-  // Part 4 – Idempotent Webhooks & Redis Locks
-  assert.ok(fsD4.parts[3].title.includes('Idempotent Webhooks') || fsD4.parts[3].title.includes('Deduplication'));
-  assert.ok(fsD4.parts[3].output.includes('NEW_PAYMENT_PROCESSED'));
-  assert.ok(fsD4.parts[3].output.includes('DUPLICATE_IGNORED'));
+  // Part 4 – 4-Parameter Error Handling Middleware & RFC 7807
+  assert.ok(fsD4.parts[3].title.includes('Error Handling Middleware') || fsD4.parts[3].title.includes('RFC 7807'));
+  assert.ok(fsD4.parts[3].output.includes('Centralized Error Result Status: 422'));
+  assert.ok(fsD4.parts[3].output.includes('RFC 7807 Error Envelope Detail'));
 
-  // Part 5 – Database Read Replicas & CQRS
-  assert.ok(fsD4.parts[4].title.includes('Read Replicas') || fsD4.parts[4].title.includes('CQRS'));
-  assert.ok(fsD4.parts[4].output.includes('PRIMARY_DB_LEADER'));
-  assert.ok(fsD4.parts[4].output.includes('READ_REPLICA_NODE_01'));
+  // Part 5 – Production Observability Pipeline
+  assert.ok(fsD4.parts[4].title.includes('Observability Pipeline') || fsD4.parts[4].title.includes('Rate Limiting'));
+  assert.ok(fsD4.parts[4].output.includes('Captured X-Response-Time: 15ms'));
+  assert.ok(fsD4.parts[4].output.includes('Payload delivered safely: ok'));
 });
 
 test('G3D Day 4: Resolution & Structural Invariants for Multi-Pass Deferred, Clustered & Compute Physics', () => {
@@ -430,7 +430,7 @@ test('G3D Day 5: Domain-Specific Content Assertions', () => {
   assert.ok(g3dD5.parts[4].output.includes('Temporal Anti-Aliasing (TAA)'));
 });
 
-test('Fullstack-JS Day 5: Resolution & Structural Invariants for Edge Geo-Routing, Redlock, CRDTs & Circuit Breakers', () => {
+test('Fullstack-JS Day 5: Resolution & Structural Invariants for API Gateways, Rate Limiting & Health Probes', () => {
   const fsD5 = getLongLesson('fullstack-js', 5);
   assert.ok(fsD5, 'fullstack-js Day 5 long lesson must resolve');
   assert.equal(fsD5.day, 5);
@@ -463,34 +463,32 @@ test('Fullstack-JS Day 5: Domain-Specific Content Assertions', () => {
   const fsD5 = getLongLesson('fullstack-js', 5);
   assert.ok(fsD5);
 
-  // Part 1 – Distributed Edge Geo-Routing & V8 Isolate Middleware
-  assert.ok(fsD5.parts[0].title.includes('Edge Geo-Routing') || fsD5.parts[0].title.includes('V8 Isolate'));
-  assert.ok(fsD5.parts[0].output.includes('ORIGIN_EU_CENTRAL_FRANKFURT'));
-  assert.ok(fsD5.parts[0].output.includes('Second Request Cached: true'));
-  assert.ok(fsD5.parts[0].output.includes('Second Request Latency: 2ms'));
+  // Part 1 – API Gateway Pattern
+  assert.ok(fsD5.parts[0].title.includes('API Gateway'));
+  assert.ok(fsD5.parts[0].output.includes('Unauthorized Request Status: 401'));
+  assert.ok(fsD5.parts[0].output.includes('Authorized Request Status: 200'));
+  assert.ok(fsD5.parts[0].output.includes('gw_abc123'));
 
-  // Part 2 – Distributed Locks & Concurrency Control via Redis Redlock
-  assert.ok(fsD5.parts[1].title.includes('Distributed Locks') || fsD5.parts[1].title.includes('Redlock'));
-  assert.ok(fsD5.parts[1].output.includes('Redlock Acquired (Quorum 3/5): true'));
-  assert.ok(fsD5.parts[1].output.includes('Duplicate Concurrent Acquisition: false'));
-  assert.ok(fsD5.parts[1].output.includes('Released Across Nodes Count: 5'));
+  // Part 2 – Route Dispatching Trees
+  assert.ok(fsD5.parts[1].title.includes('Route Dispatching') || fsD5.parts[1].title.includes('Path Matching'));
+  assert.ok(fsD5.parts[1].output.includes('Match /users/me: Current User Profile'));
+  assert.ok(fsD5.parts[1].output.includes('Match /users/usr_9942'));
 
-  // Part 3 – Zero-Downtime Database Migrations & The Expand/Contract Pattern
-  assert.ok(fsD5.parts[2].title.includes('Database Migrations') || fsD5.parts[2].title.includes('Expand/Contract'));
-  assert.ok(fsD5.parts[2].output.includes('Phase CONTRACT Historic u1 First Name: Ada'));
-  assert.ok(fsD5.parts[2].output.includes('Dual-Written u2 Last Name: Turing'));
-  assert.ok(fsD5.parts[2].output.includes('DROPPED_COLUMN'));
+  // Part 3 – Token Bucket Rate Limiting Physics
+  assert.ok(fsD5.parts[2].title.includes('Token Bucket') || fsD5.parts[2].title.includes('Rate Limiting'));
+  assert.ok(fsD5.parts[2].output.includes('TOKEN BUCKET EXECUTION TRACE'));
+  assert.ok(fsD5.parts[2].output.includes('Req 1 (Burst): ALLOWED'));
 
-  // Part 4 – Multi-Region Eventual Consistency & CRDTs
-  assert.ok(fsD5.parts[3].title.includes('Multi-Region') || fsD5.parts[3].title.includes('CRDT'));
-  assert.ok(fsD5.parts[3].output.includes('Merged Value in US Node: High Contrast Mode'));
-  assert.ok(fsD5.parts[3].output.includes('Commutative Equality (A + B === B + A): true'));
+  // Part 4 – Liveness vs Readiness Health Check Probes
+  assert.ok(fsD5.parts[3].title.includes('Health Check') || fsD5.parts[3].title.includes('Readiness'));
+  assert.ok(fsD5.parts[3].output.includes('Liveness Status: 200'));
+  assert.ok(fsD5.parts[3].output.includes('Readiness Status: 503'));
 
-  // Part 5 – Enterprise Chaos Engineering, Resiliency & SLO Circuit Breakers
-  assert.ok(fsD5.parts[4].title.includes('Circuit Breaker') || fsD5.parts[4].title.includes('Chaos Engineering'));
-  assert.ok(fsD5.parts[4].output.includes('Initial Call Status: SUCCESS_200_OK (CLOSED)'));
-  assert.ok(fsD5.parts[4].output.includes('Tripping Call State: OPEN'));
-  assert.ok(fsD5.parts[4].output.includes('FAST_FAIL_FALLBACK_TRIGGERED'));
+  // Part 5 – Milestone 1 API Gateway Assembly
+  assert.ok(fsD5.parts[4].title.includes('Milestone 1') || fsD5.parts[4].title.includes('API Gateway'));
+  assert.ok(fsD5.parts[4].output.includes('Unauthorized Gateway Dispatch Status: 401'));
+  assert.ok(fsD5.parts[4].output.includes('Authorized Gateway Dispatch Status: 200'));
+  assert.ok(fsD5.parts[4].output.includes('Authorized Gateway User List Count: 2'));
 });
 
 test('G3D Days 6–10 & Milestone 2 Capstone: Resolution, Word Counts & Invariants', () => {

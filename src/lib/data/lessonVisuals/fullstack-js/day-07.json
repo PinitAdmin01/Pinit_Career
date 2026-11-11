@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 7,
-  "promptSha": "443b4b3e3a20cdb25bd2cb8c9015ff6b998e580a2ce20d91afc7a4404b3456bb",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "43b955e7d0f55d30f292cbd65955e0632ff97ea494dff96546e4bde284fc6373",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Server Actions: The Flight RPC Mutation Protocol & use server Invariants",
-      "codeHash": "20cfcb33006e5159112cf8ce2dc1c9aa6129cdd6d4bf9fa8125f551bc2bb1d67",
+      "partTitle": "The Same-Origin Policy (SOP): Browser Security Physics & Cross-Domain Isolation",
+      "codeHash": "56e67c4aae5348c9b96f0ff35cb8be08e0948962c562084c185ecf0ec367bebb",
       "spec": {
         "template": "flow",
-        "title": "Server Actions: The Flight RPC Mutati... — Execution Pipeline",
+        "title": "The Same-Origin Policy (SOP)",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Origin",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server Actions: The Flight RPC Mutati...",
+            "id": "engine",
+            "label": "Policy",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Browser",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture form payload and dispatch optimistic state for Server Actions.",
+            "caption": "Initialize security architecture and origin boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Same-Origin Policy"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "application security"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server action RPC and validation in Server Actions: The Flight.",
+            "caption": "Trace how security coordinates origin state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "understand how"
+              },
+              "engine": {
+                "text": "Policy"
+              },
+              "out": {
+                "text": "components"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the origin analogy to policy execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "apartment building"
+              },
+              "engine": {
+                "text": "originA"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Server Actions: The Flight RPC Mutati....",
+            "caption": "Modify test constraints and verify resulting comparison state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Test comparison"
+              },
+              "engine": {
+                "text": "Browser"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Server Actions: The Flight RPC Mutati... — Execution Pipeline",
+        "title": "The Same-Origin Policy (SOP)",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Origin",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server Actions: The Flight RPC Mutati...",
+            "id": "engine",
+            "label": "Policy",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Browser",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture form payload and dispatch optimistic state for Server Actions: The Flight RPC Mutati....",
+            "caption": "Initialize security architecture and origin boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Same-Origin Policy",
+              "engine": "Verification",
+              "out": "application security"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server action RPC and validation in Server Actions: The Flight RPC Mutati....",
+            "caption": "Trace how security coordinates origin state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "understand how",
+              "engine": "Policy",
+              "out": "components"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the origin analogy to policy execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "apartment building",
+              "engine": "originA",
+              "out": "Same Origin (Path difference only): "
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Server Actions: The Flight RPC Mutati....",
+            "caption": "Modify test constraints and verify resulting comparison state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Test comparison",
+              "engine": "Browser",
+              "out": "Different Origin (Port 8080 vs 443):"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Form Mutations with useActionState & Progress Feedback with useFormStatus",
-      "codeHash": "eee36618408dd84f4c92b8c0ca12bc732599b00bb6dd5c177779fe60b445c91f",
+      "partTitle": "The Mechanics of CORS: Simple Requests vs Preflight OPTIONS Handshakes",
+      "codeHash": "62121d0e13b03805434e02430da236c566b8043425283c43a2df75d5bb123de1",
       "spec": {
         "template": "flow",
-        "title": "Form Mutations with useActionState & ... — Execution Pipeline",
+        "title": "The Mechanics of CORS",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Mechanics",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Form Mutations with useActionState & ...",
+            "id": "engine",
+            "label": "CORS",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Simple",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture form payload and dispatch optimistic state for Form Mutations.",
+            "caption": "Initialize cors architecture and requests boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Mechanics of"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "universal point"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server action RPC and validation in Form Mutations with.",
+            "caption": "Trace how cors coordinates requests state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "client script"
+              },
+              "engine": {
+                "text": "CORS"
+              },
+              "out": {
+                "text": "network packet"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the simple analogy to preflight execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "diplomat visiting"
+              },
+              "engine": {
+                "text": "Authorization"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Form Mutations with useActionState & ....",
+            "caption": "Modify simple constraints and verify resulting preflight state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Test"
+              },
+              "engine": {
+                "text": "Simple"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Form Mutations with useActionState & ... — Execution Pipeline",
+        "title": "The Mechanics of CORS",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Mechanics",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Form Mutations with useActionState & ...",
+            "id": "engine",
+            "label": "CORS",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Simple",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture form payload and dispatch optimistic state for Form Mutations with useActionState & ....",
+            "caption": "Initialize cors architecture and requests boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Mechanics of",
+              "engine": "Verification",
+              "out": "universal point"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server action RPC and validation in Form Mutations with useActionState & ....",
+            "caption": "Trace how cors coordinates requests state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "client script",
+              "engine": "CORS",
+              "out": "network packet"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the simple analogy to preflight execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "diplomat visiting",
+              "engine": "Authorization",
+              "out": "Case A (Form): SIMPLE REQUEST"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Form Mutations with useActionState & ....",
+            "caption": "Modify simple constraints and verify resulting preflight state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Test",
+              "engine": "Simple",
+              "out": "Trigger: Custom header 'Authorizatio"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Optimistic UI Updates via useOptimistic & Immediate Feedback Invariants",
-      "codeHash": "cd99d3fcd6270ac77b745a884879bd241261e439f65f84fe5de338551ac7d9c8",
+      "partTitle": "CORS Header Dictionary & Dynamic Origin Verification",
+      "codeHash": "4221186e2aee3ee85583d577715a1a9567f665ff0788adfa55a9d2b87cb64ccd",
       "spec": {
         "template": "flow",
-        "title": "Optimistic UI Updates via useOptimist... — Execution Pipeline",
+        "title": "CORS Header Dictionary & Dynamic Origin Verification",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "CORS",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Optimistic UI Updates via useOptimist...",
+            "id": "engine",
+            "label": "Header",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Dictionary",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture form payload and dispatch optimistic state for Optimistic UI.",
+            "caption": "Initialize origin architecture and cors boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "CORS Header"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "properly negotiate"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server action RPC and validation in Optimistic UI Updates via.",
+            "caption": "Trace how origin coordinates cors state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "critical header"
+              },
+              "engine": {
+                "text": "Header"
+              },
+              "out": {
+                "text": "wildcard"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the origin analogy to dynamic execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "exclusive business"
+              },
+              "engine": {
+                "text": "res.headers"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Optimistic UI Updates via useOptimist....",
+            "caption": "Modify origin constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass an"
+              },
+              "engine": {
+                "text": "Dictionary"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Optimistic UI Updates via useOptimist... — Execution Pipeline",
+        "title": "CORS Header Dictionary & Dynamic Origin Verification",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "CORS",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Optimistic UI Updates via useOptimist...",
+            "id": "engine",
+            "label": "Header",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Dictionary",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture form payload and dispatch optimistic state for Optimistic UI Updates via useOptimist....",
+            "caption": "Initialize origin architecture and cors boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "CORS Header",
+              "engine": "Verification",
+              "out": "properly negotiate"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server action RPC and validation in Optimistic UI Updates via useOptimist....",
+            "caption": "Trace how origin coordinates cors state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "critical header",
+              "engine": "Header",
+              "out": "wildcard"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the origin analogy to dynamic execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "exclusive business",
+              "engine": "res.headers",
+              "out": "Preflight Origin Reflected: https://"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Optimistic UI Updates via useOptimist....",
+            "caption": "Modify origin constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass an",
+              "engine": "Dictionary",
+              "out": "Attacker Allowed?: false | Header se"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Network Failure Rollbacks, Server-Side Validation & Zod Schema Enforcement",
-      "codeHash": "53f6c1ef0f4626f7bb15da208bc946acc7439a46cf46b19a049284cbd3029926",
+      "partTitle": "Defense-in-Depth Web Security Headers: The Modern Helmet Architecture",
+      "codeHash": "93548c1491458b3e15edf6b088df24a07689b6192458f35b14d4cecf980cd770",
       "spec": {
         "template": "flow",
-        "title": "Network Failure Rollbacks, Server-Sid... — Execution Pipeline",
+        "title": "Defense-in-Depth Web Security Headers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Defense",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Network Failure Rollbacks, Server-Sid...",
+            "id": "engine",
+            "label": "Depth",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Security",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture form payload and dispatch optimistic state for Network Failure.",
+            "caption": "Initialize defense architecture and depth boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Defense-in-Depth Web"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "configuring CORS"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server action RPC and validation in Network Failure Rollbacks.",
+            "caption": "Trace how defense coordinates depth state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Node.js ecosystem"
+              },
+              "engine": {
+                "text": "Depth"
+              },
+              "out": {
+                "text": "security header"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the helmet analogy to layered execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "layered protective"
+              },
+              "engine": {
+                "text": "Content Security"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Network Failure Rollbacks, Server-Sid....",
+            "caption": "Modify headers constraints and verify resulting inspect state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Inspect mockRes.headers"
+              },
+              "engine": {
+                "text": "Security"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Network Failure Rollbacks, Server-Sid... — Execution Pipeline",
+        "title": "Defense-in-Depth Web Security Headers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Defense",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Network Failure Rollbacks, Server-Sid...",
+            "id": "engine",
+            "label": "Depth",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Security",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture form payload and dispatch optimistic state for Network Failure Rollbacks, Server-Sid....",
+            "caption": "Initialize defense architecture and depth boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Defense-in-Depth Web",
+              "engine": "Verification",
+              "out": "configuring CORS"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server action RPC and validation in Network Failure Rollbacks, Server-Sid....",
+            "caption": "Trace how defense coordinates depth state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Node.js ecosystem",
+              "engine": "Depth",
+              "out": "security header"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the helmet analogy to layered execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "layered protective",
+              "engine": "Content Security",
+              "out": "=== APPLIED ENTERPRISE SECURITY HEAD"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Network Failure Rollbacks, Server-Sid....",
+            "caption": "Modify headers constraints and verify resulting inspect state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Inspect mockRes.headers",
+              "engine": "Security",
+              "out": "CSP Frame Ancestors Rule: default-sr"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Enterprise Mutation Pipeline: Server Actions, Optimistic State & Automatic Revalidation",
-      "codeHash": "4b10fa31dab0a6eb56bc425c85efb01b0f453b182dc417e220480ad3365a51be",
+      "partTitle": "Engineering the Production CORS & Security Middleware Pipeline",
+      "codeHash": "51e85cf3d142cd034b37f8031872d878d1671764c54d327110eb61ebc574d774",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Mutation Pipeline: Server ... — Execution Pipeline",
+        "title": "Engineering the Production CORS & Security Middleware Pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Engineering",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Mutation Pipeline: Server ...",
+            "id": "engine",
+            "label": "CORS",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Security",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture form payload and dispatch optimistic state for Enterprise.",
+            "caption": "Initialize security architecture and production boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Engineering the"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "final architectural"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server action RPC and validation in Enterprise Mutation Pipeline.",
+            "caption": "Trace how security coordinates production state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "examine the"
+              },
+              "engine": {
+                "text": "CORS"
+              },
+              "out": {
+                "text": "enters the"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the security analogy to cors execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "embassy security"
+              },
+              "engine": {
+                "text": "preflight probe"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Enterprise Mutation Pipeline: Server ....",
+            "caption": "Modify send constraints and verify resulting options state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Send"
+              },
+              "engine": {
+                "text": "Security"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Mutation Pipeline: Server ... — Execution Pipeline",
+        "title": "Engineering the Production CORS & Security Middleware Pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Form & Action State",
+            "id": "input_code",
+            "label": "Engineering",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Mutation Pipeline: Server ...",
+            "id": "engine",
+            "label": "CORS",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Reconciled UI & Cache",
+            "label": "Security",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture form payload and dispatch optimistic state for Enterprise Mutation Pipeline: Server ....",
+            "caption": "Initialize security architecture and production boundaries.",
             "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Engineering the",
+              "engine": "Verification",
+              "out": "final architectural"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server action RPC and validation in Enterprise Mutation Pipeline: Server ....",
+            "caption": "Trace how security coordinates production state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "examine the",
+              "engine": "CORS",
+              "out": "enters the"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic reconciliation and rollback invariants.",
+            "caption": "Connect the security analogy to cors execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "embassy security",
+              "engine": "preflight probe",
+              "out": "Preflight Handshake Status (Must be "
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Enterprise Mutation Pipeline: Server ....",
+            "caption": "Modify send constraints and verify resulting options state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Send",
+              "engine": "Security",
+              "out": "Content-Type Options Injected: nosni"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

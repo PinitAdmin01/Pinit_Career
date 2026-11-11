@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 31,
-  "promptSha": "9bb25bde5382097e41ee3158cb4e06b40774252a94d751ca2e369429be1e7346",
-  "model": "gemini-2.5-pro",
+  "promptSha": "93044a5829d4ebed403f54e1368aefe11bfc5d8f1dc28d7d5cdcf9cd5b787f2d",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "V8 Compilation Pipeline: Ignition Bytecode, Sparkplug Baseline & Maglev/TurboFan JIT Optimizations",
       "codeHash": "685a29394d8894b5d555ff4f4d4900c7432a5b4363bca93880c9159b6f73572e",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: V Compilation Pipeline: Ignition Bytecode, Sparkplug Baseline & Maglev/TurboFan JIT Optimizations",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "V8 Compilation Pipeline",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Compilation",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Pipeline",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ignition",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundaries and core execution pathways across the enterprise runtime environment."
+            "caption": "Initialize compilation architecture and pipeline boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Compilation Pipeline"
+              },
+              "engine": {
+                "text": "Demonstration of"
+              },
+              "out": {
+                "text": "launch"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how compilation coordinates pipeline state transitions.",
+            "values": {
+              "input_code": {
+                "text": "journey of"
+              },
+              "engine": {
+                "text": "Pipeline"
+              },
+              "out": {
+                "text": "parsing"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the ignition analogy to sparkplug execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bustling restaurant"
+              },
+              "engine": {
+                "text": "warmSum"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify compilation constraints and verify resulting pipeline state.",
+            "values": {
+              "input_code": {
+                "text": "Compilation Pipeline"
+              },
+              "engine": {
+                "text": "Ignition"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "V8 Compilation Pipeline",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Compilation",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Pipeline",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ignition",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize compilation architecture and pipeline boundaries.",
+            "values": {
+              "input_code": "Compilation Pipeline",
+              "engine": "Demonstration of",
+              "out": "launch"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how compilation coordinates pipeline state transitions.",
+            "values": {
+              "input_code": "journey of",
+              "engine": "Pipeline",
+              "out": "parsing"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the ignition analogy to sparkplug execution invariants.",
+            "values": {
+              "input_code": "bustling restaurant",
+              "engine": "warmSum",
+              "out": "V8 Pipeline Warm-up Completed: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify compilation constraints and verify resulting pipeline state.",
+            "values": {
+              "input_code": "Compilation Pipeline",
+              "engine": "Ignition",
+              "out": "V8 State: Gracefully Handled Shape P"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Object Representation & Hidden Classes: Shapes, Transitions, and In-Object vs Out-of-Object Properties",
       "codeHash": "6e38a0fb5ac3e9b1c449b5a645a321fdc9d7a8f53c4b841f775cfe7d81b46c4e",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Object Representation & Hidden Classes: Shapes, Transitions, and In-Object vs Out-of-Object Properties",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Object Representation & Hidden Classes",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Representation",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hidden",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Classes",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize properties architecture and traditional boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Representation"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "traditional compiled"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how properties coordinates traditional state transitions.",
+            "values": {
+              "input_code": {
+                "text": "secret lies"
+              },
+              "engine": {
+                "text": "Hidden"
+              },
+              "out": {
+                "text": "property access"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the company analogy to filing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "company filing"
+              },
+              "engine": {
+                "text": "shapeRegistry.set"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify representation constraints and verify resulting hidden state.",
+            "values": {
+              "input_code": {
+                "text": "Representation"
+              },
+              "engine": {
+                "text": "Classes"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Object Representation & Hidden Classes",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Representation",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hidden",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Classes",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize properties architecture and traditional boundaries.",
+            "values": {
+              "input_code": "Representation",
+              "engine": "Simulation",
+              "out": "traditional compiled"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how properties coordinates traditional state transitions.",
+            "values": {
+              "input_code": "secret lies",
+              "engine": "Hidden",
+              "out": "property access"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the company analogy to filing execution invariants.",
+            "values": {
+              "input_code": "company filing",
+              "engine": "shapeRegistry.set",
+              "out": "Object A Shape ID: Shape_Root__x__y"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify representation constraints and verify resulting hidden state.",
+            "values": {
+              "input_code": "Representation",
+              "engine": "Classes",
+              "out": "Total Unique Hidden Classes Register"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Memory Layout & Garbage Collection: Semi-Space New Space (Scavenge/Cheney's Copying) & Mark-Sweep-Compact Old Space",
       "codeHash": "33013b5f1986c25717d4b2d7b13d042929475c936209a040c932748a91ad5d3f",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Memory Layout & Garbage Collection: Semi-Space New Space (Scavenge/Cheney's Copying) & Mark-Sweep-Compact Old Space",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Memory Layout & Garbage Collection",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Layout",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Garbage",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize memory architecture and space boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Memory Layout"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "High-throughput enterprise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how memory coordinates space state transitions.",
+            "values": {
+              "input_code": {
+                "text": "memory heap"
+              },
+              "engine": {
+                "text": "Layout"
+              },
+              "out": {
+                "text": "very shortly"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the space analogy to office execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "office building"
+              },
+              "engine": {
+                "text": "scavenged"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify memory constraints and verify resulting layout state.",
+            "values": {
+              "input_code": {
+                "text": "Memory Layout"
+              },
+              "engine": {
+                "text": "Garbage"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Memory Layout & Garbage Collection",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Memory",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Layout",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Garbage",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize memory architecture and space boundaries.",
+            "values": {
+              "input_code": "Memory Layout",
+              "engine": "Simulation",
+              "out": "High-throughput enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how memory coordinates space state transitions.",
+            "values": {
+              "input_code": "memory heap",
+              "engine": "Layout",
+              "out": "very shortly"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the space analogy to office execution invariants.",
+            "values": {
+              "input_code": "office building",
+              "engine": "scavenged",
+              "out": "GC Cycle 1 Reclaimed Bytes: 2048"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify memory constraints and verify resulting layout state.",
+            "values": {
+              "input_code": "Memory Layout",
+              "engine": "Garbage",
+              "out": "Old Space Object Retained: singleton"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "libuv Event Loop Phases & Threadpool: UV_THREADPOOL_SIZE, Worker Pool Queues & File/Crypto Async Offloading",
       "codeHash": "414a127f317afc64ac09f0b09d991c327f26528c7c3d076cc1a8a7221f1b32a5",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: libuv Event Loop Phases & Threadpool: UV_THREADPOOL_SIZE, Worker Pool Queues & File/Crypto Async Offloading",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "libuv Event Loop Phases & Threadpool",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "libuv",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Loop",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize libuv architecture and pervasive boundaries.",
+            "values": {
+              "input_code": {
+                "text": "libuv Event"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "pervasive myth"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how libuv coordinates pervasive state transitions.",
+            "values": {
+              "input_code": {
+                "text": "libuv operates"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "text": "HTTP"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the event analogy to loop execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-end gourmet"
+              },
+              "engine": {
+                "text": "Simulate asynchronous"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify libuv constraints and verify resulting event state.",
+            "values": {
+              "input_code": {
+                "text": "libuv Event"
+              },
+              "engine": {
+                "text": "Loop"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "libuv Event Loop Phases & Threadpool",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "libuv",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Loop",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize libuv architecture and pervasive boundaries.",
+            "values": {
+              "input_code": "libuv Event",
+              "engine": "Simulation",
+              "out": "pervasive myth"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how libuv coordinates pervasive state transitions.",
+            "values": {
+              "input_code": "libuv operates",
+              "engine": "Event",
+              "out": "HTTP"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the event analogy to loop execution invariants.",
+            "values": {
+              "input_code": "high-end gourmet",
+              "engine": "Simulate asynchronous",
+              "out": "Default Pool Capacity: 4"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify libuv constraints and verify resulting event state.",
+            "values": {
+              "input_code": "libuv Event",
+              "engine": "Loop",
+              "out": "Last Task ID Completed: crypto_task_"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Microtask Queues vs Macrotask Queues: process.nextTick Priority, Promise Resolution & Starvation Safeguards",
       "codeHash": "f4968e0106c06374759ae59e4123f40818a9b868db357a52876d44a79dc45157",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Microtask Queues vs Macrotask Queues: process.nextTick Priority, Promise Resolution & Starvation Safeguards",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Microtask Queues vs Macrotask Queues",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Microtask",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Queues",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Macrotask",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize priority architecture and queues boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Microtask Queues"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Node.js asynchronous"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how priority coordinates queues state transitions.",
+            "values": {
+              "input_code": {
+                "text": "JavaScript engine"
+              },
+              "engine": {
+                "text": "Queues"
+              },
+              "out": {
+                "text": "Crucially"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the priority analogy to process execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "busy airport"
+              },
+              "engine": {
+                "text": "High-Priority"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify microtask constraints and verify resulting queues state.",
+            "values": {
+              "input_code": {
+                "text": "Microtask Queues"
+              },
+              "engine": {
+                "text": "Macrotask"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Microtask Queues vs Macrotask Queues",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Microtask",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Queues",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Macrotask",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize priority architecture and queues boundaries.",
+            "values": {
+              "input_code": "Microtask Queues",
+              "engine": "Simulation",
+              "out": "Node.js asynchronous"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how priority coordinates queues state transitions.",
+            "values": {
+              "input_code": "JavaScript engine",
+              "engine": "Queues",
+              "out": "Crucially"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the priority analogy to process execution invariants.",
+            "values": {
+              "input_code": "busy airport",
+              "engine": "High-Priority",
+              "out": "Execution Trace Steps:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify microtask constraints and verify resulting queues state.",
+            "values": {
+              "input_code": "Microtask Queues",
+              "engine": "Macrotask",
+              "out": "4. Macro Phase: setImmediate (Check "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

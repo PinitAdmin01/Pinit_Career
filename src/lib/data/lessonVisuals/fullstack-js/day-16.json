@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 16,
-  "promptSha": "e881434b7cd4a858f95832e126ca2ac34d0dda40bee8049ab486e81846d76c13",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "4e4c9291cd5f2dafd2f09001916cf8898b3d424ba13fba76629b933fbacc0124",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "GraphQL Architecture & Schema Definition Language (SDL) vs REST",
-      "codeHash": "b8e5d36eff829ba612a2c7f8b07156851dc2d9b0e0d375d255dfdf5e2d5166ac",
+      "partTitle": "The Real-Time Evolution: HTTP Polling vs Long-Polling vs Server-Sent Events (SSE) vs Full-Duplex WebSockets",
+      "codeHash": "80b97700314a3f237766629a1597ec7aec2083369375ca5ec7d39be995c0b4c0",
       "spec": {
         "template": "flow",
-        "title": "GraphQL Architecture & Schema Defin... — Execution Pipeline",
+        "title": "The Real-Time Evolution",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Time",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. GraphQL Architecture & Schema Defin...",
+            "id": "engine",
+            "label": "Evolution",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "HTTP",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress GraphQL document AST and initialize GraphQL Architecture & Schema.",
+            "caption": "Initialize server architecture and http boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Real-Time Evolution"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "decades of"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
+            "caption": "Trace how server coordinates http state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "earliest workaround"
+              },
+              "engine": {
+                "text": "Evolution"
+              },
+              "out": {
+                "text": "single HTTP"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the http analogy to polling execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "repeatedly calling"
+              },
+              "engine": {
+                "text": "bytes RFC"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end graph resolution confirmed for GraphQL Architecture & Schema.",
+            "caption": "Modify http constraints and verify resulting write state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Write"
+              },
+              "engine": {
+                "text": "HTTP"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "GraphQL Architecture & Schema Defin... — Execution Pipeline",
+        "title": "The Real-Time Evolution",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Time",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. GraphQL Architecture & Schema Defin...",
+            "id": "engine",
+            "label": "Evolution",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "HTTP",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize GraphQL Architecture & Schema Defin....",
+            "caption": "Initialize server architecture and http boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Real-Time Evolution",
+              "engine": "Example",
+              "out": "decades of"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in GraphQL Architecture & Schema Defin....",
+            "caption": "Trace how server coordinates http state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "earliest workaround",
+              "engine": "Evolution",
+              "out": "single HTTP"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the http analogy to polling execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "repeatedly calling",
+              "engine": "bytes RFC",
+              "out": "--- 60-Second Real-Time Transport Co"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for GraphQL Architecture & Schema Defin....",
+            "caption": "Modify http constraints and verify resulting write state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Write",
+              "engine": "HTTP",
+              "out": "Bandwidth Savings:      -37.0%"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Resolver Execution Trees, Field-Level Granularity & Information Flow",
-      "codeHash": "74a0d14d43f408b02e2542eef4159e5266abeb6e9b8b0dfc3e8265c71e7799da",
+      "partTitle": "The WebSocket Upgrade Protocol & Binary Framing Physics (RFC 6455)",
+      "codeHash": "0e4557258c3b420d9c281e3554e0f06286684f7bf820a8758744cc8b9adbd4d0",
       "spec": {
         "template": "flow",
-        "title": "Resolver Execution Trees, Field-Lev... — Execution Pipeline",
+        "title": "The WebSocket Upgrade Protocol & Binary Framing Physics (RFC",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "WebSocket",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Resolver Execution Trees, Field-Lev...",
+            "id": "engine",
+            "label": "Upgrade",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Protocol",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress GraphQL document AST and initialize Resolver Execution Trees.",
+            "caption": "Initialize websocket architecture and upgrade boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "WebSocket Upgrade"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "transition from"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
+            "caption": "Trace how websocket coordinates upgrade state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "client opens"
+              },
+              "engine": {
+                "text": "Upgrade"
+              },
+              "out": {
+                "text": "Sec-WebSocket-Key"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the upgrade analogy to websocket execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "foreign dignitaries"
+              },
+              "engine": {
+                "text": "acceptHeader"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end graph resolution confirmed for Resolver Execution Trees.",
+            "caption": "Modify binary constraints and verify resulting parseframeopcode state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "parseFrameOpcode"
+              },
+              "engine": {
+                "text": "Protocol"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Resolver Execution Trees, Field-Lev... — Execution Pipeline",
+        "title": "The WebSocket Upgrade Protocol & Binary Framing Physics (RFC",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "WebSocket",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Resolver Execution Trees, Field-Lev...",
+            "id": "engine",
+            "label": "Upgrade",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Protocol",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Resolver Execution Trees, Field-Lev....",
+            "caption": "Initialize websocket architecture and upgrade boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "WebSocket Upgrade",
+              "engine": "Example",
+              "out": "transition from"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Resolver Execution Trees, Field-Lev....",
+            "caption": "Trace how websocket coordinates upgrade state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "client opens",
+              "engine": "Upgrade",
+              "out": "Sec-WebSocket-Key"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the upgrade analogy to websocket execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "foreign dignitaries",
+              "engine": "acceptHeader",
+              "out": "Sec-WebSocket-Accept Generated: s3pP"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Resolver Execution Trees, Field-Lev....",
+            "caption": "Modify binary constraints and verify resulting parseframeopcode state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "parseFrameOpcode",
+              "engine": "Protocol",
+              "out": "Unmasked Buffer (server deciphered):"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Query Depth Limiting & Algorithmic Complexity Cost Analysis",
-      "codeHash": "82495871d89350740edde5b209bac11b95d24e0bdc81420959d39eff2a0dc079",
+      "partTitle": "Stateful Connection Management, Heartbeats (Ping/Pong) & Half-Open Socket Detection",
+      "codeHash": "d8e9437891480c027f97ca0a4a0834221d275d80005f436240b07c676608adbd",
       "spec": {
         "template": "flow",
-        "title": "Query Depth Limiting & Algorithmic ... — Execution Pipeline",
+        "title": "Stateful Connection Management, Heartbeats (Ping/Pong) &",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Stateful",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Query Depth Limiting & Algorithmic ...",
+            "id": "engine",
+            "label": "Connection",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Management",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress GraphQL document AST and initialize Query Depth Limiting &.",
+            "caption": "Initialize connection architecture and stateful boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Stateful Connection"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "stateless HTTP"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
+            "caption": "Trace how connection coordinates stateful state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "half-open socket"
+              },
+              "engine": {
+                "text": "Connection"
+              },
+              "out": {
+                "text": "battery death"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the half analogy to open execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "deep-sea diver"
+              },
+              "engine": {
+                "text": "continue"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end graph resolution confirmed for Query Depth Limiting &.",
+            "caption": "Modify write constraints and verify resulting timeoutms state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Write"
+              },
+              "engine": {
+                "text": "Management"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Query Depth Limiting & Algorithmic ... — Execution Pipeline",
+        "title": "Stateful Connection Management, Heartbeats (Ping/Pong) &",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Stateful",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Query Depth Limiting & Algorithmic ...",
+            "id": "engine",
+            "label": "Connection",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Management",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Query Depth Limiting & Algorithmic ....",
+            "caption": "Initialize connection architecture and stateful boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Stateful Connection",
+              "engine": "Example",
+              "out": "stateless HTTP"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Query Depth Limiting & Algorithmic ....",
+            "caption": "Trace how connection coordinates stateful state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "half-open socket",
+              "engine": "Connection",
+              "out": "battery death"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the half analogy to open execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "deep-sea diver",
+              "engine": "continue",
+              "out": "Ghost Socket Terminated: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Query Depth Limiting & Algorithmic ....",
+            "caption": "Modify write constraints and verify resulting timeoutms state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Write",
+              "engine": "Management",
+              "out": "Healthy Socket Retained: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Custom Directives, Authorization Decorators & Context Invariants",
-      "codeHash": "15da497b11dd9af49f4bcca0ab68a80f6d9af5b6ebe8e04690dd6aace85af89a",
+      "partTitle": "Room Multiplexing, Pub/Sub Topologies & Sender-Excluded Broadcasting",
+      "codeHash": "434dcfd0fc5269520d1f72b196fbf02b00e9639270aa55e797b604fdb2841b84",
       "spec": {
         "template": "flow",
-        "title": "Custom Directives, Authorization De... — Execution Pipeline",
+        "title": "Room Multiplexing, Pub/Sub Topologies & Sender-Excluded",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Room",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Custom Directives, Authorization De...",
+            "id": "engine",
+            "label": "Multiplexing",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Topologies",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress GraphQL document AST and initialize Custom Directives.",
+            "caption": "Initialize broadcasting architecture and small boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Room Multiplexing"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "small-scale applications"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
+            "caption": "Trace how broadcasting coordinates small state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "architectural solution"
+              },
+              "engine": {
+                "text": "Multiplexing"
+              },
+              "out": {
+                "text": "server registers"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the room analogy to multiplexing execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "large convention"
+              },
+              "engine": {
+                "text": "subscribedRooms"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end graph resolution confirmed for Custom Directives.",
+            "caption": "Modify room constraints and verify resulting method state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "method"
+              },
+              "engine": {
+                "text": "Topologies"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Custom Directives, Authorization De... — Execution Pipeline",
+        "title": "Room Multiplexing, Pub/Sub Topologies & Sender-Excluded",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Room",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Custom Directives, Authorization De...",
+            "id": "engine",
+            "label": "Multiplexing",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Topologies",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Custom Directives, Authorization De....",
+            "caption": "Initialize broadcasting architecture and small boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Room Multiplexing",
+              "engine": "Example",
+              "out": "small-scale applications"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Custom Directives, Authorization De....",
+            "caption": "Trace how broadcasting coordinates small state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "architectural solution",
+              "engine": "Multiplexing",
+              "out": "server registers"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the room analogy to multiplexing execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "large convention",
+              "engine": "subscribedRooms",
+              "out": "Broadcast Target Recipients (Alice e"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Custom Directives, Authorization De....",
+            "caption": "Modify room constraints and verify resulting method state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "method",
+              "engine": "Topologies",
+              "out": "Alice Correctly Excluded: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Enterprise Production GraphQL Gateway Architecture & Telemetry",
-      "codeHash": "1d9ff6cf7634b1885dbf86e60028fe30c0075f2c0f5625ff314de14fe5e3da2a",
+      "partTitle": "Scaling WebSockets Horizontally: Redis Pub/Sub Adapters & Edge WebSocket Gateways",
+      "codeHash": "edd25c4803d18e527eff77099325c7d82bb4e0e08aa92f8c6b032d9a9c347797",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Production GraphQL Gatew... — Execution Pipeline",
+        "title": "Scaling WebSockets Horizontally",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Scaling",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Production GraphQL Gatew...",
+            "id": "engine",
+            "label": "WebSockets",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Horizontally",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress GraphQL document AST and initialize Enterprise Production GraphQL.",
+            "caption": "Initialize single architecture and server boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Scaling WebSockets"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "single-server deployment"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
+            "caption": "Trace how single coordinates server state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "millions of"
+              },
+              "engine": {
+                "text": "WebSockets"
+              },
+              "out": {
+                "text": "Server Instance"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the horizontally analogy to websocket execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "regional branch"
+              },
+              "engine": {
+                "text": "message"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end graph resolution confirmed for Enterprise Production GraphQL.",
+            "caption": "Modify redis constraints and verify resulting connects state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "ClusterWebSocketAdapter"
+              },
+              "engine": {
+                "text": "Horizontally"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Production GraphQL Gatew... — Execution Pipeline",
+        "title": "Scaling WebSockets Horizontally",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress GraphQL Document AST",
+            "id": "input_code",
+            "label": "Scaling",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Production GraphQL Gatew...",
+            "id": "engine",
+            "label": "WebSockets",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Graph Resolution State",
+            "label": "Horizontally",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Enterprise Production GraphQL Gatew....",
+            "caption": "Initialize single architecture and server boundaries.",
             "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Scaling WebSockets",
+              "engine": "Example",
+              "out": "single-server deployment"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Enterprise Production GraphQL Gatew....",
+            "caption": "Trace how single coordinates server state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "millions of",
+              "engine": "WebSockets",
+              "out": "Server Instance"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Connect the horizontally analogy to websocket execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "regional branch",
+              "engine": "message",
+              "out": "Alice broadcasting on Server 1..."
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Enterprise Production GraphQL Gatew....",
+            "caption": "Modify redis constraints and verify resulting connects state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "ClusterWebSocketAdapter",
+              "engine": "Horizontally",
+              "out": "[Server_Node_2] Delivered message to"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
