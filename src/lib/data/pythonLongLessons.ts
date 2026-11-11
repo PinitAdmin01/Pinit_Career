@@ -2025,7 +2025,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
         "title": "Putting it together: filtered reports",
         "say": [
           "Let us use today's tools in the Expense Tracker. With names and amounts side by side, we print a numbered list with enumerate and zip, then use comprehensions to find big expenses and to add GST.",
-          "Notice line 6: zip gives us each name with its amount, and the if keeps only the pairs where the amount is over 100. The new list holds just the names. That is a lot of work in one readable line.",
+          "Notice line 5: zip gives us each name with its amount, and the if keeps only the pairs where the amount is over 100. The new list holds just the names. That is a lot of work in one readable line.",
           "Comprehensions will become even more useful on Day 11, when each expense becomes a dictionary with its name, amount and category together.",
           "In today's practice you will double every number in a list, and keep only the numbers above a limit. Both are one-line comprehensions."
         ],

@@ -2,88 +2,163 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 10,
-  "promptSha": "b118ab9f8e265beaa0280e86abdd6df3871b5bcf41b6d348886735fe1a995e68",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "What a dictionary is",
       "codeHash": "985312a29d3fd3c14774706f23bc71f6bde068dd2c967129d864823dc1173edc",
       "spec": {
-        "template": "table",
-        "title": "What a dictionary is",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Dictionary keys and values",
+        "boxes": [
+          {
+            "id": "item",
+            "label": "item"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
+          },
+          {
+            "id": "paid_by",
+            "label": "paid_by"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "What"
-                  },
-                  {
-                    "text": "dictionary"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A dictionary stores values under names called keys.",
+            "values": {
+              "item": {
+                "text": "Tea"
+              },
+              "amount": {
+                "text": "20"
+              },
+              "paid_by": {
+                "text": "paid_by"
               }
-            ]
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok",
+              "paid_by": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The read logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "What"
-                  },
-                  {
-                    "text": "dictionary"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "You read a value with its key in square brackets.",
+            "values": {
+              "item": {
+                "text": "Tea"
+              },
+              "amount": {
+                "text": "20"
+              },
+              "paid_by": {
+                "text": "paid_by"
               }
-            ]
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok",
+              "paid_by": "idle"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the \"paid_by\" key lets expense store and print UPI.",
+            "values": {
+              "item": {
+                "text": "Tea"
+              },
+              "amount": {
+                "text": "20"
+              },
+              "paid_by": {
+                "text": "UPI"
+              }
+            },
+            "tones": {
+              "item": "data",
+              "amount": "data",
+              "paid_by": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "What a dictionary is",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Dictionary keys and values",
+        "boxes": [
+          {
+            "id": "item",
+            "label": "item"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
+          },
+          {
+            "id": "paid_by",
+            "label": "paid_by"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "What",
-                  "dictionary"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "A dictionary stores values under names called keys.",
+            "values": {
+              "item": "Tea",
+              "amount": "20",
+              "paid_by": "(not added)"
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok",
+              "paid_by": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The read logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "What",
-                  "dictionary"
-                ],
-                "tone": "ok"
-              }
+            "caption": "You read a value with its key in square brackets.",
+            "values": {
+              "item": "Tea",
+              "amount": "20",
+              "paid_by": "(not added)"
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok",
+              "paid_by": "idle"
+            },
+            "checks": [
+              "{'item': 'Tea', 'amount': 20, 'category': 'food'}",
+              "Tea",
+              "40",
+              "3"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the \"paid_by\" key lets expense store and print UPI.",
+            "values": {
+              "item": "Tea",
+              "amount": "20",
+              "paid_by": "UPI"
+            },
+            "tones": {
+              "item": "data",
+              "amount": "data",
+              "paid_by": "ok"
+            },
+            "whatIf": "expense = {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"paid_by\": \"UPI\"}\nprint(expense)\nprint(expense[\"item\"])\nprint(expense[\"amount\"] * 2)\nprint(len(expense))\nprint(expense[\"paid_by\"])",
+            "checks": [
+              "Tea",
+              "40",
+              "4",
+              "UPI"
             ]
           }
         ]
@@ -93,81 +168,160 @@
       "partTitle": "Adding and changing keys",
       "codeHash": "b08d7ad1f8e6eaf604c25a0d180b99ba16fb8317f6275a5bc709be422607b275",
       "spec": {
-        "template": "table",
-        "title": "Adding and changing keys",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Adding and removing dictionary keys",
+        "boxes": [
+          {
+            "id": "expense",
+            "label": "expense"
+          },
+          {
+            "id": "removed",
+            "label": "removed"
+          },
+          {
+            "id": "settings",
+            "label": "settings"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The dictionaries concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Adding"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Dictionaries can change by assigning to a new key.",
+            "values": {
+              "expense": {
+                "var": "expense",
+                "line": 2
+              },
+              "removed": {
+                "text": "food"
+              },
+              "settings": {
+                "text": "{}"
               }
-            ]
+            },
+            "tones": {
+              "expense": "data",
+              "removed": "idle",
+              "settings": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The remove logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "changing"
-                  },
-                  {
-                    "text": "keys"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Pop gives back the value it removed from the dictionary.",
+            "values": {
+              "expense": {
+                "var": "expense",
+                "line": 6
+              },
+              "removed": {
+                "var": "removed",
+                "line": 6
+              },
+              "settings": {
+                "var": "settings",
+                "line": 9
               }
-            ]
+            },
+            "tones": {
+              "expense": "data",
+              "removed": "ok",
+              "settings": "data"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding monthly_budget stores the budget and reassigning updates it.",
+            "values": {
+              "expense": {
+                "var": "expense",
+                "line": 6
+              },
+              "removed": {
+                "var": "removed",
+                "line": 6
+              },
+              "settings": {
+                "text": "budget to 6000"
+              }
+            },
+            "tones": {
+              "expense": "idle",
+              "removed": "idle",
+              "settings": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Adding and changing keys",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Adding and removing dictionary keys",
+        "boxes": [
+          {
+            "id": "expense",
+            "label": "expense"
+          },
+          {
+            "id": "removed",
+            "label": "removed"
+          },
+          {
+            "id": "settings",
+            "label": "settings"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The dictionaries concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Adding",
-                  "and"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Dictionaries can change by assigning to a new key.",
+            "values": {
+              "expense": "{'item': 'Tea', 'amount': 20, 'category': 'food'}",
+              "removed": "food",
+              "settings": "{}"
+            },
+            "tones": {
+              "expense": "data",
+              "removed": "idle",
+              "settings": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The remove logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "changing",
-                  "keys"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Pop gives back the value it removed from the dictionary.",
+            "values": {
+              "expense": "{'item': 'Tea', 'amount': 25}",
+              "removed": "food",
+              "settings": "{'currency': 'INR'}"
+            },
+            "tones": {
+              "expense": "data",
+              "removed": "ok",
+              "settings": "data"
+            },
+            "checks": [
+              "{'item': 'Tea', 'amount': 25, 'category': 'food'}",
+              "Removed: food",
+              "{'item': 'Tea', 'amount': 25}",
+              "{'currency': 'INR'}"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding monthly_budget stores the budget and reassigning updates it.",
+            "values": {
+              "expense": "{'item': 'Tea', 'amount': 25}",
+              "removed": "food",
+              "settings": "{'currency': 'INR', 'monthly_budget': 6000}"
+            },
+            "tones": {
+              "expense": "idle",
+              "removed": "idle",
+              "settings": "ok"
+            },
+            "whatIf": "expense = {\"item\": \"Tea\", \"amount\": 20}\nexpense[\"category\"] = \"food\"\nexpense[\"amount\"] = 25\nprint(expense)\nremoved = expense.pop(\"category\")\nprint(\"Removed:\", removed)\nprint(expense)\nsettings = {}\nsettings[\"currency\"] = \"INR\"\nprint(settings)\nsettings[\"monthly_budget\"] = 5000\nprint(settings)\nsettings[\"monthly_budget\"] = 6000\nprint(settings)",
+            "checks": [
+              "{'currency': 'INR', 'monthly_budget': 5000}",
+              "{'currency': 'INR', 'monthly_budget': 6000}"
             ]
           }
         ]
@@ -178,43 +332,104 @@
       "codeHash": "c1e82b315431dc656e766211e0c55f590d8b2d856935aa7d5ad2d7d27539ce13",
       "spec": {
         "template": "table",
-        "title": "Missing keys and get()",
+        "title": "Safe key lookup with in and get()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Lookup expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The dictionary concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Checking with in tests whether keys exist before reading.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Missing"
+                    "text": "\"tea\" in prices"
                   },
                   {
-                    "text": "keys"
+                    "out": 2
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"juice\" in prices"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The even logic drives deterministic execution.",
+            "caption": "Using get returns the value, None, or a default with no error.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "prices.get(\"coffee\")"
                   },
                   {
-                    "text": "get"
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "prices.get(\"juice\")"
+                  },
+                  {
+                    "out": 5
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "prices.get(\"juice\", 0)"
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Asking directly for a missing key with square brackets raises KeyError.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "prices.get(\"juice\", 0)"
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "prices[\"juice\"]"
+                  },
+                  {
+                    "text": "KeyError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -222,36 +437,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "Missing keys and get()",
+        "title": "Safe key lookup with in and get()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Lookup expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The dictionary concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Checking with in tests whether keys exist before reading.",
             "rows": [
               {
                 "cells": [
-                  "Missing",
-                  "keys"
+                  "\"tea\" in prices",
+                  "True"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"juice\" in prices",
+                  "False"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The even logic drives deterministic execution.",
+            "caption": "Using get returns the value, None, or a default with no error.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "get"
+                  "prices.get(\"coffee\")",
+                  "40"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "prices.get(\"juice\")",
+                  "None"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "prices.get(\"juice\", 0)",
+                  "0"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "True",
+              "False",
+              "40",
+              "None",
+              "0"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Asking directly for a missing key with square brackets raises KeyError.",
+            "rows": [
+              {
+                "cells": [
+                  "prices.get(\"juice\", 0)",
+                  "0"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "prices[\"juice\"]",
+                  "KeyError"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "prices = {\"tea\": 20, \"coffee\": 40}\nprint(\"tea\" in prices)\nprint(\"juice\" in prices)\nprint(prices.get(\"coffee\"))\nprint(prices.get(\"juice\"))\nprint(prices.get(\"juice\", 0))\nprint(prices[\"juice\"])",
+            "checks": [
+              "0",
+              "KeyError"
             ]
           }
         ]
@@ -262,40 +530,79 @@
       "codeHash": "5f1298cb1b18ca1a3d623b7857c220235024108a18b40a21ff2ab7f95a8eac8d",
       "spec": {
         "template": "table",
-        "title": "Looping over a dictionary",
+        "title": "Looping over keys, values(), and items()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Loop form",
+          "What it yields"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The loop concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Looping over prices.values() gives all prices so sum() totals them.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Looping"
+                    "text": "for name in prices:"
                   },
                   {
-                    "text": "over"
+                    "text": "Looping over a dictionary gives the keys"
                   }
                 ],
-                "tone": "data"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sum(prices.values())"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The items logic drives deterministic execution.",
+            "caption": "Calling items() gives both each key and its value on every round.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "dictionary"
+                    "text": "sum(prices.values())"
                   },
                   {
-                    "text": "over"
+                    "out": 4
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "for name, price in prices.items():"
+                  },
+                  {
+                    "text": "each key with its value"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering prices inside the loop keeps only tea and coffee.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "cost more than 18"
+                  },
+                  {
+                    "text": "tea and coffee"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +613,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "Looping over a dictionary",
+        "title": "Looping over keys, values(), and items()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Loop form",
+          "What it yields"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The loop concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Looping over prices.values() gives all prices so sum() totals them.",
             "rows": [
               {
                 "cells": [
-                  "Looping",
-                  "over"
+                  "for name in prices:",
+                  "tea, coffee, samosa"
                 ],
-                "tone": "data"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "sum(prices.values())",
+                  "75"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The items logic drives deterministic execution.",
+            "caption": "Calling items() gives both each key and its value on every round.",
             "rows": [
               {
                 "cells": [
-                  "dictionary",
-                  "over"
+                  "sum(prices.values())",
+                  "75"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "for name, price in prices.items():",
+                  "tea costs 20, coffee costs 40, samosa costs 15"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "tea",
+              "coffee",
+              "samosa",
+              "75",
+              "tea costs 20",
+              "coffee costs 40",
+              "samosa costs 15"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering prices inside the loop keeps only tea and coffee.",
+            "rows": [
+              {
+                "cells": [
+                  "if price > 18:",
+                  "tea costs 20, coffee costs 40"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "prices = {\"tea\": 20, \"coffee\": 40, \"samosa\": 15}\nfor name in prices:\n    print(name)\nprint(sum(prices.values()))\nfor name, price in prices.items():\n    if price > 18:\n        print(name, \"costs\", price)",
+            "checks": [
+              "tea costs 20",
+              "coffee costs 40"
+            ],
+            "mustNotShow": [
+              "samosa costs 15"
             ]
           }
         ]
@@ -345,81 +696,129 @@
       "partTitle": "Counting with a dictionary",
       "codeHash": "92eefd2982d6d7ee0dd3d73bdfc434bb4f0a2c0bdbddf83b55849880869e5813",
       "spec": {
-        "template": "table",
-        "title": "Counting with a dictionary",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Grouping and counting with dictionaries",
+        "boxes": [
+          {
+            "id": "totals",
+            "label": "totals"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The classic concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "data"
+            "caption": "The categories become keys and totals become values.",
+            "values": {
+              "totals": {
+                "var": "totals",
+                "line": 6
+              },
+              "counts": {
+                "text": "{}"
               }
-            ]
+            },
+            "tones": {
+              "totals": "data",
+              "counts": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The pattern logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dictionary"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Start with an empty dictionary and add each expense.",
+            "values": {
+              "totals": {
+                "var": "totals",
+                "line": 10
+              },
+              "counts": {
+                "var": "counts",
+                "line": 10
               }
-            ]
+            },
+            "tones": {
+              "totals": "data",
+              "counts": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending shopping adds its new key to both dictionaries automatically.",
+            "values": {
+              "totals": {
+                "text": "new key appears"
+              },
+              "counts": {
+                "text": "both dictionaries"
+              }
+            },
+            "tones": {
+              "totals": "ok",
+              "counts": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Counting with a dictionary",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Grouping and counting with dictionaries",
+        "boxes": [
+          {
+            "id": "totals",
+            "label": "totals"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The classic concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Counting",
-                  "with"
-                ],
-                "tone": "data"
-              }
+            "caption": "The categories become keys and totals become values.",
+            "values": {
+              "totals": "{'food': 200, 'travel': 75, 'rent': 8000}",
+              "counts": "{}"
+            },
+            "tones": {
+              "totals": "data",
+              "counts": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Start with an empty dictionary and add each expense.",
+            "values": {
+              "totals": "{'food': 200, 'travel': 75, 'rent': 8000}",
+              "counts": "{'food': 3, 'travel': 2, 'rent': 1}"
+            },
+            "tones": {
+              "totals": "data",
+              "counts": "ok"
+            },
+            "checks": [
+              "{'food': 200, 'travel': 75, 'rent': 8000}",
+              "{'food': 3, 'travel': 2, 'rent': 1}"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pattern logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "dictionary",
-                  "with"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Appending shopping adds its new key to both dictionaries automatically.",
+            "values": {
+              "totals": "{'food': 200, 'travel': 75, 'rent': 8000, 'shopping': 999}",
+              "counts": "{'food': 3, 'travel': 2, 'rent': 1, 'shopping': 1}"
+            },
+            "tones": {
+              "totals": "ok",
+              "counts": "ok"
+            },
+            "whatIf": "categories = [\"food\", \"travel\", \"food\", \"rent\", \"food\", \"travel\", \"shopping\"]\namounts = [20, 45, 120, 8000, 60, 30, 999]\ntotals = {}\nfor category, amount in zip(categories, amounts):\n    totals[category] = totals.get(category, 0) + amount\nprint(totals)\ncounts = {}\nfor category in categories:\n    counts[category] = counts.get(category, 0) + 1\nprint(counts)",
+            "checks": [
+              "{'food': 200, 'travel': 75, 'rent': 8000, 'shopping': 999}",
+              "{'food': 3, 'travel': 2, 'rent': 1, 'shopping': 1}"
             ]
           }
         ]
@@ -430,40 +829,90 @@
       "codeHash": "eb59827ca66159ef3a3dce17b50021e955dee23911014463b3b8940cc7a6caf0",
       "spec": {
         "template": "table",
-        "title": "Putting it together: one expense as a dictionary",
+        "title": "Building and formatting expense dictionaries",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The kept concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Helper functions build each expense dictionary and format a readable line.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "describe(tea)"
                   },
                   {
-                    "text": "together"
+                    "out": 9
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "describe(rent)"
+                  },
+                  {
+                    "out": 10
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "example",
+            "caption": "One slip holds every detail together, and get reads date safely.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "one"
+                    "text": "describe(tea)"
                   },
                   {
-                    "text": "expense"
+                    "out": 9
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "describe(rent)"
+                  },
+                  {
+                    "out": 10
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "tea.get(\"date\", \"no date yet\")"
+                  },
+                  {
+                    "out": 11
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Passing a date parameter adds the \"date\" key so get prints it.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tea.get(\"date\", \"no date yet\")"
+                  },
+                  {
+                    "text": "2026-09-28"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +923,84 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: one expense as a dictionary",
+        "title": "Building and formatting expense dictionaries",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The kept concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Helper functions build each expense dictionary and format a readable line.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "describe(tea)",
+                  "Tea (food): Rs 20"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "describe(rent)",
+                  "Rent (home): Rs 8000"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "example",
+            "caption": "One slip holds every detail together, and get reads date safely.",
             "rows": [
               {
                 "cells": [
-                  "one",
-                  "expense"
+                  "describe(tea)",
+                  "Tea (food): Rs 20"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "describe(rent)",
+                  "Rent (home): Rs 8000"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "tea.get(\"date\", \"no date yet\")",
+                  "no date yet"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Tea (food): Rs 20",
+              "Rent (home): Rs 8000",
+              "no date yet"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Passing a date parameter adds the \"date\" key so get prints it.",
+            "rows": [
+              {
+                "cells": [
+                  "tea.get(\"date\", \"no date yet\")",
+                  "2026-09-28"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "def make_expense(item, amount, category, date):\n    return {\"item\": item, \"amount\": amount, \"category\": category, \"date\": date}\n\ndef describe(expense):\n    return expense[\"item\"] + \" (\" + expense[\"category\"] + \"): Rs \" + str(expense[\"amount\"])\n\ntea = make_expense(\"Tea\", 20, \"food\", \"2026-09-28\")\nrent = make_expense(\"Rent\", 8000, \"home\", \"2026-09-28\")\nprint(describe(tea))\nprint(describe(rent))\nprint(tea.get(\"date\", \"no date yet\"))",
+            "checks": [
+              "Tea (food): Rs 20",
+              "Rent (home): Rs 8000",
+              "2026-09-28"
+            ],
+            "mustNotShow": [
+              "no date yet"
             ]
           }
         ]

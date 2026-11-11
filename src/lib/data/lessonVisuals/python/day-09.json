@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 9,
-  "promptSha": "dc610fb3c0d41a112dcff61f61727d53bd7c6390c79e4d94875a7d0bfbf03cdf",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "enumerate: items with their positions",
       "codeHash": "d1ad61d7a7aa8480ddf33b743f3befe88ad945f0707c70bc603a36d79c781a62",
       "spec": {
         "template": "table",
-        "title": "enumerate: items with their positions",
+        "title": "Looping with enumerate() and zip()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Loop",
+          "Output lines"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The looped concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Unpacking enumerate gives the position and item on each round.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "enumerate"
+                    "text": "enumerate(names, start=1)"
                   },
                   {
-                    "text": "items"
+                    "text": "Each round gives a position and an item"
                   }
                 ],
                 "tone": "data"
@@ -34,19 +34,47 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The default logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Both enumerate and zip pair each item with its number or amount.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "with"
+                    "text": "enumerate(names, start=1)"
                   },
                   {
-                    "text": "their"
+                    "text": "start=1 counts from 1"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "zip(names, amounts)"
+                  },
+                  {
+                    "text": "item by item"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing start=1 makes Python count positions from zero.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Remove start=1"
+                  },
+                  {
+                    "text": "starts at 0"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -54,36 +82,74 @@
       },
       "filled": {
         "template": "table",
-        "title": "enumerate: items with their positions",
+        "title": "Looping with enumerate() and zip()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Loop",
+          "Output lines"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The looped concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Unpacking enumerate gives the position and item on each round.",
             "rows": [
               {
                 "cells": [
-                  "enumerate",
-                  "items"
+                  "enumerate(names, start=1)",
+                  "1 Tea, 2 Bus, 3 Lunch"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The default logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Both enumerate and zip pair each item with its number or amount.",
             "rows": [
               {
                 "cells": [
-                  "with",
-                  "their"
+                  "enumerate(names, start=1)",
+                  "1 Tea, 2 Bus, 3 Lunch"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "zip(names, amounts)",
+                  "Tea - 20, Bus - 45, Lunch - 120"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "1 Tea",
+              "2 Bus",
+              "3 Lunch",
+              "Tea - 20",
+              "Bus - 45",
+              "Lunch - 120"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing start=1 makes Python count positions from zero.",
+            "rows": [
+              {
+                "cells": [
+                  "enumerate(names)",
+                  "0 Tea, 1 Bus, 2 Lunch"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "names = [\"Tea\", \"Bus\", \"Lunch\"]\namounts = [20, 45, 120]\nfor i, name in enumerate(names):\n    print(i, name)\nfor name, amount in zip(names, amounts):\n    print(name, \"-\", amount)",
+            "checks": [
+              "0 Tea",
+              "1 Bus",
+              "2 Lunch",
+              "Tea - 20"
+            ],
+            "mustNotShow": [
+              "3 Lunch"
             ]
           }
         ]
@@ -93,81 +159,131 @@
       "partTitle": "Building a new list with a loop",
       "codeHash": "f63dd37f23e0645f5979d642092a278c6e520aa84b524a0def1c83c3ab40f0ab",
       "spec": {
-        "template": "table",
-        "title": "Building a new list with a loop",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Transforming a list with append",
+        "boxes": [
+          {
+            "id": "prices",
+            "label": "prices"
+          },
+          {
+            "id": "with_gst",
+            "label": "with_gst"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The very concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Building"
-                  },
-                  {
-                    "text": "new"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Start with an empty list and append new values.",
+            "values": {
+              "prices": {
+                "var": "prices",
+                "line": 1
+              },
+              "with_gst": {
+                "var": "with_gst",
+                "line": 2
               }
-            ]
+            },
+            "tones": {
+              "prices": "data",
+              "with_gst": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The original logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The original list stays the same with new values.",
+            "values": {
+              "prices": {
+                "var": "prices",
+                "line": 5
+              },
+              "with_gst": {
+                "var": "with_gst",
+                "line": 5
               }
-            ]
+            },
+            "tones": {
+              "prices": "data",
+              "with_gst": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending text labels builds a matching list without changing prices.",
+            "values": {
+              "prices": {
+                "var": "prices",
+                "line": 1
+              },
+              "with_gst": {
+                "text": "['Rs 100', 'Rs 250', 'Rs 40']"
+              }
+            },
+            "tones": {
+              "prices": "data",
+              "with_gst": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Building a new list with a loop",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Transforming a list with append",
+        "boxes": [
+          {
+            "id": "prices",
+            "label": "prices"
+          },
+          {
+            "id": "with_gst",
+            "label": "with_gst"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The very concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Building",
-                  "new"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Start with an empty list and append new values.",
+            "values": {
+              "prices": "[100, 250, 40]",
+              "with_gst": "[]"
+            },
+            "tones": {
+              "prices": "data",
+              "with_gst": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The original logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "list",
-                  "with"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The original list stays the same with new values.",
+            "values": {
+              "prices": "[100, 250, 40]",
+              "with_gst": "[118.0, 295.0, 47.2]"
+            },
+            "tones": {
+              "prices": "data",
+              "with_gst": "ok"
+            },
+            "checks": [
+              "[118.0, 295.0, 47.2]",
+              "[100, 250, 40]"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending text labels builds a matching list without changing prices.",
+            "values": {
+              "prices": "[100, 250, 40]",
+              "with_gst": "['Rs 100', 'Rs 250', 'Rs 40']"
+            },
+            "tones": {
+              "prices": "data",
+              "with_gst": "ok"
+            },
+            "whatIf": "prices = [100, 250, 40]\nwith_gst = []\nfor price in prices:\n    with_gst.append(round(price * 1.18, 2))\nprint(with_gst)\nprint(prices)\nlabels = []\nfor price in prices:\n    labels.append(\"Rs \" + str(price))\nprint(labels)",
+            "checks": [
+              "[118.0, 295.0, 47.2]",
+              "['Rs 100', 'Rs 250', 'Rs 40']"
             ]
           }
         ]
@@ -177,81 +293,131 @@
       "partTitle": "List comprehensions: the one-line version",
       "codeHash": "9eeef89da26c6409cf09e9948394dd9ce7d2abd353b706f012d916c6f922aecc",
       "spec": {
-        "template": "table",
-        "title": "List comprehensions: the one-line version",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Transforming in one line",
+        "boxes": [
+          {
+            "id": "prices",
+            "label": "prices"
+          },
+          {
+            "id": "doubled",
+            "label": "doubled"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "List"
-                  },
-                  {
-                    "text": "comprehensions"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A list comprehension builds a new list in one line.",
+            "values": {
+              "prices": {
+                "var": "prices",
+                "line": 1
+              },
+              "doubled": {
+                "text": "[p * 2 for p in prices]"
               }
-            ]
+            },
+            "tones": {
+              "prices": "data",
+              "doubled": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The exactly logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "one"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The part before for is what goes into the new list.",
+            "values": {
+              "prices": {
+                "var": "prices",
+                "line": 3
+              },
+              "doubled": {
+                "var": "doubled",
+                "line": 3
               }
-            ]
+            },
+            "tones": {
+              "prices": "data",
+              "doubled": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using [len(n) for n in names] builds a new list of name lengths.",
+            "values": {
+              "prices": {
+                "var": "names",
+                "line": 4
+              },
+              "doubled": {
+                "text": "[len(n) for n in names]"
+              }
+            },
+            "tones": {
+              "prices": "data",
+              "doubled": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "List comprehensions: the one-line version",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Transforming in one line",
+        "boxes": [
+          {
+            "id": "prices",
+            "label": "prices"
+          },
+          {
+            "id": "doubled",
+            "label": "doubled"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "List",
-                  "comprehensions"
-                ],
-                "tone": "data"
-              }
+            "caption": "A list comprehension builds a new list in one line.",
+            "values": {
+              "prices": "[100, 250, 40]",
+              "doubled": "[p * 2 for p in prices]"
+            },
+            "tones": {
+              "prices": "data",
+              "doubled": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The part before for is what goes into the new list.",
+            "values": {
+              "prices": "[100, 250, 40]",
+              "doubled": "[200, 500, 80]"
+            },
+            "tones": {
+              "prices": "data",
+              "doubled": "ok"
+            },
+            "checks": [
+              "[200, 500, 80]",
+              "[118.0, 295.0, 47.2]",
+              "['TEA', 'BUS', 'LUNCH']"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The exactly logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "the",
-                  "one"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Using [len(n) for n in names] builds a new list of name lengths.",
+            "values": {
+              "prices": "['tea', 'bus', 'lunch']",
+              "doubled": "[3, 3, 5]"
+            },
+            "tones": {
+              "prices": "data",
+              "doubled": "ok"
+            },
+            "whatIf": "prices = [100, 250, 40]\ndoubled = [p * 2 for p in prices]\nwith_gst = [round(p * 1.18, 2) for p in prices]\nnames = [\"tea\", \"bus\", \"lunch\"]\nshout = [n.upper() for n in names]\nprint(doubled)\nprint(with_gst)\nprint(shout)\nprint([len(n) for n in names])",
+            "checks": [
+              "[200, 500, 80]",
+              "[3, 3, 5]"
             ]
           }
         ]
@@ -261,81 +427,132 @@
       "partTitle": "Filtering with if",
       "codeHash": "21cf44014fe07be2956f6e05077a4b52983fdaceb091e7d87aeb02b770e92039",
       "spec": {
-        "template": "table",
-        "title": "Filtering with if",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Filtering items with a comprehension",
+        "boxes": [
+          {
+            "id": "amounts",
+            "label": "amounts"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Filtering"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A list comprehension can keep only some items.",
+            "values": {
+              "amounts": {
+                "var": "amounts",
+                "line": 1
+              },
+              "big": {
+                "text": "[a for a in amounts if a > 100]"
               }
-            ]
+            },
+            "tones": {
+              "amounts": "data",
+              "big": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The change logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Filtering"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Items where the condition is False are left out.",
+            "values": {
+              "amounts": {
+                "var": "amounts",
+                "line": 3
+              },
+              "big": {
+                "var": "big",
+                "line": 3
               }
-            ]
+            },
+            "tones": {
+              "amounts": "data",
+              "big": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering amounts for even numbers keeps only matching values.",
+            "values": {
+              "amounts": {
+                "var": "amounts",
+                "line": 1
+              },
+              "big": {
+                "text": "[20, 450, 1200, 120, 60]"
+              }
+            },
+            "tones": {
+              "amounts": "data",
+              "big": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Filtering with if",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Filtering items with a comprehension",
+        "boxes": [
+          {
+            "id": "amounts",
+            "label": "amounts"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Filtering",
-                  "with"
-                ],
-                "tone": "data"
-              }
+            "caption": "A list comprehension can keep only some items.",
+            "values": {
+              "amounts": "[20, 450, 45, 1200, 120, 60]",
+              "big": "[a for a in amounts if a > 100]"
+            },
+            "tones": {
+              "amounts": "data",
+              "big": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Items where the condition is False are left out.",
+            "values": {
+              "amounts": "[20, 450, 45, 1200, 120, 60]",
+              "big": "[450, 1200, 120]"
+            },
+            "tones": {
+              "amounts": "data",
+              "big": "ok"
+            },
+            "checks": [
+              "[450, 1200, 120]",
+              "[20, 45, 60]",
+              "Big total: 1770",
+              "['Tea', 'Taxi', 'Train']"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The change logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Filtering",
-                  "with"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Filtering amounts for even numbers keeps only matching values.",
+            "values": {
+              "amounts": "[20, 450, 45, 1200, 120, 60]",
+              "big": "[20, 450, 1200, 120, 60]"
+            },
+            "tones": {
+              "amounts": "data",
+              "big": "ok"
+            },
+            "whatIf": "amounts = [20, 450, 45, 1200, 120, 60]\nbig = [a for a in amounts if a > 100]\nsmall = [a for a in amounts if a <= 100]\nprint(big)\nprint(small)\nprint(\"Big total:\", sum(big))\nnames = [\"Tea\", \"Taxi\", \"Lunch\", \"Train\"]\nprint([n for n in names if n.startswith(\"T\")])\nprint([a for a in amounts if a % 2 == 0])",
+            "checks": [
+              "Big total: 1770",
+              "[20, 450, 1200, 120, 60]"
             ]
           }
         ]
@@ -346,23 +563,23 @@
       "codeHash": "a69df296e5f0dc7819ebc60ea3365dda4cf7f4152d1287b34a11e2523592ee8f",
       "spec": {
         "template": "table",
-        "title": "When not to use a comprehension",
+        "title": "Generator expressions vs normal loops",
         "columns": [
-          "Stage",
-          "Concept"
+          "Approach",
+          "Result or output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The comprehensions concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Use a normal loop for printing instead of building a list.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "When"
+                    "text": "for a in amounts:"
                   },
                   {
-                    "text": "not"
+                    "text": "Printing is a job for a normal loop"
                   }
                 ],
                 "tone": "data"
@@ -371,15 +588,54 @@
           },
           {
             "at": "say3",
-            "caption": "The nice logic drives deterministic execution.",
+            "caption": "sum() adds amounts over 100 without building a separate list.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "use"
+                    "text": "sum(a for a in amounts if a > 100)"
                   },
                   {
-                    "text": "comprehension"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "len([a for a in amounts if a < 50])"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering the generator for amounts under 100 returns 125.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sum(a for a in amounts if a > 100)"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "amounts under 100"
+                  },
+                  {
+                    "text": "125"
                   }
                 ],
                 "tone": "ok"
@@ -390,20 +646,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "When not to use a comprehension",
+        "title": "Generator expressions vs normal loops",
         "columns": [
-          "Stage",
-          "Concept"
+          "Approach",
+          "Result or output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The comprehensions concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Use a normal loop for printing instead of building a list.",
             "rows": [
               {
                 "cells": [
-                  "When",
-                  "not"
+                  "for a in amounts:",
+                  "Check this one: 1200"
                 ],
                 "tone": "data"
               }
@@ -411,15 +667,54 @@
           },
           {
             "at": "say3",
-            "caption": "The nice logic drives deterministic execution.",
+            "caption": "sum() adds amounts over 100 without building a separate list.",
             "rows": [
               {
                 "cells": [
-                  "use",
-                  "comprehension"
+                  "sum(a for a in amounts if a > 100)",
+                  "1770"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "len([a for a in amounts if a < 50])",
+                  "2"
+                ],
+                "tone": "data"
+              }
+            ],
+            "checks": [
+              "1770",
+              "2",
+              "Check this one: 1200"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering the generator for amounts under 100 returns 125.",
+            "rows": [
+              {
+                "cells": [
+                  "sum(a for a in amounts if a > 100)",
+                  "1770"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "sum(a for a in amounts if a < 100)",
+                  "125"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "amounts = [20, 450, 45, 1200, 120, 60]\nprint(sum(a for a in amounts if a > 100))\nprint(len([a for a in amounts if a < 50]))\n# A normal loop is clearer when there are several steps\nfor a in amounts:\n    if a > 1000:\n        print(\"Check this one:\", a)\nprint(sum(a for a in amounts if a < 100))",
+            "checks": [
+              "1770",
+              "2",
+              "Check this one: 1200",
+              "125"
             ]
           }
         ]
@@ -430,40 +725,79 @@
       "codeHash": "809806a4e54adab11943021cc3bebed360a6b270665a5c15cc0d8f27f8b331df",
       "spec": {
         "template": "table",
-        "title": "Putting it together: filtered reports",
+        "title": "Filtered Expense Tracker report",
         "columns": [
-          "Stage",
-          "Concept"
+          "Filter or transform",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "Using zip with comprehensions filters big expenses and adds GST.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "[n for n, a in zip(names, amounts) if a > 100]"
                   },
                   {
-                    "text": "together"
+                    "out": 6
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "[round(a * 1.18) for a in amounts]"
+                  },
+                  {
+                    "out": 7
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The comprehensions logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Keeping names where amount exceeds 100 collects Rent and Groceries.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "filtered"
+                    "text": "zip(names, amounts)"
                   },
                   {
-                    "text": "reports"
+                    "text": "unpack each pair"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "big_names"
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raising the filter limit leaves only Rent inside the Big list.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "100 to 5000"
+                  },
+                  {
+                    "text": "only Rent is left"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +808,79 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: filtered reports",
+        "title": "Filtered Expense Tracker report",
         "columns": [
-          "Stage",
-          "Concept"
+          "Filter or transform",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "Using zip with comprehensions filters big expenses and adds GST.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "big_names (a > 100)",
+                  "Big: ['Rent', 'Groceries']"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "with GST",
+                  "With GST: [24, 9440, 53, 1770]"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The comprehensions logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Keeping names where amount exceeds 100 collects Rent and Groceries.",
             "rows": [
               {
                 "cells": [
-                  "filtered",
-                  "reports"
+                  "zip(names, amounts)",
+                  "Tea 20, Rent 8000, Bus 45, Groceries 1500"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "big_names",
+                  "Big: ['Rent', 'Groceries']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "1. Tea 20",
+              "2. Rent 8000",
+              "3. Bus 45",
+              "4. Groceries 1500",
+              "Big: ['Rent', 'Groceries']",
+              "With GST: [24, 9440, 53, 1770]"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raising the filter limit leaves only Rent inside the Big list.",
+            "rows": [
+              {
+                "cells": [
+                  "if a > 5000",
+                  "Big: ['Rent']"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "names = [\"Tea\", \"Rent\", \"Bus\", \"Groceries\"]\namounts = [20, 8000, 45, 1500]\nfor i, (name, amount) in enumerate(zip(names, amounts), start=1):\n    print(str(i) + \".\", name, amount)\nbig_names = [n for n, a in zip(names, amounts) if a > 5000]\nprint(\"Big:\", big_names)\nprint(\"With GST:\", [round(a * 1.18) for a in amounts])",
+            "checks": [
+              "Big: ['Rent']",
+              "With GST: [24, 9440, 53, 1770]"
+            ],
+            "mustNotShow": [
+              "Big: ['Rent', 'Groceries']"
             ]
           }
         ]

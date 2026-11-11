@@ -400,14 +400,20 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "while loops, and how to avoid endless loops."
     ],
     eTitle: "Add Them Up",
-    eDesc: "Add up all numbers in a list using a for loop and the accumulator pattern! Create amounts = [20, 45, 100] and print the sum (165). (Or define a function total(amounts)).",
+    eDesc: "Add up all numbers in a list using a for loop and the accumulator pattern! Create amounts = [20, 45, 100] and print the sum (165).",
     eStarter: lines(
       'amounts = [20, 45, 100]',
       'result = 0',
       '# Loop over amounts, add each to result, and print result below',
       ''
     ),
-    eHint: 'for amount in amounts:\\n    result = result + amount\\nprint(result)',
+    eHint: lines(
+      'amounts = [20, 45, 100]',
+      'result = 0',
+      'for amount in amounts:',
+      '    result = result + amount',
+      'print(result)'
+    ),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -434,7 +440,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Count the Big Ones",
-    aDesc: "Count how many amounts are greater than a limit using a for loop and an if! Create amounts = [100, 500, 1200, 50] and limit = 400, and print the count (2). (Or define a function count_above(amounts, limit)).",
+    aDesc: "Count how many amounts are greater than a limit using a for loop and an if! Create amounts = [100, 500, 1200, 50] and limit = 400, and print the count (2).",
     aStarter: lines(
       'amounts = [100, 500, 1200, 50]',
       'limit = 400',
@@ -442,7 +448,15 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       '# Loop over amounts, add 1 to count if amount > limit, and print count below',
       ''
     ),
-    aHint: 'for amount in amounts:\\n    if amount > limit:\\n        count = count + 1\\nprint(count)',
+    aHint: lines(
+      'amounts = [100, 500, 1200, 50]',
+      'limit = 400',
+      'count = 0',
+      'for amount in amounts:',
+      '    if amount > limit:',
+      '        count = count + 1',
+      'print(count)'
+    ),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -480,7 +494,12 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Average",
     eDesc: "Write `average(numbers)` that returns the average of the list rounded to 2 places, or 0 for an empty list.",
     eStarter: lines("def average(numbers):", "    # Handle the empty list first", "    pass"),
-    eHint: "if not numbers: return 0. Otherwise return round(sum(numbers) / len(numbers), 2)",
+    eHint: lines(
+      "def average(numbers):",
+      "    if len(numbers) == 0:",
+      "        return 0",
+      "    return round(sum(numbers) / len(numbers), 2)"
+    ),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -510,7 +529,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Greeting With a Default",
     aDesc: "Write `greet(name, greeting='Hello')` that returns text like `'Hello, Asha!'`. If a greeting is given, use it instead.",
     aStarter: lines("def greet(name, greeting='Hello'):", "    # Join greeting, ', ', name and '!'", "    pass"),
-    aHint: "return greeting + ', ' + name + '!'",
+    aHint: lines(
+      "def greet(name, greeting='Hello'):",
+      "    return greeting + ', ' + name + '!'"
+    ),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -550,7 +572,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "First and Last",
     eDesc: "Write `first_and_last(items)` that returns a new list with the first and the last item.",
     eStarter: lines("def first_and_last(items):", "    # items[0] is the first item, items[-1] is the last item", "    pass"),
-    eHint: "return [items[0], items[-1]]",
+    eHint: lines(
+      "def first_and_last(items):",
+      "    return [items[0], items[-1]]"
+    ),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -579,7 +604,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Add Without Changing",
     aDesc: "Write `add_item(items, item)` that returns a NEW list with the item at the end. The original list must not change.",
     aStarter: lines("def add_item(items, item):", "    # items + [item] makes a new list without changing items", "    pass"),
-    aHint: "return items + [item]",
+    aHint: lines(
+      "def add_item(items, item):",
+      "    return items + [item]"
+    ),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -617,7 +645,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Double Everything",
     eDesc: "Write `double_all(numbers)` that returns a new list with every number doubled, using a list comprehension (or a for loop).",
     eStarter: lines("def double_all(numbers):", "    # [n * 2 for n in numbers] (or build a new list with a for loop)", "    pass"),
-    eHint: "return [n * 2 for n in numbers]",
+    eHint: lines(
+      "def double_all(numbers):",
+      "    return [n * 2 for n in numbers]"
+    ),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -646,7 +677,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Only the Big Ones",
     aDesc: "Write `above(numbers, limit)` that returns a new list with only the numbers greater than the limit.",
     aStarter: lines("def above(numbers, limit):", "    # [n for n in numbers if n > limit] (or use a for loop)", "    pass"),
-    aHint: "return [n for n in numbers if n > limit]",
+    aHint: lines(
+      "def above(numbers, limit):",
+      "    return [n for n in numbers if n > limit]"
+    ),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -684,7 +718,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Make an Expense",
     eDesc: "Write `make_expense(item, amount, category)` that returns a dictionary with the keys `'item'`, `'amount'` and `'category'`.",
     eStarter: lines("def make_expense(item, amount, category):", "    # return {'item': item, 'amount': amount, 'category': category}", "    pass"),
-    eHint: "return {'item': item, 'amount': amount, 'category': category}",
+    eHint: lines(
+      "def make_expense(item, amount, category):",
+      "    return {'item': item, 'amount': amount, 'category': category}"
+    ),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -713,7 +750,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Price Lookup",
     aDesc: "Write `price_of(prices, item)` that returns the item's price from the dictionary, or 0 if the item is not there.",
     aStarter: lines("def price_of(prices, item):", "    # Use prices.get(item, 0) or check if item in prices", "    pass"),
-    aHint: "return prices.get(item, 0)",
+    aHint: lines(
+      "def price_of(prices, item):",
+      "    return prices.get(item, 0)"
+    ),
     aTest: lines(
       "prices = {'tea': 20, 'coffee': 40}",
       "_fn = globals().get('price_of')",

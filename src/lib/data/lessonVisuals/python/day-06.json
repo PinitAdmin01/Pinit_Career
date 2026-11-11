@@ -2,88 +2,138 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 6,
-  "promptSha": "aac70656054b3115a93b0410ba3ab0d235b8b44e76f00e8f6c34abcc74e9e313",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "Why we need loops",
       "codeHash": "f6f6247b9b5aedd0f35faed6961ca8d1caefd6250880818ef8ac2870e8f2747d",
       "spec": {
-        "template": "table",
-        "title": "Why we need loops",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Iterating through expenses",
+        "boxes": [
+          {
+            "id": "amount",
+            "label": "amount"
+          },
+          {
+            "id": "expenses",
+            "label": "expenses"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The imagine concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Why"
-                  },
-                  {
-                    "text": "need"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A for loop goes through each value one at a time.",
+            "values": {
+              "amount": {
+                "var": "amount",
+                "line": 2
+              },
+              "expenses": {
+                "text": "[20, 45, 120]"
               }
-            ]
+            },
+            "tones": {
+              "amount": "data",
+              "expenses": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The something logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "loops"
-                  },
-                  {
-                    "text": "need"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Indented lines underneath repeat for every value.",
+            "values": {
+              "amount": {
+                "var": "amount",
+                "line": 3
+              },
+              "expenses": {
+                "text": "[20, 45, 120]"
               }
-            ]
+            },
+            "tones": {
+              "amount": "ok",
+              "expenses": "idle"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding two more numbers like 300 makes the loop print five lines.",
+            "values": {
+              "expenses": {
+                "text": "60"
+              },
+              "amount": {
+                "text": "300"
+              }
+            },
+            "tones": {
+              "expenses": "data",
+              "amount": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Why we need loops",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Iterating through expenses",
+        "boxes": [
+          {
+            "id": "amount",
+            "label": "amount"
+          },
+          {
+            "id": "expenses",
+            "label": "expenses"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The imagine concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Why",
-                  "need"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "A for loop goes through each value one at a time.",
+            "values": {
+              "amount": "20",
+              "expenses": "[20, 45, 120]"
+            },
+            "tones": {
+              "amount": "data",
+              "expenses": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Indented lines underneath repeat for every value.",
+            "values": {
+              "amount": "20",
+              "expenses": "[20, 45, 120]"
+            },
+            "tones": {
+              "amount": "ok",
+              "expenses": "idle"
+            },
+            "checks": [
+              "Expense: 20",
+              "Expense: 45",
+              "Expense: 120",
+              "Done"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The something logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "loops",
-                  "need"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Adding two more numbers like 300 makes the loop print five lines.",
+            "values": {
+              "expenses": "[20, 45, 120, 60, 300]",
+              "amount": "300"
+            },
+            "tones": {
+              "expenses": "data",
+              "amount": "ok"
+            },
+            "whatIf": "expenses = [20, 45, 120, 60, 300]\nfor amount in expenses:\n    print(\"Expense:\", amount)\nprint(\"Done\")",
+            "checks": [
+              "Expense: 60",
+              "Expense: 300",
+              "Done"
             ]
           }
         ]
@@ -96,21 +146,21 @@
         "template": "table",
         "title": "Looping over text and range()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Loop",
+          "Produced values"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The loop concept establishes the core structural baseline.",
+            "caption": "Looping over a string produces one character at a time.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Looping"
+                    "text": "for letter in \"Tea\":"
                   },
                   {
-                    "text": "over"
+                    "text": "letter"
                   }
                 ],
                 "tone": "data"
@@ -119,15 +169,43 @@
           },
           {
             "at": "say3",
-            "caption": "The range logic drives deterministic execution.",
+            "caption": "range(1, 4) stops before 4 while range(0, 20, 5) jumps by 5.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "text"
+                    "text": "for day in range(1, 4):"
                   },
                   {
-                    "text": "and"
+                    "out": 4
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "for n in range(0, 20, 5):"
+                  },
+                  {
+                    "out": 7
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using range() for a times table repeats the indented print line.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "for i in range(1, 11):"
+                  },
+                  {
+                    "text": "print(7, \"x\", i, \"=\", 7 * i)"
                   }
                 ],
                 "tone": "ok"
@@ -140,34 +218,73 @@
         "template": "table",
         "title": "Looping over text and range()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Loop",
+          "Produced values"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The loop concept establishes the core structural baseline.",
+            "caption": "Looping over a string produces one character at a time.",
             "rows": [
               {
                 "cells": [
-                  "Looping",
-                  "over"
+                  "for letter in \"Tea\":",
+                  "T, e, a"
                 ],
                 "tone": "data"
               }
+            ],
+            "checks": [
+              "T",
+              "e",
+              "a"
             ]
           },
           {
             "at": "say3",
-            "caption": "The range logic drives deterministic execution.",
+            "caption": "range(1, 4) stops before 4 while range(0, 20, 5) jumps by 5.",
             "rows": [
               {
                 "cells": [
-                  "text",
-                  "and"
+                  "for day in range(1, 4):",
+                  "Day 1, Day 2, Day 3"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "for n in range(0, 20, 5):",
+                  "0, 5, 10, 15"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Day 1",
+              "Day 2",
+              "Day 3",
+              "0",
+              "5",
+              "10",
+              "15"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using range() for a times table repeats the indented print line.",
+            "rows": [
+              {
+                "cells": [
+                  "for i in range(1, 11):",
+                  "7 x 1 = 7 ... 7 x 10 = 70"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "for i in range(1, 11):\n    print(7, \"x\", i, \"=\", 7 * i)",
+            "checks": [
+              "7 x 1 = 7",
+              "7 x 10 = 70"
             ]
           }
         ]
@@ -177,81 +294,130 @@
       "partTitle": "The accumulator pattern: running totals",
       "codeHash": "e33cb13ad77ae6d0d2f4e143a9be6fa9c17979b87d0a78ed16045e5486e0aaae",
       "spec": {
-        "template": "table",
-        "title": "The accumulator pattern: running totals",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Accumulator totals and counts",
+        "boxes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The useful concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "accumulator"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Start a variable before the loop and add to it each time.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 2
+              },
+              "big": {
+                "var": "big",
+                "line": 3
               }
-            ]
+            },
+            "tones": {
+              "total": "data",
+              "big": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The pattern logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pattern"
-                  },
-                  {
-                    "text": "running"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Count only the values you care about inside the loop.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 8
+              },
+              "big": {
+                "var": "big",
+                "line": 9
               }
-            ]
+            },
+            "tones": {
+              "total": "data",
+              "big": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Moving total = 0 inside the loop resets it so only 60 remains.",
+            "values": {
+              "total": {
+                "text": "60"
+              },
+              "big": {
+                "var": "big",
+                "line": 9
+              }
+            },
+            "tones": {
+              "total": "error",
+              "big": "idle"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The accumulator pattern: running totals",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Accumulator totals and counts",
+        "boxes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The useful concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "The",
-                  "accumulator"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Start a variable before the loop and add to it each time.",
+            "values": {
+              "total": "0",
+              "big": "0"
+            },
+            "tones": {
+              "total": "data",
+              "big": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The pattern logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "pattern",
-                  "running"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Count only the values you care about inside the loop.",
+            "values": {
+              "total": "545",
+              "big": "2"
+            },
+            "tones": {
+              "total": "data",
+              "big": "ok"
+            },
+            "checks": [
+              "Total: 545",
+              "Expenses over 100: 2"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Moving total = 0 inside the loop resets it so only 60 remains.",
+            "values": {
+              "total": "60",
+              "big": "2"
+            },
+            "tones": {
+              "total": "error",
+              "big": "idle"
+            },
+            "whatIf": "expenses = [20, 45, 120, 300, 60]\nbig = 0\nfor amount in expenses:\n    total = 0\n    total = total + amount\n    if amount > 100:\n        big = big + 1\nprint(\"Total:\", total)\nprint(\"Expenses over 100:\", big)",
+            "checks": [
+              "Total: 60"
             ]
           }
         ]
@@ -261,81 +427,130 @@
       "partTitle": "while loops",
       "codeHash": "dc5b680482ca0f8ccffa1a47a69b64a02b3350b392c4959dc31f2aeb65968d5e",
       "spec": {
-        "template": "table",
-        "title": "while loops",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Tracking while loop progress",
+        "boxes": [
+          {
+            "id": "savings",
+            "label": "savings"
+          },
+          {
+            "id": "months",
+            "label": "months"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The loop concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "while"
-                  },
-                  {
-                    "text": "loops"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A while loop repeats as long as a condition is True.",
+            "values": {
+              "savings": {
+                "var": "savings",
+                "line": 1
+              },
+              "months": {
+                "var": "months",
+                "line": 2
               }
-            ]
+            },
+            "tones": {
+              "savings": "data",
+              "months": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The danger logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "while"
-                  },
-                  {
-                    "text": "loops"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The loop works out how many months are needed.",
+            "values": {
+              "savings": {
+                "var": "savings",
+                "line": 6
+              },
+              "months": {
+                "var": "months",
+                "line": 6
               }
-            ]
+            },
+            "tones": {
+              "savings": "ok",
+              "months": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raising the monthly saving above 500 reaches 3500 in 5 months.",
+            "values": {
+              "savings": {
+                "text": "3500"
+              },
+              "months": {
+                "text": "5 months"
+              }
+            },
+            "tones": {
+              "savings": "ok",
+              "months": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "while loops",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Tracking while loop progress",
+        "boxes": [
+          {
+            "id": "savings",
+            "label": "savings"
+          },
+          {
+            "id": "months",
+            "label": "months"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The loop concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "while",
-                  "loops"
-                ],
-                "tone": "data"
-              }
+            "caption": "A while loop repeats as long as a condition is True.",
+            "values": {
+              "savings": "0",
+              "months": "0"
+            },
+            "tones": {
+              "savings": "data",
+              "months": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The loop works out how many months are needed.",
+            "values": {
+              "savings": "3000",
+              "months": "6"
+            },
+            "tones": {
+              "savings": "ok",
+              "months": "ok"
+            },
+            "checks": [
+              "Months needed: 6",
+              "Saved: 3000"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The danger logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "while",
-                  "loops"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Raising the monthly saving above 500 reaches 3500 in 5 months.",
+            "values": {
+              "savings": "3500",
+              "months": "5"
+            },
+            "tones": {
+              "savings": "ok",
+              "months": "data"
+            },
+            "whatIf": "savings = 0\nmonths = 0\nwhile savings < 3000:\n    savings = savings + 700\n    months = months + 1\nprint(\"Months needed:\", months)\nprint(\"Saved:\", savings)",
+            "checks": [
+              "Months needed: 5",
+              "Saved: 3500"
             ]
           }
         ]
@@ -346,40 +561,68 @@
       "codeHash": "acd2033e36cafcffb7bb26408e92b8089e74c4c606670f63375d5b90983ce832",
       "spec": {
         "template": "table",
-        "title": "break and continue",
+        "title": "Control flow: continue and break",
         "columns": [
-          "Stage",
-          "Concept"
+          "Condition",
+          "Effect"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "caption": "When amount is over 500, break stops the loop immediately.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "break"
+                    "text": "if amount > 500:"
                   },
                   {
-                    "text": "and"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The both logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "continue skips 0 and negative amounts and jumps to the next value.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "continue"
+                    "text": "if amount <= 0:"
                   },
                   {
-                    "text": "and"
+                    "text": "continue"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "total = total + amount"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Lowering 900 below 500 skips break so total reaches 305 across all items.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Change 900 to 90"
+                  },
+                  {
+                    "text": "305"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +633,76 @@
       },
       "filled": {
         "template": "table",
-        "title": "break and continue",
+        "title": "Control flow: continue and break",
         "columns": [
-          "Stage",
-          "Concept"
+          "Condition",
+          "Effect"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "caption": "When amount is over 500, break stops the loop immediately.",
             "rows": [
               {
                 "cells": [
-                  "break",
-                  "and"
+                  "amount = 900 (> 500)",
+                  "Found a large expense: 900 -> break"
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "amount = 30 (after 900)",
+                  "Skipped because loop stopped"
+                ],
+                "tone": "idle"
               }
+            ],
+            "checks": [
+              "Found a large expense: 900"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The both logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "continue skips 0 and negative amounts and jumps to the next value.",
             "rows": [
               {
                 "cells": [
-                  "continue",
-                  "and"
+                  "amount = 0 or -5 (<= 0)",
+                  "continue (skip without adding)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "20 + 45 + 120",
+                  "Total before the large one: 185"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Total before the large one: 185"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Lowering 900 below 500 skips break so total reaches 305 across all items.",
+            "rows": [
+              {
+                "cells": [
+                  "amount = 90 (no break)",
+                  "305"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "expenses = [20, 0, 45, -5, 120, 90, 30]\ntotal = 0\nfor amount in expenses:\n    if amount <= 0:\n        continue\n    if amount > 500:\n        print(\"Found a large expense:\", amount)\n        break\n    total = total + amount\nprint(\"Total before the large one:\", total)",
+            "checks": [
+              "Total before the large one: 305"
+            ],
+            "mustNotShow": [
+              "Found a large expense"
             ]
           }
         ]
@@ -429,81 +712,130 @@
       "partTitle": "Putting it together: a spending report",
       "codeHash": "0939a8968a275e541533384290ebe984f8886c7f542f3323d55d5ac965544ae6",
       "spec": {
-        "template": "table",
-        "title": "Putting it together: a spending report",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Spending report summary",
+        "boxes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "largest",
+            "label": "largest"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Putting"
-                  },
-                  {
-                    "text": "together"
-                  }
-                ],
-                "tone": "data"
+            "caption": "We have a list of amounts and want a small report.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 3
+              },
+              "largest": {
+                "var": "largest",
+                "line": 4
               }
-            ]
+            },
+            "tones": {
+              "total": "data",
+              "largest": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "spending"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Keep the biggest seen so far and replace it when bigger.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 11
+              },
+              "largest": {
+                "var": "largest",
+                "line": 11
               }
-            ]
+            },
+            "tones": {
+              "total": "data",
+              "largest": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a small counter before the loop tracks amounts like 20 and 45.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 11
+              },
+              "largest": {
+                "text": "2"
+              }
+            },
+            "tones": {
+              "total": "idle",
+              "largest": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Putting it together: a spending report",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Spending report summary",
+        "boxes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "largest",
+            "label": "largest"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Putting",
-                  "together"
-                ],
-                "tone": "data"
-              }
+            "caption": "We have a list of amounts and want a small report.",
+            "values": {
+              "total": "0",
+              "largest": "0"
+            },
+            "tones": {
+              "total": "data",
+              "largest": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Keep the biggest seen so far and replace it when bigger.",
+            "values": {
+              "total": "545",
+              "largest": "300"
+            },
+            "tones": {
+              "total": "data",
+              "largest": "ok"
+            },
+            "checks": [
+              "Total: 545",
+              "Largest: 300"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "spending",
-                  "report"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Adding a small counter before the loop tracks amounts like 20 and 45.",
+            "values": {
+              "total": "545",
+              "largest": "300 (small=2)"
+            },
+            "tones": {
+              "total": "idle",
+              "largest": "ok"
+            },
+            "whatIf": "expenses = [20, 45, 120, 300, 60]\nnumber = 0\ntotal = 0\nlargest = 0\nfor amount in expenses:\n    number += 1\n    total += amount\n    if amount > largest:\n        largest = amount\n    print(str(number) + \". Rs\", amount)\nprint(\"Total:\", total)\nprint(\"Largest:\", largest)\nsmall = 0\nfor amount in expenses:\n    if amount < 50:\n        small += 1\nprint(small)",
+            "checks": [
+              "2"
             ]
           }
         ]

@@ -2,88 +2,141 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 8,
-  "promptSha": "9ef92365b9fe138cc90376c5f4c55113eedbf957507f386e0731729deef1bda8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "Creating a list and reading items",
       "codeHash": "3d3c57fcf3a86c508dcd8e5345f16cbcf0b4914fa689e1f07ae0d7d96eeccf50",
       "spec": {
-        "template": "table",
-        "title": "Creating a list and reading items",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Reading items from a list",
+        "boxes": [
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Creating"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A list is written with square brackets and commas.",
+            "values": {
+              "items": {
+                "var": "items",
+                "line": 1
+              },
+              "item": {
+                "text": "Tea"
               }
-            ]
+            },
+            "tones": {
+              "items": "data",
+              "item": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The read logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "reading"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The index reads an item by its position.",
+            "values": {
+              "items": {
+                "var": "items",
+                "line": 1
+              },
+              "item": {
+                "text": "Movie"
               }
-            ]
+            },
+            "tones": {
+              "items": "data",
+              "item": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking position 1 gives Bus and counting back gives Lunch.",
+            "values": {
+              "items": {
+                "var": "items",
+                "line": 1
+              },
+              "item": {
+                "text": "Lunch"
+              }
+            },
+            "tones": {
+              "items": "data",
+              "item": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Creating a list and reading items",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Reading items from a list",
+        "boxes": [
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Creating",
-                  "list"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "A list is written with square brackets and commas.",
+            "values": {
+              "items": "['Tea', 'Bus', 'Lunch', 'Movie']",
+              "item": "Tea"
+            },
+            "tones": {
+              "items": "data",
+              "item": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The read logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "reading"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The index reads an item by its position.",
+            "values": {
+              "items": "['Tea', 'Bus', 'Lunch', 'Movie']",
+              "item": "Movie"
+            },
+            "tones": {
+              "items": "data",
+              "item": "ok"
+            },
+            "checks": [
+              "['Tea', 'Bus', 'Lunch', 'Movie']",
+              "Tea",
+              "Movie",
+              "4"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking position 1 gives Bus and counting back gives Lunch.",
+            "values": {
+              "items": "['Tea', 'Bus', 'Lunch', 'Movie']",
+              "item": "Lunch"
+            },
+            "tones": {
+              "items": "data",
+              "item": "ok"
+            },
+            "whatIf": "items = [\"Tea\", \"Bus\", \"Lunch\", \"Movie\"]\nprint(items)\nprint(items[0])\nprint(items[-1])\nprint(len(items))\nprint(items[len(items) - 1])\nprint(items[1])\nprint(items[-2])",
+            "checks": [
+              "Tea",
+              "Movie",
+              "4",
+              "Bus",
+              "Lunch"
             ]
           }
         ]
@@ -93,81 +146,133 @@
       "partTitle": "Changing a list: append, insert, remove",
       "codeHash": "38738733979e399f0b2e9f2f917462c7a15371cfe7bb8dad32ec5c5be8930a26",
       "spec": {
-        "template": "table",
-        "title": "Changing a list: append, insert, remove",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Modifying lists with methods",
+        "boxes": [
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "last",
+            "label": "last"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The lists concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Changing"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Append adds an item to the end of the list.",
+            "values": {
+              "items": {
+                "var": "items",
+                "line": 2
+              },
+              "last": {
+                "text": "Lunch"
               }
-            ]
+            },
+            "tones": {
+              "items": "data",
+              "last": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The remove logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "append"
-                  },
-                  {
-                    "text": "insert"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The pop method removes and returns the last item.",
+            "values": {
+              "items": {
+                "var": "items",
+                "line": 9
+              },
+              "last": {
+                "var": "last",
+                "line": 9
               }
-            ]
+            },
+            "tones": {
+              "items": "data",
+              "last": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Trying to remove \"Pizza\" raises a ValueError when absent.",
+            "values": {
+              "items": {
+                "var": "items",
+                "line": 9
+              },
+              "last": {
+                "text": "ValueError"
+              }
+            },
+            "tones": {
+              "items": "data",
+              "last": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Changing a list: append, insert, remove",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Modifying lists with methods",
+        "boxes": [
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "last",
+            "label": "last"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The lists concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Changing",
-                  "list"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Append adds an item to the end of the list.",
+            "values": {
+              "items": "['Tea', 'Bus', 'Lunch']",
+              "last": "Lunch"
+            },
+            "tones": {
+              "items": "data",
+              "last": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The remove logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "append",
-                  "insert"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The pop method removes and returns the last item.",
+            "values": {
+              "items": "['Breakfast', 'Masala tea']",
+              "last": "Lunch"
+            },
+            "tones": {
+              "items": "data",
+              "last": "ok"
+            },
+            "checks": [
+              "['Tea', 'Bus', 'Lunch']",
+              "['Breakfast', 'Tea', 'Bus', 'Lunch']",
+              "['Breakfast', 'Masala tea', 'Lunch']",
+              "Removed: Lunch",
+              "['Breakfast', 'Masala tea']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Trying to remove \"Pizza\" raises a ValueError when absent.",
+            "values": {
+              "items": "['Breakfast', 'Masala tea']",
+              "last": "ValueError"
+            },
+            "tones": {
+              "items": "data",
+              "last": "error"
+            },
+            "whatIf": "items = [\"Tea\", \"Bus\"]\nitems.append(\"Lunch\")\nprint(items)\nitems.insert(0, \"Breakfast\")\nprint(items)\nitems.remove(\"Bus\")\nitems[1] = \"Masala tea\"\nprint(items)\nlast = items.pop()\nprint(\"Removed:\", last)\nprint(items)\nitems.remove(\"Pizza\")",
+            "checks": [
+              "Removed: Lunch",
+              "ValueError"
             ]
           }
         ]
@@ -178,40 +283,101 @@
       "codeHash": "d017be54727f353dc8db81fd0cbe8039ed21304716262333bd499f515d616bb1",
       "spec": {
         "template": "table",
-        "title": "Checking and searching: in, count, index",
+        "title": "Searching, counting, and sorting amounts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The whether concept establishes the core structural baseline.",
+            "caption": "Using in asks whether a value is in the list and gives True or False.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Checking"
+                    "text": "20 in amounts"
                   },
                   {
-                    "text": "and"
+                    "out": 2
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "999 in amounts"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The already logic drives deterministic execution.",
+            "caption": "sorted returns a new ordered list while amounts keeps its original order.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "searching"
+                    "text": "amounts.count(20)"
                   },
                   {
-                    "text": "count"
+                    "out": 4
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted(amounts)"
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "amounts"
+                  },
+                  {
+                    "out": 8
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Slicing sorted in reverse gives the three biggest amounts.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sorted(amounts, reverse=True)"
+                  },
+                  {
+                    "out": 7
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted(amounts, reverse=True)[:3]"
+                  },
+                  {
+                    "text": "three biggest amounts"
                   }
                 ],
                 "tone": "ok"
@@ -222,36 +388,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "Checking and searching: in, count, index",
+        "title": "Searching, counting, and sorting amounts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The whether concept establishes the core structural baseline.",
+            "caption": "Using in asks whether a value is in the list and gives True or False.",
             "rows": [
               {
                 "cells": [
-                  "Checking",
-                  "and"
+                  "20 in amounts",
+                  "True"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "999 in amounts",
+                  "False"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The already logic drives deterministic execution.",
+            "caption": "sorted returns a new ordered list while amounts keeps its original order.",
             "rows": [
               {
                 "cells": [
-                  "searching",
-                  "count"
+                  "amounts.count(20)",
+                  "2"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "sorted(amounts)",
+                  "[20, 20, 45, 120, 300]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "amounts",
+                  "[120, 20, 45, 20, 300]"
+                ],
+                "tone": "idle"
+              }
+            ],
+            "checks": [
+              "True",
+              "False",
+              "2",
+              "[20, 20, 45, 120, 300]",
+              "[120, 20, 45, 20, 300]"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Slicing sorted in reverse gives the three biggest amounts.",
+            "rows": [
+              {
+                "cells": [
+                  "sorted(amounts, reverse=True)",
+                  "[300, 120, 45, 20, 20]"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "sorted(amounts, reverse=True)[:3]",
+                  "[300, 120, 45]"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "amounts = [120, 20, 45, 20, 300]\nprint(20 in amounts)\nprint(999 in amounts)\nprint(amounts.count(20))\nprint(amounts.index(45))\nprint(sorted(amounts))\nprint(sorted(amounts, reverse=True))\nprint(amounts)\nprint(sorted(amounts, reverse=True)[:3])",
+            "checks": [
+              "[300, 120, 45, 20, 20]",
+              "[300, 120, 45]"
             ]
           }
         ]
@@ -261,81 +480,132 @@
       "partTitle": "Slicing lists",
       "codeHash": "7303ef45c1c6fba895f58955a7f9983137e52c6a2613a89dda072bbb84fb2c8e",
       "spec": {
-        "template": "table",
-        "title": "Slicing lists",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Slicing portions of a list",
+        "boxes": [
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "recent",
+            "label": "recent"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The slicing concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Slicing"
-                  },
-                  {
-                    "text": "lists"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Slicing gives a new list with items from start to stop.",
+            "values": {
+              "history": {
+                "var": "history",
+                "line": 1
+              },
+              "recent": {
+                "text": "history[:3]"
               }
-            ]
+            },
+            "tones": {
+              "history": "data",
+              "recent": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The slice logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Slicing"
-                  },
-                  {
-                    "text": "lists"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Changing the slice does not change the original list.",
+            "values": {
+              "history": {
+                "var": "history",
+                "line": 6
+              },
+              "recent": {
+                "var": "recent",
+                "line": 6
               }
-            ]
+            },
+            "tones": {
+              "history": "data",
+              "recent": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Indexing the first and last items builds a new list with 20 and 90.",
+            "values": {
+              "history": {
+                "var": "history",
+                "line": 1
+              },
+              "recent": {
+                "text": "[history[0], history[-1]]"
+              }
+            },
+            "tones": {
+              "history": "data",
+              "recent": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Slicing lists",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Slicing portions of a list",
+        "boxes": [
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "recent",
+            "label": "recent"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The slicing concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Slicing",
-                  "lists"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Slicing gives a new list with items from start to stop.",
+            "values": {
+              "history": "[20, 45, 120, 300, 60, 90]",
+              "recent": "history[:3]"
+            },
+            "tones": {
+              "history": "data",
+              "recent": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The slice logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Slicing",
-                  "lists"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Changing the slice does not change the original list.",
+            "values": {
+              "history": "[20, 45, 120, 300, 60, 90]",
+              "recent": "[300, 60, 90]"
+            },
+            "tones": {
+              "history": "data",
+              "recent": "ok"
+            },
+            "checks": [
+              "[20, 45, 120]",
+              "[60, 90]",
+              "[45, 120, 300]",
+              "Recent total: 450"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Indexing the first and last items builds a new list with 20 and 90.",
+            "values": {
+              "history": "[20, 45, 120, 300, 60, 90]",
+              "recent": "[20, 90]"
+            },
+            "tones": {
+              "history": "data",
+              "recent": "ok"
+            },
+            "whatIf": "history = [20, 45, 120, 300, 60, 90]\nprint(history[:3])\nprint(history[-2:])\nprint(history[1:4])\nprint(history[:100])\nrecent = history[-3:]\nprint(\"Recent total:\", sum(recent))\nprint([history[0], history[-1]])",
+            "checks": [
+              "Recent total: 450",
+              "[20, 90]"
             ]
           }
         ]
@@ -345,81 +615,189 @@
       "partTitle": "Copies and the \"same list\" trap",
       "codeHash": "75060fc705a172a7621b9df7cbecb51b27557a0b57a13bb8251ca4213913cddb",
       "spec": {
-        "template": "table",
-        "title": "Copies and the \"same list\" trap",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Same list label vs true copy",
+        "boxes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The trap concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Copies"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Writing b = a sticks a second label onto the same list.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 3
+              },
+              "b": {
+                "var": "b",
+                "line": 3
+              },
+              "c": {
+                "text": "a.copy()"
+              },
+              "d": {
+                "text": "a + [\"Snacks\"]"
               }
-            ]
+            },
+            "tones": {
+              "a": "error",
+              "b": "error",
+              "c": "idle",
+              "d": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "same"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Using copy or + creates separate lists without changing a.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 10
+              },
+              "b": {
+                "var": "b",
+                "line": 10
+              },
+              "c": {
+                "var": "c",
+                "line": 10
+              },
+              "d": {
+                "var": "d",
+                "line": 10
               }
-            ]
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "c": "ok",
+              "d": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Making b a separate copy keeps only Tea and Bus in a.",
+            "values": {
+              "a": {
+                "text": "[\"Tea\", \"Bus\"]"
+              },
+              "b": {
+                "text": "a.copy()"
+              },
+              "c": {
+                "text": "a.copy()"
+              },
+              "d": {
+                "text": "a + [\"Snacks\"]"
+              }
+            },
+            "tones": {
+              "a": "ok",
+              "b": "data",
+              "c": "data",
+              "d": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Copies and the \"same list\" trap",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Same list label vs true copy",
+        "boxes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The trap concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Copies",
-                  "and"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Writing b = a sticks a second label onto the same list.",
+            "values": {
+              "a": "['Tea', 'Bus', 'Lunch']",
+              "b": "['Tea', 'Bus', 'Lunch']",
+              "c": "a.copy()",
+              "d": "a + [\"Snacks\"]"
+            },
+            "tones": {
+              "a": "error",
+              "b": "error",
+              "c": "idle",
+              "d": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "the",
-                  "same"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Using copy or + creates separate lists without changing a.",
+            "values": {
+              "a": "['Tea', 'Bus', 'Lunch']",
+              "b": "['Tea', 'Bus', 'Lunch']",
+              "c": "['Tea', 'Bus', 'Lunch', 'Movie']",
+              "d": "['Tea', 'Bus', 'Lunch', 'Snacks']"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "c": "ok",
+              "d": "ok"
+            },
+            "checks": [
+              "a: ['Tea', 'Bus', 'Lunch']",
+              "c: ['Tea', 'Bus', 'Lunch', 'Movie']",
+              "d: ['Tea', 'Bus', 'Lunch', 'Snacks']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Making b a separate copy keeps only Tea and Bus in a.",
+            "values": {
+              "a": "['Tea', 'Bus']",
+              "b": "['Tea', 'Bus', 'Lunch']",
+              "c": "['Tea', 'Bus', 'Movie']",
+              "d": "['Tea', 'Bus', 'Snacks']"
+            },
+            "tones": {
+              "a": "ok",
+              "b": "data",
+              "c": "data",
+              "d": "data"
+            },
+            "whatIf": "a = [\"Tea\", \"Bus\"]\nb = a.copy()\nb.append(\"Lunch\")\nprint(\"a:\", a)\nc = a.copy()\nc.append(\"Movie\")\nprint(\"a:\", a)\nprint(\"c:\", c)\nd = a + [\"Snacks\"]\nprint(\"a:\", a)\nprint(\"d:\", d)",
+            "checks": [
+              "a: ['Tea', 'Bus']",
+              "c: ['Tea', 'Bus', 'Movie']",
+              "d: ['Tea', 'Bus', 'Snacks']"
+            ],
+            "mustNotShow": [
+              "a: ['Tea', 'Bus', 'Lunch']"
             ]
           }
         ]
@@ -430,40 +808,101 @@
       "codeHash": "d009aac4ce9684b5333b722b6d97eeaf4d99ad8a74f4c62e71cbffb155786f3b",
       "spec": {
         "template": "table",
-        "title": "Putting it together: a list of expenses",
+        "title": "Two-list Expense Tracker report",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The lists concept establishes the core structural baseline.",
+            "at": "intro",
+            "caption": "Appending a matching name and amount keeps both lists aligned.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "len(amounts)"
                   },
                   {
-                    "text": "together"
+                    "out": 5
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sum(amounts)"
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "List tools find the total, biggest expense, and recent slice from the lists.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "list"
+                    "text": "len(amounts)"
                   },
                   {
-                    "text": "expenses"
+                    "out": 5
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "max(amounts)"
+                  },
+                  {
+                    "out": 8
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "names[-2:]"
+                  },
+                  {
+                    "out": 9
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending Auto and its amount to both lists updates count and total.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "len(amounts)"
+                  },
+                  {
+                    "text": "The count becomes 5"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sum(amounts)"
+                  },
+                  {
+                    "text": "the total 565"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +913,90 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: a list of expenses",
+        "title": "Two-list Expense Tracker report",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The lists concept establishes the core structural baseline.",
+            "at": "intro",
+            "caption": "Appending a matching name and amount keeps both lists aligned.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "len(amounts)",
+                  "Count: 4"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "sum(amounts)",
+                  "Total: 485"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "List tools find the total, biggest expense, and recent slice from the lists.",
             "rows": [
               {
                 "cells": [
-                  "list",
-                  "expenses"
+                  "len(amounts)",
+                  "Count: 4"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "max(amounts)",
+                  "Biggest: Movie 300"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "names[-2:]",
+                  "Last two: ['Lunch', 'Movie']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Count: 4",
+              "Total: 485",
+              "Biggest: Movie 300",
+              "Last two: ['Lunch', 'Movie']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending Auto and its amount to both lists updates count and total.",
+            "rows": [
+              {
+                "cells": [
+                  "len(amounts)",
+                  "Count: 5"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "sum(amounts)",
+                  "Total: 565"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "names = [\"Tea\", \"Bus\", \"Lunch\"]\namounts = [20, 45, 120]\nnames.append(\"Movie\")\namounts.append(300)\nnames.append(\"Auto\")\namounts.append(80)\nprint(\"Count:\", len(amounts))\nprint(\"Total:\", sum(amounts))\nbiggest = max(amounts)\nprint(\"Biggest:\", names[amounts.index(biggest)], biggest)\nprint(\"Last two:\", names[-2:])",
+            "checks": [
+              "Count: 5",
+              "Total: 565",
+              "Biggest: Movie 300",
+              "Last two: ['Movie', 'Auto']"
             ]
           }
         ]

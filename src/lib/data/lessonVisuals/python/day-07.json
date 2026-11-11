@@ -2,51 +2,90 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 7,
-  "promptSha": "66146d79a085c462247c4883e3de4a123ed25f6a14335b879e4e48f06b741ae0",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "What a function is",
       "codeHash": "e45233f86fa807beba11a80a8532d2839ec01e5252ff7d4e74e476f4bdd62911",
       "spec": {
         "template": "table",
-        "title": "What a function is",
+        "title": "Defining vs calling a function",
         "columns": [
-          "Stage",
-          "Concept"
+          "Code line",
+          "What runs"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The using concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Defining a function stores its steps without running them yet.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "def show_title():"
                   },
                   {
-                    "text": "function"
+                    "text": "Nothing prints yet."
                   }
                 ],
-                "tone": "data"
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The create logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Calling show_title runs the function twice around the middle line.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "def show_title():"
                   },
                   {
-                    "text": "function"
+                    "text": "Nothing prints yet."
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "show_title()"
+                  },
+                  {
+                    "text": "=== My Expense Tracker ==="
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Deleting both calls lets only the middle print line run.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "def show_title():"
+                  },
+                  {
+                    "text": "Nothing prints yet."
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "...some other work..."
+                  },
+                  {
+                    "text": "Only \"...some other work...\" prints"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -54,36 +93,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "What a function is",
+        "title": "Defining vs calling a function",
         "columns": [
-          "Stage",
-          "Concept"
+          "Code line",
+          "What runs"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The using concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Defining a function stores its steps without running them yet.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "function"
+                  "def show_title():",
+                  "Nothing prints yet."
                 ],
-                "tone": "data"
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The create logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Calling show_title runs the function twice around the middle line.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "function"
+                  "def show_title():",
+                  "Nothing prints yet."
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "show_title()",
+                  "=== My Expense Tracker ==="
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "=== My Expense Tracker ===",
+              "Track every rupee",
+              "...some other work..."
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Deleting both calls lets only the middle print line run.",
+            "rows": [
+              {
+                "cells": [
+                  "def show_title():",
+                  "Nothing prints yet."
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "print(\"...some other work...\")",
+                  "...some other work..."
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "def show_title():\n    print(\"=== My Expense Tracker ===\")\n    print(\"Track every rupee\")\n\nprint(\"...some other work...\")",
+            "checks": [
+              "...some other work..."
+            ],
+            "mustNotShow": [
+              "=== My Expense Tracker ==="
             ]
           }
         ]
@@ -93,81 +171,131 @@
       "partTitle": "Parameters: giving a function information",
       "codeHash": "7e9c13bb36547ce0dfee4b22519537c6e51026b89fbff388b73a54df71bd70f8",
       "spec": {
-        "template": "table",
-        "title": "Parameters: giving a function information",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Function parameters and arguments",
+        "boxes": [
+          {
+            "id": "item",
+            "label": "item"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The functions concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Parameters"
-                  },
-                  {
-                    "text": "giving"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Parameters are like empty boxes filled when called.",
+            "values": {
+              "item": {
+                "text": "Tea"
+              },
+              "amount": {
+                "text": "20"
               }
-            ]
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The inside logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "function"
-                  },
-                  {
-                    "text": "information"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The values you put in brackets are called arguments.",
+            "values": {
+              "item": {
+                "text": "Bus"
+              },
+              "amount": {
+                "text": "45"
               }
-            ]
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Swapping the two arguments puts Lunch in item and 120 in amount.",
+            "values": {
+              "item": {
+                "text": "Lunch"
+              },
+              "amount": {
+                "text": "120"
+              }
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Parameters: giving a function information",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Function parameters and arguments",
+        "boxes": [
+          {
+            "id": "item",
+            "label": "item"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The functions concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Parameters",
-                  "giving"
-                ],
-                "tone": "data"
-              }
+            "caption": "Parameters are like empty boxes filled when called.",
+            "values": {
+              "item": "Tea",
+              "amount": "20"
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The values you put in brackets are called arguments.",
+            "values": {
+              "item": "Bus",
+              "amount": "45"
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok"
+            },
+            "checks": [
+              "Tea costs Rs 20",
+              "Bus costs Rs 45",
+              "120 costs Rs Lunch"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inside logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "function",
-                  "information"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Swapping the two arguments puts Lunch in item and 120 in amount.",
+            "values": {
+              "item": "Lunch",
+              "amount": "120"
+            },
+            "tones": {
+              "item": "data",
+              "amount": "ok"
+            },
+            "whatIf": "def show_expense(item, amount):\n    print(item, \"costs Rs\", amount)\n\nshow_expense(\"Tea\", 20)\nshow_expense(\"Bus\", 45)\nshow_expense(\"Lunch\", 120)",
+            "checks": [
+              "Tea costs Rs 20",
+              "Bus costs Rs 45",
+              "Lunch costs Rs 120"
+            ],
+            "mustNotShow": [
+              "120 costs Rs Lunch"
             ]
           }
         ]
@@ -177,81 +305,134 @@
       "partTitle": "return: giving back an answer",
       "codeHash": "feda6f23ab7f3bb119b2ff747c734dd9b2ce0c1cd7c171a5fccdf6156b7e50f0",
       "spec": {
-        "template": "table",
-        "title": "return: giving back an answer",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Returning values from functions",
+        "boxes": [
+          {
+            "id": "tea",
+            "label": "tea"
+          },
+          {
+            "id": "lunch",
+            "label": "lunch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The functions concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "return"
-                  },
-                  {
-                    "text": "giving"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Use return to give back an answer to the program.",
+            "values": {
+              "tea": {
+                "var": "tea",
+                "line": 4
+              },
+              "lunch": {
+                "text": "add_gst(120)"
               }
-            ]
+            },
+            "tones": {
+              "tea": "ok",
+              "lunch": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "back"
-                  },
-                  {
-                    "text": "answer"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Store returned values in a variable or use in calculation.",
+            "values": {
+              "tea": {
+                "var": "tea",
+                "line": 5
+              },
+              "lunch": {
+                "var": "lunch",
+                "line": 5
               }
-            ]
+            },
+            "tones": {
+              "tea": "data",
+              "lunch": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing return to print leaves None in tea and raises TypeError.",
+            "values": {
+              "tea": {
+                "text": "None"
+              },
+              "lunch": {
+                "text": "None"
+              }
+            },
+            "tones": {
+              "tea": "error",
+              "lunch": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "return: giving back an answer",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Returning values from functions",
+        "boxes": [
+          {
+            "id": "tea",
+            "label": "tea"
+          },
+          {
+            "id": "lunch",
+            "label": "lunch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The functions concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "return",
-                  "giving"
-                ],
-                "tone": "data"
-              }
+            "caption": "Use return to give back an answer to the program.",
+            "values": {
+              "tea": "23.6",
+              "lunch": "add_gst(120)"
+            },
+            "tones": {
+              "tea": "ok",
+              "lunch": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Store returned values in a variable or use in calculation.",
+            "values": {
+              "tea": "23.6",
+              "lunch": "141.6"
+            },
+            "tones": {
+              "tea": "data",
+              "lunch": "ok"
+            },
+            "checks": [
+              "23.6",
+              "141.6",
+              "Total: 165.2"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "back",
-                  "answer"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Changing return to print leaves None in tea and raises TypeError.",
+            "values": {
+              "tea": "None",
+              "lunch": "None"
+            },
+            "tones": {
+              "tea": "error",
+              "lunch": "error"
+            },
+            "whatIf": "def add_gst(price):\n    print(round(price * 1.18, 2))\n\ntea = add_gst(20)\nlunch = add_gst(120)\nprint(tea)\nprint(lunch)\nprint(\"Total:\", tea + lunch)",
+            "checks": [
+              "23.6",
+              "141.6",
+              "TypeError"
+            ],
+            "mustNotShow": [
+              "Total: 165.2"
             ]
           }
         ]
@@ -261,81 +442,133 @@
       "partTitle": "Why return is different from print",
       "codeHash": "4bcb525b116f89639491d18246a74c914e73789f55efa48a2676aa3b0abded99",
       "spec": {
-        "template": "table",
-        "title": "Why return is different from print",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Comparing return and print",
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The important concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Why"
-                  },
-                  {
-                    "text": "return"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Print shows on screen while return hands a value back.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 7
+              },
+              "y": {
+                "text": "total_with_return(20, 45)"
               }
-            ]
+            },
+            "tones": {
+              "x": "error",
+              "y": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The good logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "different"
-                  },
-                  {
-                    "text": "from"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A returned value can be stored and added.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 8
+              },
+              "y": {
+                "var": "y",
+                "line": 8
               }
-            ]
+            },
+            "tones": {
+              "x": "error",
+              "y": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "You can multiply y to get 130, while None in x causes an error.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 7
+              },
+              "y": {
+                "text": "130"
+              }
+            },
+            "tones": {
+              "x": "error",
+              "y": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Why return is different from print",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Comparing return and print",
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The important concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Why",
-                  "return"
-                ],
-                "tone": "data"
-              }
+            "caption": "Print shows on screen while return hands a value back.",
+            "values": {
+              "x": "None",
+              "y": "total_with_return(20, 45)"
+            },
+            "tones": {
+              "x": "error",
+              "y": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "A returned value can be stored and added.",
+            "values": {
+              "x": "None",
+              "y": "65"
+            },
+            "tones": {
+              "x": "error",
+              "y": "ok"
+            },
+            "checks": [
+              "65",
+              "x is None",
+              "y is 65"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The good logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "different",
-                  "from"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "You can multiply y to get 130, while None in x causes an error.",
+            "values": {
+              "x": "None",
+              "y": "130"
+            },
+            "tones": {
+              "x": "error",
+              "y": "ok"
+            },
+            "whatIf": "def total_with_print(a, b):\n    print(a + b)\n\ndef total_with_return(a, b):\n    return a + b\n\nx = total_with_print(20, 45)\ny = total_with_return(20, 45)\nprint(\"x is\", x)\nprint(\"y is\", y)\nprint(y * 2)",
+            "checks": [
+              "65",
+              "x is None",
+              "y is 65",
+              "130"
             ]
           }
         ]
@@ -346,23 +579,27 @@
       "codeHash": "677c7c5b2f82615f86258c14662137f64f7802455ea165f81882dbe421eea057",
       "spec": {
         "template": "table",
-        "title": "Default values for parameters",
+        "title": "Default parameter values in add_gst",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "rate",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "caption": "When caller omits rate, Python uses the default 0.18.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Default"
+                    "text": "add_gst(100)"
                   },
                   {
-                    "text": "values"
+                    "text": "0.18"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "data"
@@ -371,15 +608,80 @@
           },
           {
             "at": "say3",
-            "caption": "The parameters logic drives deterministic execution.",
+            "caption": "Naming or passing rate overrides the default value.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "for"
+                    "text": "add_gst(100)"
                   },
                   {
-                    "text": "parameters"
+                    "text": "0.18"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "add_gst(100, 0.05)"
+                  },
+                  {
+                    "text": "0.05"
+                  },
+                  {
+                    "out": 5
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "add_gst(100, rate=0.12)"
+                  },
+                  {
+                    "text": "0.12"
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Passing a discount parameter before GST changes the result to 106.2.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "add_gst(100)"
+                  },
+                  {
+                    "text": "0.18"
+                  },
+                  {
+                    "text": "118.0"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "add_gst(100, discount=10)"
+                  },
+                  {
+                    "text": "0.18"
+                  },
+                  {
+                    "text": "106.2"
                   }
                 ],
                 "tone": "ok"
@@ -390,20 +692,22 @@
       },
       "filled": {
         "template": "table",
-        "title": "Default values for parameters",
+        "title": "Default parameter values in add_gst",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "rate",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sometimes concept establishes the core structural baseline.",
+            "caption": "When caller omits rate, Python uses the default 0.18.",
             "rows": [
               {
                 "cells": [
-                  "Default",
-                  "values"
+                  "add_gst(100)",
+                  "0.18",
+                  "118.0"
                 ],
                 "tone": "data"
               }
@@ -411,15 +715,64 @@
           },
           {
             "at": "say3",
-            "caption": "The parameters logic drives deterministic execution.",
+            "caption": "Naming or passing rate overrides the default value.",
             "rows": [
               {
                 "cells": [
-                  "for",
-                  "parameters"
+                  "add_gst(100)",
+                  "0.18",
+                  "118.0"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "add_gst(100, 0.05)",
+                  "0.05",
+                  "105.0"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "add_gst(100, rate=0.12)",
+                  "0.12",
+                  "112.0"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "118.0",
+              "105.0",
+              "112.0"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Passing a discount parameter before GST changes the result to 106.2.",
+            "rows": [
+              {
+                "cells": [
+                  "add_gst(100)",
+                  "0.18",
+                  "118.0"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "add_gst(100, discount=10)",
+                  "0.18",
+                  "106.2"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "def add_gst(price, rate=0.18, discount=0):\n    return round((price - discount) * (1 + rate), 2)\n\nprint(add_gst(100))\nprint(add_gst(100, discount=10))",
+            "checks": [
+              "118.0",
+              "106.2"
             ]
           }
         ]
@@ -430,40 +783,101 @@
       "codeHash": "626ecc60a39539d69ccc74fbbcf6ead415a46e8fa79f167c954e26dba0d20ca2",
       "spec": {
         "template": "table",
-        "title": "Putting it together: tracker functions",
+        "title": "Tracker helper functions working together",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Printed output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The rebuild concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "total and average return numbers that money turns into text.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "money(total(expenses))"
                   },
                   {
-                    "text": "together"
+                    "out": 16
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "money(average(expenses))"
+                  },
+                  {
+                    "out": 17
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The average logic drives deterministic execution.",
+            "caption": "Checking for an empty list lets average return 0 safely.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "tracker"
+                    "text": "money(total(expenses))"
                   },
                   {
-                    "text": "functions"
+                    "out": 16
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "money(average(expenses))"
+                  },
+                  {
+                    "out": 17
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "average([])"
+                  },
+                  {
+                    "out": 18
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding largest returns 300 so money prints Rs 300.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "average([])"
+                  },
+                  {
+                    "out": 18
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "money(largest(expenses))"
+                  },
+                  {
+                    "text": "Rs 300"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +888,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: tracker functions",
+        "title": "Tracker helper functions working together",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Printed output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The rebuild concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "total and average return numbers that money turns into text.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "money(total(expenses))",
+                  "Total: Rs 545"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "money(average(expenses))",
+                  "Average: Rs 109.0"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The average logic drives deterministic execution.",
+            "caption": "Checking for an empty list lets average return 0 safely.",
             "rows": [
               {
                 "cells": [
-                  "tracker",
-                  "functions"
+                  "money(total(expenses))",
+                  "Total: Rs 545"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "money(average(expenses))",
+                  "Average: Rs 109.0"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "average([])",
+                  "Average of nothing: 0"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Total: Rs 545",
+              "Average: Rs 109.0",
+              "Average of nothing: 0"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding largest returns 300 so money prints Rs 300.",
+            "rows": [
+              {
+                "cells": [
+                  "average([])",
+                  "Average of nothing: 0"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "money(largest(expenses))",
+                  "Rs 300"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "def total(amounts):\n    result = 0\n    for amount in amounts:\n        result += amount\n    return result\n\ndef average(amounts):\n    if len(amounts) == 0:\n        return 0\n    return round(total(amounts) / len(amounts), 2)\n\ndef money(amount):\n    return \"Rs \" + str(amount)\n\nexpenses = [20, 45, 120, 300, 60]\nprint(\"Total:\", money(total(expenses)))\nprint(\"Average:\", money(average(expenses)))\nprint(\"Average of nothing:\", average([]))\n\ndef largest(amounts):\n    best = 0\n    for amount in amounts:\n        if amount > best:\n            best = amount\n    return best\n\nprint(money(largest(expenses)))",
+            "checks": [
+              "Total: Rs 545",
+              "Average: Rs 109.0",
+              "Average of nothing: 0",
+              "Rs 300"
             ]
           }
         ]
