@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The Quantum Threat to Embedded Root of Trust: Shor's Algorithm & HNDL Attacks",
-      "codeHash": "28c7732161e3db94b385794d76ba58e49f35d3c59f74a30541c83a2b3e065deb",
+      "codeHash": "90156a79aa26584f3b014d048913575e8bd0bad8a385e04e6032c311c14d757e",
       "spec": {
         "template": "register-bits",
         "title": "The Quantum Threat to Embedded Root of Trust:... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Module Learning with Errors (M-LWE): Ring Arithmetic & Centered Binomial Distributions",
-      "codeHash": "6a9ddb433c82697fde01a54306f1929019b0773a579e7dd837e98ab8f463e47c",
+      "codeHash": "27e3972d7c68745586aafd1119435db04d2cfdcf4a328e8082cbe1ef7f626b07",
       "spec": {
         "template": "register-bits",
         "title": "Module Learning with Errors (M-LWE): Ring Ari... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Crystals-Kyber (NIST FIPS 203 ML-KEM) Key Encapsulation Architecture",
-      "codeHash": "3e2228ab8cc6d28d9e7b7b097511c051556e07510371664571225c8a7f01f50b",
+      "codeHash": "8febd4eb0b2f1dbe8d0b536015097740bb42e65e8bac15fb173a51974b03c704",
       "spec": {
         "template": "register-bits",
         "title": "Crystals-Kyber (NIST FIPS 203 ML-KEM) Key Enc... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Crystals-Dilithium (NIST FIPS 204 ML-DSA) Fiat-Shamir with Aborts Signature Scheme",
-      "codeHash": "e9093a93f27daa172c6566b951668f90ebeee1e78937675068122e6d1e9f3bc3",
+      "codeHash": "ace6443d268b9f55e7a019dedcba6686c91afd180e6ff38ed95c7bb376201e3f",
       "spec": {
         "template": "register-bits",
         "title": "Crystals-Dilithium (NIST FIPS 204 ML-DSA) Fia... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Embedded Silicon Feasibility: RAM, ROM & Stack Profiling on Cortex-M",
-      "codeHash": "3d685e8299c3ccd81f9d5c427839dbbcfae06a585cbea973a255cefbeda78f9e",
+      "codeHash": "9eba7da1931a6b32ea1236672d7805ce675bec1c76038bff7b548277e99766ca",
       "spec": {
         "template": "register-bits",
         "title": "Embedded Silicon Feasibility: RAM, ROM & Stac... — Register Bit Architecture",

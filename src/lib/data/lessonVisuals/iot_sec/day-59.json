@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Industrial Cybersecurity Frameworks & IEC 62443-4-2 SL4 Mandates",
-      "codeHash": "ae968dd95bca525b9111ae770dee26d0fbefed70070baa4e83990b11f3e70566",
+      "codeHash": "342452aedebc16f1c21335816e8f6c265b9628b88ccfefa48c23582e4d565bb2",
       "spec": {
         "template": "register-bits",
         "title": "Day 59 Part 1 — Industrial Cybersecurity Frame — Register Architecture",
@@ -259,7 +259,7 @@
     },
     {
       "partTitle": "Encrypted Black-Box Flight Recorder & Cryptographic Merkle Logging",
-      "codeHash": "5f9b139e5330ba38e81eb29264e0d1f42e5df25039aeef3b8b3fbbb11d3d4faa",
+      "codeHash": "a8f0c1658dec309ebf1a5ffe8129629494c87da6e15d65cbcc9a58852e0e5bfa",
       "spec": {
         "template": "register-bits",
         "title": "Day 59 Part 2 — Encrypted Black-Box Flight Rec — Register Architecture",
@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "Physical & Environmental Forensic Incident Sensor Traps",
-      "codeHash": "e010bff0a4337a53926c22994f9627aa589ff5d77f42d24520bdc879a8296841",
+      "codeHash": "2a728de2f8dd1887570823638e1be0325011ee5b8ed18aab0eb100d9f41b3723",
       "spec": {
         "template": "register-bits",
         "title": "Day 59 Part 3 — Physical & Environmental Foren — Register Architecture",
@@ -763,7 +763,7 @@
     },
     {
       "partTitle": "Emergency Zeroization & Autonomous Forensic Telemetry Broadcast",
-      "codeHash": "ee47dc97a6ad04a257f70732f6a55f1f7c4900df29e9cb6bc9333de45cef23e2",
+      "codeHash": "a128d866993fd068ea21ce4ec9648f0c8b0284f016425f6880b6973517715ee9",
       "spec": {
         "template": "register-bits",
         "title": "Day 59 Part 4 — Emergency Zeroization & Autono — Register Architecture",
@@ -1015,7 +1015,7 @@
     },
     {
       "partTitle": "End-to-End IEC 62443 SL4 Forensics & Incident Response Subsystem",
-      "codeHash": "66abda060974b56f5778a0f613703009b73a23032f320534e0991698f99eecf8",
+      "codeHash": "e044be2096e6340aa16e1fc3ee4432e254edad4e8a23e1312262085a1b2b071e",
       "spec": {
         "template": "register-bits",
         "title": "Day 59 Part 5 — End-to-End IEC 62443 SL4 Foren — Register Architecture",

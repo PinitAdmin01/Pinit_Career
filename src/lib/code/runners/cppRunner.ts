@@ -1,8 +1,10 @@
 // src/lib/code/runners/cppRunner.ts
-// In-Browser C++ & Systems Structural AST Invariant Evaluator for PinIT Career OS
-// Evaluates function signatures, return types, pointers/references, classes, and testCase bindings.
+// C++ Static Inspector & Fail-Closed Execution Runner for PinIT Career OS.
+// Zero fake pass flags: behavioral test suites and coding assessments NEVER pass
+// via regex/AST heuristics — they require real C++ compilation & execution or fail closed.
 
 import { TestCase, SuiteExecutionResult, SingleTestOutcome } from '../types';
+import { supabase } from '../../supabaseClient';
 
 export interface CppInspectionReport {
   hasValidSignature: boolean;
@@ -18,9 +20,8 @@ export interface CppInspectionReport {
 export function inspectCppSource(code: string, expectedFnName: string): CppInspectionReport {
   const violations: string[] = [];
 
-  // Match function signature e.g. int solve(int a, int b) or vector<int> solve(...)
   const fnRegex = new RegExp(
-    `(?:(?:int|void|double|float|long|bool|char|string|auto|vector<[\\w\\s,<>]+>|pair<[\\w\\s,<>]+>)\\s+[*&]?\\s*|class\\s+\\w+\\s*\\{[\\s\\S]*?\\}\\s*;?\\s*)(${expectedFnName})\\s*\\(([^)]*)\\)`,
+    `(?:(?:int|void|double|float|long|bool|char|string|auto|uint8_t|uint16_t|uint32_t|int32_t|vector<[\\w\\s,<>]+>|pair<[\\w\\s,<>]+>)\\s+[*&]?\\s*|class\\s+\\w+\\s*\\{[\\s\\S]*?\\}\\s*;?\\s*)(${expectedFnName})\\s*\\(([^)]*)\\)`,
     'i'
   );
   const fnMatch = code.match(fnRegex);
@@ -36,8 +37,12 @@ export function inspectCppSource(code: string, expectedFnName: string): CppInspe
   }
 
   const hasHeaders = /#include\s*<[\w.]+>/.test(code);
-  const hasLoopsOrRecursion = Boolean(/\b(for|while)\s*\(/.test(code) || (expectedFnName && new RegExp(`\\b${expectedFnName}\\s*\\(`).test(code.replace(fnRegex, ''))));
-  const usesPointersOrReferences = /[*&]\s*\w+/.test(code) || /\b(unique_ptr|shared_ptr|make_unique|make_shared)\b/.test(code);
+  const hasLoopsOrRecursion = Boolean(
+    /\b(for|while)\s*\(/.test(code) ||
+      (expectedFnName && new RegExp(`\\b${expectedFnName}\\s*\\(`).test(code.replace(fnRegex, '')))
+  );
+  const usesPointersOrReferences =
+    /[*&]\s*\w+/.test(code) || /\b(unique_ptr|shared_ptr|make_unique|make_shared)\b/.test(code);
 
   return {
     hasValidSignature,
@@ -47,7 +52,51 @@ export function inspectCppSource(code: string, expectedFnName: string): CppInspe
     hasHeaders,
     hasLoopsOrRecursion,
     usesPointersOrReferences,
-    syntaxViolations: violations
+    syntaxViolations: violations,
+  };
+}
+
+async function buildDirectAuthHeaders(): Promise<Record<string, string>> {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json', 'X-Pinit-Direct': '1' };
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
+  } catch {
+    // Fail-closed on unauthenticated judge requests.
+  }
+  return headers;
+}
+
+function failClosedCppResult(
+  testCases: TestCase[],
+  logs: string[],
+  reason: string,
+  startTime: number
+): SuiteExecutionResult {
+  const outcomes: SingleTestOutcome[] = (testCases.length > 0 ? testCases : [{ input: '', output: '' }]).map(
+    (tc, i) => ({
+      index: i,
+      testCaseName: tc.name || `C++ Test #${i + 1}`,
+      input: tc.input || '',
+      expectedOutput: tc.output || 'Compiled execution pass',
+      actualOutput: 'UNAVAILABLE (no C++ compiler runtime)',
+      passed: false,
+      error: reason,
+      durationMs: 0,
+    })
+  );
+
+  return {
+    language: 'cpp',
+    totalTests: outcomes.length,
+    passedTests: 0,
+    failedTests: outcomes.length,
+    allPassed: false,
+    status: 'RUNTIME_ERROR',
+    totalDurationMs: Date.now() - startTime,
+    terminalLogs: [...logs, `[CPP JUDGE FAIL-CLOSED] ${reason}`],
+    testOutcomes: outcomes,
+    error: reason,
   };
 }
 
@@ -55,75 +104,77 @@ export async function executeCppSuite(
   code: string,
   functionName: string = 'solution',
   testCases: TestCase[] = [],
-  timeoutMs: number = 3500
+  timeoutMs: number = 3500,
+  options?: { testSuite?: string; questId?: string; requireCompilerExecution?: boolean }
 ): Promise<SuiteExecutionResult> {
   const startTime = Date.now();
-  const cleanCode = code.trim();
-  const terminalLogs: string[] = [
-    `[CPP STATIC ANALYZER] Parsing systems source tree for function '${functionName}'...`
-  ];
-
+  const cleanCode = (code || '').trim();
   const inspection = inspectCppSource(cleanCode, functionName);
 
+  const terminalLogs: string[] = [
+    `[CPP STATIC ANALYZER] Checking syntax & signature for '${functionName}'...`,
+  ];
   if (inspection.hasHeaders) {
     terminalLogs.push('[INFO] Detected C++ preprocessor standard headers (#include).');
   }
   if (inspection.usesPointersOrReferences) {
-    terminalLogs.push('[INFO] Verified memory efficiency: pointer/reference bindings detected.');
+    terminalLogs.push('[INFO] Pointer/reference usage detected.');
   }
 
-  // 1. If test cases provided, validate each case against signature and structural invariants
-  if (testCases.length > 0) {
-    const outcomes: SingleTestOutcome[] = [];
-    let passed = 0;
+  const requiresCompiler =
+    testCases.length > 0 ||
+    Boolean(options?.testSuite && options.testSuite.trim()) ||
+    Boolean(options?.requireCompilerExecution);
 
-    for (let i = 0; i < testCases.length; i++) {
-      const tc = testCases[i];
-      const startTc = Date.now();
-      const isSyntaxOk = inspection.hasValidSignature && inspection.hasReturn;
-      const isPass = isSyntaxOk && inspection.syntaxViolations.length === 0;
-
-      if (isPass) passed++;
-
-      outcomes.push({
-        index: i,
-        testCaseName: tc.name || `C++ Assertion #${i + 1}`,
-        input: tc.input || functionName,
-        expectedOutput: tc.output,
-        actualOutput: isPass ? tc.output : (inspection.syntaxViolations[0] || 'Signature/Return mismatch'),
-        passed: isPass,
-        error: isPass ? undefined : (inspection.syntaxViolations[0] || 'AST Validation Error'),
-        durationMs: Date.now() - startTc
-      });
-
-      terminalLogs.push(
-        isPass
-          ? `[PASS] Test ${i + 1}: ${tc.name || 'Assertion'} (C++ AST Invariants satisfied)`
-          : `[FAIL] Test ${i + 1}: ${inspection.syntaxViolations[0] || 'Signature or return failure'}`
-      );
+  // Never mark behavioral tests or coding assessments as passed without a real compiler.
+  if (requiresCompiler) {
+    if (typeof window !== 'undefined') {
+      try {
+        const res = await fetch('/api/code/run-cpp', {
+          method: 'POST',
+          headers: await buildDirectAuthHeaders(),
+          body: JSON.stringify({
+            code: cleanCode,
+            functionName,
+            testCases,
+            testSuite: options?.testSuite,
+            timeoutMs,
+            questId: options?.questId,
+          }),
+        });
+        if (res.ok) {
+          const data: SuiteExecutionResult = await res.json();
+          if (typeof data.allPassed === 'boolean') return data;
+        }
+        const errBody = await res.json().catch(() => ({}));
+        const msg = errBody?.error || errBody?.message || `C++ compiler judge unavailable (HTTP ${res.status}).`;
+        return failClosedCppResult(testCases, terminalLogs, msg, startTime);
+      } catch (err: any) {
+        return failClosedCppResult(
+          testCases,
+          terminalLogs,
+          err?.message || 'C++ compiler backend is unreachable; failing closed without fake pass.',
+          startTime
+        );
+      }
     }
 
-    const allPassed = passed === testCases.length;
-    return {
-      language: 'cpp',
-      totalTests: testCases.length,
-      passedTests: passed,
-      failedTests: testCases.length - passed,
-      allPassed,
-      status: allPassed ? 'SUCCESS' : 'SYNTAX_ERROR',
-      totalDurationMs: Date.now() - startTime,
+    // Server/Node path without an external C++ judge URL must fail closed unless compiled natively.
+    return failClosedCppResult(
+      testCases,
       terminalLogs,
-      testOutcomes: outcomes
-    };
+      'No native C++ compiler (g++/clang++) or CPP_JUDGE_URL is configured; behavioral assertions cannot be verified.',
+      startTime
+    );
   }
 
-  // 2. Default single-test structural validation
-  const isPass = inspection.hasValidSignature && inspection.hasReturn;
+  // Slide preview path ONLY (no test cases / no grading suite): static syntax & signature inspection.
+  const isPass = inspection.hasValidSignature && inspection.hasReturn && inspection.syntaxViolations.length === 0;
   const durationMs = Date.now() - startTime;
 
   terminalLogs.push(
     isPass
-      ? `[SUCCESS] Function signature '${functionName}' and control flow verified.`
+      ? `[SUCCESS] Function signature '${functionName}' and control flow verified (static syntax check only — no native C++ binary executed).`
       : `[FAIL] Missing valid function signature or return statement in C++ solution.`
   );
 
@@ -136,15 +187,17 @@ export async function executeCppSuite(
     status: isPass ? 'SUCCESS' : 'SYNTAX_ERROR',
     totalDurationMs: durationMs,
     terminalLogs,
-    testOutcomes: [{
-      index: 0,
-      testCaseName: 'C++ Structural AST Validation',
-      input: functionName,
-      expectedOutput: `Valid ${functionName} signature`,
-      actualOutput: isPass ? 'Verified' : 'Invalid Signature',
-      passed: isPass,
-      error: isPass ? undefined : (inspection.syntaxViolations[0] || 'Structural mismatch'),
-      durationMs
-    }]
+    testOutcomes: [
+      {
+        index: 0,
+        testCaseName: 'C++ Structural AST Validation (Static Only)',
+        input: functionName,
+        expectedOutput: `Valid ${functionName} signature`,
+        actualOutput: isPass ? 'Static Syntax Verified' : 'Invalid Signature',
+        passed: isPass,
+        error: isPass ? undefined : inspection.syntaxViolations[0] || 'Structural mismatch',
+        durationMs,
+      },
+    ],
   };
 }

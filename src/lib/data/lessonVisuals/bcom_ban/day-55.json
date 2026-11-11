@@ -5,10 +5,10 @@
   "entries": [
     {
       "partTitle": "The Strategic Structured Credit Mandate: Unifying Derivatives, Securitization & Balance Sheet Capital",
-      "codeHash": "1f0d45ad052d264dbfd13f1af8235eb537fe13e48517bd323dabaf82c2433974",
+      "codeHash": "42afb0677068a1adedcb475c85054c1528d5130ce2210420d825462272225ab7",
       "spec": {
         "template": "funnel",
-        "title": "The Strategic Structured Credit Mandat... — Structured Credit Operations",
+        "title": "The Strategic Structured Credit Mandat... \u2014 Structured Credit Operations",
         "steps": [
           {
             "at": "intro",
@@ -107,10 +107,10 @@
     },
     {
       "partTitle": "CLO Collateral Modeling, Tranche Structuring & Quality Tests (WARF, WAS & Overcollateralization Curing)",
-      "codeHash": "c4ab8a82b15f7869c248cc46d02fe9d9cb6f8ac27a1cef1fc469b4c463849efc",
+      "codeHash": "4b653bda35193307ed73e62aa62dc28cbaed2c5f8e8d42b2ae86c7c2d83847d5",
       "spec": {
         "template": "funnel",
-        "title": "CLO Collateral Modeling, Tranche Struc... — Structured Credit Operations",
+        "title": "CLO Collateral Modeling, Tranche Struc... \u2014 Structured Credit Operations",
         "steps": [
           {
             "at": "intro",
@@ -209,10 +209,10 @@
     },
     {
       "partTitle": "Balance Sheet Synthetic Securitization: First-Loss Sizing, Credit-Linked Notes & EBA SRT Compliance",
-      "codeHash": "0c313045f316357859368bc1b0c47e017f3c6a038351d4d85f45a51fcf95495b",
+      "codeHash": "5e0129d4bc662f21fbd56d2627f5e515022f9fc335a2a5bf8b584876e348a312",
       "spec": {
         "template": "funnel",
-        "title": "Balance Sheet Synthetic Securitization... — Structured Credit Operations",
+        "title": "Balance Sheet Synthetic Securitization... \u2014 Structured Credit Operations",
         "steps": [
           {
             "at": "intro",
@@ -311,10 +311,10 @@
     },
     {
       "partTitle": "Basel IV Capital Relief Optimization: SEC-IRBA Risk Weights, Output Floors & Shareholder Value Accretion",
-      "codeHash": "324436432f5dd95bb9856f819565db69e76bc9b0173111698deb721d75205b05",
+      "codeHash": "39838dd74484714c7c83378f8c8381470f30e3acb6777d998dba08bceae9abce",
       "spec": {
         "template": "funnel",
-        "title": "Basel IV Capital Relief Optimization: ... — Structured Credit Operations",
+        "title": "Basel IV Capital Relief Optimization: ... \u2014 Structured Credit Operations",
         "steps": [
           {
             "at": "intro",
@@ -413,10 +413,10 @@
     },
     {
       "partTitle": "Grand Master Milestone 11 Simulator: Enterprise Multi-Asset Structured Credit & Capital Optimization Engine",
-      "codeHash": "83737c260671a075b423824a62b1e991bb87f7d819c892c186d9235ea888f3e3",
+      "codeHash": "6904de5c0f776abf8f7d1f89f11016c352068db0c3a42cbac96ddc639080caa2",
       "spec": {
         "template": "funnel",
-        "title": "Grand Master Milestone 11 Simulator: E... — Structured Credit Operations",
+        "title": "Grand Master Milestone 11 Simulator: E... \u2014 Structured Credit Operations",
         "steps": [
           {
             "at": "intro",

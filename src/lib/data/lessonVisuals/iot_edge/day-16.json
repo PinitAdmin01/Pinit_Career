@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Affine Quantization Mathematics: Scale, Zero-Point & Clamping",
-      "codeHash": "1fa25893dc0710f12b60dc18efc3ba159385b18fbfc15ac6e3541415d7a1ffb5",
+      "codeHash": "e4fc6fb45dbc630e9c3d30e22d3ad60e8ccab287b02ea4a02e598cdd7c4fec85",
       "spec": {
         "template": "register-bits",
         "title": "Affine Quantization Mathematics: Scale, Zero-... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Symmetric vs Asymmetric Quantization: Dynamic Range Efficiency",
-      "codeHash": "1a6591bacf41c7376112c71df8b6819f59ffd69fc6c0f95a0231d0f0e6b243db",
+      "codeHash": "2cb7d3dcb2f7b0a7e57b544c8340347f173e4e3878a20c8fd41c28c0b64623ab",
       "spec": {
         "template": "register-bits",
         "title": "Symmetric vs Asymmetric Quantization: Dynamic... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Fixed-Point Integer Matrix Multiplication: Scale Decomposition (M0 * 2^-n)",
-      "codeHash": "58e9bd3e779c75cb7bbe2cd55c4cea7918b92499a6c6375f45cef6e0d23630c3",
+      "codeHash": "5ccd2ea9506c06274bbe65464654a24c976e24aba021f90222c04c8b5d031841",
       "spec": {
         "template": "register-bits",
         "title": "Fixed-Point Integer Matrix Multiplication: Sc... — Register Bit Architecture",

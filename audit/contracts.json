@@ -1,34 +1,34 @@
 {
   "summary": {
-    "generated": "2026-11-07T09:21:03.170Z",
-    "appCodeFiles": 1056,
+    "generated": "2026-11-10T22:24:12.219Z",
+    "appCodeFiles": 1062,
     "verticals": 73,
     "verticalsWithDefects": 1,
-    "clientCalledPaths": 233,
-    "reachablePaths": 196,
+    "clientCalledPaths": 238,
+    "reachablePaths": 201,
     "brokenOnEveryMethod": 1,
     "brokenOnSomeMethods": 0,
     "defectsInDeadCode": 20,
     "unbuiltPages": 15,
-    "reachableSourceFiles": 938,
+    "reachableSourceFiles": 943,
     "guardBranches": 0,
     "unreachableOrDynamicGuards": 0,
     "campusSwitchCases": 0,
     "campusPrefixes": 0,
-    "deadRouteFiles": 301,
+    "deadRouteFiles": 306,
     "interceptorBypasses": [],
     "preferLivePrefixes": 71,
     "needsManualCheck": 0,
     "byWorst": {
-      "SERVER": 212,
+      "SERVER": 217,
       "UNHANDLED-404": 21
     },
     "byBucket": {
-      "OK": 212,
+      "OK": 217,
       "A": 21
     },
     "byLayer": {
-      "server": 212,
+      "server": 217,
       "none": 21
     },
     "guardsByVerdict": {}
@@ -96,10 +96,10 @@
     },
     {
       "name": "arena",
-      "total": 4,
+      "total": 5,
       "broken": 0,
       "partial": 0,
-      "ok": 4,
+      "ok": 5,
       "dead": 0,
       "buckets": {},
       "paths": []
@@ -126,10 +126,10 @@
     },
     {
       "name": "auth",
-      "total": 11,
+      "total": 12,
       "broken": 0,
       "partial": 0,
-      "ok": 11,
+      "ok": 12,
       "dead": 0,
       "buckets": {},
       "paths": []
@@ -546,10 +546,10 @@
     },
     {
       "name": "projects",
-      "total": 2,
+      "total": 3,
       "broken": 0,
       "partial": 0,
-      "ok": 2,
+      "ok": 3,
       "dead": 0,
       "buckets": {},
       "paths": []
@@ -646,10 +646,10 @@
     },
     {
       "name": "student",
-      "total": 1,
+      "total": 3,
       "broken": 0,
       "partial": 0,
-      "ok": 1,
+      "ok": 3,
       "dead": 0,
       "buckets": {},
       "paths": []
@@ -1770,7 +1770,7 @@
       "directCalls": 0,
       "spec": {
         "file": "src/app/api/analytics/dashboard/route.ts",
-        "lines": 156,
+        "lines": 155,
         "methods": [
           "GET"
         ],
@@ -1829,25 +1829,33 @@
       "callSites": [
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 63,
+          "line": 66,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 63,
+          "line": 66,
           "live": true
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/arena/create-room/route.ts",
-        "lines": 40,
+        "lines": 81,
         "methods": [
           "POST"
         ],
-        "usesSecret": false,
-        "secrets": [],
-        "secretVia": {},
+        "usesSecret": true,
+        "secrets": [
+          "EVIDENCE_SIGNING_SECRET",
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
+        ],
+        "secretVia": {
+          "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
+        },
         "authGated": true
       },
       "brokenOn": [],
@@ -1900,25 +1908,33 @@
       "callSites": [
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 88,
+          "line": 91,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 88,
+          "line": 91,
           "live": true
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/arena/join-room/route.ts",
-        "lines": 40,
+        "lines": 49,
         "methods": [
           "POST"
         ],
-        "usesSecret": false,
-        "secrets": [],
-        "secretVia": {},
+        "usesSecret": true,
+        "secrets": [
+          "EVIDENCE_SIGNING_SECRET",
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
+        ],
+        "secretVia": {
+          "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
+        },
         "authGated": true
       },
       "brokenOn": [],
@@ -1971,25 +1987,33 @@
       "callSites": [
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 207,
+          "line": 213,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 207,
+          "line": 213,
           "live": true
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/arena/matchmake/route.ts",
-        "lines": 43,
+        "lines": 69,
         "methods": [
           "POST"
         ],
-        "usesSecret": false,
-        "secrets": [],
-        "secretVia": {},
+        "usesSecret": true,
+        "secrets": [
+          "EVIDENCE_SIGNING_SECRET",
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
+        ],
+        "secretVia": {
+          "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
+        },
         "authGated": true
       },
       "brokenOn": [],
@@ -2043,36 +2067,116 @@
       "callSites": [
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 105,
+          "line": 108,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 120,
+          "line": 123,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 145,
+          "line": 148,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 168,
+          "line": 171,
           "live": true
         },
         {
           "file": "src/lib/services/arenaPvPService.ts",
-          "line": 182,
+          "line": 185,
           "live": true
         }
       ],
       "directCalls": 5,
       "spec": {
         "file": "src/app/api/arena/room/[roomCode]/route.ts",
-        "lines": 213,
+        "lines": 238,
         "methods": [
           "GET",
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "EVIDENCE_SIGNING_SECRET",
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
+        ],
+        "secretVia": {
+          "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
+        },
+        "authGated": true
+      },
+      "brokenOn": [],
+      "okOn": [
+        "GET",
+        "POST"
+      ],
+      "severity": "OK"
+    },
+    {
+      "path": "/api/arena/settle-solo",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "SERVER",
+      "worst": "SERVER",
+      "bucket": "OK",
+      "layer": "server",
+      "handler": "src/app/api/arena/settle-solo/route.ts",
+      "handledMethods": [
+        "POST"
+      ],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/arena/settle-solo/route.ts does not export GET"
+        },
+        "POST": {
+          "layer": "server",
+          "verdict": "SERVER",
+          "where": "src/app/api/arena/settle-solo/route.ts"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/arena/settle-solo/route.ts does not export PUT"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/arena/settle-solo/route.ts does not export PATCH"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/arena/settle-solo/route.ts does not export DELETE"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/app/arena/page.tsx",
+          "line": 907,
+          "live": true
+        },
+        {
+          "file": "src/app/arena/page.tsx",
+          "line": 907,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/arena/settle-solo/route.ts",
+        "lines": 113,
+        "methods": [
           "POST"
         ],
         "usesSecret": false,
@@ -2082,7 +2186,6 @@
       },
       "brokenOn": [],
       "okOn": [
-        "GET",
         "POST"
       ],
       "severity": "OK"
@@ -2885,7 +2988,7 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/auth/me/route.ts",
-        "lines": 304,
+        "lines": 453,
         "methods": [
           "GET",
           "PATCH"
@@ -3036,7 +3139,7 @@
     {
       "path": "/api/auth/profile",
       "reachable": true,
-      "liveCallSites": 24,
+      "liveCallSites": 26,
       "status": "SERVER",
       "worst": "SERVER",
       "bucket": "OK",
@@ -3133,8 +3236,13 @@
           "live": true
         },
         {
+          "file": "src/app/signup/page.tsx",
+          "line": 453,
+          "live": true
+        },
+        {
           "file": "src/components/missions/LinguaLab.tsx",
-          "line": 161,
+          "line": 188,
           "live": true
         },
         {
@@ -3203,8 +3311,13 @@
           "live": true
         },
         {
+          "file": "src/app/signup/page.tsx",
+          "line": 453,
+          "live": true
+        },
+        {
           "file": "src/components/missions/LinguaLab.tsx",
-          "line": 161,
+          "line": 188,
           "live": true
         },
         {
@@ -3218,10 +3331,10 @@
           "live": false
         }
       ],
-      "directCalls": 14,
+      "directCalls": 15,
       "spec": {
         "file": "src/app/api/auth/profile/route.ts",
-        "lines": 152,
+        "lines": 217,
         "methods": [
           "GET",
           "POST",
@@ -3237,6 +3350,91 @@
         "GET",
         "POST",
         "PATCH"
+      ],
+      "severity": "OK"
+    },
+    {
+      "path": "/api/auth/scan-id-card",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "SERVER",
+      "worst": "SERVER",
+      "bucket": "OK",
+      "layer": "server",
+      "handler": "src/app/api/auth/scan-id-card/route.ts",
+      "handledMethods": [
+        "POST"
+      ],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/auth/scan-id-card/route.ts does not export GET"
+        },
+        "POST": {
+          "layer": "server",
+          "verdict": "SERVER",
+          "where": "src/app/api/auth/scan-id-card/route.ts"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/auth/scan-id-card/route.ts does not export PUT"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/auth/scan-id-card/route.ts does not export PATCH"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/auth/scan-id-card/route.ts does not export DELETE"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/app/signup/page.tsx",
+          "line": 176,
+          "live": true
+        },
+        {
+          "file": "src/components/auth/CollegeIdScanner.tsx",
+          "line": 243,
+          "live": false
+        },
+        {
+          "file": "src/app/signup/page.tsx",
+          "line": 176,
+          "live": true
+        },
+        {
+          "file": "src/components/auth/CollegeIdScanner.tsx",
+          "line": 243,
+          "live": false
+        }
+      ],
+      "directCalls": 2,
+      "spec": {
+        "file": "src/app/api/auth/scan-id-card/route.ts",
+        "lines": 259,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "GROQ_API_KEY",
+          "GEMINI_API_KEY",
+          "GOOGLE_API_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [],
+      "okOn": [
+        "POST"
       ],
       "severity": "OK"
     },
@@ -3291,27 +3489,27 @@
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 351,
+          "line": 385,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 363,
+          "line": 397,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 526,
+          "line": 560,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 607,
+          "line": 641,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 861,
+          "line": 936,
           "live": true
         },
         {
@@ -3321,27 +3519,27 @@
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 351,
+          "line": 385,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 363,
+          "line": 397,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 526,
+          "line": 560,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 607,
+          "line": 641,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 861,
+          "line": 936,
           "live": true
         }
       ],
@@ -3488,22 +3686,22 @@
       "callSites": [
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 263,
+          "line": 297,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 340,
+          "line": 374,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 263,
+          "line": 297,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 340,
+          "line": 374,
           "live": true
         }
       ],
@@ -3578,7 +3776,7 @@
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 933,
+          "line": 934,
           "live": false
         },
         {
@@ -3593,7 +3791,7 @@
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 933,
+          "line": 934,
           "live": false
         }
       ],
@@ -3674,7 +3872,7 @@
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 838,
+          "line": 839,
           "live": false
         },
         {
@@ -3684,7 +3882,7 @@
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 838,
+          "line": 839,
           "live": false
         }
       ],
@@ -3755,7 +3953,7 @@
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 857,
+          "line": 858,
           "live": false
         },
         {
@@ -3765,7 +3963,7 @@
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 857,
+          "line": 858,
           "live": false
         }
       ],
@@ -4522,7 +4720,7 @@
       "callSites": [
         {
           "file": "src/app/projects/page.tsx",
-          "line": 276,
+          "line": 659,
           "live": true
         }
       ],
@@ -4896,19 +5094,19 @@
       "callSites": [
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 467,
+          "line": 6609,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 467,
+          "line": 6609,
           "live": true
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/code/evaluate/route.ts",
-        "lines": 153,
+        "lines": 154,
         "methods": [
           "POST"
         ],
@@ -5128,22 +5326,22 @@
       "callSites": [
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 593,
+          "line": 6759,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 619,
+          "line": 6785,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 593,
+          "line": 6759,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 619,
+          "line": 6785,
           "live": true
         }
       ],
@@ -5277,19 +5475,24 @@
       "callSites": [
         {
           "file": "src/components/missions/LinguaLab.tsx",
-          "line": 119,
+          "line": 139,
           "live": true
         }
       ],
       "directCalls": 0,
       "spec": {
         "file": "src/app/api/communication/evaluate/route.ts",
-        "lines": 62,
+        "lines": 236,
         "methods": [
           "POST"
         ],
-        "usesSecret": false,
-        "secrets": [],
+        "usesSecret": true,
+        "secrets": [
+          "GROQ_API_KEYS",
+          "GROQ_API_KEY",
+          "GEMINI_API_KEY",
+          "GOOGLE_API_KEY"
+        ],
         "secretVia": {},
         "authGated": false
       },
@@ -7162,32 +7365,32 @@
       "callSites": [
         {
           "file": "src/app/friends/page.tsx",
-          "line": 83,
+          "line": 102,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 180,
+          "line": 200,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 213,
+          "line": 233,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 234,
+          "line": 254,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 252,
+          "line": 272,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 290,
+          "line": 310,
           "live": true
         },
         {
@@ -7202,27 +7405,27 @@
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 83,
+          "line": 102,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 180,
+          "line": 200,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 213,
+          "line": 233,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 234,
+          "line": 254,
           "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 252,
+          "line": 272,
           "live": true
         },
         {
@@ -7239,7 +7442,7 @@
       "directCalls": 8,
       "spec": {
         "file": "src/app/api/friends/route.ts",
-        "lines": 410,
+        "lines": 419,
         "methods": [
           "GET",
           "POST",
@@ -7313,7 +7516,7 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/friends/[id]/route.ts",
-        "lines": 172,
+        "lines": 175,
         "methods": [
           "GET"
         ],
@@ -7579,7 +7782,7 @@
       "callSites": [
         {
           "file": "src/app/friends/page.tsx",
-          "line": 153,
+          "line": 173,
           "live": true
         },
         {
@@ -7604,7 +7807,7 @@
         },
         {
           "file": "src/app/friends/page.tsx",
-          "line": 153,
+          "line": 173,
           "live": true
         },
         {
@@ -7730,7 +7933,7 @@
       "directCalls": 3,
       "spec": {
         "file": "src/app/api/friends/projects/route.ts",
-        "lines": 397,
+        "lines": 420,
         "methods": [
           "GET",
           "POST",
@@ -7967,7 +8170,7 @@
         },
         {
           "file": "src/app/projects/page.tsx",
-          "line": 494,
+          "line": 878,
           "live": true
         },
         {
@@ -7977,7 +8180,7 @@
         },
         {
           "file": "src/app/projects/page.tsx",
-          "line": 494,
+          "line": 878,
           "live": true
         }
       ],
@@ -10261,14 +10464,14 @@
       "callSites": [
         {
           "file": "src/app/leaderboard/page.tsx",
-          "line": 151,
+          "line": 291,
           "live": true
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/leaderboard/route.ts",
-        "lines": 447,
+        "lines": 652,
         "methods": [
           "GET"
         ],
@@ -10962,12 +11165,12 @@
       "callSites": [
         {
           "file": "src/app/missions/hooks/useMissionsData.ts",
-          "line": 408,
+          "line": 425,
           "live": true
         },
         {
           "file": "src/app/missions/hooks/useMissionsData.ts",
-          "line": 408,
+          "line": 425,
           "live": true
         }
       ],
@@ -11109,7 +11312,7 @@
         },
         {
           "file": "src/app/missions/hooks/useMissionsData.ts",
-          "line": 368,
+          "line": 382,
           "live": true
         },
         {
@@ -11124,7 +11327,7 @@
         },
         {
           "file": "src/app/missions/hooks/useMissionsData.ts",
-          "line": 368,
+          "line": 382,
           "live": true
         }
       ],
@@ -13225,7 +13428,7 @@
       "directCalls": 2,
       "spec": {
         "file": "src/app/api/pins/earn/route.ts",
-        "lines": 111,
+        "lines": 102,
         "methods": [
           "POST"
         ],
@@ -13630,6 +13833,81 @@
       "severity": "OK"
     },
     {
+      "path": "/api/projects/audit-logic",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "SERVER",
+      "worst": "SERVER",
+      "bucket": "OK",
+      "layer": "server",
+      "handler": "src/app/api/projects/audit-logic/route.ts",
+      "handledMethods": [
+        "POST"
+      ],
+      "undecidable": false,
+      "preferLive": false,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/projects/audit-logic/route.ts does not export GET"
+        },
+        "POST": {
+          "layer": "server",
+          "verdict": "SERVER",
+          "where": "src/app/api/projects/audit-logic/route.ts"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/projects/audit-logic/route.ts does not export PUT"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/projects/audit-logic/route.ts does not export PATCH"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/projects/audit-logic/route.ts does not export DELETE"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/api/independentProjectsApi.ts",
+          "line": 326,
+          "live": true
+        },
+        {
+          "file": "src/lib/api/independentProjectsApi.ts",
+          "line": 326,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/projects/audit-logic/route.ts",
+        "lines": 273,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "GROQ_API_KEY",
+          "GROQ_API_KEYS",
+          "OPENROUTER_API_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [],
+      "okOn": [
+        "POST"
+      ],
+      "severity": "OK"
+    },
+    {
       "path": "/api/projects/generate",
       "reachable": true,
       "liveCallSites": 2,
@@ -13673,12 +13951,12 @@
       "callSites": [
         {
           "file": "src/app/projects/page.tsx",
-          "line": 319,
+          "line": 702,
           "live": true
         },
         {
           "file": "src/app/projects/page.tsx",
-          "line": 319,
+          "line": 702,
           "live": true
         }
       ],
@@ -13748,7 +14026,7 @@
       "callSites": [
         {
           "file": "src/app/projects/page.tsx",
-          "line": 589,
+          "line": 973,
           "live": true
         }
       ],
@@ -14220,7 +14498,7 @@
       "callSites": [
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 445,
+          "line": 442,
           "live": true
         }
       ],
@@ -16681,22 +16959,22 @@
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 438,
+          "line": 435,
           "live": true
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 492,
+          "line": 489,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 724,
+          "line": 758,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 840,
+          "line": 915,
           "live": true
         },
         {
@@ -16711,22 +16989,22 @@
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 438,
+          "line": 435,
           "live": true
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 492,
+          "line": 489,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 724,
+          "line": 758,
           "live": true
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 840,
+          "line": 915,
           "live": true
         }
       ],
@@ -16746,6 +17024,168 @@
       "brokenOn": [],
       "okOn": [
         "GET",
+        "POST"
+      ],
+      "severity": "OK"
+    },
+    {
+      "path": "/api/student/connect-college",
+      "reachable": true,
+      "liveCallSites": 4,
+      "status": "SERVER",
+      "worst": "SERVER",
+      "bucket": "OK",
+      "layer": "server",
+      "handler": "src/app/api/student/connect-college/route.ts",
+      "handledMethods": [
+        "POST"
+      ],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/connect-college/route.ts does not export GET"
+        },
+        "POST": {
+          "layer": "server",
+          "verdict": "SERVER",
+          "where": "src/app/api/student/connect-college/route.ts"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/connect-college/route.ts does not export PUT"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/connect-college/route.ts does not export PATCH"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/connect-college/route.ts does not export DELETE"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/app/signup/page.tsx",
+          "line": 436,
+          "live": true
+        },
+        {
+          "file": "src/components/ui/AppShell.tsx",
+          "line": 420,
+          "live": true
+        },
+        {
+          "file": "src/app/signup/page.tsx",
+          "line": 436,
+          "live": true
+        },
+        {
+          "file": "src/components/ui/AppShell.tsx",
+          "line": 420,
+          "live": true
+        }
+      ],
+      "directCalls": 2,
+      "spec": {
+        "file": "src/app/api/student/connect-college/route.ts",
+        "lines": 162,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [],
+      "okOn": [
+        "POST"
+      ],
+      "severity": "OK"
+    },
+    {
+      "path": "/api/student/verify-card",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "SERVER",
+      "worst": "SERVER",
+      "bucket": "OK",
+      "layer": "server",
+      "handler": "src/app/api/student/verify-card/route.ts",
+      "handledMethods": [
+        "POST"
+      ],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/verify-card/route.ts does not export GET"
+        },
+        "POST": {
+          "layer": "server",
+          "verdict": "SERVER",
+          "where": "src/app/api/student/verify-card/route.ts"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/verify-card/route.ts does not export PUT"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/verify-card/route.ts does not export PATCH"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "src/app/api/student/verify-card/route.ts does not export DELETE"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/app/signup/page.tsx",
+          "line": 185,
+          "live": true
+        },
+        {
+          "file": "src/app/signup/page.tsx",
+          "line": 185,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/student/verify-card/route.ts",
+        "lines": 7,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "GROQ_API_KEY",
+          "GEMINI_API_KEY",
+          "GOOGLE_API_KEY"
+        ],
+        "secretVia": {
+          "GROQ_API_KEY": "src/app/api/auth/scan-id-card/route.ts",
+          "GEMINI_API_KEY": "src/app/api/auth/scan-id-card/route.ts",
+          "GOOGLE_API_KEY": "src/app/api/auth/scan-id-card/route.ts"
+        },
+        "authGated": true
+      },
+      "brokenOn": [],
+      "okOn": [
         "POST"
       ],
       "severity": "OK"

@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "FlatBuffers Internal Binary Anatomy: Vtables, Tables, and Offsets",
-      "codeHash": "cb54ad117e15cc78e6157895fc84ab3e13ec497b659042146da323637aadb4e7",
+      "codeHash": "ce8a092d10c742663fad7b9188dcbb0f2d94323923e23f190db64c8b3620fdb1",
       "spec": {
         "template": "register-bits",
         "title": "FlatBuffers Internal Binary Anatomy: Vtables,... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Production FlatBuffer C++ Header Embedding & Compilation Pipeline",
-      "codeHash": "2a42291bfaa5c18afb508e99a24c89fe108652132e8c868c3603c98e3175f15f",
+      "codeHash": "14b746193e2c683a4d01018d14a83b8eedc4c950dbaf0af561811f65cd6a4bdb",
       "spec": {
         "template": "register-bits",
         "title": "Production FlatBuffer C++ Header Embedding & ... — Register Bit Architecture",

@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "Transparent vs Aggregating MQTT-SN Gateway Architectures",
-      "codeHash": "df790c88389ef31156b6a9609cd6fb79eb5a187779319e27cda1cab7b8d0a2ed",
+      "codeHash": "5a16386ee1db80d91806b0c984ca2cb172ccc9e2beee530d38dbc6f86681f431",
       "spec": {
         "template": "register-bits",
         "title": "Day 17 Part 3 — Transparent vs Aggregating MQT — Register Architecture",

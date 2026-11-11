@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Photon Ingestion Physics: Parallel DVP vs Differential MIPI-CSI2",
-      "codeHash": "37a0d5a74d276c1db9af20072e90b3030a5084f720d0bda39a03c2bd9a80cdc4",
+      "codeHash": "939a8a514473a8c882257d8586149b2e43f281640f8b3f0810478d263ab96e39",
       "spec": {
         "template": "register-bits",
         "title": "Photon Ingestion Physics: Parallel DVP vs Dif... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Bayer Color Filter Array Physics: The 50% Green Secret",
-      "codeHash": "949caf71e830ed5f261c081c33201fadd531c4551aab8a4c663cdb0de8b08fb6",
+      "codeHash": "636a2c44da3fb4c3b4823e5c7a813878e85342076d1c9f4491939096afef6dd0",
       "spec": {
         "template": "register-bits",
         "title": "Bayer Color Filter Array Physics: The 50% Gre... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Industrial Case Study: 3 AM Automated Packaging Line Vision Tearing Crisis",
-      "codeHash": "15b7c40960b62d4400fa55e115ca810d9135b86888d3d99655bc74f649808105",
+      "codeHash": "dcb655d3f5da2effc2897e68acb2b2299042fadbeb2274ee69489d497b53ea97",
       "spec": {
         "template": "register-bits",
         "title": "Industrial Case Study: 3 AM Automated Packagi... — Register Bit Architecture",

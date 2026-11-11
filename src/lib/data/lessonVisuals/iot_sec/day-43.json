@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Critical Security Parameter (CSP) Lifecycles & FIPS 140-3 Zeroization Requirements",
-      "codeHash": "f5c7d03388a8ea2c9a67f5d0253ef48e0c408cd522783fcefb4f12810ea4f60e",
+      "codeHash": "482e4789a87edadc6bca0b65957aa49f080da6c2037c618a9c5b26e88fe6c0e5",
       "spec": {
         "template": "register-bits",
         "title": "Critical Security Parameter (CSP) Lifecycles ... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Battery-Backed SRAM (BB-SRAM) Physical Architecture & Power Multiplexing (V_BAT vs V_DD)",
-      "codeHash": "7b672c2b67a2c6e7e858374433239b707f220e2398fa822d33c9e3ad68cfb3fa",
+      "codeHash": "67ca1815bf87e67dceb637cc9e0f7aa69ac4aa4e3c94e390fbf3540ee8f09637",
       "spec": {
         "template": "register-bits",
         "title": "Battery-Backed SRAM (BB-SRAM) Physical Archit... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Crowbar Discharge Circuits: Gate-Driven NMOS Pulldown Transistors & Charge Dissipation Timing",
-      "codeHash": "dda30336869f225e802600a9ee5889c158d48eb83bac91fd2f63cb0737c35b20",
+      "codeHash": "201d6e1530198ba2f4b117cad042e4c66347989c1a24404c84d2fdab0cb80bc5",
       "spec": {
         "template": "register-bits",
         "title": "Crowbar Discharge Circuits: Gate-Driven NMOS ... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Volatile Memory Scrubbing State Machines: Hardware Pattern Overwriting & Memory Remanence Neutralization",
-      "codeHash": "74777067209d6c4b690c5dceaafee72edbfeea0d2d1f4da6b6eaeca98a62b8d8",
+      "codeHash": "3154835ccbd8e0959b4b0172621f2c04bc1ae8ee4ce5c4094964f661f00d3626",
       "spec": {
         "template": "register-bits",
         "title": "Volatile Memory Scrubbing State Machines: Har... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "TamperShield Active Zeroization Engine: Microsecond Bench Verification & Forensic Erasure Audit",
-      "codeHash": "330f31454e196e50174d559fd83f00f2e80479b07fa120e0191ff2c230a0574c",
+      "codeHash": "b11da9520b040a844a12163a70040e0c4fcfb4ffbc2d7286f6e1e56f47be6d83",
       "spec": {
         "template": "register-bits",
         "title": "TamperShield Active Zeroization Engine: Micro... — Register Bit Architecture",

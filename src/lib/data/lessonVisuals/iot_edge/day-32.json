@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Industrial Case Study: 3 AM Autonomous Beehive Counter Latency Crisis",
-      "codeHash": "c6f6dd66d6720fe6780dcbed79021aa656128efbb86f9827e277f9eb933a65e1",
+      "codeHash": "ef01a1d7a644bb6ba13449d470795ee51171171f8df21bdaf1e0c257e97d9096",
       "spec": {
         "template": "register-bits",
         "title": "Industrial Case Study: 3 AM Autonomous Beehiv... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Edge Benchmark Sizing: INT8 FOMO vs YOLO-Fastest on Silicon",
-      "codeHash": "cbbf2e487f9ba050769ce67f3c7530a05574352aeae7e7f0fe462c47d77b3592",
+      "codeHash": "11f69e30817dbed587f65137109eda9c27459daf676e19db07386498d937c1ef",
       "spec": {
         "template": "register-bits",
         "title": "Edge Benchmark Sizing: INT8 FOMO vs YOLO-Fast... — Register Bit Architecture",

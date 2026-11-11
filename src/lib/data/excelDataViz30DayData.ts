@@ -72,7 +72,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
       "Combining criteria with AND(), OR(), and NOT() functions."
     ],
     "eTitle": "Student Grade & Attendance Logical Evaluation Engine",
-    "eDesc": "Implement function evaluateExcelLogicalGrade(score, attendancePct) returning 'DISTINCTION' if score >= 85 and attendance >= 90%, 'PASS' if score >= 50 and attendance >= 75%, else 'FAIL'.",
+    "eDesc": "Implement function evaluateExcelLogicalGrade(score, attendancePct) returning 'DISTINCTION' if score >= 85 and attendancePct >= 0.90 (90%), 'PASS' if score >= 50 and attendancePct >= 0.75 (75%), else 'FAIL'.",
     "eStarter": "function evaluateExcelLogicalGrade(score, attendancePct) {\n  // TODO: Implement nested IF logic with score and attendance criteria\n  \n}",
     "eHint": "Evaluate distinction condition first (score >= 85 && attendancePct >= 0.9), then pass condition (score >= 50 && attendancePct >= 0.75), else return 'FAIL'.",
     "eTest": "if (evaluateExcelLogicalGrade(92, 0.95) !== 'DISTINCTION') throw new Error('Distinction failed');\nif (evaluateExcelLogicalGrade(65, 0.80) !== 'PASS') throw new Error('Pass failed');\nif (evaluateExcelLogicalGrade(90, 0.60) !== 'FAIL') throw new Error('Low attendance pass failed');\nif (evaluateExcelLogicalGrade(45, 0.95) !== 'FAIL') throw new Error('Low score failed');",

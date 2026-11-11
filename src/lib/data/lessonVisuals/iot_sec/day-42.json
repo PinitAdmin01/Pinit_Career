@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Cold-Boot Attacks & Memory Remanence: Physics of Cryogenic Freezing & DRAM/SRAM Decay",
-      "codeHash": "d1a9db43e6604185fbbf38ef28e15654e3114b14158bc0df2c764087046ce578",
+      "codeHash": "73ca5ea10d71513f2c901b1f7a57125b3cf2bc2d7f9ac542ba71b767bcfd7bd7",
       "spec": {
         "template": "register-bits",
         "title": "Cold-Boot Attacks & Memory Remanence: Physics... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "On-Chip Thermal Sensor Circuits: PTAT Bandgap References & Cryogenic/Thermal Tripping Comparators",
-      "codeHash": "0c0aa37cbc305feab7bc9c911b00a1831e1248392443172fe36b477709fd3aec",
+      "codeHash": "18c76fbf6dac85952d5f33c3423a6f6ca3ae30806776dfb40d1eb31395415e29",
       "spec": {
         "template": "register-bits",
         "title": "On-Chip Thermal Sensor Circuits: PTAT Bandgap... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Silicon Die Decapsulation Detection: Integrated Light Sensors, Ambient Photodiodes & Spectral Response",
-      "codeHash": "1f10a336d6ecdd75556553dd9dd6702c0b37c58bc3f6edb7b8ee6d0fb372b4fe",
+      "codeHash": "9de962efa56d2e57cc61615e281bb576c7ad0ef536eae01516f753cc7a98cc32",
       "spec": {
         "template": "register-bits",
         "title": "Silicon Die Decapsulation Detection: Integrat... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Voltage Slew-Rate & Fast Supply Disconnect Detection: Brownout and Crowbar Sensing",
-      "codeHash": "d90512ec343665737bf5e0b645ffd3d0d535b5dea288897409964acddff1b27e",
+      "codeHash": "f41df48596e09123888d0d5949aba9c1d03f31ee07b4b7254b9282921f397791",
       "spec": {
         "template": "register-bits",
         "title": "Voltage Slew-Rate & Fast Supply Disconnect De... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Integrated Environmental Sensor Fusion Engine & Hardware Alarm Aggregator",
-      "codeHash": "e45d9ef3067c0f6d3a258312cc237920bb1fe9b7a418df6f8d9b948c6122b010",
+      "codeHash": "35497fc71d5b5d71c3e9a025bbead9ded77cd08535eb26cc0d76ce5a03afedda",
       "spec": {
         "template": "register-bits",
         "title": "Integrated Environmental Sensor Fusion Engine... — Register Bit Architecture",

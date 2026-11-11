@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "ApexShield Architecture & Full-Stack Cyber-Physical Threat Surface",
-      "codeHash": "53f026d6e8bfdccf1c7758136fc18ddd3e238d43dbb61f0609f6bef202eca051",
+      "codeHash": "d80aeeb841f1530a15cf63ec32a8cd71baf2536a8d706432535142b0e6ae377e",
       "spec": {
         "template": "register-bits",
         "title": "Day 60 Part 1 — ApexShield Architecture & Full — Register Architecture",
@@ -259,7 +259,7 @@
     },
     {
       "partTitle": "Multilayer Hardware Root of Trust & Post-Quantum Cryptographic Engine",
-      "codeHash": "65ec5aa3173f2422f874571f31702dce4bb9e48bf9e8153a9df8318bddd8c83f",
+      "codeHash": "4aac3f1e53f8ce3923dc142a97a5d17ca60acab1409e3253f5769902e7d0a532",
       "spec": {
         "template": "register-bits",
         "title": "Day 60 Part 2 — Multilayer Hardware Root of Tr — Register Architecture",
@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "Zero-Trust Industrial Mesh Networking & Formally Verified Protocol Execution",
-      "codeHash": "dda59d1845cdd309dfeeeab946e77191fe78112a9bf076a3085f651f3692075c",
+      "codeHash": "dd62072fa4579713db5f3266366ad1061e1302bc4620d7c3f26b0eda778afd6d",
       "spec": {
         "template": "register-bits",
         "title": "Day 60 Part 3 — Zero-Trust Industrial Mesh Net — Register Architecture",
@@ -763,7 +763,7 @@
     },
     {
       "partTitle": "Real-Time Cyber-Physical Defense, Merkle Logs & Autonomous Zeroization",
-      "codeHash": "9da3198b8ef4b8877fd1d1eae4a560ff5f7502bb51c6f602f70b0b2ce55cf126",
+      "codeHash": "9a695b72ad59259f4c5f40e4c5ded6d93c66a6185663f46b86417ce5e28329de",
       "spec": {
         "template": "register-bits",
         "title": "Day 60 Part 4 — Real-Time Cyber-Physical Defen — Register Architecture",
@@ -1015,7 +1015,7 @@
     },
     {
       "partTitle": "Milestone 12 Grand Enterprise Capstone Engine & Master Graduation",
-      "codeHash": "98907fc40375400fd612e95e2ef7a21c520c84d7311b009000f7992808d31995",
+      "codeHash": "1c64af5df9cea1f21819b073096e354b6e5e3a8b43e2e2e6c06fb277a4a9bd19",
       "spec": {
         "template": "register-bits",
         "title": "Day 60 Part 5 — Milestone 12 Grand Enterprise  — Register Architecture",

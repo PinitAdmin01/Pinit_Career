@@ -2,28 +2,28 @@
 
 Regenerate: `node audit/extract-contracts.mjs`
 
-- **generated**: 2026-11-07T09:21:03.170Z
-- **appCodeFiles**: 1056
+- **generated**: 2026-11-10T22:24:12.219Z
+- **appCodeFiles**: 1062
 - **verticals**: 73
 - **verticalsWithDefects**: 1
-- **clientCalledPaths**: 233
-- **reachablePaths**: 196
+- **clientCalledPaths**: 238
+- **reachablePaths**: 201
 - **brokenOnEveryMethod**: 1
 - **brokenOnSomeMethods**: 0
 - **defectsInDeadCode**: 20
 - **unbuiltPages**: 15
-- **reachableSourceFiles**: 938
+- **reachableSourceFiles**: 943
 - **guardBranches**: 0
 - **unreachableOrDynamicGuards**: 0
 - **campusSwitchCases**: 0
 - **campusPrefixes**: 0
-- **deadRouteFiles**: 301
+- **deadRouteFiles**: 306
 - **interceptorBypasses**: []
 - **preferLivePrefixes**: 71
 - **needsManualCheck**: 0
-- **byWorst**: {"SERVER":212,"UNHANDLED-404":21}
-- **byBucket**: {"OK":212,"A":21}
-- **byLayer**: {"server":212,"none":21}
+- **byWorst**: {"SERVER":217,"UNHANDLED-404":21}
+- **byBucket**: {"OK":217,"A":21}
+- **byLayer**: {"server":217,"none":21}
 - **guardsByVerdict**: {}
 
 **Verdict** — `SERVER` a route under `src/app/api/` exports the method
@@ -46,7 +46,7 @@ method the call site actually uses before treating one as a defect.
 
 
 
-## All paths (233)
+## All paths (238)
 
 | path | verdict | bucket | layer | handler | spec route | direct/total |
 |---|---|---|---|---|---|---|
@@ -68,6 +68,7 @@ method the call site actually uses before treating one as a defect.
 | `/api/arena/join-room` | SERVER | OK | server | src/app/api/arena/join-room/route.ts | /api/arena/join-room/route.ts | 1/2 |
 | `/api/arena/matchmake` | SERVER | OK | server | src/app/api/arena/matchmake/route.ts | /api/arena/matchmake/route.ts | 1/2 |
 | `/api/arena/room/:param` | SERVER | OK | server | src/app/api/arena/room/[roomCode]/route.ts | /api/arena/room/[roomCode]/route.ts | 5/5 |
+| `/api/arena/settle-solo` | SERVER | OK | server | src/app/api/arena/settle-solo/route.ts | /api/arena/settle-solo/route.ts | 1/2 |
 | `/api/attendance/identify` | UNHANDLED-404 | A | none | no route under src/app/api | — | 0/1 |
 | `/api/attention-span/analytics` | SERVER | OK | server | src/app/api/attention-span/analytics/route.ts | /api/attention-span/analytics/route.ts | 2/4 |
 | `/api/attention-span/leaderboard` | SERVER | OK | server | src/app/api/attention-span/leaderboard/route.ts | /api/attention-span/leaderboard/route.ts | 1/2 |
@@ -79,7 +80,8 @@ method the call site actually uses before treating one as a defect.
 | `/api/auth/face/verify` | SERVER | OK | server | src/app/api/auth/face/verify/route.ts | /api/auth/face/verify/route.ts | 1/2 |
 | `/api/auth/me` | SERVER | OK | server | src/app/api/auth/me/route.ts | /api/auth/me/route.ts | 1/6 |
 | `/api/auth/onboarding` | SERVER | OK | server | src/app/api/auth/onboarding/route.ts | /api/auth/onboarding/route.ts | 6/12 |
-| `/api/auth/profile` | SERVER | OK | server | src/app/api/auth/profile/route.ts | /api/auth/profile/route.ts | 14/28 |
+| `/api/auth/profile` | SERVER | OK | server | src/app/api/auth/profile/route.ts | /api/auth/profile/route.ts | 15/30 |
+| `/api/auth/scan-id-card` | SERVER | OK | server | src/app/api/auth/scan-id-card/route.ts | /api/auth/scan-id-card/route.ts | 2/4 |
 | `/api/auth/session` | SERVER | OK | server | src/app/api/auth/session/route.ts | /api/auth/session/route.ts | 6/12 |
 | `/api/auth/teacher` | SERVER | OK | server | src/app/api/auth/teacher/route.ts | /api/auth/teacher/route.ts | 1/2 |
 | `/api/auth/vault-exchange` | SERVER | OK | server | src/app/api/auth/vault-exchange/route.ts | /api/auth/vault-exchange/route.ts | 2/4 |
@@ -219,6 +221,7 @@ method the call site actually uses before treating one as a defect.
 | `/api/portfolio/analyze-certificate` | SERVER | OK | server | src/app/api/portfolio/analyze-certificate/route.ts | /api/portfolio/analyze-certificate/route.ts | 1/2 |
 | `/api/portfolio/verify-endorsement` | SERVER | OK | server | src/app/api/portfolio/verify-endorsement/route.ts | /api/portfolio/verify-endorsement/route.ts | 2/4 |
 | `/api/portfolio/verify-exam` | SERVER | OK | server | src/app/api/portfolio/verify-exam/route.ts | /api/portfolio/verify-exam/route.ts | 1/2 |
+| `/api/projects/audit-logic` | SERVER | OK | server | src/app/api/projects/audit-logic/route.ts | /api/projects/audit-logic/route.ts | 1/2 |
 | `/api/projects/generate` | SERVER | OK | server | src/app/api/projects/generate/route.ts | /api/projects/generate/route.ts | 1/2 |
 | `/api/projects/xp` | SERVER | OK | server | src/app/api/projects/xp/route.ts | /api/projects/xp/route.ts | 0/1 |
 | `/api/quest/complete` | SERVER | OK | server | src/app/api/quest/complete/route.ts | /api/quest/complete/route.ts | 2/5 |
@@ -262,6 +265,8 @@ method the call site actually uses before treating one as a defect.
 | `/api/settings/rollout/feedback` | SERVER | OK | server | src/app/api/settings/rollout/feedback/route.ts | /api/settings/rollout/feedback/route.ts | 0/1 |
 | `/api/stt` | SERVER | OK | server | src/app/api/stt/route.ts | /api/stt/route.ts | 2/4 |
 | `/api/student/activity` | SERVER | OK | server | src/app/api/student/activity/route.ts | /api/student/activity/route.ts | 5/11 |
+| `/api/student/connect-college` | SERVER | OK | server | src/app/api/student/connect-college/route.ts | /api/student/connect-college/route.ts | 2/4 |
+| `/api/student/verify-card` | SERVER | OK | server | src/app/api/student/verify-card/route.ts | /api/student/verify-card/route.ts | 1/2 |
 | `/api/study/complete` | SERVER | OK | server | src/app/api/study/complete/route.ts | /api/study/complete/route.ts | 1/2 |
 | `/api/teacher/students` | SERVER | OK | server | src/app/api/teacher/students/route.ts | /api/teacher/students/route.ts | 0/2 |
 | `/api/teacher/submit-marks` | SERVER | OK | server | src/app/api/teacher/submit-marks/route.ts | /api/teacher/submit-marks/route.ts | 1/2 |

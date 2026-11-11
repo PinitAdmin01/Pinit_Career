@@ -40,13 +40,13 @@ public:
   });
 
   assert.strictEqual(result.language, 'cpp');
-  assert.ok(result.totalTests >= 5, 'Should execute 5 boundary tiers');
+  assert.ok(result.totalTests >= 5, 'Should inspect 5 boundary tiers');
   assert.ok(result.terminalLogs.some(log => log.includes('[CPP STATIC ANALYZER]')), 'C++ Static Analyzer must run');
   assert.ok(result.terminalLogs.some(log => log.includes('matchLimitOrders')), 'Must verify method signature');
-  assert.ok(result.allPassed, 'All C++ invariant test cases should pass');
+  assert.strictEqual(result.allPassed, false, 'Without a real C++ compiler, test assertions must fail closed (never fake-pass)');
 });
 
-test('C++ Interview Sandbox: AST Invariant Execution of IoT Packet Decoder', async () => {
+test('C++ Interview Sandbox: Fails Closed Without Compiler for IoT Packet Decoder', async () => {
   const prob = resolveDynamicCodingProblem('IoT Sensor Telemetry', 'tech', 'cpp');
   assert.ok(prob.starterCode.includes('uint8_t'), 'Must have uint8_t in starter code');
 
@@ -75,9 +75,9 @@ public:
   });
 
   assert.strictEqual(result.language, 'cpp');
-  assert.ok(result.totalTests >= 5, 'Should verify 5 boundary tiers');
+  assert.ok(result.totalTests >= 5, 'Should track 5 boundary tiers');
   assert.ok(result.terminalLogs.some(log => log.includes('[CPP STATIC ANALYZER]')), 'Analyzer must log');
-  assert.ok(result.allPassed, 'All C++ invariant test cases should pass');
+  assert.strictEqual(result.allPassed, false, 'Without a real C++ compiler, test assertions must fail closed');
 });
 
 test('Interview Scorecard: Full Data Contract Verification for Results View', () => {

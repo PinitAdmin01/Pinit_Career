@@ -26,7 +26,8 @@ export const COURSES_CATALOG: CourseCatalogItem[] = [
     difficulty: 'Intermediate',
     durationWeeks: 6,
     icon: '⚛️',
-  },  {
+  },
+  {
     id: 'course-node-web',
     title: 'Node.js & TypeScript Backend Engineering',
     desc: 'Master backend web engineering with Node.js, Express, and TypeScript: asynchronous runtimes, REST APIs, middleware pipelines, authentication, data access patterns, and production reliability.',
@@ -308,5 +309,37 @@ export const COURSES_CATALOG: CourseCatalogItem[] = [
     difficulty: 'Advanced',
     durationWeeks: 6,
     icon: '📚',
+  },
+  {
+    id: 'course-statutory-auditing',
+    title: 'Statutory Auditing & Corporate Assurance',
+    desc: 'Master statutory audit lifecycles, internal controls verification, forensic data testing, fraud risk assessment, and CARO/GAAP compliance.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '⚖️',
+  },
+  {
+    id: 'course-banking-treasury',
+    title: 'Banking, Treasury & Credit Operations',
+    desc: 'Master commercial banking operations, ALM liquidity frameworks, credit risk appraisal, BASEL III regulatory capital, and treasury operations.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '🏦',
+  },
+  {
+    id: 'course-corporate-law',
+    title: 'Corporate Law, Contracts & Governance',
+    desc: 'Master enterprise corporate law, contract drafting, fiduciary liabilities, board resolutions, M&A due diligence, and regulatory filings.',
+    difficulty: 'Intermediate',
+    durationWeeks: 6,
+    icon: '📜',
+  },
+  {
+    id: 'course-corporate-taxation',
+    title: 'Corporate Taxation & GST Architecture',
+    desc: 'Master corporate direct tax computation, GST input tax credits, international transfer pricing, cross-border withholding, and tax audit filings.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '📑',
   }
-];
+];

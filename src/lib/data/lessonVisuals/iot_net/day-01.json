@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Constrained Application Protocol (CoAP): REST over UDP",
-      "codeHash": "c5d4aa599f45ea6a90402f9e53f37a21f0da0b4a1d596b4398037e13c54f4565",
+      "codeHash": "f72f3446d354a00632680d4c43d1933b58e3aa7bde2d1b076bd14240737c36e7",
       "spec": {
         "template": "register-bits",
         "title": "Constrained Application Protocol (CoAP): REST... — Register Bit Architecture",

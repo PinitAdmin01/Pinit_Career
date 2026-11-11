@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Physics of Electromagnetic Leakage: Maxwell-Faraday Induction in Chip Parasitic Loops",
-      "codeHash": "31a3ea633c8a803def163b271bf787285e41af46036cc9e3ef5e62fa6fb22a6c",
+      "codeHash": "0835ece1fe55f68d6f80fdf11b1a89d3ddb5ef6caa59a146c5746a96b91591e9",
       "spec": {
         "template": "register-bits",
         "title": "Physics of Electromagnetic Leakage: Maxwell-F... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Near-Field EM Probes: Coil Geometry, H-Field Loop Probes, and Faraday Cages",
-      "codeHash": "dcd884d4da42c25c14e0eee05008012288bbe6ed0e139b975e598c619d635b4f",
+      "codeHash": "e0a717de059843deb1572631e1a06e27959b6272b30256041dceeb3d5ba438c4",
       "spec": {
         "template": "register-bits",
         "title": "Near-Field EM Probes: Coil Geometry, H-Field ... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Spatial Coordinate (x,y) Profiling: Automated Cartesian Scanners and Leakage Heatmaps",
-      "codeHash": "4ee48d25cad572cd7dded93ce9af30b188414c33be5f9634c11b9e47f3c3896f",
+      "codeHash": "660185581b415e72c122a3c0d6480fa672ed8f4a7f55aeba0dc60828f1b58c7a",
       "spec": {
         "template": "register-bits",
         "title": "Spatial Coordinate (x,y) Profiling: Automated... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Frequency-Domain Analysis: Bandpass Filtering, Demodulation, and Clock Carrier Suppression",
-      "codeHash": "36a22d497f5e497578125dbb6159e8f0e6f8836f4268bd09e0004423a34e0b21",
+      "codeHash": "68009715091534ce5a320bc518d17c1a908a2772082a3a28d0f6e43ae348162c",
       "spec": {
         "template": "register-bits",
         "title": "Frequency-Domain Analysis: Bandpass Filtering... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Physical EM Shielding & Die-Level Countermeasures: Ground Planes, Faraday Covers, and Active Noise Generators",
-      "codeHash": "0ae1b91903f9f441755690aaf94e9e008af676334dccdfbbde100154cd1ad70d",
+      "codeHash": "b16ce22984d9ae614e60ad295f3cafb7ddb2deee5b93433f5b7f8e0aeae0ae85",
       "spec": {
         "template": "register-bits",
         "title": "Physical EM Shielding & Die-Level Countermeas... — Register Bit Architecture",

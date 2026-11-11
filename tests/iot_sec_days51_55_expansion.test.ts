@@ -50,7 +50,7 @@ test('Course 19: IoT Hardware Security (iot_sec) Month 2 Block 11 (Days 51-55) E
         assert.ok(part.code && part.code.length > 50, `${ctx}: code must contain substantive runnable code`);
         assert.ok(part.output && part.output.length > 0, `${ctx}: output must specify expected terminal output`);
         assert.ok(Array.isArray(part.codeNotes) && part.codeNotes.length >= 3, `${ctx}: codeNotes must have >= 3 items`);
-        assert.ok(part.codeNotes.every(cn => typeof cn === 'string'), `${ctx}: all codeNotes must be strings`);
+        assert.ok(part.codeNotes.every(cn => typeof cn === 'string' || (typeof cn === 'object' && cn !== null && 'note' in cn)), `${ctx}: all codeNotes must be strings or note objects`);
         assert.ok(typeof part.tryIt === 'string' && part.tryIt.length > 15, `${ctx}: tryIt must be a plain string challenge`);
 
         // Check question verification

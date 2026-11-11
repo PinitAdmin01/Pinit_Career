@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The End-to-End Vision Latency Budget: Deconstructing the 40 ms Window",
-      "codeHash": "e7c2f56284d4ff54cfedabad57a0d3f88d2eadea5c36e8ec43fc480ee7076735",
+      "codeHash": "880c883ae01c776dcec43b3ccfd9945d80032af701d8d26e5a349274d032a39b",
       "spec": {
         "template": "register-bits",
         "title": "The End-to-End Vision Latency Budget: Deconst... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Row-Major vs Column-Major Traversal: The 12x Cache Thrashing Trap",
-      "codeHash": "463caf62027930b34e85d1a2a66bc5b903f7d49ea8bbbc788c97bedb728ed71c",
+      "codeHash": "7e2fb51f959cb21f24840c431045078c8164add4f8fe47a26275ac0bc3e20c8a",
       "spec": {
         "template": "register-bits",
         "title": "Row-Major vs Column-Major Traversal: The 12x ... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Industrial Case Study: 3 AM Smart Traffic Camera Frame Rate Stutter Crisis",
-      "codeHash": "af7d66ba4a72899af56542e84239d2551f5499e5893a9ac8f59ea3223a3201bf",
+      "codeHash": "2ecfc6cff565c1e284db260a0cf779bfed428e6380c28d61fe178e290c5c9327",
       "spec": {
         "template": "register-bits",
         "title": "Industrial Case Study: 3 AM Smart Traffic Cam... — Register Bit Architecture",

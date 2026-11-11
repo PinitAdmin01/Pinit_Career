@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The Site-Adaptation Dilemma: Why Factory Models Fail in the Field",
-      "codeHash": "c9ac552991c725b0bcc4955407bbd087392292ef45e8e77b125e0e8ce9356c11",
+      "codeHash": "c190a01eac1c8b296051efe3e64b7b95dd8a20c2fd331c58e1bcf73c9afd513a",
       "spec": {
         "template": "register-bits",
         "title": "The Site-Adaptation Dilemma: Why Factory Mode... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "On-Device Few-Shot Adaptation: Closed-Form Ridge Regression",
-      "codeHash": "7026155b06c4e46e65728f2812c91ec28135b45925efa294a8269ac126eb0eea",
+      "codeHash": "7a2619840a01c830c37124891e902273713578c8307616a35aea4b86e0dde343",
       "spec": {
         "template": "register-bits",
         "title": "On-Device Few-Shot Adaptation: Closed-Form Ri... — Register Bit Architecture",

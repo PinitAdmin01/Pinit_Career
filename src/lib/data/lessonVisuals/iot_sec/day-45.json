@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Milestone 9 Architecture: Sovereign Physical Security Boundary & Multi-Sensor Aggregation Layer",
-      "codeHash": "c86e06d91d58ce3be1a262dd16a524e9d442bdd5916086c9d973ea90e36262f9",
+      "codeHash": "c2fec0f0466dd8ed99056cf2f49698b0920438c8b07c1ebba432b1554b8e06fe",
       "spec": {
         "template": "register-bits",
         "title": "Milestone 9 Architecture: Sovereign Physical ... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Hardware Sensor Tripping & Multi-Vector Tamper Injection Matrix (Mesh Cut, Cryo Freeze, Optical Decapsulation & Supply Snip)",
-      "codeHash": "e8548bc0bb3b97e1325d6cf663548dd9433e9e9ea1a4a8230cc2a14cf0c96bc0",
+      "codeHash": "82b7c747b1dd27e4ee8e2c17efeba2db49cb566742f9cadea9cd4c113ee51582",
       "spec": {
         "template": "register-bits",
         "title": "Hardware Sensor Tripping & Multi-Vector Tampe... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Sub-50ns Emergency Zeroization Execution & Crowbar Energy Dissipation Profiling",
-      "codeHash": "9c7856bf5dbf4cda3eb099a9d78fade921a628e2c2b9b94322b2578b7e875703",
+      "codeHash": "2339c11984d8d290eeab94690387b9da9024d169fdef1266ffd3360cea49e192",
       "spec": {
         "template": "register-bits",
         "title": "Sub-50ns Emergency Zeroization Execution & Cr... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Permanent Silicon eFuse Lockdown & Forensic Incident Logging",
-      "codeHash": "eca9886ebe7bc67e7d28d37e979638f4cc854e0e6a1fc32fa56cce855bbec6bf",
+      "codeHash": "bd574116cb082558e2bd85fcfebeebefbce9304bdb5c302d813d5a916c872ced",
       "spec": {
         "template": "register-bits",
         "title": "Permanent Silicon eFuse Lockdown & Forensic I... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "TamperShield Master Evaluation Bench & Milestone 9 Level 4 Certification",
-      "codeHash": "34c13981a2da3d3191dc44c9b41f600541c23e934c7ff3f5d667cda99545ea7c",
+      "codeHash": "d7605b2dda6c936995d2e282e3cfabf7c24d336b0a73cca69b62a1415b172692",
       "spec": {
         "template": "register-bits",
         "title": "TamperShield Master Evaluation Bench & Milest... — Register Bit Architecture",

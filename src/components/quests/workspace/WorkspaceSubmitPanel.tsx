@@ -137,8 +137,8 @@ interface CompletionScreenProps {
 
 export function CompletionScreen({ quest, currentTeacher, category }: CompletionScreenProps) {
   const authQuest = getAuthoritativeQuest(quest?.id);
-  const xpReward = authQuest?.xp ?? quest?.xp ?? (category === 'exam' ? 120 : 150);
-  const pinsReward = authQuest?.pins ?? quest?.pins ?? (category === 'exam' ? 6 : 5);
+  const xpReward = (authQuest?.xp && authQuest.xp > 0) ? authQuest.xp : (quest?.xp ?? (category === 'exam' ? 120 : 150));
+  const pinsReward = (authQuest?.pins && authQuest.pins > 0) ? authQuest.pins : (quest?.pins ?? (category === 'exam' ? 6 : 5));
 
   return (
     <div data-testid="workspace-completion-screen" style={{ maxWidth: 600, margin: '60px auto', padding: '40px 24px', textAlign: 'center' }} className="animate-fade-in">

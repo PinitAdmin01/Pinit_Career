@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Industrial Case Study: 3 AM Barcode Scanner Frame Buffer Crash",
-      "codeHash": "eb5a0057ffcc84a90f926c181ec12391614058a439b98e933471e8aa744a1062",
+      "codeHash": "5905036e15fd1a6c1204abc9bbba0de765ccc09a34f0dbbcf3d7995b6bb7af38",
       "spec": {
         "template": "register-bits",
         "title": "Industrial Case Study: 3 AM Barcode Scanner F... — Register Bit Architecture",

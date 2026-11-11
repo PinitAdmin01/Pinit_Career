@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Statistical Foundations of DPA & Signal-to-Noise Ratio (SNR) Challenges",
-      "codeHash": "5d1464bf44ab57a42f449a8f26a436d4712a5bae0c3a4424a0d826fdfe2feeac",
+      "codeHash": "4b68e5649daa81818325825ffe3fcf81399df31f20f0e333be0f7c129e26e5f2",
       "spec": {
         "template": "register-bits",
         "title": "Statistical Foundations of DPA & Signal-to-No... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Power Consumption Models: Hamming Weight (HW) vs Hamming Distance (HD) on Data Buses",
-      "codeHash": "c34539af3036da4a3820e2b0198cacc7661d629b711932e61e4b506db0e6ffb7",
+      "codeHash": "479a60ec1e764aecea165ba5779296f4b1f765197a8f7de2e21335cdb2c4c666",
       "spec": {
         "template": "register-bits",
         "title": "Power Consumption Models: Hamming Weight (HW)... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Partitioning Function & Difference-of-Means (Delta_D) Test Statistic Formulation",
-      "codeHash": "a32fee6f7faf13e8800557200a63e0735a3bd67320482b0a3410024fe97a5f3d",
+      "codeHash": "15fd49a135ff7b7247a45b950fd6819beab36fa9e2a579dfe37867b8422bed8c",
       "spec": {
         "template": "register-bits",
         "title": "Partitioning Function & Difference-of-Means (... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "End-to-End DPA Attack Execution: Subkey Hypothesis Sweeping and Ghost Peak Resolution",
-      "codeHash": "e7676707e83a0a6d3a4c2d66183aa54549bf90bbd60f067f96ba744b50d6e890",
+      "codeHash": "7eaffec77a00158f92613c8138d0779da0a6d4f21634775b7d7d3a1d1d892107",
       "spec": {
         "template": "register-bits",
         "title": "End-to-End DPA Attack Execution: Subkey Hypot... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Hardware & Protocol Countermeasures: Shuffling, Random Delays, and Current Equalization",
-      "codeHash": "2a9579a06b2b35c5eae07cc0f6befd2f2bf8c5d16f74fb7c18f9bc9d3c936b31",
+      "codeHash": "381a16187c4e6e0f8d4878c450a5ac5122506d572b8900749d78255396631203",
       "spec": {
         "template": "register-bits",
         "title": "Hardware & Protocol Countermeasures: Shufflin... — Register Bit Architecture",

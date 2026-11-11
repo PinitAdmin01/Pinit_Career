@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Debug Interface Exploits: JTAG/SWD Boundary Scan, Test Access Ports (TAP) & Silicon Backdoors",
-      "codeHash": "097045308301decc8aa28e86ddc550a01b07f18b5625b62615ad4f066ab0d88d",
+      "codeHash": "ec142e5c0fd0430b22537793f6fca0bfcfc375abc708c2b36b084a5089665e8c",
       "spec": {
         "template": "register-bits",
         "title": "Debug Interface Exploits: JTAG/SWD Boundary S... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Hardware Debug Authentication Protocols: Cryptographic Challenge-Response (HMAC-SHA256 & Curve25519)",
-      "codeHash": "a235c0e652ca535d426b1694cf71be6d10e32262c317383b760e9d5a26e64f2a",
+      "codeHash": "218cde28d8514156694394d1517ded9bcbe1ece40b23423754c21731e2edf087",
       "spec": {
         "template": "register-bits",
         "title": "Hardware Debug Authentication Protocols: Cryp... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "One-Time Programmable (OTP) eFuse Security States: Development, Production, Locked & RMA",
-      "codeHash": "a9f90cb16a1d13e8a48453c49e046a2d8546fd6a84d255d4d30810d901e5bbeb",
+      "codeHash": "03779de0628f5d1a84ec720beed5a1f159245f37092c8a31d801a02a391b725b",
       "spec": {
         "template": "register-bits",
         "title": "One-Time Programmable (OTP) eFuse Security St... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Dynamic Debug Session Control: Hardware Timers, Ephemeral Authorization Tokens & State Monitors",
-      "codeHash": "6207e984df59ea587c567414d6e98fd3488b400b052cdbebc081ecba39f449c6",
+      "codeHash": "8cbe53be20aa74641c958303f2622a4615ad2c83228808955a9d8db4a7c4f291",
       "spec": {
         "template": "register-bits",
         "title": "Dynamic Debug Session Control: Hardware Timer... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "TamperShield Authenticated JTAG/SWD Controller Engine & Permanent eFuse Lockout Bench",
-      "codeHash": "dcd1ad57d8ad14c0de313809064acae11242f63b7c5c5914a5e5ba7040d572d3",
+      "codeHash": "affd9fe99ded3acaf52db459e2868d1e8abc977505424ac617e9ab40f573878e",
       "spec": {
         "template": "register-bits",
         "title": "TamperShield Authenticated JTAG/SWD Controlle... — Register Bit Architecture",

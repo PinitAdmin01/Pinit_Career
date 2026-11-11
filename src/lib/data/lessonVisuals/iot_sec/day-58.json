@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Formal Verification Foundations & The Dolev-Yao Threat Model",
-      "codeHash": "39e5c93cefbc2496c677922f7f72037b19e92fc7655942f8e255782341c666e1",
+      "codeHash": "e25f8219b6aee629d9414f9fe9c5b73194733ff787c3ab0c56b13b8ca703720b",
       "spec": {
         "template": "register-bits",
         "title": "Day 58 Part 1 — Formal Verification Foundation — Register Architecture",
@@ -259,7 +259,7 @@
     },
     {
       "partTitle": "ProVerif Process Calculus & Applied Pi-Calculus Modeling",
-      "codeHash": "593e1b456587ced03fbea806046d78b5c901cc6c4a1593858ecc5124239e05db",
+      "codeHash": "6f281b3ba0a158bdbd75d04b08b2c6c713ff3deee293a06102e7a711694a1fc1",
       "spec": {
         "template": "register-bits",
         "title": "Day 58 Part 2 — ProVerif Process Calculus & Ap — Register Architecture",
@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "State-Space Exploration & Model Checking for Embedded Protocols",
-      "codeHash": "1bc820a59a3f9c533ea52220859179616a38ace613baed20c8e7e26b0f3d8291",
+      "codeHash": "56e5f2f6db4a8cc2474eaf2fe39f69b7c5d13c94bd7390038c8bbcb9a1546868",
       "spec": {
         "template": "register-bits",
         "title": "Day 58 Part 3 — State-Space Exploration & Mode — Register Architecture",
@@ -763,7 +763,7 @@
     },
     {
       "partTitle": "Automated Counterexample Generation & Protocol Flaw Detection",
-      "codeHash": "c5716e6b5fac7ecae8e2d66131709b1cea9521f1f7876adb7d1c600f2883c697",
+      "codeHash": "9c5244b6b3d78cf79f5dc96b77be69e895a2e0bda5d15704c8b56870c1bc12e8",
       "spec": {
         "template": "register-bits",
         "title": "Day 58 Part 4 — Automated Counterexample Gener — Register Architecture",
@@ -1015,7 +1015,7 @@
     },
     {
       "partTitle": "End-to-End Symbolic Protocol Verification Subsystem & Certification",
-      "codeHash": "5d105632098ec96e556b25314b882094bd2f15d731ff833fd44259d17f80592f",
+      "codeHash": "2b8fe5eac119f2a08b4232fb426b8590247e0d6e797f76c44a60234e1ce1952b",
       "spec": {
         "template": "register-bits",
         "title": "Day 58 Part 5 — End-to-End Symbolic Protocol V — Register Architecture",

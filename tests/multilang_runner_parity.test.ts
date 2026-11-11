@@ -91,7 +91,7 @@ int calculateSum(const std::vector<int>& nums) {
   assert.equal(report.syntaxViolations.length, 0);
 });
 
-test('Universal Runner: Dispatches C++ test suites and verifies structural contracts', async () => {
+test('Universal Runner: Dispatches C++ test suites and fails closed without a C++ compiler (zero fake pass)', async () => {
   const validCpp = `
 #include <iostream>
 
@@ -100,6 +100,10 @@ int fibonacci(int n) {
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 `;
+  const staticRes = await executeCppSuite(validCpp, 'fibonacci');
+  assert.equal(staticRes.language, 'cpp');
+  assert.equal(staticRes.allPassed, true);
+
   const result = await runTestSuite(validCpp, 'cpp', {
     fnName: 'fibonacci',
     testCases: [
@@ -109,11 +113,13 @@ int fibonacci(int n) {
         name: 'Fibonacci base case'
       }
     ]
-  });
+  } as any);
 
   assert.equal(result.language, 'cpp');
-  assert.equal(result.allPassed, true);
-  assert.equal(result.status, 'SUCCESS');
+  assert.equal(result.allPassed, false);
+  assert.equal(result.passedTests, 0);
+  assert.equal(result.status, 'RUNTIME_ERROR');
+  assert.ok(result.terminalLogs.some(log => log.includes('FAIL-CLOSED')));
 });
 
 test('Workspace State: Correctly resolves bash and cpp file configurations', () => {

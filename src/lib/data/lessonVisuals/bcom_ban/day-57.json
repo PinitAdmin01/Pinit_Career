@@ -5,10 +5,10 @@
   "entries": [
     {
       "partTitle": "Sovereign Debt Management & The Primary Dealer (PD) System: Underwriting Mandates & Market Making",
-      "codeHash": "ee5755c147b029d36f06d6b5076631259791f8a1eca536eec3a3c15e9079dd25",
+      "codeHash": "153def03261399954cf00cc6194cb3a2a8299e363484ed5e5bfd8c611557e256",
       "spec": {
         "template": "funnel",
-        "title": "Sovereign Debt Management & The Primar... — Central Banking & Solvency",
+        "title": "Sovereign Debt Management & The Primar... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -107,10 +107,10 @@
     },
     {
       "partTitle": "G-Sec Auction Mechanics: Uniform Price vs Multiple Price Formats & The Winner's Curse",
-      "codeHash": "b1b7dbce7dddf13faeec7b240f83352bd6489fe742029fad241bbcbe1151e976",
+      "codeHash": "be248e6274f9531c0fe2f34765f7117116752ff5ac0b5a3c9b449cc59b03404e",
       "spec": {
         "template": "funnel",
-        "title": "G-Sec Auction Mechanics: Uniform Price... — Central Banking & Solvency",
+        "title": "G-Sec Auction Mechanics: Uniform Price... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -209,10 +209,10 @@
     },
     {
       "partTitle": "STRIPS (Separate Trading of Registered Interest and Principal of Securities) Mechanics",
-      "codeHash": "6ca77e284b594d523eeceaebd890b3870ca8bcee52d92cc173eab044969a7250",
+      "codeHash": "dce9f9858c60480afaa30b7488892dff639df5f624d547fb51130329aa3e902e",
       "spec": {
         "template": "funnel",
-        "title": "STRIPS (Separate Trading of Registered... — Central Banking & Solvency",
+        "title": "STRIPS (Separate Trading of Registered... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -311,10 +311,10 @@
     },
     {
       "partTitle": "Sovereign Yield Curve Construction: Par, Spot & Forward Curves & Nelson-Siegel Parameterization",
-      "codeHash": "145bb87b078f2deca3e71b81bc5aace1a1ef50f02aa8356e1658d5acce61fd63",
+      "codeHash": "01fedd9b270d8f7d5db28a1282cba8b490ac715ba29cf1134a80de96e8d2ad73",
       "spec": {
         "template": "funnel",
-        "title": "Sovereign Yield Curve Construction: Pa... — Central Banking & Solvency",
+        "title": "Sovereign Yield Curve Construction: Pa... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -413,10 +413,10 @@
     },
     {
       "partTitle": "Industrial Sovereign Treasury Lab: G-Sec Primary Auction Underwriting & STRIPS Portfolio Simulator",
-      "codeHash": "83813094e4d02312f725858fa5dd02b0bb670be2c94f2cafd101fbbc6786e57f",
+      "codeHash": "00a527f1ad29bc6b629391097570381c1ed55950b1307c550abd0f28c9598355",
       "spec": {
         "template": "funnel",
-        "title": "Industrial Sovereign Treasury Lab: G-S... — Central Banking & Solvency",
+        "title": "Industrial Sovereign Treasury Lab: G-S... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",

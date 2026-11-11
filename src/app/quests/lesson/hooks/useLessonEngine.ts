@@ -674,7 +674,7 @@ export function useLessonEngine({
       }
 
       if (parsedId && (getLongLessonLanguage(parsedId.prefix) === 'cpp' || questData?.language === 'cpp')) {
-        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Inspecting C++ AST invariants..." }));
+        setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Checking C++ syntax and structure (static preview only — no native compiler in browser)..." }));
         const cppRes = await executeCppSuite(codeSnippet);
         const shown = (cppRes.terminalLogs || []).join('\n');
         setCodeOutputs(prev => ({ ...prev, [slideIdx]: shown || (cppRes.allPassed ? 'C++ syntax and structural invariants verified.' : 'C++ structural invariants check failed.') }));

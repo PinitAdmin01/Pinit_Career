@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Milestone 10 Architecture & Root-of-Trust Invariants: Zero-NVM Storage & Silicon Biometrics",
-      "codeHash": "ac70d68e498ddf99198ee3da9d159c204b049c10efd7185e68b64f65efdc0ff6",
+      "codeHash": "52f9096ac10cef81f13cb3efdc1bcb70fbc457ed57287c8c98494f1b47ea63ad",
       "spec": {
         "template": "register-bits",
         "title": "Day 50 Part 1 — Milestone 10 Architecture & Root-of-Tr — Register Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Multi-Die Silicon PUF Harvester: 6T SRAM Contention & Thermal Drift Sweep",
-      "codeHash": "adf76994abc65fb857caae8edb437c9b81e2baf1e7be4eecef54218db20f93fe",
+      "codeHash": "18fe44afee13d16a6e0a85210ed3772d0146557454813645caa152398401a188",
       "spec": {
         "template": "register-bits",
         "title": "Day 50 Part 2 — Multi-Die Silicon PUF Harvester: 6T SR — Register Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Multi-Block BCH Code-Offset Fuzzy Extractor: Algebraic Syndrome Decoding & Chien Search",
-      "codeHash": "a04ba8876159846fd8da8d2c44f49c45b97402cbfb524025f530a99e78ed0575",
+      "codeHash": "e6c19c8618719845858f28e305d02d1e939c6914598afe1572d8cdf845183d4d",
       "spec": {
         "template": "register-bits",
         "title": "Day 50 Part 3 — Multi-Block BCH Code-Offset Fuzzy Extr — Register Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "NIST SP 800-90B & SP 800-22 Integrated Hardware Entropy Audit Bench",
-      "codeHash": "07053648ad4b5d93683433e779ee00c20a05f38ef731765d78133d817643b17b",
+      "codeHash": "39b4875b0baca86b16421add4ae60bfad9965a0c639c2669b65094e4ee57c79c",
       "spec": {
         "template": "register-bits",
         "title": "Day 50 Part 4 — NIST SP 800-90B & SP 800-22 Integrated — Register Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Milestone 10 Capstone Execution: Full End-to-End Silicon Certification Bench",
-      "codeHash": "1f506049b967bb8f78581bb4a2b8b210d4c392783f9c896b6d6800f8be93c318",
+      "codeHash": "73bcd6714fe2bb25126d3fd9342d6a3dbe06981b419d48bd9562d24979c57579",
       "spec": {
         "template": "register-bits",
         "title": "Day 50 Part 5 — Milestone 10 Capstone Execution: Full  — Register Architecture",

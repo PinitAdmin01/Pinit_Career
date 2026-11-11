@@ -11,6 +11,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 
 import { useWorkspaceState, TEACHERS, getLangInfo } from './workspace/useWorkspaceState';
 import { WorkspaceCodeEditor } from './workspace/WorkspaceCodeEditor';
+import { WorkspaceInteractiveCaseEvaluator } from './workspace/WorkspaceInteractiveCaseEvaluator';
 import { WorkspaceAIHint, buildOfflineDebugTutorHint } from './workspace/WorkspaceAIHint';
 import { WorkspaceTestResults } from './workspace/WorkspaceTestResults';
 import {
@@ -91,6 +92,16 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
   const currentTeacher = TEACHERS.find(t => t.id === state.questTeacher) || TEACHERS[0];
   const langInfo = getLangInfo(questId || '', quest);
+
+  const isInteractiveTrack = useMemo(() => {
+    const qid = (questId || '').toLowerCase();
+    const BUSINESS_AND_UNIVERSAL_PREFIXES = [
+      'bcom', 'soft-skills', 'softskills', 'excel', 'comp_fund', 'git_vcs'
+    ];
+    return BUSINESS_AND_UNIVERSAL_PREFIXES.some(p => qid.includes(p));
+  }, [questId]);
+
+  const [workspaceMode, setWorkspaceMode] = React.useState<'interactive' | 'code'>('interactive');
 
   if (!quest) {
     return (
@@ -264,26 +275,79 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             )}
           </div>
 
-          <div style={{ background: 'var(--bg2)', border: '1.5px solid var(--border)', borderRadius: 20, padding: 20, display: 'flex', flexDirection: 'column' }}>
-            <WorkspaceCodeEditor
-              questId={questId}
-              code={state.code}
-              setCode={state.setCode}
-              editorLocked={isCompleted || (isExam && state.examTimedOut)}
-              isExam={isExam}
-              examTimedOut={state.examTimedOut}
-              isCompleted={isCompleted}
-              unlockRemainingSec={state.unlockRemainingSec}
-              onExtendGrace={() => {
-                if (typeof (cOS as any).extendItemGrace === 'function') {
-                  (cOS as any).extendItemGrace(`quest:${questId}`);
-                }
-              }}
-              onSubmit={state.handleVerifySolution}
-              userId={userId}
-              saveQuestCode={saveQuestCode}
-              langInfo={langInfo}
-            />
+          <div style={{ background: 'var(--bg2)', border: '1.5px solid var(--border)', borderRadius: 20, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {isInteractiveTrack && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 10, borderBottom: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button
+                    onClick={() => setWorkspaceMode('interactive')}
+                    style={{
+                      background: workspaceMode === 'interactive' ? 'var(--accent)' : 'var(--bg3)',
+                      color: workspaceMode === 'interactive' ? '#fff' : 'var(--t2)',
+                      border: '1px solid var(--border)',
+                      borderRadius: 8,
+                      padding: '6px 14px',
+                      fontSize: 12.5,
+                      fontWeight: 800,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    📊 No-Code Case Evaluator
+                  </button>
+                  <button
+                    onClick={() => setWorkspaceMode('code')}
+                    style={{
+                      background: workspaceMode === 'code' ? 'var(--accent)' : 'var(--bg3)',
+                      color: workspaceMode === 'code' ? '#fff' : 'var(--t2)',
+                      border: '1px solid var(--border)',
+                      borderRadius: 8,
+                      padding: '6px 14px',
+                      fontSize: 12.5,
+                      fontWeight: 800,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    💻 Code / Formula View
+                  </button>
+                </div>
+                <span style={{ fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                  {workspaceMode === 'interactive' ? 'ACTIVE EVALUATOR: FORM-BASED' : 'ACTIVE EVALUATOR: CODE-BASED'}
+                </span>
+              </div>
+            )}
+
+            {isInteractiveTrack && workspaceMode === 'interactive' ? (
+              <WorkspaceInteractiveCaseEvaluator
+                questId={questId}
+                quest={quest}
+                code={state.code}
+                setCode={state.setCode}
+                onSubmit={state.handleVerifySolution}
+                isCompleted={isCompleted}
+                isExam={isExam}
+                category={category}
+              />
+            ) : (
+              <WorkspaceCodeEditor
+                questId={questId}
+                code={state.code}
+                setCode={state.setCode}
+                editorLocked={isCompleted || (isExam && state.examTimedOut)}
+                isExam={isExam}
+                examTimedOut={state.examTimedOut}
+                isCompleted={isCompleted}
+                unlockRemainingSec={state.unlockRemainingSec}
+                onExtendGrace={() => {
+                  if (typeof (cOS as any).extendItemGrace === 'function') {
+                    (cOS as any).extendItemGrace(`quest:${questId}`);
+                  }
+                }}
+                onSubmit={state.handleVerifySolution}
+                userId={userId}
+                saveQuestCode={saveQuestCode}
+                langInfo={langInfo}
+              />
+            )}
 
             <WorkspaceTestResults
               output={state.output}

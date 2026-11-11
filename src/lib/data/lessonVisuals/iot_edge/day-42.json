@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Compact Binary CoAP/CBOR Messaging & Multi-Hop Latency vs Energy",
-      "codeHash": "5115998755867d8cbee7c296e2bc377511ac81b7084c927b4f7fc9987d921688",
+      "codeHash": "cbb4c2e82961b152a93d264d6162c8b2a695e2fca0c2ac550bf56e6b6dc8f91e",
       "spec": {
         "template": "register-bits",
         "title": "Compact Binary CoAP/CBOR Messaging & Multi-Ho... — Register Bit Architecture",

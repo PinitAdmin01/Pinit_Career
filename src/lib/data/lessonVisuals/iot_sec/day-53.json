@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Physical Attack Surfaces of Lattice Cryptography & NTT Leakage",
-      "codeHash": "65fb880dc861ca3c8fd85609d80458ea5b7ccf0f067d94ad5d4ef2859ecbfef2",
+      "codeHash": "7bd141a31b1dbd497c0b8f6ed8b2ff7f67b6e524f7aba0ebddd9c1c59d98a26d",
       "spec": {
         "template": "register-bits",
         "title": "Physical Attack Surfaces of Lattice Cryptogra... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Polynomial Masking & First-Order Arithmetic Masking",
-      "codeHash": "25d73b3c79190712f7a5e9ae6ad8b4831a5f42d89c204325df41c622207d2674",
+      "codeHash": "4646f1c556a875f40548630c5ad24143e8a4953de50985719c342ade3bd15334",
       "spec": {
         "template": "register-bits",
         "title": "Polynomial Masking & First-Order Arithmetic M... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Laser Fault Injection & Fiat-Shamir Rejection Bypass Attacks",
-      "codeHash": "d89f37243b32e09460f21f0afaca136db3b4648ffee7b2bec9b18650af74d70d",
+      "codeHash": "3a9f0e81c8bb385dd345d40bca3420343c1b276a05395c9fd9201805030e5099",
       "spec": {
         "template": "register-bits",
         "title": "Laser Fault Injection & Fiat-Shamir Rejection... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Hardware Fault-Detection Countermeasures & Spatial Redundancy",
-      "codeHash": "90c6f9910b7b45272431ec9e46b09aacda51aeca09847d9b51e9bff62bca6eed",
+      "codeHash": "670b4865f993ccfd21203a0e27cd0f9bd2e5e8b867b0eb08ad065a10530d919b",
       "spec": {
         "template": "register-bits",
         "title": "Hardware Fault-Detection Countermeasures & Sp... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Comprehensive PQC Security Verification Benchmarking",
-      "codeHash": "211cdb7773c8b7a498cd7c0f12907c3f3c37545a026b1a3d4e8fe95020e067cd",
+      "codeHash": "29ad961ab8aa461c6f99068f2c86b520de123769e0a6c3fe1ded4c65c8202cc0",
       "spec": {
         "template": "register-bits",
         "title": "Comprehensive PQC Security Verification Bench... — Register Bit Architecture",

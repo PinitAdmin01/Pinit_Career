@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "NIST SP 800-90B Statistical Framework: IID vs Non-IID Hypothesis Testing",
-      "codeHash": "0bf6aa60f791555dab864d9faad149510518d8a5e756b535e3373687b528b5e4",
+      "codeHash": "c3f0a11357b4408e2a9f832e8c6cc3daed63b0646efd805a78fec5a4d93e8640",
       "spec": {
         "template": "register-bits",
         "title": "Day 49 Part 1 — NIST SP 800-90B Statistical Framework: — Register Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Non-IID Min-Entropy Estimation: MCV, Collision & Markov Estimators",
-      "codeHash": "91bf75094d4c6a3b474cbdb43b92ed127b58b88231f49cba6912cf961319630f",
+      "codeHash": "711f4193bb5336cb8f9b33b167368e54c3d05a7ac9e644da8265a7feda288b82",
       "spec": {
         "template": "register-bits",
         "title": "Day 49 Part 2 — Non-IID Min-Entropy Estimation: MCV, C — Register Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Continuous Online Health Testing: Repetition Count & Adaptive Proportion Tests",
-      "codeHash": "8323885760b316d8402e171ed86bb85bfeaefaa11f7ad4d02c52a06b85e10b58",
+      "codeHash": "8aea82bac9500096707b4e2fb39fcf69ad421532f370251e140c8a353e68b376",
       "spec": {
         "template": "register-bits",
         "title": "Day 49 Part 3 — Continuous Online Health Testing: Repe — Register Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "NIST SP 800-22 Cryptographic Randomness Battery: Monobit, Block & Runs Tests",
-      "codeHash": "f33820a739354cbe285da80d5292343325c534c09c86804f5536757b706513c5",
+      "codeHash": "c94f5c0de9765a355d8d6252fd054b7e5f89425c04d6d817ab8f6a6310923b3a",
       "spec": {
         "template": "register-bits",
         "title": "Day 49 Part 4 — NIST SP 800-22 Cryptographic Randomnes — Register Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Master Hardware Entropy Qualification & FIPS 140-3 Compliance Pipeline",
-      "codeHash": "18d872c8bad34ee4e5639e20ae369a3514f929daa73087d18c7fb5206d4ba9a2",
+      "codeHash": "ba921d348b679afb6b4b3d32b465dbcf6795f0bbe247912f1c3eca1439f4af1e",
       "spec": {
         "template": "register-bits",
         "title": "Day 49 Part 5 — Master Hardware Entropy Qualification  — Register Architecture",

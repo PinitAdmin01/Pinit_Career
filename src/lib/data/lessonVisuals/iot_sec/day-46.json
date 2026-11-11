@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Semiconductor Nanoscale Fabrication Variations & Transistor Mismatch Physics",
-      "codeHash": "fd33a0e591c7066e2b3de0e3b4f2f9fa02abab5b7f179819c39933ce78e862e6",
+      "codeHash": "03c8e4826b1ba763d70aab7ada41ff5b7ce9d88954b6e1790b8eec056a5541c5",
       "spec": {
         "template": "register-bits",
         "title": "Day 46 Part 1 — Semiconductor Nanoscale Fabrication Va — Register Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "SRAM Startup State PUF: Cross-Coupled Inverter Metastability Resolution",
-      "codeHash": "ecee507d3f2ee4ef99f4c5d4fb18cad62fd96d2d79c5738d854093bf10de2c0f",
+      "codeHash": "f241787f53beed27a691d59ac2fa2196c6cb8501f844388c618c03472ed1e9b5",
       "spec": {
         "template": "register-bits",
         "title": "Day 46 Part 2 — SRAM Startup State PUF: Cross-Coupled  — Register Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Delay-Based PUFs: Ring Oscillator (RO) PUFs & Frequency Comparison Matrices",
-      "codeHash": "c8c1f7d9023c2a80dc305312944c85492f103e34005cae21c1e90c971e321fc7",
+      "codeHash": "906a9ed28469b0acb12511fc6447695395b351e1d9033c2ed47870ae1b0b60fa",
       "spec": {
         "template": "register-bits",
         "title": "Day 46 Part 3 — Delay-Based PUFs: Ring Oscillator (RO) — Register Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Arbiter PUFs: Multiplexer Delay Races & Machine Learning Modeling Vulnerabilities",
-      "codeHash": "3cc43b4e8ff155ecd9bcb321583573ce3a3a5e2b1b1899eb3d55839217d5d4bb",
+      "codeHash": "79f929fe37ed63939a70d8d4fe94fff665aa0ab25f7889ddbf7f8bb4801c5283",
       "spec": {
         "template": "register-bits",
         "title": "Day 46 Part 4 — Arbiter PUFs: Multiplexer Delay Races  — Register Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "ISO/IEC 20897 PUF Quality Metrics: Intra-HD, Inter-HD & Uniformity",
-      "codeHash": "ae1150a24a4abbee5528b53ca50d64dee81132570df4100931bab4a207d0ab31",
+      "codeHash": "47acf54d898d21e773eff7437f5cfcade66a8238615d8a2f1dc5bae298f48228",
       "spec": {
         "template": "register-bits",
         "title": "Day 46 Part 5 — ISO/IEC 20897 PUF Quality Metrics: Int — Register Architecture",

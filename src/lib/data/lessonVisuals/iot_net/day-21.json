@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "CoAP Header Generation & Confirmable Transaction Management",
-      "codeHash": "96ce2618237970e54bbb8fe449b034b4608e5adf811d11376c6f41acad139221",
+      "codeHash": "9f121642527f309bb5a7e62428318089e5fc3e5aed99acd7696148a8a9ca74b0",
       "spec": {
         "template": "register-bits",
         "title": "Day 21 Part 3 — CoAP Header Generation & Confi — Register Architecture",

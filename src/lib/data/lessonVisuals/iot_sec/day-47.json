@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Noisy PUF Response Channels & The Mathematical Theory of Fuzzy Extractors",
-      "codeHash": "f3ec37c3f882dd75ae13bdafb9bad1bde2c9dee0e582c6efa3f31592faffb8fd",
+      "codeHash": "2d0db72d6bcef39b8151cf6dc8e7a8ef65ba6267b14d9aade4cca07ea949b1f5",
       "spec": {
         "template": "register-bits",
         "title": "Day 47 Part 1 — Noisy PUF Response Channels & The Math — Register Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Code-Offset Secure Sketch: Helper Data Construction & Algebraic Error Isolation",
-      "codeHash": "1f1f92c90a6c50fb93e8d4273282f0f718f3eabf4d69c0f4d2254a8bf3247026",
+      "codeHash": "8ec8524b85c23be822258512fdd0c2aefeab5edf544f5119d84f94601bfc727d",
       "spec": {
         "template": "register-bits",
         "title": "Day 47 Part 2 — Code-Offset Secure Sketch: Helper Data — Register Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Linear Error-Correcting Codes: Bose-Chaudhuri-Hocquenghem (BCH) Syndrome Decoding",
-      "codeHash": "24f58ab46b63e3e87d9c00e5599d8429988bd46428d3dcc2c04b7f76c7e738a5",
+      "codeHash": "843e168660b693a448a79cbbd21013113424ba93a1f23619ccdd0657f6622427",
       "spec": {
         "template": "register-bits",
         "title": "Day 47 Part 3 — Linear Error-Correcting Codes: Bose-Ch — Register Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Key Reconstruction Lifecycle: In-Field Evaluation, Recovery & HMAC Tag Verification",
-      "codeHash": "38c48b48488bb5a5a68d5fbee3b6263bec879f5242f9e672a09fda3007eaba65",
+      "codeHash": "243b046bf5691dbb8eb9245d74a83f116fc6e89fdcb9c6f400740c0bb0d5fd3b",
       "spec": {
         "template": "register-bits",
         "title": "Day 47 Part 4 — Key Reconstruction Lifecycle: In-Field — Register Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Cryptographic Hash Smoothing: HKDF Entropy Extraction & Domain Isolation",
-      "codeHash": "6e4d131e0158c08984a812c546b5d8d25bea9afbc00d3c3d72913fa503303b22",
+      "codeHash": "6f63b318195f6baaa1141846c3857719c5ac36024865e3fed27fc594f4bba6cc",
       "spec": {
         "template": "register-bits",
         "title": "Day 47 Part 5 — Cryptographic Hash Smoothing: HKDF Ent — Register Architecture",

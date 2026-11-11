@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Im2Col Matrix Transformation: Spatial Unrolling into GEMM",
-      "codeHash": "1731845a4c2ee529bf465dc7cf389cdca9da6c08d0840d4c9022be14ba650943",
+      "codeHash": "16917fd8b318384c0b397a1ebde14be11d6f92b833c7965bdd7053fdbec7df71",
       "spec": {
         "template": "register-bits",
         "title": "Im2Col Matrix Transformation: Spatial Unrolli... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Production CMSIS-NN Kernel Benchmark & Validation Gate",
-      "codeHash": "57161e25f5f2ec4653a4720ef828d89b3a2f5364da1fb37a728eefc7514a46a5",
+      "codeHash": "550b7af404051a10a1bf174ceddd81e68d53b95c68510d776a6d577c96e10ff2",
       "spec": {
         "template": "register-bits",
         "title": "Production CMSIS-NN Kernel Benchmark & Valida... — Register Bit Architecture",

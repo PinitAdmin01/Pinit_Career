@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The Single-Sensor Trap: The Physical Necessity of Multi-Modal Fusion",
-      "codeHash": "2cd2ae0030a4126b6f47288a2b34b6f26c17a38e02b60b57cc662a9b8304f516",
+      "codeHash": "2eac0c0f52406407c7e986894866310c3a1bd735087812560dbb6a989ef002bd",
       "spec": {
         "template": "register-bits",
         "title": "The Single-Sensor Trap: The Physical Necessit... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Industrial High-Speed Rail Deployment: The Derailment False Alarm Crisis",
-      "codeHash": "8da4e4c7b33d43694353046a0995c1596fdd2af3fc805df46b547aeac15f7181",
+      "codeHash": "11628f7bee7f1a31af4936c8c3836c69ec9196000a685ba8eae0679ecd292103",
       "spec": {
         "template": "register-bits",
         "title": "Industrial High-Speed Rail Deployment: The De... — Register Bit Architecture",

@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Real-Time 2D MFCC Feature Spectrogram Generation",
-      "codeHash": "8984fb011211ab5a83c7cb7b7cb1a15905b3e9ac5f3ffd76b7fee9878cac7918",
+      "codeHash": "b03ae97bea8c972cd4cd862edcff58658e2b71452f215e15c4188f588b857cc7",
       "spec": {
         "template": "register-bits",
         "title": "Real-Time 2D MFCC Feature Spectrogram Generation — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "False Trigger Suppression & Temporal Moving-Average Smoothing",
-      "codeHash": "0941e35916a207696a4839173e8039c0e0cbd1ed23d3ad1bc7ad83f78df25bad",
+      "codeHash": "46bb638d326b776406937313a703941d2f147ab915257cd74118b3825e660dcb",
       "spec": {
         "template": "register-bits",
         "title": "False Trigger Suppression & Temporal Moving-A... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Production Streaming KWS Simulation & Validation Gate",
-      "codeHash": "f4b79e6acd1e673a09b386db7ffde0a05425d16275d3df83db9626164e4fdadf",
+      "codeHash": "c84d38a8fdeb8eb67786e3818b1befc40d1cfa067ac025cba4670869b3421e36",
       "spec": {
         "template": "register-bits",
         "title": "Production Streaming KWS Simulation & Validat... — Register Bit Architecture",

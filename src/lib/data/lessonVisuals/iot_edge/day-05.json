@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Fixed-Point Rescaling, Q31 Multiplier & Clamped Activation Output",
-      "codeHash": "6263c3ec50c253ce93534bf423dbb3cf4ce687d6f154d12a291840c3243f7ce0",
+      "codeHash": "152a74125c57477038503ca8b781c3a21b49e923adf6192783d5e13ecf785d78",
       "spec": {
         "template": "register-bits",
         "title": "Fixed-Point Rescaling, Q31 Multiplier & Clamp... — Register Bit Architecture",

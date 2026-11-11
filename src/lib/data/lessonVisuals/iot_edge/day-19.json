@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "The Distillation Loss Function & T^2 Gradient Scaling Invariant",
-      "codeHash": "fc59ea2e98eac1dc0b8f611f53485436294f976f26c28fd3ea99a129954a2061",
+      "codeHash": "a3cc40282784d60efbd4033b88879eff18ed3657528b2bef4e17785bb8fde01a",
       "spec": {
         "template": "register-bits",
         "title": "The Distillation Loss Function & T^2 Gradient... — Register Bit Architecture",

@@ -115,10 +115,13 @@ test('Course 14: IoT, Firmware & Embedded Systems (iot_emb) Month 1 Block 2 (Day
       }
     ];
 
-    const result = await executeCppSuite(userCode, 'main', testCases);
-    assert.equal(result.language, 'cpp', 'Result language must be cpp');
-    assert.equal(result.totalTests, 1, 'Should execute 1 test');
-    assert.equal(result.passedTests, 1, 'Test should pass AST invariant checks');
-    assert.equal(result.allPassed, true, 'All tests should pass');
+    const staticRes = await executeCppSuite(userCode, 'main');
+    assert.equal(staticRes.language, 'cpp', 'Result language must be cpp');
+    assert.equal(staticRes.allPassed, true, 'Static C++ syntax inspection must pass');
+
+    const failClosed = await executeCppSuite(userCode, 'main', testCases);
+    assert.equal(failClosed.language, 'cpp', 'Result language must be cpp');
+    assert.equal(failClosed.totalTests, 1, 'Should account for 1 test');
+    assert.equal(failClosed.allPassed, false, 'Behavioral tests must fail closed without a real C++ compiler');
   });
 });

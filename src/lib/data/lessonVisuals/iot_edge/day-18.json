@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Iterative Pruning & Fine-Tuning: The Lottery Ticket Hypothesis",
-      "codeHash": "f5012fae4ea4d4e5b3672b4ec33663be3337200a3885f6fbe0e63bce3014c74e",
+      "codeHash": "74f174937431c35d3b734fa8c212a8c2082a0de39813e63e14310ac82e720445",
       "spec": {
         "template": "register-bits",
         "title": "Iterative Pruning & Fine-Tuning: The Lottery ... — Register Bit Architecture",

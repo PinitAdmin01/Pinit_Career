@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Reconstruction Loss (MSE & MAE) & Anomaly Scoring",
-      "codeHash": "cdd3a031786d78e6555b7f2a2026d120c136e8febf8d1870efb8491e979857d4",
+      "codeHash": "7e216b3f25f8c0ac1b1df499e3601b77e28df5f441f94227cb7eac02e4b057b9",
       "spec": {
         "template": "register-bits",
         "title": "Reconstruction Loss (MSE & MAE) & Anomaly Sco... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Dynamic Context-Conditioned Thresholding: Solving Seasonal Drift",
-      "codeHash": "5f103116181577d2b34ebb4b4dc32a17873f1bf228c25db85673ed34f5bb5776",
+      "codeHash": "64817cb37d0a82b71cf75fd1710e4cf3b46313d59186415874632e2252cc5778",
       "spec": {
         "template": "register-bits",
         "title": "Dynamic Context-Conditioned Thresholding: Sol... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Production Autoencoder Anomaly Engine Simulation & Certification Gate",
-      "codeHash": "3f62679610e9fe066731c9e65c63901f85ee775cb325cb52cad86a580fdfc853",
+      "codeHash": "cf2c1f9cfe09988273b7f93e845b0f4aed241701cba45383b952318b6db1bddd",
       "spec": {
         "template": "register-bits",
         "title": "Production Autoencoder Anomaly Engine Simulat... — Register Bit Architecture",

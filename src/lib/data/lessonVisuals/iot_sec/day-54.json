@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The Transition Imperative: Hybrid Cryptography & CNSA 2.0 Mandates",
-      "codeHash": "1fee8121b34556667c7ca03f3bea73067472446344f8014893fc46a7fbc9236c",
+      "codeHash": "700736ac56d88f038cb0e28db84073c3d56672d0d2303985fa2110de461eae62",
       "spec": {
         "template": "register-bits",
         "title": "The Transition Imperative: Hybrid Cryptograph... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Dual-Signature Secure Boot Verification Pipeline",
-      "codeHash": "a8431d42db3bba8c90108811491489df528d429c5dd7fc7db9ea7e5ad6da5b96",
+      "codeHash": "ca54efc9ecb475a07283ff03e9e59489a79dd07679bd40478ac7fe0087b6e92f",
       "spec": {
         "template": "register-bits",
         "title": "Dual-Signature Secure Boot Verification Pipeline — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Hybrid Key Encapsulation (X25519 + ML-KEM-768) in TLS 1.3",
-      "codeHash": "539e2f16422930e6ef7d1d3b49eb89cd98cf97959b6b6624b4e581c6bdca3002",
+      "codeHash": "6ab724171989812de33ca7e6b93d595a3466329a43f1bebffa53c92d4ea0752f",
       "spec": {
         "template": "register-bits",
         "title": "Hybrid Key Encapsulation (X25519 + ML-KEM-768... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Firmware Manifest Encoding: Dual-Root Certificate & CBOR/COSE",
-      "codeHash": "9df6250c75170f861953017422df2b93c3e98cee9ed0cfbeb7eda68149c52b95",
+      "codeHash": "a547842c8ce65e7267f008c6b74bbe54a93cf8559c8896f3f40525ca2d73a352",
       "spec": {
         "template": "register-bits",
         "title": "Firmware Manifest Encoding: Dual-Root Certifi... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "End-to-End Hybrid Secure Bootloader Pipeline & Benchmarking",
-      "codeHash": "e3b131534b042cf6f1c077b21be049ee2baf218a5037a12d3dcbaa25b1e3fc84",
+      "codeHash": "a9648cd1bca36c9144fb63498967a10c59fd8f8434e460bc2b917d860110a3ff",
       "spec": {
         "template": "register-bits",
         "title": "End-to-End Hybrid Secure Bootloader Pipeline ... — Register Bit Architecture",

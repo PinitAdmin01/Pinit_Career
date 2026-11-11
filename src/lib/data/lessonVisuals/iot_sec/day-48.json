@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Physics of Hardware Randomness: Johnson-Nyquist Thermal Noise & Quantum Shot Noise",
-      "codeHash": "6f81094c002dbf16dab510060cebbffb7a2d7f3e209dd79c3062f051347dba6a",
+      "codeHash": "2ab3a9ce7f17491bd78ac31aa89e2c9fef78398ab2662411524c6087ff50eabc",
       "spec": {
         "template": "register-bits",
         "title": "Day 48 Part 1 — Physics of Hardware Randomness: Johnso — Register Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Ring Oscillator (RO) TRNG & Phase Jitter Sampling Dynamics",
-      "codeHash": "2c10dedc61aa62f57c8daff485e2499833951127f7f588387de8db7bdcf0a321",
+      "codeHash": "3de18a6c573bbf2b16f1a559dc2c8bedd0741a2a7d01fe7beedca08233abc872",
       "spec": {
         "template": "register-bits",
         "title": "Day 48 Part 2 — Ring Oscillator (RO) TRNG & Phase Jitt — Register Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Metastability Entropy Sources: Cross-Coupled Inverter Saddle Point Contention",
-      "codeHash": "e22f4dc55adcc0e042f0a2882035b57b1b7e0f2fe38b8309fdab5fbf2b918b0f",
+      "codeHash": "dc14df88f29aeff1ce7d5f74bba891e3762141bc0981bd97cfd214698168dd39",
       "spec": {
         "template": "register-bits",
         "title": "Day 48 Part 3 — Metastability Entropy Sources: Cross-C — Register Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Digital Post-Processing & Von Neumann De-Biasing Algorithms",
-      "codeHash": "ac7daade3aad9f98a8879336ab42afb29f8543b2b53094b9ae59236268e20f33",
+      "codeHash": "2178d41702a72165b114ef5992577f2e5e220bfdff18ee315fba6e5c357add20",
       "spec": {
         "template": "register-bits",
         "title": "Day 48 Part 4 — Digital Post-Processing & Von Neumann  — Register Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "TRNG Microarchitecture & Active Physical Attack Defenses",
-      "codeHash": "8e5a6c8aabd1d0f9ae8ac6e51ed964da5d52754ed8523f0a37a26f72f2d4f974",
+      "codeHash": "71121e717b80c9ad77393cae5783885d73ed2306c3c884edf52f06ec814932e8",
       "spec": {
         "template": "register-bits",
         "title": "Day 48 Part 5 — TRNG Microarchitecture & Active Physic — Register Architecture",

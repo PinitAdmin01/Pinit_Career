@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The Mathematics of Correlation Power Analysis: Pearson Correlation Coefficient (r)",
-      "codeHash": "16e9c433724c48ef59dd0de41f1b86d8bff9e3aad1528a89a701460809e13831",
+      "codeHash": "82e19d6dfbf00b89a3ca0291b5a80d1faf3442e699bbc6f52c0c0aa8c8c7b5d2",
       "spec": {
         "template": "register-bits",
         "title": "The Mathematics of Correlation Power Analysis... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "AES Substitution Box (S-Box) Non-Linearity & Theoretical Power Leakage Modeling",
-      "codeHash": "c321d63a3afa09bcbff88acefb45e4db400937f3250d400dcf705f771f2a5e6f",
+      "codeHash": "44042a42b70f8ec14b92588a5bd9fe63611f355d60913c206d65ce0900a88ed0",
       "spec": {
         "template": "register-bits",
         "title": "AES Substitution Box (S-Box) Non-Linearity & ... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Trace Acquisition, Preprocessing, Baseline Drift Removal, and Phase Alignment",
-      "codeHash": "48353e61286f54693073aa7c59caa53e66806b2caa1017f4182d66de349f0b4a",
+      "codeHash": "271cced6662767f1784be6a786f71488ff9897f9d4a2c5f1d508825f84c9ab3a",
       "spec": {
         "template": "register-bits",
         "title": "Trace Acquisition, Preprocessing, Baseline Dr... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "CPA Attack Execution: Generating the 256-Key Correlation Matrix and Peak Identification",
-      "codeHash": "02bb229d01d48e7a7703636e7ade5dd71daa5452281e486b7bdc7dc5bc5994c3",
+      "codeHash": "ac1730ab4a5b9468c2e5a04d6f8b293960eb50f62a7e3ac8fda463667479de44",
       "spec": {
         "template": "register-bits",
         "title": "CPA Attack Execution: Generating the 256-Key ... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Evaluating CPA Resistance: Metrics of Success (MTD - Measurements to Disclose, SNR, and Success Rate)",
-      "codeHash": "4fcbfd1da624443e5cc8d2450a615659ee8df8c323e043be5b8de86f1dd049c5",
+      "codeHash": "342571f0e307f7e560898b25da4bf610eb538abad474ac69340319e25063c352",
       "spec": {
         "template": "register-bits",
         "title": "Evaluating CPA Resistance: Metrics of Success... — Register Bit Architecture",

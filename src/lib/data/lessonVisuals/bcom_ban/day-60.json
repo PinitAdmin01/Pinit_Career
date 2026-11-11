@@ -5,10 +5,10 @@
   "entries": [
     {
       "partTitle": "Strategic Enterprise Banking Command: The Five Pillars of Modern Global Financial Architecture",
-      "codeHash": "546c18e8b862c013363557e8864fa5053d69c0ed62462b3197c1301d111b0577",
+      "codeHash": "5b08367268a812700e3e89448b75ca9c0d7e6a177ec8227e1ad87495b9815a3e",
       "spec": {
         "template": "funnel",
-        "title": "Strategic Enterprise Banking Command: ... — Central Banking & Solvency",
+        "title": "Strategic Enterprise Banking Command: ... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -107,10 +107,10 @@
     },
     {
       "partTitle": "Central Bank Operations & Sovereign Treasury Command: LAF Corridor Arbitrage & G-Sec Primary Auction Underwriting",
-      "codeHash": "6e2a56778930b23284d9563a0b4fb6f8e08af6eca00e1bfe1a8d8e01dc1fb82a",
+      "codeHash": "aa4320272c8bcc87853bb225d13e5662b81baae99281a319118d11cc31bf08c0",
       "spec": {
         "template": "funnel",
-        "title": "Central Bank Operations & Sovereign Tr... — Central Banking & Solvency",
+        "title": "Central Bank Operations & Sovereign Tr... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -209,10 +209,10 @@
     },
     {
       "partTitle": "Open Banking & Digital Public Infrastructure Command: Account Aggregator Pipeline & Algorithmic Cash Flow Underwriting",
-      "codeHash": "7d9d1e5aac8329a9ae32525c2627ae19a56c17f0613a4dd60d879fccd9792ddc",
+      "codeHash": "3ea424f30ca46134d2259aabd28e4beb0362271afe3278f6a25aa3883d0b405a",
       "spec": {
         "template": "funnel",
-        "title": "Open Banking & Digital Public Infrastr... — Central Banking & Solvency",
+        "title": "Open Banking & Digital Public Infrastr... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -311,10 +311,10 @@
     },
     {
       "partTitle": "Climate Risk & ESG Solvency Command: NGFS Macroeconomic Stress Testing, PCAF Financed Emissions & Green Asset Ratio",
-      "codeHash": "55c9c3726156223e5114f900b90ebd2929e6c39a1231504f4ce1b20f60dade9e",
+      "codeHash": "c007c38b9c93c75f196eb368a50c16a2996b38ebe34d9bc7cabde040367d6b26",
       "spec": {
         "template": "funnel",
-        "title": "Climate Risk & ESG Solvency Command: N... — Central Banking & Solvency",
+        "title": "Climate Risk & ESG Solvency Command: N... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -413,10 +413,10 @@
     },
     {
       "partTitle": "Grand Master Milestone 12 Enterprise War Room Simulator: The Ultimate Solvency, Liquidity & Capital Defense Engine",
-      "codeHash": "be094d9631394823c80f74f9e545efd3610356c4290aadeb3b1526211dfbf076",
+      "codeHash": "f230feb72cc098b4670b1e9bbef205f623aae53826a1d86144cc1a389458d7c2",
       "spec": {
         "template": "funnel",
-        "title": "Grand Master Milestone 12 Enterprise W... — Central Banking & Solvency",
+        "title": "Grand Master Milestone 12 Enterprise W... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",

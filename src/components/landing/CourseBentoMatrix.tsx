@@ -11,11 +11,11 @@ export default function CourseBentoMatrix() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const domainTabs: { id: DomainCategory; label: string; count: number; icon: string }[] = [
-    { id: 'all', label: 'All Tracks', count: 36, icon: '🌟' },
+    { id: 'all', label: 'All Tracks', count: 40, icon: '🌟' },
     { id: 'software', label: 'Software & Systems', count: 8, icon: '💻' },
     { id: 'database_cloud', label: 'Database & Cloud', count: 7, icon: '🗄️' },
     { id: 'iot_hardware', label: 'IoT & Hardware', count: 5, icon: '🌐' },
-    { id: 'bcom', label: 'B.Com & Commerce', count: 10, icon: '📈' },
+    { id: 'bcom', label: 'B.Com & Commerce', count: 14, icon: '📈' },
     { id: 'foundational', label: 'Foundations & AI', count: 6, icon: '🚀' }
   ];
 
@@ -29,7 +29,7 @@ export default function CourseBentoMatrix() {
     if (['course-iot-embedded', 'course-iot-network', 'course-iot-edge-ai', 'course-iot-security', 'course-quant-systems'].includes(id)) {
       return 'iot_hardware';
     }
-    if (id.startsWith('course-digital-accounting') || id.startsWith('course-finance') || id.startsWith('course-business-analytics') || id.startsWith('course-marketing') || id.startsWith('course-digital-marketing') || id.startsWith('course-ecommerce') || id.startsWith('course-entrepreneurship') || id.startsWith('course-sales') || id.startsWith('course-operations') || id.startsWith('course-ai-digital-transformation')) {
+    if (id.startsWith('course-digital-accounting') || id.startsWith('course-finance') || id.startsWith('course-business-analytics') || id.startsWith('course-marketing') || id.startsWith('course-digital-marketing') || id.startsWith('course-ecommerce') || id.startsWith('course-entrepreneurship') || id.startsWith('course-sales') || id.startsWith('course-operations') || id.startsWith('course-ai-digital-transformation') || id.startsWith('course-statutory-auditing') || id.startsWith('course-banking-treasury') || id.startsWith('course-corporate-law') || id.startsWith('course-corporate-taxation')) {
       return 'bcom';
     }
     return 'foundational';

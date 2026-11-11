@@ -5,10 +5,10 @@
   "entries": [
     {
       "partTitle": "The Open Banking Revolution & Regulatory Frameworks: PSD2, CDR & Digital Public Infrastructure",
-      "codeHash": "1fbf10ce0be60ca8dab5ec8cc8abdd48e21bc0e6271066081ef530ec4a160136",
+      "codeHash": "9066ebee99c49e6c074f0b94090edab5e2bc48f1379a4d31769f074c340bcabc",
       "spec": {
         "template": "funnel",
-        "title": "The Open Banking Revolution & Regulato... — Central Banking & Solvency",
+        "title": "The Open Banking Revolution & Regulato... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -107,10 +107,10 @@
     },
     {
       "partTitle": "Electronic Consent Architecture: Granular Consent Artifacts & The ORCA Framework",
-      "codeHash": "39f5148acb9f0eeff2a8bf71aeb75efcc68524cec5e6d376b7c7e873c73938e9",
+      "codeHash": "d63a9b0c49c60f8a43a770b040ff532053c9bf67cf9a6062e00674590a40334c",
       "spec": {
         "template": "funnel",
-        "title": "Electronic Consent Architecture: Granu... — Central Banking & Solvency",
+        "title": "Electronic Consent Architecture: Granu... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -209,10 +209,10 @@
     },
     {
       "partTitle": "API Banking Architecture & FAPI Security: OAuth 2.0, mTLS & End-to-End Encryption",
-      "codeHash": "e011fa9de3b88cce13653efc3632f11954751224ef3d18a17e83d4a63d2da399",
+      "codeHash": "03592e3535f8aa5e02d3aedf90e579b46b4ea03f2e7585ecc4bd310be2a5b2bc",
       "spec": {
         "template": "funnel",
-        "title": "API Banking Architecture & FAPI Securi... — Central Banking & Solvency",
+        "title": "API Banking Architecture & FAPI Securi... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -311,10 +311,10 @@
     },
     {
       "partTitle": "Digital Cash Flow Credit Underwriting: Bank Statement Analytics & Underwriting Ratios",
-      "codeHash": "ee2e34e75561187ef44de9ac3d55adf6f3c5471241a0ff3dba4eee3d0ad34580",
+      "codeHash": "da45f8b6bb700cda58fcc12c10c75c83f172b123a971116652982ef19d1c683b",
       "spec": {
         "template": "funnel",
-        "title": "Digital Cash Flow Credit Underwriting:... — Central Banking & Solvency",
+        "title": "Digital Cash Flow Credit Underwriting:... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",
@@ -413,10 +413,10 @@
     },
     {
       "partTitle": "Industrial Open Banking Lab: End-to-End Account Aggregator Pipeline & Underwriting War Room",
-      "codeHash": "aa33d7048b62c9f67a4791e0bd9dcc74589df3c88d8059cdcfe69aca7d138aa4",
+      "codeHash": "bdacb9073e3c0a9bb14f57af90d70d86f0d91e549abd2373600ccb342d6410cb",
       "spec": {
         "template": "funnel",
-        "title": "Industrial Open Banking Lab: End-to-En... — Central Banking & Solvency",
+        "title": "Industrial Open Banking Lab: End-to-En... \u2014 Central Banking & Solvency",
         "steps": [
           {
             "at": "intro",

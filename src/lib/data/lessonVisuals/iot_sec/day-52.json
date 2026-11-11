@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Number Theoretic Transform (NTT) Mathematical Foundations & Cyclotomic Splitting",
-      "codeHash": "b84ce22c0476dcbdb0192b764a04b9e8e81898f8123bd1c231b2499d16ec9e87",
+      "codeHash": "fab565c302bf1846166091bd746bef08c8754e1ea330618d31fbb79ebe5afafa",
       "spec": {
         "template": "register-bits",
         "title": "Number Theoretic Transform (NTT) Mathematical... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Constant-Time Montgomery Modular Arithmetic & Branchless Reduction Engine",
-      "codeHash": "d6256fcef15321d3376310ae787e1763af1d8d33566af1480daf5e0bffea8e4d",
+      "codeHash": "6c94cda164b4f0ecc4a5f5349d54132594d883a49baac22b7c2e5c6f9a341aec",
       "spec": {
         "template": "register-bits",
         "title": "Constant-Time Montgomery Modular Arithmetic &... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Forward Cooley-Tukey Radix-2 NTT Implementation & In-Place Butterfly Storage",
-      "codeHash": "a53f8ef841730c195af8d09be0208ccb215b3a306072e87aaffd6f8f79416442",
+      "codeHash": "432b7212a02a5abd57464b19f44df6a1b0a999c2ec8a4e95b8147f2330dd2c81",
       "spec": {
         "template": "register-bits",
         "title": "Forward Cooley-Tukey Radix-2 NTT Implementati... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Inverse NTT (INTT) Gentleman-Sande Synthesis & Full Polynomial Multiplication Round-Trip",
-      "codeHash": "e642196aec0f62af327a3563200b447066696f7ba0fd137300661a6ca0addcae",
+      "codeHash": "4d8e381cf0dbfd0de524ec421bb8b6ad1706c8f899cf9af38cc50ee802dffd10",
       "spec": {
         "template": "register-bits",
         "title": "Inverse NTT (INTT) Gentleman-Sande Synthesis ... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Hardware NTT Coprocessor Microarchitecture: Dual-Bank SRAM & Cycle Benchmarking",
-      "codeHash": "8e6c704323eaf7224713cecc033ff9a672be8fc98846ac11b15399a42b547b38",
+      "codeHash": "85b634f018027274907753ae7d11be489e22b11828bc5933eb875347e86b2059",
       "spec": {
         "template": "register-bits",
         "title": "Hardware NTT Coprocessor Microarchitecture: D... — Register Bit Architecture",

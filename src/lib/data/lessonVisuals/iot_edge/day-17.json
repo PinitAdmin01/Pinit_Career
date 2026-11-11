@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "FakeQuant Nodes & The Straight-Through Estimator (STE)",
-      "codeHash": "ee12a28560ccbec36687b3e1f1a38e35a41714aefb5477b6e790b4f2cf56e81d",
+      "codeHash": "e6db22b5da274396ea2b51a988ac410207e17a17b522f320cad4e7786a081b2e",
       "spec": {
         "template": "register-bits",
         "title": "FakeQuant Nodes & The Straight-Through Estima... — Register Bit Architecture",

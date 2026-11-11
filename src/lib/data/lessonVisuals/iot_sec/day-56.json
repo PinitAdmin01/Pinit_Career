@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Industrial Mesh Threat Surface & IEEE 802.15.4 Link-Layer Security Architecture",
-      "codeHash": "4b238f3b3aa68d9dbec15a01f86c4623cf8787db11699e5025e35d2f14b1d970",
+      "codeHash": "1a7d19faa70d8d0ae41b133326fd1c934beb9dfd0276529050886d8d082e39f4",
       "spec": {
         "template": "register-bits",
         "title": "Day 56 Part 1 — Industrial Mesh Threat Surface — Register Architecture",
@@ -259,7 +259,7 @@
     },
     {
       "partTitle": "MAC Frame Counter Synchronization & Deterministic Sliding-Window Anti-Replay Defense",
-      "codeHash": "d76487887679777a5a2ae696353159363df0419b16bfb409ff3d45d4750e0a25",
+      "codeHash": "e11e1f4dea4a96c57bcc890fb01bda60d9bc767d994f061b0f6cd991bc640ea3",
       "spec": {
         "template": "register-bits",
         "title": "Day 56 Part 2 — MAC Frame Counter Synchronizat — Register Architecture",
@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "6LoWPAN Header Compression (IPHC/NHC) & Cryptographic Boundary Integrity",
-      "codeHash": "8397640b5273bf20c4b6f0ad72623bb43a474df2fffd068c3fcfd279418127bd",
+      "codeHash": "4f6206af983a5eaf5f936c5a0310b026bf9859091fec1d18dba41d2d485efbce",
       "spec": {
         "template": "register-bits",
         "title": "Day 56 Part 3 — 6LoWPAN Header Compression (IP — Register Architecture",
@@ -763,7 +763,7 @@
     },
     {
       "partTitle": "Thread Commissioning Protocol (MeshCop) & EC-J-PAKE Zero-Trust Credential Exchange",
-      "codeHash": "da007945b9c612eb412448991a3b20c47909c6a1fafcf9f9282e0c7cfb176416",
+      "codeHash": "88f5945635dcc612b403234bc9f8ec2941cd8fbe81fad30b8570cdc9ab1b2fda",
       "spec": {
         "template": "register-bits",
         "title": "Day 56 Part 4 — Thread Commissioning Protocol  — Register Architecture",
@@ -1015,7 +1015,7 @@
     },
     {
       "partTitle": "End-to-End Zero-Trust Industrial Mesh Security Subsystem & Multi-Hop Validation",
-      "codeHash": "bf174adc853978e2736d9e1f8c5c214a1162d786b3392384eebcdd8dd9b2af70",
+      "codeHash": "ea718859060221b463dcfe9207e8611b015e0080cb867e35212e1888d9172ff3",
       "spec": {
         "template": "register-bits",
         "title": "Day 56 Part 5 — End-to-End Zero-Trust Industri — Register Architecture",

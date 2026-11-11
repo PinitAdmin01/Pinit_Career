@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "CMOS Dynamic & Static Power Dissipation: Transistor Switching and Gate Capacitances",
-      "codeHash": "259b1fe8fb6b1b18c1df7ca266b26a72a781540168071d66fbf02cde6d8ca124",
+      "codeHash": "960a21daae94a006b51eb69e166816ef7c5504bec17e90b7c7c7b1ebf3b116fc",
       "spec": {
         "template": "register-bits",
         "title": "CMOS Dynamic & Static Power Dissipation: Tran... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Power Measurement Instrumentation: Shunt Resistors, Differential Probes, and Oscilloscope Calibration",
-      "codeHash": "541faccc0348b735bba5fe740500562e7d4215e1102eff48ac8c2412fe984862",
+      "codeHash": "75fdd80c4462dc00be3060d9381fa8c66269240c817f2a6402e7591b4b587db2",
       "spec": {
         "template": "register-bits",
         "title": "Power Measurement Instrumentation: Shunt Resi... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Asymmetric Instruction Sequencing & Branch Leakage in Cryptographic Operations",
-      "codeHash": "d5eedfa577f73432d8d93703a83704cab76145910635c4c42fcc61986e2e4d1a",
+      "codeHash": "1c8608e645c8da9d0c987e0d0530d1518ccc224ac1c79da66271d5d028687d4a",
       "spec": {
         "template": "register-bits",
         "title": "Asymmetric Instruction Sequencing & Branch Le... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Simple Power Analysis (SPA) Attack Vector: RSA Square-and-Multiply Key Extraction",
-      "codeHash": "5db5af8dfdfa5b1bac2b04e3ba28ec7923461e4fcf6cb832b5a7529189757818",
+      "codeHash": "32bf8fe80a6fee8f4f4ed08d77df78dc4f156d3e2023f918fb81d2fb78d3b2bc",
       "spec": {
         "template": "register-bits",
         "title": "Simple Power Analysis (SPA) Attack Vector: RS... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Software Countermeasures: Constant-Time Execution and Montgomery Ladder Balancing",
-      "codeHash": "4605ce1cc648761dd5cc5c8cd3fc2491a3e908dde39e3be0db4b76e632d902ad",
+      "codeHash": "cb3d182bbd8007cf61e9509524b77c5fe93cc7106af7defc71a408bc59c156ee",
       "spec": {
         "template": "register-bits",
         "title": "Software Countermeasures: Constant-Time Execu... — Register Bit Architecture",

@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Secure Element (SE) Silicon Architecture & Physical Security Boundaries",
-      "codeHash": "019f9ae6b9bdb486b99d4706de1af0ef0fc93982211983f8aa685a2b0deee273",
+      "codeHash": "57307d08343d2d1435816d7613d86ee175d4850e5186d315123483edfd4e832a",
       "spec": {
         "template": "register-bits",
         "title": "Day 57 Part 1 — Secure Element (SE) Silicon Ar — Register Architecture",
@@ -259,7 +259,7 @@
     },
     {
       "partTitle": "I2C Inter-Chip Bus Eavesdropping Threats & Encrypted IO Protection Keys",
-      "codeHash": "f2ff230c879e4a8db5b07ea7f5f89fd0a7734284ea251f872833d0be32fa7cfe",
+      "codeHash": "89ca016689774f22ec7ab1df71c0c811cc89e0f349e81f7950fd2bca0a1d6a13",
       "spec": {
         "template": "register-bits",
         "title": "Day 57 Part 2 — I2C Inter-Chip Bus Eavesdroppi — Register Architecture",
@@ -511,7 +511,7 @@
     },
     {
       "partTitle": "Asymmetric Signature Delegation Protocol & TempKey Nonce Validation",
-      "codeHash": "ea096f5a1d804128af579453ec1aaeecb11ca67aefae8ea546d0bb68a0e7166a",
+      "codeHash": "af68b573395347394d06b1ee3ee53bb6876127750a243c41639552807e770818",
       "spec": {
         "template": "register-bits",
         "title": "Day 57 Part 3 — Asymmetric Signature Delegatio — Register Architecture",
@@ -763,7 +763,7 @@
     },
     {
       "partTitle": "APDU Command Serialization & ISO/IEC 7816-4 Protocol Codec",
-      "codeHash": "624bb30cc239e8311e9a659bc36387c7ed91b6e6090a91cff799a9031e9183bd",
+      "codeHash": "0f2ecd395a3df9457881c525ee7773d8812b21854a22f9efae284f68c9529fb8",
       "spec": {
         "template": "register-bits",
         "title": "Day 57 Part 4 — APDU Command Serialization & I — Register Architecture",
@@ -1015,7 +1015,7 @@
     },
     {
       "partTitle": "End-to-End Hardware Secure Element Subsystem & Factory Provisioning",
-      "codeHash": "a3021e8cef9dcc01c57d23b3c7514f240a5b44e27442ef62d279b5cae3a099a8",
+      "codeHash": "94e375ec173698f34220eae383f375b53c88ed1ae028a77b2dd5a1c170b45076",
       "spec": {
         "template": "register-bits",
         "title": "Day 57 Part 5 — End-to-End Hardware Secure Ele — Register Architecture",

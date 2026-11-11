@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Offline Tensor Arena Memory Planner & Lifetime Allocator",
-      "codeHash": "b41610a30ebc943cc7cc5dc98d8edb0bc3aab53368178661f09d1f9f315e1582",
+      "codeHash": "212c5cdf291a94c5e95bf0dc51f4f3305a85fe8ee8c0213d36ff4bb831b79aba",
       "spec": {
         "template": "register-bits",
         "title": "Offline Tensor Arena Memory Planner & Lifetim... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "CMSIS-NN SIMD & Im2Col Kernel Execution Engine",
-      "codeHash": "c82112a656aaf05fe8d1f267f783c52f474960eb425fdf1dfbb94783b7efd557",
+      "codeHash": "11ff3b5a7c42e80ff812eeda03e06a82e623bb76a7024df1cfe7911b40a7a957",
       "spec": {
         "template": "register-bits",
         "title": "CMSIS-NN SIMD & Im2Col Kernel Execution Engine — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "CAPSTONE: Milestone 5 Production Verification Suite & Defense Gate",
-      "codeHash": "5f0f9647716fd7fc3a7ea59f4f1d60c7df640e5fa9f5864d8d233665d6afcf3c",
+      "codeHash": "d87c3d529a60460d98234e411c0b58e024338868a2231586da211fdc0c89de84",
       "spec": {
         "template": "register-bits",
         "title": "CAPSTONE: Milestone 5 Production Verification... — Register Bit Architecture",

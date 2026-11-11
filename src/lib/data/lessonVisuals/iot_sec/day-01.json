@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "ARM TrustZone & Memory Protection Unit (MPU) Partitioning",
-      "codeHash": "061d16ba035ace681d5bc9f85764c124e741a1842bcd43dd319811a740c514aa",
+      "codeHash": "b4b22110c5e8f619cc88e7426df25b21d8e39b3469b1cbe722ab59cc9cabbbe6",
       "spec": {
         "template": "register-bits",
         "title": "ARM TrustZone & Memory Protection Unit (MPU) ... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Side-Channel Defense & Constant-Time Cryptographic Invariants",
-      "codeHash": "f0fc83c8aceb85a97c4dd14d59e021cb1252d705ddddfe5ad920f71c0112463a",
+      "codeHash": "663466ac649657d72cfebaee256bd4792cb14aa697bb0bd0a2e1f1a2456fe93e",
       "spec": {
         "template": "register-bits",
         "title": "Side-Channel Defense & Constant-Time Cryptogr... — Register Bit Architecture",

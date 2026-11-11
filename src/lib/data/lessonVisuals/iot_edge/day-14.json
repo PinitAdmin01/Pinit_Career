@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "The Master Kernel Architectural Paradigm: Streaming Dataflow",
-      "codeHash": "64e90ba41c5867d9523329f33931f92aa34eca8af7c382b8f2fb5c64cc7c6894",
+      "codeHash": "c18ef32f52952d6277afd00d4ab006cac1c7bb72574baf7d996e2cecf452f2c5",
       "spec": {
         "template": "register-bits",
         "title": "The Master Kernel Architectural Paradigm: Str... — Register Bit Architecture",

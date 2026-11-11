@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "Physical Attack Vectors: Decapsulation, Focused Ion Beam (FIB) Circuit Edit, and Silicon Probing",
-      "codeHash": "97e7877bb56d4191daa744974371930598442416ee728b18c5c74a4f739e948f",
+      "codeHash": "362a1c90292b9e59c29e2d2cae7b599595852d242c8acbf8c3ecf02786a69ac9",
       "spec": {
         "template": "register-bits",
         "title": "Physical Attack Vectors: Decapsulation, Focus... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Active Silicon Die Meshes: Multi-Layer Metal Shielding, Dynamic Pseudo-Random Signal Routing & Short/Open Invariants",
-      "codeHash": "7ae22e8965f277defacfe2a7d1c30b1ddefe3e6416066cd6f10bc573266f4801",
+      "codeHash": "d47466086b92ecf5072f79c1808f82c0695dd17a703ff63ea8a1c63a08b87930",
       "spec": {
         "template": "register-bits",
         "title": "Active Silicon Die Meshes: Multi-Layer Metal ... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Continuous Time-Domain Impedance Monitoring & Transmission Line Reflections (TDR) on Enclosure Meshes",
-      "codeHash": "11b8917aa73bed45cc29abd9218ce30fa09c3d37324cbe85279532c3e8128cd4",
+      "codeHash": "cf6bd2353471df7cacd5248696d43697194713d1e1cde776297fbb19c72473f8",
       "spec": {
         "template": "register-bits",
         "title": "Continuous Time-Domain Impedance Monitoring &... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Serpentine PCB Enclosure Wraps, Capacitive Enclosure Intrusion Sensing & Anti-Drill Matrices",
-      "codeHash": "da6edafdc848a136e8520c87936c8682f9f7a96f8af2a35b621dc523adb45d2a",
+      "codeHash": "0cb6bcc195f6114803c2f206c824dad0d09fb6fa4374c719827717cbdd914990",
       "spec": {
         "template": "register-bits",
         "title": "Serpentine PCB Enclosure Wraps, Capacitive En... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Silicon Die Mesh Controller Engine: PRNG Sequence Verification, Microsecond Alarm Latching & Hardware Trip Circuit",
-      "codeHash": "93ed1be1125f98f3ee7f6d0546060400c75eaa32ced26b7b22bbda0bf464125f",
+      "codeHash": "99912e1fb7ea73484403fee264e78b1c37f65c2030a7d82b3173ac0a022bdc7e",
       "spec": {
         "template": "register-bits",
         "title": "Silicon Die Mesh Controller Engine: PRNG Sequ... — Register Bit Architecture",

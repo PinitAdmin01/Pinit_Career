@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "SideShield Architecture: Power/EM Trace Simulator, Noise Injection, and Trace Repository",
-      "codeHash": "45227cfcac58ff2025bec90b99b6d68f7312c7b0cc8c86f96cfaebbf8e06f37b",
+      "codeHash": "61d58c47d27e4f6623f6ddfd5ea7c8da6d2bb0f5d6589fa2c652cd9556995e03",
       "spec": {
         "template": "register-bits",
         "title": "SideShield Architecture: Power/EM Trace Simul... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Unmasked AES-128 Engine Implementation & Vulnerability Characterization",
-      "codeHash": "67d01a9092bcae3427e332f40f7b6b25013b2a2c1bd43ba2eb9ecb9e21dbb9a1",
+      "codeHash": "a364453249083ddb38879187e2c7140b870774d35e18d3378e120376fe24dcbf",
       "spec": {
         "template": "register-bits",
         "title": "Unmasked AES-128 Engine Implementation & Vuln... — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "SideShield CPA Attack Engine: Pearson Correlation Matrix Sweep & Key Recovery",
-      "codeHash": "9f5a67f44cd3daaf0515f88128ce71f47d5b1723d388f1d45d3c17b729828420",
+      "codeHash": "627235a8feefbf8566e6daa6a50253a6eaa2f032040aaa086e0ebb8d523c204b",
       "spec": {
         "template": "register-bits",
         "title": "SideShield CPA Attack Engine: Pearson Correla... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "First-Order Boolean Masking Engine: Mask Generation, Masked S-Box, and Share Recombination",
-      "codeHash": "40dac360a195faa9c29cb1daaff8c94ff560d8f5ce357ff1272fddb55fcc827c",
+      "codeHash": "1c385e93eb590d45ae8163e1f3ad0e625e35f1ab4d3cb72b59f04c62b6e1697c",
       "spec": {
         "template": "register-bits",
         "title": "First-Order Boolean Masking Engine: Mask Gene... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Milestone 8 Verification: Rigorous Evaluation Bench, Leakage Assessment (TVLA), and Grade A+ Certification",
-      "codeHash": "d57cffb40fe7607cc289752a06e993f83bcafb50c6142ddb7a1838a65a99dc2c",
+      "codeHash": "9297ded248bd5086b3bd624fb7906704f4f0bcdb9bcf91fbb7d0698fb115aac6",
       "spec": {
         "template": "register-bits",
         "title": "Milestone 8 Verification: Rigorous Evaluation... — Register Bit Architecture",

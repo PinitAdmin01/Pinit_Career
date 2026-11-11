@@ -763,7 +763,7 @@
     },
     {
       "partTitle": "PDP Context Bearer Activation & TCP/UDP Socket Streaming",
-      "codeHash": "2d4b75ad770bbb667a9b8a4adaf4e21bcc43f80226f8518f62590b7108ffe0d7",
+      "codeHash": "a67fc885cf6208e6fcfc8e4f84e17e7355d22e6b96afa1c0d9be224c585e951d",
       "spec": {
         "template": "register-bits",
         "title": "Day 24 Part 4 — PDP Context Bearer Activation  — Register Architecture",
@@ -1015,7 +1015,7 @@
     },
     {
       "partTitle": "Milestone 5 Prep: Full Modem Engine & Guard Time Escape Sequence",
-      "codeHash": "7e36586104ad669aa370b3c1d6bcfd63f6c89839d0b21d2ad1ce2c41a7fdbf79",
+      "codeHash": "4a6a584adc10ddd38121ef023805d3592e82512365df36d90695d5876fabb459",
       "spec": {
         "template": "register-bits",
         "title": "Day 24 Part 5 — Milestone 5 Prep: Full Modem E — Register Architecture",

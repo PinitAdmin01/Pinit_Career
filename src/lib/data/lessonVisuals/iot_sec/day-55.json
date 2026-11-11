@@ -7,7 +7,7 @@
   "entries": [
     {
       "partTitle": "QuantumShield Coprocessor Microarchitecture & Bus Interconnect Model",
-      "codeHash": "a7241f76b0fef41d2ecc98d2e11f4a0474de408a8cdd136eb6bc6673081da351",
+      "codeHash": "87fc326f936110623d1cc01a44a9189996c036e4d0a069987895f5a2f0e261c5",
       "spec": {
         "template": "register-bits",
         "title": "QuantumShield Coprocessor Microarchitecture &... — Register Bit Architecture",
@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "Constant-Time Hardware NTT Acceleration Engine",
-      "codeHash": "7b072cc9e27c208e2e7ac1f6e3f13e61037c7e1a0a29a2ecc742ed9b38ef033a",
+      "codeHash": "c0ee30bdbf5b4d0a5215e215d306ea28db0d3d14e106c0053db4b9a7465e8f17",
       "spec": {
         "template": "register-bits",
         "title": "Constant-Time Hardware NTT Acceleration Engine — Register Bit Architecture",
@@ -1011,7 +1011,7 @@
     },
     {
       "partTitle": "Dual-Signature Hybrid Secure Boot Verification Engine",
-      "codeHash": "f4abd4fd84056d05c26eff00e411fba3f5dc4ae54a0e8b688bdbb6044d416cf6",
+      "codeHash": "499c94c4834b475db3e9ab49d13887d418d39c09cc68e10d9d0bb457e57227bc",
       "spec": {
         "template": "register-bits",
         "title": "Dual-Signature Hybrid Secure Boot Verificatio... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Side-Channel Masking & Dual-Core Lockstep Anti-Tamper Model",
-      "codeHash": "7b7b31daeb2034043c446809844586ead5cb9c1d2decfee2dddbdbae5a4a326e",
+      "codeHash": "c22becb466143cb01553452b39f5395da27cec61dd53947ced6a9994c8f417a2",
       "spec": {
         "template": "register-bits",
         "title": "Side-Channel Masking & Dual-Core Lockstep Ant... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Complete Milestone 11 Certification Bench",
-      "codeHash": "8b23044050a13276abd041d5cf5eec5bac4944385e2c83309f00beb360e98512",
+      "codeHash": "0240a03211801309ddcbd8f5d3f4f1088d8557117868c6483e054f44848f88d4",
       "spec": {
         "template": "register-bits",
         "title": "Complete Milestone 11 Certification Bench — Register Bit Architecture",

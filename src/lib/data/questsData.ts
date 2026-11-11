@@ -8,6 +8,10 @@ import { BCOM_ENTREPRENEURSHIP_30_DAYS_QUESTS } from './bcomEntrepreneurship30Da
 import { BCOM_SALES_CRM_30_DAYS_QUESTS } from './bcomSalesCrm30DayData';
 import { BCOM_OPERATIONS_30_DAYS_QUESTS } from './bcomOperations30DayData';
 import { BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS } from './bcomAiTransformation30DayData';
+import { BCOM_AUDITING_30_DAYS_QUESTS } from './bcomAuditing30DayData';
+import { BCOM_BANKING_30_DAYS_QUESTS } from './bcomBanking30DayData';
+import { BCOM_LAW_30_DAYS_QUESTS } from './bcomLaw30DayData';
+import { BCOM_TAXATION_30_DAYS_QUESTS } from './bcomTaxation30DayData';
 
 export interface QuestData {
   id: string;
@@ -33,6 +37,10 @@ export const QUESTS_REGISTRY: QuestData[] = [
   ...(BCOM_SALES_CRM_30_DAYS_QUESTS as any[]),
   ...(BCOM_OPERATIONS_30_DAYS_QUESTS as any[]),
   ...(BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS as any[]),
+  ...(BCOM_AUDITING_30_DAYS_QUESTS as any[]),
+  ...(BCOM_BANKING_30_DAYS_QUESTS as any[]),
+  ...(BCOM_LAW_30_DAYS_QUESTS as any[]),
+  ...(BCOM_TAXATION_30_DAYS_QUESTS as any[]),
   {
     id: 'fizzbuzz',
     title: 'Quest 1: FizzBuzz Mastery',

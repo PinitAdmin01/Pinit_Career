@@ -82,7 +82,11 @@ export async function runTestSuite(
       return executeBashSuite(code, testCases, options?.testSuite, timeoutMs);
 
     case 'cpp':
-      return executeCppSuite(code, fnName, testCases, timeoutMs);
+      return executeCppSuite(code, fnName, testCases, timeoutMs, {
+        testSuite: options?.testSuite,
+        questId: options?.questId,
+        requireCompilerExecution: true,
+      });
 
     default:
       return {

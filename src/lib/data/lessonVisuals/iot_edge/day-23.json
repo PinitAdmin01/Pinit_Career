@@ -509,7 +509,7 @@
     },
     {
       "partTitle": "MobileNetV1 Architecture & Width Multiplier Scaling",
-      "codeHash": "40b463a8a902b52ae27a5624bd2a444b290da70c0e635c02f1b8745cd08cdffa",
+      "codeHash": "be124d6144344332965c52f5cf051047aa5b632d74456f5a60f450ca1a6cd559",
       "spec": {
         "template": "register-bits",
         "title": "MobileNetV1 Architecture & Width Multiplier S... — Register Bit Architecture",
@@ -1513,7 +1513,7 @@
     },
     {
       "partTitle": "Layer-by-Layer Activation Memory Profiling & Ping-Pong Reuse",
-      "codeHash": "7b3a22e70786e2bc6882575451ae35cfcb5df6c57709a77ed94100e2d7a9adf2",
+      "codeHash": "b60b74c24229132bde76f234cc354928cabc8f0d953ab73a0f8863d8dc452b9e",
       "spec": {
         "template": "register-bits",
         "title": "Layer-by-Layer Activation Memory Profiling & ... — Register Bit Architecture",
@@ -2015,7 +2015,7 @@
     },
     {
       "partTitle": "Production 96x96 Person Detector Simulation & Safety Gate",
-      "codeHash": "d31dc013db0b7e565039b331573b38af612c18d0f9b98ac0d198e40fcf80cf43",
+      "codeHash": "67902fd93db1780348a3f50f0f0acf4ec7328aa281ed0a2a997eb1e0d3e2d3b3",
       "spec": {
         "template": "register-bits",
         "title": "Production 96x96 Person Detector Simulation &... — Register Bit Architecture",
