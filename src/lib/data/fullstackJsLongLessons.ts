@@ -2736,9 +2736,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why are WebSockets superior to HTTP short-polling and Server-Sent Events (SSE) for high-frequency collaborative applications?",
           "options": [
-            "WebSockets encrypt all traffic using TLS automatically without needing SSL certificates.",
-            "WebSockets execute inside web worker threads, completely bypassing the V8 JavaScript event loop.",
-            "WebSockets allow clients to modify database tables directly from the browser window., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "WebSockets encrypt all traffic using hardware-accelerated AES-GCM ciphers without requiring TLS certificates",
+            "WebSockets execute inside isolated kernel worker threads, completely bypassing the V8 JavaScript event loop",
+            "WebSockets allow client browsers to bypass reverse proxy firewalls by tunneling raw UDP datagrams over port 53",
             "WebSockets establish a persistent, full-duplex TCP channel with minimal 2-10 byte frame overhead, allowing simultaneous two-way messaging without recurring HTTP headers."
           ],
           "answer": 3,
@@ -2788,10 +2788,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why must a production WebSocket server implement application-level Ping/Pong heartbeats rather than relying on TCP keepalive?",
           "options": [
-            "Because TCP keepalive consumes more electrical power than application-level ping frames.",
+            "Because operating system TCP keepalive packets are dropped by intermediate TLS terminators and cloud load balancers",
             "Because default Linux TCP keepalive takes 2 hours to detect a dead socket, allowing ghost connections to exhaust file descriptors and memory.",
-            "Because WebSocket frames cannot travel across TCP connections., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because client browsers reject TCP keepalive packets by default., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because TCP keepalive consumes excessive network bandwidth by re-transmitting complete HTTP upgrade headers on every probe",
+            "Because the V8 JavaScript runtime suspends TCP socket polling whenever application memory garbage collection pauses exceed 100ms"
           ],
           "answer": 1,
           "why": "Default OS TCP keepalive intervals can take up to 2 hours to detect dead connections; application-level WebSocket Ping/Pong cycles identify and purge half-open sockets in 30 to 60 seconds, preventing file descriptor exhaustion.",
@@ -2814,10 +2814,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why must a real-time room broadcasting engine explicitly exclude the originating sender when dispatching room updates?",
           "options": [
-            "To reduce server CPU usage by 90% across all requests., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because TCP sockets cannot send and receive data at the same time., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because sending an event back to its originator triggers an immediate TCP window buffer overflow in the client browser network stack",
+            "Because bidirectional WebSocket framing mandates that client sockets enter half-duplex receive-only mode after transmitting a payload",
             "Because the sender's client application has already applied the change via Optimistic UI updates; echoing the event back causes flickering, cursor jump, or duplicate rendering.",
-            "Because WebSocket frames sent to the originating sender are blocked by the browser's CORS policy."
+            "Because intermediate edge proxies reject outgoing WebSocket frames if the payload author ID matches the destination socket session token"
           ],
           "answer": 2,
           "why": "Modern front-ends apply Optimistic UI updates instantly; re-delivering the sender's own event back to their socket creates UI glitches, double-rendered messages, and cursor stutter.",
@@ -2839,9 +2839,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In a multi-server real-time WebSocket cluster, why is a centralized message broker like Redis Pub/Sub necessary?",
           "options": [
-            "To convert WebSocket binary frames into standard SQL queries., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To allow client browsers to read files directly from server disk drives., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To force all client browsers to reconnect every 10 seconds., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "To serialize WebSocket binary frame payloads into durable disk storage before delivering messages to connected browser clients",
+            "To encrypt socket payloads with asymmetric session keys so intermediate Node.js worker nodes cannot inspect message contents",
+            "To negotiate TLS session ticket rotation across cluster instances when client connections migrate between cloud availability zones",
             "Because different clients in the same room may be connected to different server instances; Redis acts as a shared backplane to route events across all nodes."
           ],
           "answer": 3,
@@ -2894,9 +2894,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "What is the primary architectural flaw of the Fixed Window Counter rate limiting algorithm?",
           "options": [
             "It allows an attacker to concentrate 200% of the allowed quota across the boundary between two adjacent windows, overwhelming downstream services.",
-            "It requires 50 megabytes of memory per user to maintain request logs., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It cannot run inside asynchronous Node.js event loops., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It encrypts request headers so that API gateways cannot inspect authentication tokens."
+            "It requires maintaining sorted microsecond timestamp arrays in RAM for every request, creating exponential memory leaks",
+            "It fails to reset counters when server nodes restart, permanently locking out users until system administrators clear caches",
+            "It forces application gateways to decrypt TLS payload buffers before evaluating counter values, adding 50ms of network latency"
           ],
           "answer": 0,
           "why": "A client can dispatch its entire quota at the very end of one window and another full quota at the start of the next window, delivering double the intended capacity in a narrow interval.",
@@ -2945,10 +2945,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "When should an enterprise system prefer a Leaky Bucket over a Token Bucket?",
           "options": [
-            "When serving interactive browser clients that need to load dashboard assets simultaneously.",
-            "When the backend database is offline., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "When serving interactive browser clients that need to load dashboard assets simultaneously in parallel bursts",
+            "When running serverless edge functions that require zero memory retention across independent invocations",
             "When streaming outbound requests to external third-party services that demand a smooth, strictly constant throughput rate without traffic spikes.",
-            "When client devices are connecting via WebSockets., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "When caching database read queries in distributed Redis clusters to reduce primary database query loads"
           ],
           "answer": 2,
           "why": "Leaky Bucket enforces constant-rate egress by smoothing irregular traffic into a uniform flow, making it ideal for interacting with downstream services that cannot tolerate sudden bursts.",
@@ -2970,9 +2970,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why should client retry algorithms incorporate randomized jitter into exponential backoff calculations?",
           "options": [
-            "To bypass rate limiters by disguising client IP addresses., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To allow Node.js to release memory allocated to V8 garbage collectors., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To increase HTTP request payload compression., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "To randomize client IP addresses across multiple subnets and bypass reverse proxy rate limiting firewalls",
+            "To allow intermediate TCP connection buffers to drain completely before re-initiating TLS cryptographic handshakes",
+            "To compress HTTP request headers into binary formats and reduce network bandwidth consumption during retry storms",
             "To prevent thousands of throttled clients from retrying simultaneously at the exact same millisecond, which causes secondary thundering herd spikes."
           ],
           "answer": 3,
@@ -2996,9 +2996,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why must distributed rate limiting algorithms in multi-server architectures execute inside atomic Redis Lua scripts rather than separate GET and SET commands?",
           "options": [
             "Because separate GET and SET commands introduce Read-Modify-Write race conditions where concurrent servers read stale token balances and allow unauthorized traffic surges.",
-            "Because Redis cannot store floating-point numbers without Lua scripts., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because Lua scripts bypass operating system TCP network buffers., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because Redis commands are asynchronous and cannot be awaited in JavaScript., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because Redis terminates TCP socket connections if client applications execute more than two consecutive commands on the same key",
+            "Because standalone GET and SET commands cannot access Redis in-memory persistence logs without administrative root privileges",
+            "Because executing rate limit calculations in JavaScript causes V8 event loop blocks that corrupt shared multi-threaded memory pages"
           ],
           "answer": 0,
           "why": "Non-atomic GET and SET commands allow concurrent servers to read the same token count simultaneously, creating race conditions that bypass rate limits. Redis executes Lua scripts atomically, guaranteeing thread-safe consistency across all servers.",
@@ -3073,7 +3073,7 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What happens in a Node.js streaming pipeline when destinationStream.write(chunk) returns false, and how must the producer respond?",
           "options": [
-            "The write succeeded, but the connection was dropped by the client., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "The write operation timed out waiting for OS thread pool execution, and the stream must be forcefully destroyed",
             "The chunk was corrupted by an invalid TCP checksum and must be re-requested from the client.",
             "The destination internal buffer has exceeded its highWaterMark; the producer must pause writes until the destination emits a 'drain' event.",
             "The Node.js runtime automatically spawns a child worker thread to double the stream's write speed."
@@ -3205,10 +3205,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is Redis Pub/Sub unsuitable for mission-critical background job queues compared to BullMQ or Redis Streams?",
           "options": [
-            "Redis Pub/Sub requires SSL certificates that cannot run in Docker containers., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Redis Pub/Sub only allows transmitting JSON objects smaller than 256 bytes., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Redis Pub/Sub serializes all messages to disk synchronously on every publish, causing extreme latency spikes under high write throughput",
+            "Redis Pub/Sub enforces strict single-threaded FIFO delivery that blocks all subscriber channels when one consumer processes slowly",
             "Redis Pub/Sub is fire-and-forget; it provides zero persistence or consumer acknowledgment, causing permanent data loss if a worker is offline or crashes during transmission.",
-            "Redis Pub/Sub can only deliver messages to a single client at any time., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Redis Pub/Sub requires dedicated client IP reservations that prevent worker containers from scaling dynamically across clusters"
           ],
           "answer": 2,
           "why": "Redis Pub/Sub does not buffer or persist messages; if no subscriber is actively listening or if a worker crashes before processing, the message is permanently gone without any retry mechanism.",
@@ -3231,9 +3231,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why should CPU-intensive background tasks (such as PDF rendering or image manipulation) be executed in sandboxed child processes rather than the main Node.js event loop?",
           "options": [
-            "Child processes have access to unlimited GPU acceleration by default., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Worker threads are the only mechanism that can connect to Redis servers., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Node.js forbids importing the fs module inside background queue handlers., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because child processes share the same V8 heap memory space and automatically garbage collect inactive variables across threads",
+            "Because executing tasks in child processes bypasses operating system file descriptor limits and network socket buffer ceilings",
+            "Because worker threads are strictly required by the POSIX standard to execute asynchronous cryptographic hashing operations",
             "Synchronous CPU workloads block the single-threaded event loop, freezing incoming HTTP requests, timers, and health checks across the entire application."
           ],
           "answer": 3,
@@ -3258,9 +3258,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "What is the primary function of adding randomized Full Jitter to exponential backoff retry algorithms?",
           "options": [
             "It desynchronizes retry bursts from concurrent failed jobs, preventing retry storms from overwhelming downstream services as they recover.",
-            "It encrypts the retry payload so that third-party APIs cannot inspect request headers.",
-            "It forces the operating system to allocate additional virtual memory to the Node.js process.",
-            "It reduces the total number of required retries from three to one., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It dynamically adjusts Redis worker connection pool sizes based on upstream API response latency measurements",
+            "It forces the operating system kernel to allocate additional virtual memory buffers to the Node.js event loop",
+            "It compresses failed job payloads into binary buffers so that retry attempts consume 50% less network bandwidth"
           ],
           "answer": 0,
           "why": "Without jitter, multiple jobs failing at the same instant retry at identical time intervals, causing synchronized waves of traffic (retry storms); full jitter scatters the retries uniformly across time.",
@@ -3283,10 +3283,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "How does priority scheduling in a background queue system protect user experience during bulk batch processing?",
           "options": [
-            "It compresses batch payloads into zip files before transmission., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It drops low-priority jobs automatically whenever worker CPU utilization crosses 80%, guaranteeing server stability",
             "It prioritizes urgent transactional tasks (such as password reset tokens or OTPs) ahead of voluminous low-priority jobs (such as marketing digests), ensuring sub-second delivery.",
-            "It routes all low-priority jobs to the Dead-Letter Queue immediately., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It disables Redis authentication for priority jobs to reduce network latency., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It encrypts priority jobs with dedicated asymmetric public keys, allowing workers to decrypt them faster than standard jobs",
+            "It distributes low-priority jobs to client browser web workers via WebSockets, completely freeing server background queues"
           ],
           "answer": 1,
           "why": "Priority scheduling ensures that low-latency transactional jobs jump ahead of high-volume background batches, preventing users from waiting behind tens of thousands of marketing or analytical jobs.",
@@ -3309,10 +3309,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is application-level idempotency strictly necessary in distributed message queue architectures?",
           "options": [
-            "Message queues automatically delete duplicate database records upon startup., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "V8 garbage collectors randomly duplicate JavaScript objects in memory., which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because message brokers automatically duplicate job entries in volatile memory during horizontal cluster shard failovers",
+            "Because operating system kernel network buffers re-transmit unacknowledged TCP packets when server CPU utilization exceeds 90%",
             "Because distributed systems only guarantee at-least-once delivery; network drops during completion acknowledgments cause jobs to be re-executed by standby workers.",
-            "Idempotency keys are required by HTTP/2 to establish TLS handshakes., which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because Redis commands are evaluated asynchronously and can execute out-of-order across multi-threaded connection pools"
           ],
           "answer": 2,
           "why": "Due to network partitions and worker failures, distributed queues guarantee at-least-once delivery; idempotency ensures that if a job is executed multiple times, downstream side-effects (like charging a credit card) occur exactly once.",
@@ -3370,9 +3370,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does an enterprise collaborative application employ a hybrid transport strategy (tRPC/HTTP + WebSockets + SSE) rather than forcing all traffic over WebSockets alone?",
           "options": [
-            "Because WebSockets cannot transmit strings longer than 256 characters, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because Redis only supports HTTP connections, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because web browsers restrict applications to a single WebSocket frame per hour, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because WebSocket connections cannot negotiate TLS certificates and require unencrypted plaintext port routing",
+            "Because modern web browsers terminate WebSocket connections whenever users navigate between internal route tabs",
+            "Because WebSockets cannot serialize nested JSON objects and require converting all payloads into raw binary buffers",
             "Because HTTP endpoints benefit from CDN edge caching, standard load-balancer request routing, and granular HTTP status codes, while WebSockets excel specifically at low-latency bidirectional state sync"
           ],
           "answer": 3,
@@ -3399,9 +3399,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "Why are Conflict-free Replicated Data Types (CRDTs) mathematically superior to Centralized Operational Transformation (OT) for modern offline-first collaborative systems?",
           "options": [
             "Because CRDT operations are mathematically commutative, associative, and idempotent, allowing distributed nodes to merge edits in any arrival order without central server arbitration",
-            "Because CRDTs do not require RAM or CPU to execute on client machines, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because CRDT algorithms encrypt all network traffic using quantum key distribution, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because OT algorithms are prohibited under open-source MIT licenses, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because CRDT data models eliminate document tombstones entirely, guaranteeing constant-time memory usage during long editing sessions",
+            "Because Centralized OT requires all clients to maintain continuous peer-to-peer WebRTC audio streams to detect character insertions",
+            "Because CRDT data structures are evaluated directly inside GPU hardware pipelines, bypassing JavaScript engine memory limits"
           ],
           "answer": 0,
           "why": "CRDTs guarantee strong eventual consistency through commutative and associative operations, enabling conflict-free state convergence without central lock coordination.",
@@ -3426,10 +3426,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What primary performance bottleneck of legacy Redis Pub/Sub does Redis 7 Sharded Pub/Sub (SSUBSCRIBE/SPUBLISH) resolve in multi-node clusters?",
           "options": [
-            "It replaces ASCII text encoding with proprietary EBCDIC formats, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It converts Redis message payloads into binary Protocol Buffers to eliminate string serialization CPU overhead",
             "It restricts message distribution exclusively to the shard owning the channel hash slot, eliminating wasteful cluster-wide gossip broadcasting across uninvolved nodes",
-            "It removes the requirement for Redis password authentication, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It guarantees that messages are stored in hard disk storage for 10 years, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It requires subscribers to maintain persistent direct TCP sockets to every Redis node in the cluster simultaneously",
+            "It allows Redis replica nodes to acknowledge publish commands before replicating changes to the cluster primary node"
           ],
           "answer": 1,
           "why": "Sharded Pub/Sub binds channels to specific cluster hash slots, routing messages only to the relevant shard rather than broadcasting across the entire Redis cluster fleet.",
@@ -3454,10 +3454,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What is the primary benefit of decomposing complex batch operations into a BullMQ FlowProducer DAG rather than running a single monolithic background job?",
           "options": [
-            "It eliminates the need for Redis in the background processing infrastructure, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It converts all TypeScript types into WebAssembly automatically, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It compiles all JavaScript functions into native ARM64 machine code binaries before pushing jobs to the Redis cluster",
+            "It eliminates memory limits in the Node.js V8 runtime by sharing memory buffers across independent worker container pods",
             "It allows individual subtasks (such as rendering separate pages) to execute concurrently across multiple worker nodes and enables granular retries of only failed subtasks",
-            "It forces all database queries to execute synchronously, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It guarantees that all background tasks finish executing within 50 milliseconds regardless of operating system CPU loads"
           ],
           "answer": 2,
           "why": "DAG flows allow parallel child execution across distributed worker fleets and isolate failures so only the failing child step needs to be retried rather than restarting the entire workflow.",
@@ -3482,9 +3482,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In a mission-critical distributed collaborative workspace, what is the primary role of a Dead-Letter Queue (DLQ)?",
           "options": [
-            "To format outgoing emails as HTML templates, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To clear browser local storage cookies on client machines, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To compress video files using GPU hardware acceleration, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "To automatically execute SQL schema migrations whenever background workers throw unhandled database exceptions",
+            "To encrypt active Redis connection pools with asymmetric keys when worker pods experience container restarts",
+            "To synchronize user session cookies across multiple domain names during federated Single Sign-On authentications",
             "To isolate and preserve permanently failed tasks for diagnostic telemetry, alerting, and manual replay without blocking the active queue"
           ],
           "answer": 3,
