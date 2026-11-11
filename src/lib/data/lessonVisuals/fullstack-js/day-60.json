@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 60,
-  "promptSha": "d60831afcb4cdc5739c2c394b9e84cd3c2d4f3b83066aa1f3512b2f288f947a7",
-  "model": "gemini-2.5-pro",
+  "promptSha": "132b78d70b278beadeffdddae96c054b2c7441df4b285286124d2b0a5e5288e5",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Edge Computing, Streaming SSR & Dynamic Reverse Proxy Mesh",
       "codeHash": "f072fd58c458aee21bac9e8510c69d140f17d2d8066ac9bd2794be16e03009f0",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Edge Computing, Streaming SSR & Dynamic Reverse Proxy Mesh",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Edge Computing, Streaming SSR & Dynamic Reverse Proxy Mesh",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Computing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Streaming",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize edge architecture and computing boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Edge Computing"
+              },
+              "engine": {
+                "text": "EdgeRoutingDecision"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how edge coordinates computing state transitions.",
+            "values": {
+              "input_code": {
+                "text": "architectural pillar"
+              },
+              "engine": {
+                "text": "Computing"
+              },
+              "out": {
+                "text": "round-trip network"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international airport"
+              },
+              "engine": {
+                "text": "targetOrigin"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting computing state.",
+            "values": {
+              "input_code": {
+                "text": "Edge Computing"
+              },
+              "engine": {
+                "text": "Streaming"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Edge Computing, Streaming SSR & Dynamic Reverse Proxy Mesh",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Computing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Streaming",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize edge architecture and computing boundaries.",
+            "values": {
+              "input_code": "Edge Computing",
+              "engine": "EdgeRoutingDecision",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how edge coordinates computing state transitions.",
+            "values": {
+              "input_code": "architectural pillar",
+              "engine": "Computing",
+              "out": "round-trip network"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": "international airport",
+              "engine": "targetOrigin",
+              "out": "[Edge Mesh] EU Origin: origin-eu.ape"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting computing state.",
+            "values": {
+              "input_code": "Edge Computing",
+              "engine": "Streaming",
+              "out": "[Edge Mesh] US Origin: origin-us.ape"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Multi-Tenant PostgreSQL RLS & Distributed Atomic Ledger",
       "codeHash": "dae59fbba5fdb315d9c5619b7286c363ac5263b21d249b3f6b21206b7e37bda1",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Multi-Tenant PostgreSQL RLS & Distributed Atomic Ledger",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Multi-Tenant PostgreSQL RLS & Distributed Atomic Ledger",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tenant",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "PostgreSQL",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize multi architecture and tenant boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Multi-Tenant PostgreSQL"
+              },
+              "engine": {
+                "text": "LedgerAccount"
+              },
+              "out": {
+                "text": "edge perimeter"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how multi coordinates tenant state transitions.",
+            "values": {
+              "input_code": {
+                "text": "database Row-Level"
+              },
+              "engine": {
+                "text": "Tenant"
+              },
+              "out": {
+                "text": "locking mechanism"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the high analogy to security execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "High-security electronic"
+              },
+              "engine": {
+                "text": "account.availableStock"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify multi constraints and verify resulting tenant state.",
+            "values": {
+              "input_code": {
+                "text": "Multi-Tenant PostgreSQL"
+              },
+              "engine": {
+                "text": "PostgreSQL"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Multi-Tenant PostgreSQL RLS & Distributed Atomic Ledger",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tenant",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "PostgreSQL",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize multi architecture and tenant boundaries.",
+            "values": {
+              "input_code": "Multi-Tenant PostgreSQL",
+              "engine": "LedgerAccount",
+              "out": "edge perimeter"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how multi coordinates tenant state transitions.",
+            "values": {
+              "input_code": "database Row-Level",
+              "engine": "Tenant",
+              "out": "locking mechanism"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to security execution invariants.",
+            "values": {
+              "input_code": "High-security electronic",
+              "engine": "account.availableStock",
+              "out": "[Ledger] TX1 Success: true, Stock Re"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify multi constraints and verify resulting tenant state.",
+            "values": {
+              "input_code": "Multi-Tenant PostgreSQL",
+              "engine": "PostgreSQL",
+              "out": "[Ledger] TX2 Success: false, Stock R"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "High-Throughput Event Streaming, Transactional Outbox & Job Engine",
       "codeHash": "a36ed196636e5bf2a1231b1960fe49517719d6d9c47e0fb394238013046ff019",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: High-Throughput Event Streaming, Transactional Outbox & Job Engine",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "High-Throughput Event Streaming, Transactional Outbox & Job",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Throughput",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Streaming",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize transactional architecture and event boundaries.",
+            "values": {
+              "input_code": {
+                "text": "High-Throughput Event"
+              },
+              "engine": {
+                "text": "OutboxMessage"
+              },
+              "out": {
+                "text": "Having secured"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how transactional coordinates event state transitions.",
+            "values": {
+              "input_code": {
+                "text": "decouple synchronous"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "text": "downtown traffic"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the corporate analogy to outgoing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "corporate outgoing"
+              },
+              "engine": {
+                "text": "processed"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting throughput state.",
+            "values": {
+              "input_code": {
+                "text": "High-Throughput Event"
+              },
+              "engine": {
+                "text": "Streaming"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "High-Throughput Event Streaming, Transactional Outbox & Job",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Throughput",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Streaming",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize transactional architecture and event boundaries.",
+            "values": {
+              "input_code": "High-Throughput Event",
+              "engine": "OutboxMessage",
+              "out": "Having secured"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how transactional coordinates event state transitions.",
+            "values": {
+              "input_code": "decouple synchronous",
+              "engine": "Event",
+              "out": "downtown traffic"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the corporate analogy to outgoing execution invariants.",
+            "values": {
+              "input_code": "corporate outgoing",
+              "engine": "processed",
+              "out": "[Outbox Relay] Published 2 pending e"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting throughput state.",
+            "values": {
+              "input_code": "High-Throughput Event",
+              "engine": "Streaming",
+              "out": "[Outbox Relay] Published 2 pending e"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Decentralized Real-Time Collaboration & CRDT State Compaction",
       "codeHash": "347838d2fac50c87c6e4060643e7a5d64c263f410c5855a053605c4e3fd5f27b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Decentralized Real-Time Collaboration & CRDT State Compaction",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Decentralized Real-Time Collaboration & CRDT State Compaction",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Decentralized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Collaboration",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize decentralized architecture and real boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Decentralized Real-Time"
+              },
+              "engine": {
+                "text": "CRDTNode"
+              },
+              "out": {
+                "text": "fourth architectural"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how decentralized coordinates real state transitions.",
+            "values": {
+              "input_code": {
+                "text": "achieve seamless"
+              },
+              "engine": {
+                "text": "Time"
+              },
+              "out": {
+                "text": "unstable cellular"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the shared analogy to conference execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "shared conference"
+              },
+              "engine": {
+                "text": "docNodes"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify decentralized constraints and verify resulting real state.",
+            "values": {
+              "input_code": {
+                "text": "Decentralized Real-Time"
+              },
+              "engine": {
+                "text": "Collaboration"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Decentralized Real-Time Collaboration & CRDT State Compaction",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Decentralized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Collaboration",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize decentralized architecture and real boundaries.",
+            "values": {
+              "input_code": "Decentralized Real-Time",
+              "engine": "CRDTNode",
+              "out": "fourth architectural"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how decentralized coordinates real state transitions.",
+            "values": {
+              "input_code": "achieve seamless",
+              "engine": "Time",
+              "out": "unstable cellular"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the shared analogy to conference execution invariants.",
+            "values": {
+              "input_code": "shared conference",
+              "engine": "docNodes",
+              "out": "[CRDT Compactor] Live Content: \"APEX"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify decentralized constraints and verify resulting real state.",
+            "values": {
+              "input_code": "Decentralized Real-Time",
+              "engine": "Collaboration",
+              "out": "[CRDT Compactor] Live Content: \"APEX"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The 5-Gate Grand Master Defense Matrix: Full Enterprise Cluster Viva Gate",
       "codeHash": "41751d0e44a7225650acecf3c47e892df05d299fe413719dce3f8d3b92bd96e4",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The -Gate Grand Master Defense Matrix: Full Enterprise Cluster Viva Gate",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The 5-Gate Grand Master Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Grand",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Defense",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize gate architecture and grand boundaries.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Grand"
+              },
+              "engine": {
+                "text": "VivaGateEvaluation"
+              },
+              "out": {
+                "text": "arrive at"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how gate coordinates grand state transitions.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Grand"
+              },
+              "engine": {
+                "text": "Grand"
+              },
+              "out": {
+                "text": "Three verifies"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the comprehensive analogy to flight execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "comprehensive pre-flight"
+              },
+              "engine": {
+                "text": "domain"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting grand state.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Grand"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The 5-Gate Grand Master Defense Matrix",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Grand",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Defense",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize gate architecture and grand boundaries.",
+            "values": {
+              "input_code": "5-Gate Grand",
+              "engine": "VivaGateEvaluation",
+              "out": "arrive at"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how gate coordinates grand state transitions.",
+            "values": {
+              "input_code": "5-Gate Grand",
+              "engine": "Grand",
+              "out": "Three verifies"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the comprehensive analogy to flight execution invariants.",
+            "values": {
+              "input_code": "comprehensive pre-flight",
+              "engine": "domain",
+              "out": "[Viva Matrix] Enterprise Platform St"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting grand state.",
+            "values": {
+              "input_code": "5-Gate Grand",
+              "engine": "Defense",
+              "out": "[Viva Matrix] Evaluated 5/5 Enterpri"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 35,
-  "promptSha": "ff7c0ed90bfb467587f1beaad4b6b673a72b2ac0058a8e697b59e82678a6aa04",
-  "model": "gemini-2.5-pro",
+  "promptSha": "263632f5be06b08958d4bda33fa440a6bc4c8a207437153071f1cd69c556e855",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Architecture Blueprint: High-Throughput Node.js Enterprise Core with Native C++ Vector Processing",
       "codeHash": "f61ad51626a441ce80636edd550b963ba0ff97f99b7814888f0872a27080b817",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architecture Blueprint: High-Throughput Node.js Enterprise Core with Native C++ Vector Processing",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architecture Blueprint",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Blueprint",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize node architecture and high boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architecture Blueprint"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how node coordinates high state transitions.",
+            "values": {
+              "input_code": {
+                "text": "high-scale enterprise"
+              },
+              "engine": {
+                "text": "Blueprint"
+              },
+              "out": {
+                "text": "loop"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the high analogy to node execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "high-speed bullet"
+              },
+              "engine": {
+                "text": "name"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architecture constraints and verify resulting blueprint state.",
+            "values": {
+              "input_code": {
+                "text": "Architecture Blueprint"
+              },
+              "engine": {
+                "text": "Throughput"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architecture Blueprint",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Blueprint",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and high boundaries.",
+            "values": {
+              "input_code": "Architecture Blueprint",
+              "engine": "Milestone",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates high state transitions.",
+            "values": {
+              "input_code": "high-scale enterprise",
+              "engine": "Blueprint",
+              "out": "loop"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to node execution invariants.",
+            "values": {
+              "input_code": "high-speed bullet",
+              "engine": "name",
+              "out": "Milestone 7 Master Architecture Init"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architecture constraints and verify resulting blueprint state.",
+            "values": {
+              "input_code": "Architecture Blueprint",
+              "engine": "Throughput",
+              "out": "Enterprise System Readiness: 100%"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "C++ Vector Computation & Zero-Copy Batch Ingestion Engine",
       "codeHash": "cb517bc25595f09bcf962bea31218cf3bac823a85238ffcc4cf73d039e38314c",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: C++ Vector Computation & Zero-Copy Batch Ingestion Engine",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "C++ Vector Computation & Zero-Copy Batch Ingestion Engine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Vector",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Computation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Zero",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize batch architecture and ingestion boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Vector Computation"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "second pillar"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how batch coordinates ingestion state transitions.",
+            "values": {
+              "input_code": {
+                "text": "conventional Node.js"
+              },
+              "engine": {
+                "text": "Computation"
+              },
+              "out": {
+                "text": "allocating ten"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the zero analogy to copy execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "commercial grain"
+              },
+              "engine": {
+                "text": "bestScore"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify vector constraints and verify resulting computation state.",
+            "values": {
+              "input_code": {
+                "text": "Vector Computation"
+              },
+              "engine": {
+                "text": "Zero"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "C++ Vector Computation & Zero-Copy Batch Ingestion Engine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Vector",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Computation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Zero",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize batch architecture and ingestion boundaries.",
+            "values": {
+              "input_code": "Vector Computation",
+              "engine": "Milestone",
+              "out": "second pillar"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how batch coordinates ingestion state transitions.",
+            "values": {
+              "input_code": "conventional Node.js",
+              "engine": "Computation",
+              "out": "allocating ten"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the zero analogy to copy execution invariants.",
+            "values": {
+              "input_code": "commercial grain",
+              "engine": "bestScore",
+              "out": "Nearest Neighbor Candidate Identifie"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify vector constraints and verify resulting computation state.",
+            "values": {
+              "input_code": "Vector Computation",
+              "engine": "Zero",
+              "out": "SIMD Vector Batch Match Latency (mic"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Distributed W3C Trace Context Propagation & OpenTelemetry Exporter Pipeline",
       "codeHash": "962a3a230b354e51fb53c1dc7dd70f714b95655c755b7cfbda1b10f5776a6cf2",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Distributed WC Trace Context Propagation & OpenTelemetry Exporter Pipeline",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Distributed W3C Trace Context Propagation & OpenTelemetry",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trace",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Context",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and exporter boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Distributed W3C"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "third pillar"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates exporter state transitions.",
+            "values": {
+              "input_code": {
+                "text": "tracing pipeline"
+              },
+              "engine": {
+                "text": "Trace"
+              },
+              "out": {
+                "text": "incoming request"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the hospital analogy to trauma execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "hospital trauma"
+              },
+              "engine": {
+                "text": "span"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting trace state.",
+            "values": {
+              "input_code": {
+                "text": "Distributed W3C"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Distributed W3C Trace Context Propagation & OpenTelemetry",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trace",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Context",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and exporter boundaries.",
+            "values": {
+              "input_code": "Distributed W3C",
+              "engine": "Milestone",
+              "out": "third pillar"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates exporter state transitions.",
+            "values": {
+              "input_code": "tracing pipeline",
+              "engine": "Trace",
+              "out": "incoming request"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the hospital analogy to trauma execution invariants.",
+            "values": {
+              "input_code": "hospital trauma",
+              "engine": "span",
+              "out": "Distributed Trace ID Ingested: 4bf92"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting trace state.",
+            "values": {
+              "input_code": "Distributed W3C",
+              "engine": "Context",
+              "out": "OTel Span Export Batch Size: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Real-Time Event Loop Lag Sentry & HDR Histogram Latency Telemetry",
       "codeHash": "abeff7b6aab56ab695bd344eb22140fc169516d06606e67f5bebf74cb4ad63d8",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Real-Time Event Loop Lag Sentry & HDR Histogram Latency Telemetry",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Real-Time Event Loop Lag Sentry & HDR Histogram Latency",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Loop",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize event architecture and loop boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Real-Time Event"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "fourth pillar"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how event coordinates loop state transitions.",
+            "values": {
+              "input_code": {
+                "text": "integrates"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "text": "delta between"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the intelligent analogy to power execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "intelligent power"
+              },
+              "engine": {
+                "text": "actions"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify real constraints and verify resulting time state.",
+            "values": {
+              "input_code": {
+                "text": "Real-Time Event"
+              },
+              "engine": {
+                "text": "Loop"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Real-Time Event Loop Lag Sentry & HDR Histogram Latency",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Loop",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and loop boundaries.",
+            "values": {
+              "input_code": "Real-Time Event",
+              "engine": "Milestone",
+              "out": "fourth pillar"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates loop state transitions.",
+            "values": {
+              "input_code": "integrates",
+              "engine": "Event",
+              "out": "delta between"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the intelligent analogy to power execution invariants.",
+            "values": {
+              "input_code": "intelligent power",
+              "engine": "actions",
+              "out": "Scenario A Defense Tier: TIER_1_NORM"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify real constraints and verify resulting time state.",
+            "values": {
+              "input_code": "Real-Time Event",
+              "engine": "Loop",
+              "out": "Scenario C Primary Action: Reject no"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The 5-Gate Enterprise Microservices Defense Matrix & Milestone 7 Certification",
       "codeHash": "0359932c13e6f6f5d61fcaf91a749d006ee70bee1b4a6193f68d4668f84c7fcc",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The -Gate Enterprise Microservices Defense Matrix & Milestone Certification",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The 5-Gate Enterprise Microservices Defense Matrix & Milestone 7",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Microservices",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Defense",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize milestone architecture and gate boundaries.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Enterprise"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "fifth and"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how milestone coordinates gate state transitions.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Defense"
+              },
+              "engine": {
+                "text": "Microservices"
+              },
+              "out": {
+                "text": "microservice must"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the gate analogy to orbital execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "orbital spacecraft"
+              },
+              "engine": {
+                "text": "gatesPassed"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting enterprise state.",
+            "values": {
+              "input_code": {
+                "text": "5-Gate Enterprise"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The 5-Gate Enterprise Microservices Defense Matrix & Milestone 7",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Gate",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Microservices",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Defense",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize milestone architecture and gate boundaries.",
+            "values": {
+              "input_code": "5-Gate Enterprise",
+              "engine": "Milestone",
+              "out": "fifth and"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how milestone coordinates gate state transitions.",
+            "values": {
+              "input_code": "5-Gate Defense",
+              "engine": "Microservices",
+              "out": "microservice must"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the gate analogy to orbital execution invariants.",
+            "values": {
+              "input_code": "orbital spacecraft",
+              "engine": "gatesPassed",
+              "out": "Total Gates Evaluated: 5"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify gate constraints and verify resulting enterprise state.",
+            "values": {
+              "input_code": "5-Gate Enterprise",
+              "engine": "Defense",
+              "out": "Milestone 7 Master Certification Gra"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

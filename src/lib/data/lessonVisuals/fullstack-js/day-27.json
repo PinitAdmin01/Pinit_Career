@@ -2,113 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 27,
-  "promptSha": "7c56af713d939f0e5d20b9144d23edafd405fe949abcb692c2ef8cc21515dd92",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "ef58631802d7fb2708faaa6e65c73ac67922058acca99bd3b919033562082e77",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "CI/CD Engineering Principles: Trunk-Based Development, Shift-Left & Pipeline DAGs",
       "codeHash": "181a0166c9aa4fc44948b9b9febcf61f00dec33f69d6367b98405f6e69668215",
       "spec": {
         "template": "flow",
-        "title": "CI/CD Engineering Principles: Tr... — Execution Pipeline",
+        "title": "CI/CD Engineering Principles",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Engineering",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. CI/CD Engineering Principles: Tr...",
+            "id": "engine",
+            "label": "Principles",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Trunk",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize CI/CD Engineering Principles: Tr....",
+            "caption": "Initialize engineering architecture and welcome boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Engineering Principles"
+              },
+              "engine": {
+                "text": "Directed Acyclic"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in CI/CD Engineering.",
+            "caption": "Trace how engineering coordinates welcome state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "High-performing engineering"
+              },
+              "engine": {
+                "text": "Principles"
+              },
+              "out": {
+                "text": "small"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in CI/CD Engineering.",
+            "caption": "Connect the pipeline analogy to developer execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "developer accidentally"
+              },
+              "engine": {
+                "text": "stages"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in CI/CD Engineering.",
+            "caption": "Modify typecheck constraints and verify resulting stage state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "typecheck"
+              },
+              "engine": {
+                "text": "Trunk"
+              },
+              "out": {
+                "out": 11
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "CI/CD Engineering Principles",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Engineering",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Principles",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Trunk",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize engineering architecture and welcome boundaries.",
+            "values": {
+              "input_code": "Engineering Principles",
+              "engine": "Directed Acyclic",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how engineering coordinates welcome state transitions.",
+            "values": {
+              "input_code": "High-performing engineering",
+              "engine": "Principles",
+              "out": "small"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the pipeline analogy to developer execution invariants.",
+            "values": {
+              "input_code": "developer accidentally",
+              "engine": "stages",
+              "out": "=== Starting CI/CD Pipeline DAG Exec"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify typecheck constraints and verify resulting stage state.",
+            "values": {
+              "input_code": "typecheck",
+              "engine": "Trunk",
+              "out": "=== Pipeline Finished: PASSED (Compl"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -121,105 +260,244 @@
       "codeHash": "5081f58b036438eee1660e8da055b60dd664f96134d95834ae0e87c4aadd69f1",
       "spec": {
         "template": "flow",
-        "title": "GitHub Actions Architecture: Wor... — Execution Pipeline",
+        "title": "GitHub Actions Architecture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "GitHub",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. GitHub Actions Architecture: Wor...",
+            "id": "engine",
+            "label": "Actions",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize GitHub Actions Architecture: Wor....",
+            "caption": "Initialize github architecture and actions boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "GitHub Actions"
+              },
+              "engine": {
+                "text": "GitHub Actions"
+              },
+              "out": {
+                "text": "GitHub Actions"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in GitHub Actions.",
+            "caption": "Trace how github coordinates actions state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Workflow is"
+              },
+              "engine": {
+                "text": "Actions"
+              },
+              "out": {
+                "text": "vulnerability scanning"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in GitHub Actions.",
+            "caption": "Connect the github analogy to actions execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "pull request"
+              },
+              "engine": {
+                "text": "dimValues"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in GitHub Actions.",
+            "caption": "Modify matrix constraints and verify resulting extend state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Extend the"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 15
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "GitHub Actions Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "GitHub",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Actions",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize github architecture and actions boundaries.",
+            "values": {
+              "input_code": "GitHub Actions",
+              "engine": "GitHub Actions",
+              "out": "GitHub Actions"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how github coordinates actions state transitions.",
+            "values": {
+              "input_code": "Workflow is",
+              "engine": "Actions",
+              "out": "vulnerability scanning"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the github analogy to actions execution invariants.",
+            "values": {
+              "input_code": "pull request",
+              "engine": "dimValues",
+              "out": "--- Scheduling GitHub Actions Matrix"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify matrix constraints and verify resulting extend state.",
+            "values": {
+              "input_code": "Extend the",
+              "engine": "Architecture",
+              "out": "-> pnpm test:coverage"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -229,108 +507,247 @@
     },
     {
       "partTitle": "Dependency Caching, OIDC Cloud Federation & Zero-Trust Secret Governance",
-      "codeHash": "a087a31c6fce1025d622b74073f152bc06e43f9f65cb888bfaac176b3ba4dbfc",
+      "codeHash": "5a124cca229eb8c6a173651f8058250c33f9db7bb543c3e4f94f261580b1245e",
       "spec": {
         "template": "flow",
-        "title": "Dependency Caching, OIDC Cloud F... — Execution Pipeline",
+        "title": "Dependency Caching, OIDC Cloud Federation & Zero-Trust Secret",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Dependency",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Dependency Caching, OIDC Cloud F...",
+            "id": "engine",
+            "label": "Caching",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "OIDC",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Dependency Caching, OIDC Cloud F....",
+            "caption": "Initialize dependency architecture and caching boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Dependency Caching"
+              },
+              "engine": {
+                "text": "Dependency Caching"
+              },
+              "out": {
+                "text": "full-stack JavaScript"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Dependency Caching.",
+            "caption": "Trace how dependency coordinates caching state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "package managers"
+              },
+              "engine": {
+                "text": "Caching"
+              },
+              "out": {
+                "text": "commit changes"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Dependency Caching.",
+            "caption": "Connect the oidc analogy to production execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "release workflow"
+              },
+              "engine": {
+                "text": "header"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Dependency Caching.",
+            "caption": "Modify cloud constraints and verify resulting alter state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Alter the"
+              },
+              "engine": {
+                "text": "OIDC"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Dependency Caching, OIDC Cloud Federation & Zero-Trust Secret",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dependency",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Caching",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "OIDC",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize dependency architecture and caching boundaries.",
+            "values": {
+              "input_code": "Dependency Caching",
+              "engine": "Dependency Caching",
+              "out": "full-stack JavaScript"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how dependency coordinates caching state transitions.",
+            "values": {
+              "input_code": "package managers",
+              "engine": "Caching",
+              "out": "commit changes"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the oidc analogy to production execution invariants.",
+            "values": {
+              "input_code": "release workflow",
+              "engine": "header",
+              "out": "--- Phase 1: Dependency Cache Hit/Mi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify cloud constraints and verify resulting alter state.",
+            "values": {
+              "input_code": "Alter the",
+              "engine": "OIDC",
+              "out": "Temporary Cloud Key Generated: ASIA-"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -340,108 +757,247 @@
     },
     {
       "partTitle": "Automated Multi-Arch Docker Builds, Buildx, QEMU & Container Security Auditing",
-      "codeHash": "195f054e7c4a229c79dbe3dfabe74e81503bfed10f3bfd807db83c8e34f86d73",
+      "codeHash": "e5e929a68ecf02c00bc4a4e2ec7d2659a7ac0381164a357c7a3cefaad0a77f5c",
       "spec": {
         "template": "flow",
-        "title": "Automated Multi-Arch Docker Buil... — Execution Pipeline",
+        "title": "Automated Multi-Arch Docker Builds, Buildx, QEMU & Container",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Automated",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Automated Multi-Arch Docker Buil...",
+            "id": "engine",
+            "label": "Multi",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Arch",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Automated Multi-Arch Docker Buil....",
+            "caption": "Initialize builds architecture and container boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Automated Multi-Arch"
+              },
+              "engine": {
+                "text": "Multi-Arch Buildx"
+              },
+              "out": {
+                "text": "cloud environments"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Automated Multi-Arch.",
+            "caption": "Trace how builds coordinates container state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Docker Buildx"
+              },
+              "engine": {
+                "text": "Multi"
+              },
+              "out": {
+                "text": "unified OCI"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Automated Multi-Arch.",
+            "caption": "Connect the pull analogy to request execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "pull request"
+              },
+              "engine": {
+                "text": "violations"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Automated Multi-Arch.",
+            "caption": "Modify security constraints and verify resulting simulate state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Simulate fixing"
+              },
+              "engine": {
+                "text": "Arch"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Automated Multi-Arch Docker Builds, Buildx, QEMU & Container",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Automated",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Arch",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize builds architecture and container boundaries.",
+            "values": {
+              "input_code": "Automated Multi-Arch",
+              "engine": "Multi-Arch Buildx",
+              "out": "cloud environments"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how builds coordinates container state transitions.",
+            "values": {
+              "input_code": "Docker Buildx",
+              "engine": "Multi",
+              "out": "unified OCI"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the pull analogy to request execution invariants.",
+            "values": {
+              "input_code": "pull request",
+              "engine": "violations",
+              "out": "--- Phase 1: Docker Buildx Multi-Arc"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify security constraints and verify resulting simulate state.",
+            "values": {
+              "input_code": "Simulate fixing",
+              "engine": "Arch",
+              "out": "[VIOLATION] CRITICAL - CVE-2026-2184"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -454,105 +1010,244 @@
       "codeHash": "69e192cef23cf608c195f24ce5ecf2e4ec78fb07f9acaaa549df7387462b7ea4",
       "spec": {
         "template": "flow",
-        "title": "Automated Semantic Versioning, C... — Execution Pipeline",
+        "title": "Automated Semantic Versioning, Conventional Commits & Canary",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Automated",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Automated Semantic Versioning, C...",
+            "id": "engine",
+            "label": "Semantic",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Versioning",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Automated Semantic Versioning, C....",
+            "caption": "Initialize automated architecture and release boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Automated Semantic"
+              },
+              "engine": {
+                "text": "Conventional Commits"
+              },
+              "out": {
+                "text": "final frontier"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Automated Semantic.",
+            "caption": "Trace how automated coordinates release state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Conventional Commits"
+              },
+              "engine": {
+                "text": "Semantic"
+              },
+              "out": {
+                "text": "increment"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Automated Semantic.",
+            "caption": "Connect the semantic analogy to release execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "pull request"
+              },
+              "engine": {
+                "text": "Canary Traffic"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Automated Semantic.",
+            "caption": "Modify introduce constraints and verify resulting commit state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Introduce"
+              },
+              "engine": {
+                "text": "Versioning"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Automated Semantic Versioning, Conventional Commits & Canary",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Automated",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Semantic",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Versioning",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize automated architecture and release boundaries.",
+            "values": {
+              "input_code": "Automated Semantic",
+              "engine": "Conventional Commits",
+              "out": "final frontier"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how automated coordinates release state transitions.",
+            "values": {
+              "input_code": "Conventional Commits",
+              "engine": "Semantic",
+              "out": "increment"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the semantic analogy to release execution invariants.",
+            "values": {
+              "input_code": "pull request",
+              "engine": "Canary Traffic",
+              "out": "--- Phase 1: Conventional Commits An"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify introduce constraints and verify resulting commit state.",
+            "values": {
+              "input_code": "Introduce",
+              "engine": "Versioning",
+              "out": "Canary Evaluation (Faulty): ROLLBACK"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

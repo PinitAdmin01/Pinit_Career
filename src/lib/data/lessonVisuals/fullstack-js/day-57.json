@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 57,
-  "promptSha": "13b0ef8a06725d6c313337e2174e7e8b3aa7d1068cfb53ca6d3118a64add83f4",
-  "model": "gemini-2.5-pro",
+  "promptSha": "9652ca936cac7d8dbf788d206be39ff429245229e1b82d76b1a753de7b4dbca5",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Flash Sale Concurrency & Race Conditions",
       "codeHash": "e22465e051d6f7eedf962c056b5ca0557c1f04614af7fe3f448dbe6a7f8d992f",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Flash Sale Concurrency & Race Conditions",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Flash Sale Concurrency & Race Conditions",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Flash",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sale",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Concurrency",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize flash architecture and welcome boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Flash Sale"
+              },
+              "engine": {
+                "text": "InventoryStore"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how flash coordinates welcome state transitions.",
+            "values": {
+              "input_code": {
+                "text": "flash sale"
+              },
+              "engine": {
+                "text": "Sale"
+              },
+              "out": {
+                "text": "begins writing"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the concert analogy to ticket execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "concert ticket"
+              },
+              "engine": {
+                "text": "Initial Stock"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify flash constraints and verify resulting sale state.",
+            "values": {
+              "input_code": {
+                "text": "Flash Sale"
+              },
+              "engine": {
+                "text": "Concurrency"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Flash Sale Concurrency & Race Conditions",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Flash",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sale",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Concurrency",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize flash architecture and welcome boundaries.",
+            "values": {
+              "input_code": "Flash Sale",
+              "engine": "InventoryStore",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how flash coordinates welcome state transitions.",
+            "values": {
+              "input_code": "flash sale",
+              "engine": "Sale",
+              "out": "begins writing"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the concert analogy to ticket execution invariants.",
+            "values": {
+              "input_code": "concert ticket",
+              "engine": "Initial Stock",
+              "out": "[Inventory] Initial Stock: 5"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify flash constraints and verify resulting sale state.",
+            "values": {
+              "input_code": "Flash Sale",
+              "engine": "Concurrency",
+              "out": "[Inventory] Remaining Stock: 2"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Distributed Inventory Locks: Redis Redlock vs. Optimistic Decrements",
       "codeHash": "24362cca83a67297aa6628c453b7cc7f5bb212f856e8a4b3ad1479f83c262fb1",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Distributed Inventory Locks: Redis Redlock vs. Optimistic Decrements",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Distributed Inventory Locks",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Inventory",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Locks",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize inventory architecture and decrements boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Inventory"
+              },
+              "engine": {
+                "text": "ReservationLock"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how inventory coordinates decrements state transitions.",
+            "values": {
+              "input_code": {
+                "text": "inventory reservation"
+              },
+              "engine": {
+                "text": "Inventory"
+              },
+              "out": {
+                "text": "deprive other"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the inventory analogy to department execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "department store"
+              },
+              "engine": {
+                "text": "existing"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting inventory state.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Inventory"
+              },
+              "engine": {
+                "text": "Locks"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Distributed Inventory Locks",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Inventory",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Locks",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize inventory architecture and decrements boundaries.",
+            "values": {
+              "input_code": "Distributed Inventory",
+              "engine": "ReservationLock",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how inventory coordinates decrements state transitions.",
+            "values": {
+              "input_code": "inventory reservation",
+              "engine": "Inventory",
+              "out": "deprive other"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the inventory analogy to department execution invariants.",
+            "values": {
+              "input_code": "department store",
+              "engine": "existing",
+              "out": "[Lock Engine] Initial Reservation Lo"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting inventory state.",
+            "values": {
+              "input_code": "Distributed Inventory",
+              "engine": "Locks",
+              "out": "[Lock Engine] Concurrent Reservation"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Idempotent Payment Intent & Stripe Webhook Ingestion Engine",
-      "codeHash": "640c798b389746f649a32310a248bd101d7101891b3f3697e367f27c63168e6e",
+      "codeHash": "d110b743927618fb34be1c69a98c2dea6ee51fdf26d50eb254cbc8d09b827b68",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Idempotent Payment Intent & Stripe Webhook Ingestion Engine",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Idempotent Payment Intent & Stripe Webhook Ingestion Engine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Idempotent",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Payment",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Intent",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize payment architecture and idempotent boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Idempotent Payment"
+              },
+              "engine": {
+                "text": "IdempotentWebhookEngine"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how payment coordinates idempotent state transitions.",
+            "values": {
+              "input_code": {
+                "text": "payment idempotency"
+              },
+              "engine": {
+                "text": "Payment"
+              },
+              "out": {
+                "text": "time"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the official analogy to bank execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "official bank"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify idempotent constraints and verify resulting payment state.",
+            "values": {
+              "input_code": {
+                "text": "Idempotent Payment"
+              },
+              "engine": {
+                "text": "Intent"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Idempotent Payment Intent & Stripe Webhook Ingestion Engine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Idempotent",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Payment",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Intent",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize payment architecture and idempotent boundaries.",
+            "values": {
+              "input_code": "Idempotent Payment",
+              "engine": "IdempotentWebhookEngine",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how payment coordinates idempotent state transitions.",
+            "values": {
+              "input_code": "payment idempotency",
+              "engine": "Payment",
+              "out": "time"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the official analogy to bank execution invariants.",
+            "values": {
+              "input_code": "official bank",
+              "engine": "Event",
+              "out": "[Webhook] PROCESSED: Event evt_101 o"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify idempotent constraints and verify resulting payment state.",
+            "values": {
+              "input_code": "Idempotent Payment",
+              "engine": "Intent",
+              "out": "[Webhook] IDEMPOTENT: Event evt_101 "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Transactional Outbox Pattern & Reliable Order State Machine",
       "codeHash": "7c6aa482e9a0aac2ea1427028a15ceeb9695791d3799ce568def1717b62bd9cf",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Transactional Outbox Pattern & Reliable Order State Machine",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The Transactional Outbox Pattern & Reliable Order State Machine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Transactional",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Outbox",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Pattern",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize pattern architecture and reliable boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Transactional Outbox"
+              },
+              "engine": {
+                "text": "OutboxMessage"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how pattern coordinates reliable state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Transactional Outbox"
+              },
+              "engine": {
+                "text": "Outbox"
+              },
+              "out": {
+                "text": "accident might"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the outbox analogy to executive execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "executive signing"
+              },
+              "engine": {
+                "text": "flushOutbox"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify transactional constraints and verify resulting outbox state.",
+            "values": {
+              "input_code": {
+                "text": "Transactional Outbox"
+              },
+              "engine": {
+                "text": "Pattern"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The Transactional Outbox Pattern & Reliable Order State Machine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Transactional",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Outbox",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Pattern",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize pattern architecture and reliable boundaries.",
+            "values": {
+              "input_code": "Transactional Outbox",
+              "engine": "OutboxMessage",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how pattern coordinates reliable state transitions.",
+            "values": {
+              "input_code": "Transactional Outbox",
+              "engine": "Outbox",
+              "out": "accident might"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the outbox analogy to executive execution invariants.",
+            "values": {
+              "input_code": "executive signing",
+              "engine": "flushOutbox",
+              "out": "[Order Service] Order Created atomic"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify transactional constraints and verify resulting outbox state.",
+            "values": {
+              "input_code": "Transactional Outbox",
+              "engine": "Pattern",
+              "out": "[Outbox Relay] Published ORDER_CREAT"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The High-Scale Checkout Sentinel & Load Shedding Defense",
       "codeHash": "b495e1204d7c863e753c05abd7f45cacda35e657b8f41aaece23e7b05a0de195",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The High-Scale Checkout Sentinel & Load Shedding Defense",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The High-Scale Checkout Sentinel & Load Shedding Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Checkout",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sentinel",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Load",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and scale boundaries.",
+            "values": {
+              "input_code": {
+                "text": "High-Scale Checkout"
+              },
+              "engine": {
+                "text": "CheckoutLoadShedder"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates scale state transitions.",
+            "values": {
+              "input_code": {
+                "text": "load shedding"
+              },
+              "engine": {
+                "text": "Sentinel"
+              },
+              "out": {
+                "text": "venue would"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the vigilant analogy to nightclub execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "vigilant nightclub"
+              },
+              "engine": {
+                "text": "Load Shedder"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting scale state.",
+            "values": {
+              "input_code": {
+                "text": "High-Scale Checkout"
+              },
+              "engine": {
+                "text": "Load"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The High-Scale Checkout Sentinel & Load Shedding Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Checkout",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sentinel",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Load",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and scale boundaries.",
+            "values": {
+              "input_code": "High-Scale Checkout",
+              "engine": "CheckoutLoadShedder",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates scale state transitions.",
+            "values": {
+              "input_code": "load shedding",
+              "engine": "Sentinel",
+              "out": "venue would"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the vigilant analogy to nightclub execution invariants.",
+            "values": {
+              "input_code": "vigilant nightclub",
+              "engine": "Load Shedder",
+              "out": "[Load Shedder] 200 OK: Processed ord"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify high constraints and verify resulting scale state.",
+            "values": {
+              "input_code": "High-Scale Checkout",
+              "engine": "Load",
+              "out": "[Load Shedder] 503 Service Unavailab"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

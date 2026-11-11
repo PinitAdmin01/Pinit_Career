@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 41,
-  "promptSha": "3737a06aea1dafd22ea3971760fa8744ec81fb2a07e96233f8022a2b7dc35eba",
-  "model": "gemini-2.5-pro",
+  "promptSha": "ecee6df0fab893257ece204ebdc56e51f0e58a6fb8dc31f13f8868d6b5d17a76",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Physics of Distributed Caching: Cache Stampedes & The Thundering Herd Problem",
       "codeHash": "43181a13bbea0bbf0d31d5b06cb76e3f07b195290f5f66942dd2d36881ce2d65",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Physics of Distributed Caching: Cache Stampedes & The Thundering Herd Problem",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The Physics of Distributed Caching",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Physics",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Caching",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize caching architecture and modern boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Physics of"
+              },
+              "engine": {
+                "text": "Simulating Cache"
+              },
+              "out": {
+                "text": "high-concurrency web"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how caching coordinates modern state transitions.",
+            "values": {
+              "input_code": {
+                "text": "prevent database"
+              },
+              "engine": {
+                "text": "Distributed"
+              },
+              "out": {
+                "text": "cache hit"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the bustling analogy to coffee execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bustling coffee"
+              },
+              "engine": {
+                "text": "fresh"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify physics constraints and verify resulting distributed state.",
+            "values": {
+              "input_code": {
+                "text": "Physics of"
+              },
+              "engine": {
+                "text": "Caching"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The Physics of Distributed Caching",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Physics",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Caching",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize caching architecture and modern boundaries.",
+            "values": {
+              "input_code": "Physics of",
+              "engine": "Simulating Cache",
+              "out": "high-concurrency web"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how caching coordinates modern state transitions.",
+            "values": {
+              "input_code": "prevent database",
+              "engine": "Distributed",
+              "out": "cache hit"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the bustling analogy to coffee execution invariants.",
+            "values": {
+              "input_code": "bustling coffee",
+              "engine": "fresh",
+              "out": "Total Concurrent Requests Dispatched"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify physics constraints and verify resulting distributed state.",
+            "values": {
+              "input_code": "Physics of",
+              "engine": "Caching",
+              "out": "Cache Stampede Ratio (%): 100"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Probabilistic Early Expiration: Implementing the XFetch Algorithm",
       "codeHash": "fd763209c64316dd085a3b56c5e9399c89360ea0c14717a70910d68ff2927379",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Probabilistic Early Expiration: Implementing the XFetch Algorithm",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Probabilistic Early Expiration",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Probabilistic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Early",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Expiration",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize algorithm architecture and xfetch boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Probabilistic Early"
+              },
+              "engine": {
+                "text": "Lock-Free Cache"
+              },
+              "out": {
+                "text": "distributed locks"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how algorithm coordinates xfetch state transitions.",
+            "values": {
+              "input_code": {
+                "text": "XFetch algorithm"
+              },
+              "engine": {
+                "text": "Early"
+              },
+              "out": {
+                "text": "worker evaluates"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the xfetch analogy to hospital execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "hospital backup"
+              },
+              "engine": {
+                "text": "remainingTtl"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify probabilistic constraints and verify resulting early state.",
+            "values": {
+              "input_code": {
+                "text": "Probabilistic Early"
+              },
+              "engine": {
+                "text": "Expiration"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Probabilistic Early Expiration",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Probabilistic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Early",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Expiration",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize algorithm architecture and xfetch boundaries.",
+            "values": {
+              "input_code": "Probabilistic Early",
+              "engine": "Lock-Free Cache",
+              "out": "distributed locks"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how algorithm coordinates xfetch state transitions.",
+            "values": {
+              "input_code": "XFetch algorithm",
+              "engine": "Early",
+              "out": "worker evaluates"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the xfetch analogy to hospital execution invariants.",
+            "values": {
+              "input_code": "hospital backup",
+              "engine": "remainingTtl",
+              "out": "Total Concurrent Requests Served: 10"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify probabilistic constraints and verify resulting early state.",
+            "values": {
+              "input_code": "Probabilistic Early",
+              "engine": "Expiration",
+              "out": "Cache Returned Valid Data for All Re"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Consistent Hashing Ring Architecture for Redis Cluster Partitioning",
-      "codeHash": "8db011017cd4d2e8968ed719dbe80e582ffc48f3aba7cc89122f0880f24b59aa",
+      "codeHash": "a1aaf4ec63e7f6070b3314e4ef296648ad6da4dc5cb24c81c9f8244f2d94a341",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Consistent Hashing Ring Architecture for Redis Cluster Partitioning",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Consistent Hashing Ring Architecture for Redis Cluster",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Consistent",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hashing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ring",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize redis architecture and cluster boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Consistent Hashing"
+              },
+              "engine": {
+                "text": "ConsistentHashRing"
+              },
+              "out": {
+                "text": "deployments handling"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how redis coordinates cluster state transitions.",
+            "values": {
+              "input_code": {
+                "text": "traditional method"
+              },
+              "engine": {
+                "text": "Hashing"
+              },
+              "out": {
+                "text": "servers"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the circular analogy to clock execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "circular clock"
+              },
+              "engine": {
+                "text": "this.sortedKeys.length"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify consistent constraints and verify resulting hashing state.",
+            "values": {
+              "input_code": {
+                "text": "Consistent Hashing"
+              },
+              "engine": {
+                "text": "Ring"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Consistent Hashing Ring Architecture for Redis Cluster",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Consistent",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hashing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Ring",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize redis architecture and cluster boundaries.",
+            "values": {
+              "input_code": "Consistent Hashing",
+              "engine": "ConsistentHashRing",
+              "out": "deployments handling"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how redis coordinates cluster state transitions.",
+            "values": {
+              "input_code": "traditional method",
+              "engine": "Hashing",
+              "out": "servers"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the circular analogy to clock execution invariants.",
+            "values": {
+              "input_code": "circular clock",
+              "engine": "this.sortedKeys.length",
+              "out": "Key [user_profile_101] routed to -> "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify consistent constraints and verify resulting hashing state.",
+            "values": {
+              "input_code": "Consistent Hashing",
+              "engine": "Ring",
+              "out": "Consistent Hash Ring Partitioning Ac"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Two-Tier Hybrid Caching: Synchronizing L1 In-Memory LRU with L2 Distributed Redis",
       "codeHash": "1a2185d0bf4c23c0533d519cd3002f4685c61a782aec1214cce73c1c5320b4bd",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Two-Tier Hybrid Caching: Synchronizing L In-Memory LRU with L Distributed Redis",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Two-Tier Hybrid Caching",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Tier",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hybrid",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Caching",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and redis boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Two-Tier Hybrid"
+              },
+              "engine": {
+                "text": "Two-Tier L1"
+              },
+              "out": {
+                "text": "distributed Redis"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates redis state transitions.",
+            "values": {
+              "input_code": {
+                "text": "achieve maximum"
+              },
+              "engine": {
+                "text": "Hybrid"
+              },
+              "out": {
+                "text": "Least Recently"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the university analogy to lecture execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "university lecture"
+              },
+              "engine": {
+                "text": "peer of"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify tier constraints and verify resulting hybrid state.",
+            "values": {
+              "input_code": {
+                "text": "Two-Tier Hybrid"
+              },
+              "engine": {
+                "text": "Caching"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Two-Tier Hybrid Caching",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Tier",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hybrid",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Caching",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and redis boundaries.",
+            "values": {
+              "input_code": "Two-Tier Hybrid",
+              "engine": "Two-Tier L1",
+              "out": "distributed Redis"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates redis state transitions.",
+            "values": {
+              "input_code": "achieve maximum",
+              "engine": "Hybrid",
+              "out": "Least Recently"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the university analogy to lecture execution invariants.",
+            "values": {
+              "input_code": "university lecture",
+              "engine": "peer of",
+              "out": "Instance A L1 Hits: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify tier constraints and verify resulting hybrid state.",
+            "values": {
+              "input_code": "Two-Tier Hybrid",
+              "engine": "Caching",
+              "out": "Instance A Successfully Received Mut"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: High-Throughput Distributed Cache Diagnostics & Telemetry",
       "codeHash": "92e33538910050382c9a9f96e37bbeb6c76d3f82c40c26171ed00277e33cdfef",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: High-Throughput Distributed Cache Diagnostics & Telemetry",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and cache boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Distributed Cache"
+              },
+              "out": {
+                "text": "systems"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates cache state transitions.",
+            "values": {
+              "input_code": {
+                "text": "critical operational"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "ratio of"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the aircraft analogy to cockpit execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "aircraft cockpit"
+              },
+              "engine": {
+                "text": "status"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Throughput"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Throughput",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and cache boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Distributed Cache",
+              "out": "systems"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates cache state transitions.",
+            "values": {
+              "input_code": "critical operational",
+              "engine": "Defense",
+              "out": "ratio of"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the aircraft analogy to cockpit execution invariants.",
+            "values": {
+              "input_code": "aircraft cockpit",
+              "engine": "status",
+              "out": "Total Cache Invocations Evaluated: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Throughput",
+              "out": "SLA Guarantee Satisfied: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

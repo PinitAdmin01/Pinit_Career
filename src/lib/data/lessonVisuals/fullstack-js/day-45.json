@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 45,
-  "promptSha": "07fc77d6a9648976f9b155a45ab6c648c1348f31c3f03eeb9f2632c1dc9cebe9",
-  "model": "gemini-2.5-pro",
+  "promptSha": "6b1dc57995f7cfdce7a57e22baf1678d8bfd43064b925888b25e6575c33641c6",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Architecture Blueprint: The Sovereign Distributed Gateway & Asynchronous Task Mesh",
       "codeHash": "cca795170523311c8efc5159383b92c0c114e79e19e31cd960d8e022909ee636",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architecture Blueprint: The Sovereign Distributed Gateway & Asynchronous Task Mesh",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architecture Blueprint",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Blueprint",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sovereign",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and sovereign boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architecture Blueprint"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates sovereign state transitions.",
+            "values": {
+              "input_code": {
+                "text": "cloud computing"
+              },
+              "engine": {
+                "text": "Blueprint"
+              },
+              "out": {
+                "text": "Network latency"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the gateway analogy to asynchronous execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international space"
+              },
+              "engine": {
+                "text": "Breakers"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architecture constraints and verify resulting blueprint state.",
+            "values": {
+              "input_code": {
+                "text": "Architecture Blueprint"
+              },
+              "engine": {
+                "text": "Sovereign"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architecture Blueprint",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Blueprint",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sovereign",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and sovereign boundaries.",
+            "values": {
+              "input_code": "Architecture Blueprint",
+              "engine": "Milestone",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates sovereign state transitions.",
+            "values": {
+              "input_code": "cloud computing",
+              "engine": "Blueprint",
+              "out": "Network latency"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the gateway analogy to asynchronous execution invariants.",
+            "values": {
+              "input_code": "international space",
+              "engine": "Breakers",
+              "out": "Total Architecture Planes Verified: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architecture constraints and verify resulting blueprint state.",
+            "values": {
+              "input_code": "Architecture Blueprint",
+              "engine": "Sovereign",
+              "out": "Milestone 9 Distributed Architecture"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Edge Ingestion & Multi-Tier Caching Core",
       "codeHash": "3383a54539362167cfb3a18d2588879bf0b11e39d6378b99e720e259553e247e",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Edge Ingestion & Multi-Tier Caching Core",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The Edge Ingestion & Multi-Tier Caching Core",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Ingestion",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Multi",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize edge architecture and tier boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Edge Ingestion"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "high-throughput enterprise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how edge coordinates tier state transitions.",
+            "values": {
+              "input_code": {
+                "text": "client request"
+              },
+              "engine": {
+                "text": "Ingestion"
+              },
+              "out": {
+                "text": "request evaluates"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the highway analogy to express execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "highway express"
+              },
+              "engine": {
+                "text": "source"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting ingestion state.",
+            "values": {
+              "input_code": {
+                "text": "Edge Ingestion"
+              },
+              "engine": {
+                "text": "Multi"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The Edge Ingestion & Multi-Tier Caching Core",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Ingestion",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Multi",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize edge architecture and tier boundaries.",
+            "values": {
+              "input_code": "Edge Ingestion",
+              "engine": "Milestone",
+              "out": "high-throughput enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how edge coordinates tier state transitions.",
+            "values": {
+              "input_code": "client request",
+              "engine": "Ingestion",
+              "out": "request evaluates"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the highway analogy to express execution invariants.",
+            "values": {
+              "input_code": "highway express",
+              "engine": "source",
+              "out": "Call 1 Source (Initial DB Hydration)"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting ingestion state.",
+            "values": {
+              "input_code": "Edge Ingestion",
+              "engine": "Multi",
+              "out": "Integrated Ingestion & Caching Core "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Resilient Task Mesh: Idempotency, Jitter & Stalled Recovery",
-      "codeHash": "7b606971966eb9111fd371431c9976b446cb936d4915dd06716a81a45da1d2a9",
+      "codeHash": "1c53f68ced024420a06630d49d1168cbf444e15106d8827f70f25e7e7e4f592f",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Resilient Task Mesh: Idempotency, Jitter & Stalled Recovery",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The Resilient Task Mesh: Idempotency, Jitter & Stalled Recovery",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Resilient",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Task",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize task architecture and mesh boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Resilient Task"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "third capstone"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how task coordinates mesh state transitions.",
+            "values": {
+              "input_code": {
+                "text": "task mesh"
+              },
+              "engine": {
+                "text": "Task"
+              },
+              "out": {
+                "text": "duplicate delivery"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the idempotency analogy to jitter execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "automated container"
+              },
+              "engine": {
+                "text": "success"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify resilient constraints and verify resulting task state.",
+            "values": {
+              "input_code": {
+                "text": "Resilient Task"
+              },
+              "engine": {
+                "text": "Mesh"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The Resilient Task Mesh: Idempotency, Jitter & Stalled Recovery",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Resilient",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Task",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Mesh",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize task architecture and mesh boundaries.",
+            "values": {
+              "input_code": "Resilient Task",
+              "engine": "Milestone",
+              "out": "third capstone"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how task coordinates mesh state transitions.",
+            "values": {
+              "input_code": "task mesh",
+              "engine": "Task",
+              "out": "duplicate delivery"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the idempotency analogy to jitter execution invariants.",
+            "values": {
+              "input_code": "automated container",
+              "engine": "success",
+              "out": "Attempt 1 Execution Status: true | R"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify resilient constraints and verify resulting task state.",
+            "values": {
+              "input_code": "Resilient Task",
+              "engine": "Mesh",
+              "out": "Resilient Task Mesh Exactly-Once Pro"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Zero-Trust Cryptographic Core: mTLS & Ed25519 Payload Signing",
-      "codeHash": "c675a5015b82ce12197c666fffc128ed9ffe0915f80e809dd92f91ec5e6df013",
+      "codeHash": "9f0ff01158a8a5c1572423602e3a93167b8e6d1cdbd29f7d36b700f33fada001",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Zero-Trust Cryptographic Core: mTLS & Ed Payload Signing",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "The Zero-Trust Cryptographic Core",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trust",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cryptographic",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize zero architecture and trust boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Trust Cryptographic"
+              },
+              "engine": {
+                "text": "ZeroTrustCryptoPlatform"
+              },
+              "out": {
+                "text": "fourth capstone"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how zero coordinates trust state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Transport-Layer Defense"
+              },
+              "engine": {
+                "text": "Trust"
+              },
+              "out": {
+                "text": "signed by"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the cryptographic analogy to mtls execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "sovereign diplomatic"
+              },
+              "engine": {
+                "text": "expected.length"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting trust state.",
+            "values": {
+              "input_code": {
+                "text": "Zero-Trust Cryptographic"
+              },
+              "engine": {
+                "text": "Cryptographic"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "The Zero-Trust Cryptographic Core",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Zero",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trust",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cryptographic",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize zero architecture and trust boundaries.",
+            "values": {
+              "input_code": "Zero-Trust Cryptographic",
+              "engine": "ZeroTrustCryptoPlatform",
+              "out": "fourth capstone"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how zero coordinates trust state transitions.",
+            "values": {
+              "input_code": "Transport-Layer Defense",
+              "engine": "Trust",
+              "out": "signed by"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the cryptographic analogy to mtls execution invariants.",
+            "values": {
+              "input_code": "sovereign diplomatic",
+              "engine": "expected.length",
+              "out": "Zero-Trust mTLS Bidirectional Attest"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify zero constraints and verify resulting trust state.",
+            "values": {
+              "input_code": "Zero-Trust Cryptographic",
+              "engine": "Cryptographic",
+              "out": "Zero-Trust Cryptographic Core Operat"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: The 5-Gate Distributed Systems Defense Matrix Audit",
       "codeHash": "3ce5d0b98478c57f44a15a5b8f27d302f475fb50b2cb15e72f69d9d13bc526e9",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: The -Gate Distributed Systems Defense Matrix Audit",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Gate",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Milestone"
+              },
+              "out": {
+                "text": "distributed engineering"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "establish unequivocal"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "architectural plane"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the gate analogy to systems execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "aerospace certification"
+              },
+              "engine": {
+                "text": "MultiTier_Caching_XFetch"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Gate"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Gate",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Milestone",
+              "out": "distributed engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "establish unequivocal",
+              "engine": "Defense",
+              "out": "architectural plane"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the gate analogy to systems execution invariants.",
+            "values": {
+              "input_code": "aerospace certification",
+              "engine": "MultiTier_Caching_XFetch",
+              "out": "Total Defense Gates Audited: 5"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Gate",
+              "out": "Milestone 9 Master Systems Architect"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

@@ -1,9 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import crypto from 'node:crypto';
-import stream from 'node:stream';
-import util from 'node:util';
+import { webcrypto } from 'node:crypto';
 import esbuild from 'esbuild';
 import {
   getLongLesson,
@@ -12,105 +10,107 @@ import {
   estimateLessonMinutes
 } from '../src/lib/data/longLessons';
 import { withLessonHelpers } from '../src/lib/code/sandbox/lessonHelpers';
+import { formatLogArgs } from '../src/lib/code/sandbox/logFormat';
+
+const norm = (s: string) => (s || '').replace(/\r/g, '').split('\n').map(l => l.trimEnd()).join('\n').trim();
 
 async function executePart(part: any, i: number) {
-  let stdout = '';
+  const logs: string[] = [];
+  const pending = new Set<any>();
+
   const sandbox: any = {
     console: {
-      log: (...args: any[]) => { stdout += args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n'; },
-      warn: (...args: any[]) => { stdout += args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n'; },
-      error: (...args: any[]) => { stdout += args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n'; }
+      log: (...args: any[]) => logs.push(formatLogArgs(args)),
+      error: (...args: any[]) => logs.push(formatLogArgs(args)),
+      warn: () => {},
+      info: () => {},
+      debug: () => {},
+      table: () => {}
     },
-    setTimeout,
-    clearTimeout,
+    setTimeout: (fn: any, ms: number, ...x: any[]) => {
+      const id = setTimeout(() => { pending.delete(id); fn(...x); }, ms);
+      pending.add(id);
+      return id;
+    },
+    clearTimeout: (id: any) => { pending.delete(id); clearTimeout(id); },
     setInterval,
     clearInterval,
-    Promise,
-    queueMicrotask: (fn: any) => fn(),
-    Date,
-    Map,
-    Set,
-    Array,
-    JSON,
-    Math,
-    Number,
-    isNaN,
-    Object,
-    Buffer,
-    Uint32Array,
-    parseInt,
-    process: { env: {}, hrtime: { bigint: () => BigInt(Date.now()) * 1000000n } },
-    crypto: globalThis.crypto || crypto,
+    queueMicrotask,
+    structuredClone,
     btoa: (s: string) => Buffer.from(s, 'binary').toString('base64'),
     atob: (s: string) => Buffer.from(s, 'base64').toString('binary'),
     TextEncoder: globalThis.TextEncoder,
     TextDecoder: globalThis.TextDecoder,
+    URL: globalThis.URL,
+    URLSearchParams: globalThis.URLSearchParams,
+    AbortController: globalThis.AbortController,
+    AbortSignal: globalThis.AbortSignal,
+    EventTarget: globalThis.EventTarget,
+    Event: globalThis.Event,
     ReadableStream: globalThis.ReadableStream,
     WritableStream: globalThis.WritableStream,
     TransformStream: globalThis.TransformStream,
     CountQueuingStrategy: globalThis.CountQueuingStrategy,
     ByteLengthQueuingStrategy: globalThis.ByteLengthQueuingStrategy,
-    AbortController: globalThis.AbortController,
     Response: globalThis.Response,
     Request: globalThis.Request,
     Headers: globalThis.Headers,
-    URL: globalThis.URL,
-    require: (mod: string) => {
-      if (mod === 'crypto' || mod === 'node:crypto') return crypto;
-      if (mod === 'stream' || mod === 'node:stream') return stream;
-      if (mod === 'util' || mod === 'node:util') return util;
-      return {};
+    Blob: globalThis.Blob,
+    FormData: globalThis.FormData,
+    performance: { now: () => performance.now() },
+    crypto: {
+      getRandomValues: (a: any) => webcrypto.getRandomValues(a),
+      randomUUID: () => webcrypto.randomUUID()
     }
   };
+  sandbox.self = sandbox;
   vm.createContext(sandbox);
 
-  // Sanitize any ESM import/export statements for clean VM script execution
-  const sanitizedCode = part.code
-    .replace(/import\s+\{([^}]+)\}\s+from\s+['"][^'"]+['"];?/g, (m: string, imports: string) => {
-      if (m.includes('util')) return `const { ${imports} } = require('util');`;
-      return `const { ${imports} } = require('stream');`;
-    })
-    .replace(/export\s+const\s+/g, 'const ')
-    .replace(/export\s+async\s+function\s+/g, 'async function ')
-    .replace(/export\s+function\s+/g, 'function ')
-    .replace(/export\s+class\s+/g, 'class ')
-    .replace(/export\s+interface\s+/g, 'interface ')
-    .replace(/export\s+default\s+/g, '')
-    .replace(/export\s+/g, '');
-
-  const withHelpers = withLessonHelpers(sanitizedCode);
-  const compiled = esbuild.transformSync(withHelpers, { loader: 'ts', target: 'es2022' });
-  const runnableCode = `(async () => {\n${compiled.code}\n})()`;
-  const result = vm.runInContext(runnableCode, sandbox, { timeout: 3000 });
+  const compiled = esbuild.transformSync(part.code, { loader: 'ts', target: 'es2022' });
+  const program = `(async () => {\n${withLessonHelpers(compiled.code)}\n})()`;
+  const result = vm.runInContext(program, sandbox, { timeout: 4000 });
   if (result && typeof result.then === 'function') {
     await result;
   }
-  await new Promise(r => setTimeout(r, 80));
+  const start = Date.now();
+  await new Promise(r => setTimeout(r, 0));
+  while (pending.size > 0 && Date.now() - start < 4000) {
+    await new Promise(r => setTimeout(r, 5));
+  }
+
+  const stdout = logs.join('\n');
   assert.ok(stdout.trim().length > 0, `Part ${i + 1} must produce non-empty stdout`);
+  assert.equal(norm(stdout), norm(part.output), `Part ${i + 1} stdout must match declared output`);
 }
 
 async function verifyPart(part: any, i: number) {
   assert.ok(part.title.length > 0, `Part ${i + 1} must have a non-empty title`);
   assert.ok(part.say.length >= 4, `Part ${i + 1} must have at least 4 explanation paragraphs`);
-  assert.ok(part.example && part.example.length > 0, `Part ${i + 1} must have a real-world example`);
+  assert.ok(part.example && part.example.length >= 120, `Part ${i + 1} must have a real-world example >= 120 chars`);
   assert.ok(part.code && part.code.includes('console.log('), `Part ${i + 1} code must print results`);
   assert.ok(part.output && part.output.length > 0, `Part ${i + 1} must have deterministic expected output`);
   assert.ok(part.tryIt && part.tryIt.length > 0, `Part ${i + 1} must have a tryIt experiment`);
 
+  const allWords = [part.title, ...part.say, part.example, part.tryIt, part.check.question, ...part.check.options, part.check.why]
+    .join(' ').trim().split(/\s+/).filter(Boolean).length;
+  assert.ok(allWords >= 580, `Part ${i + 1} must have >= 580 words (got ${allWords})`);
+
   // Socratic Check validation
   const check = part.check as any;
   assert.ok(check.question.length > 10, `Part ${i + 1} check question must be descriptive`);
-  assert.ok(check.options.length >= 4, `Part ${i + 1} check must have >= 4 options`);
+  assert.ok(check.options.length === 4, `Part ${i + 1} check must have exactly 4 options`);
   assert.ok(check.answer >= 0 && check.answer < check.options.length, `Part ${i + 1} answer must be valid`);
-  assert.ok(check.why && check.why.length > 15, `Part ${i + 1} check explanation must be rigorous`);
+  assert.ok(check.why && check.why.length >= 40, `Part ${i + 1} check explanation must be rigorous`);
 
   await executePart(part, i);
 }
 
-test('Full-Stack JavaScript Long Lessons: Resolution & Language Invariants', () => {
+test('Full-Stack JavaScript Long Lessons: Resolution, Distribution & 60-Day Invariants', () => {
   assert.equal(getLongLessonLanguage('fullstack-js'), 'typescript');
 
-  for (let day = 1; day <= 30; day++) {
+  const answerDist: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0 };
+
+  for (let day = 1; day <= 60; day++) {
     const lesson = getLongLesson('fullstack-js', day);
     assert.ok(lesson, `fullstack-js Day ${day} long lesson must resolve`);
     assert.equal(lesson.day, day);
@@ -118,10 +118,19 @@ test('Full-Stack JavaScript Long Lessons: Resolution & Language Invariants', () 
     assert.ok(lesson.summary.length >= 4, `fullstack-js Day ${day} must contain comprehensive summary`);
     assert.ok(lesson.projectStep, `fullstack-js Day ${day} must have a hands-on project step`);
     assert.ok(lesson.projectStep.steps && lesson.projectStep.steps.length >= 3, `fullstack-js Day ${day} projectStep must have >= 3 steps`);
+
+    for (const part of lesson.parts) {
+      answerDist[part.check.answer] = (answerDist[part.check.answer] || 0) + 1;
+    }
+  }
+
+  // Ensure MCQ answers across 300 questions are balanced (~25% per option)
+  for (const opt of [0, 1, 2, 3]) {
+    assert.ok(answerDist[opt] >= 70 && answerDist[opt] <= 80, `Option ${opt} frequency out of balanced range: ${answerDist[opt]}`);
   }
 });
 
-for (let day = 1; day <= 30; day++) {
+for (let day = 1; day <= 60; day++) {
   const lesson = getLongLesson('fullstack-js', day)!;
   test(`Full-Stack JS Day ${day}: ${lesson.title}`, async () => {
     assert.ok(lesson, `fullstack-js Day ${day} long lesson must resolve`);

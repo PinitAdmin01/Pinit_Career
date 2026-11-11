@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 18,
-  "promptSha": "7959a12c09d1eed4b6751f6fce3d7566d1c1c7230b0a983aa1eb6b6c8135aeef",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "b407eaeb5067649550c34b9d25cc388d78e8a6335b077f18ecb3cf0e842bc50b",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Real-Time Transport Protocols: WebSockets vs SSE vs Long Polling",
-      "codeHash": "f1b9402219f678ce08b73b88490b33f9ad4bcafe3eb11e39b0a7d5440ada74e0",
+      "partTitle": "Multipart Form-Data Mechanics: RFC 7578 Boundaries, HTTP Framing & Memory Explosion Pitfalls",
+      "codeHash": "21cb3c13b2ae5c6a4d4f9a3109401ec3dbfb70d25341a5215b68424ae4bc9f72",
       "spec": {
         "template": "flow",
-        "title": "Real-Time Transport Protocols: WebS... — Execution Pipeline",
+        "title": "Multipart Form-Data Mechanics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Multipart",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Real-Time Transport Protocols: WebS...",
+            "id": "engine",
+            "label": "Form",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Data",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Real-Time Transport Protocols.",
+            "caption": "Initialize modern architecture and application boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Multipart Form-Data"
+              },
+              "engine": {
+                "text": "Architectural Simulation"
+              },
+              "out": {
+                "text": "application eventually"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
+            "caption": "Trace how modern coordinates application state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "resolve this"
+              },
+              "engine": {
+                "text": "Form"
+              },
+              "out": {
+                "text": "header"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the form analogy to multipart execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "postal worker"
+              },
+              "engine": {
+                "text": "this.boundaryDelimiter"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end streaming transmission confirmed for Real-Time Transport.",
+            "caption": "Modify data constraints and verify resulting initialize state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Initialize"
+              },
+              "engine": {
+                "text": "Data"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Real-Time Transport Protocols: WebS... — Execution Pipeline",
+        "title": "Multipart Form-Data Mechanics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Multipart",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Real-Time Transport Protocols: WebS...",
+            "id": "engine",
+            "label": "Form",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Data",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Real-Time Transport Protocols: WebS....",
+            "caption": "Initialize modern architecture and application boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Multipart Form-Data",
+              "engine": "Architectural Simulation",
+              "out": "application eventually"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Real-Time Transport Protocols: WebS....",
+            "caption": "Trace how modern coordinates application state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "resolve this",
+              "engine": "Form",
+              "out": "header"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the form analogy to multipart execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "postal worker",
+              "engine": "this.boundaryDelimiter",
+              "out": "Total Bytes Processed: 100.00 MB"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Real-Time Transport Protocols: WebS....",
+            "caption": "Modify data constraints and verify resulting initialize state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Initialize",
+              "engine": "Data",
+              "out": "Memory Safety Invariant: Peak buffer"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "The WebSocket Connection Lifecycle: HTTP Upgrade Handshake & TCP Framing",
-      "codeHash": "c497157cf34e8c72fbc124afd0ed3434462fe16b28e12163424c86c60437182f",
+      "partTitle": "Streaming Ingestion Architecture: Busboy Event Pipes, High-Watermark Buffers & Backpressure Physics",
+      "codeHash": "7341cc5efe6f99dbdae85fae7a17c6b9851c9a6e96b1dfbe52accb678df0d527",
       "spec": {
         "template": "flow",
-        "title": "The WebSocket Connection Lifecycle:... — Execution Pipeline",
+        "title": "Streaming Ingestion Architecture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Streaming",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The WebSocket Connection Lifecycle:...",
+            "id": "engine",
+            "label": "Ingestion",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize The WebSocket Connection.",
+            "caption": "Initialize streaming architecture and high boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Streaming Ingestion"
+              },
+              "engine": {
+                "text": "Pattern"
+              },
+              "out": {
+                "text": "engineering production"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
+            "caption": "Trace how streaming coordinates high state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "operational architecture"
+              },
+              "engine": {
+                "text": "Ingestion"
+              },
+              "out": {
+                "text": "file stream"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the high analogy to streaming execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "high-pressure fire"
+              },
+              "engine": {
+                "text": "chunkSize"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end streaming transmission confirmed for The WebSocket Connection.",
+            "caption": "Modify instantiate constraints and verify resulting small state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Instantiate the"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The WebSocket Connection Lifecycle:... — Execution Pipeline",
+        "title": "Streaming Ingestion Architecture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Streaming",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The WebSocket Connection Lifecycle:...",
+            "id": "engine",
+            "label": "Ingestion",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize The WebSocket Connection Lifecycle:....",
+            "caption": "Initialize streaming architecture and high boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Streaming Ingestion",
+              "engine": "Pattern",
+              "out": "engineering production"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in The WebSocket Connection Lifecycle:....",
+            "caption": "Trace how streaming coordinates high state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "operational architecture",
+              "engine": "Ingestion",
+              "out": "file stream"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the high analogy to streaming execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "high-pressure fire",
+              "engine": "chunkSize",
+              "out": "Initiating streaming ingestion pipel"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for The WebSocket Connection Lifecycle:....",
+            "caption": "Modify instantiate constraints and verify resulting small state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Instantiate the",
+              "engine": "Architecture",
+              "out": "Enforced Quota Verified: 1048576 byt"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Heartbeat Pings, Ghost Connections & Sliding-Window Disconnection Detection",
-      "codeHash": "49c1e31cee58fecab926f9cb74814800e88082061dfb1a6f577284ee2b3f316e",
+      "partTitle": "Direct-to-Cloud Upload Patterns: AWS S3 Presigned URLs, Zero-Server-Buffering & HMAC Signatures",
+      "codeHash": "0357f9d543ea178eed5689c484f1b2e0e7666d9c038f0b1dd570af64039f5f1c",
       "spec": {
         "template": "flow",
-        "title": "Heartbeat Pings, Ghost Connections ... — Execution Pipeline",
+        "title": "Direct-to-Cloud Upload Patterns",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Direct",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Heartbeat Pings, Ghost Connections ...",
+            "id": "engine",
+            "label": "Cloud",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Upload",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Heartbeat Pings, Ghost.",
+            "caption": "Initialize server architecture and cloud boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Direct-to-Cloud Upload"
+              },
+              "engine": {
+                "text": "Implementation"
+              },
+              "out": {
+                "text": "streaming parsers"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
+            "caption": "Trace how server coordinates cloud state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "double-hop architecture"
+              },
+              "engine": {
+                "text": "Cloud"
+              },
+              "out": {
+                "text": "streams the"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the cloud analogy to presigned execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "architect who"
+              },
+              "engine": {
+                "text": "algorithm"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end streaming transmission confirmed for Heartbeat Pings, Ghost.",
+            "caption": "Modify presigned constraints and verify resulting hmac state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Generate"
+              },
+              "engine": {
+                "text": "Upload"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Heartbeat Pings, Ghost Connections ... — Execution Pipeline",
+        "title": "Direct-to-Cloud Upload Patterns",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Direct",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Heartbeat Pings, Ghost Connections ...",
+            "id": "engine",
+            "label": "Cloud",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Upload",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Heartbeat Pings, Ghost Connections ....",
+            "caption": "Initialize server architecture and cloud boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Direct-to-Cloud Upload",
+              "engine": "Implementation",
+              "out": "streaming parsers"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Heartbeat Pings, Ghost Connections ....",
+            "caption": "Trace how server coordinates cloud state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "double-hop architecture",
+              "engine": "Cloud",
+              "out": "streams the"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the cloud analogy to presigned execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "architect who",
+              "engine": "algorithm",
+              "out": "Generated Presigned URL: https://pin"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Heartbeat Pings, Ghost Connections ....",
+            "caption": "Modify presigned constraints and verify resulting hmac state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Generate",
+              "engine": "Upload",
+              "out": "S3 Presigned URL Engine: VERIFIED"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Distributed Pub/Sub Fanout with Redis & Channel Partitioning",
-      "codeHash": "4f040ef5b5a437f6aac4e2cf62c06888c47eda0623ea270e8d975b2a72cd7c63",
+      "partTitle": "Binary Content Validation: Magic Number Byte Inspection, SVG XSS Defense & MIME Spoofing Mitigation",
+      "codeHash": "3e23bfedd9b8e47c57e41a77450a1d1dc03d1c217512486bc6491327ec6d4128",
       "spec": {
         "template": "flow",
-        "title": "Distributed Pub/Sub Fanout with Red... — Execution Pipeline",
+        "title": "Binary Content Validation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Binary",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Pub/Sub Fanout with Red...",
+            "id": "engine",
+            "label": "Content",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Validation",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Distributed Pub/Sub Fanout.",
+            "caption": "Initialize content architecture and security boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Binary Content"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "Security is"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
+            "caption": "Trace how content coordinates security state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "HTTP Content-Type"
+              },
+              "engine": {
+                "text": "Content"
+              },
+              "out": {
+                "text": "file innocent_photo.png"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the content analogy to binary execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "forensic border"
+              },
+              "engine": {
+                "text": "this.isAllowedMime"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end streaming transmission confirmed for Distributed Pub/Sub.",
+            "caption": "Modify magic constraints and verify resulting mime state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "MagicNumberValidator"
+              },
+              "engine": {
+                "text": "Validation"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Pub/Sub Fanout with Red... — Execution Pipeline",
+        "title": "Binary Content Validation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Binary",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Pub/Sub Fanout with Red...",
+            "id": "engine",
+            "label": "Content",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Validation",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Distributed Pub/Sub Fanout with Red....",
+            "caption": "Initialize content architecture and security boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Binary Content",
+              "engine": "Architectural Implementation",
+              "out": "Security is"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Distributed Pub/Sub Fanout with Red....",
+            "caption": "Trace how content coordinates security state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "HTTP Content-Type",
+              "engine": "Content",
+              "out": "file innocent_photo.png"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the content analogy to binary execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "forensic border",
+              "engine": "this.isAllowedMime",
+              "out": "Valid PNG Check: PASSED"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Distributed Pub/Sub Fanout with Red....",
+            "caption": "Modify magic constraints and verify resulting mime state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "MagicNumberValidator",
+              "engine": "Validation",
+              "out": "PDF Masquerade Detected: PASSED (MIM"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Flow Control, High-Watermark Buffering & Client Backpressure",
-      "codeHash": "c9422d690d2f04b3c3a0a838d66d1ffee268da473c88d9ea08b9acb9afcdf0ca",
+      "partTitle": "Production Storage Lifecycle: S3 Multipart Uploads (ETags), Resumable Sessions & Quarantine Tiers",
+      "codeHash": "b93da15eada2ef76ec59922684a4bff80efc2a1873a2262beaf7e642ad199e57",
       "spec": {
         "template": "flow",
-        "title": "Flow Control, High-Watermark Buffer... — Execution Pipeline",
+        "title": "Production Storage Lifecycle",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Storage",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Flow Control, High-Watermark Buffer...",
+            "id": "engine",
+            "label": "Lifecycle",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Multipart",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Flow Control, High-Watermark.",
+            "caption": "Initialize uploads architecture and enterprise boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Storage Lifecycle"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "environments supporting"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
+            "caption": "Trace how uploads coordinates enterprise state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "achieve industrial-grade"
+              },
+              "engine": {
+                "text": "Lifecycle"
+              },
+              "out": {
+                "text": "chunks ranging"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the multipart analogy to shipping execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "shipping an"
+              },
+              "engine": {
+                "text": "UploadPartRecord"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end streaming transmission confirmed for Flow Control.",
+            "caption": "Modify initialize constraints and verify resulting session state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Initialize an"
+              },
+              "engine": {
+                "text": "Multipart"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Flow Control, High-Watermark Buffer... — Execution Pipeline",
+        "title": "Production Storage Lifecycle",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Event Vector",
+            "id": "input_code",
+            "label": "Storage",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Flow Control, High-Watermark Buffer...",
+            "id": "engine",
+            "label": "Lifecycle",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Real-Time Transmission State",
+            "label": "Multipart",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Flow Control, High-Watermark Buffer....",
+            "caption": "Initialize uploads architecture and enterprise boundaries.",
             "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Storage Lifecycle",
+              "engine": "Architectural Implementation",
+              "out": "environments supporting"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Flow Control, High-Watermark Buffer....",
+            "caption": "Trace how uploads coordinates enterprise state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "achieve industrial-grade",
+              "engine": "Lifecycle",
+              "out": "chunks ranging"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Connect the multipart analogy to shipping execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "shipping an",
+              "engine": "UploadPartRecord",
+              "out": "Multipart Assembly Complete: enterpr"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Flow Control, High-Watermark Buffer....",
+            "caption": "Modify initialize constraints and verify resulting session state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Initialize an",
+              "engine": "Multipart",
+              "out": "Combined S3 ETag: mock_combined_chec"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

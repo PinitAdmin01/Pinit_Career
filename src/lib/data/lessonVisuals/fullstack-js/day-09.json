@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 9,
-  "promptSha": "1539639ea6828bd2803a623103a80bbf68517d04e6df0297c455fe0795ec44b7",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "2780c293989e7adc58dfee58a38bcb48d44a44561402ecc44102b4a5a93ad60b",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Parallel Routes: Named Slots (@slot) & Independent Subtree Streaming",
-      "codeHash": "d8fa3406a0480d5d7963dea87c99472a6baa625fe5b04dca12127aef490e01bb",
+      "partTitle": "Stateless Authentication vs Stateful Sessions: Architecture, Scalability & The RFC 7519 Standard",
+      "codeHash": "7f48fdf87a0aee635671bd9f11d405b556392cf30272b989f4d012943ef5a6de",
       "spec": {
         "template": "flow",
-        "title": "Parallel Routes: Named Slots (@slot) ... — Execution Pipeline",
+        "title": "Stateless Authentication vs Stateful Sessions",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Stateless",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Parallel Routes: Named Slots (@slot) ...",
+            "id": "engine",
+            "label": "Authentication",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Stateful",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture route segment and parallel slot props for Parallel Routes: Named.",
+            "caption": "Initialize authentication architecture and stateful boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Stateless Authentication"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "traditional client-server"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute route interception or slot streaming in Parallel Routes: Named.",
+            "caption": "Trace how authentication coordinates stateful state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Stateless authentication"
+              },
+              "engine": {
+                "text": "Authentication"
+              },
+              "out": {
+                "text": "token"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the stateful analogy to architecture execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": {
+                "text": "festival wristband"
+              },
+              "engine": {
+                "text": "binary.length"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Parallel Routes: Named Slots (@slot) ....",
+            "caption": "Modify standard constraints and verify resulting token state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "formatBearerHeader"
+              },
+              "engine": {
+                "text": "Stateful"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Parallel Routes: Named Slots (@slot) ... — Execution Pipeline",
+        "title": "Stateless Authentication vs Stateful Sessions",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Stateless",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Parallel Routes: Named Slots (@slot) ...",
+            "id": "engine",
+            "label": "Authentication",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Stateful",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture route segment and parallel slot props for Parallel Routes: Named Slots (@slot) ....",
+            "caption": "Initialize authentication architecture and stateful boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Stateless Authentication",
+              "engine": "Example",
+              "out": "traditional client-server"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute route interception or slot streaming in Parallel Routes: Named Slots (@slot) ....",
+            "caption": "Trace how authentication coordinates stateful state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Stateless authentication",
+              "engine": "Authentication",
+              "out": "token"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the stateful analogy to architecture execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": "festival wristband",
+              "engine": "binary.length",
+              "out": "Encoded Header Segment: eyJhbGciOiJI"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Parallel Routes: Named Slots (@slot) ....",
+            "caption": "Modify standard constraints and verify resulting token state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "formatBearerHeader",
+              "engine": "Stateful",
+              "out": "Decoded Payload Reconstructed: {\"sub"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Intercepting Routes: Modal Routing Overlays ((.), (..), (...)) & Shareable URLs",
-      "codeHash": "0450f31a071b5f8e2d745e48d1fa43c8f70bd0a6347db79cb6cb9e48b3daf33e",
+      "partTitle": "Cryptographic Signatures: Symmetric HMAC-SHA256 vs Asymmetric Public-Key Cryptography (RS256 / ES256)",
+      "codeHash": "76154254c615b3533ab7c0f76a32623e1371306bfc3b574d07a756dc2fca6f3c",
       "spec": {
         "template": "flow",
-        "title": "Intercepting Routes: Modal Routing Ov... — Execution Pipeline",
+        "title": "Cryptographic Signatures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Cryptographic",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Intercepting Routes: Modal Routing Ov...",
+            "id": "engine",
+            "label": "Signatures",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Symmetric",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture route segment and parallel slot props for Intercepting Routes.",
+            "caption": "Initialize cryptographic architecture and widespread boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cryptographic Signatures"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "widespread misconception"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute route interception or slot streaming in Intercepting Routes.",
+            "caption": "Trace how cryptographic coordinates widespread state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "primary paradigms"
+              },
+              "engine": {
+                "text": "Signatures"
+              },
+              "out": {
+                "text": "lightweight and"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the hmac analogy to cryptography execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": {
+                "text": "embossed notary"
+              },
+              "engine": {
+                "text": "diff"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Intercepting Routes: Modal Routing Ov....",
+            "caption": "Modify write constraints and verify resulting small state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Write"
+              },
+              "engine": {
+                "text": "Symmetric"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Intercepting Routes: Modal Routing Ov... — Execution Pipeline",
+        "title": "Cryptographic Signatures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Cryptographic",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Intercepting Routes: Modal Routing Ov...",
+            "id": "engine",
+            "label": "Signatures",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Symmetric",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture route segment and parallel slot props for Intercepting Routes: Modal Routing Ov....",
+            "caption": "Initialize cryptographic architecture and widespread boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Cryptographic Signatures",
+              "engine": "Example",
+              "out": "widespread misconception"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute route interception or slot streaming in Intercepting Routes: Modal Routing Ov....",
+            "caption": "Trace how cryptographic coordinates widespread state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "primary paradigms",
+              "engine": "Signatures",
+              "out": "lightweight and"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the hmac analogy to cryptography execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": "embossed notary",
+              "engine": "diff",
+              "out": "Signature Integrity Verified: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Intercepting Routes: Modal Routing Ov....",
+            "caption": "Modify write constraints and verify resulting small state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Write",
+              "engine": "Symmetric",
+              "out": "Tampered Signature Rejected: false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "The default.tsx Fallback Contract & Hard Navigation vs Soft Navigation Invariants",
-      "codeHash": "f05bb184da3a379d9a41bcc5d46a98d6677953fd2e3d32a33c07674ea2bdaccd",
+      "partTitle": "Claims Architecture & Token Anatomy: Registered, Public, and Private Payload Schemas",
+      "codeHash": "9d368b4a6e3d3ea5ba78c4a3eaebbae5fada806dee2e11f76630fe173a6a79c3",
       "spec": {
         "template": "flow",
-        "title": "The default.tsx Fallback Contract & H... — Execution Pipeline",
+        "title": "Claims Architecture & Token Anatomy",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Claims",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The default.tsx Fallback Contract & H...",
+            "id": "engine",
+            "label": "Architecture",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Token",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture route segment and parallel slot props for The default.tsx.",
+            "caption": "Initialize payload architecture and token boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Claims Architecture"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "payload of"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute route interception or slot streaming in The default.tsx Fallback.",
+            "caption": "Trace how payload coordinates token state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Registered Claims"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "text": "Unix epoch"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the registered analogy to claims execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": {
+                "text": "standard international"
+              },
+              "engine": {
+                "text": "throw new"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for The default.tsx Fallback Contract & H....",
+            "caption": "Modify payload constraints and verify resulting sanitizeclaims state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "sanitizeClaims"
+              },
+              "engine": {
+                "text": "Token"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The default.tsx Fallback Contract & H... — Execution Pipeline",
+        "title": "Claims Architecture & Token Anatomy",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Claims",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The default.tsx Fallback Contract & H...",
+            "id": "engine",
+            "label": "Architecture",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Token",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture route segment and parallel slot props for The default.tsx Fallback Contract & H....",
+            "caption": "Initialize payload architecture and token boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Claims Architecture",
+              "engine": "Example",
+              "out": "payload of"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute route interception or slot streaming in The default.tsx Fallback Contract & H....",
+            "caption": "Trace how payload coordinates token state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Registered Claims",
+              "engine": "Architecture",
+              "out": "Unix epoch"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the registered analogy to claims execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": "standard international",
+              "engine": "throw new",
+              "out": "Structured Claims Payload: {\"iss\":\"h"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The default.tsx Fallback Contract & H....",
+            "caption": "Modify payload constraints and verify resulting sanitizeclaims state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "sanitizeClaims",
+              "engine": "Token",
+              "out": "Claims Validation Passed: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Nested Layout State Isolation & Independent Error / Loading Boundaries",
-      "codeHash": "83b2f924c2810d6eb4dd86ba88f1bd0485dbc0bc3635c5005d0e7087e760a879",
+      "partTitle": "Token Lifecycle, Expiration Physics, and Clock Skew Mitigation",
+      "codeHash": "fa04ae66e032e6ca778a28e4a2a87a43c40f942f2d94f7ad8ee20b2b8dc92d2c",
       "spec": {
         "template": "flow",
-        "title": "Nested Layout State Isolation & Indep... — Execution Pipeline",
+        "title": "Token Lifecycle, Expiration Physics, and Clock Skew Mitigation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Token",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Nested Layout State Isolation & Indep...",
+            "id": "engine",
+            "label": "Lifecycle",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Expiration",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture route segment and parallel slot props for Nested Layout State.",
+            "caption": "Initialize lifecycle architecture and token boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Token Lifecycle"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Managing the"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute route interception or slot streaming in Nested Layout State.",
+            "caption": "Trace how lifecycle coordinates token state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "industry standard"
+              },
+              "engine": {
+                "text": "Lifecycle"
+              },
+              "out": {
+                "text": "exposure is"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the clock analogy to skew execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": {
+                "text": "commuter train"
+              },
+              "engine": {
+                "text": "typeof payload.nbf"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Nested Layout State Isolation & Indep....",
+            "caption": "Modify token constraints and verify resulting write state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Write"
+              },
+              "engine": {
+                "text": "Expiration"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Nested Layout State Isolation & Indep... — Execution Pipeline",
+        "title": "Token Lifecycle, Expiration Physics, and Clock Skew Mitigation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Token",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Nested Layout State Isolation & Indep...",
+            "id": "engine",
+            "label": "Lifecycle",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Expiration",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture route segment and parallel slot props for Nested Layout State Isolation & Indep....",
+            "caption": "Initialize lifecycle architecture and token boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Token Lifecycle",
+              "engine": "Example",
+              "out": "Managing the"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute route interception or slot streaming in Nested Layout State Isolation & Indep....",
+            "caption": "Trace how lifecycle coordinates token state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "industry standard",
+              "engine": "Lifecycle",
+              "out": "exposure is"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the clock analogy to skew execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": "commuter train",
+              "engine": "typeof payload.nbf",
+              "out": "Within Leeway: {\"isValid\":true,\"eval"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Nested Layout State Isolation & Indep....",
+            "caption": "Modify token constraints and verify resulting write state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Write",
+              "engine": "Expiration",
+              "out": "Out of Leeway Rejection: Token expir"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Enterprise Multi-Pane Dashboard: Master-Detail Intercepting Modals & Parallel Streaming Slots",
-      "codeHash": "d05708c2cdd7d9c4504d27079655920a005a1c1678994ae8e68442d700415be1",
+      "partTitle": "Building an Enterprise JWT Verification Engine: Parsing, Verification, and Defense-in-Depth",
+      "codeHash": "bd4c26a750a9864acca2cc40697236520a89d9e55328e470865b2de6289db558",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Multi-Pane Dashboard: Mast... — Execution Pipeline",
+        "title": "Building an Enterprise JWT Verification Engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Building",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Multi-Pane Dashboard: Mast...",
+            "id": "engine",
+            "label": "Verification",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Engine",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Capture route segment and parallel slot props for Enterprise Multi-Pane.",
+            "caption": "Initialize building architecture and verification boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Building an"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Bringing all"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute route interception or slot streaming in Enterprise Multi-Pane.",
+            "caption": "Trace how building coordinates verification state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "hardened verification"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "discarded"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the defense analogy to depth execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": {
+                "text": "comprehensive"
+              },
+              "engine": {
+                "text": "throw new"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Enterprise Multi-Pane Dashboard: Mast....",
+            "caption": "Modify verification constraints and verify resulting express state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Express-style authentication"
+              },
+              "engine": {
+                "text": "Engine"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Multi-Pane Dashboard: Mast... — Execution Pipeline",
+        "title": "Building an Enterprise JWT Verification Engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Route & Slot Navigation",
+            "id": "input_code",
+            "label": "Building",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Multi-Pane Dashboard: Mast...",
+            "id": "engine",
+            "label": "Verification",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Hydrated Layout Tree",
+            "label": "Engine",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capture route segment and parallel slot props for Enterprise Multi-Pane Dashboard: Mast....",
+            "caption": "Initialize building architecture and verification boundaries.",
             "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Building an",
+              "engine": "Example",
+              "out": "Bringing all"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute route interception or slot streaming in Enterprise Multi-Pane Dashboard: Mast....",
+            "caption": "Trace how building coordinates verification state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "hardened verification",
+              "engine": "Verification",
+              "out": "discarded"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate soft vs hard navigation and layout state invariants.",
+            "caption": "Connect the defense analogy to depth execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Slots Reconciled",
-              "out": "Emitting"
+              "input_code": "comprehensive",
+              "engine": "throw new",
+              "out": "Successfully Verified Enterprise Pay"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Enterprise Multi-Pane Dashboard: Mast....",
+            "caption": "Modify verification constraints and verify resulting express state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Express-style authentication",
+              "engine": "Engine",
+              "out": "Successfully Verified Enterprise Pay"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

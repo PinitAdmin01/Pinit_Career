@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 13,
-  "promptSha": "bd84b82d8ffdb7273560aab5721c4246e057a44946daecd0c6d8bdca31e009ca",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "a6f5b2632c7f5d4d75579be2c91bfd6f5878050719f60ea63c372c8cc69efc87",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Pillar 1: The Anatomy of N+1 Query Degradation: Execution Traces & Latency Explosions",
       "codeHash": "667afd7caebd9d5ff4f23db58f1dfb8367b0aa19a43ccecd71a7c2781ffa3734",
       "spec": {
         "template": "flow",
-        "title": "Pillar 1: The Anatomy of N+1 Query De... — Execution Pipeline",
+        "title": "Pillar 1: The Anatomy of N+1 Query Degradation: Execution Traces",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 1: The Anatomy of N+1 Query De...",
+            "id": "engine",
+            "label": "Anatomy",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Query",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Queue individual component keys and initialize Pillar one: The Anatomy of.",
+            "caption": "Initialize query architecture and full boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "full-stack engineering"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute microtask coalescing and primary key deduplication in Pillar one.",
+            "caption": "Trace how query coordinates full state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "query problem"
+              },
+              "engine": {
+                "text": "Anatomy"
+              },
+              "out": {
+                "text": "retrieve related"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the query analogy to courier execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "courier delivering"
+              },
+              "engine": {
+                "text": "fetch"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end batched query resolution confirmed for Pillar one: The Anatomy.",
+            "caption": "Modify simulation constraints and verify resulting users state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "simulation with"
+              },
+              "engine": {
+                "text": "Query"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 1: The Anatomy of N+1 Query De... — Execution Pipeline",
+        "title": "Pillar 1: The Anatomy of N+1 Query Degradation: Execution Traces",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 1: The Anatomy of N+1 Query De...",
+            "id": "engine",
+            "label": "Anatomy",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Query",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 1: The Anatomy of N+1 Query De....",
+            "caption": "Initialize query architecture and full boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "full-stack engineering"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 1: The Anatomy of N+1 Query De....",
+            "caption": "Trace how query coordinates full state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "query problem",
+              "engine": "Anatomy",
+              "out": "retrieve related"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the query analogy to courier execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "courier delivering",
+              "engine": "fetch",
+              "out": "1. Naive Total Queries Executed: 51"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 1: The Anatomy of N+1 Query De....",
+            "caption": "Modify simulation constraints and verify resulting users state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "simulation with",
+              "engine": "Query",
+              "out": "6. Database Roundtrip Elimination Fa"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -236,109 +260,133 @@
       "codeHash": "716d2a961ad52669a4319315c71e06a54e4939c58bc42166022844f542927969",
       "spec": {
         "template": "flow",
-        "title": "Pillar 2: The DataLoader Pattern: Mic... — Execution Pipeline",
+        "title": "Pillar 2: The DataLoader Pattern: Microtask Coalescing,",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 2: The DataLoader Pattern: Mic...",
+            "id": "engine",
+            "label": "DataLoader",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Pattern",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Queue individual component keys and initialize Pillar two: The DataLoader.",
+            "caption": "Initialize dataloader architecture and pattern boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "solve the"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute microtask coalescing and primary key deduplication in Pillar two.",
+            "caption": "Trace how dataloader coordinates pattern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "magic of"
+              },
+              "engine": {
+                "text": "DataLoader"
+              },
+              "out": {
+                "text": "synchronous code"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the single analogy to tick execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "elevator in"
+              },
+              "engine": {
+                "text": "Resolve all"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end batched query resolution confirmed for Pillar two: The.",
+            "caption": "Modify tick constraints and verify resulting requests state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "requests for"
+              },
+              "engine": {
+                "text": "Pattern"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 2: The DataLoader Pattern: Mic... — Execution Pipeline",
+        "title": "Pillar 2: The DataLoader Pattern: Microtask Coalescing,",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 2: The DataLoader Pattern: Mic...",
+            "id": "engine",
+            "label": "DataLoader",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Pattern",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 2: The DataLoader Pattern: Mic....",
+            "caption": "Initialize dataloader architecture and pattern boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "solve the"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 2: The DataLoader Pattern: Mic....",
+            "caption": "Trace how dataloader coordinates pattern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "magic of",
+              "engine": "DataLoader",
+              "out": "synchronous code"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the single analogy to tick execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "elevator in",
+              "engine": "Resolve all",
+              "out": "1. User 101 Loaded: User_101"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 2: The DataLoader Pattern: Mic....",
+            "caption": "Modify tick constraints and verify resulting requests state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "requests for",
+              "engine": "Pattern",
+              "out": "6. DataLoader Batch Call Count: 1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -462,109 +510,133 @@
       "codeHash": "b4782a365fb4942c42b374a777bdc0fcf2a6433c27b9f19078f690f3782c9b9f",
       "spec": {
         "template": "flow",
-        "title": "Pillar 3: Request-Scoped Caching & Me... — Execution Pipeline",
+        "title": "Pillar 3: Request-Scoped Caching & Memory Leak Mitigations in",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 3: Request-Scoped Caching & Me...",
+            "id": "engine",
+            "label": "Request",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Scoped",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Queue individual component keys and initialize Pillar three.",
+            "caption": "Initialize memory architecture and addition boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "addition to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute microtask coalescing and primary key deduplication in Pillar.",
+            "caption": "Trace how memory coordinates addition state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Request"
+              },
+              "out": {
+                "text": "backend architects"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the memory analogy to leak execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "waiter"
+              },
+              "engine": {
+                "text": "getActiveContextsCount"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end batched query resolution confirmed for Pillar three.",
+            "caption": "Modify call constraints and verify resulting clearuser state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Call clearUser"
+              },
+              "engine": {
+                "text": "Scoped"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 3: Request-Scoped Caching & Me... — Execution Pipeline",
+        "title": "Pillar 3: Request-Scoped Caching & Memory Leak Mitigations in",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 3: Request-Scoped Caching & Me...",
+            "id": "engine",
+            "label": "Request",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Scoped",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 3: Request-Scoped Caching & Me....",
+            "caption": "Initialize memory architecture and addition boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "addition to"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 3: Request-Scoped Caching & Me....",
+            "caption": "Trace how memory coordinates addition state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "However",
+              "engine": "Request",
+              "out": "backend architects"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the memory analogy to leak execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "waiter",
+              "engine": "getActiveContextsCount",
+              "out": "1. Request 1 Initial Fetch Loaded: P"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 3: Request-Scoped Caching & Me....",
+            "caption": "Modify call constraints and verify resulting clearuser state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Call clearUser",
+              "engine": "Scoped",
+              "out": "6. Active Request Contexts after Tea"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -688,109 +760,133 @@
       "codeHash": "a5e92a5551f518f8bcc30b4927d88c5599e090ee9a05b5777e369bdb95a1bbb8",
       "spec": {
         "template": "flow",
-        "title": "Pillar 4: Complex Relational Batching... — Execution Pipeline",
+        "title": "Pillar 4: Complex Relational Batching: 1-to-Many Collections &",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 4: Complex Relational Batching...",
+            "id": "engine",
+            "label": "Complex",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Relational",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Queue individual component keys and initialize Pillar four: Complex.",
+            "caption": "Initialize batching architecture and many boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "batching simple"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute microtask coalescing and primary key deduplication in Pillar.",
+            "caption": "Trace how batching coordinates many state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "DataLoader contract"
+              },
+              "engine": {
+                "text": "Complex"
+              },
+              "out": {
+                "text": "keys"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the roll analogy to call execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "roll call"
+              },
+              "engine": {
+                "text": "original input"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end batched query resolution confirmed for Pillar four: Complex.",
+            "caption": "Modify reverse constraints and verify resulting input state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Reverse the"
+              },
+              "engine": {
+                "text": "Relational"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 4: Complex Relational Batching... — Execution Pipeline",
+        "title": "Pillar 4: Complex Relational Batching: 1-to-Many Collections &",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 4: Complex Relational Batching...",
+            "id": "engine",
+            "label": "Complex",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Relational",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 4: Complex Relational Batching....",
+            "caption": "Initialize batching architecture and many boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "batching simple"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 4: Complex Relational Batching....",
+            "caption": "Trace how batching coordinates many state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "DataLoader contract",
+              "engine": "Complex",
+              "out": "keys"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the roll analogy to call execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "roll call",
+              "engine": "original input",
+              "out": "1. Input Keys Count: 3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 4: Complex Relational Batching....",
+            "caption": "Modify reverse constraints and verify resulting input state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Reverse the",
+              "engine": "Relational",
+              "out": "7. Array Is Array Check for Zero Pos"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -914,109 +1010,133 @@
       "codeHash": "a20cf4142cf2eae46da169c76abdd8242240d39227e21d542f23ae9aa25eba6b",
       "spec": {
         "template": "flow",
-        "title": "Pillar 5: Production DataLoader Integ... — Execution Pipeline",
+        "title": "Pillar 5: Production DataLoader Integration with Next.js Server",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 5: Production DataLoader Integ...",
+            "id": "engine",
+            "label": "DataLoader",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Integration",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Queue individual component keys and initialize Pillar five: Production.",
+            "caption": "Initialize dataloader architecture and next boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "synthesize DataLoader"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute microtask coalescing and primary key deduplication in Pillar.",
+            "caption": "Trace how dataloader coordinates next state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "common question"
+              },
+              "engine": {
+                "text": "DataLoader"
+              },
+              "out": {
+                "text": "relate to"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the dataloader analogy to orchestral execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "orchestral performance"
+              },
+              "engine": {
+                "text": "promiseMap.get"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end batched query resolution confirmed for Pillar five: Production.",
+            "caption": "Modify component constraints and verify resulting requesting state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "component requesting"
+              },
+              "engine": {
+                "text": "Integration"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 5: Production DataLoader Integ... — Execution Pipeline",
+        "title": "Pillar 5: Production DataLoader Integration with Next.js Server",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Component Key Queue",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 5: Production DataLoader Integ...",
+            "id": "engine",
+            "label": "DataLoader",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Batched Resolution State",
+            "label": "Integration",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 5: Production DataLoader Integ....",
+            "caption": "Initialize dataloader architecture and next boundaries.",
             "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "synthesize DataLoader"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 5: Production DataLoader Integ....",
+            "caption": "Trace how dataloader coordinates next state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "common question",
+              "engine": "DataLoader",
+              "out": "relate to"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Connect the dataloader analogy to orchestral execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "orchestral performance",
+              "engine": "promiseMap.get",
+              "out": "1. Header Component User: Alice Smit"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 5: Production DataLoader Integ....",
+            "caption": "Modify component constraints and verify resulting requesting state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "component requesting",
+              "engine": "Integration",
+              "out": "6. Total Database Queries Executed ("
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

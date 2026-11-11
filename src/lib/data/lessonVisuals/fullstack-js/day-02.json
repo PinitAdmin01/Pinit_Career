@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 2,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "4bb0caceaa3e82833419da7a677b6355f1c8558936f41b9bd5252c311bf81d6c",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Next.js App Router Streaming SSR & Out-of-Order Flushing",
-      "codeHash": "4466c0d04efb2ea1aea686902e8319e5eb3bf85a52dea3aa99e9cbb8a15c896e",
+      "partTitle": "The Observer Pattern in Node.js: Architecture of the EventEmitter Class",
+      "codeHash": "8213598bc52a6674f56159b611c52c8eb4aa76caf7facda268fccc2f985542ae",
       "spec": {
         "template": "flow",
-        "title": "Next.js App Router Streaming SSR & Out-of-Ord... — Execution Pipeline",
+        "title": "The Observer Pattern in Node.js",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Observer",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Next.js App Router ...",
+            "id": "engine",
+            "label": "Pattern",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Node",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Next.js App Router Streaming SSR & Out-o...",
+            "caption": "Initialize node architecture and pattern boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Observer Pattern"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "Node.js runtime"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Next.js App Router ....",
+            "caption": "Trace how node coordinates pattern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "mechanics of"
+              },
+              "engine": {
+                "text": "Pattern"
+              },
+              "out": {
+                "text": "emitter appends"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the airport analogy to address execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "airport public"
+              },
+              "engine": {
+                "text": "args"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Next.js App Router Streaming SSR ...",
+            "caption": "Modify emit constraints and verify resulting event state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Emit an"
+              },
+              "engine": {
+                "text": "Node"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Next.js App Router Streaming SSR & Out-of-Ord... — Execution Pipeline",
+        "title": "The Observer Pattern in Node.js",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Observer",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Next.js App Router ...",
+            "id": "engine",
+            "label": "Pattern",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Node",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Next.js App Router Streaming SSR & Out-o...",
+            "caption": "Initialize node architecture and pattern boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Observer Pattern",
+              "engine": "Verification",
+              "out": "Node.js runtime"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Next.js App Router ....",
+            "caption": "Trace how node coordinates pattern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "mechanics of",
+              "engine": "Pattern",
+              "out": "emitter appends"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the airport analogy to address execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "airport public",
+              "engine": "args",
+              "out": "Audit Logged: Elena Rostova"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Next.js App Router Streaming SSR ...",
+            "caption": "Modify emit constraints and verify resulting event state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Emit an",
+              "engine": "Node",
+              "out": "Active Listeners Remaining for user:"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "React Server Actions with Optimistic Rollback State",
-      "codeHash": "4a7b1c80a2643235ace0d1ee6b147d8569aed10ef6b8491099a9acd74cad5322",
+      "partTitle": "Binary Data & Memory Buffers: How V8 Allocates Raw Bytes Outside the Heap",
+      "codeHash": "f78460512e2fc41c47410b65a9fd6cde4d00631b9dc9fc0268cb3dc8d63c4d01",
       "spec": {
         "template": "flow",
-        "title": "React Server Actions with Optimistic Rollback... — Execution Pipeline",
+        "title": "Binary Data & Memory Buffers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Binary",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. React Server Action...",
+            "id": "engine",
+            "label": "Data",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for React Server Actions with Optimistic Rol...",
+            "caption": "Initialize heap architecture and binary boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Binary Data"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "JavaScript was"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in React Server Action....",
+            "caption": "Trace how heap coordinates binary state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Representing raw"
+              },
+              "engine": {
+                "text": "Data"
+              },
+              "out": {
+                "text": "translation overhead"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the memory analogy to checking execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "checking into"
+              },
+              "engine": {
+                "text": "b.toString"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for React Server Actions with Optimis...",
+            "caption": "Modify bytes constraints and verify resulting examine state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Examine the"
+              },
+              "engine": {
+                "text": "Memory"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "React Server Actions with Optimistic Rollback... — Execution Pipeline",
+        "title": "Binary Data & Memory Buffers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Binary",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. React Server Action...",
+            "id": "engine",
+            "label": "Data",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for React Server Actions with Optimistic Rol...",
+            "caption": "Initialize heap architecture and binary boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Binary Data",
+              "engine": "Verification",
+              "out": "JavaScript was"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in React Server Action....",
+            "caption": "Trace how heap coordinates binary state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Representing raw",
+              "engine": "Data",
+              "out": "translation overhead"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the memory analogy to checking execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "checking into",
+              "engine": "b.toString",
+              "out": "UTF-8 String: PinIT 🚀"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for React Server Actions with Optimis...",
+            "caption": "Modify bytes constraints and verify resulting examine state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Examine the",
+              "engine": "Memory",
+              "out": "Safe Buffer Verified Zero-Filled: tr"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Edge Middleware JWT Authentication & Geo-Routing",
-      "codeHash": "fe1b551d03e8985cc5086f893a6295c6ea1364205686efd8683eb10f02745308",
+      "partTitle": "Character Encodings & String Physics: ASCII, UTF-8, UTF-16 & Multi-Byte Drift",
+      "codeHash": "6437d842db851a8a412752f9eef2ec25218193ed6490019cce62796006187fee",
       "spec": {
         "template": "flow",
-        "title": "Edge Middleware JWT Authentication & Geo-Routing — Execution Pipeline",
+        "title": "Character Encodings & String Physics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Character",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Edge Middleware JWT...",
+            "id": "engine",
+            "label": "Encodings",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Physics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Edge Middleware JWT Authentication & Geo...",
+            "caption": "Initialize character architecture and byte boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Character Encodings"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "insidious sources"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Edge Middleware JWT....",
+            "caption": "Trace how character coordinates byte state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "root cause"
+              },
+              "engine": {
+                "text": "Encodings"
+              },
+              "out": {
+                "text": "Standard English"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the byte analogy to mailing execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "mailing packages"
+              },
+              "engine": {
+                "text": "TextEncoder"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Edge Middleware JWT Authenticatio...",
+            "caption": "Modify byte constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass"
+              },
+              "engine": {
+                "text": "Physics"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Edge Middleware JWT Authentication & Geo-Routing — Execution Pipeline",
+        "title": "Character Encodings & String Physics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Character",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Edge Middleware JWT...",
+            "id": "engine",
+            "label": "Encodings",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Physics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Edge Middleware JWT Authentication & Geo...",
+            "caption": "Initialize character architecture and byte boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Character Encodings",
+              "engine": "Verification",
+              "out": "insidious sources"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Edge Middleware JWT....",
+            "caption": "Trace how character coordinates byte state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "root cause",
+              "engine": "Encodings",
+              "out": "Standard English"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the byte analogy to mailing execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "mailing packages",
+              "engine": "TextEncoder",
+              "out": "--- ENCODING DRIFT AUDIT MATRIX ---"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Edge Middleware JWT Authenticatio...",
+            "caption": "Modify byte constraints and verify resulting pass state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass",
+              "engine": "Physics",
+              "out": "\"🚀🔥✨\" -> Chars: 3 | UTF-16: 5 | UT"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "tRPC End-to-End Type-Safe Remote Procedure Calls",
-      "codeHash": "2dd830ef44fa713257fdd3021d90f0749f366a737c900ebb6e760e6ff879beb0",
+      "partTitle": "Streaming Data & Backpressure: Piping Gigabytes Through Bounded Memory Buffers",
+      "codeHash": "1fe6a3298973ed2a14511b614b5376fe88d2bbad49f0dee2028d19db1e054ad0",
       "spec": {
         "template": "flow",
-        "title": "tRPC End-to-End Type-Safe Remote Procedure Calls — Execution Pipeline",
+        "title": "Streaming Data & Backpressure",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Streaming",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. tRPC End-to-End Typ...",
+            "id": "engine",
+            "label": "Data",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Backpressure",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for tRPC End-to-End Type-Safe Remote Procedu...",
+            "caption": "Initialize memory architecture and enterprise boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Streaming Data"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack development"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in tRPC End-to-End Typ....",
+            "caption": "Trace how memory coordinates enterprise state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "architectural solution"
+              },
+              "engine": {
+                "text": "Data"
+              },
+              "out": {
+                "text": "process them"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the backpressure analogy to espresso execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "espresso coffee"
+              },
+              "engine": {
+                "text": "flushedBytes"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for tRPC End-to-End Type-Safe Remote ...",
+            "caption": "Modify data constraints and verify resulting configure state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Configure"
+              },
+              "engine": {
+                "text": "Backpressure"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "tRPC End-to-End Type-Safe Remote Procedure Calls — Execution Pipeline",
+        "title": "Streaming Data & Backpressure",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Streaming",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. tRPC End-to-End Typ...",
+            "id": "engine",
+            "label": "Data",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Backpressure",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for tRPC End-to-End Type-Safe Remote Procedu...",
+            "caption": "Initialize memory architecture and enterprise boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Streaming Data",
+              "engine": "Verification",
+              "out": "full-stack development"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in tRPC End-to-End Typ....",
+            "caption": "Trace how memory coordinates enterprise state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "architectural solution",
+              "engine": "Data",
+              "out": "process them"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the backpressure analogy to espresso execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "espresso coffee",
+              "engine": "flushedBytes",
+              "out": "Write Chunk 1 (30 bytes): canContinu"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for tRPC End-to-End Type-Safe Remote ...",
+            "caption": "Modify data constraints and verify resulting configure state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Configure",
+              "engine": "Backpressure",
+              "out": "Consumer Emitted \"drain\": Flushed 70"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Server-Sent Events (SSE) Real-Time Streaming Protocol",
-      "codeHash": "560d282dd93fe133733a38811d7bf3b79b2060b2c487113cac5c1121818833a2",
+      "partTitle": "Production Event Bus Invariants: Memory Leak Detection & Unhandled Error Events",
+      "codeHash": "de7644f0b87d51e035cb63610a1bb87785e7b8699d8f7af1125d9c69830c051d",
       "spec": {
         "template": "flow",
-        "title": "Server-Sent Events (SSE) Real-Time Streaming ... — Execution Pipeline",
+        "title": "Production Event Bus Invariants",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Event",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server-Sent Events ...",
+            "id": "engine",
+            "label": "Invariants",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Initialize input state for Server-Sent Events (SSE) Real-Time Strea...",
+            "caption": "Initialize production architecture and memory boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Event Bus"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "long-running production"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute core transformation in Server-Sent Events ....",
+            "caption": "Trace how production coordinates memory state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "application that"
+              },
+              "engine": {
+                "text": "Invariants"
+              },
+              "out": {
+                "text": "objects"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "caption": "Connect the memory analogy to leak execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": {
+                "text": "subscribing to"
+              },
+              "engine": {
+                "text": "unknown"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Server-Sent Events (SSE) Real-Tim...",
+            "caption": "Modify memory constraints and verify resulting leak state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Subscribe"
+              },
+              "engine": {
+                "text": "Memory"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Server-Sent Events (SSE) Real-Time Streaming ... — Execution Pipeline",
+        "title": "Production Event Bus Invariants",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
+            "id": "input_code",
+            "label": "Event",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server-Sent Events ...",
+            "id": "engine",
+            "label": "Invariants",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Server-Sent Events (SSE) Real-Time Strea...",
+            "caption": "Initialize production architecture and memory boundaries.",
             "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Event Bus",
+              "engine": "Verification",
+              "out": "long-running production"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Server-Sent Events ....",
+            "caption": "Trace how production coordinates memory state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "application that",
+              "engine": "Invariants",
+              "out": "objects"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Connect the memory analogy to leak execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "input_code": "subscribing to",
+              "engine": "unknown",
+              "out": "Active Listeners: 2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Server-Sent Events (SSE) Real-Tim...",
+            "caption": "Modify memory constraints and verify resulting leak state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Subscribe",
+              "engine": "Memory",
+              "out": "After Cleanup - Active Listeners: 1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

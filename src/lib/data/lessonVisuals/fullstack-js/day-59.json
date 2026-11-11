@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 59,
-  "promptSha": "1d7451f06a7630bdc567fe6c56934db35bf1fd2aec006b4f84c288c7d156094b",
-  "model": "gemini-2.5-pro",
+  "promptSha": "d5d71729af7f8d90a96846563c9ddc58c04342ada042af640446d1bdf9f9fa15",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Anatomy of a High-Impact RFC: Structuring Vision, Problem Statements, and Constraints",
       "codeHash": "0bd0a8e680fcb386123d85e8fb0352c13cdb25aef316fdf551b9dd1635c8bb04",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Anatomy of a High-Impact RFC: Structuring Vision, Problem Statements, and Constraints",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The Anatomy of a High-Impact RFC",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Anatomy",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Impact",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Structuring",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize vision architecture and high boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Anatomy of"
+              },
+              "engine": {
+                "text": "RFCProposal"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how vision coordinates high state transitions.",
+            "values": {
+              "input_code": {
+                "text": "architectural RFC"
+              },
+              "engine": {
+                "text": "Impact"
+              },
+              "out": {
+                "text": "elevator shafts"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the architectural analogy to team execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "architectural team"
+              },
+              "engine": {
+                "text": "found"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify anatomy constraints and verify resulting high state.",
+            "values": {
+              "input_code": {
+                "text": "Anatomy of"
+              },
+              "engine": {
+                "text": "Structuring"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The Anatomy of a High-Impact RFC",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Anatomy",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Impact",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Structuring",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize vision architecture and high boundaries.",
+            "values": {
+              "input_code": "Anatomy of",
+              "engine": "RFCProposal",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how vision coordinates high state transitions.",
+            "values": {
+              "input_code": "architectural RFC",
+              "engine": "Impact",
+              "out": "elevator shafts"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the architectural analogy to team execution invariants.",
+            "values": {
+              "input_code": "architectural team",
+              "engine": "found",
+              "out": "[RFC Governance] RFC RFC-042 IN_REVI"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify anatomy constraints and verify resulting high state.",
+            "values": {
+              "input_code": "Anatomy of",
+              "engine": "Structuring",
+              "out": "[RFC Governance] RFC RFC-042 APPROVE"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Rigorous Trade-Off Matrices: Monolith vs Microservices vs Serverless Total Cost of Ownership",
       "codeHash": "79e1d34918d4e0751005caeed8571dc6b814632971075d2b4719b6ce553e5c6d",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Rigorous Trade-Off Matrices: Monolith vs Microservices vs Serverless Total Cost of Ownership",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Rigorous Trade-Off Matrices",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Rigorous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trade",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Matrices",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize rigorous architecture and trade boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Rigorous Trade-Off"
+              },
+              "engine": {
+                "text": "ArchitectureOption"
+              },
+              "out": {
+                "text": "Having established"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how rigorous coordinates trade state transitions.",
+            "values": {
+              "input_code": {
+                "text": "classical physical"
+              },
+              "engine": {
+                "text": "Trade"
+              },
+              "out": {
+                "text": "ideal"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the evaluating analogy to whether execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Evaluating whether"
+              },
+              "engine": {
+                "text": "operationalComplexity"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify rigorous constraints and verify resulting trade state.",
+            "values": {
+              "input_code": {
+                "text": "Rigorous Trade-Off"
+              },
+              "engine": {
+                "text": "Matrices"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Rigorous Trade-Off Matrices",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Rigorous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Trade",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Matrices",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize rigorous architecture and trade boundaries.",
+            "values": {
+              "input_code": "Rigorous Trade-Off",
+              "engine": "ArchitectureOption",
+              "out": "Having established"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how rigorous coordinates trade state transitions.",
+            "values": {
+              "input_code": "classical physical",
+              "engine": "Trade",
+              "out": "ideal"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the evaluating analogy to whether execution invariants.",
+            "values": {
+              "input_code": "Evaluating whether",
+              "engine": "operationalComplexity",
+              "out": "[Score Matrix] Modular Monolith Scor"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify rigorous constraints and verify resulting trade state.",
+            "values": {
+              "input_code": "Rigorous Trade-Off",
+              "engine": "Matrices",
+              "out": "[Score Matrix] 25 Microservices Scor"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Monorepo Architecture & Build Topology: Nx, Turborepo, and Shared Code Boundary Enforcement",
       "codeHash": "a3ebd4e4f363e176f46b26c39fbe5576aa03c9871bdb893634bec387fabddbb2",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Monorepo Architecture & Build Topology: Nx, Turborepo, and Shared Code Boundary Enforcement",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Monorepo Architecture & Build Topology",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Monorepo",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Topology",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize topology architecture and monorepo boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Monorepo Architecture"
+              },
+              "engine": {
+                "text": "DependencyGraph"
+              },
+              "out": {
+                "text": "Once an"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how topology coordinates monorepo state transitions.",
+            "values": {
+              "input_code": {
+                "text": "multi-repo ecosystem"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "text": "fitting"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the shared analogy to organizing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Organizing"
+              },
+              "engine": {
+                "text": "order.push"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify monorepo constraints and verify resulting architecture state.",
+            "values": {
+              "input_code": {
+                "text": "Monorepo Architecture"
+              },
+              "engine": {
+                "text": "Topology"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Monorepo Architecture & Build Topology",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Monorepo",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Topology",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize topology architecture and monorepo boundaries.",
+            "values": {
+              "input_code": "Monorepo Architecture",
+              "engine": "DependencyGraph",
+              "out": "Once an"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how topology coordinates monorepo state transitions.",
+            "values": {
+              "input_code": "multi-repo ecosystem",
+              "engine": "Architecture",
+              "out": "fitting"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the shared analogy to organizing execution invariants.",
+            "values": {
+              "input_code": "Organizing",
+              "engine": "order.push",
+              "out": "[Monorepo Graph] Topological Build O"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify monorepo constraints and verify resulting architecture state.",
+            "values": {
+              "input_code": "Monorepo Architecture",
+              "engine": "Topology",
+              "out": "[Monorepo Graph] Topological Build O"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Latency Budgets, SLA Modeling, and Cross-Tier Fallback Strategies",
       "codeHash": "c5f3b523ebace7f869d48f06b51f3ecfa76ac8941cf3c5da87fadac0406ac77e",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Latency Budgets, SLA Modeling, and Cross-Tier Fallback Strategies",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Latency Budgets, SLA Modeling, and Cross-Tier Fallback",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Latency",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Budgets",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Modeling",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize latency architecture and budgets boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Latency Budgets"
+              },
+              "engine": {
+                "text": "LatencyAllocation"
+              },
+              "out": {
+                "text": "codebase topography"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how latency coordinates budgets state transitions.",
+            "values": {
+              "input_code": {
+                "text": "physical analogy"
+              },
+              "engine": {
+                "text": "Budgets"
+              },
+              "out": {
+                "text": "second runner"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the olympic analogy to relay execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Olympic relay"
+              },
+              "engine": {
+                "text": "budget"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify latency constraints and verify resulting budgets state.",
+            "values": {
+              "input_code": {
+                "text": "Latency Budgets"
+              },
+              "engine": {
+                "text": "Modeling"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Latency Budgets, SLA Modeling, and Cross-Tier Fallback",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Latency",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Budgets",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Modeling",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize latency architecture and budgets boundaries.",
+            "values": {
+              "input_code": "Latency Budgets",
+              "engine": "LatencyAllocation",
+              "out": "codebase topography"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how latency coordinates budgets state transitions.",
+            "values": {
+              "input_code": "physical analogy",
+              "engine": "Budgets",
+              "out": "second runner"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the olympic analogy to relay execution invariants.",
+            "values": {
+              "input_code": "Olympic relay",
+              "engine": "budget",
+              "out": "[Latency Budget] Subsystem P99 Total"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify latency constraints and verify resulting budgets state.",
+            "values": {
+              "input_code": "Latency Budgets",
+              "engine": "Modeling",
+              "out": "[Latency Budget] Compliant with < 10"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Migration Sentinel: Strangler Fig Patterns, Canary Verification Gates, and Zero-Downtime Rollbacks",
       "codeHash": "75e2b0d3ee4df3d60fc3d6ce4dca932192b9640c28fc2f906e4487e343c6b9f8",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Migration Sentinel: Strangler Fig Patterns, Canary Verification Gates, and Zero-Downtime Rollbacks",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The Migration Sentinel",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Migration",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sentinel",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Strangler",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize migration architecture and sentinel boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Migration Sentinel"
+              },
+              "engine": {
+                "text": "MigrationMilestone"
+              },
+              "out": {
+                "text": "final and"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how migration coordinates sentinel state transitions.",
+            "values": {
+              "input_code": {
+                "text": "physical analogy"
+              },
+              "engine": {
+                "text": "Sentinel"
+              },
+              "out": {
+                "text": "away"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the strangler analogy to vine execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "strangler fig"
+              },
+              "engine": {
+                "text": "Migration Guard"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify migration constraints and verify resulting sentinel state.",
+            "values": {
+              "input_code": {
+                "text": "Migration Sentinel"
+              },
+              "engine": {
+                "text": "Strangler"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The Migration Sentinel",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Migration",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Sentinel",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Strangler",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize migration architecture and sentinel boundaries.",
+            "values": {
+              "input_code": "Migration Sentinel",
+              "engine": "MigrationMilestone",
+              "out": "final and"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how migration coordinates sentinel state transitions.",
+            "values": {
+              "input_code": "physical analogy",
+              "engine": "Sentinel",
+              "out": "away"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the strangler analogy to vine execution invariants.",
+            "values": {
+              "input_code": "strangler fig",
+              "engine": "Migration Guard",
+              "out": "[Migration Guard] Phase 1 (Canary 10"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify migration constraints and verify resulting sentinel state.",
+            "values": {
+              "input_code": "Migration Sentinel",
+              "engine": "Strangler",
+              "out": "[Migration Guard] Phase 1 (Canary 10"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

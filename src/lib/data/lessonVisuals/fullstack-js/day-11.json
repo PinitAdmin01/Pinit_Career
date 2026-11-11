@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 11,
-  "promptSha": "f214ed339018cdcdeac285f72b3987cbcc4d217b590baeec067b1e80f16c0f52",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "2fe47ae556cfbf895613e5a623fbb12fc4b4e154fddd311689b3e83a400db078",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Pillar 1: Threat Models, Rainbow Table Defenses & Salt Invariants",
       "codeHash": "117b16c5e98db7dfeb34e10d481a560b2daf68bda4c911ebf197a26578278d13",
       "spec": {
         "template": "flow",
-        "title": "Pillar 1: Threat Models, Rainbow Tabl... — Execution Pipeline",
+        "title": "Pillar 1: Threat Models, Rainbow Table Defenses & Salt",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 1: Threat Models, Rainbow Tabl...",
+            "id": "engine",
+            "label": "Threat",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Models",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress credential payload and initialize Pillar one: Threat Models.",
+            "caption": "Initialize enterprise architecture and security boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "security"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar one.",
+            "caption": "Trace how enterprise coordinates security state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "General-purpose"
+              },
+              "engine": {
+                "text": "Threat"
+              },
+              "out": {
+                "text": "billions of"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the salt analogy to bank execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": {
+                "text": "bank safety"
+              },
+              "engine": {
+                "text": "registerUser"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end cryptographic verification confirmed for Pillar one: Threat.",
+            "caption": "Modify register constraints and verify resulting third state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Register"
+              },
+              "engine": {
+                "text": "Models"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 1: Threat Models, Rainbow Tabl... — Execution Pipeline",
+        "title": "Pillar 1: Threat Models, Rainbow Table Defenses & Salt",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 1: Threat Models, Rainbow Tabl...",
+            "id": "engine",
+            "label": "Threat",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Models",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 1: Threat Models, Rainbow Tabl....",
+            "caption": "Initialize enterprise architecture and security boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "security"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 1: Threat Models, Rainbow Tabl....",
+            "caption": "Trace how enterprise coordinates security state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "General-purpose",
+              "engine": "Threat",
+              "out": "billions of"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the salt analogy to bank execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": "bank safety",
+              "engine": "registerUser",
+              "out": "Alice Password Hash: h_8a80f4453c3a9"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 1: Threat Models, Rainbow Tabl....",
+            "caption": "Modify register constraints and verify resulting third state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Register",
+              "engine": "Models",
+              "out": "Bob Bad Password Rejected: false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -233,112 +257,136 @@
     },
     {
       "partTitle": "Pillar 2: Bcrypt Architecture: Adaptive Cost Factors & The 72-Byte Truncation Invariant",
-      "codeHash": "717673fb4d1adddd42a39fcdc5316658cd9f0082b8a8bec237a2940a8a259afc",
+      "codeHash": "f877ff348a6b56ab7ee112b95b782e5a78e3626ab92156f838e43250974ec483",
       "spec": {
         "template": "flow",
-        "title": "Pillar 2: Bcrypt Architecture: Adapti... — Execution Pipeline",
+        "title": "Pillar 2: Bcrypt Architecture: Adaptive Cost Factors & The",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 2: Bcrypt Architecture: Adapti...",
+            "id": "engine",
+            "label": "Bcrypt",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress credential payload and initialize Pillar two: Bcrypt.",
+            "caption": "Initialize adaptive architecture and unique boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "unique salting"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar two.",
+            "caption": "Trace how adaptive coordinates unique state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Bcrypt"
+              },
+              "engine": {
+                "text": "Bcrypt"
+              },
+              "out": {
+                "text": "parameter"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the bcrypt analogy to cost execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": {
+                "text": "adjustable speed"
+              },
+              "engine": {
+                "text": "formattedHash"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end cryptographic verification confirmed for Pillar two: Bcrypt.",
+            "caption": "Modify cost constraints and verify resulting engine state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "engine with"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 2: Bcrypt Architecture: Adapti... — Execution Pipeline",
+        "title": "Pillar 2: Bcrypt Architecture: Adaptive Cost Factors & The",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 2: Bcrypt Architecture: Adapti...",
+            "id": "engine",
+            "label": "Bcrypt",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 2: Bcrypt Architecture: Adapti....",
+            "caption": "Initialize adaptive architecture and unique boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "unique salting"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 2: Bcrypt Architecture: Adapti....",
+            "caption": "Trace how adaptive coordinates unique state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Bcrypt",
+              "engine": "Bcrypt",
+              "out": "parameter"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the bcrypt analogy to cost execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": "adjustable speed",
+              "engine": "formattedHash",
+              "out": "Cost 8 Iterations: 256"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 2: Bcrypt Architecture: Adapti....",
+            "caption": "Modify cost constraints and verify resulting engine state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "engine with",
+              "engine": "Architecture",
+              "out": "Tampered Truncated Password Rejected"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -462,109 +510,133 @@
       "codeHash": "5a07c873d7bc0d452e896bbaabaa18d4abe59681e7dedde04a531c89fd05b1df",
       "spec": {
         "template": "flow",
-        "title": "Pillar 3: Argon2id: Memory-Hard Funct... — Execution Pipeline",
+        "title": "Pillar 3: Argon2id: Memory-Hard Functions & Parallelism",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 3: Argon2id: Memory-Hard Funct...",
+            "id": "engine",
+            "label": "Argon2id",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress credential payload and initialize Pillar three: Argontwoid.",
+            "caption": "Initialize memory architecture and bcrypt boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Bcrypt remains"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar three.",
+            "caption": "Trace how memory coordinates bcrypt state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "2015"
+              },
+              "engine": {
+                "text": "Argon2id"
+              },
+              "out": {
+                "text": "9106"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the memory analogy to hard execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": {
+                "text": "stadium parking"
+              },
+              "engine": {
+                "text": "memoryBlocks"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end cryptographic verification confirmed for Pillar three.",
+            "caption": "Modify memorycostkib constraints and verify resulting parameter state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "memoryCostKiB parameter"
+              },
+              "engine": {
+                "text": "Memory"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 3: Argon2id: Memory-Hard Funct... — Execution Pipeline",
+        "title": "Pillar 3: Argon2id: Memory-Hard Functions & Parallelism",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 3: Argon2id: Memory-Hard Funct...",
+            "id": "engine",
+            "label": "Argon2id",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Memory",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 3: Argon2id: Memory-Hard Funct....",
+            "caption": "Initialize memory architecture and bcrypt boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "Bcrypt remains"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 3: Argon2id: Memory-Hard Funct....",
+            "caption": "Trace how memory coordinates bcrypt state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "2015",
+              "engine": "Argon2id",
+              "out": "9106"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the memory analogy to hard execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": "stadium parking",
+              "engine": "memoryBlocks",
+              "out": "Argon2 Variant: argon2id"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 3: Argon2id: Memory-Hard Funct....",
+            "caption": "Modify memorycostkib constraints and verify resulting parameter state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "memoryCostKiB parameter",
+              "engine": "Memory",
+              "out": "Invalid Password Authentication Reje"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -688,109 +760,133 @@
       "codeHash": "83abb97c45779f8c349892c88f0fb73c33edd0baf56a2747fff341d8ea05482f",
       "spec": {
         "template": "flow",
-        "title": "Pillar 4: Constant-Time String Equali... — Execution Pipeline",
+        "title": "Pillar 4: Constant-Time String Equality & Mitigating",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 4: Constant-Time String Equali...",
+            "id": "engine",
+            "label": "Constant",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Time",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress credential payload and initialize Pillar four: Constant-Time.",
+            "caption": "Initialize side architecture and channel boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "cryptographic system"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar four.",
+            "caption": "Trace how side coordinates channel state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "JavaScript and"
+              },
+              "engine": {
+                "text": "Constant"
+              },
+              "out": {
+                "text": "comparing two"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the constant analogy to time execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": {
+                "text": "electronic vault"
+              },
+              "engine": {
+                "text": "ConstantTimeComparisonEngine"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end cryptographic verification confirmed for Pillar four.",
+            "caption": "Modify compare constraints and verify resulting identical state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Compare two"
+              },
+              "engine": {
+                "text": "Time"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 4: Constant-Time String Equali... — Execution Pipeline",
+        "title": "Pillar 4: Constant-Time String Equality & Mitigating",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 4: Constant-Time String Equali...",
+            "id": "engine",
+            "label": "Constant",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Time",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 4: Constant-Time String Equali....",
+            "caption": "Initialize side architecture and channel boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "cryptographic system"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 4: Constant-Time String Equali....",
+            "caption": "Trace how side coordinates channel state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "JavaScript and",
+              "engine": "Constant",
+              "out": "comparing two"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the constant analogy to time execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": "electronic vault",
+              "engine": "ConstantTimeComparisonEngine",
+              "out": "Variable-Time Mismatch at Byte 0 Cyc"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 4: Constant-Time String Equali....",
+            "caption": "Modify compare constraints and verify resulting identical state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Compare two",
+              "engine": "Time",
+              "out": "Constant-Time Verified Identity: tru"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -914,109 +1010,133 @@
       "codeHash": "781b4a40c0c64a70347561db1d79f92cd794821929b74fe101b8324212c0b554",
       "spec": {
         "template": "flow",
-        "title": "Pillar 5: Enterprise Password Lifecyc... — Execution Pipeline",
+        "title": "Pillar 5: Enterprise Password Lifecycle & Transparent Work",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 5: Enterprise Password Lifecyc...",
+            "id": "engine",
+            "label": "Password",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Lifecycle",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress credential payload and initialize Pillar five: Enterprise.",
+            "caption": "Initialize password architecture and lifecycle boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Pillar"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "environments"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar five.",
+            "caption": "Trace how password coordinates lifecycle state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Password"
+              },
+              "out": {
+                "text": "security parameters"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the electric analogy to battery execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": {
+                "text": "electric car"
+              },
+              "engine": {
+                "text": "authenticated"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end cryptographic verification confirmed for Pillar five.",
+            "caption": "Modify password constraints and verify resulting attempt state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Attempt"
+              },
+              "engine": {
+                "text": "Lifecycle"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 5: Enterprise Password Lifecyc... — Execution Pipeline",
+        "title": "Pillar 5: Enterprise Password Lifecycle & Transparent Work",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Credential Vector",
+            "id": "input_code",
+            "label": "Pillar",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 5: Enterprise Password Lifecyc...",
+            "id": "engine",
+            "label": "Password",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Cryptographic State Verification",
+            "label": "Lifecycle",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 5: Enterprise Password Lifecyc....",
+            "caption": "Initialize password architecture and lifecycle boundaries.",
             "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Pillar",
+              "engine": "Simulation",
+              "out": "environments"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 5: Enterprise Password Lifecyc....",
+            "caption": "Trace how password coordinates lifecycle state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "However",
+              "engine": "Password",
+              "out": "security parameters"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Connect the electric analogy to battery execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Hash Computed",
-              "out": "Comparing"
+              "input_code": "electric car",
+              "engine": "authenticated",
+              "out": "1. Legacy User Current Hash: $argon2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 5: Enterprise Password Lifecyc....",
+            "caption": "Modify password constraints and verify resulting attempt state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Attempt",
+              "engine": "Lifecycle",
+              "out": "7. New Hash Satisfies Policy: true"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

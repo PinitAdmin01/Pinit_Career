@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 46,
-  "promptSha": "29306abfdd556dc3e460af9c5d9d0a3cc8c729e435acac76d82fe471639a61a7",
-  "model": "gemini-2.5-pro",
+  "promptSha": "0c8f94c9dc61e1015c8cada7413b2ee23d8d3e0ac03ab58af8d966c7ae5f8ef6",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "The Scaling Ceiling: Vertical Saturation to Horizontal Database Sharding",
-      "codeHash": "9baeb06b700359282a28987399c0c1916e1691b0bb5bb389c5ce5a57064000b5",
+      "codeHash": "24c69e599d71e012e7b8ea81e0cc9034f62e9f5909199186d7ba8473115fb620",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Scaling Ceiling: Vertical Saturation to Horizontal Database Sharding",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "The Scaling Ceiling",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Scaling",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Ceiling",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Vertical",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundaries and core execution pathways across the enterprise distributed cluster environment."
+            "caption": "Initialize database architecture and early boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Scaling Ceiling"
+              },
+              "engine": {
+                "text": "ShardHashRing"
+              },
+              "out": {
+                "text": "early stages"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how database coordinates early state transitions.",
+            "values": {
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Ceiling"
+              },
+              "out": {
+                "text": "database indexes"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the sharding analogy to massive execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "massive city"
+              },
+              "engine": {
+                "text": "getNode"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify scaling constraints and verify resulting ceiling state.",
+            "values": {
+              "input_code": {
+                "text": "Scaling Ceiling"
+              },
+              "engine": {
+                "text": "Vertical"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "The Scaling Ceiling",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Scaling",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Ceiling",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Vertical",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize database architecture and early boundaries.",
+            "values": {
+              "input_code": "Scaling Ceiling",
+              "engine": "ShardHashRing",
+              "out": "early stages"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how database coordinates early state transitions.",
+            "values": {
+              "input_code": "However",
+              "engine": "Ceiling",
+              "out": "database indexes"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the sharding analogy to massive execution invariants.",
+            "values": {
+              "input_code": "massive city",
+              "engine": "getNode",
+              "out": "Shard Routing: tx_101 -> shard_ap_so"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify scaling constraints and verify resulting ceiling state.",
+            "values": {
+              "input_code": "Scaling Ceiling",
+              "engine": "Vertical",
+              "out": "Cluster Shard Distribution Verified:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Read-Write Splitting & Primary-Replica Synchronization",
       "codeHash": "b3814acbf2ef1f1ab26ee287089d28a224099452ef9e66e30b8773bebf370668",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Read-Write Splitting & Primary-Replica Synchronization",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Read-Write Splitting & Primary-Replica Synchronization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Read",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Write",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Splitting",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize read architecture and write boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Read-Write Splitting"
+              },
+              "engine": {
+                "text": "Read-Write Splitting"
+              },
+              "out": {
+                "text": "typical web"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how read coordinates write state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Attempting to"
+              },
+              "engine": {
+                "text": "Write"
+              },
+              "out": {
+                "text": "operations that"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the primary analogy to read execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "newspaper printing"
+              },
+              "engine": {
+                "text": "this.replicaIndex"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify read constraints and verify resulting write state.",
+            "values": {
+              "input_code": {
+                "text": "Read-Write Splitting"
+              },
+              "engine": {
+                "text": "Splitting"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Read-Write Splitting & Primary-Replica Synchronization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Read",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Write",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Splitting",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize read architecture and write boundaries.",
+            "values": {
+              "input_code": "Read-Write Splitting",
+              "engine": "Read-Write Splitting",
+              "out": "typical web"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how read coordinates write state transitions.",
+            "values": {
+              "input_code": "Attempting to",
+              "engine": "Write",
+              "out": "operations that"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the primary analogy to read execution invariants.",
+            "values": {
+              "input_code": "newspaper printing",
+              "engine": "this.replicaIndex",
+              "out": "Query 1 Target (Standard Read): REPL"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify read constraints and verify resulting write state.",
+            "values": {
+              "input_code": "Read-Write Splitting",
+              "engine": "Splitting",
+              "out": "Read-Write Splitting & Session Consi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Dynamic Connection Pool Sizing & Little's Law Optimization",
       "codeHash": "2170f460c1ee95367097b260848871bc8d19a8ad5bad56e321d3065b5a9cd7b4",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Dynamic Connection Pool Sizing & Little's Law Optimization",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Dynamic Connection Pool Sizing & Little's Law Optimization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Connection",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Pool",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize connection architecture and node boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Dynamic Connection"
+              },
+              "engine": {
+                "text": "Dynamic Connection"
+              },
+              "out": {
+                "text": "Node.js applications"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how connection coordinates node state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Node.js web"
+              },
+              "engine": {
+                "text": "Connection"
+              },
+              "out": {
+                "text": "spends more"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the pool analogy to olympic execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Olympic swimming"
+              },
+              "engine": {
+                "text": "resolve"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify dynamic constraints and verify resulting connection state.",
+            "values": {
+              "input_code": {
+                "text": "Dynamic Connection"
+              },
+              "engine": {
+                "text": "Pool"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Dynamic Connection Pool Sizing & Little's Law Optimization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Connection",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Pool",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize connection architecture and node boundaries.",
+            "values": {
+              "input_code": "Dynamic Connection",
+              "engine": "Dynamic Connection",
+              "out": "Node.js applications"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how connection coordinates node state transitions.",
+            "values": {
+              "input_code": "Node.js web",
+              "engine": "Connection",
+              "out": "spends more"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the pool analogy to olympic execution invariants.",
+            "values": {
+              "input_code": "Olympic swimming",
+              "engine": "resolve",
+              "out": "Final Connection Pool Size (Capped a"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify dynamic constraints and verify resulting connection state.",
+            "values": {
+              "input_code": "Dynamic Connection",
+              "engine": "Pool",
+              "out": "Dynamic Connection Pool Management O"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Split-Brain Resolution & Fencing Tokens in Distributed Topologies",
       "codeHash": "dde82fb07f115ab4157d32575f729de696543ec6fc6f78fb64843d5bbb7ae382",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Split-Brain Resolution & Fencing Tokens in Distributed Topologies",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Split-Brain Resolution & Fencing Tokens in Distributed",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Split",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Brain",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Resolution",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and high boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Split-Brain Resolution"
+              },
+              "engine": {
+                "text": "Fencing Token"
+              },
+              "out": {
+                "text": "high-availability database"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates high state transitions.",
+            "values": {
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Brain"
+              },
+              "out": {
+                "text": "primary database"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the kingdom analogy to king execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "kingdom where"
+              },
+              "engine": {
+                "text": "this.storage.get"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify split constraints and verify resulting brain state.",
+            "values": {
+              "input_code": {
+                "text": "Split-Brain Resolution"
+              },
+              "engine": {
+                "text": "Resolution"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Split-Brain Resolution & Fencing Tokens in Distributed",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Split",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Brain",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Resolution",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and high boundaries.",
+            "values": {
+              "input_code": "Split-Brain Resolution",
+              "engine": "Fencing Token",
+              "out": "high-availability database"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates high state transitions.",
+            "values": {
+              "input_code": "However",
+              "engine": "Brain",
+              "out": "primary database"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the kingdom analogy to king execution invariants.",
+            "values": {
+              "input_code": "kingdom where",
+              "engine": "this.storage.get",
+              "out": "Leader 1 Initial Commit Status: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify split constraints and verify resulting brain state.",
+            "values": {
+              "input_code": "Split-Brain Resolution",
+              "engine": "Resolution",
+              "out": "Fencing Token Split-Brain Defense Co"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Replication Lag Sentinels & Database Health Matrix",
       "codeHash": "b19331bf725e7c24e81cdb595e7eec3807e808fa97e9b8f1533663c8893d841f",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Replication Lag Sentinels & Database Health Matrix",
-        "left": {
-          "label": "Baseline / Unpartitioned Pattern",
-          "content": [
-            "Single-node monolithic bottleneck",
-            "Unprotected volatile memory state",
-            "Vulnerability to split-brain states",
-            "Full historical stream replay latency"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Consensus Architecture",
-          "content": [
-            "Consistent hash ring partitioning",
-            "Cryptographic write-ahead logging",
-            "Quorum consensus replication",
-            "Materialized read model projections"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Replication",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize database architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Database Cluster"
+              },
+              "out": {
+                "text": "database engineering"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous consensus scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how database coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "defend database"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "Write-Ahead Log"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the offshore analogy to racing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "offshore racing"
+              },
+              "engine": {
+                "text": "healthyCount"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Replication"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unpartitioned Pattern",
-        "rightLabel": "Enterprise / Consensus Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Replication",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize database architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Database Cluster",
+              "out": "database engineering"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how database coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "defend database",
+              "engine": "Defense",
+              "out": "Write-Ahead Log"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the offshore analogy to racing execution invariants.",
+            "values": {
+              "input_code": "offshore racing",
+              "engine": "healthyCount",
+              "out": "Total Read Replicas Monitored: 3"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Replication",
+              "out": "Database Cluster Telemetry Sentinel "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

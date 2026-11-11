@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 33,
-  "promptSha": "988c0512e8da0efc4ba5df9caabcd38c7693fbb3781a905bd5c11326e161bdee",
-  "model": "gemini-2.5-pro",
+  "promptSha": "5b2e31847700cf9662f51cabe3af1026ef37b4e53559a0a7a83fef751fc795d2",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "perf_hooks & Node.js PerformanceObserver: High-Resolution Monotonic Timers & GC Instrumentation",
       "codeHash": "1a0080135df7a8c2751102d43d05fbeff0a40318c486389456ba22f71a7adb06",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: perf_hooks & Node.js PerformanceObserver: High-Resolution Monotonic Timers & GC Instrumentation",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "perf_hooks & Node.js PerformanceObserver",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "PerformanceObserver",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Resolution",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and monotonic boundaries.",
+            "values": {
+              "input_code": {
+                "text": "perf_hooks"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "measuring latency"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates monotonic state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Node.js provides"
+              },
+              "engine": {
+                "text": "PerformanceObserver"
+              },
+              "out": {
+                "text": "accurate to"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the monotonic analogy to instrumentation execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Formula"
+              },
+              "engine": {
+                "text": "Date.now"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting high state.",
+            "values": {
+              "input_code": {
+                "text": "perf_hooks"
+              },
+              "engine": {
+                "text": "Resolution"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "perf_hooks & Node.js PerformanceObserver",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Node",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "PerformanceObserver",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Resolution",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and monotonic boundaries.",
+            "values": {
+              "input_code": "perf_hooks",
+              "engine": "Simulation",
+              "out": "measuring latency"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates monotonic state transitions.",
+            "values": {
+              "input_code": "Node.js provides",
+              "engine": "PerformanceObserver",
+              "out": "accurate to"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the monotonic analogy to instrumentation execution invariants.",
+            "values": {
+              "input_code": "Formula",
+              "engine": "Date.now",
+              "out": "Telemetry Measures Recorded: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify node constraints and verify resulting high state.",
+            "values": {
+              "input_code": "perf_hooks",
+              "engine": "Resolution",
+              "out": "Monotonic Timer Invariant Preserved:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Event Loop Delay Monitoring with monitorEventLoopDelay: Quantile Distributions, P99 Spikes & Histogram Buckets",
       "codeHash": "21e3b8402b6ce14c048d80433580227c6f007dd267697c04ba3e6e2959199a00",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Event Loop Delay Monitoring with monitorEventLoopDelay: Quantile Distributions, P Spikes & Histogram Buckets",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Event Loop Delay Monitoring with monitorEventLoopDelay",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Loop",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Delay",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize event architecture and spikes boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Event Loop"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "traditional web"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how event coordinates spikes state transitions.",
+            "values": {
+              "input_code": {
+                "text": "pulse of"
+              },
+              "engine": {
+                "text": "Loop"
+              },
+              "out": {
+                "text": "schedule"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the delay analogy to event execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "suburban train"
+              },
+              "engine": {
+                "text": "maxMs"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify event constraints and verify resulting loop state.",
+            "values": {
+              "input_code": {
+                "text": "Event Loop"
+              },
+              "engine": {
+                "text": "Delay"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Event Loop Delay Monitoring with monitorEventLoopDelay",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Loop",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Delay",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and spikes boundaries.",
+            "values": {
+              "input_code": "Event Loop",
+              "engine": "Simulation",
+              "out": "traditional web"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates spikes state transitions.",
+            "values": {
+              "input_code": "pulse of",
+              "engine": "Loop",
+              "out": "schedule"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the delay analogy to event execution invariants.",
+            "values": {
+              "input_code": "suburban train",
+              "engine": "maxMs",
+              "out": "Event Loop P50 Latency (ms): 0.35"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify event constraints and verify resulting loop state.",
+            "values": {
+              "input_code": "Event Loop",
+              "engine": "Delay",
+              "out": "Event Loop Max Latency (ms): 45"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "AsyncResource & Async Hooks: Tracking Asynchronous Execution Hierarchies and Promise Lifecycles",
       "codeHash": "dfb977cf44d8d3265cff9269813fa75e26ecbb2e37e27ea705bed5a1db10f4b4",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: AsyncResource & Async Hooks: Tracking Asynchronous Execution Hierarchies and Promise Lifecycles",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "AsyncResource & Async Hooks",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "AsyncResource",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hooks",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Tracking",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize execution architecture and asynchronous boundaries.",
+            "values": {
+              "input_code": {
+                "text": "AsyncResource"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "traditional synchronous"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how execution coordinates asynchronous state transitions.",
+            "values": {
+              "input_code": {
+                "text": "reconstruct these"
+              },
+              "engine": {
+                "text": "Hooks"
+              },
+              "out": {
+                "text": "Timer"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the tracking analogy to international execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international parcel"
+              },
+              "engine": {
+                "text": "resourceId"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify asyncresource constraints and verify resulting hooks state.",
+            "values": {
+              "input_code": {
+                "text": "AsyncResource"
+              },
+              "engine": {
+                "text": "Tracking"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "AsyncResource & Async Hooks",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "AsyncResource",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Hooks",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Tracking",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize execution architecture and asynchronous boundaries.",
+            "values": {
+              "input_code": "AsyncResource",
+              "engine": "Simulation",
+              "out": "traditional synchronous"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how execution coordinates asynchronous state transitions.",
+            "values": {
+              "input_code": "reconstruct these",
+              "engine": "Hooks",
+              "out": "Timer"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the tracking analogy to international execution invariants.",
+            "values": {
+              "input_code": "international parcel",
+              "engine": "resourceId",
+              "out": "Child Operation Triggered Successful"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify asyncresource constraints and verify resulting hooks state.",
+            "values": {
+              "input_code": "AsyncResource",
+              "engine": "Tracking",
+              "out": "Root Ancestor Resolved: RootContext("
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Diagnosing and Mitigating Event Loop Starvation: Regex ReDoS, Synchronous JSON Serialization & Chunking",
       "codeHash": "7394bcec54a56e0d4cb398418bc697b88c3fa9f8b8eeb4a34f47123564169a63",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Diagnosing and Mitigating Event Loop Starvation: Regex ReDoS, Synchronous JSON Serialization & Chunking",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Diagnosing and Mitigating Event Loop Starvation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Diagnosing",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Mitigating",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Event",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize event architecture and loop boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Diagnosing and"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Event loop"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how event coordinates loop state transitions.",
+            "values": {
+              "input_code": {
+                "text": "common culprits"
+              },
+              "engine": {
+                "text": "Mitigating"
+              },
+              "out": {
+                "text": "Denial of"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the synchronous analogy to json execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "bank with"
+              },
+              "engine": {
+                "text": "Math.min"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify diagnosing constraints and verify resulting mitigating state.",
+            "values": {
+              "input_code": {
+                "text": "Diagnosing and"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Diagnosing and Mitigating Event Loop Starvation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Diagnosing",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Mitigating",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Event",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize event architecture and loop boundaries.",
+            "values": {
+              "input_code": "Diagnosing and",
+              "engine": "Simulation",
+              "out": "Event loop"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how event coordinates loop state transitions.",
+            "values": {
+              "input_code": "common culprits",
+              "engine": "Mitigating",
+              "out": "Denial of"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the synchronous analogy to json execution invariants.",
+            "values": {
+              "input_code": "bank with",
+              "engine": "Math.min",
+              "out": "Monolithic Execution Yield Count: 0"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify diagnosing constraints and verify resulting mitigating state.",
+            "values": {
+              "input_code": "Diagnosing and",
+              "engine": "Event",
+              "out": "Starvation Immunity Verified: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Production Watchdog Architecture: Detecting Blocked Threads, Generating Kernel Core Dumps & Automated Alerts",
       "codeHash": "40cb30dede1c6dc3b9c47dea4275d59218876d6423c8e82ff960bcbd4d141470",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Production Watchdog Architecture: Detecting Blocked Threads, Generating Kernel Core Dumps & Automated Alerts",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "Production Watchdog Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Watchdog",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Detecting",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize automated architecture and production boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Watchdog Architecture"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Even with"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how automated coordinates production state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Watchdog in"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "text": "code"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the watchdog analogy to dead execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "dead-man"
+              },
+              "engine": {
+                "text": "currentTime"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify production constraints and verify resulting watchdog state.",
+            "values": {
+              "input_code": {
+                "text": "Watchdog Architecture"
+              },
+              "engine": {
+                "text": "Detecting"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "Production Watchdog Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Watchdog",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Detecting",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize automated architecture and production boundaries.",
+            "values": {
+              "input_code": "Watchdog Architecture",
+              "engine": "Simulation",
+              "out": "Even with"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how automated coordinates production state transitions.",
+            "values": {
+              "input_code": "Watchdog in",
+              "engine": "Architecture",
+              "out": "code"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the watchdog analogy to dead execution invariants.",
+            "values": {
+              "input_code": "dead-man",
+              "engine": "currentTime",
+              "out": "Watchdog Healthy Check: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify production constraints and verify resulting watchdog state.",
+            "values": {
+              "input_code": "Watchdog Architecture",
+              "engine": "Detecting",
+              "out": "Emergency Alert Escalated: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

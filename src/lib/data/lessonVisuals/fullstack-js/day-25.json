@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 25,
-  "promptSha": "7c56af713d939f0e5d20b9144d23edafd405fe949abcb692c2ef8cc21515dd92",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "ae88b726c98c6d82ba9e936682d3ffd567b2cd58c999fbc5090352dd3911e783",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Unified Topology: Edge Streaming Ingress & gRPC Service Mesh",
-      "codeHash": "7a5664234085bb137363d4bb1f0a3be85d2c48d1701728bcae3b73de2980bc8e",
+      "codeHash": "485673950347d5af074a044871e82077c8259236f48a659097083e579bd215da",
       "spec": {
         "template": "flow",
-        "title": "Unified Topology: Edge Streaming In... — Execution Pipeline",
+        "title": "Unified Topology: Edge Streaming Ingress & gRPC Service Mesh",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Unified",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Unified Topology: Edge Streaming In...",
+            "id": "engine",
+            "label": "Topology",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Edge",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Unified Topology: Edge Streaming.",
+            "caption": "Initialize edge architecture and streaming boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Unified Topology"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "cloud platforms"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Unified Topology.",
+            "caption": "Trace how edge coordinates streaming state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "ingress perimeter"
+              },
+              "engine": {
+                "text": "Topology"
+              },
+              "out": {
+                "text": "client TLS"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Unified Topology.",
+            "caption": "Connect the edge analogy to grpc execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "global fintech"
+              },
+              "engine": {
+                "text": "JSON.stringify"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Unified.",
+            "caption": "Modify edge constraints and verify resulting grpc state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "edge requests"
+              },
+              "engine": {
+                "text": "Edge"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Unified Topology: Edge Streaming Ingress & gRPC Service Mesh",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Unified",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Topology",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Edge",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize edge architecture and streaming boundaries.",
+            "values": {
+              "input_code": "Unified Topology",
+              "engine": "Simulation",
+              "out": "cloud platforms"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how edge coordinates streaming state transitions.",
+            "values": {
+              "input_code": "ingress perimeter",
+              "engine": "Topology",
+              "out": "client TLS"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the edge analogy to grpc execution invariants.",
+            "values": {
+              "input_code": "global fintech",
+              "engine": "JSON.stringify",
+              "out": "Edge-to-gRPC Gateway Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting grpc state.",
+            "values": {
+              "input_code": "edge requests",
+              "engine": "Edge",
+              "out": "Edge Ingress & gRPC Mesh Invariant: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -117,101 +260,244 @@
       "codeHash": "0495498bc18687f758ba448ba96968f86385f5440fb841eb32478a82ec36e5e3",
       "spec": {
         "template": "flow",
-        "title": "gRPC Inter-Service Communication & ... — Execution Pipeline",
+        "title": "gRPC Inter-Service Communication & Binary Contract Enforcers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "gRPC",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. gRPC Inter-Service Communication & ...",
+            "id": "engine",
+            "label": "Inter",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Service",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize gRPC Inter-Service Communication &.",
+            "caption": "Initialize service architecture and internal boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "gRPC Inter-Service"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "internal microservice"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in gRPC Inter-Service.",
+            "caption": "Trace how service coordinates internal state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Deadline budget"
+              },
+              "engine": {
+                "text": "Inter"
+              },
+              "out": {
+                "text": "headers"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in gRPC Inter-Service.",
+            "caption": "Connect the paymentservice analogy to invokes execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "PaymentService invokes"
+              },
+              "engine": {
+                "text": "Execution"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in gRPC.",
+            "caption": "Modify binary constraints and verify resulting invalid state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "invalid field"
+              },
+              "engine": {
+                "text": "Service"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "gRPC Inter-Service Communication & Binary Contract Enforcers",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "gRPC",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Inter",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Service",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize service architecture and internal boundaries.",
+            "values": {
+              "input_code": "gRPC Inter-Service",
+              "engine": "Simulation",
+              "out": "internal microservice"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how service coordinates internal state transitions.",
+            "values": {
+              "input_code": "Deadline budget",
+              "engine": "Inter",
+              "out": "headers"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the paymentservice analogy to invokes execution invariants.",
+            "values": {
+              "input_code": "PaymentService invokes",
+              "engine": "Execution",
+              "out": "gRPC Contract Enforcer Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify binary constraints and verify resulting invalid state.",
+            "values": {
+              "input_code": "invalid field",
+              "engine": "Service",
+              "out": "gRPC Binary Contract Invariant: VERI"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -224,101 +510,244 @@
       "codeHash": "ae54914f4b20fe8023c0506df30835a3ff464d1659e4421988a021917788e620",
       "spec": {
         "template": "flow",
-        "title": "Apache Kafka Event Streaming Fabric... — Execution Pipeline",
+        "title": "Apache Kafka Event Streaming Fabric & Partition Routing",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Apache",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Apache Kafka Event Streaming Fabric...",
+            "id": "engine",
+            "label": "Kafka",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Event",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Apache Kafka Event Streaming.",
+            "caption": "Initialize apache architecture and kafka boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Apache Kafka"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "gRPC handles"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Apache Kafka Event.",
+            "caption": "Trace how apache coordinates kafka state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Partitioning strategy"
+              },
+              "engine": {
+                "text": "Kafka"
+              },
+              "out": {
+                "text": "partitioner hashes"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Apache Kafka Event.",
+            "caption": "Connect the kafka analogy to order execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "order processing"
+              },
+              "engine": {
+                "text": "Partition"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Apache.",
+            "caption": "Modify partition constraints and verify resulting event state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "identical keys"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Apache Kafka Event Streaming Fabric & Partition Routing",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Apache",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Kafka",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Event",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize apache architecture and kafka boundaries.",
+            "values": {
+              "input_code": "Apache Kafka",
+              "engine": "Simulation",
+              "out": "gRPC handles"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how apache coordinates kafka state transitions.",
+            "values": {
+              "input_code": "Partitioning strategy",
+              "engine": "Kafka",
+              "out": "partitioner hashes"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the kafka analogy to order execution invariants.",
+            "values": {
+              "input_code": "order processing",
+              "engine": "Partition",
+              "out": "Kafka Event Mesh Initialized: Topics"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify partition constraints and verify resulting event state.",
+            "values": {
+              "input_code": "identical keys",
+              "engine": "Event",
+              "out": "Kafka Event Fabric Invariant: VERIFI"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -331,101 +760,244 @@
       "codeHash": "9a717e46e3bcbcad0d49778250bd9825dd64efaa12835a5ae4a85f2c9da998b3",
       "spec": {
         "template": "flow",
-        "title": "Containerized Worker Supervisor & M... — Execution Pipeline",
+        "title": "Containerized Worker Supervisor & Multi-Stage Deployment",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Containerized",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Containerized Worker Supervisor & M...",
+            "id": "engine",
+            "label": "Worker",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Supervisor",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Containerized Worker Supervisor &.",
+            "caption": "Initialize multi architecture and stage boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Containerized Worker"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Deploying the"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Containerized Worker.",
+            "caption": "Trace how multi coordinates stage state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Process isolation"
+              },
+              "engine": {
+                "text": "Worker"
+              },
+              "out": {
+                "text": "background worker"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Containerized Worker.",
+            "caption": "Connect the worker analogy to deployment execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "background worker"
+              },
+              "engine": {
+                "text": "success"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify worker constraints and verify resulting processes state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "worker processes"
+              },
+              "engine": {
+                "text": "Supervisor"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Containerized Worker Supervisor & Multi-Stage Deployment",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Containerized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Worker",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Supervisor",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize multi architecture and stage boundaries.",
+            "values": {
+              "input_code": "Containerized Worker",
+              "engine": "Simulation",
+              "out": "Deploying the"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how multi coordinates stage state transitions.",
+            "values": {
+              "input_code": "Process isolation",
+              "engine": "Worker",
+              "out": "background worker"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the worker analogy to deployment execution invariants.",
+            "values": {
+              "input_code": "background worker",
+              "engine": "success",
+              "out": "Worker Supervisor Initialized: Memor"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify worker constraints and verify resulting processes state.",
+            "values": {
+              "input_code": "worker processes",
+              "engine": "Supervisor",
+              "out": "Container Worker Supervisor Invarian"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -438,101 +1010,244 @@
       "codeHash": "95d1cf8c63b7f3d8a8165285cda66d1e5de9f7ae4f0259a2fe31ec144ba93b96",
       "spec": {
         "template": "flow",
-        "title": "Milestone 5 Capstone Verification: ... — Execution Pipeline",
+        "title": "Milestone 5 Capstone Verification",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Milestone",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Milestone 5 Capstone Verification: ...",
+            "id": "engine",
+            "label": "Verification",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Distributed",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Milestone five Capstone.",
+            "caption": "Initialize milestone architecture and capstone boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Milestone"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "final phase"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Milestone five.",
+            "caption": "Trace how milestone coordinates capstone state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Verification follows"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "mitigation"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Milestone five.",
+            "caption": "Connect the distributed analogy to full execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "distributed platform"
+              },
+              "engine": {
+                "text": "tier"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Milestone.",
+            "caption": "Modify certification constraints and verify resulting milestone state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "four architectural"
+              },
+              "engine": {
+                "text": "Distributed"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Milestone 5 Capstone Verification",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Milestone",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Verification",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Distributed",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize milestone architecture and capstone boundaries.",
+            "values": {
+              "input_code": "Milestone",
+              "engine": "Simulation",
+              "out": "final phase"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how milestone coordinates capstone state transitions.",
+            "values": {
+              "input_code": "Verification follows",
+              "engine": "Verification",
+              "out": "mitigation"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the distributed analogy to full execution invariants.",
+            "values": {
+              "input_code": "distributed platform",
+              "engine": "tier",
+              "out": "Milestone 5 Capstone Certification M"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify certification constraints and verify resulting milestone state.",
+            "values": {
+              "input_code": "four architectural",
+              "engine": "Distributed",
+              "out": "Milestone 5 Capstone Distributed Clo"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 10,
-  "promptSha": "3ad83499154b63c0dfe576c94cccd03dcee47d231dda3426abd166c49e194303",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "251fd5c8854442b560705e30ec27be6357f6c4b2f6e504038ca7babec5cbf494",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Pillar 1: Edge-Terminated Request Gateway with Multi-Tenant Routing & JWT Verification",
-      "codeHash": "d6b3c02bb2e0be864fea27b6596546d59e29c1e6738fb4c7866d04b0fde0d234",
+      "partTitle": "The Storage Dilemma: LocalStorage vs In-Memory vs HttpOnly Cookies",
+      "codeHash": "620a175c527d253511dd47d72832a93cb6420c13bbe348f228a3bcbba8070702",
       "spec": {
         "template": "flow",
-        "title": "Pillar 1: Edge-Terminated Request Gat... — Execution Pipeline",
+        "title": "The Storage Dilemma",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Storage",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 1: Edge-Terminated Request Gat...",
+            "id": "engine",
+            "label": "Dilemma",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "LocalStorage",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress request through edge gateway and parallel layout for Pillar one.",
+            "caption": "Initialize storage architecture and localstorage boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Storage Dilemma"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Once an"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server component rendering and data caching in Pillar one.",
+            "caption": "Trace how storage coordinates localstorage state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "security model"
+              },
+              "engine": {
+                "text": "Dilemma"
+              },
+              "out": {
+                "text": "JavaScript within"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the localstorage analogy to memory execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "storing your"
+              },
+              "engine": {
+                "text": "expiration timestamp"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Pillar one: Edge-Terminated Request.",
+            "caption": "Modify memory constraints and verify resulting manages state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "SecureSessionBridge"
+              },
+              "engine": {
+                "text": "LocalStorage"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 1: Edge-Terminated Request Gat... — Execution Pipeline",
+        "title": "The Storage Dilemma",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Storage",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 1: Edge-Terminated Request Gat...",
+            "id": "engine",
+            "label": "Dilemma",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "LocalStorage",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 1: Edge-Terminated Request Gat....",
+            "caption": "Initialize storage architecture and localstorage boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Storage Dilemma",
+              "engine": "Example",
+              "out": "Once an"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 1: Edge-Terminated Request Gat....",
+            "caption": "Trace how storage coordinates localstorage state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "security model",
+              "engine": "Dilemma",
+              "out": "JavaScript within"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the localstorage analogy to memory execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "storing your",
+              "engine": "expiration timestamp",
+              "out": "Active In-Memory Token Available: tr"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 1: Edge-Terminated Request Gat....",
+            "caption": "Modify memory constraints and verify resulting manages state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "SecureSessionBridge",
+              "engine": "LocalStorage",
+              "out": "Cleared In-Memory Token: null"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Pillar 2: Hierarchical RSC Layout Tree with Parallel Cart & Activity Slots",
-      "codeHash": "052023c8f4a7d83a12fae4fe57afa93298e0f6bce2393429f443cc4933bb95d5",
+      "partTitle": "RFC 6265 Cookie Directives: HttpOnly, Secure, Max-Age vs Expires, and Path Scoping",
+      "codeHash": "7faef49248db60b7a7dbb4ef3a14ce4c5d65d6a0fc32ba765f74a6b05656b97c",
       "spec": {
         "template": "flow",
-        "title": "Pillar 2: Hierarchical RSC Layout Tre... — Execution Pipeline",
+        "title": "RFC 6265 Cookie Directives",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Cookie",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 2: Hierarchical RSC Layout Tre...",
+            "id": "engine",
+            "label": "Directives",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "HttpOnly",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress request through edge gateway and parallel layout for Pillar two.",
+            "caption": "Initialize cookie architecture and transporting boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "6265 Cookie"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Transporting security"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server component rendering and data caching in Pillar two.",
+            "caption": "Trace how cookie coordinates transporting state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "essential directive"
+              },
+              "engine": {
+                "text": "Directives"
+              },
+              "out": {
+                "text": "network sniffers"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the httponly analogy to secure execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "registered courier"
+              },
+              "engine": {
+                "text": "Path scoping"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Pillar two: Hierarchical RSC Layout.",
+            "caption": "Modify path constraints and verify resulting cookie state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "buildClearCookieHeader"
+              },
+              "engine": {
+                "text": "HttpOnly"
+              },
+              "out": {
+                "out": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 2: Hierarchical RSC Layout Tre... — Execution Pipeline",
+        "title": "RFC 6265 Cookie Directives",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Cookie",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 2: Hierarchical RSC Layout Tre...",
+            "id": "engine",
+            "label": "Directives",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "HttpOnly",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 2: Hierarchical RSC Layout Tre....",
+            "caption": "Initialize cookie architecture and transporting boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "6265 Cookie",
+              "engine": "Example",
+              "out": "Transporting security"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 2: Hierarchical RSC Layout Tre....",
+            "caption": "Trace how cookie coordinates transporting state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "essential directive",
+              "engine": "Directives",
+              "out": "network sniffers"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the httponly analogy to secure execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "registered courier",
+              "engine": "Path scoping",
+              "out": "Engineered Set-Cookie Header:"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 2: Hierarchical RSC Layout Tre....",
+            "caption": "Modify path constraints and verify resulting cookie state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "buildClearCookieHeader",
+              "engine": "HttpOnly",
+              "out": "refreshToken=sec_tok_849201; Max-Age"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Pillar 3: Multi-Tier Data Fetching with Stale-While-Revalidate & Granular Cache Tags",
-      "codeHash": "b84668b82c01722fbb7f3591276e920c26d5ab6603820ac4de1c05db7040396d",
+      "partTitle": "Cross-Site Request Forgery (CSRF) & SameSite Cookie Policies",
+      "codeHash": "d3477cab05df72c55577c8eaee9ba303ec75c55d35a82cc8cd7031b803dfeb29",
       "spec": {
         "template": "flow",
-        "title": "Pillar 3: Multi-Tier Data Fetching wi... — Execution Pipeline",
+        "title": "Cross-Site Request Forgery (CSRF) & SameSite Cookie Policies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Cross",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 3: Multi-Tier Data Fetching wi...",
+            "id": "engine",
+            "label": "Site",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "Request",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress request through edge gateway and parallel layout for Pillar.",
+            "caption": "Initialize cross architecture and site boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cross-Site Request"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "HttpOnly"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server component rendering and data caching in Pillar three.",
+            "caption": "Trace how cross coordinates site state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "authenticated user"
+              },
+              "engine": {
+                "text": "Site"
+              },
+              "out": {
+                "text": "name"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the cross analogy to site execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "malicious imposter"
+              },
+              "engine": {
+                "text": "shouldAttach"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Pillar three: Multi-Tier Data Fetching.",
+            "caption": "Modify cookie constraints and verify resulting csrf state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Write"
+              },
+              "engine": {
+                "text": "Request"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 3: Multi-Tier Data Fetching wi... — Execution Pipeline",
+        "title": "Cross-Site Request Forgery (CSRF) & SameSite Cookie Policies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Cross",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 3: Multi-Tier Data Fetching wi...",
+            "id": "engine",
+            "label": "Site",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "Request",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 3: Multi-Tier Data Fetching wi....",
+            "caption": "Initialize cross architecture and site boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Cross-Site Request",
+              "engine": "Example",
+              "out": "HttpOnly"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 3: Multi-Tier Data Fetching wi....",
+            "caption": "Trace how cross coordinates site state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "authenticated user",
+              "engine": "Site",
+              "out": "name"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the cross analogy to site execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "malicious imposter",
+              "engine": "shouldAttach",
+              "out": "CSRF Attack Result (Strict): { shoul"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 3: Multi-Tier Data Fetching wi....",
+            "caption": "Modify cookie constraints and verify resulting csrf state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Write",
+              "engine": "Request",
+              "out": "External Link Result (Lax): { should"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Pillar 4: Optimistic Server Action Mutations with Zero-Latency Cart Updates & Rollbacks",
-      "codeHash": "50604ef22daa7bb1b5eefad6ef1969ba901a97bb33ae8376b4dbc0e5b002446e",
+      "partTitle": "Refresh Token Rotation (RTR) & Cryptographic Reuse Detection",
+      "codeHash": "97ba8fd45aa67c13b24b1e9043cb981a700e2d407ef09c85ff82506ae1a055b5",
       "spec": {
         "template": "flow",
-        "title": "Pillar 4: Optimistic Server Action Mu... — Execution Pipeline",
+        "title": "Refresh Token Rotation (RTR) & Cryptographic Reuse Detection",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Refresh",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 4: Optimistic Server Action Mu...",
+            "id": "engine",
+            "label": "Token",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "Rotation",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress request through edge gateway and parallel layout for Pillar four.",
+            "caption": "Initialize refresh architecture and token boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Refresh Token"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "Even when"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server component rendering and data caching in Pillar four.",
+            "caption": "Trace how refresh coordinates token state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "cryptographic industry"
+              },
+              "engine": {
+                "text": "Token"
+              },
+              "out": {
+                "text": "server immediately"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the high analogy to security execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "high-security vault"
+              },
+              "engine": {
+                "text": "family"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Pillar four: Optimistic Server Action.",
+            "caption": "Modify extend constraints and verify resulting include state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Extend"
+              },
+              "engine": {
+                "text": "Rotation"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 4: Optimistic Server Action Mu... — Execution Pipeline",
+        "title": "Refresh Token Rotation (RTR) & Cryptographic Reuse Detection",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Refresh",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 4: Optimistic Server Action Mu...",
+            "id": "engine",
+            "label": "Token",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "Rotation",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 4: Optimistic Server Action Mu....",
+            "caption": "Initialize refresh architecture and token boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Refresh Token",
+              "engine": "Example",
+              "out": "Even when"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 4: Optimistic Server Action Mu....",
+            "caption": "Trace how refresh coordinates token state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "cryptographic industry",
+              "engine": "Token",
+              "out": "server immediately"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the high analogy to security execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "high-security vault",
+              "engine": "family",
+              "out": "First rotation successful. New Token"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 4: Optimistic Server Action Mu....",
+            "caption": "Modify extend constraints and verify resulting include state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Extend",
+              "engine": "Rotation",
+              "out": "Subsequent Session Blocked: Security"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Pillar 5: Grand Milestone Synthesis: Enterprise SaaS Platform Integration & Verification",
-      "codeHash": "61e0c68c37b2373c910918e19f18e286fedd3b535023232a092a14367ab3f968",
+      "partTitle": "Production Session Pipeline: Cookie Parsers, Middleware & Clean Revocation",
+      "codeHash": "1063d0c46e9344959ebeed1cb5da7a66a072afd8997a500d8fd51e959e8bf240",
       "spec": {
         "template": "flow",
-        "title": "Pillar 5: Grand Milestone Synthesis: ... — Execution Pipeline",
+        "title": "Production Session Pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Session",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 5: Grand Milestone Synthesis: ...",
+            "id": "engine",
+            "label": "Pipeline",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "Cookie",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress request through edge gateway and parallel layout for Pillar five.",
+            "caption": "Initialize cookie architecture and session boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Session Pipeline"
+              },
+              "engine": {
+                "text": "Example"
+              },
+              "out": {
+                "text": "architectural patterns"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute server component rendering and data caching in Pillar five: Grand.",
+            "caption": "Trace how cookie coordinates session state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "cookie parser"
+              },
+              "engine": {
+                "text": "Pipeline"
+              },
+              "out": {
+                "text": "equals sign"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the production analogy to cookie execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "automated sorting"
+              },
+              "engine": {
+                "text": "cookies"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Pillar five: Grand Milestone Synthesis.",
+            "caption": "Modify middleware constraints and verify resulting cookie state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Express middleware"
+              },
+              "engine": {
+                "text": "Cookie"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Pillar 5: Grand Milestone Synthesis: ... — Execution Pipeline",
+        "title": "Production Session Pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Multi-Tenant Edge Ingress",
+            "id": "input_code",
+            "label": "Session",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Pillar 5: Grand Milestone Synthesis: ...",
+            "id": "engine",
+            "label": "Pipeline",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Platform State",
+            "label": "Cookie",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 5: Grand Milestone Synthesis: ....",
+            "caption": "Initialize cookie architecture and session boundaries.",
             "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Session Pipeline",
+              "engine": "Example",
+              "out": "architectural patterns"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 5: Grand Milestone Synthesis: ....",
+            "caption": "Trace how cookie coordinates session state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "cookie parser",
+              "engine": "Pipeline",
+              "out": "equals sign"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Connect the production analogy to cookie execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "automated sorting",
+              "engine": "cookies",
+              "out": "Parsed Cookies: { user: 'Alex', sess"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 5: Grand Milestone Synthesis: ....",
+            "caption": "Modify middleware constraints and verify resulting cookie state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Express middleware",
+              "engine": "Cookie",
+              "out": "Parsed Cookies: { user: 'Alex', sess"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

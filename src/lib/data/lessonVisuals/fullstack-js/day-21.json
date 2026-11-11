@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 21,
-  "promptSha": "2a655470e326c13cad183a343355f994b6101a826beff56e99a246b38f8e7c87",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "71a2ca4cd2d2e1c5bc6bd4762697a7660052892efbb6f5f53532855c0cafd7c1",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Next.js Route Handlers & W3C Web Streams Architecture",
-      "codeHash": "e5c181baf5b88f935b810094343f3c30d88beef016e5172c4197ef41d440f7ab",
+      "partTitle": "Next.js Route Handlers & W3C Web Streams Architecture: Node Streams vs Fetch Standard Streams",
+      "codeHash": "33439cbf8fc3b231324d517c19fffff4a955a6906fbd9d54adfc84fa9c14ca06",
       "spec": {
         "template": "flow",
-        "title": "Next.js Route Handlers & W3C Web St... — Execution Pipeline",
+        "title": "Next.js Route Handlers & W3C Web Streams Architecture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Next",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Next.js Route Handlers & W3C Web St...",
+            "id": "engine",
+            "label": "Route",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Handlers",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Next.js Route Handlers & WthreeC.",
+            "caption": "Initialize next architecture and route boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Next.js Route"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "evolution of"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Next.js Route.",
+            "caption": "Trace how next coordinates route state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Next.js App"
+              },
+              "engine": {
+                "text": "Route"
+              },
+              "out": {
+                "text": "standard Web"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Next.js Route.",
+            "caption": "Connect the standard analogy to streams execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "watching"
+              },
+              "engine": {
+                "text": "cancel"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Next.js.",
+            "caption": "Modify standard constraints and verify resulting instantiate state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Instantiate"
+              },
+              "engine": {
+                "text": "Handlers"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Next.js Route Handlers & W3C Web Streams Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Next",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Route",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Handlers",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize next architecture and route boundaries.",
+            "values": {
+              "input_code": "Next.js Route",
+              "engine": "Architectural Implementation",
+              "out": "evolution of"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how next coordinates route state transitions.",
+            "values": {
+              "input_code": "Next.js App",
+              "engine": "Route",
+              "out": "standard Web"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the standard analogy to streams execution invariants.",
+            "values": {
+              "input_code": "watching",
+              "engine": "cancel",
+              "out": "W3C ReadableStream started; enqueuin"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify standard constraints and verify resulting instantiate state.",
+            "values": {
+              "input_code": "Instantiate",
+              "engine": "Handlers",
+              "out": "Stream Consumption Complete. Total C"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -113,105 +256,248 @@
       }
     },
     {
-      "partTitle": "NDJSON (Newline Delimited JSON) Streaming Protocols",
-      "codeHash": "07b2da18cb172994fbfcb7bfc2422929deca31c1103a1cc00078e239f2b1dae4",
+      "partTitle": "Streaming Wire Protocols: Server-Sent Events (SSE) vs Newline Delimited JSON (NDJSON)",
+      "codeHash": "641ab15efaa0dff7a36394251b739981e794447257d74a1a2f046dc8bd1f2349",
       "spec": {
         "template": "flow",
-        "title": "NDJSON (Newline Delimited JSON) Str... — Execution Pipeline",
+        "title": "Streaming Wire Protocols",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Streaming",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. NDJSON (Newline Delimited JSON) Str...",
+            "id": "engine",
+            "label": "Wire",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Protocols",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize NDJSON (Newline Delimited JSON).",
+            "caption": "Initialize streaming architecture and json boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Streaming Wire"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "transmitting streaming"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in NDJSON (Newline.",
+            "caption": "Trace how streaming coordinates json state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "dominant protocols"
+              },
+              "engine": {
+                "text": "Wire"
+              },
+              "out": {
+                "text": "consuming an"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in NDJSON (Newline.",
+            "caption": "Connect the newline analogy to wire execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "live sports"
+              },
+              "engine": {
+                "text": "JSON.stringify"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in NDJSON.",
+            "caption": "Modify json constraints and verify resulting newline state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "SseWireFormatter.formatChunk"
+              },
+              "engine": {
+                "text": "Protocols"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Streaming Wire Protocols",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Streaming",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Wire",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Protocols",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize streaming architecture and json boundaries.",
+            "values": {
+              "input_code": "Streaming Wire",
+              "engine": "Architectural Implementation",
+              "out": "transmitting streaming"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how streaming coordinates json state transitions.",
+            "values": {
+              "input_code": "dominant protocols",
+              "engine": "Wire",
+              "out": "consuming an"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the newline analogy to wire execution invariants.",
+            "values": {
+              "input_code": "live sports",
+              "engine": "JSON.stringify",
+              "out": "Formatted SSE Token Chunk:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify json constraints and verify resulting newline state.",
+            "values": {
+              "input_code": "SseWireFormatter.formatChunk",
+              "engine": "Protocols",
+              "out": "Wire Formatters Verification: ALL PA"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -220,105 +506,248 @@
       }
     },
     {
-      "partTitle": "Backpressure Flow Control & High-Watermark Stream Buffers",
-      "codeHash": "a792a3f84c69a48f1f02561414e50d9000d54cc36d67db29cfc81d8c771cb51b",
+      "partTitle": "Web Stream Backpressure Physics: Queuing Strategies, High-Watermarks & Flow Control",
+      "codeHash": "b133bc77a852f46aa54260fc879245308c054c4c7783edcbbaa90dcb8212d43b",
       "spec": {
         "template": "flow",
-        "title": "Backpressure Flow Control & High-Wa... — Execution Pipeline",
+        "title": "Web Stream Backpressure Physics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Stream",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Backpressure Flow Control & High-Wa...",
+            "id": "engine",
+            "label": "Backpressure",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Physics",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Backpressure Flow Control &.",
+            "caption": "Initialize stream architecture and high boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Stream Backpressure"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "asynchronous stream"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Backpressure Flow.",
+            "caption": "Trace how stream coordinates high state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "prevent buffer"
+              },
+              "engine": {
+                "text": "Backpressure"
+              },
+              "out": {
+                "text": "producer"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Backpressure Flow.",
+            "caption": "Connect the flow analogy to water execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "water fountain"
+              },
+              "engine": {
+                "text": "resolve"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify configure constraints and verify resulting readablestream state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Configure"
+              },
+              "engine": {
+                "text": "Physics"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Web Stream Backpressure Physics",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Stream",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Backpressure",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Physics",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize stream architecture and high boundaries.",
+            "values": {
+              "input_code": "Stream Backpressure",
+              "engine": "Architectural Implementation",
+              "out": "asynchronous stream"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how stream coordinates high state transitions.",
+            "values": {
+              "input_code": "prevent buffer",
+              "engine": "Backpressure",
+              "out": "producer"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the flow analogy to water execution invariants.",
+            "values": {
+              "input_code": "water fountain",
+              "engine": "resolve",
+              "out": "Consumer starting slow read cycle (3"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify configure constraints and verify resulting readablestream state.",
+            "values": {
+              "input_code": "Configure",
+              "engine": "Physics",
+              "out": "Backpressure Flow Control: VERIFIED"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -327,105 +756,248 @@
       }
     },
     {
-      "partTitle": "Server-Sent Events (SSE) Protocol Engineering in Route Handlers",
-      "codeHash": "b77db8fbfaf07e16eebf09736fc0108079a2a0f52f39d9ed501499301d10401d",
+      "partTitle": "Client Lifecycle Safety: AbortSignal Plumbing, Resource Reclamation & Zombie Prevention",
+      "codeHash": "23a954725ffa7a572d898e133eff542f4f67c57d44779cb202fd6a9ab15d7a01",
       "spec": {
         "template": "flow",
-        "title": "Server-Sent Events (SSE) Protocol E... — Execution Pipeline",
+        "title": "Client Lifecycle Safety",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Client",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Server-Sent Events (SSE) Protocol E...",
+            "id": "engine",
+            "label": "Lifecycle",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Safety",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Server-Sent Events (SSE) Protocol.",
+            "caption": "Initialize client architecture and real boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Client Lifecycle"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "real-world web"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Server-Sent Events.",
+            "caption": "Trace how client coordinates real state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "streaming route"
+              },
+              "engine": {
+                "text": "Lifecycle"
+              },
+              "out": {
+                "text": "providers"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Server-Sent Events.",
+            "caption": "Connect the high analogy to speed execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "high-speed express"
+              },
+              "engine": {
+                "text": "controller.close"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in.",
+            "caption": "Modify mockrequest constraints and verify resulting abortcontroller state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "MockRequest with"
+              },
+              "engine": {
+                "text": "Safety"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Client Lifecycle Safety",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Client",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Lifecycle",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Safety",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize client architecture and real boundaries.",
+            "values": {
+              "input_code": "Client Lifecycle",
+              "engine": "Architectural Implementation",
+              "out": "real-world web"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how client coordinates real state transitions.",
+            "values": {
+              "input_code": "streaming route",
+              "engine": "Lifecycle",
+              "out": "providers"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the high analogy to speed execution invariants.",
+            "values": {
+              "input_code": "high-speed express",
+              "engine": "controller.close",
+              "out": "Simulating client disconnect (aborti"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify mockrequest constraints and verify resulting abortcontroller state.",
+            "values": {
+              "input_code": "MockRequest with",
+              "engine": "Safety",
+              "out": "AbortSignal Resource Reclamation: VE"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -434,105 +1006,248 @@
       }
     },
     {
-      "partTitle": "Enterprise Streaming Gateway: Abort Signals & Pipeline Composition",
-      "codeHash": "97ccd21e9f464fa3c1b504513defd0cd2f99e452b68905ed26b1e7b70733f2b8",
+      "partTitle": "Edge Runtime Constraints: V8 Isolates vs Node.js Core, Memory Ceilings & Cold Starts",
+      "codeHash": "65e66ac9128cd59c23cbb825b1ecb236d4e3baa2c7edbd5a79e40129a682527b",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Streaming Gateway: Abort... — Execution Pipeline",
+        "title": "Edge Runtime Constraints",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Edge",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Streaming Gateway: Abort...",
+            "id": "engine",
+            "label": "Runtime",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Constraints",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Enterprise Streaming Gateway.",
+            "caption": "Initialize node architecture and runtime boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Edge Runtime"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "Next.js App"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Enterprise Streaming.",
+            "caption": "Trace how node coordinates runtime state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Node.js Runtime"
+              },
+              "engine": {
+                "text": "Runtime"
+              },
+              "out": {
+                "text": "Cold Start"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Enterprise Streaming.",
+            "caption": "Connect the memory analogy to factory execution invariants.",
             "values": {
-              "in": "Active Flow",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "factory conveyor"
+              },
+              "engine": {
+                "text": "headers"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify backpressure, container bounds, and telemetry health in Enterprise.",
+            "caption": "Modify call constraints and verify resulting assert state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Call"
+              },
+              "engine": {
+                "text": "Constraints"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Edge Runtime Constraints",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Runtime",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Constraints",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize node architecture and runtime boundaries.",
+            "values": {
+              "input_code": "Edge Runtime",
+              "engine": "Architectural Implementation",
+              "out": "Next.js App"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how node coordinates runtime state transitions.",
+            "values": {
+              "input_code": "Node.js Runtime",
+              "engine": "Runtime",
+              "out": "Cold Start"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the memory analogy to factory execution invariants.",
+            "values": {
+              "input_code": "factory conveyor",
+              "engine": "headers",
+              "out": "Validating Edge Streaming Headers:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify call constraints and verify resulting assert state.",
+            "values": {
+              "input_code": "Call",
+              "engine": "Constraints",
+              "out": "Edge Streaming Gateway Invariants: A"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

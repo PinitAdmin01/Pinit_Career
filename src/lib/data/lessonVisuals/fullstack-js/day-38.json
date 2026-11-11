@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 38,
-  "promptSha": "f473d24794a4d573df9765f82e3b73f3ea479265c22dce7315638b29268e2790",
-  "model": "gemini-2.5-pro",
+  "promptSha": "487da21d3a740525e401a05deebdd8b4b18b16b9149334c9ffe22902b5119baa",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "HTTP/2 Protocol Architecture: Binary Framing, Streams, Multiplexing & HPACK Header Compression",
       "codeHash": "5bcce2b02a3f7df39f139c9a56d2045ad6e28ad95387351bc83a938fc44fa097",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: HTTP/ Protocol Architecture: Binary Framing, Streams, Multiplexing & HPACK Header Compression",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "HTTP/2 Protocol Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "HTTP",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Protocol",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize http architecture and decades boundaries.",
+            "values": {
+              "input_code": {
+                "text": "HTTP"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "decades"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how http coordinates decades state transitions.",
+            "values": {
+              "input_code": {
+                "text": "HTTP"
+              },
+              "engine": {
+                "text": "Protocol"
+              },
+              "out": {
+                "text": "HEADERS"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the http analogy to highway execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "highway connecting"
+              },
+              "engine": {
+                "text": "Http2MultiplexerSimulator"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify http constraints and verify resulting protocol state.",
+            "values": {
+              "input_code": {
+                "text": "HTTP"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "HTTP/2 Protocol Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "HTTP",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Protocol",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architecture",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize http architecture and decades boundaries.",
+            "values": {
+              "input_code": "HTTP",
+              "engine": "Simulation",
+              "out": "decades"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how http coordinates decades state transitions.",
+            "values": {
+              "input_code": "HTTP",
+              "engine": "Protocol",
+              "out": "HEADERS"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the http analogy to highway execution invariants.",
+            "values": {
+              "input_code": "highway connecting",
+              "engine": "Http2MultiplexerSimulator",
+              "out": "Stream 1 Multiplexed CSS Result: bod"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify http constraints and verify resulting protocol state.",
+            "values": {
+              "input_code": "HTTP",
+              "engine": "Architecture",
+              "out": "Head-of-Line Blocking Eliminated: Tr"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "HPACK Static & Dynamic Tables: Differential Contextual Header Compression",
       "codeHash": "5e17dbd16e1507ab8221713ae1059a86e5a07249256a128a0de7b02b6eeee46c",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: HPACK Static & Dynamic Tables: Differential Contextual Header Compression",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "HPACK Static & Dynamic Tables",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "HPACK",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Tables",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize header architecture and traditional boundaries.",
+            "values": {
+              "input_code": {
+                "text": "HPACK Static"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "traditional HTTP"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how header coordinates traditional state transitions.",
+            "values": {
+              "input_code": {
+                "text": "couldn"
+              },
+              "engine": {
+                "text": "Dynamic"
+              },
+              "out": {
+                "text": "attacker who"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the hpack analogy to dynamic execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "emergency room"
+              },
+              "engine": {
+                "text": "dynIdx"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify hpack constraints and verify resulting dynamic state.",
+            "values": {
+              "input_code": {
+                "text": "HPACK Static"
+              },
+              "engine": {
+                "text": "Tables"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "HPACK Static & Dynamic Tables",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "HPACK",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Dynamic",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Tables",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize header architecture and traditional boundaries.",
+            "values": {
+              "input_code": "HPACK Static",
+              "engine": "Simulation",
+              "out": "traditional HTTP"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how header coordinates traditional state transitions.",
+            "values": {
+              "input_code": "couldn",
+              "engine": "Dynamic",
+              "out": "attacker who"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the hpack analogy to dynamic execution invariants.",
+            "values": {
+              "input_code": "emergency room",
+              "engine": "dynIdx",
+              "out": "Method GET Wire Bytes (1 byte indexe"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify hpack constraints and verify resulting dynamic state.",
+            "values": {
+              "input_code": "HPACK Static",
+              "engine": "Tables",
+              "out": "Bandwidth Reduction Factor on Repeat"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "gRPC & Protocol Buffers (Protobuf) Streaming: Unary, Client-Streaming, Server-Streaming & Bidirectional RPCs",
       "codeHash": "241db8c25d68f753be3033f651835eddb47ae7b6097791c71f97fe649d4fab36",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: gRPC & Protocol Buffers (Protobuf) Streaming: Unary, Client-Streaming, Server-Streaming & Bidirectional RPCs",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "gRPC & Protocol Buffers (Protobuf) Streaming",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "gRPC",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Protocol",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Buffers",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and scale boundaries.",
+            "values": {
+              "input_code": {
+                "text": "gRPC Protocol"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "high-scale enterprise"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates scale state transitions.",
+            "values": {
+              "input_code": {
+                "text": "ultra-fast"
+              },
+              "engine": {
+                "text": "Protocol"
+              },
+              "out": {
+                "text": "relies on"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the grpc analogy to protobuf execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "traffic control"
+              },
+              "engine": {
+                "text": "handler"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify grpc constraints and verify resulting protocol state.",
+            "values": {
+              "input_code": {
+                "text": "gRPC Protocol"
+              },
+              "engine": {
+                "text": "Buffers"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "gRPC & Protocol Buffers (Protobuf) Streaming",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "gRPC",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Protocol",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Buffers",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and scale boundaries.",
+            "values": {
+              "input_code": "gRPC Protocol",
+              "engine": "Simulation",
+              "out": "high-scale enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates scale state transitions.",
+            "values": {
+              "input_code": "ultra-fast",
+              "engine": "Protocol",
+              "out": "relies on"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the grpc analogy to protobuf execution invariants.",
+            "values": {
+              "input_code": "traffic control",
+              "engine": "handler",
+              "out": "Protobuf Binary Packed Byte Length: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify grpc constraints and verify resulting protocol state.",
+            "values": {
+              "input_code": "gRPC Protocol",
+              "engine": "Buffers",
+              "out": "HTTP/2 Binary Streaming Transport Ac"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "HTTP/3 & QUIC Transports: UDP Foundations, Zero-RTT Handshakes & Head-of-Line Blocking Elimination",
       "codeHash": "b48fc20e8f4354a7cd05ec0054b7ca70e926ea6fff0b43764d194e68f8f91480",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: HTTP/ & QUIC Transports: UDP Foundations, Zero-RTT Handshakes & Head-of-Line Blocking Elimination",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "HTTP/3 & QUIC Transports",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "HTTP",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "QUIC",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Transports",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize http architecture and head boundaries.",
+            "values": {
+              "input_code": {
+                "text": "HTTP"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "HTTP"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how http coordinates head state transitions.",
+            "values": {
+              "input_code": {
+                "text": "eliminate transport-layer"
+              },
+              "engine": {
+                "text": "QUIC"
+              },
+              "out": {
+                "text": "IETF standardized"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the http analogy to quic execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "courier delivery"
+              },
+              "engine": {
+                "text": "getStreamPayload"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify http constraints and verify resulting quic state.",
+            "values": {
+              "input_code": {
+                "text": "HTTP"
+              },
+              "engine": {
+                "text": "Transports"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "HTTP/3 & QUIC Transports",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "HTTP",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "QUIC",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Transports",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize http architecture and head boundaries.",
+            "values": {
+              "input_code": "HTTP",
+              "engine": "Simulation",
+              "out": "HTTP"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how http coordinates head state transitions.",
+            "values": {
+              "input_code": "eliminate transport-layer",
+              "engine": "QUIC",
+              "out": "IETF standardized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the http analogy to quic execution invariants.",
+            "values": {
+              "input_code": "courier delivery",
+              "engine": "getStreamPayload",
+              "out": "QUIC 0-RTT Resumption Handshake Acce"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify http constraints and verify resulting quic state.",
+            "values": {
+              "input_code": "HTTP",
+              "engine": "Transports",
+              "out": "UDP Transport Delivery Verified: Tru"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "TLS 1.3 Handshake Optimization & Session Resumption: Pre-Shared Keys (PSK) & Cryptographic Session Tickets",
       "codeHash": "1ffb98e768d97a960b235469e8d873a353d03ae38ade1a571a91b38bf521510c",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: TLS . Handshake Optimization & Session Resumption: Pre-Shared Keys (PSK) & Cryptographic Session Tickets",
-        "left": {
-          "label": "Baseline / Unoptimized Pattern",
-          "content": [
-            "Monolithic execution pattern",
-            "High memory allocation overhead",
-            "Potential event loop starvation",
-            "Unmonitored runtime latencies"
-          ]
-        },
-        "right": {
-          "label": "Enterprise / Accelerated Architecture",
-          "content": [
-            "Tiered native acceleration",
-            "Zero-copy memory safety",
-            "Asynchronous continuation tracing",
-            "Autonomous latency sentinels"
-          ]
-        },
+        "template": "flow",
+        "title": "TLS 1.3 Handshake Optimization & Session Resumption",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Handshake",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Optimization",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Session",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize session architecture and enterprise boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Handshake Optimization"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "architectures"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous scheduling invariants."
+            "at": "say1",
+            "caption": "Trace how session coordinates enterprise state transitions.",
+            "values": {
+              "input_code": {
+                "text": "8446"
+              },
+              "engine": {
+                "text": "Optimization"
+              },
+              "out": {
+                "text": "performance"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and latency guarantees."
+            "at": "example",
+            "caption": "Connect the handshake analogy to session execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "entering"
+              },
+              "engine": {
+                "text": "this.activeTickets.get"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero memory leaks, and complete adherence to enterprise invariants."
+            "at": "tryIt",
+            "caption": "Modify handshake constraints and verify resulting optimization state.",
+            "values": {
+              "input_code": {
+                "text": "Handshake Optimization"
+              },
+              "engine": {
+                "text": "Session"
+              },
+              "out": {
+                "out": 4
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Baseline / Unoptimized Pattern",
-        "rightLabel": "Enterprise / Accelerated Architecture"
+        "template": "flow",
+        "title": "TLS 1.3 Handshake Optimization & Session Resumption",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Handshake",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Optimization",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Session",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize session architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Handshake Optimization",
+              "engine": "Simulation",
+              "out": "architectures"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how session coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "8446",
+              "engine": "Optimization",
+              "out": "performance"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the handshake analogy to session execution invariants.",
+            "values": {
+              "input_code": "entering",
+              "engine": "this.activeTickets.get",
+              "out": "Initial TLS 1.3 Handshake RTT Count:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify handshake constraints and verify resulting optimization state.",
+            "values": {
+              "input_code": "Handshake Optimization",
+              "engine": "Session",
+              "out": "Early Data Decrypted Successfully: D"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

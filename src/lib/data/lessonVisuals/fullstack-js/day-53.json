@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 53,
-  "promptSha": "92404f68589ecf5a07ba474a2f935a19eab239d9b75401391b13e34564b89db3",
-  "model": "gemini-2.5-pro",
+  "promptSha": "d910881e9f69bebd178ca147a19ddbac5b0771679f938052bc782d1b6eeb9ca6",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Distributed Tracing Fundamentals & The Anatomy of a Trace",
       "codeHash": "331aa09545803d126c88d30fa590dc9025c79129cd1303443d81596060722902",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Distributed Tracing Fundamentals & The Anatomy of a Trace",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Distributed Tracing Fundamentals & The Anatomy of a Trace",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tracing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Anatomy",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and modern boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Tracing"
+              },
+              "engine": {
+                "text": "Distributed Trace"
+              },
+              "out": {
+                "text": "cloud architectures"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates modern state transitions.",
+            "values": {
+              "input_code": {
+                "text": "user reports"
+              },
+              "engine": {
+                "text": "Tracing"
+              },
+              "out": {
+                "text": "independent log"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the trace analogy to sending execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "sending an"
+              },
+              "engine": {
+                "text": "traceId"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting tracing state.",
+            "values": {
+              "input_code": {
+                "text": "Distributed Tracing"
+              },
+              "engine": {
+                "text": "Anatomy"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Distributed Tracing Fundamentals & The Anatomy of a Trace",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Tracing",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Anatomy",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and modern boundaries.",
+            "values": {
+              "input_code": "Distributed Tracing",
+              "engine": "Distributed Trace",
+              "out": "cloud architectures"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates modern state transitions.",
+            "values": {
+              "input_code": "user reports",
+              "engine": "Tracing",
+              "out": "independent log"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the trace analogy to sending execution invariants.",
+            "values": {
+              "input_code": "sending an",
+              "engine": "traceId",
+              "out": "Root Span Name: HTTP POST /checkout"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify distributed constraints and verify resulting tracing state.",
+            "values": {
+              "input_code": "Distributed Tracing",
+              "engine": "Anatomy",
+              "out": "Distributed Span Tree Verified: True"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "W3C Trace Context Standard (traceparent & tracestate)",
       "codeHash": "4d08c3924b2def9d31ead1fe4a3a2f9e34c311bebe081e2100bb701be1fcd0a0",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: WC Trace Context Standard (traceparent & tracestate)",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "W3C Trace Context Standard (traceparent & tracestate)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Trace",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Standard",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize trace architecture and context boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Trace Context"
+              },
+              "engine": {
+                "text": "Trace Context"
+              },
+              "out": {
+                "text": "early years"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how trace coordinates context state transitions.",
+            "values": {
+              "input_code": {
+                "text": "establish universal"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "text": "cloud platforms"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to traveler execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international traveler"
+              },
+              "engine": {
+                "text": "format"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify trace constraints and verify resulting context state.",
+            "values": {
+              "input_code": {
+                "text": "Trace Context"
+              },
+              "engine": {
+                "text": "Standard"
+              },
+              "out": {
+                "out": 3
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "W3C Trace Context Standard (traceparent & tracestate)",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Trace",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Standard",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize trace architecture and context boundaries.",
+            "values": {
+              "input_code": "Trace Context",
+              "engine": "Trace Context",
+              "out": "early years"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how trace coordinates context state transitions.",
+            "values": {
+              "input_code": "establish universal",
+              "engine": "Context",
+              "out": "cloud platforms"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to traveler execution invariants.",
+            "values": {
+              "input_code": "international traveler",
+              "engine": "format",
+              "out": "Parsed W3C Version: 00"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify trace constraints and verify resulting context state.",
+            "values": {
+              "input_code": "Trace Context",
+              "engine": "Standard",
+              "out": "W3C Trace Context Parser Verified: T"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Asynchronous Context Propagation with AsyncLocalStorage in Node.js",
-      "codeHash": "2d3cea858a3646a531a7b703df9c0b3d90ffaf00fa027d560f23a97240d5304f",
+      "codeHash": "92eed2dcccc3d79beec8ea3c876f05cb79f2e6dd69bcb1c9aaf0e4d87485b5d9",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Asynchronous Context Propagation with AsyncLocalStorage in Node.js",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Asynchronous Context Propagation with AsyncLocalStorage in",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asynchronous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Propagation",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize context architecture and multi boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Asynchronous Context"
+              },
+              "engine": {
+                "text": "TraceContext"
+              },
+              "out": {
+                "text": "multi-threaded server"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how context coordinates multi state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Node.js"
+              },
+              "engine": {
+                "text": "Context"
+              },
+              "out": {
+                "text": "awaits"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the context analogy to hospital execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "hospital operating"
+              },
+              "engine": {
+                "text": "this.storage.run"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify asynchronous constraints and verify resulting context state.",
+            "values": {
+              "input_code": {
+                "text": "Asynchronous Context"
+              },
+              "engine": {
+                "text": "Propagation"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Asynchronous Context Propagation with AsyncLocalStorage in",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Asynchronous",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Context",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Propagation",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize context architecture and multi boundaries.",
+            "values": {
+              "input_code": "Asynchronous Context",
+              "engine": "TraceContext",
+              "out": "multi-threaded server"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how context coordinates multi state transitions.",
+            "values": {
+              "input_code": "Node.js",
+              "engine": "Context",
+              "out": "awaits"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the context analogy to hospital execution invariants.",
+            "values": {
+              "input_code": "hospital operating",
+              "engine": "this.storage.run",
+              "out": "Active Trace ID: trace_enterprise_99"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify asynchronous constraints and verify resulting context state.",
+            "values": {
+              "input_code": "Asynchronous Context",
+              "engine": "Propagation",
+              "out": "AsyncLocalStorage Context Propagatio"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "OpenTelemetry Span Instrumentation & Distributed Service Call Graphs",
       "codeHash": "a5f718d42e70c512da9ae8799c69b1a559464d72acb7f93a7b2d074170beddd2",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: OpenTelemetry Span Instrumentation & Distributed Service Call Graphs",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "OpenTelemetry Span Instrumentation & Distributed Service Call",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "OpenTelemetry",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Span",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Instrumentation",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize distributed architecture and production boundaries.",
+            "values": {
+              "input_code": {
+                "text": "OpenTelemetry Span"
+              },
+              "engine": {
+                "text": "Distributed Multi-Hop"
+              },
+              "out": {
+                "text": "distributed microservices"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how distributed coordinates production state transitions.",
+            "values": {
+              "input_code": {
+                "text": "OpenTelemetry standard"
+              },
+              "engine": {
+                "text": "Span"
+              },
+              "out": {
+                "text": "Context Injection"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the span analogy to olympic execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Olympic 4x100-meter"
+              },
+              "engine": {
+                "text": "traceId.slice"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify opentelemetry constraints and verify resulting span state.",
+            "values": {
+              "input_code": {
+                "text": "OpenTelemetry Span"
+              },
+              "engine": {
+                "text": "Instrumentation"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "OpenTelemetry Span Instrumentation & Distributed Service Call",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "OpenTelemetry",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Span",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Instrumentation",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and production boundaries.",
+            "values": {
+              "input_code": "OpenTelemetry Span",
+              "engine": "Distributed Multi-Hop",
+              "out": "distributed microservices"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates production state transitions.",
+            "values": {
+              "input_code": "OpenTelemetry standard",
+              "engine": "Span",
+              "out": "Context Injection"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the span analogy to olympic execution invariants.",
+            "values": {
+              "input_code": "Olympic 4x100-meter",
+              "engine": "traceId.slice",
+              "out": "[AuthService] Propagated Trace: 4bf9"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify opentelemetry constraints and verify resulting span state.",
+            "values": {
+              "input_code": "OpenTelemetry Span",
+              "engine": "Instrumentation",
+              "out": "Distributed Service Hop Context Prop"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Architectural Defense: Sampling Sentinels & High-Cardinality Trace Budgeting",
       "codeHash": "03cbace95e2151cd87f358ee914432f6dbd10dab5216e170dc5f48a1f1dda015",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Architectural Defense: Sampling Sentinels & High-Cardinality Trace Budgeting",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sampling",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize high architecture and trace boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Telemetry Sampling"
+              },
+              "out": {
+                "text": "high-throughput software"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how high coordinates trace state transitions.",
+            "values": {
+              "input_code": {
+                "text": "Storing"
+              },
+              "engine": {
+                "text": "Defense"
+              },
+              "out": {
+                "text": "ninety-nine percent"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the sampling analogy to municipal execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "municipal water"
+              },
+              "engine": {
+                "text": "sampled"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": {
+                "text": "Architectural Defense"
+              },
+              "engine": {
+                "text": "Sampling"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Architectural Defense",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Architectural",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Defense",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sampling",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize high architecture and trace boundaries.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Telemetry Sampling",
+              "out": "high-throughput software"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how high coordinates trace state transitions.",
+            "values": {
+              "input_code": "Storing",
+              "engine": "Defense",
+              "out": "ninety-nine percent"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the sampling analogy to municipal execution invariants.",
+            "values": {
+              "input_code": "municipal water",
+              "engine": "sampled",
+              "out": "Trace 1 Sampled: true | Reason: HEAD"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify architectural constraints and verify resulting defense state.",
+            "values": {
+              "input_code": "Architectural Defense",
+              "engine": "Sampling",
+              "out": "Telemetry Sampling Sentinel Verified"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

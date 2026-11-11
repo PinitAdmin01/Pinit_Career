@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 58,
-  "promptSha": "46441421625a7d8ebcc5b0d06d4bec032f246e4684a4f2b23c78bd5a687b7661",
-  "model": "gemini-2.5-pro",
+  "promptSha": "f8429fc8d4c8081fb079c7ac19dac26143d203c216a8f061de236de80c26639a",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Operational Transformation (OT) vs. Conflict-Free Replicated Data Types (CRDTs)",
       "codeHash": "6a5adc9ed8bf9d7d4f9ddb78d50478058be423b4b13fb89868939634edcc91ac",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Operational Transformation (OT) vs. Conflict-Free Replicated Data Types (CRDTs)",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Operational Transformation (OT) vs. Conflict-Free Replicated",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Operational",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Transformation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Conflict",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize welcome architecture and full boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Operational Transformation"
+              },
+              "engine": {
+                "text": "TextOperation"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how welcome coordinates full state transitions.",
+            "values": {
+              "input_code": {
+                "text": "real-time collaborative"
+              },
+              "engine": {
+                "text": "Transformation"
+              },
+              "out": {
+                "text": "fight over"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the concert analogy to pianists execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "concert pianists"
+              },
+              "engine": {
+                "text": "insert char"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify operational constraints and verify resulting transformation state.",
+            "values": {
+              "input_code": {
+                "text": "Operational Transformation"
+              },
+              "engine": {
+                "text": "Conflict"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Operational Transformation (OT) vs. Conflict-Free Replicated",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Operational",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Transformation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Conflict",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize welcome architecture and full boundaries.",
+            "values": {
+              "input_code": "Operational Transformation",
+              "engine": "TextOperation",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how welcome coordinates full state transitions.",
+            "values": {
+              "input_code": "real-time collaborative",
+              "engine": "Transformation",
+              "out": "fight over"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the concert analogy to pianists execution invariants.",
+            "values": {
+              "input_code": "concert pianists",
+              "engine": "insert char",
+              "out": "[OT Engine] User A Original Op Pos: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify operational constraints and verify resulting transformation state.",
+            "values": {
+              "input_code": "Operational Transformation",
+              "engine": "Conflict",
+              "out": "[OT Engine] User A Transformed Op Po"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Ephemeral Cursor & Selection Awareness Channels",
       "codeHash": "18f19a2c8df7cda0a879e21ee52a0081e1b9e7024b5120abf90cc3ba4594f4d0",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Ephemeral Cursor & Selection Awareness Channels",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Ephemeral Cursor & Selection Awareness Channels",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Ephemeral",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Cursor",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Selection",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize ephemeral architecture and channels boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Ephemeral Cursor"
+              },
+              "engine": {
+                "text": "CursorPresence"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how ephemeral coordinates channels state transitions.",
+            "values": {
+              "input_code": {
+                "text": "separating ephemeral"
+              },
+              "engine": {
+                "text": "Cursor"
+              },
+              "out": {
+                "text": "valuable visual"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the office analogy to worker execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "office worker"
+              },
+              "engine": {
+                "text": "presence"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify ephemeral constraints and verify resulting cursor state.",
+            "values": {
+              "input_code": {
+                "text": "Ephemeral Cursor"
+              },
+              "engine": {
+                "text": "Selection"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Ephemeral Cursor & Selection Awareness Channels",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Ephemeral",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Cursor",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Selection",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize ephemeral architecture and channels boundaries.",
+            "values": {
+              "input_code": "Ephemeral Cursor",
+              "engine": "CursorPresence",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how ephemeral coordinates channels state transitions.",
+            "values": {
+              "input_code": "separating ephemeral",
+              "engine": "Cursor",
+              "out": "valuable visual"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the office analogy to worker execution invariants.",
+            "values": {
+              "input_code": "office worker",
+              "engine": "presence",
+              "out": "[Presence Channel] Active Peer Curso"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify ephemeral constraints and verify resulting cursor state.",
+            "values": {
+              "input_code": "Ephemeral Cursor",
+              "engine": "Selection",
+              "out": "[Presence Channel] Peer Alice Positi"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Real-Time WebSocket Multiplexing & Reconnection Recovery Protocols",
       "codeHash": "a5fa05a87ed5a95347d8980c1f4a3082f21e6006a5007700a0cdca92ffb13393",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Real-Time WebSocket Multiplexing & Reconnection Recovery Protocols",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Real-Time WebSocket Multiplexing & Reconnection Recovery",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "WebSocket",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Multiplexing",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize real architecture and time boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Real-Time WebSocket"
+              },
+              "engine": {
+                "text": "CollaborativeSocketSession"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how real coordinates time state transitions.",
+            "values": {
+              "input_code": {
+                "text": "offline collaboration"
+              },
+              "engine": {
+                "text": "WebSocket"
+              },
+              "out": {
+                "text": "radio tower"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the diplomat analogy to drafting execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "diplomat drafting"
+              },
+              "engine": {
+                "text": "reconnect"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify real constraints and verify resulting time state.",
+            "values": {
+              "input_code": {
+                "text": "Real-Time WebSocket"
+              },
+              "engine": {
+                "text": "Multiplexing"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Real-Time WebSocket Multiplexing & Reconnection Recovery",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Time",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "WebSocket",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Multiplexing",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize real architecture and time boundaries.",
+            "values": {
+              "input_code": "Real-Time WebSocket",
+              "engine": "CollaborativeSocketSession",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how real coordinates time state transitions.",
+            "values": {
+              "input_code": "offline collaboration",
+              "engine": "WebSocket",
+              "out": "radio tower"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the diplomat analogy to drafting execution invariants.",
+            "values": {
+              "input_code": "diplomat drafting",
+              "engine": "reconnect",
+              "out": "[Socket Session] Online: Transmitted"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify real constraints and verify resulting time state.",
+            "values": {
+              "input_code": "Real-Time WebSocket",
+              "engine": "Multiplexing",
+              "out": "[Socket Session] Flushed: INSERT 'i'"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "CRDT Transaction Log Compaction & Snapshot State Vector Garbage Collection",
       "codeHash": "a80cbe730bd36dad5d4117eb2c198968d9f9cc2328924bd89fc8f65f42bdfacc",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: CRDT Transaction Log Compaction & Snapshot State Vector Garbage Collection",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "CRDT Transaction Log Compaction & Snapshot State Vector Garbage",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "CRDT",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Transaction",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Compaction",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize crdt architecture and transaction boundaries.",
+            "values": {
+              "input_code": {
+                "text": "CRDT Transaction"
+              },
+              "engine": {
+                "text": "CRDTItem"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how crdt coordinates transaction state transitions.",
+            "values": {
+              "input_code": {
+                "text": "CRDT tombstone"
+              },
+              "engine": {
+                "text": "Transaction"
+              },
+              "out": {
+                "text": "sunlight"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the experienced analogy to orchard execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "experienced orchard"
+              },
+              "engine": {
+                "text": "Purged"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify crdt constraints and verify resulting transaction state.",
+            "values": {
+              "input_code": {
+                "text": "CRDT Transaction"
+              },
+              "engine": {
+                "text": "Compaction"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "CRDT Transaction Log Compaction & Snapshot State Vector Garbage",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "CRDT",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Transaction",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Compaction",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize crdt architecture and transaction boundaries.",
+            "values": {
+              "input_code": "CRDT Transaction",
+              "engine": "CRDTItem",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how crdt coordinates transaction state transitions.",
+            "values": {
+              "input_code": "CRDT tombstone",
+              "engine": "Transaction",
+              "out": "sunlight"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the experienced analogy to orchard execution invariants.",
+            "values": {
+              "input_code": "experienced orchard",
+              "engine": "Purged",
+              "out": "[CRDT Doc] Visible Text: AC"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify crdt constraints and verify resulting transaction state.",
+            "values": {
+              "input_code": "CRDT Transaction",
+              "engine": "Compaction",
+              "out": "[CRDT Doc] Post-Compaction Text: AC"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Collaborative Workspace Sentinel & State Divergence Detection Harness",
-      "codeHash": "84f3328657ccc8090bbc0051be660b99587f7ef0a69a73290d41b6097b983147",
+      "codeHash": "c8aa36319d9adaab2756474071e5f2d09ad9a4f0d6207b69228312c48acf6e7c",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Collaborative Workspace Sentinel & State Divergence Detection Harness",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The Collaborative Workspace Sentinel & State Divergence",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Collaborative",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Workspace",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sentinel",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize collaborative architecture and workspace boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Collaborative Workspace"
+              },
+              "engine": {
+                "text": "ConvergenceSentinel"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how collaborative coordinates workspace state transitions.",
+            "values": {
+              "input_code": {
+                "text": "state divergence"
+              },
+              "engine": {
+                "text": "Workspace"
+              },
+              "out": {
+                "text": "Captain"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the navigators analogy to aboard execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "Navigators aboard"
+              },
+              "engine": {
+                "text": "nodeBText"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify collaborative constraints and verify resulting workspace state.",
+            "values": {
+              "input_code": {
+                "text": "Collaborative Workspace"
+              },
+              "engine": {
+                "text": "Sentinel"
+              },
+              "out": {
+                "out": 2
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The Collaborative Workspace Sentinel & State Divergence",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Collaborative",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Workspace",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sentinel",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize collaborative architecture and workspace boundaries.",
+            "values": {
+              "input_code": "Collaborative Workspace",
+              "engine": "ConvergenceSentinel",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how collaborative coordinates workspace state transitions.",
+            "values": {
+              "input_code": "state divergence",
+              "engine": "Workspace",
+              "out": "Captain"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the navigators analogy to aboard execution invariants.",
+            "values": {
+              "input_code": "Navigators aboard",
+              "engine": "nodeBText",
+              "out": "[Sentinel] Node A Digest: db617a0792"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify collaborative constraints and verify resulting workspace state.",
+            "values": {
+              "input_code": "Collaborative Workspace",
+              "engine": "Sentinel",
+              "out": "[Sentinel] Cluster Converged: true"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

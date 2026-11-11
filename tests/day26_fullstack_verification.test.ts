@@ -229,7 +229,7 @@ describe('Day 26 Full-Stack Certification Invariant Verification', () => {
             if (sec && typeof sec === 'object') {
               for (const [k, v] of Object.entries(sec)) {
                 try {
-                  env[k] = Buffer.from(String(v), 'base64').toString('utf8');
+                  env[k] = typeof atob !== 'undefined' ? atob(String(v)) : Buffer.from(String(v), 'base64').toString('utf8');
                 } catch {
                   env[k] = String(v);
                 }

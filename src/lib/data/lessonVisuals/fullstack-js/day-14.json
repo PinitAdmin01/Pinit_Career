@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 14,
-  "promptSha": "81ef8ee093378182e241fc84cf82ee4c8cd6dc7c7df667fe743941a028c621bb",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "c1957bb6e2038b5697c70f4feb9b162f6207161ef23c64d28ffd1ebe60097009",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "In-Memory Key-Value Architecture & Redis Data Structures",
       "codeHash": "322745954f613d2f03c552311452109c28a75b249058a545628c8e780ee3e623",
       "spec": {
         "template": "flow",
-        "title": "In-Memory Key-Value Architecture & ... — Execution Pipeline",
+        "title": "In-Memory Key-Value Architecture & Redis Data Structures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Memory",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. In-Memory Key-Value Architecture & ...",
+            "id": "engine",
+            "label": "Value",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress cache key and initialize In-Memory Key-Value Architecture & ....",
+            "caption": "Initialize redis architecture and relational boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "In-Memory Key-Value"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Relational databases"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute key lookup, TTL evaluation, and stampede protection in In-Memory.",
+            "caption": "Trace how redis coordinates relational state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Redis is"
+              },
+              "engine": {
+                "text": "Value"
+              },
+              "out": {
+                "text": "include Strings"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the redis analogy to high execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "high-throughput e-commerce"
+              },
+              "engine": {
+                "text": "zset"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end caching resolution confirmed for In-Memory Key-Value.",
+            "caption": "Modify another constraints and verify resulting member state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "another member"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "In-Memory Key-Value Architecture & ... — Execution Pipeline",
+        "title": "In-Memory Key-Value Architecture & Redis Data Structures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Memory",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. In-Memory Key-Value Architecture & ...",
+            "id": "engine",
+            "label": "Value",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Architecture",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize In-Memory Key-Value Architecture & ....",
+            "caption": "Initialize redis architecture and relational boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "In-Memory Key-Value",
+              "engine": "Simulation",
+              "out": "Relational databases"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in In-Memory Key-Value Architecture & ....",
+            "caption": "Trace how redis coordinates relational state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Redis is",
+              "engine": "Value",
+              "out": "include Strings"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the redis analogy to high execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "high-throughput e-commerce",
+              "engine": "zset",
+              "out": "STRING config: false"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for In-Memory Key-Value Architecture & ....",
+            "caption": "Modify another constraints and verify resulting member state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "another member",
+              "engine": "Architecture",
+              "out": "Redis Primitives Verification: PASSE"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -233,112 +257,136 @@
     },
     {
       "partTitle": "The Cache-Aside (Lazy-Loading) Pattern vs Write-Through / Write-Behind",
-      "codeHash": "3c105fb53710d71c828944b2d17c5be07f8c28b02294c042a566d1206e7e9e61",
+      "codeHash": "6a3eb35efad4134733bd0daa85110d924f9f627f751c15a815cb75d049f9a4e1",
       "spec": {
         "template": "flow",
-        "title": "The Cache-Aside (Lazy-Loading) Patt... — Execution Pipeline",
+        "title": "The Cache-Aside (Lazy-Loading) Pattern vs Write-Through /",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Cache",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The Cache-Aside (Lazy-Loading) Patt...",
+            "id": "engine",
+            "label": "Aside",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Lazy",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress cache key and initialize The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "Initialize cache architecture and aside boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cache-Aside"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "Caching patterns"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute key lookup, TTL evaluation, and stampede protection in The.",
+            "caption": "Trace how cache coordinates aside state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cache-Aside pattern"
+              },
+              "engine": {
+                "text": "Aside"
+              },
+              "out": {
+                "text": "Cache Hit"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the cache analogy to aside execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "multi-tenant billing"
+              },
+              "engine": {
+                "text": "updateAccountTier"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end caching resolution confirmed for The Cache-Aside.",
+            "caption": "Modify cache constraints and verify resulting script state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "script to"
+              },
+              "engine": {
+                "text": "Lazy"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The Cache-Aside (Lazy-Loading) Patt... — Execution Pipeline",
+        "title": "The Cache-Aside (Lazy-Loading) Pattern vs Write-Through /",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Cache",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. The Cache-Aside (Lazy-Loading) Patt...",
+            "id": "engine",
+            "label": "Aside",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Lazy",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "Initialize cache architecture and aside boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Cache-Aside",
+              "engine": "Simulation",
+              "out": "Caching patterns"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "Trace how cache coordinates aside state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Cache-Aside pattern",
+              "engine": "Aside",
+              "out": "Cache Hit"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the cache analogy to aside execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "multi-tenant billing",
+              "engine": "updateAccountTier",
+              "out": "Read 1 Tier: STANDARD | DB Queries: "
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "Modify cache constraints and verify resulting script state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "script to",
+              "engine": "Lazy",
+              "out": "Cache-Aside Invariant: VERIFIED"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -462,109 +510,133 @@
       "codeHash": "2f1282dfabff60af3cee9ee72992c4bb79f565e7f7cd1c06394ecedd1ee60234",
       "spec": {
         "template": "flow",
-        "title": "Cache Invalidation, TTL Invariants ... — Execution Pipeline",
+        "title": "Cache Invalidation, TTL Invariants & Thundering Herd (Cache",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Cache",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Cache Invalidation, TTL Invariants ...",
+            "id": "engine",
+            "label": "Invalidation",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Invariants",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress cache key and initialize Cache Invalidation, TTL Invariants ....",
+            "caption": "Initialize cache architecture and invalidation boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cache Invalidation"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "cache without"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute key lookup, TTL evaluation, and stampede protection in Cache.",
+            "caption": "Trace how cache coordinates invalidation state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Invalidation"
+              },
+              "out": {
+                "text": "client requests"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the cache analogy to during execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "During"
+              },
+              "engine": {
+                "text": "request"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end caching resolution confirmed for Cache Invalidation, TTL.",
+            "caption": "Modify simulate constraints and verify resulting happens state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate what"
+              },
+              "engine": {
+                "text": "Invariants"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Cache Invalidation, TTL Invariants ... — Execution Pipeline",
+        "title": "Cache Invalidation, TTL Invariants & Thundering Herd (Cache",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Cache",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Cache Invalidation, TTL Invariants ...",
+            "id": "engine",
+            "label": "Invalidation",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Invariants",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize Cache Invalidation, TTL Invariants ....",
+            "caption": "Initialize cache architecture and invalidation boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Cache Invalidation",
+              "engine": "Simulation",
+              "out": "cache without"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in Cache Invalidation, TTL Invariants ....",
+            "caption": "Trace how cache coordinates invalidation state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "However",
+              "engine": "Invalidation",
+              "out": "client requests"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the cache analogy to during execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "During",
+              "engine": "request",
+              "out": "Simulating 10 concurrent requests fo"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for Cache Invalidation, TTL Invariants ....",
+            "caption": "Modify simulate constraints and verify resulting happens state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate what",
+              "engine": "Invariants",
+              "out": "Stampede Protection: VERIFIED"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -688,109 +760,133 @@
       "codeHash": "e52fde4d67fc3958fb00d1eea9c15fbe67e72f2eeecb3dc975545a05a6656b66",
       "spec": {
         "template": "flow",
-        "title": "Redis Transactions (MULTI/EXEC), Pi... — Execution Pipeline",
+        "title": "Redis Transactions (MULTI/EXEC), Pipelining & Lua Script",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Redis",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Redis Transactions (MULTI/EXEC), Pi...",
+            "id": "engine",
+            "label": "Transactions",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "MULTI",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress cache key and initialize Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "Initialize redis architecture and pipelining boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Redis Transactions"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "High-performance backend"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute key lookup, TTL evaluation, and stampede protection in Redis.",
+            "caption": "Trace how redis coordinates pipelining state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Redis Pipelining"
+              },
+              "engine": {
+                "text": "Transactions"
+              },
+              "out": {
+                "text": "connection consume"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the redis analogy to script execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "distributed API"
+              },
+              "engine": {
+                "text": "Token Bucket"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end caching resolution confirmed for Redis Transactions.",
+            "caption": "Modify increase constraints and verify resulting rate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Increase the"
+              },
+              "engine": {
+                "text": "MULTI"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Redis Transactions (MULTI/EXEC), Pi... — Execution Pipeline",
+        "title": "Redis Transactions (MULTI/EXEC), Pipelining & Lua Script",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Redis",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Redis Transactions (MULTI/EXEC), Pi...",
+            "id": "engine",
+            "label": "Transactions",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "MULTI",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "Initialize redis architecture and pipelining boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Redis Transactions",
+              "engine": "Simulation",
+              "out": "High-performance backend"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "Trace how redis coordinates pipelining state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Redis Pipelining",
+              "engine": "Transactions",
+              "out": "connection consume"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the redis analogy to script execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "distributed API",
+              "engine": "Token Bucket",
+              "out": "Pipeline Executed 3 commands. Last R"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "Modify increase constraints and verify resulting rate state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Increase the",
+              "engine": "MULTI",
+              "out": "Atomic Scripting Invariant: VERIFIED"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -914,109 +1010,133 @@
       "codeHash": "56257799b372ec473f7e70a232021fa62c1b3ffcb04e6654fe6363ef147d030b",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Distributed Cache Manage... — Execution Pipeline",
+        "title": "Enterprise Distributed Cache Manager with Soft TTL &",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Distributed Cache Manage...",
+            "id": "engine",
+            "label": "Cache",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Manager",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress cache key and initialize Enterprise Distributed Cache Manage....",
+            "caption": "Initialize enterprise architecture and cache boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Cache"
+              },
+              "engine": {
+                "text": "Simulation"
+              },
+              "out": {
+                "text": "mission-critical enterprise"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute key lookup, TTL evaluation, and stampede protection in Enterprise.",
+            "caption": "Trace how enterprise coordinates cache state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Under the"
+              },
+              "engine": {
+                "text": "Cache"
+              },
+              "out": {
+                "text": "defines how"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the soft analogy to cache execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": {
+                "text": "global SaaS"
+              },
+              "engine": {
+                "text": "orgId"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end caching resolution confirmed for Enterprise Distributed Cache.",
+            "caption": "Modify initial constraints and verify resulting seed state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "initial seed"
+              },
+              "engine": {
+                "text": "Manager"
+              },
+              "out": {
+                "out": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Distributed Cache Manage... — Execution Pipeline",
+        "title": "Enterprise Distributed Cache Manager with Soft TTL &",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Cache/Read Key",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Distributed Cache Manage...",
+            "id": "engine",
+            "label": "Cache",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. In-Memory / Database Resolution State",
+            "label": "Manager",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize Enterprise Distributed Cache Manage....",
+            "caption": "Initialize enterprise architecture and cache boundaries.",
             "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Distributed Cache",
+              "engine": "Simulation",
+              "out": "mission-critical enterprise"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in Enterprise Distributed Cache Manage....",
+            "caption": "Trace how enterprise coordinates cache state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Under the",
+              "engine": "Cache",
+              "out": "defines how"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Connect the soft analogy to cache execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Action Committed",
-              "out": "Emitting"
+              "input_code": "global SaaS",
+              "engine": "orgId",
+              "out": "Initial Database Query Count: 0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for Enterprise Distributed Cache Manage....",
+            "caption": "Modify initial constraints and verify resulting seed state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "initial seed",
+              "engine": "Manager",
+              "out": "Dual-TTL SWR Architecture: VERIFIED"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

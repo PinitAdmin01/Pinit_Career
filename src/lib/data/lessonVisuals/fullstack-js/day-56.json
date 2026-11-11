@@ -1,248 +1,1258 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 56,
-  "promptSha": "a4becb5af8bd92e8eed145c43e7c747bc9f02e4c2b54b68cf4127e94cb4d8481",
-  "model": "gemini-2.5-pro",
+  "promptSha": "64aa00972fa273d5888bb2952f0271e2fd3c9f9a0c9339aa993cc8af4b4404b7",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Cross-Micro-Frontend Shell Routing & Deep-Link Synchronization",
       "codeHash": "d1a842bfde6fde42e63b64b7934b057853dc05caa401b049c799807aa07a0d9d",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Cross-Micro-Frontend Shell Routing & Deep-Link Synchronization",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Cross-Micro-Frontend Shell Routing & Deep-Link Synchronization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Cross",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Micro",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Frontend",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize micro architecture and frontend boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Cross-Micro-Frontend Shell"
+              },
+              "engine": {
+                "text": "RouteConfig"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how micro coordinates frontend state transitions.",
+            "values": {
+              "input_code": {
+                "text": "distributed micro-frontend"
+              },
+              "engine": {
+                "text": "Micro"
+              },
+              "out": {
+                "text": "operations team"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "international airport"
+              },
+              "engine": {
+                "text": "Routed to"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify cross constraints and verify resulting micro state.",
+            "values": {
+              "input_code": {
+                "text": "Cross-Micro-Frontend Shell"
+              },
+              "engine": {
+                "text": "Frontend"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Cross-Micro-Frontend Shell Routing & Deep-Link Synchronization",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Cross",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Micro",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Frontend",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize micro architecture and frontend boundaries.",
+            "values": {
+              "input_code": "Cross-Micro-Frontend Shell",
+              "engine": "RouteConfig",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how micro coordinates frontend state transitions.",
+            "values": {
+              "input_code": "distributed micro-frontend",
+              "engine": "Micro",
+              "out": "operations team"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the international analogy to airport execution invariants.",
+            "values": {
+              "input_code": "international airport",
+              "engine": "Routed to",
+              "out": "[Router] Routed to orderApp -> Order"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify cross constraints and verify resulting micro state.",
+            "values": {
+              "input_code": "Cross-Micro-Frontend Shell",
+              "engine": "Frontend",
+              "out": "[Router] Routed to accountApp -> Use"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Shared Dependency Singleton Negotiation & Strict Version Matrices",
       "codeHash": "ab8b16085692f93c1c626ffecfc4d37908087c5a4ba2d94afe4dbe759e050c32",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Shared Dependency Singleton Negotiation & Strict Version Matrices",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Shared Dependency Singleton Negotiation & Strict Version",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Shared",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Dependency",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Singleton",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize shared architecture and dependency boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Shared Dependency"
+              },
+              "engine": {
+                "text": "SharedDependency"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how shared coordinates dependency state transitions.",
+            "values": {
+              "input_code": {
+                "text": "shared runtime"
+              },
+              "engine": {
+                "text": "Dependency"
+              },
+              "out": {
+                "text": "volts with"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the skyscraper analogy to enforcing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "skyscraper enforcing"
+              },
+              "engine": {
+                "text": "throw new"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify shared constraints and verify resulting dependency state.",
+            "values": {
+              "input_code": {
+                "text": "Shared Dependency"
+              },
+              "engine": {
+                "text": "Singleton"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Shared Dependency Singleton Negotiation & Strict Version",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Shared",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Dependency",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Singleton",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize shared architecture and dependency boundaries.",
+            "values": {
+              "input_code": "Shared Dependency",
+              "engine": "SharedDependency",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how shared coordinates dependency state transitions.",
+            "values": {
+              "input_code": "shared runtime",
+              "engine": "Dependency",
+              "out": "volts with"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the skyscraper analogy to enforcing execution invariants.",
+            "values": {
+              "input_code": "skyscraper enforcing",
+              "engine": "throw new",
+              "out": "[Shared Scope] Warning: Version mism"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify shared constraints and verify resulting dependency state.",
+            "values": {
+              "input_code": "Shared Dependency",
+              "engine": "Singleton",
+              "out": "[Shared Scope] Active React Singleto"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Decentralized Event Bus & Cross-Micro-Frontend State Coordination",
       "codeHash": "ceca8cc22848a23e21c1f91664ea19b8e29839b5ed9a910d0801fbad869cd35b",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: Decentralized Event Bus & Cross-Micro-Frontend State Coordination",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "Decentralized Event Bus & Cross-Micro-Frontend State",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Decentralized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cross",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize cross architecture and micro boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Decentralized Event"
+              },
+              "engine": {
+                "text": "MFEEvent"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how cross coordinates micro state transitions.",
+            "values": {
+              "input_code": {
+                "text": "cross-micro-frontend"
+              },
+              "engine": {
+                "text": "Event"
+              },
+              "out": {
+                "text": "wiring would"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the municipal analogy to emergency execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "municipal emergency"
+              },
+              "engine": {
+                "text": "handler"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify decentralized constraints and verify resulting event state.",
+            "values": {
+              "input_code": {
+                "text": "Decentralized Event"
+              },
+              "engine": {
+                "text": "Cross"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "Decentralized Event Bus & Cross-Micro-Frontend State",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Decentralized",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Event",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cross",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize cross architecture and micro boundaries.",
+            "values": {
+              "input_code": "Decentralized Event",
+              "engine": "MFEEvent",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how cross coordinates micro state transitions.",
+            "values": {
+              "input_code": "cross-micro-frontend",
+              "engine": "Event",
+              "out": "wiring would"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the municipal analogy to emergency execution invariants.",
+            "values": {
+              "input_code": "municipal emergency",
+              "engine": "handler",
+              "out": "[Event Bus] Received auth:login from"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify decentralized constraints and verify resulting event state.",
+            "values": {
+              "input_code": "Decentralized Event",
+              "engine": "Cross",
+              "out": "[Event Bus] Received auth:login from"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "CSS Style Isolation, Shadow DOM & Design System Governance",
       "codeHash": "81c0dcfbac59b177d5ee87836e996f92bcdfcb05b2db2de51a6ee53b3ebbd139",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: CSS Style Isolation, Shadow DOM & Design System Governance",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "CSS Style Isolation, Shadow DOM & Design System Governance",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Style",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Isolation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Shadow",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize style architecture and isolation boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Style Isolation"
+              },
+              "engine": {
+                "text": "StyleIsolationContainer"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how style coordinates isolation state transitions.",
+            "values": {
+              "input_code": {
+                "text": "style isolation"
+              },
+              "engine": {
+                "text": "Isolation"
+              },
+              "out": {
+                "text": "ensure tranquility"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the acoustic analogy to soundproofing execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "acoustic soundproofing"
+              },
+              "engine": {
+                "text": "container"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify style constraints and verify resulting isolation state.",
+            "values": {
+              "input_code": {
+                "text": "Style Isolation"
+              },
+              "engine": {
+                "text": "Shadow"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "CSS Style Isolation, Shadow DOM & Design System Governance",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Style",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Isolation",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Shadow",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize style architecture and isolation boundaries.",
+            "values": {
+              "input_code": "Style Isolation",
+              "engine": "StyleIsolationContainer",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how style coordinates isolation state transitions.",
+            "values": {
+              "input_code": "style isolation",
+              "engine": "Isolation",
+              "out": "ensure tranquility"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the acoustic analogy to soundproofing execution invariants.",
+            "values": {
+              "input_code": "acoustic soundproofing",
+              "engine": "container",
+              "out": "[Style Isolation] Mounted Container:"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify style constraints and verify resulting isolation state.",
+            "values": {
+              "input_code": "Style Isolation",
+              "engine": "Shadow",
+              "out": "[Style Isolation] Markup Length: 262"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "The Micro-Frontend Sentinel & Resilient Failure Quarantine",
       "codeHash": "26165ecacfbb8a8d8142958cd554596d45944ea697f492abcf043dcfdb55a8d7",
       "spec": {
-        "template": "compare",
-        "title": "System Architecture: The Micro-Frontend Sentinel & Resilient Failure Quarantine",
-        "left": {
-          "label": "Monolithic Legacy Architecture",
-          "content": [
-            "Single monolithic frontend bundle",
-            "Garbage collection memory pauses",
-            "Uncorrelated fragmented server logs",
-            "Centralized database locking bottlenecks"
-          ]
-        },
-        "right": {
-          "label": "Sovereign Edge Mesh Architecture",
-          "content": [
-            "Dynamic module federation remotes",
-            "Near-instantaneous WebAssembly compute",
-            "W3C distributed trace context propagation",
-            "Algebraic CRDT state convergence"
-          ]
-        },
+        "template": "flow",
+        "title": "The Micro-Frontend Sentinel & Resilient Failure Quarantine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Micro",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Frontend",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sentinel",
+            "tappable": true
+          }
+        ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Architectural overview illustrates foundational subsystem boundari."
+            "caption": "Initialize micro architecture and frontend boundaries.",
+            "values": {
+              "input_code": {
+                "text": "Micro-Frontend Sentinel"
+              },
+              "engine": {
+                "text": "RemoteHealth"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
           },
           {
-            "at": "inspect",
-            "caption": "Deep inspection reveals internal state transitions, memory layout structures, and asynchronous context propagation invariants."
+            "at": "say1",
+            "caption": "Trace how micro coordinates frontend state transitions.",
+            "values": {
+              "input_code": {
+                "text": "failure quarantine"
+              },
+              "engine": {
+                "text": "Frontend"
+              },
+              "out": {
+                "text": "ship"
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "compare",
-            "caption": "Comparative evaluation highlights performance characteristics, memory overhead tradeoffs, and algebraic fault tolerance guarantees."
+            "at": "example",
+            "caption": "Connect the watertight analogy to bulkhead execution invariants.",
+            "values": {
+              "input_code": {
+                "text": "watertight bulkhead"
+              },
+              "engine": {
+                "text": "health.status"
+              },
+              "out": {
+                "out": 0
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
           },
           {
-            "at": "verify",
-            "caption": "Comprehensive verification confirms deterministic execution, zero data loss, and complete adherence to enterprise distributed consensus invariants."
+            "at": "tryIt",
+            "caption": "Modify micro constraints and verify resulting frontend state.",
+            "values": {
+              "input_code": {
+                "text": "Micro-Frontend Sentinel"
+              },
+              "engine": {
+                "text": "Sentinel"
+              },
+              "out": {
+                "out": 1
+              }
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "leftLabel": "Monolithic Legacy Architecture",
-        "rightLabel": "Sovereign Edge Mesh Architecture"
+        "template": "flow",
+        "title": "The Micro-Frontend Sentinel & Resilient Failure Quarantine",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Micro",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Frontend",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Sentinel",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize micro architecture and frontend boundaries.",
+            "values": {
+              "input_code": "Micro-Frontend Sentinel",
+              "engine": "RemoteHealth",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how micro coordinates frontend state transitions.",
+            "values": {
+              "input_code": "failure quarantine",
+              "engine": "Frontend",
+              "out": "ship"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the watertight analogy to bulkhead execution invariants.",
+            "values": {
+              "input_code": "watertight bulkhead",
+              "engine": "health.status",
+              "out": "[Sentinel] Remote recsApp Consecutiv"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify micro constraints and verify resulting frontend state.",
+            "values": {
+              "input_code": "Micro-Frontend Sentinel",
+              "engine": "Sentinel",
+              "out": "[Sentinel] Remote recsApp Final Stat"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
       }
     }
   ]

@@ -2,117 +2,141 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 8,
-  "promptSha": "c113292c7844a6f56a8f7df7ac11a2138d4600a1d8683acf4289f99fcb74e302",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "19afbd56414afe641810de6d39200fd38496b5a71d47120336350427c14dd9a2",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Next.js Middleware on V8 Isolates: Execution Order & matcher Configurations",
-      "codeHash": "598d0acd8fb31d59741718899ec069c4df3ded5e00c017d0aec46a2458fba180",
+      "partTitle": "The Anatomy of REST Collections: Query Strings & Parameter Extraction",
+      "codeHash": "2f5d9efce56235f3a8c8ec4155b5cb5ed985718ee2f3c2045fbba1b185214169",
       "spec": {
         "template": "flow",
-        "title": "Next.js Middleware on V8 Isolates: Ex... — Execution Pipeline",
+        "title": "The Anatomy of REST Collections",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Anatomy",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Next.js Middleware on V8 Isolates: Ex...",
+            "id": "engine",
+            "label": "REST",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Collections",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Inspect incoming edge request and matcher rules for Next.js Middleware on.",
+            "caption": "Initialize collections architecture and modern boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Anatomy of"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "full-stack application"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute isolate verification or rewrite logic in Next.js Middleware on.",
+            "caption": "Trace how collections coordinates modern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "dangers of"
+              },
+              "engine": {
+                "text": "REST"
+              },
+              "out": {
+                "text": "network bandwidth"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the query analogy to dining execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": {
+                "text": "dining at"
+              },
+              "engine": {
+                "text": "Object.entries"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Next.js Middleware on engine Isolates.",
+            "caption": "Modify pass constraints and verify resulting limit state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass"
+              },
+              "engine": {
+                "text": "Collections"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -121,109 +145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Next.js Middleware on V8 Isolates: Ex... — Execution Pipeline",
+        "title": "The Anatomy of REST Collections",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Anatomy",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Next.js Middleware on V8 Isolates: Ex...",
+            "id": "engine",
+            "label": "REST",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Collections",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspect incoming edge request and matcher rules for Next.js Middleware on V8 Isolates: Ex....",
+            "caption": "Initialize collections architecture and modern boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Anatomy of",
+              "engine": "Verification",
+              "out": "full-stack application"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute isolate verification or rewrite logic in Next.js Middleware on V8 Isolates: Ex....",
+            "caption": "Trace how collections coordinates modern state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "dangers of",
+              "engine": "REST",
+              "out": "network bandwidth"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the query analogy to dining execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": "dining at",
+              "engine": "Object.entries",
+              "out": "Test 1 (Clamped): Page: 2 | Limit (M"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Next.js Middleware on V8 Isolates: Ex....",
+            "caption": "Modify pass constraints and verify resulting limit state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass",
+              "engine": "Collections",
+              "out": "Test 2 (Fallbacks): Page: 1 | Defaul"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -232,113 +256,137 @@
       }
     },
     {
-      "partTitle": "Stateless JWT Authentication & Distributed Session Caching",
-      "codeHash": "e82aa36c39068040288e1c7b49522bb0d929bb795973bd1dc2ca33574b2968a8",
+      "partTitle": "Offset vs Cursor-Based Pagination: Database Index Physics & The Quadratic Trap",
+      "codeHash": "91ee4626799b41f4abbdda97895ebbe9beeccc66e5f9e6a5925e8215a4a4396b",
       "spec": {
         "template": "flow",
-        "title": "Stateless JWT Authentication & Distri... — Execution Pipeline",
+        "title": "Offset vs Cursor-Based Pagination",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Offset",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Stateless JWT Authentication & Distri...",
+            "id": "engine",
+            "label": "Cursor",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Based",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Inspect incoming edge request and matcher rules for Stateless JWT.",
+            "caption": "Initialize database architecture and offset boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Offset vs"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "Once query"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute isolate verification or rewrite logic in Stateless JWT.",
+            "caption": "Trace how database coordinates offset state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Offset Pagination"
+              },
+              "engine": {
+                "text": "Cursor"
+              },
+              "out": {
+                "text": "trivial"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the offset analogy to pagination execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": {
+                "text": "reading"
+              },
+              "engine": {
+                "text": "database B-Tree"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Stateless JWT Authentication & Distri....",
+            "caption": "Modify offset constraints and verify resulting pagination state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Simulate an"
+              },
+              "engine": {
+                "text": "Based"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -347,109 +395,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Stateless JWT Authentication & Distri... — Execution Pipeline",
+        "title": "Offset vs Cursor-Based Pagination",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Offset",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Stateless JWT Authentication & Distri...",
+            "id": "engine",
+            "label": "Cursor",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Based",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspect incoming edge request and matcher rules for Stateless JWT Authentication & Distri....",
+            "caption": "Initialize database architecture and offset boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Offset vs",
+              "engine": "Verification",
+              "out": "Once query"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute isolate verification or rewrite logic in Stateless JWT Authentication & Distri....",
+            "caption": "Trace how database coordinates offset state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "Offset Pagination",
+              "engine": "Cursor",
+              "out": "trivial"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the offset analogy to pagination execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": "reading",
+              "engine": "database B-Tree",
+              "out": "=== PAGINATION INDEX SCAN COMPARISON"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Stateless JWT Authentication & Distri....",
+            "caption": "Modify offset constraints and verify resulting pagination state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Simulate an",
+              "engine": "Based",
+              "out": "Next Cursor Token: 20020"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -458,113 +506,137 @@
       }
     },
     {
-      "partTitle": "Request & Response Manipulation: Headers, Cookies, Rewrites & Geolocation Routing",
-      "codeHash": "bf1d49d035cd6879080ec58e2517bcc55fbbb8fb18bf12b4c506450503e3f404",
+      "partTitle": "Sorting Syntax & Direction Parsing: Leading Hyphens vs SQL Directional Enums",
+      "codeHash": "3db0b785d74b054b7c58febdc441ce6c7b91a3c3b1e776f71357b76f1553799e",
       "spec": {
         "template": "flow",
-        "title": "Request & Response Manipulation: Head... — Execution Pipeline",
+        "title": "Sorting Syntax & Direction Parsing",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Sorting",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Request & Response Manipulation: Head...",
+            "id": "engine",
+            "label": "Syntax",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Direction",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Inspect incoming edge request and matcher rules for Request & Response.",
+            "caption": "Initialize sorting architecture and collection boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Sorting Syntax"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "collection APIs"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute isolate verification or rewrite logic in Request & Response.",
+            "caption": "Trace how sorting coordinates collection state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "establish deterministic"
+              },
+              "engine": {
+                "text": "Syntax"
+              },
+              "out": {
+                "text": "evolution of"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the olympic analogy to medal execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": {
+                "text": "Olympic medal"
+              },
+              "engine": {
+                "text": "this.allowedFields.has"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Request & Response Manipulation: Head....",
+            "caption": "Modify pass constraints and verify resulting empty state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass an"
+              },
+              "engine": {
+                "text": "Direction"
+              },
+              "out": {
+                "out": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -573,109 +645,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Request & Response Manipulation: Head... — Execution Pipeline",
+        "title": "Sorting Syntax & Direction Parsing",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Sorting",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Request & Response Manipulation: Head...",
+            "id": "engine",
+            "label": "Syntax",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Direction",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspect incoming edge request and matcher rules for Request & Response Manipulation: Head....",
+            "caption": "Initialize sorting architecture and collection boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Sorting Syntax",
+              "engine": "Verification",
+              "out": "collection APIs"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute isolate verification or rewrite logic in Request & Response Manipulation: Head....",
+            "caption": "Trace how sorting coordinates collection state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "establish deterministic",
+              "engine": "Syntax",
+              "out": "evolution of"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the olympic analogy to medal execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": "Olympic medal",
+              "engine": "this.allowedFields.has",
+              "out": "Case 1 (-created_at): [{\"field\":\"cre"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Request & Response Manipulation: Head....",
+            "caption": "Modify pass constraints and verify resulting empty state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass an",
+              "engine": "Direction",
+              "out": "Case 3 (SQL Injection Rejected): [{\""
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -684,113 +756,137 @@
       }
     },
     {
-      "partTitle": "Edge Rate Limiting: Sliding Window Counters via Distributed Key-Value Caching",
-      "codeHash": "14438031a55def716d96557f83c819575c83b1514f47d99ca7e7f62bebbc4da7",
+      "partTitle": "Relational Filter Composition & SQL Injection Defense",
+      "codeHash": "09957bb51ac7317172b8ace280ebccf9584e4116949780d17f1f6b28c3d9db1e",
       "spec": {
         "template": "flow",
-        "title": "Edge Rate Limiting: Sliding Window Co... — Execution Pipeline",
+        "title": "Relational Filter Composition & SQL Injection Defense",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Relational",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Edge Rate Limiting: Sliding Window Co...",
+            "id": "engine",
+            "label": "Filter",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Composition",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Inspect incoming edge request and matcher rules for Edge Rate Limiting.",
+            "caption": "Initialize relational architecture and injection boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Relational Filter"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "collection APIs"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute isolate verification or rewrite logic in Edge Rate Limiting.",
+            "caption": "Trace how relational coordinates injection state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "understand how"
+              },
+              "engine": {
+                "text": "Filter"
+              },
+              "out": {
+                "text": "resulting query"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the injection analogy to depositing execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": {
+                "text": "depositing"
+              },
+              "engine": {
+                "text": "placeholder"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Edge Rate Limiting: Sliding Window Co....",
+            "caption": "Modify filter constraints and verify resulting optional state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "optional filter"
+              },
+              "engine": {
+                "text": "Composition"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -799,109 +895,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Edge Rate Limiting: Sliding Window Co... — Execution Pipeline",
+        "title": "Relational Filter Composition & SQL Injection Defense",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Relational",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Edge Rate Limiting: Sliding Window Co...",
+            "id": "engine",
+            "label": "Filter",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Composition",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspect incoming edge request and matcher rules for Edge Rate Limiting: Sliding Window Co....",
+            "caption": "Initialize relational architecture and injection boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Relational Filter",
+              "engine": "Verification",
+              "out": "collection APIs"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute isolate verification or rewrite logic in Edge Rate Limiting: Sliding Window Co....",
+            "caption": "Trace how relational coordinates injection state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "understand how",
+              "engine": "Filter",
+              "out": "resulting query"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the injection analogy to depositing execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": "depositing",
+              "engine": "placeholder",
+              "out": "=== PARAMETERIZED SQL COMPILATION TR"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Edge Rate Limiting: Sliding Window Co....",
+            "caption": "Modify filter constraints and verify resulting optional state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "optional filter",
+              "engine": "Composition",
+              "out": "Injection Neutralized: Attacker stri"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -910,113 +1006,137 @@
       }
     },
     {
-      "partTitle": "Enterprise Edge Security Gateway: Geo-Routing, Session Verification & Rate Limiting Master Engine",
-      "codeHash": "929025db819e8ab97e3f9589c5456e58f786b8d293c0d0951d54091315b3fb62",
+      "partTitle": "Standardized Pagination Envelopes: Total Count & Navigation Flags",
+      "codeHash": "31e7ad043e52631800c8a608dfa49303a93494a2b6bb5b8b640101ca106c5cf5",
       "spec": {
         "template": "flow",
-        "title": "Enterprise Edge Security Gateway: Geo... — Execution Pipeline",
+        "title": "Standardized Pagination Envelopes",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Standardized",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Edge Security Gateway: Geo...",
+            "id": "engine",
+            "label": "Pagination",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Envelopes",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Inspect incoming edge request and matcher rules for Enterprise Edge.",
+            "caption": "Initialize pagination architecture and navigation boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Standardized Pagination"
+              },
+              "engine": {
+                "text": "Verification"
+              },
+              "out": {
+                "text": "final architectural"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute isolate verification or rewrite logic in Enterprise Edge Security.",
+            "caption": "Trace how pagination coordinates navigation state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "pagination envelope"
+              },
+              "engine": {
+                "text": "Pagination"
+              },
+              "out": {
+                "text": "total number"
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the total analogy to elevator execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": {
+                "text": "elevator control"
+              },
+              "engine": {
+                "text": "page"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "End-to-end execution verified for Enterprise Edge Security Gateway: Geo....",
+            "caption": "Modify pass constraints and verify resulting page state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": {
+                "text": "Pass page"
+              },
+              "engine": {
+                "text": "Envelopes"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
@@ -1025,109 +1145,109 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise Edge Security Gateway: Geo... — Execution Pipeline",
+        "title": "Standardized Pagination Envelopes",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Edge Request & Headers",
+            "id": "input_code",
+            "label": "Standardized",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Enterprise Edge Security Gateway: Geo...",
+            "id": "engine",
+            "label": "Pagination",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Transformed Response",
+            "label": "Envelopes",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspect incoming edge request and matcher rules for Enterprise Edge Security Gateway: Geo....",
+            "caption": "Initialize pagination architecture and navigation boundaries.",
             "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": "Standardized Pagination",
+              "engine": "Verification",
+              "out": "final architectural"
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute isolate verification or rewrite logic in Enterprise Edge Security Gateway: Geo....",
+            "caption": "Trace how pagination coordinates navigation state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": "pagination envelope",
+              "engine": "Pagination",
+              "out": "total number"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate edge routing decision and rate limit invariants.",
+            "caption": "Connect the total analogy to elevator execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Policy Enforced",
-              "out": "Emitting"
+              "input_code": "elevator control",
+              "engine": "page",
+              "out": "=== PAGE 1 OF 3 ==="
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Enterprise Edge Security Gateway: Geo....",
+            "caption": "Modify pass constraints and verify resulting page state.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "input_code": "Pass page",
+              "engine": "Envelopes",
+              "out": "Total Pages: 3 | hasNext (Must be fa"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ],
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]

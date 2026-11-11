@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 20,
-  "promptSha": "22a082cfd24deed3cc8a4fc092de564e4e607121dcec22eff51a9826a3319139",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "177eafd35a7d653c28d91c65b127a1dd39f6d695fe254dbcf1f187636696ec3f",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Unified Architecture: Type-Safe API Gateway & Hybrid Transport Protocol Selection",
       "codeHash": "b13b0c8c7d113c50eee9459b8b015cbe1b4d852656f7e7bb587b05bf55d86b17",
       "spec": {
         "template": "flow",
-        "title": "Unified Architecture: Type-Safe API... — Execution Pipeline",
+        "title": "Unified Architecture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Gateway Ingress",
+            "id": "input_code",
+            "label": "Unified",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Unified Architecture: Type-Safe API...",
+            "id": "engine",
+            "label": "Architecture",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Synchronized State / Quarantined DLQ State",
+            "label": "Type",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Unified Architecture.",
+            "caption": "Initialize hybrid architecture and transport boundaries.",
             "values": {
-              "in": "Capstone Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Unified Architecture"
+              },
+              "engine": {
+                "text": "Hybrid Gateway"
+              },
+              "out": {
+                "text": "collaborative platforms"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
+            "caption": "Trace how hybrid coordinates transport state transitions.",
             "values": {
-              "in": "Verified Frame",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "unified API"
+              },
+              "engine": {
+                "text": "Architecture"
+              },
+              "out": {
+                "text": "GraphQL over"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world collaborative synchronization and compute offload in Unified.",
+            "caption": "Connect the collaborative analogy to design execution invariants.",
             "values": {
-              "in": "Multiplayer Mesh",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "collaborative design"
+              },
+              "engine": {
+                "text": "transport"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
+            "caption": "Modify transport constraints and verify resulting invalid state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "invalid authentication"
+              },
+              "engine": {
+                "text": "Type"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Unified Architecture",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Unified",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Architecture",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Type",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize hybrid architecture and transport boundaries.",
+            "values": {
+              "input_code": "Unified Architecture",
+              "engine": "Hybrid Gateway",
+              "out": "collaborative platforms"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how hybrid coordinates transport state transitions.",
+            "values": {
+              "input_code": "unified API",
+              "engine": "Architecture",
+              "out": "GraphQL over"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the collaborative analogy to design execution invariants.",
+            "values": {
+              "input_code": "collaborative design",
+              "engine": "transport",
+              "out": "Hybrid Gateway Dispatcher Initialize"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify transport constraints and verify resulting invalid state.",
+            "values": {
+              "input_code": "invalid authentication",
+              "engine": "Type",
+              "out": "Hybrid Protocol Gateway Invariant: V"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -117,101 +260,244 @@
       "codeHash": "8a41ce24677337fcbb41a25813f69c6a7d145068a72dbad2e3f1144d3a56d9f4",
       "spec": {
         "template": "flow",
-        "title": "High-Frequency CRDT State Synchroni... — Execution Pipeline",
+        "title": "High-Frequency CRDT State Synchronization & WebSocket",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Gateway Ingress",
+            "id": "input_code",
+            "label": "Frequency",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. High-Frequency CRDT State Synchroni...",
+            "id": "engine",
+            "label": "CRDT",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Synchronized State / Quarantined DLQ State",
+            "label": "State",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize High-Frequency CRDT State.",
+            "caption": "Initialize state architecture and high boundaries.",
             "values": {
-              "in": "Capstone Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "High-Frequency CRDT"
+              },
+              "engine": {
+                "text": "CRDT State"
+              },
+              "out": {
+                "text": "collaborative multiplayer"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
+            "caption": "Trace how state coordinates high state transitions.",
             "values": {
-              "in": "Verified Frame",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "CRDTs mathematically"
+              },
+              "engine": {
+                "text": "CRDT"
+              },
+              "out": {
+                "text": "Because CRDT"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world collaborative synchronization and compute offload in.",
+            "caption": "Connect the state analogy to multiplayer execution invariants.",
             "values": {
-              "in": "Multiplayer Mesh",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "multiplayer whiteboard"
+              },
+              "engine": {
+                "text": "getStats"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
+            "caption": "Modify state constraints and verify resulting high state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Critical State"
+              },
+              "engine": {
+                "text": "State"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "High-Frequency CRDT State Synchronization & WebSocket",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Frequency",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "CRDT",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "State",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize state architecture and high boundaries.",
+            "values": {
+              "input_code": "High-Frequency CRDT",
+              "engine": "CRDT State",
+              "out": "collaborative multiplayer"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how state coordinates high state transitions.",
+            "values": {
+              "input_code": "CRDTs mathematically",
+              "engine": "CRDT",
+              "out": "Because CRDT"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the state analogy to multiplayer execution invariants.",
+            "values": {
+              "input_code": "multiplayer whiteboard",
+              "engine": "getStats",
+              "out": "CRDT Sync Engine Initialized: Backpr"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify state constraints and verify resulting high state.",
+            "values": {
+              "input_code": "Critical State",
+              "engine": "State",
+              "out": "CRDT & Backpressure Invariant: VERIF"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -224,101 +510,244 @@
       "codeHash": "c652b402ba17641253053fe5151c0e9149bb6ae57b1554e9e1b0d4a3b4f7d73e",
       "spec": {
         "template": "flow",
-        "title": "Distributed Multi-Tenant Redis Pub/... — Execution Pipeline",
+        "title": "Distributed Multi-Tenant Redis Pub/Sub Cluster & Sharded",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Gateway Ingress",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Multi-Tenant Redis Pub/...",
+            "id": "engine",
+            "label": "Multi",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Synchronized State / Quarantined DLQ State",
+            "label": "Tenant",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Distributed Multi-Tenant Redis.",
+            "caption": "Initialize routing architecture and distributed boundaries.",
             "values": {
-              "in": "Capstone Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Multi-Tenant"
+              },
+              "engine": {
+                "text": "Distributed Sharded"
+              },
+              "out": {
+                "text": "scaling real-time"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
+            "caption": "Trace how routing coordinates distributed state transitions.",
             "values": {
-              "in": "Verified Frame",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Redis Pub"
+              },
+              "engine": {
+                "text": "Multi"
+              },
+              "out": {
+                "text": "WebSocket pod"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world collaborative synchronization and compute offload in.",
+            "caption": "Connect the sharded analogy to redis execution invariants.",
             "values": {
-              "in": "Multiplayer Mesh",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "global collaborative"
+              },
+              "engine": {
+                "text": "pubSubMesh"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
+            "caption": "Modify tenant constraints and verify resulting pods state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "pods subscribing"
+              },
+              "engine": {
+                "text": "Tenant"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Distributed Multi-Tenant Redis Pub/Sub Cluster & Sharded",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Multi",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Tenant",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize routing architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Distributed Multi-Tenant",
+              "engine": "Distributed Sharded",
+              "out": "scaling real-time"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how routing coordinates distributed state transitions.",
+            "values": {
+              "input_code": "Redis Pub",
+              "engine": "Multi",
+              "out": "WebSocket pod"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the sharded analogy to redis execution invariants.",
+            "values": {
+              "input_code": "global collaborative",
+              "engine": "pubSubMesh",
+              "out": "Distributed Pub/Sub Mesh Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify tenant constraints and verify resulting pods state.",
+            "values": {
+              "input_code": "pods subscribing",
+              "engine": "Tenant",
+              "out": "Distributed Sharded Pub/Sub Invarian"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -331,101 +760,244 @@
       "codeHash": "9518a033bc58762a1c026db670dbac329c0e22c952ecaa9533d65dd9a9dee0e7",
       "spec": {
         "template": "flow",
-        "title": "Heavy Compute Offloading: BullMQ Sa... — Execution Pipeline",
+        "title": "Heavy Compute Offloading",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Gateway Ingress",
+            "id": "input_code",
+            "label": "Heavy",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Heavy Compute Offloading: BullMQ Sa...",
+            "id": "engine",
+            "label": "Compute",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Synchronized State / Quarantined DLQ State",
+            "label": "Offloading",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Heavy Compute Offloading.",
+            "caption": "Initialize compute architecture and real boundaries.",
             "values": {
-              "in": "Capstone Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Heavy Compute"
+              },
+              "engine": {
+                "text": "BullMQ DAG"
+              },
+              "out": {
+                "text": "Real-time collaborative"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in Heavy.",
+            "caption": "Trace how compute coordinates real state transitions.",
             "values": {
-              "in": "Verified Frame",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "systems strictly"
+              },
+              "engine": {
+                "text": "Compute"
+              },
+              "out": {
+                "text": "priority"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world collaborative synchronization and compute offload in Heavy.",
+            "caption": "Connect the bullmq analogy to sandboxed execution invariants.",
             "values": {
-              "in": "Multiplayer Mesh",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "user in"
+              },
+              "engine": {
+                "text": "getPipelineStatus"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
+            "caption": "Modify parent constraints and verify resulting remains state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "parent job"
+              },
+              "engine": {
+                "text": "Offloading"
+              },
+              "out": {
+                "out": 6
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Heavy Compute Offloading",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Heavy",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Compute",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Offloading",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize compute architecture and real boundaries.",
+            "values": {
+              "input_code": "Heavy Compute",
+              "engine": "BullMQ DAG",
+              "out": "Real-time collaborative"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how compute coordinates real state transitions.",
+            "values": {
+              "input_code": "systems strictly",
+              "engine": "Compute",
+              "out": "priority"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the bullmq analogy to sandboxed execution invariants.",
+            "values": {
+              "input_code": "user in",
+              "engine": "getPipelineStatus",
+              "out": "Offload Job DAG Pipeline Initialized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify parent constraints and verify resulting remains state.",
+            "values": {
+              "input_code": "parent job",
+              "engine": "Offloading",
+              "out": "BullMQ DAG Offloading Invariant: VER"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -438,101 +1010,244 @@
       "codeHash": "7c83f63db989ba81b0f378c619af6ca79b9583d2796cc1b7a5b5c4c22ce28fdf",
       "spec": {
         "template": "flow",
-        "title": "Production Resilience: Exponential ... — Execution Pipeline",
+        "title": "Production Resilience",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream Frame / Gateway Ingress",
+            "id": "input_code",
+            "label": "Resilience",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Production Resilience: Exponential ...",
+            "id": "engine",
+            "label": "Exponential",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Synchronized State / Quarantined DLQ State",
+            "label": "Backoff",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream frame vector and initialize Production Resilience.",
+            "caption": "Initialize resilience architecture and distributed boundaries.",
             "values": {
-              "in": "Capstone Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Resilience"
+              },
+              "engine": {
+                "text": "Resilience Telemetry"
+              },
+              "out": {
+                "text": "Resilience in"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
+            "caption": "Trace how resilience coordinates distributed state transitions.",
             "values": {
-              "in": "Verified Frame",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Transient failure"
+              },
+              "engine": {
+                "text": "Exponential"
+              },
+              "out": {
+                "text": "delay"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world collaborative synchronization and compute offload in.",
+            "caption": "Connect the telemetry analogy to jitter execution invariants.",
             "values": {
-              "in": "Multiplayer Mesh",
-              "proc": "Executing",
-              "out": "State Converged"
+              "input_code": {
+                "text": "real-time collaboration"
+              },
+              "engine": {
+                "text": "this.dlqStorage.length"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
+            "caption": "Modify simulate constraints and verify resulting injecting state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Simulate injecting"
+              },
+              "engine": {
+                "text": "Backoff"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Production Resilience",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Resilience",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Exponential",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Backoff",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize resilience architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Resilience",
+              "engine": "Resilience Telemetry",
+              "out": "Resilience in"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how resilience coordinates distributed state transitions.",
+            "values": {
+              "input_code": "Transient failure",
+              "engine": "Exponential",
+              "out": "delay"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the telemetry analogy to jitter execution invariants.",
+            "values": {
+              "input_code": "real-time collaboration",
+              "engine": "this.dlqStorage.length",
+              "out": "Enterprise Resilience Telemetry Hub "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify simulate constraints and verify resulting injecting state.",
+            "values": {
+              "input_code": "Simulate injecting",
+              "engine": "Backoff",
+              "out": "Resilience & monitoring accuracy che"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

@@ -2,113 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 29,
-  "promptSha": "7c56af713d939f0e5d20b9144d23edafd405fe949abcb692c2ef8cc21515dd92",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "7bf4a32dc4283fb93d48c8b89f3d8b29a8231f9911dd701af08a966ca487dded",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
       "partTitle": "Infrastructure as Code (IaC) Paradigm: Declarative HCL, Providers & Desired-State Graph",
       "codeHash": "d9d2130ccaee33c0655cb3d1a9ab38e79f616b5d6b8c9b4af36a35c9319009d0",
       "spec": {
         "template": "flow",
-        "title": "Infrastructure as Code (IaC) Par... — Execution Pipeline",
+        "title": "Infrastructure as Code (IaC) Paradigm",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Infrastructure",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Infrastructure as Code (IaC) Par...",
+            "id": "engine",
+            "label": "Code",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Paradigm",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Infrastructure as Code (IaC) Par....",
+            "caption": "Initialize infrastructure architecture and code boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Infrastructure as"
+              },
+              "engine": {
+                "text": "Terraform HCL"
+              },
+              "out": {
+                "text": "Welcome to"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Infrastructure as.",
+            "caption": "Trace how infrastructure coordinates code state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "undisputed industry"
+              },
+              "engine": {
+                "text": "Code"
+              },
+              "out": {
+                "text": "writing bash"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Infrastructure as.",
+            "caption": "Connect the infrastructure analogy to enterprise execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "platform engineering"
+              },
+              "engine": {
+                "text": "this.provisioned.has"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Infrastructure as.",
+            "caption": "Modify graph constraints and verify resulting introduce state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Introduce"
+              },
+              "engine": {
+                "text": "Paradigm"
+              },
+              "out": {
+                "out": 8
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Infrastructure as Code (IaC) Paradigm",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Infrastructure",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Code",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Paradigm",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize infrastructure architecture and code boundaries.",
+            "values": {
+              "input_code": "Infrastructure as",
+              "engine": "Terraform HCL",
+              "out": "Welcome to"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how infrastructure coordinates code state transitions.",
+            "values": {
+              "input_code": "undisputed industry",
+              "engine": "Code",
+              "out": "writing bash"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the infrastructure analogy to enterprise execution invariants.",
+            "values": {
+              "input_code": "platform engineering",
+              "engine": "this.provisioned.has",
+              "out": "--- Phase 1: Terraform Plan ---"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify graph constraints and verify resulting introduce state.",
+            "values": {
+              "input_code": "Introduce",
+              "engine": "Paradigm",
+              "out": "Provisioned: aws_eks_cluster.k8s_pro"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -118,108 +257,247 @@
     },
     {
       "partTitle": "Terraform State Management, Remote Backends & State Locking",
-      "codeHash": "90330b71a3105c0bcbb350c45247dfcd5ebc6e0e5160f3acd42d4d4bbc88179d",
+      "codeHash": "c6fe33fdd5cb382243059ddf1524c85dc9e634ba8b67b5b00f82d075e1ef51c2",
       "spec": {
         "template": "flow",
-        "title": "Terraform State Management, Remo... — Execution Pipeline",
+        "title": "Terraform State Management, Remote Backends & State Locking",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Terraform",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Terraform State Management, Remo...",
+            "id": "engine",
+            "label": "State",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Management",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Terraform State Management, Remo....",
+            "caption": "Initialize terraform architecture and state boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Terraform State"
+              },
+              "engine": {
+                "text": "Terraform Remote"
+              },
+              "out": {
+                "text": "Terraform"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Terraform State.",
+            "caption": "Trace how terraform coordinates state state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Storing the"
+              },
+              "engine": {
+                "text": "State"
+              },
+              "out": {
+                "text": "accidentally destroyed"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Terraform State.",
+            "caption": "Connect the state analogy to runners execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "runners trigger"
+              },
+              "engine": {
+                "text": "Record"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Terraform State.",
+            "caption": "Modify simulate constraints and verify resulting third state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Management"
+              },
+              "out": {
+                "out": 8
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Terraform State Management, Remote Backends & State Locking",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Terraform",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "State",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Management",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize terraform architecture and state boundaries.",
+            "values": {
+              "input_code": "Terraform State",
+              "engine": "Terraform Remote",
+              "out": "Terraform"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how terraform coordinates state state transitions.",
+            "values": {
+              "input_code": "Storing the",
+              "engine": "State",
+              "out": "accidentally destroyed"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the state analogy to runners execution invariants.",
+            "values": {
+              "input_code": "runners trigger",
+              "engine": "Record",
+              "out": "--- Phase 1: CI Runner A Acquires St"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify simulate constraints and verify resulting third state.",
+            "values": {
+              "input_code": "Simulate",
+              "engine": "Management",
+              "out": "[DRIFT: OUT-OF-BAND] Resource 'aws_s"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -232,105 +510,244 @@
       "codeHash": "1c7d1b651db37bdb23459c3931dd1b6b474fd65c6496779c07b400b1925e7c64",
       "spec": {
         "template": "flow",
-        "title": "Terraform Modules, Variables & M... — Execution Pipeline",
+        "title": "Terraform Modules, Variables & Multi-Environment Isolation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Terraform",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Terraform Modules, Variables & M...",
+            "id": "engine",
+            "label": "Modules",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Variables",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Terraform Modules, Variables & M....",
+            "caption": "Initialize terraform architecture and modules boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Terraform Modules"
+              },
+              "engine": {
+                "text": "Parameterized Terraform"
+              },
+              "out": {
+                "text": "cloud infrastructure"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Terraform Modules.",
+            "caption": "Trace how terraform coordinates modules state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Terraform Module"
+              },
+              "engine": {
+                "text": "Modules"
+              },
+              "out": {
+                "text": "parameterized"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Terraform Modules.",
+            "caption": "Connect the company analogy to creates execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "company creates"
+              },
+              "engine": {
+                "text": "clusterEndpoint"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Terraform Modules.",
+            "caption": "Modify terraform constraints and verify resulting test state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Test the"
+              },
+              "engine": {
+                "text": "Variables"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Terraform Modules, Variables & Multi-Environment Isolation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Terraform",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Modules",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Variables",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize terraform architecture and modules boundaries.",
+            "values": {
+              "input_code": "Terraform Modules",
+              "engine": "Parameterized Terraform",
+              "out": "cloud infrastructure"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how terraform coordinates modules state transitions.",
+            "values": {
+              "input_code": "Terraform Module",
+              "engine": "Modules",
+              "out": "parameterized"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the company analogy to creates execution invariants.",
+            "values": {
+              "input_code": "company creates",
+              "engine": "clusterEndpoint",
+              "out": "--- Phase 1: Deploying Development E"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify terraform constraints and verify resulting test state.",
+            "values": {
+              "input_code": "Test the",
+              "engine": "Variables",
+              "out": "Validation Guard Caught Expected Err"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -343,105 +760,244 @@
       "codeHash": "d6881adaa4fdba0d459a2d5ae415c34cfb1bdda4c5b4425691d39ade91a4263b",
       "spec": {
         "template": "flow",
-        "title": "Cloudflare CDN, Global Anycast R... — Execution Pipeline",
+        "title": "Cloudflare CDN, Global Anycast Routing & Edge Caching Policies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Cloudflare",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Cloudflare CDN, Global Anycast R...",
+            "id": "engine",
+            "label": "Global",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Anycast",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Cloudflare CDN, Global Anycast R....",
+            "caption": "Initialize global architecture and cloudflare boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cloudflare CDN"
+              },
+              "engine": {
+                "text": "Cloudflare Anycast"
+              },
+              "out": {
+                "text": "Once backend"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Cloudflare CDN.",
+            "caption": "Trace how global coordinates cloudflare state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cloudflare operates"
+              },
+              "engine": {
+                "text": "Global"
+              },
+              "out": {
+                "text": "Tokyo queries"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Cloudflare CDN.",
+            "caption": "Connect the cloudflare analogy to edge execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "user in"
+              },
+              "engine": {
+                "text": "body"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Cloudflare CDN.",
+            "caption": "Modify edge constraints and verify resulting simulate state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Simulate"
+              },
+              "engine": {
+                "text": "Anycast"
+              },
+              "out": {
+                "out": 7
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Cloudflare CDN, Global Anycast Routing & Edge Caching Policies",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Cloudflare",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Global",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Anycast",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize global architecture and cloudflare boundaries.",
+            "values": {
+              "input_code": "Cloudflare CDN",
+              "engine": "Cloudflare Anycast",
+              "out": "Once backend"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how global coordinates cloudflare state transitions.",
+            "values": {
+              "input_code": "Cloudflare operates",
+              "engine": "Global",
+              "out": "Tokyo queries"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the cloudflare analogy to edge execution invariants.",
+            "values": {
+              "input_code": "user in",
+              "engine": "body",
+              "out": "--- Request 1: Cold Cache Miss ---"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting simulate state.",
+            "values": {
+              "input_code": "Simulate",
+              "engine": "Anycast",
+              "out": "Source: ORIGIN_FETCH from PoP [FRA ("
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -454,105 +1010,244 @@
       "codeHash": "91e831de036f1f9827ea74408ec62dc16506e669aa2c4d9915d4ca024e9fe693",
       "spec": {
         "template": "flow",
-        "title": "Edge Security, Cloudflare WAF, D... — Execution Pipeline",
+        "title": "Edge Security, Cloudflare WAF, DDoS Mitigation & Zero-Trust",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Stream / Request Frame",
+            "id": "input_code",
+            "label": "Edge",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Edge Security, Cloudflare WAF, D...",
+            "id": "engine",
+            "label": "Security",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Distributed State",
+            "label": "Cloudflare",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress stream payload and initialize Edge Security, Cloudflare WAF, D....",
+            "caption": "Initialize security architecture and ddos boundaries.",
             "values": {
-              "in": "Stream Ingress",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Edge Security"
+              },
+              "engine": {
+                "text": "Cloudflare Edge"
+              },
+              "out": {
+                "text": "Exposing Kubernetes"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute protocol handling, encoding, and routing in Edge Security.",
+            "caption": "Trace how security coordinates ddos state transitions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Cloudflare WAF"
+              },
+              "engine": {
+                "text": "Security"
+              },
+              "out": {
+                "text": "Layer"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world distributed microservices interaction in Edge Security.",
+            "caption": "Connect the zero analogy to cloudflare execution invariants.",
             "values": {
-              "in": "Validated",
-              "proc": "Dispatched",
-              "out": "Applying State"
+              "input_code": {
+                "text": "attacker discovers"
+              },
+              "engine": {
+                "text": "reason"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "active",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "ok",
               "out": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify end-to-end telemetry and state consistency in Edge Security.",
+            "caption": "Modify edge constraints and verify resulting send state.",
             "values": {
-              "in": "ACK Received",
-              "proc": "Committed",
-              "out": "Telemetry Verified"
+              "input_code": {
+                "text": "Send an"
+              },
+              "engine": {
+                "text": "Cloudflare"
+              },
+              "out": {
+                "out": 8
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Edge Security, Cloudflare WAF, DDoS Mitigation & Zero-Trust",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Edge",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Security",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Cloudflare",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize security architecture and ddos boundaries.",
+            "values": {
+              "input_code": "Edge Security",
+              "engine": "Cloudflare Edge",
+              "out": "Exposing Kubernetes"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how security coordinates ddos state transitions.",
+            "values": {
+              "input_code": "Cloudflare WAF",
+              "engine": "Security",
+              "out": "Layer"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the zero analogy to cloudflare execution invariants.",
+            "values": {
+              "input_code": "attacker discovers",
+              "engine": "reason",
+              "out": "--- Phase 1: Legitimate Client Reque"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify edge constraints and verify resulting send state.",
+            "values": {
+              "input_code": "Send an",
+              "engine": "Cloudflare",
+              "out": "Request #4 Status: [WAF BLOCKED: 429"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]

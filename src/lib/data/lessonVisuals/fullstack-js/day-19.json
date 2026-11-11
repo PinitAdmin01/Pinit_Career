@@ -2,109 +2,252 @@
   "schemaVersion": 1,
   "prefix": "fullstack-js",
   "day": 19,
-  "promptSha": "345dbfad28d5e1b681e6ad519f8e7204243215a3de590a6ad23a314be752c6a9",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "f844b9efe6057389c974fc33564189164894e80563be87c623a8df6de4e774b7",
+  "model": "curriculum-grounding-v2",
   "entries": [
     {
-      "partTitle": "Producer-Consumer Architecture & BullMQ Job Lifecycles",
-      "codeHash": "68ae0bb16d50ed41481576dcc63b69af85d4e3ac539fccd8fe45559ce4b9d60e",
+      "partTitle": "Producer-Consumer Topologies: Redis Streams vs Pub/Sub & BullMQ State Machine Physics",
+      "codeHash": "2ac810c9718738b27ea0cb16976b429233b0fa21ee1ce04e64042b74b293438c",
       "spec": {
         "template": "flow",
-        "title": "Producer-Consumer Architecture & Bu... — Execution Pipeline",
+        "title": "Producer-Consumer Topologies",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Job / Task Descriptor",
+            "id": "input_code",
+            "label": "Producer",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Producer-Consumer Architecture & Bu...",
+            "id": "engine",
+            "label": "Consumer",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Processed Queue State / DLQ State",
+            "label": "Topologies",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress task descriptor and initialize Producer-Consumer Architecture &.",
+            "caption": "Initialize scalable architecture and enterprise boundaries.",
             "values": {
-              "in": "Job Enqueued",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Producer-Consumer Topologies"
+              },
+              "engine": {
+                "text": "Architectural Simulation"
+              },
+              "out": {
+                "text": "scalable enterprise"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in.",
+            "caption": "Trace how scalable coordinates enterprise state transitions.",
             "values": {
-              "in": "Claimed",
-              "proc": "Executing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "resolve this"
+              },
+              "engine": {
+                "text": "Consumer"
+              },
+              "out": {
+                "text": "Message Queue"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world asynchronous execution pattern in Producer-Consumer.",
+            "caption": "Connect the redis analogy to busy execution invariants.",
             "values": {
-              "in": "Active Worker",
-              "proc": "Processing",
-              "out": "Completed / Retrying"
+              "input_code": {
+                "text": "busy restaurant"
+              },
+              "engine": {
+                "text": "job.state"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
+            "caption": "Modify state constraints and verify resulting initialize state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Initialize an"
+              },
+              "engine": {
+                "text": "Topologies"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Producer-Consumer Topologies",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Producer",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Consumer",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Topologies",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize scalable architecture and enterprise boundaries.",
+            "values": {
+              "input_code": "Producer-Consumer Topologies",
+              "engine": "Architectural Simulation",
+              "out": "scalable enterprise"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how scalable coordinates enterprise state transitions.",
+            "values": {
+              "input_code": "resolve this",
+              "engine": "Consumer",
+              "out": "Message Queue"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the redis analogy to busy execution invariants.",
+            "values": {
+              "input_code": "busy restaurant",
+              "engine": "job.state",
+              "out": "Enqueued Job ID: job_seq_1 | State: "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify state constraints and verify resulting initialize state.",
+            "values": {
+              "input_code": "Initialize an",
+              "engine": "Topologies",
+              "out": "Queue Metrics: Waiting=0, Active=0, "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -113,105 +256,248 @@
       }
     },
     {
-      "partTitle": "Concurrency, Sandboxed Workers & Event Loop Protection",
-      "codeHash": "1ee239d65ed6b982346d3a91809d6709327d51e6337076ba1ce8575a27101b3c",
+      "partTitle": "Worker Concurrency & Isolation: Sandboxed Child Processes, CPU Bound Tasks & Event Loop Protection",
+      "codeHash": "eda71262dbcd7239a9c18bff855cb7edb393001ec44c9e13e4dbaea1354658a9",
       "spec": {
         "template": "flow",
-        "title": "Concurrency, Sandboxed Workers & Ev... — Execution Pipeline",
+        "title": "Worker Concurrency & Isolation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Job / Task Descriptor",
+            "id": "input_code",
+            "label": "Worker",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Concurrency, Sandboxed Workers & Ev...",
+            "id": "engine",
+            "label": "Concurrency",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Processed Queue State / DLQ State",
+            "label": "Isolation",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress task descriptor and initialize Concurrency, Sandboxed Workers &.",
+            "caption": "Initialize tasks architecture and worker boundaries.",
             "values": {
-              "in": "Job Enqueued",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Worker Concurrency"
+              },
+              "engine": {
+                "text": "Architectural Simulation"
+              },
+              "out": {
+                "text": "asynchronous background"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in.",
+            "caption": "Trace how tasks coordinates worker state transitions.",
             "values": {
-              "in": "Claimed",
-              "proc": "Executing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "event loop"
+              },
+              "engine": {
+                "text": "Concurrency"
+              },
+              "out": {
+                "text": "timeouts"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world asynchronous execution pattern in Concurrency, Sandboxed.",
+            "caption": "Connect the worker analogy to sandboxed execution invariants.",
             "values": {
-              "in": "Active Worker",
-              "proc": "Processing",
-              "out": "Completed / Retrying"
+              "input_code": {
+                "text": "carpenter who"
+              },
+              "engine": {
+                "text": "finally"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
+            "caption": "Modify tasks constraints and verify resulting instantiate state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Instantiate"
+              },
+              "engine": {
+                "text": "Isolation"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Worker Concurrency & Isolation",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Worker",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Concurrency",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Isolation",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize tasks architecture and worker boundaries.",
+            "values": {
+              "input_code": "Worker Concurrency",
+              "engine": "Architectural Simulation",
+              "out": "asynchronous background"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how tasks coordinates worker state transitions.",
+            "values": {
+              "input_code": "event loop",
+              "engine": "Concurrency",
+              "out": "timeouts"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the worker analogy to sandboxed execution invariants.",
+            "values": {
+              "input_code": "carpenter who",
+              "engine": "finally",
+              "out": "Dispatching 3 concurrent tasks to po"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify tasks constraints and verify resulting instantiate state.",
+            "values": {
+              "input_code": "Instantiate",
+              "engine": "Isolation",
+              "out": "Pool Telemetry: Completed=2, Rejecte"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -220,105 +506,248 @@
       }
     },
     {
-      "partTitle": "Retry Strategies, Exponential Backoff, Jitter & Dead-Letter Queues (DLQ)",
-      "codeHash": "5cd6ce27c9a83412dd20ecd9ec04af18ff858355df628a838d2c9f13950cd0bf",
+      "partTitle": "Resilient Retry Architectures: Exponential Backoff, Full Jitter & Dead-Letter Queue (DLQ) Quarantine",
+      "codeHash": "56bce681cd7dc1fa221f81a701663423c342fc6c0f539aef1e7a430f8552f13a",
       "spec": {
         "template": "flow",
-        "title": "Retry Strategies, Exponential Backo... — Execution Pipeline",
+        "title": "Resilient Retry Architectures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Job / Task Descriptor",
+            "id": "input_code",
+            "label": "Resilient",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Retry Strategies, Exponential Backo...",
+            "id": "engine",
+            "label": "Retry",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Processed Queue State / DLQ State",
+            "label": "Architectures",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress task descriptor and initialize Retry Strategies, Exponential.",
+            "caption": "Initialize queue architecture and distributed boundaries.",
             "values": {
-              "in": "Job Enqueued",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Resilient Retry"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "distributed systems"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in Retry.",
+            "caption": "Trace how queue coordinates distributed state transitions.",
             "values": {
-              "in": "Claimed",
-              "proc": "Executing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "However"
+              },
+              "engine": {
+                "text": "Retry"
+              },
+              "out": {
+                "text": "retry delay"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world asynchronous execution pattern in Retry Strategies.",
+            "caption": "Connect the exponential analogy to backoff execution invariants.",
             "values": {
-              "in": "Active Worker",
-              "proc": "Processing",
-              "out": "Completed / Retrying"
+              "input_code": {
+                "text": "calling"
+              },
+              "engine": {
+                "text": "job.attempts"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
+            "caption": "Modify enqueue constraints and verify resulting maxattempts state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Enqueue"
+              },
+              "engine": {
+                "text": "Architectures"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Resilient Retry Architectures",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Resilient",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Retry",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Architectures",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize queue architecture and distributed boundaries.",
+            "values": {
+              "input_code": "Resilient Retry",
+              "engine": "Architectural Implementation",
+              "out": "distributed systems"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how queue coordinates distributed state transitions.",
+            "values": {
+              "input_code": "However",
+              "engine": "Retry",
+              "out": "retry delay"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the exponential analogy to backoff execution invariants.",
+            "values": {
+              "input_code": "calling",
+              "engine": "job.attempts",
+              "out": "Attempt 1 Result: RETRY_SCHEDULED | "
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify enqueue constraints and verify resulting maxattempts state.",
+            "values": {
+              "input_code": "Enqueue",
+              "engine": "Architectures",
+              "out": "DLQ Error Log Length: 2"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -327,105 +756,248 @@
       }
     },
     {
-      "partTitle": "Rate Limiting, Group Throttling & Priority Scheduling",
-      "codeHash": "ba14767138e2091a75848f58b22c58d9e53a95fa3a616a1597ac3e961d97271b",
+      "partTitle": "Queue Traffic Shaping: Granular Rate Limiting, Tenant Group Throttling & Priority Scheduling",
+      "codeHash": "1bac6862a87885b02f8d700be165069167849be67de016465a2850267d3e79f9",
       "spec": {
         "template": "flow",
-        "title": "Rate Limiting, Group Throttling & P... — Execution Pipeline",
+        "title": "Queue Traffic Shaping",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Job / Task Descriptor",
+            "id": "input_code",
+            "label": "Queue",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Rate Limiting, Group Throttling & P...",
+            "id": "engine",
+            "label": "Traffic",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Processed Queue State / DLQ State",
+            "label": "Shaping",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress task descriptor and initialize Rate Limiting, Group Throttling &.",
+            "caption": "Initialize queue architecture and rate boundaries.",
             "values": {
-              "in": "Job Enqueued",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Queue Traffic"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "Even when"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in Rate.",
+            "caption": "Trace how queue coordinates rate state transitions.",
             "values": {
-              "in": "Claimed",
-              "proc": "Executing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "marketing campaign"
+              },
+              "engine": {
+                "text": "Traffic"
+              },
+              "out": {
+                "text": "responds with"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world asynchronous execution pattern in Rate Limiting, Group.",
+            "caption": "Connect the queue analogy to hazardous execution invariants.",
             "values": {
-              "in": "Active Worker",
-              "proc": "Processing",
-              "out": "Completed / Retrying"
+              "input_code": {
+                "text": "hazardous materials"
+              },
+              "engine": {
+                "text": "Rate limit"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
+            "caption": "Modify rate constraints and verify resulting priority state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Initialize"
+              },
+              "engine": {
+                "text": "Shaping"
+              },
+              "out": {
+                "out": 3
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Queue Traffic Shaping",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Queue",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Traffic",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Shaping",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize queue architecture and rate boundaries.",
+            "values": {
+              "input_code": "Queue Traffic",
+              "engine": "Architectural Implementation",
+              "out": "Even when"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how queue coordinates rate state transitions.",
+            "values": {
+              "input_code": "marketing campaign",
+              "engine": "Traffic",
+              "out": "responds with"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the queue analogy to hazardous execution invariants.",
+            "values": {
+              "input_code": "hazardous materials",
+              "engine": "Rate limit",
+              "out": "First Popped Job (Should be Priority"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify rate constraints and verify resulting priority state.",
+            "values": {
+              "input_code": "Initialize",
+              "engine": "Shaping",
+              "out": "Remaining Pending Jobs in Queue: 1"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
@@ -434,105 +1006,248 @@
       }
     },
     {
-      "partTitle": "Distributed Job Deduplication, Idempotency Keys & Monitored Queue Workflows",
-      "codeHash": "b83dc4f5297c5c8f0264bbe1c0a769ae345d62558e8425ee034f095df85c4471",
+      "partTitle": "Distributed Deduplication: Idempotency Keys, Worker Heartbeats & At-Least-Once Delivery",
+      "codeHash": "4b08fbb6e0b7e940a2ed68d1a0309f4ce052b5cda39dfe46ddc3faa13fca7250",
       "spec": {
         "template": "flow",
-        "title": "Distributed Job Deduplication, Idem... — Execution Pipeline",
+        "title": "Distributed Deduplication",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Ingress Job / Task Descriptor",
+            "id": "input_code",
+            "label": "Distributed",
             "tappable": true
           },
           {
-            "id": "proc",
-            "label": "2. Distributed Job Deduplication, Idem...",
+            "id": "engine",
+            "label": "Deduplication",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Processed Queue State / DLQ State",
+            "label": "Idempotency",
             "tappable": true
           }
         ],
         "steps": [
           {
             "at": "intro",
-            "caption": "Ingress task descriptor and initialize Distributed Job Deduplication.",
+            "caption": "Initialize distributed architecture and worker boundaries.",
             "values": {
-              "in": "Job Enqueued",
-              "proc": "Standby",
-              "out": "Pending"
+              "input_code": {
+                "text": "Distributed Deduplication"
+              },
+              "engine": {
+                "text": "Architectural Implementation"
+              },
+              "out": {
+                "text": "fundamental law"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
+              "input_code": "data",
+              "engine": "idle",
               "out": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "input_code",
+                "engine"
               ]
             ]
           },
           {
             "at": "say1",
-            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in.",
+            "caption": "Trace how distributed coordinates worker state transitions.",
             "values": {
-              "in": "Claimed",
-              "proc": "Executing...",
-              "out": "Pending"
+              "input_code": {
+                "text": "Duplicate job"
+              },
+              "engine": {
+                "text": "Deduplication"
+              },
+              "out": {
+                "text": "processing"
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
+              "input_code": "ok",
+              "engine": "data",
               "out": "idle"
             },
             "arrows": [
               [
-                "proc",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "example",
-            "caption": "Real-world asynchronous execution pattern in Distributed Job.",
+            "caption": "Connect the distributed analogy to deduplication execution invariants.",
             "values": {
-              "in": "Active Worker",
-              "proc": "Processing",
-              "out": "Completed / Retrying"
+              "input_code": {
+                "text": "automated bank"
+              },
+              "engine": {
+                "text": "releaseAndComplete"
+              },
+              "out": {
+                "out": 0
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "active",
-              "out": "active"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
             },
             "arrows": [
               [
-                "proc",
+                "engine",
                 "out"
               ]
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
+            "caption": "Modify idempotency constraints and verify resulting keys state.",
             "values": {
-              "in": "Terminal State",
-              "proc": "Quiesced",
-              "out": "Verified State"
+              "input_code": {
+                "text": "Instantiate an"
+              },
+              "engine": {
+                "text": "Idempotency"
+              },
+              "out": {
+                "out": 5
+              }
             },
             "tones": {
-              "in": "success",
-              "proc": "success",
-              "out": "success"
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
             },
             "arrows": [
               [
-                "in",
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Distributed Deduplication",
+        "nodes": [
+          {
+            "id": "input_code",
+            "label": "Distributed",
+            "tappable": true
+          },
+          {
+            "id": "engine",
+            "label": "Deduplication",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "Idempotency",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize distributed architecture and worker boundaries.",
+            "values": {
+              "input_code": "Distributed Deduplication",
+              "engine": "Architectural Implementation",
+              "out": "fundamental law"
+            },
+            "tones": {
+              "input_code": "data",
+              "engine": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Trace how distributed coordinates worker state transitions.",
+            "values": {
+              "input_code": "Duplicate job",
+              "engine": "Deduplication",
+              "out": "processing"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Connect the distributed analogy to deduplication execution invariants.",
+            "values": {
+              "input_code": "automated bank",
+              "engine": "releaseAndComplete",
+              "out": "Key 1: job:invoice_charge:446f0471"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "engine",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify idempotency constraints and verify resulting keys state.",
+            "values": {
+              "input_code": "Instantiate an",
+              "engine": "Idempotency",
+              "out": "Post-Completion Duplicate Attempt: C"
+            },
+            "tones": {
+              "input_code": "ok",
+              "engine": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "input_code",
+                "engine"
+              ],
+              [
+                "engine",
                 "out"
               ]
             ]
