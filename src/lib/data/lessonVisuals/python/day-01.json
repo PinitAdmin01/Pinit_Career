@@ -2,292 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 1,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "3f391b58368997c05c8f3b86ac83b320ccdbd858d0434c2613ea0e507b04ea2f",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What Python is and why so many people learn it",
       "codeHash": "9178192aff4853786b9cbb466615f28946448aeff376fb6b83abf7e3be4c33dd",
       "spec": {
-        "template": "flow",
-        "title": "From your instructions to the screen",
-        "nodes": [
-          {
-            "id": "instructions",
-            "label": "Instructions"
-          },
-          {
-            "id": "python",
-            "label": "Python"
-          },
-          {
-            "id": "screen",
-            "label": "Screen",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "What Python is and why so many people learn it",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "You write exact instructions for the computer.",
-            "values": {
-              "instructions": {
-                "text": "print(\"Hello! This is my first Python program.\")"
-              },
-              "python": {
-                "text": ""
-              },
-              "screen": {
-                "text": ""
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "Python"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "instructions": "data",
-              "python": "idle",
-              "screen": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Many lines of Python look almost like simple English.",
-            "values": {
-              "instructions": {
-                "text": "print(\"Hello! This is my first Python program.\")"
-              },
-              "python": {
-                "text": "simple English"
-              },
-              "screen": {
-                "text": ""
-              }
-            },
-            "tones": {
-              "instructions": "idle",
-              "python": "data",
-              "screen": "idle"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "Companies use Python for websites, automation, and data.",
-            "values": {
-              "instructions": {
-                "text": "Instagram, YouTube and many banks and startups in India use Python every day."
-              },
-              "python": {
-                "text": "Expense Tracker"
-              },
-              "screen": {
-                "text": ""
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "why"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "instructions": "idle",
-              "python": "data",
-              "screen": "ok"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "A recipe is a list of exact steps for cooking a dish.",
-            "values": {
-              "instructions": {
-                "text": "boil water, add rice, wait ten minutes."
-              },
-              "python": {
-                "text": "recipe"
-              },
-              "screen": {
-                "text": "dish"
-              }
-            },
-            "tones": {
-              "instructions": "data",
-              "python": "data",
-              "screen": "ok"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ],
-              [
-                "python",
-                "screen"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Change the message and press Run Code to show results on screen.",
-            "values": {
-              "instructions": {
-                "text": "print(\"Hello! This is my first Python program.\")"
-              },
-              "python": {
-                "text": ""
-              },
-              "screen": {
-                "text": "Hello! This is my first Python program."
-              }
-            },
-            "tones": {
-              "instructions": "idle",
-              "python": "idle",
-              "screen": "ok"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ],
-              [
-                "python",
-                "screen"
-              ]
-            ],
-            "checks": [
-              "Hello! This is my first Python program."
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "From your instructions to the screen",
-        "nodes": [
-          {
-            "id": "instructions",
-            "label": "Instructions"
-          },
-          {
-            "id": "python",
-            "label": "Python"
-          },
-          {
-            "id": "screen",
-            "label": "Screen",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "What Python is and why so many people learn it",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "You write exact instructions for the computer.",
-            "values": {
-              "instructions": "print(\"Hello! This is my first Python program.\")",
-              "python": "",
-              "screen": ""
-            },
-            "tones": {
-              "instructions": "data",
-              "python": "idle",
-              "screen": "idle"
-            },
-            "arrows": []
-          },
-          {
-            "at": "say2",
-            "caption": "Many lines of Python look almost like simple English.",
-            "values": {
-              "instructions": "print(\"Hello! This is my first Python program.\")",
-              "python": "simple English",
-              "screen": ""
-            },
-            "tones": {
-              "instructions": "idle",
-              "python": "data",
-              "screen": "idle"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ]
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "Python"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Companies use Python for websites, automation, and data.",
-            "values": {
-              "instructions": "Instagram, YouTube and many banks and startups in India use Python every day.",
-              "python": "Expense Tracker",
-              "screen": ""
-            },
-            "tones": {
-              "instructions": "idle",
-              "python": "data",
-              "screen": "ok"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "A recipe is a list of exact steps for cooking a dish.",
-            "values": {
-              "instructions": "boil water, add rice, wait ten minutes.",
-              "python": "recipe",
-              "screen": "dish"
-            },
-            "tones": {
-              "instructions": "data",
-              "python": "data",
-              "screen": "ok"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ],
-              [
-                "python",
-                "screen"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Change the message and press Run Code to show results on screen.",
-            "values": {
-              "instructions": "print(\"Hello! This is my first Python program.\")",
-              "python": "",
-              "screen": "Hello! This is my first Python program."
-            },
-            "tones": {
-              "instructions": "idle",
-              "python": "idle",
-              "screen": "ok"
-            },
-            "arrows": [
-              [
-                "instructions",
-                "python"
-              ],
-              [
-                "python",
-                "screen"
-              ]
-            ],
-            "checks": [
-              "Hello! This is my first Python program."
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "why"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -298,376 +94,80 @@
       "codeHash": "e867be60138ae278885812a860f51e21be50540643343f2aef07f36bf18c7877",
       "spec": {
         "template": "table",
-        "title": "Each print line makes one screen line",
+        "title": "print(): showing results on the screen",
         "columns": [
-          "Line",
-          "Screen"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "print shows what is inside the brackets.",
+            "caption": "The tool concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
+                  {
+                    "text": "print"
+                  },
+                  {
+                    "text": "showing"
+                  }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "My Expense Tracker"
             ]
           },
           {
             "at": "say3",
-            "caption": "Four lines run top to bottom, so four results appear in order.",
+            "caption": "The python logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(20 + 45)",
-                  "65"
+                  {
+                    "text": "results"
+                  },
+                  {
+                    "text": "the"
+                  }
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus ticket 45",
-              "65"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A comma prints both things with one space between.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(20 + 45)",
-                  "65"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus ticket 45",
-              "65"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like a station loudspeaker, print broadcasts each message in order.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(20 + 45)",
-                  "65"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "My Expense Tracker",
-              "65"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Add Lunch and recalculate the total to show multiple on screen.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(20 + 45 + 120)",
-                  "185"
-                ],
-                "tone": "data"
-              }
-            ],
-            "whatIf": "print(\"My Expense Tracker\")\nprint(\"Tea\", 20)\nprint('Bus ticket', 45)\nprint(\"Lunch\", 120)\nprint(20 + 45 + 120)",
-            "checks": [
-              "Lunch 120",
-              "185"
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Each print line makes one screen line",
+        "title": "print(): showing results on the screen",
         "columns": [
-          "Line",
-          "Screen"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "print shows what is inside the brackets.",
+            "caption": "The tool concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
+                  "print",
+                  "showing"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "My Expense Tracker"
             ]
           },
           {
             "at": "say3",
-            "caption": "Four lines run top to bottom, so four results appear in order.",
+            "caption": "The python logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(20 + 45)",
-                  "65"
+                  "results",
+                  "the"
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus ticket 45",
-              "65"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A comma prints both things with one space between.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(20 + 45)",
-                  "65"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus ticket 45",
-              "65"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like a station loudspeaker, print broadcasts each message in order.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(20 + 45)",
-                  "65"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "My Expense Tracker",
-              "65"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Add Lunch and recalculate the total to show 185 on screen.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"My Expense Tracker\")",
-                  "My Expense Tracker"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print('Bus ticket', 45)",
-                  "Bus ticket 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(20 + 45 + 120)",
-                  "185"
-                ],
-                "tone": "data"
-              }
-            ],
-            "whatIf": "print(\"My Expense Tracker\")\nprint(\"Tea\", 20)\nprint('Bus ticket', 45)\nprint(\"Lunch\", 120)\nprint(20 + 45 + 120)",
-            "checks": [
-              "Lunch 120",
-              "185"
             ]
           }
         ]
@@ -678,334 +178,80 @@
       "codeHash": "676ab98b0746aca268c333ad65a102844211f3bb02040142809e0233d50b80d2",
       "spec": {
         "template": "table",
-        "title": "Python reads top to bottom",
+        "title": "How Python reads your code: line by line",
         "columns": [
-          "Line",
-          "What happens"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each line finishes before the next one starts.",
+            "caption": "The computer concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "line 1",
-                  "Step 1: open the app"
+                  {
+                    "text": "How"
+                  },
+                  {
+                    "text": "Python"
+                  }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "line 2",
-                  "Step 2: add an expense"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "line 3",
-                  "Step 3: see the total"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Step 1: open the app",
-              "Step 2: add an expense",
-              "Step 3: see the total"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "A mistake while running stops Python; lines below never run.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"Step 1: open the app\")",
-                  "Step 1: open the app"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prnt(\"Step 2: add an expense\")",
-                  "NameError"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Step 3: see the total\")",
-                  "never ran"
-                ],
-                "tone": "idle"
-              }
-            ],
-            "whatIf": "print(\"Step 1: open the app\")\nprnt(\"Step 2: add an expense\")\nprint(\"Step 3: see the total\")",
-            "checks": [
-              "Step 1: open the app",
-              "NameError"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A missing quote is a SyntaxError, so nothing runs at all.",
-            "rows": [
-              {
-                "cells": [
-                  "line 1",
-                  "nothing printed"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Step 2: add an expense)",
-                  "SyntaxError"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "line 3",
-                  "nothing printed"
-                ],
-                "tone": "idle"
-              }
-            ],
-            "whatIf": "print(\"Step 1: open the app\")\nprint(\"Step 2: add an expense)\nprint(\"Step 3: see the total\")",
-            "checks": [
-              "SyntaxError"
-            ],
-            "mustNotShow": [
-              "Step 1: open the app"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like a torn page in attendance, Python stops when reading fails.",
-            "rows": [
-              {
-                "cells": [
-                  "Names before torn page",
-                  "Read in order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Torn page in register",
-                  "Stops attendance"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Names after torn page",
-                  "Never called"
-                ],
-                "tone": "idle"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Try prnt to see line one run then stop with a NameError on line two.",
+            "at": "say3",
+            "caption": "The error logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "print(\"Step 1: open the app\")",
-                  "Step 1: open the app"
+                  {
+                    "text": "reads"
+                  },
+                  {
+                    "text": "your"
+                  }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prnt(\"Step 2: add an expense\")",
-                  "NameError"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Step 3: see the total\")",
-                  "never ran"
-                ],
-                "tone": "idle"
               }
-            ],
-            "whatIf": "print(\"Step 1: open the app\")\nprnt(\"Step 2: add an expense\")\nprint(\"Step 3: see the total\")",
-            "checks": [
-              "Step 1: open the app",
-              "NameError"
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Python reads top to bottom",
+        "title": "How Python reads your code: line by line",
         "columns": [
-          "Line",
-          "What happens"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each line finishes before the next one starts.",
+            "caption": "The computer concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "line 1",
-                  "Step 1: open the app"
+                  "How",
+                  "Python"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "line 2",
-                  "Step 2: add an expense"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "line 3",
-                  "Step 3: see the total"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Step 1: open the app",
-              "Step 2: add an expense",
-              "Step 3: see the total"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "A mistake while running stops Python; lines below never run.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"Step 1: open the app\")",
-                  "Step 1: open the app"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prnt(\"Step 2: add an expense\")",
-                  "NameError"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Step 3: see the total\")",
-                  "never ran"
-                ],
-                "tone": "idle"
-              }
-            ],
-            "whatIf": "print(\"Step 1: open the app\")\nprnt(\"Step 2: add an expense\")\nprint(\"Step 3: see the total\")",
-            "checks": [
-              "Step 1: open the app",
-              "NameError"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "A missing quote is a SyntaxError, so nothing runs at all.",
-            "rows": [
-              {
-                "cells": [
-                  "line 1",
-                  "nothing printed"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Step 2: add an expense)",
-                  "SyntaxError"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "line 3",
-                  "nothing printed"
-                ],
-                "tone": "idle"
-              }
-            ],
-            "whatIf": "print(\"Step 1: open the app\")\nprint(\"Step 2: add an expense)\nprint(\"Step 3: see the total\")",
-            "checks": [
-              "SyntaxError"
-            ],
-            "mustNotShow": [
-              "Step 1: open the app"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like a torn page in attendance, Python stops when reading fails.",
-            "rows": [
-              {
-                "cells": [
-                  "Names before torn page",
-                  "Read in order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Torn page in register",
-                  "Stops attendance"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Names after torn page",
-                  "Never called"
-                ],
-                "tone": "idle"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Try prnt to see line 1 run then stop with a NameError on line 2.",
+            "at": "say3",
+            "caption": "The error logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "print(\"Step 1: open the app\")",
-                  "Step 1: open the app"
+                  "reads",
+                  "your"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prnt(\"Step 2: add an expense\")",
-                  "NameError"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Step 3: see the total\")",
-                  "never ran"
-                ],
-                "tone": "idle"
               }
-            ],
-            "whatIf": "print(\"Step 1: open the app\")\nprnt(\"Step 2: add an expense\")\nprint(\"Step 3: see the total\")",
-            "checks": [
-              "Step 1: open the app",
-              "NameError"
             ]
           }
         ]
@@ -1015,228 +261,82 @@
       "partTitle": "Capital letters matter",
       "codeHash": "4a6a443e8de280c1941c3d0bde2584175ba4347e5783b6d326d2a5983d460a6c",
       "spec": {
-        "template": "compare",
-        "title": "Small and capital letters are different",
-        "leftLabel": "print",
-        "rightLabel": "Print",
+        "template": "table",
+        "title": "Capital letters matter",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Python knows print, not Print.",
-            "left": {
-              "code": "print(\"hello\")",
-              "result": "hello",
-              "tone": "ok",
-              "checks": [
-                "hello"
-              ]
-            },
-            "right": {
-              "code": "Print(\"hello\")",
-              "result": "NameError",
-              "tone": "error",
-              "checks": [
-                "NameError"
-              ],
-              "whatIf": "Print(\"hello\")"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "NameError means Python searched for an unknown instruction name.",
-            "left": {
-              "code": "print(\"hello\")",
-              "result": "hello",
-              "tone": "ok",
-              "checks": [
-                "hello"
-              ]
-            },
-            "right": {
-              "code": "Print(\"hello\")",
-              "result": "NameError",
-              "tone": "error",
-              "checks": [
-                "NameError"
-              ],
-              "whatIf": "Print(\"hello\")"
-            }
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Capital"
+                  },
+                  {
+                    "text": "letters"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Inside quotes any letters work, but H and h are still different.",
-            "left": {
-              "code": "print(\"HELLO\")",
-              "result": "HELLO",
-              "tone": "ok",
-              "checks": [
-                "HELLO"
-              ]
-            },
-            "right": {
-              "code": "print(\"Hello\" == \"hello\")",
-              "result": "False",
-              "tone": "data",
-              "checks": [
-                "False"
-              ]
-            }
-          },
-          {
-            "at": "example",
-            "caption": "Like passwords, Mango and mango are completely different.",
-            "left": {
-              "code": "print(\"Mango123\" == \"Mango123\")",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ],
-              "whatIf": "print(\"Mango123\" == \"Mango123\")"
-            },
-            "right": {
-              "code": "print(\"Mango123\" == \"mango123\")",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ],
-              "whatIf": "print(\"Mango123\" == \"mango123\")"
-            }
-          },
-          {
-            "at": "tryIt",
-            "caption": "Change print to Print to inspect the real NameError message.",
-            "left": {
-              "code": "print(\"hello\")",
-              "result": "hello",
-              "tone": "ok",
-              "checks": [
-                "hello"
-              ]
-            },
-            "right": {
-              "code": "Print(\"hello\")",
-              "result": "NameError",
-              "tone": "error",
-              "checks": [
-                "NameError"
-              ],
-              "whatIf": "Print(\"hello\")"
-            }
+            "caption": "The text logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "matter"
+                  },
+                  {
+                    "text": "letters"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Small and capital letters are different",
-        "leftLabel": "print",
-        "rightLabel": "Print",
+        "template": "table",
+        "title": "Capital letters matter",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Python knows print, not Print.",
-            "left": {
-              "code": "print(\"hello\")",
-              "result": "hello",
-              "tone": "ok",
-              "checks": [
-                "hello"
-              ]
-            },
-            "right": {
-              "code": "Print(\"hello\")",
-              "result": "NameError",
-              "tone": "error",
-              "checks": [
-                "NameError"
-              ],
-              "whatIf": "Print(\"hello\")"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "NameError means Python searched for an unknown instruction name.",
-            "left": {
-              "code": "print(\"hello\")",
-              "result": "hello",
-              "tone": "ok",
-              "checks": [
-                "hello"
-              ]
-            },
-            "right": {
-              "code": "Print(\"hello\")",
-              "result": "NameError",
-              "tone": "error",
-              "checks": [
-                "NameError"
-              ],
-              "whatIf": "Print(\"hello\")"
-            }
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Capital",
+                  "letters"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Inside quotes any letters work, but H and h are still different.",
-            "left": {
-              "code": "print(\"HELLO\")",
-              "result": "HELLO",
-              "tone": "ok",
-              "checks": [
-                "HELLO"
-              ]
-            },
-            "right": {
-              "code": "print(\"Hello\" == \"hello\")",
-              "result": "False",
-              "tone": "data",
-              "checks": [
-                "False"
-              ]
-            }
-          },
-          {
-            "at": "example",
-            "caption": "Like passwords, Mango123 and mango123 are completely different.",
-            "left": {
-              "code": "print(\"Mango123\" == \"Mango123\")",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ],
-              "whatIf": "print(\"Mango123\" == \"Mango123\")"
-            },
-            "right": {
-              "code": "print(\"Mango123\" == \"mango123\")",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ],
-              "whatIf": "print(\"Mango123\" == \"mango123\")"
-            }
-          },
-          {
-            "at": "tryIt",
-            "caption": "Change print to Print to inspect the real NameError message.",
-            "left": {
-              "code": "print(\"hello\")",
-              "result": "hello",
-              "tone": "ok",
-              "checks": [
-                "hello"
-              ]
-            },
-            "right": {
-              "code": "Print(\"hello\")",
-              "result": "NameError",
-              "tone": "error",
-              "checks": [
-                "NameError"
-              ],
-              "whatIf": "Print(\"hello\")"
-            }
+            "caption": "The text logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "matter",
+                  "letters"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -1246,410 +346,80 @@
       "codeHash": "b6ffba96f82ed35d240103dbf8f85564f213083802ccf38bd270dee892a7682a",
       "spec": {
         "template": "table",
-        "title": "Python skips everything after #",
+        "title": "Comments: notes for humans",
         "columns": [
-          "Line",
-          "What happens"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A # line is a note for people; Python skips it.",
+            "caption": "The comment concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "# My Expense Tracker, day 1",
-                  "skipped"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# print(\"Movie\", 300)",
-                  ""
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45) # the bus to college",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Comments explain why code exists so teammates understand it.",
-            "rows": [
-              {
-                "cells": [
-                  "# My Expense Tracker, day 1",
-                  "explains purpose"
+                  {
+                    "text": "Comments"
+                  },
+                  {
+                    "text": "notes"
+                  }
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# print(\"Movie\", 300)",
-                  ""
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45) # the bus to college",
-                  "Bus 45"
-                ],
-                "tone": "ok"
               }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
             ]
           },
           {
             "at": "say3",
-            "caption": "Putting # in front of a line turns it off without deleting it.",
+            "caption": "The comments logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "# My Expense Tracker, day 1",
-                  "skipped"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# print(\"Movie\", 300)",
-                  "turned off"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45) # the bus to college",
-                  "Bus 45"
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "humans"
+                  }
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
-            ],
-            "mustNotShow": [
-              "Movie"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like sticky notes on a book, comments are notes that readers skip.",
-            "rows": [
-              {
-                "cells": [
-                  "# Textbook sticky note",
-                  "Reader skips note"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# Reminder note",
-                  "Reader skips note"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Remove the # to unmute the movie line and print it on screen.",
-            "rows": [
-              {
-                "cells": [
-                  "# My Expense Tracker, day 1",
-                  "skipped"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Movie\", 300)",
-                  "Movie 300"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "whatIf": "# My Expense Tracker, day 1\nprint(\"Tea\", 20)\nprint(\"Movie\", 300)\nprint(\"Bus\", 45)",
-            "checks": [
-              "Tea 20",
-              "Movie 300",
-              "Bus 45"
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Python skips everything after #",
+        "title": "Comments: notes for humans",
         "columns": [
-          "Line",
-          "What happens"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A # line is a note for people; Python skips it.",
+            "caption": "The comment concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "# My Expense Tracker, day 1",
-                  "skipped"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# print(\"Movie\", 300)",
-                  ""
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45) # the bus to college",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Comments explain why code exists so teammates understand it.",
-            "rows": [
-              {
-                "cells": [
-                  "# My Expense Tracker, day 1",
-                  "explains purpose"
+                  "Comments",
+                  "notes"
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# print(\"Movie\", 300)",
-                  ""
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45) # the bus to college",
-                  "Bus 45"
-                ],
-                "tone": "ok"
               }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
             ]
           },
           {
             "at": "say3",
-            "caption": "Putting # in front of a line turns it off without deleting it.",
+            "caption": "The comments logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "# My Expense Tracker, day 1",
-                  "skipped"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# print(\"Movie\", 300)",
-                  "turned off"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45) # the bus to college",
-                  "Bus 45"
+                  "for",
+                  "humans"
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
-            ],
-            "mustNotShow": [
-              "Movie"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like sticky notes on a book, comments are notes that readers skip.",
-            "rows": [
-              {
-                "cells": [
-                  "# Textbook sticky note",
-                  "Reader skips note"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "# Reminder note",
-                  "Reader skips note"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "Tea 20",
-              "Bus 45"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Remove the # to unmute the movie line and print it on screen.",
-            "rows": [
-              {
-                "cells": [
-                  "# My Expense Tracker, day 1",
-                  "skipped"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Movie\", 300)",
-                  "Movie 300"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "whatIf": "# My Expense Tracker, day 1\nprint(\"Tea\", 20)\nprint(\"Movie\", 300)\nprint(\"Bus\", 45)",
-            "checks": [
-              "Tea 20",
-              "Movie 300",
-              "Bus 45"
             ]
           }
         ]
@@ -1660,504 +430,80 @@
       "codeHash": "b94889503baee18c1351da6c2120b07f29ac171bd9ecfaa217431d0e4614829c",
       "spec": {
         "template": "table",
-        "title": "Your first receipt",
+        "title": "Putting it together: your first small program",
         "columns": [
-          "Line",
-          "Screen"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Put title, expenses, and total together in your first program.",
+            "caption": "The everything concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Tea 20",
-              "Bus 45",
-              "Lunch 120",
-              "Total: 185"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "A title, one line per expense, and the total at the bottom.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Tea 20",
-              "Bus 45",
-              "Lunch 120",
-              "Total: 185"
             ]
           },
           {
             "at": "say3",
-            "caption": "Twenty, multiple and multiple are typed twice; tomorrow variables fix this.",
+            "caption": "The right logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
-                ],
-                "tone": "error"
-              }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Tea 20",
-              "Bus 45",
-              "Lunch 120",
-              "Total: 185"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like a shop receipt, the program shows header, items, and total.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
+                  {
+                    "text": "your"
+                  },
+                  {
+                    "text": "first"
+                  }
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Total: 185"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Add Notebook multiple and update math to verify the total is multiple.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Notebook\", 60)",
-                  "Notebook 60"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", ... + 60)",
-                  "Total: 245"
-                ],
-                "tone": "data"
-              }
-            ],
-            "whatIf": "print(\"=== My Expense Tracker ===\")\nprint(\"Tea\", 20)\nprint(\"Bus\", 45)\nprint(\"Lunch\", 120)\nprint(\"Notebook\", 60)\nprint(\"Total:\", 20 + 45 + 120 + 60)",
-            "checks": [
-              "Notebook 60",
-              "Total: 245"
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Your first receipt",
+        "title": "Putting it together: your first small program",
         "columns": [
-          "Line",
-          "Screen"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Put title, expenses, and total together in your first program.",
+            "caption": "The everything concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
+                  "Putting",
+                  "together"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Tea 20",
-              "Bus 45",
-              "Lunch 120",
-              "Total: 185"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "A title, one line per expense, and the total at the bottom.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Tea 20",
-              "Bus 45",
-              "Lunch 120",
-              "Total: 185"
             ]
           },
           {
             "at": "say3",
-            "caption": "20, 45 and 120 are typed twice; tomorrow variables fix this.",
+            "caption": "The right logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
-                ],
-                "tone": "error"
-              }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Tea 20",
-              "Bus 45",
-              "Lunch 120",
-              "Total: 185"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Like a shop receipt, the program shows header, items, and total.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", 20 + 45 + 120)",
-                  "Total: 185"
+                  "your",
+                  "first"
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "=== My Expense Tracker ===",
-              "Total: 185"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Add Notebook 60 and update math to verify the total is 245.",
-            "rows": [
-              {
-                "cells": [
-                  "print(\"=== My Expense Tracker ===\")",
-                  "=== My Expense Tracker ==="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Tea\", 20)",
-                  "Tea 20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Bus\", 45)",
-                  "Bus 45"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Lunch\", 120)",
-                  "Lunch 120"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print(\"Notebook\", 60)",
-                  "Notebook 60"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print(\"Total:\", ... + 60)",
-                  "Total: 245"
-                ],
-                "tone": "data"
-              }
-            ],
-            "whatIf": "print(\"=== My Expense Tracker ===\")\nprint(\"Tea\", 20)\nprint(\"Bus\", 45)\nprint(\"Lunch\", 120)\nprint(\"Notebook\", 60)\nprint(\"Total:\", 20 + 45 + 120 + 60)",
-            "checks": [
-              "Notebook 60",
-              "Total: 245"
             ]
           }
         ]

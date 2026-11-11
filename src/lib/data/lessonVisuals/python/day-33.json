@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 33,
-  "promptSha": "4a4640c0339deafea46081ba17a3dbc8dfd8a63b8eba99389e6f2cf6be0e3cbb",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "b28785c46c9cd68e95c7b31d78395e6d9bfc48284184600c0738dea2b88c4840",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "HTTP Chunked Transfer Encoding & ASGI Streaming Protocols",
       "codeHash": "a26bd9079c29c14ca5097e15036b1b2c3b291f4be1f14f57e89a69411314e182",
       "spec": {
-        "template": "states",
-        "title": "HTTP Chunked Transfer Encoding & ASGI Streaming Protocols — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "HTTP Chunked Transfer Encoding & ASGI Streaming Pr",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for HTTP.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "HTTP"
+                  },
+                  {
+                    "text": "Chunked"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The asgi logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Transfer"
+                  },
+                  {
+                    "text": "Encoding"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "HTTP Chunked Transfer Encoding & ASGI Streaming Pr",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "HTTP",
+                  "Chunked"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The asgi logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Transfer",
+                  "Encoding"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "WebSocket RFC 6455 Framing & Slow Consumer Memory Forensics",
       "codeHash": "d6bca9cf0c6efe80035caa927ef7cfc78efaf2d404a5426192512e9edad7bf25",
       "spec": {
-        "template": "states",
-        "title": "WebSocket RFC 6455 Framing & Slow Consumer Memory Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "WebSocket RFC 6455 Framing & Slow Consumer Memory ",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The http concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "WebSocket"
+                  },
+                  {
+                    "text": "RFC"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The client logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Framing"
+                  },
+                  {
+                    "text": "Slow"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "WebSocket RFC 6455 Framing & Slow Consumer Memory ",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The http concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "WebSocket",
+                  "RFC"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The client logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Framing",
+                  "Slow"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "High-Throughput WebSocket Broadcast Hub with Backpressure",
       "codeHash": "b1cffe874f0ee759ede685f7848dfc186b24618733538ae3d7dd5ecd517da616",
       "spec": {
-        "template": "states",
-        "title": "High-Throughput WebSocket Broadcast Hub with Backpressure — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "High-Throughput WebSocket Broadcast Hub with Backp",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The deploy concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "High"
+                  },
+                  {
+                    "text": "Throughput"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "WebSocket"
+                  },
+                  {
+                    "text": "Broadcast"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "High-Throughput WebSocket Broadcast Hub with Backp",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The deploy concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "High",
+                  "Throughput"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "WebSocket",
+                  "Broadcast"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Real-Time AI Token Streaming Gateway & SSE Hardening",
       "codeHash": "ff0d2f4e4a29347b549275d65ce661e60e8ec1457d8f95b2017b5f2d2df771ca",
       "spec": {
-        "template": "states",
-        "title": "Real-Time AI Token Streaming Gateway & SSE Hardening — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "Real-Time AI Token Streaming Gateway & SSE Hardeni",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The explosion concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Real"
+                  },
+                  {
+                    "text": "Time"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The asgi logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Token"
+                  },
+                  {
+                    "text": "Streaming"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Real-Time AI Token Streaming Gateway & SSE Hardeni",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The explosion concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Real",
+                  "Time"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The asgi logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Token",
+                  "Streaming"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Full Asynchronous Streaming & WebSocket Hub Integration Lab",
       "codeHash": "ed907ad7fac92b6658d1855d14b8b4cce211e0ddbdd1dc1330c14968678bcd5f",
       "spec": {
-        "template": "states",
-        "title": "Full Asynchronous Streaming & WebSocket Hub Integration Lab — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "Full Asynchronous Streaming & WebSocket Hub Integr",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for Full.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Full"
+                  },
+                  {
+                    "text": "Asynchronous"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The simultaneously logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Streaming"
+                  },
+                  {
+                    "text": "WebSocket"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Full Asynchronous Streaming & WebSocket Hub Integr",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Full",
+                  "Asynchronous"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The simultaneously logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Streaming",
+                  "WebSocket"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

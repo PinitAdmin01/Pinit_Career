@@ -2,77 +2,50 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "bf3fff54d426ccb54ed7fe34fa7b40b676a93cb2af4a85bd8ffe6e4091597f08",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Numbers in binary",
       "codeHash": "aa1a49a3cebc404c3e0458eee974debcafe65a6619e96d82f909dfab29a22111",
       "spec": {
-        "template": "cells",
-        "title": "Positional binary representation of decimal number",
+        "template": "table",
+        "title": "Numbers in binary",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Computers store numbers in binary where each digit is a bit.",
-            "items": [
+            "caption": "The computers concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "1"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "8s",
-                "index": 0,
-                "tone": "ok"
-              },
-              {
-                "name": "4s",
-                "index": 1,
+                "cells": [
+                  {
+                    "text": "Numbers"
+                  },
+                  {
+                    "text": "binary"
+                  }
+                ],
                 "tone": "data"
-              },
-              {
-                "name": "2s",
-                "index": 2,
-                "tone": "ok"
-              },
-              {
-                "name": "1s",
-                "index": 3,
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Bit manipulation works directly on bits within a single number.",
-            "items": [
+            "caption": "The manipulation logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "1"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "value",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "Numbers"
+                  },
+                  {
+                    "text": "binary"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -80,54 +53,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Positional binary representation of decimal number",
+        "template": "table",
+        "title": "Numbers in binary",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Computers store numbers in binary where each digit is a bit.",
-            "items": [
-              "1",
-              "0",
-              "1",
-              "1"
-            ],
-            "pointers": [
+            "caption": "The computers concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "8s",
-                "index": 0,
-                "tone": "ok"
-              },
-              {
-                "name": "4s",
-                "index": 1,
+                "cells": [
+                  "Numbers",
+                  "binary"
+                ],
                 "tone": "data"
-              },
-              {
-                "name": "2s",
-                "index": 2,
-                "tone": "ok"
-              },
-              {
-                "name": "1s",
-                "index": 3,
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Bit manipulation works directly on bits within a single number.",
-            "items": [
-              "1",
-              "0",
-              "1",
-              "1"
-            ],
-            "pointers": [
+            "caption": "The manipulation logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "value",
-                "index": 3,
+                "cells": [
+                  "Numbers",
+                  "binary"
+                ],
                 "tone": "ok"
               }
             ]
@@ -140,61 +94,40 @@
       "codeHash": "20651d565d29952a5521d5f26a5ccec2bfaecf507b4ff449e5608e95bdeab237",
       "spec": {
         "template": "table",
-        "title": "Bitwise operator logic and arithmetic identities",
+        "title": "The bitwise operators",
         "columns": [
-          "Bitwise Operator",
-          "Operation Logic",
-          "Arithmetic Effect"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bitwise keeps a bit only if present in both or either operand.",
+            "caption": "The keeps concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "AND (&)"
+                    "text": "The"
                   },
                   {
-                    "text": "1 only if both bits are 1"
-                  },
-                  {
-                    "text": "Bit masking"
+                    "text": "bitwise"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Shifts left or right by k places multiplying or dividing.",
+            "at": "say3",
+            "caption": "The common logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "AND (&)"
+                    "text": "operators"
                   },
                   {
-                    "text": "1 only if both bits are 1"
-                  },
-                  {
-                    "text": "Bit masking"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Shift (<<, >>)"
-                  },
-                  {
-                    "text": "Shifts bits left or right"
-                  },
-                  {
-                    "text": "Multiply / divide by 2^k"
+                    "text": "bitwise"
                   }
                 ],
                 "tone": "ok"
@@ -205,44 +138,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Bitwise operator logic and arithmetic identities",
+        "title": "The bitwise operators",
         "columns": [
-          "Bitwise Operator",
-          "Operation Logic",
-          "Arithmetic Effect"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bitwise keeps a bit only if present in both or either operand.",
+            "caption": "The keeps concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "AND (&)",
-                  "1 only if both bits are 1",
-                  "Bit masking"
+                  "The",
+                  "bitwise"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Shifts left or right by k places multiplying or dividing.",
+            "at": "say3",
+            "caption": "The common logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "AND (&)",
-                  "1 only if both bits are 1",
-                  "Bit masking"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Shift (<<, >>)",
-                  "Shifts bits left or right",
-                  "Multiply / divide by 2^k"
+                  "operators",
+                  "bitwise"
                 ],
                 "tone": "ok"
               }
@@ -256,61 +178,40 @@
       "codeHash": "d602dd10928d03a00a0b03a9b4deb496f9c04cfdde8b0b39e6a06c0417ac031b",
       "spec": {
         "template": "table",
-        "title": "XOR self-cancellation mathematical properties",
+        "title": "XOR magic: single number",
         "columns": [
-          "XOR Identity",
-          "Mathematical Property",
-          "Cancellation Outcome"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "XOR rules dictate that a number cancels itself and zero leaves x.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "x ^ x = 0"
+                    "text": "XOR"
                   },
                   {
-                    "text": "Self-inversion"
-                  },
-                  {
-                    "text": "Duplicate cancels out"
+                    "text": "magic"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Every pair cancels to zero leaving only the single number.",
+            "caption": "The numbers logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "x ^ x = 0"
+                    "text": "single"
                   },
                   {
-                    "text": "Self-inversion"
-                  },
-                  {
-                    "text": "Duplicate cancels out"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "x ^ 0 = x"
-                  },
-                  {
-                    "text": "Identity"
-                  },
-                  {
-                    "text": "Single number preserved"
+                    "text": "number"
                   }
                 ],
                 "tone": "ok"
@@ -321,44 +222,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "XOR self-cancellation mathematical properties",
+        "title": "XOR magic: single number",
         "columns": [
-          "XOR Identity",
-          "Mathematical Property",
-          "Cancellation Outcome"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "XOR rules dictate that a number cancels itself and zero leaves x.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "x ^ x = 0",
-                  "Self-inversion",
-                  "Duplicate cancels out"
+                  "XOR",
+                  "magic"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Every pair cancels to zero leaving only the single number.",
+            "caption": "The numbers logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "x ^ x = 0",
-                  "Self-inversion",
-                  "Duplicate cancels out"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "x ^ 0 = x",
-                  "Identity",
-                  "Single number preserved"
+                  "single",
+                  "number"
                 ],
                 "tone": "ok"
               }
@@ -371,223 +261,81 @@
       "partTitle": "Counting 1 bits",
       "codeHash": "3c5ac8b49ca5d19e23008a7fc1db7e9f3ae917bc993859556e2c7cc725a5d67b",
       "spec": {
-        "template": "flow",
-        "title": "Counting 1 bits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting 1 bits",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting 1 bits",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Counting one bits [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Counting one bits [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "bits"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Counting one bits [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The clever logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "bits"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Counting 1 bits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting 1 bits",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting 1 bits",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting 1 bits [D29.P4.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting 1 bits [D29.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Counting",
+                  "bits"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting 1 bits [D29.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The clever logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Counting",
+                  "bits"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -598,61 +346,40 @@
       "codeHash": "ec7d9a30c5a4051845d014fb1d44a423d29ed962240c973e6ba1624923c510aa",
       "spec": {
         "template": "table",
-        "title": "Set operations modeled via bitmask integer representation",
+        "title": "Bitmasks as tiny sets",
         "columns": [
-          "Set Operation",
-          "Bitwise Expression",
-          "Complexity"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bitmask can represent any subset of items using bits.",
+            "caption": "The number concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Include item i"
+                    "text": "Bitmasks"
                   },
                   {
-                    "text": "mask | (1 << i)"
-                  },
-                  {
-                    "text": "O(1)"
+                    "text": "tiny"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Adding checking or joining sets are single fast operations.",
+            "at": "say3",
+            "caption": "The looping logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Include item i"
+                    "text": "sets"
                   },
                   {
-                    "text": "mask | (1 << i)"
-                  },
-                  {
-                    "text": "O(1)"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Test membership"
-                  },
-                  {
-                    "text": "mask & (1 << i)"
-                  },
-                  {
-                    "text": "O(1)"
+                    "text": "tiny"
                   }
                 ],
                 "tone": "ok"
@@ -663,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Set operations modeled via bitmask integer representation",
+        "title": "Bitmasks as tiny sets",
         "columns": [
-          "Set Operation",
-          "Bitwise Expression",
-          "Complexity"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bitmask can represent any subset of items using bits.",
+            "caption": "The number concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Include item i",
-                  "mask | (1 << i)",
-                  "O(1)"
+                  "Bitmasks",
+                  "tiny"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Adding checking or joining sets are single fast operations.",
+            "at": "say3",
+            "caption": "The looping logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Include item i",
-                  "mask | (1 << i)",
-                  "O(1)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Test membership",
-                  "mask & (1 << i)",
-                  "O(1)"
+                  "sets",
+                  "tiny"
                 ],
                 "tone": "ok"
               }
@@ -713,223 +429,81 @@
       "partTitle": "Using bits wisely",
       "codeHash": "6504aaf071a4dd5c5359370398c288aaf2bb4653db7a6459968c1515a62a4ea4",
       "spec": {
-        "template": "flow",
-        "title": "Using bits wisely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Using bits wisely",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Using bits wisely",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Using bits wisely [D.Psix.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Using bits wisely [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The tricks concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Using"
+                  },
+                  {
+                    "text": "bits"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Using bits wisely [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "wisely"
+                  },
+                  {
+                    "text": "bits"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Using bits wisely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Using bits wisely",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Using bits wisely",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Using bits wisely [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Using bits wisely [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The tricks concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Using",
+                  "bits"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Using bits wisely [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "wisely",
+                  "bits"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

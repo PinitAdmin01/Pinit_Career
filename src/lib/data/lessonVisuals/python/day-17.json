@@ -2,100 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 17,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "91705148946cb413a73a8c34b091155e37ac677471192098358abab7b30fc313",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What JSON is",
       "codeHash": "c953cd116fe74de1f2710557b60ac5ba774f49183575ae2bc91a0c23c31d729f",
       "spec": {
-        "template": "boxes",
-        "title": "Serializing Python to JSON",
-        "boxes": [
-          {
-            "id": "expense",
-            "label": "expense"
-          },
-          {
-            "id": "text",
-            "label": "text"
-          }
+        "template": "table",
+        "title": "What JSON is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A JSON object looks like a Python dictionary.",
-            "values": {
-              "expense": {
-                "var": "expense",
-                "line": 2
-              },
-              "text": {
-                "text": "{\"item\": \"Tea\", \"amount\": 20}"
+            "at": "say1",
+            "caption": "The json concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "JSON"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "expense": "data",
-              "text": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "JSON uses double quotes and lower-case true and false.",
-            "values": {
-              "expense": {
-                "var": "expense",
-                "line": 3
-              },
-              "text": {
-                "var": "text",
-                "line": 3
+            "at": "say3",
+            "caption": "The matter logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "JSON"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "expense": "data",
-              "text": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Serializing Python to JSON",
-        "boxes": [
-          {
-            "id": "expense",
-            "label": "expense"
-          },
-          {
-            "id": "text",
-            "label": "text"
-          }
+        "template": "table",
+        "title": "What JSON is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A JSON object looks like a Python dictionary.",
-            "values": {
-              "expense": "{'item': 'Tea', 'amount': 20, 'paid': T…",
-              "text": "{\"item\": \"Tea\", \"amount\": 20}"
-            },
-            "tones": {
-              "expense": "data",
-              "text": "idle"
-            }
+            "at": "say1",
+            "caption": "The json concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "JSON"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "JSON uses double quotes and lower-case true and false.",
-            "values": {
-              "expense": "{'item': 'Tea', 'amount': 20, 'paid': T…",
-              "text": "'{\"item\": \"Tea\", \"amount\": 20, \"paid\": …"
-            },
-            "tones": {
-              "expense": "data",
-              "text": "ok"
-            }
+            "at": "say3",
+            "caption": "The matter logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "JSON"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -104,93 +93,82 @@
       "partTitle": "loads: from JSON text back to Python",
       "codeHash": "c27ac0756cd54a1e6a787a0c669e767d0547bf7e954d29bd8d9c610af10be7cc",
       "spec": {
-        "template": "boxes",
-        "title": "Parsing JSON strings back to data",
-        "boxes": [
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "expenses",
-            "label": "expenses"
-          }
+        "template": "table",
+        "title": "loads: from JSON text back to Python",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loads takes JSON text and gives back Python data.",
-            "values": {
-              "text": {
-                "var": "text",
-                "line": 2
-              },
-              "expenses": {
-                "text": "Tea"
+            "caption": "The json concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "loads"
+                  },
+                  {
+                    "text": "from"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "text": "data",
-              "expenses": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Dumps and loads together give you a perfect round trip.",
-            "values": {
-              "text": {
-                "var": "text",
-                "line": 3
-              },
-              "expenses": {
-                "var": "expenses",
-                "line": 3
+            "at": "say3",
+            "caption": "The read logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "JSON"
+                  },
+                  {
+                    "text": "text"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "text": "data",
-              "expenses": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Parsing JSON strings back to data",
-        "boxes": [
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "expenses",
-            "label": "expenses"
-          }
+        "template": "table",
+        "title": "loads: from JSON text back to Python",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loads takes JSON text and gives back Python data.",
-            "values": {
-              "text": "'[{\"item\": \"Tea\", \"amount\": 20}, {\"item…",
-              "expenses": "Tea"
-            },
-            "tones": {
-              "text": "data",
-              "expenses": "idle"
-            }
+            "caption": "The json concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "loads",
+                  "from"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Dumps and loads together give you a perfect round trip.",
-            "values": {
-              "text": "'[{\"item\": \"Tea\", \"amount\": 20}, {\"item…",
-              "expenses": "[{'item': 'Tea', 'amount': 20}, {'item'…"
-            },
-            "tones": {
-              "text": "data",
-              "expenses": "ok"
-            }
+            "at": "say3",
+            "caption": "The read logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "JSON",
+                  "text"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -199,223 +177,81 @@
       "partTitle": "Saving and loading JSON files",
       "codeHash": "804d9697210b157a0efa3197e619fc5553f70126ca9cd9551d0c43a56e3f8482",
       "spec": {
-        "template": "flow",
-        "title": "Saving and loading JSON files — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Saving and loading ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Saving and loading JSON files",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Saving and loading JSON files [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Saving and loading ... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The save concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Saving"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Saving and loading JSON files.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The compare logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "loading"
+                  },
+                  {
+                    "text": "JSON"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saving and loading JSON files — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Saving and loading ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Saving and loading JSON files",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Saving and loading JSON files [D17.P3.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Saving and loading ... [D17.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The save concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Saving",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Saving and loading JSON files [D17.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The compare logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "loading",
+                  "JSON"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -425,90 +261,82 @@
       "partTitle": "Handling broken or unexpected data",
       "codeHash": "6235957dbc279961345a638f40e90d22e5248c0d650d7d9b0d45a04fc769d3e4",
       "spec": {
-        "template": "boxes",
-        "title": "Validating incoming JSON shapes",
-        "boxes": [
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "data",
-            "label": "data"
-          }
+        "template": "table",
+        "title": "Handling broken or unexpected data",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Broken text from files or internet raises a ValueError.",
-            "values": {
-              "text": {
-                "text": "[{broken"
-              },
-              "data": {
-                "text": "[]"
+            "caption": "The data concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Handling"
+                  },
+                  {
+                    "text": "broken"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "text": "error",
-              "data": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Check the type with isinstance before using it.",
-            "values": {
-              "text": {
-                "text": "{\"item\": \"Tea\"}"
-              },
-              "data": {
-                "text": "isinstance(data, list)"
+            "caption": "The even logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "unexpected"
+                  },
+                  {
+                    "text": "data"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "text": "data",
-              "data": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Validating incoming JSON shapes",
-        "boxes": [
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "data",
-            "label": "data"
-          }
+        "template": "table",
+        "title": "Handling broken or unexpected data",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Broken text from files or internet raises a ValueError.",
-            "values": {
-              "text": "[{broken",
-              "data": "[]"
-            },
-            "tones": {
-              "text": "error",
-              "data": "idle"
-            }
+            "caption": "The data concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Handling",
+                  "broken"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Check the type with isinstance before using it.",
-            "values": {
-              "text": "{\"item\": \"Tea\"}",
-              "data": "isinstance(data, list)"
-            },
-            "tones": {
-              "text": "data",
-              "data": "ok"
-            }
+            "caption": "The even logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "unexpected",
+                  "data"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -517,223 +345,81 @@
       "partTitle": "Dates and other values JSON cannot store",
       "codeHash": "53ef7a0eabb381195434d03d6b271800c0dcde49a950acf4102fa032275868ad",
       "spec": {
-        "template": "flow",
-        "title": "Dates and other values JSON cannot store — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Dates and other val...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Dates and other values JSON cannot store",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Dates and other values JSON cannot store.",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Dates and other val... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The json concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Dates"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Dates and other values JSON canno.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The simple logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "other"
+                  },
+                  {
+                    "text": "values"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Dates and other values JSON cannot store — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Dates and other val...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Dates and other values JSON cannot store",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Dates and other values JSON cannot store [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Dates and other val... [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The json concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Dates",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Dates and other values JSON canno.. [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The simple logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "other",
+                  "values"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -743,223 +429,81 @@
       "partTitle": "Putting it together: a JSON-backed tracker",
       "codeHash": "91c3f3970ca8ecedc325624e746132bd45b88b46f0210abadfda775821a4f2c4",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: a JSON-backed tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a JSON-backed tracker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: a JSON-backed tracker.",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The replace concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: a JSON-backe.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The storage logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "JSON"
+                  },
+                  {
+                    "text": "backed"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: a JSON-backed tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a JSON-backed tracker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a JSON-backed tracker [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The replace concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a JSON-backe.. [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The storage logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "JSON",
+                  "backed"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

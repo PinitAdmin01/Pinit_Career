@@ -2,89 +2,50 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "065b50590d187c674ccee228c8229ca9d26505f06ef9fe59d055a14cf222f040",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Partitioning around a pivot",
       "codeHash": "dccd2f7e8fdb0a5242544c29d69be773587c8fbb6bb9f35da9941dfdc936c708",
       "spec": {
-        "template": "cells",
-        "title": "Lomuto partitioning around pivot element",
+        "template": "table",
+        "title": "Partitioning around a pivot",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Last item serves as pivot while pointer p marks small elements.",
-            "items": [
+            "at": "say1",
+            "caption": "The quick concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "7"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "9"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "8"
-              },
-              {
-                "text": "5"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "p",
-                "index": 0,
+                "cells": [
+                  {
+                    "text": "Partitioning"
+                  },
+                  {
+                    "text": "around"
+                  }
+                ],
                 "tone": "data"
-              },
-              {
-                "name": "pivot",
-                "index": 6,
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Swap pivot into position p placing smaller items left.",
-            "items": [
+            "caption": "The lomuto logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "2"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "8"
-              },
-              {
-                "text": "9"
-              }
-            ],
-            "highlightRange": [
-              0,
-              2
-            ],
-            "pointers": [
-              {
-                "name": "pivot",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "pivot"
+                  },
+                  {
+                    "text": "around"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -92,56 +53,37 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Lomuto partitioning around pivot element",
+        "template": "table",
+        "title": "Partitioning around a pivot",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Last item serves as pivot while pointer p marks small elements.",
-            "items": [
-              "7",
-              "2",
-              "9",
-              "4",
-              "3",
-              "8",
-              "5"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The quick concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "p",
-                "index": 0,
+                "cells": [
+                  "Partitioning",
+                  "around"
+                ],
                 "tone": "data"
-              },
-              {
-                "name": "pivot",
-                "index": 6,
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Swap pivot into position p placing smaller items left.",
-            "items": [
-              "2",
-              "4",
-              "3",
-              "5",
-              "7",
-              "8",
-              "9"
-            ],
-            "pointers": [
+            "caption": "The lomuto logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "pivot",
-                "index": 3,
+                "cells": [
+                  "pivot",
+                  "around"
+                ],
                 "tone": "ok"
               }
-            ],
-            "highlightRange": [
-              0,
-              2
             ]
           }
         ]
@@ -151,223 +93,81 @@
       "partTitle": "Quick sort",
       "codeHash": "7b4a25aca864feade99832ca1c006f8887ad3f87ccabc0b38579aa53e06be224",
       "spec": {
-        "template": "flow",
-        "title": "Quick sort — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Quick sort",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Quick sort",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Quick sort [D.Ptwo.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Quick sort [D.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Quick"
+                  },
+                  {
+                    "text": "sort"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Quick sort [D.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The average logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Quick"
+                  },
+                  {
+                    "text": "sort"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Quick sort — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Quick sort",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Quick sort",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Quick sort [D13.P2.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Quick sort [D13.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Quick",
+                  "sort"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Quick sort [D13.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The average logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Quick",
+                  "sort"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -377,90 +177,82 @@
       "partTitle": "The worst case and random pivots",
       "codeHash": "8f09b68fe7c0e52302116916cd160a95c19856ec49b953afa58f096c3d814448",
       "spec": {
-        "template": "bars",
-        "title": "Comparison count deterministic vs random pivot",
+        "template": "table",
+        "title": "The worst case and random pivots",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unbalanced pivots cause quadratic comparison work.",
-            "bars": [
+            "caption": "The quick concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "Sorted last pivot",
-                "value": {
-                  "text": "44,850 comps"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "Quadratic bound",
-                "value": {
-                  "text": "O(N^2)"
-                },
-                "tone": "error"
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "worst"
+                  }
+                ],
+                "tone": "data"
               }
-            ],
-            "max": 50000
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Random pivot avoids sorted worst case achieving expected N log N.",
-            "bars": [
+            "at": "say3",
+            "caption": "The choose logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "Sorted last pivot",
-                "value": {
-                  "text": "44,850 comps"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "Random pivot",
-                "value": {
-                  "text": "2,410 comps"
-                },
+                "cells": [
+                  {
+                    "text": "case"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 50000
+            ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Comparison count deterministic vs random pivot",
+        "template": "table",
+        "title": "The worst case and random pivots",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unbalanced pivots cause quadratic comparison work.",
-            "bars": [
+            "caption": "The quick concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "Sorted last pivot",
-                "value": "44,850 comps",
-                "tone": "error"
-              },
-              {
-                "label": "Quadratic bound",
-                "value": "O(N^2)",
-                "tone": "error"
+                "cells": [
+                  "The",
+                  "worst"
+                ],
+                "tone": "data"
               }
-            ],
-            "max": 50000
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Random pivot avoids sorted worst case achieving expected N log N.",
-            "bars": [
+            "at": "say3",
+            "caption": "The choose logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "Sorted last pivot",
-                "value": "44,850 comps",
-                "tone": "error"
-              },
-              {
-                "label": "Random pivot",
-                "value": "2,410 comps",
+                "cells": [
+                  "case",
+                  "and"
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 50000
+            ]
           }
         ]
       }
@@ -469,75 +261,43 @@
       "partTitle": "Quickselect: the k-th largest in O(N)",
       "codeHash": "fbcc169f0757a6e55bba1b71f61b682434e9670f762f56ddfbed2be827bccb06",
       "spec": {
-        "template": "cells",
-        "title": "Quickselect unilateral partition elimination",
+        "template": "table",
+        "title": "Quickselect: the k-th largest in O(N)",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quickselect follows only partition containing target index.",
-            "items": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "3"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "4"
-              }
-            ],
-            "highlightRange": [
-              0,
-              5
-            ],
-            "pointers": [
-              {
-                "name": "target",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "Quickselect"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Partition search follows right part if pivot lands left.",
-            "items": [
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "6"
-              }
-            ],
-            "highlightRange": [
-              3,
-              5
-            ],
-            "pointers": [
-              {
-                "name": "k-th",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "largest"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -545,53 +305,37 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Quickselect unilateral partition elimination",
+        "template": "table",
+        "title": "Quickselect: the k-th largest in O(N)",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quickselect follows only partition containing target index.",
-            "items": [
-              "3",
-              "2",
-              "1",
-              "5",
-              "6",
-              "4"
-            ],
-            "pointers": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "target",
-                "index": 4,
+                "cells": [
+                  "Quickselect",
+                  "the"
+                ],
                 "tone": "data"
               }
-            ],
-            "highlightRange": [
-              0,
-              5
             ]
           },
           {
-            "at": "say2",
-            "caption": "Partition search follows right part if pivot lands left.",
-            "items": [
-              "1",
-              "2",
-              "3",
-              "4",
-              "5",
-              "6"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "k-th",
-                "index": 4,
+                "cells": [
+                  "largest",
+                  "the"
+                ],
                 "tone": "ok"
               }
-            ],
-            "highlightRange": [
-              3,
-              5
             ]
           }
         ]
@@ -601,223 +345,81 @@
       "partTitle": "heapq and choosing the right tool",
       "codeHash": "8e13169eed2c06cfbb5e2132bb6b61cf9bd23f6124e4674e333bf5a6e56ae32d",
       "spec": {
-        "template": "flow",
-        "title": "heapq and choosing the right tool — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. heapq and choosing ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "heapq and choosing the right tool",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for heapq and choosing the right tool.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in heapq and choosing ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "heapq"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for heapq and choosing the right tool.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The small logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "choosing"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "heapq and choosing the right tool — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. heapq and choosing ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "heapq and choosing the right tool",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for heapq and choosing the right tool [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in heapq and choosing ... [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "heapq",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for heapq and choosing the right tool [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The small logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "choosing",
+                  "the"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -828,105 +430,40 @@
       "codeHash": "b18f76ca2572ee93ecc92dd1dac52eb41fd57b35c86c7590f25ea47b996f1d43",
       "spec": {
         "template": "table",
-        "title": "Merge sort vs quick sort comparison",
+        "title": "Merge sort or quick sort?",
         "columns": [
-          "Sorting Metric",
-          "Merge Sort",
-          "Quick Sort",
-          "Winner"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Both algorithms achieve N log N average comparison time.",
+            "caption": "The both concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Average time"
+                    "text": "Merge"
                   },
                   {
-                    "text": "O(N log N)"
-                  },
-                  {
-                    "text": "O(N log N)"
-                  },
-                  {
-                    "text": "tie"
+                    "text": "sort"
                   }
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Worst case"
-                  },
-                  {
-                    "text": "O(N log N)"
-                  },
-                  {
-                    "text": "O(N^2)"
-                  },
-                  {
-                    "text": "Merge"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Merge sort suits linked lists while quick sort favors arrays.",
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Average time"
+                    "text": "quick"
                   },
                   {
-                    "text": "O(N log N)"
-                  },
-                  {
-                    "text": "O(N log N)"
-                  },
-                  {
-                    "text": "tie"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Extra space"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "O(log N)"
-                  },
-                  {
-                    "text": "Quick"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Stability"
-                  },
-                  {
-                    "text": "stable"
-                  },
-                  {
-                    "text": "unstable"
-                  },
-                  {
-                    "text": "Merge"
+                    "text": "sort"
                   }
                 ],
                 "tone": "ok"
@@ -937,66 +474,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Merge sort vs quick sort comparison",
+        "title": "Merge sort or quick sort?",
         "columns": [
-          "Sorting Metric",
-          "Merge Sort",
-          "Quick Sort",
-          "Winner"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Both algorithms achieve N log N average comparison time.",
+            "caption": "The both concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Average time",
-                  "O(N log N)",
-                  "O(N log N)",
-                  "tie"
+                  "Merge",
+                  "sort"
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "Worst case",
-                  "O(N log N)",
-                  "O(N^2)",
-                  "Merge"
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Merge sort suits linked lists while quick sort favors arrays.",
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Average time",
-                  "O(N log N)",
-                  "O(N log N)",
-                  "tie"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Extra space",
-                  "O(N)",
-                  "O(log N)",
-                  "Quick"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Stability",
-                  "stable",
-                  "unstable",
-                  "Merge"
+                  "quick",
+                  "sort"
                 ],
                 "tone": "ok"
               }

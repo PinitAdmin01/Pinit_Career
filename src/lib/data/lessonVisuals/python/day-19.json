@@ -2,98 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 19,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "aad003ca7037e4119581f1f01dae8d80d74fb398f0280370cba2632eca3174e7",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Making objects print nicely with __str__",
       "codeHash": "aa47bdc072c5f0fb37f686f0103bde76f1c288123ff86b8d5443409483954d6b",
       "spec": {
-        "template": "boxes",
-        "title": "Formatting object output with __str__",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "item",
-            "label": "item"
-          }
+        "template": "table",
+        "title": "Making objects print nicely with __str__",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Add a special method called __str__ to return a string.",
-            "values": {
-              "tea": {
-                "text": "Expense"
-              },
-              "item": {
-                "text": "Tea"
+            "at": "say1",
+            "caption": "The print concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Making"
+                  },
+                  {
+                    "text": "objects"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "tea": "data",
-              "item": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Printing an object tells you straight away what is inside.",
-            "values": {
-              "tea": {
-                "var": "tea",
-                "line": 15
-              },
-              "item": {
-                "text": "Expense(\"Tea\", 20)"
+            "at": "say3",
+            "caption": "The methods logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "print"
+                  },
+                  {
+                    "text": "nicely"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tea": "ok",
-              "item": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Formatting object output with __str__",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "item",
-            "label": "item"
-          }
+        "template": "table",
+        "title": "Making objects print nicely with __str__",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Add a special method called __str__ to return a string.",
-            "values": {
-              "tea": "Expense",
-              "item": "Tea"
-            },
-            "tones": {
-              "tea": "data",
-              "item": "idle"
-            }
+            "at": "say1",
+            "caption": "The print concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Making",
+                  "objects"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Printing an object tells you straight away what is inside.",
-            "values": {
-              "tea": "<Expense>",
-              "item": "Expense(\"Tea\", 20)"
-            },
-            "tones": {
-              "tea": "ok",
-              "item": "ok"
-            }
+            "at": "say3",
+            "caption": "The methods logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "print",
+                  "nicely"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -102,91 +93,82 @@
       "partTitle": "Inheritance: building on an existing class",
       "codeHash": "e332d023df63e36332cdd71bcc5080b70d455799a82135354982f7250bd72473",
       "spec": {
-        "template": "boxes",
-        "title": "Extending classes with inheritance",
-        "boxes": [
-          {
-            "id": "music",
-            "label": "music"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Inheritance: building on an existing class",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The child automatically gets all the parent attributes.",
-            "values": {
-              "music": {
-                "text": "Subscription"
-              },
-              "amount": {
-                "text": "yearly_cost"
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Inheritance"
+                  },
+                  {
+                    "text": "building"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "music": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "A subscription is a kind of expense for isinstance.",
-            "values": {
-              "music": {
-                "var": "music",
-                "line": 14
-              },
-              "amount": {
-                "text": "yearly_cost"
+            "at": "say3",
+            "caption": "The child logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "existing"
+                  },
+                  {
+                    "text": "class"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "music": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Extending classes with inheritance",
-        "boxes": [
-          {
-            "id": "music",
-            "label": "music"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Inheritance: building on an existing class",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The child automatically gets all the parent attributes.",
-            "values": {
-              "music": "Subscription",
-              "amount": "yearly_cost"
-            },
-            "tones": {
-              "music": "data",
-              "amount": "idle"
-            }
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Inheritance",
+                  "building"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "A subscription is a kind of expense for isinstance.",
-            "values": {
-              "music": "<Subscription>",
-              "amount": "yearly_cost"
-            },
-            "tones": {
-              "music": "ok",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The child logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "existing",
+                  "class"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -195,223 +177,81 @@
       "partTitle": "Overriding methods",
       "codeHash": "68e04556d659a1ef0457c0ba6426008185fbb32257b999dc64fa492d1da3c64f",
       "spec": {
-        "template": "flow",
-        "title": "Overriding methods — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Overriding methods",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Overriding methods",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Overriding methods [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Overriding methods [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The child concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Overriding"
+                  },
+                  {
+                    "text": "methods"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Overriding methods [D.Pthree.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The lets logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Overriding"
+                  },
+                  {
+                    "text": "methods"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Overriding methods — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Overriding methods",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Overriding methods",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Overriding methods [D19.P3.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Overriding methods [D19.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The child concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Overriding",
+                  "methods"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Overriding methods [D19.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The lets logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Overriding",
+                  "methods"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -421,91 +261,82 @@
       "partTitle": "super(): reusing the parent's work",
       "codeHash": "5cc63c22ebf1fea64df6a8d432a5ec04b73a92d58efd8f5f8fa203cc0aaaef94",
       "spec": {
-        "template": "boxes",
-        "title": "Reusing parent methods with super",
-        "boxes": [
-          {
-            "id": "gym",
-            "label": "gym"
-          },
-          {
-            "id": "renews_on",
-            "label": "renews_on"
-          }
+        "template": "table",
+        "title": "super(): reusing the parent's work",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "super() gives you the parent class to call its version.",
-            "values": {
-              "gym": {
-                "text": "Subscription"
-              },
-              "renews_on": {
-                "text": "5"
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "super"
+                  },
+                  {
+                    "text": "reusing"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "gym": "data",
-              "renews_on": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Call super to reuse text instead of writing it again.",
-            "values": {
-              "gym": {
-                "var": "gym",
-                "line": 18
-              },
-              "renews_on": {
-                "text": "renews_on"
+            "caption": "The works logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "parent"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "gym": "ok",
-              "renews_on": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Reusing parent methods with super",
-        "boxes": [
-          {
-            "id": "gym",
-            "label": "gym"
-          },
-          {
-            "id": "renews_on",
-            "label": "renews_on"
-          }
+        "template": "table",
+        "title": "super(): reusing the parent's work",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "super() gives you the parent class to call its version.",
-            "values": {
-              "gym": "Subscription",
-              "renews_on": "5"
-            },
-            "tones": {
-              "gym": "data",
-              "renews_on": "idle"
-            }
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "super",
+                  "reusing"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Call super to reuse text instead of writing it again.",
-            "values": {
-              "gym": "<Subscription>",
-              "renews_on": "renews_on"
-            },
-            "tones": {
-              "gym": "ok",
-              "renews_on": "ok"
-            }
+            "caption": "The works logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "parent"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -514,223 +345,81 @@
       "partTitle": "When to use classes and inheritance",
       "codeHash": "68415e6c9b95e2e0095f475b06ce54595524d2eceb4dbf7a465cdd44a08ae3ba",
       "spec": {
-        "template": "flow",
-        "title": "When to use classes and inheritance — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to use classes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "When to use classes and inheritance",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When to use classes and inheritance.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When to use classes... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The classes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "When"
+                  },
+                  {
+                    "text": "use"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When to use classes and inheritance.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "classes"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When to use classes and inheritance — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to use classes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "When to use classes and inheritance",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When to use classes and inheritance [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When to use classes... [D19.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The classes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "When",
+                  "use"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When to use classes and inheritance [D19.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "classes",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -740,223 +429,81 @@
       "partTitle": "Putting it together: expenses and subscriptions",
       "codeHash": "fb0a68ba479ee05bda3da5288a46f63a6b365ff499189709e1f16353cb241801",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: expenses and subscriptions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: expenses and subscriptions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: expenses and subscr.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: expenses and.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The seeing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "expenses"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: expenses and subscriptions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: expenses and subscriptions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: expenses and subscr.. [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: expenses and.. [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The seeing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "expenses",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

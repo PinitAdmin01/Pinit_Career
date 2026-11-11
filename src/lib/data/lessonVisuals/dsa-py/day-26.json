@@ -2,101 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "321f34ee15901eb024f62728f4fcf92046343157ac0199a63b4216177e0843a3",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "When greedy choices fail",
       "codeHash": "1189478b8daf70030a9cc2a3f0809301501d89fe2a5f083d806a95f77d40ad1b",
       "spec": {
-        "template": "compare",
-        "title": "Greedy heuristic failure versus optimal dynamic programming",
-        "leftLabel": "Greedy Strategy",
-        "rightLabel": "DP Optimal",
+        "template": "table",
+        "title": "When greedy choices fail",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The locally best choice led to a worse overall answer.",
-            "left": {
-              "code": "coins [4, 1, 1]",
-              "result": {
-                "text": "three coins"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "coins [3, 3]",
-              "result": {
-                "text": "two coins"
-              },
-              "tone": "ok"
-            }
+            "at": "say1",
+            "caption": "The greedy concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "When"
+                  },
+                  {
+                    "text": "greedy"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "When greedy fails dynamic programming tries every choice systematically.",
-            "left": {
-              "code": "greedy search",
-              "result": {
-                "text": "suboptimal"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "DP combinations",
-              "result": {
-                "text": "optimal 3+3"
-              },
-              "tone": "ok"
-            }
+            "caption": "The greedy logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "choices"
+                  },
+                  {
+                    "text": "fail"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Greedy heuristic failure versus optimal dynamic programming",
-        "leftLabel": "Greedy Strategy",
-        "rightLabel": "DP Optimal",
+        "template": "table",
+        "title": "When greedy choices fail",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The locally best choice led to a worse overall answer.",
-            "left": {
-              "code": "coins [4, 1, 1]",
-              "result": "three coins",
-              "tone": "error",
-              "checks": [
-                "three coins"
-              ]
-            },
-            "right": {
-              "code": "coins [3, 3]",
-              "result": "two coins",
-              "tone": "ok",
-              "checks": [
-                "two coins"
-              ]
-            }
+            "at": "say1",
+            "caption": "The greedy concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "When",
+                  "greedy"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "When greedy fails dynamic programming tries every choice systematically.",
-            "left": {
-              "code": "greedy search",
-              "result": "suboptimal",
-              "tone": "error",
-              "checks": [
-                "suboptimal"
-              ]
-            },
-            "right": {
-              "code": "DP combinations",
-              "result": "optimal 3+3",
-              "tone": "ok",
-              "checks": [
-                "optimal 3+3"
-              ]
-            }
+            "caption": "The greedy logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "choices",
+                  "fail"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -105,55 +93,43 @@
       "partTitle": "Coin change with a DP table",
       "codeHash": "8c5fca956f3e128740cad58e9300d1841a83786f24056fd425e15c20f8cfe548",
       "spec": {
-        "template": "cells",
-        "title": "1D array tracking minimum coins for each subproblem amount",
+        "template": "table",
+        "title": "Coin change with a DP table",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "best[x] means the fewest coins that make amount x.",
-            "items": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "0"
-              },
-              {
-                "text": "inf"
-              },
-              {
-                "text": "inf"
-              },
-              {
-                "text": "inf"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "base 0",
-                "index": 0,
-                "tone": "ok"
+                "cells": [
+                  {
+                    "text": "Coin"
+                  },
+                  {
+                    "text": "change"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The recurrence comes from the last coin used across coins.",
-            "items": [
+            "caption": "The recurrence logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "1"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "best[x]",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "table"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -161,39 +137,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "1D array tracking minimum coins for each subproblem amount",
+        "template": "table",
+        "title": "Coin change with a DP table",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "best[x] means the fewest coins that make amount x.",
-            "items": [
-              "0",
-              "inf",
-              "inf",
-              "inf"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "base 0",
-                "index": 0,
-                "tone": "ok"
+                "cells": [
+                  "Coin",
+                  "change"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The recurrence comes from the last coin used across coins.",
-            "items": [
-              "0",
-              "1",
-              "2",
-              "1"
-            ],
-            "pointers": [
+            "caption": "The recurrence logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "best[x]",
-                "index": 3,
+                "cells": [
+                  "with",
+                  "table"
+                ],
                 "tone": "ok"
               }
             ]
@@ -205,223 +177,81 @@
       "partTitle": "Counting the ways instead",
       "codeHash": "848be9216c5b2063b3946dd529223a2a107bb4e04930934ac00e96ed27c6f848",
       "spec": {
-        "template": "flow",
-        "title": "Counting the ways instead — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting the ways i...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting the ways instead",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Counting the ways instead [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Counting the ways i... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The close concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Counting the ways instead.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The loop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "ways"
+                  },
+                  {
+                    "text": "instead"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Counting the ways instead — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting the ways i...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting the ways instead",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting the ways instead [D26.P3.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting the ways i... [D26.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The close concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Counting",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting the ways instead [D26.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The loop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "ways",
+                  "instead"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -432,54 +262,40 @@
       "codeHash": "8304c50ce4f6496771029c5d5ddb2fee7852c11ca253a645dde27b841169c801",
       "spec": {
         "template": "table",
-        "title": "0/1 Knapsack reverse capacity update",
+        "title": "The 0/1 knapsack problem",
         "columns": [
-          "Bag Capacity",
-          "Skip Item",
-          "Take Item (v + best[c-w])",
-          "Updated Best"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "For each item choose between skipping or taking if it fits.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Cap 3"
+                    "text": "The"
                   },
                   {
-                    "text": "val 0"
-                  },
-                  {
-                    "text": "val 10"
-                  },
-                  {
-                    "text": "val 10"
+                    "text": "knapsack"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Loop capacity from high to low so items cannot be used twice.",
+            "at": "say3",
+            "caption": "The best logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Cap 5"
+                    "text": "problem"
                   },
                   {
-                    "text": "val 10"
-                  },
-                  {
-                    "text": "val 22"
-                  },
-                  {
-                    "text": "val 22"
+                    "text": "knapsack"
                   }
                 ],
                 "tone": "ok"
@@ -490,39 +306,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "0/1 Knapsack reverse capacity update",
+        "title": "The 0/1 knapsack problem",
         "columns": [
-          "Bag Capacity",
-          "Skip Item",
-          "Take Item (v + best[c-w])",
-          "Updated Best"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "For each item choose between skipping or taking if it fits.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Cap 3",
-                  "val 0",
-                  "val 10",
-                  "val 10"
+                  "The",
+                  "knapsack"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Loop capacity from high to low so items cannot be used twice.",
+            "at": "say3",
+            "caption": "The best logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Cap 5",
-                  "val 10",
-                  "val 22",
-                  "val 22"
+                  "problem",
+                  "knapsack"
                 ],
                 "tone": "ok"
               }
@@ -535,223 +345,81 @@
       "partTitle": "Which items were taken?",
       "codeHash": "da5914af9133fc9baa4f9b66f2140d4d54897365027198eb5d6523228fa917f2",
       "spec": {
-        "template": "flow",
-        "title": "Which items were taken? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Which items were ta...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Which items were taken?",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Which items were taken? [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Which items were ta... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The useful concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Which"
+                  },
+                  {
+                    "text": "items"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Which items were taken? [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The costs logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "were"
+                  },
+                  {
+                    "text": "taken"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Which items were taken? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Which items were ta...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Which items were taken?",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Which items were taken? [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Which items were ta... [D26.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The useful concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Which",
+                  "items"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Which items were taken? [D26.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The costs logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "were",
+                  "taken"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -762,61 +430,40 @@
       "codeHash": "6f008be9d52eb4cbcec77c33a80e9fe2317dc547b841a8451898ea22c3e6642b",
       "spec": {
         "template": "table",
-        "title": "Optimization engine use cases and algorithms",
+        "title": "Milestone 4: an optimisation engine",
         "columns": [
-          "Optimization Problem",
-          "Algorithm Technique",
-          "Real World Domain"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Milestone combines fewest coin change with knapsack packing.",
+            "caption": "The milestone concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Coin Change"
+                    "text": "Milestone"
                   },
                   {
-                    "text": "1D DP Table"
-                  },
-                  {
-                    "text": "Making Cash Change"
+                    "text": "optimisation"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Real systems use these techniques for factory stock and delivery trucks.",
+            "caption": "The problems logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Coin Change"
+                    "text": "engine"
                   },
                   {
-                    "text": "1D DP Table"
-                  },
-                  {
-                    "text": "Cash Tender"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "0/1 Knapsack"
-                  },
-                  {
-                    "text": "Bounded Capacity DP"
-                  },
-                  {
-                    "text": "Cargo Loading"
+                    "text": "optimisation"
                   }
                 ],
                 "tone": "ok"
@@ -827,44 +474,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Optimization engine use cases and algorithms",
+        "title": "Milestone 4: an optimisation engine",
         "columns": [
-          "Optimization Problem",
-          "Algorithm Technique",
-          "Real World Domain"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Milestone combines fewest coin change with knapsack packing.",
+            "caption": "The milestone concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Coin Change",
-                  "1D DP Table",
-                  "Making Cash Change"
+                  "Milestone",
+                  "optimisation"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Real systems use these techniques for factory stock and delivery trucks.",
+            "caption": "The problems logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Coin Change",
-                  "1D DP Table",
-                  "Cash Tender"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "0/1 Knapsack",
-                  "Bounded Capacity DP",
-                  "Cargo Loading"
+                  "engine",
+                  "optimisation"
                 ],
                 "tone": "ok"
               }

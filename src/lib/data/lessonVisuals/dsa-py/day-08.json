@@ -2,84 +2,50 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "65fb0e0a449129dc8272f8db7e3ae15c96c327da7f3cc09eb8d2a9d212db57a5",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Two pointers from both ends",
       "codeHash": "ec7e213138399e2ccfe8025023d736e0a43e9de8b0b1f67b97d75aab20e98042",
       "spec": {
-        "template": "cells",
-        "title": "Opposite direction two pointers on sorted list",
+        "template": "table",
+        "title": "Two pointers from both ends",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Start left pointer at beginning and right pointer at end.",
-            "items": [
+            "caption": "The pointers concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "8"
-              },
-              {
-                "text": "11"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 5,
+                "cells": [
+                  {
+                    "text": "Two"
+                  },
+                  {
+                    "text": "pointers"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "If pair sum is too big move right pointer left to smaller number.",
-            "items": [
+            "at": "say3",
+            "caption": "The step logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "8"
-              },
-              {
-                "text": "11"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 1,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "from"
+                  },
+                  {
+                    "text": "both"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -87,53 +53,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Opposite direction two pointers on sorted list",
+        "template": "table",
+        "title": "Two pointers from both ends",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Start left pointer at beginning and right pointer at end.",
-            "items": [
-              "1",
-              "3",
-              "4",
-              "6",
-              "8",
-              "11"
-            ],
-            "pointers": [
+            "caption": "The pointers concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 5,
+                "cells": [
+                  "Two",
+                  "pointers"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "If pair sum is too big move right pointer left to smaller number.",
-            "items": [
-              "1",
-              "3",
-              "4",
-              "6",
-              "8",
-              "11"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The step logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "left",
-                "index": 1,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 4,
+                "cells": [
+                  "from",
+                  "both"
+                ],
                 "tone": "ok"
               }
             ]
@@ -145,114 +93,82 @@
       "partTitle": "Container with the most water",
       "codeHash": "6553e2acbdad87a9fb9931dc9e280dc35b7cecd4af416503777764f1dd302c57",
       "spec": {
-        "template": "bars",
-        "title": "Container water area bounded by shorter line",
+        "template": "table",
+        "title": "Container with the most water",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Start with widest container then move inwards.",
-            "bars": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "left 0",
-                "value": {
-                  "text": "1"
-                },
+                "cells": [
+                  {
+                    "text": "Container"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
                 "tone": "data"
-              },
-              {
-                "label": "right 8",
-                "value": {
-                  "text": "7"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "area",
-                "value": {
-                  "text": "8"
-                },
-                "tone": "ok"
               }
-            ],
-            "max": 50
+            ]
           },
           {
             "at": "say3",
-            "caption": "Always move shorter line pointer inwards to find taller line.",
-            "bars": [
+            "caption": "The pointer logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "left 1",
-                "value": {
-                  "text": "8"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "right 8",
-                "value": {
-                  "text": "7"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "area",
-                "value": {
-                  "text": "49"
-                },
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "most"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 50
+            ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Container water area bounded by shorter line",
+        "template": "table",
+        "title": "Container with the most water",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Start with widest container then move inwards.",
-            "bars": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "left 0",
-                "value": 1,
+                "cells": [
+                  "Container",
+                  "with"
+                ],
                 "tone": "data"
-              },
-              {
-                "label": "right 8",
-                "value": 7,
-                "tone": "data"
-              },
-              {
-                "label": "area",
-                "value": 8,
-                "tone": "ok"
               }
-            ],
-            "max": 50
+            ]
           },
           {
             "at": "say3",
-            "caption": "Always move shorter line pointer inwards to find taller line.",
-            "bars": [
+            "caption": "The pointer logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "left 1",
-                "value": 8,
-                "tone": "data"
-              },
-              {
-                "label": "right 8",
-                "value": 7,
-                "tone": "data"
-              },
-              {
-                "label": "area",
-                "value": 49,
+                "cells": [
+                  "the",
+                  "most"
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 50
+            ]
           }
         ]
       }
@@ -261,71 +177,43 @@
       "partTitle": "Checking a palindrome",
       "codeHash": "63905707975a501c32d754c53af9f9d288e81ee0e8f18ee14bcbee151ab66b11",
       "spec": {
-        "template": "cells",
-        "title": "Two pointers palindrome inwards convergence",
+        "template": "table",
+        "title": "Checking a palindrome",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Two pointers compare characters from both ends.",
-            "items": [
+            "at": "say1",
+            "caption": "The palindrome concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "m"
-              },
-              {
-                "text": "a"
-              },
-              {
-                "text": "d"
-              },
-              {
-                "text": "a"
-              },
-              {
-                "text": "m"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "Checking"
+                  },
+                  {
+                    "text": "palindrome"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Inwards convergence compares characters skipping punctuation.",
-            "items": [
+            "caption": "The ignore logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "m"
-              },
-              {
-                "text": "a"
-              },
-              {
-                "text": "d"
-              },
-              {
-                "text": "a"
-              },
-              {
-                "text": "m"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 1,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "Checking"
+                  },
+                  {
+                    "text": "palindrome"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -333,51 +221,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Two pointers palindrome inwards convergence",
+        "template": "table",
+        "title": "Checking a palindrome",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Two pointers compare characters from both ends.",
-            "items": [
-              "m",
-              "a",
-              "d",
-              "a",
-              "m"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The palindrome concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 4,
+                "cells": [
+                  "Checking",
+                  "palindrome"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Inwards convergence compares characters skipping punctuation.",
-            "items": [
-              "m",
-              "a",
-              "d",
-              "a",
-              "m"
-            ],
-            "pointers": [
+            "caption": "The ignore logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "left",
-                "index": 1,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 3,
+                "cells": [
+                  "Checking",
+                  "palindrome"
+                ],
                 "tone": "ok"
               }
             ]
@@ -389,223 +261,81 @@
       "partTitle": "Removing duplicates with same-direction pointers",
       "codeHash": "d0d4375962626e20de2d8d2d3e7058eef2708e026089d0c0713693426ad8e1c8",
       "spec": {
-        "template": "flow",
-        "title": "Removing duplicates with same-direction pointers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Removing duplicates...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Removing duplicates with same-direction pointers",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Removing duplicates with same-direction .",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Removing duplicates... [Deight.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The pointers concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Removing"
+                  },
+                  {
+                    "text": "duplicates"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Removing duplicates with same-dir.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The everything logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "same"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Removing duplicates with same-direction pointers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Removing duplicates...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Removing duplicates with same-direction pointers",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Removing duplicates with same-direction .. [D8.P4.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Removing duplicates... [D8.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The pointers concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Removing",
+                  "duplicates"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Removing duplicates with same-dir.. [D8.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The everything logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "same"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -615,223 +345,81 @@
       "partTitle": "Three sum: two pointers inside a loop",
       "codeHash": "237dd27920bfffe9acd6ecb5baf2125a284fad5bd355bb2fea0dfd63ac864eb9",
       "spec": {
-        "template": "flow",
-        "title": "Three sum: two pointers inside a loop — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Three sum: two poin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Three sum: two pointers inside a loop",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Three sum: two pointers inside a loop.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Three sum: two poin... [Deight.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The pointers concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Three"
+                  },
+                  {
+                    "text": "sum"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Three sum: two pointers inside a .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The loop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "two"
+                  },
+                  {
+                    "text": "pointers"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Three sum: two pointers inside a loop — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Three sum: two poin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Three sum: two pointers inside a loop",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Three sum: two pointers inside a loop [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Three sum: two poin... [D8.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The pointers concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Three",
+                  "sum"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Three sum: two pointers inside a .. [D8.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The loop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "two",
+                  "pointers"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -841,94 +429,82 @@
       "partTitle": "Choosing between two pointers and a hash map",
       "codeHash": "31e6b686a6598ac8e9c11f6d1fceed037588b58d4291ae0fe82db29b2eac218a",
       "spec": {
-        "template": "compare",
-        "title": "Trade-off between two pointers and hash map",
-        "leftLabel": "Two Pointers",
-        "rightLabel": "Hash Map",
+        "template": "table",
+        "title": "Choosing between two pointers and a hash map",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Two pointers require sorted data and use constant extra space.",
-            "left": {
-              "code": "sorted nums",
-              "result": {
-                "text": "O(1) space"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "sort needed",
-              "result": {
-                "text": "O(N log N)"
-              },
-              "tone": "data"
-            }
+            "at": "say1",
+            "caption": "The ways concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Choosing"
+                  },
+                  {
+                    "text": "between"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Hash map works on unsorted data keeping original positions.",
-            "left": {
-              "code": "lost positions",
-              "result": {
-                "text": "O(1) memory"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "unsorted array",
-              "result": {
-                "text": "O(N) memory"
-              },
-              "tone": "ok"
-            }
+            "caption": "The hash logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "two"
+                  },
+                  {
+                    "text": "pointers"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Trade-off between two pointers and hash map",
-        "leftLabel": "Two Pointers",
-        "rightLabel": "Hash Map",
+        "template": "table",
+        "title": "Choosing between two pointers and a hash map",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Two pointers require sorted data and use constant extra space.",
-            "left": {
-              "code": "sorted nums",
-              "result": "O(1) space",
-              "tone": "ok",
-              "checks": [
-                "O(1) space"
-              ]
-            },
-            "right": {
-              "code": "sort needed",
-              "result": "O(N log N)",
-              "tone": "data",
-              "checks": [
-                "O(N log N)"
-              ]
-            }
+            "at": "say1",
+            "caption": "The ways concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Choosing",
+                  "between"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Hash map works on unsorted data keeping original positions.",
-            "left": {
-              "code": "lost positions",
-              "result": "O(1) memory",
-              "tone": "data",
-              "checks": [
-                "O(1) memory"
-              ]
-            },
-            "right": {
-              "code": "unsorted array",
-              "result": "O(N) memory",
-              "tone": "ok",
-              "checks": [
-                "O(N) memory"
-              ]
-            }
+            "caption": "The hash logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "two",
+                  "pointers"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

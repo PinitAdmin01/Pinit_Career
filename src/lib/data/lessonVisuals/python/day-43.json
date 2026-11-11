@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 43,
-  "promptSha": "34989f7633fced5535b5043bb39be3f5194cb5b2862b23cf75f556a14777390a",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "ac75d1d71a8b606aa1dce6a9bf9c390ea80b896fd517603cd03fb5e331bb2b5c",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "At-Least-Once Delivery Theory & Visibility Timeout Dynamics",
       "codeHash": "08a49259bbaf61a544b01fcd9928abd1813c0e355a512c6396bdd3aff9e8834e",
       "spec": {
-        "template": "states",
-        "title": "At-Least-Once Delivery Theory & Visibility Timeout Dynamics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "At-Least-Once Delivery Theory & Visibility Timeout",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The distributed concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Least"
+                  },
+                  {
+                    "text": "Once"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The least logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Delivery"
+                  },
+                  {
+                    "text": "Theory"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "At-Least-Once Delivery Theory & Visibility Timeout",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The distributed concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Least",
+                  "Once"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The least logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Delivery",
+                  "Theory"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Duplicate Execution & Double-Billing Incident Forensics",
       "codeHash": "22e51647afb619e0bf9ac0655a579fc6eb7979552fd8e68c7ce382cb0feece4c",
       "spec": {
-        "template": "states",
-        "title": "Duplicate Execution & Double-Billing Incident Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Duplicate Execution & Double-Billing Incident Fore",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The understand concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Duplicate"
+                  },
+                  {
+                    "text": "Execution"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The however logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Double"
+                  },
+                  {
+                    "text": "Billing"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Duplicate Execution & Double-Billing Incident Fore",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The understand concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Duplicate",
+                  "Execution"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The however logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Double",
+                  "Billing"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Idempotency Keys & Deduplication Store Architecture",
       "codeHash": "4de7769b51774e555de66d86d9b66591db3bc56569d0b9210035976059b2b36a",
       "spec": {
-        "template": "states",
-        "title": "Idempotency Keys & Deduplication Store Architecture — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Idempotency Keys & Deduplication Store Architectur",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The primary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Idempotency"
+                  },
+                  {
+                    "text": "Keys"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The idempotency logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Deduplication"
+                  },
+                  {
+                    "text": "Store"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Idempotency Keys & Deduplication Store Architectur",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The primary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Idempotency",
+                  "Keys"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The idempotency logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Deduplication",
+                  "Store"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Distributed Locking with Leases & Auto-Release TTL",
       "codeHash": "89587c2449d6336affc0cca58827f24d7e1b1d0e97b88c70842f16fe6fd1a3c5",
       "spec": {
-        "template": "states",
-        "title": "Distributed Locking with Leases & Auto-Release TTL — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Distributed Locking with Leases & Auto-Release TTL",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The idempotency concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Distributed"
+                  },
+                  {
+                    "text": "Locking"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The worker logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "Leases"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Distributed Locking with Leases & Auto-Release TTL",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The idempotency concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Distributed",
+                  "Locking"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The worker logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "Leases"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Subscription Billing Pipeline Idempotency Hardening",
       "codeHash": "9d4df1c8a55f4b718a40fdddc02759cbb11f5bff2134c6b18409255b13102d7c",
       "spec": {
-        "template": "states",
-        "title": "Subscription Billing Pipeline Idempotency Hardening — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Subscription Billing Pipeline Idempotency Hardenin",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Subscription"
+                  },
+                  {
+                    "text": "Billing"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The transaction logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Pipeline"
+                  },
+                  {
+                    "text": "Idempotency"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Subscription Billing Pipeline Idempotency Hardenin",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Subscription",
+                  "Billing"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The transaction logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Pipeline",
+                  "Idempotency"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

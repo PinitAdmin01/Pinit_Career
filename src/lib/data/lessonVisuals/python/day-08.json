@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 8,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "9ef92365b9fe138cc90376c5f4c55113eedbf957507f386e0731729deef1bda8",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Creating a list and reading items",
       "codeHash": "3d3c57fcf3a86c508dcd8e5345f16cbcf0b4914fa689e1f07ae0d7d96eeccf50",
       "spec": {
-        "template": "boxes",
-        "title": "Reading items from a list",
-        "boxes": [
-          {
-            "id": "items",
-            "label": "items"
-          },
-          {
-            "id": "item",
-            "label": "item"
-          }
+        "template": "table",
+        "title": "Creating a list and reading items",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A list is written with square brackets and commas.",
-            "values": {
-              "items": {
-                "var": "items",
-                "line": 1
-              },
-              "item": {
-                "text": "Tea"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Creating"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "items": "data",
-              "item": "ok"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The index reads an item by its position.",
-            "values": {
-              "items": {
-                "var": "items",
-                "line": 1
-              },
-              "item": {
-                "text": "Movie"
+            "caption": "The read logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "reading"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "items": "data",
-              "item": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Reading items from a list",
-        "boxes": [
-          {
-            "id": "items",
-            "label": "items"
-          },
-          {
-            "id": "item",
-            "label": "item"
-          }
+        "template": "table",
+        "title": "Creating a list and reading items",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A list is written with square brackets and commas.",
-            "values": {
-              "items": "['Tea', 'Bus', 'Lunch', 'Movie']",
-              "item": "Tea"
-            },
-            "tones": {
-              "items": "data",
-              "item": "ok"
-            }
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Creating",
+                  "list"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The index reads an item by its position.",
-            "values": {
-              "items": "['Tea', 'Bus', 'Lunch', 'Movie']",
-              "item": "Movie"
-            },
-            "tones": {
-              "items": "data",
-              "item": "ok"
-            }
+            "caption": "The read logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "reading"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,93 +93,82 @@
       "partTitle": "Changing a list: append, insert, remove",
       "codeHash": "38738733979e399f0b2e9f2f917462c7a15371cfe7bb8dad32ec5c5be8930a26",
       "spec": {
-        "template": "boxes",
-        "title": "Modifying lists with methods",
-        "boxes": [
-          {
-            "id": "items",
-            "label": "items"
-          },
-          {
-            "id": "last",
-            "label": "last"
-          }
+        "template": "table",
+        "title": "Changing a list: append, insert, remove",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Append adds an item to the end of the list.",
-            "values": {
-              "items": {
-                "var": "items",
-                "line": 2
-              },
-              "last": {
-                "text": "Lunch"
+            "at": "say1",
+            "caption": "The lists concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Changing"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "items": "data",
-              "last": "ok"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The pop method removes and returns the last item.",
-            "values": {
-              "items": {
-                "var": "items",
-                "line": 9
-              },
-              "last": {
-                "var": "last",
-                "line": 9
+            "caption": "The remove logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "append"
+                  },
+                  {
+                    "text": "insert"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "items": "data",
-              "last": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Modifying lists with methods",
-        "boxes": [
-          {
-            "id": "items",
-            "label": "items"
-          },
-          {
-            "id": "last",
-            "label": "last"
-          }
+        "template": "table",
+        "title": "Changing a list: append, insert, remove",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Append adds an item to the end of the list.",
-            "values": {
-              "items": "['Tea', 'Bus', 'Lunch']",
-              "last": "Lunch"
-            },
-            "tones": {
-              "items": "data",
-              "last": "ok"
-            }
+            "at": "say1",
+            "caption": "The lists concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Changing",
+                  "list"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The pop method removes and returns the last item.",
-            "values": {
-              "items": "['Breakfast', 'Masala tea']",
-              "last": "'Lunch'"
-            },
-            "tones": {
-              "items": "data",
-              "last": "ok"
-            }
+            "caption": "The remove logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "append",
+                  "insert"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -198,223 +177,81 @@
       "partTitle": "Checking and searching: in, count, index",
       "codeHash": "d017be54727f353dc8db81fd0cbe8039ed21304716262333bd499f515d616bb1",
       "spec": {
-        "template": "flow",
-        "title": "Checking and searching: in, count, index — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking and search...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Checking and searching: in, count, index",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Checking and searching: in, count, index.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Checking and search... [Deight.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The whether concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Checking"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Checking and searching: in, count.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The already logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "searching"
+                  },
+                  {
+                    "text": "count"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Checking and searching: in, count, index — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking and search...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Checking and searching: in, count, index",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Checking and searching: in, count, index [D8.P3.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Checking and search... [D8.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The whether concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Checking",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Checking and searching: in, count.. [D8.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The already logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "searching",
+                  "count"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -424,93 +261,82 @@
       "partTitle": "Slicing lists",
       "codeHash": "7303ef45c1c6fba895f58955a7f9983137e52c6a2613a89dda072bbb84fb2c8e",
       "spec": {
-        "template": "boxes",
-        "title": "Slicing portions of a list",
-        "boxes": [
-          {
-            "id": "history",
-            "label": "history"
-          },
-          {
-            "id": "recent",
-            "label": "recent"
-          }
+        "template": "table",
+        "title": "Slicing lists",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Slicing gives a new list with items from start to stop.",
-            "values": {
-              "history": {
-                "var": "history",
-                "line": 1
-              },
-              "recent": {
-                "text": "history[:3]"
+            "caption": "The slicing concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Slicing"
+                  },
+                  {
+                    "text": "lists"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "history": "data",
-              "recent": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Changing the slice does not change the original list.",
-            "values": {
-              "history": {
-                "var": "history",
-                "line": 6
-              },
-              "recent": {
-                "var": "recent",
-                "line": 6
+            "caption": "The slice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Slicing"
+                  },
+                  {
+                    "text": "lists"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "history": "data",
-              "recent": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Slicing portions of a list",
-        "boxes": [
-          {
-            "id": "history",
-            "label": "history"
-          },
-          {
-            "id": "recent",
-            "label": "recent"
-          }
+        "template": "table",
+        "title": "Slicing lists",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Slicing gives a new list with items from start to stop.",
-            "values": {
-              "history": "[20, 45, 120, 300, 60, 90]",
-              "recent": "history[:3]"
-            },
-            "tones": {
-              "history": "data",
-              "recent": "idle"
-            }
+            "caption": "The slicing concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Slicing",
+                  "lists"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Changing the slice does not change the original list.",
-            "values": {
-              "history": "[20, 45, 120, 300, 60, 90]",
-              "recent": "[300, 60, 90]"
-            },
-            "tones": {
-              "history": "data",
-              "recent": "ok"
-            }
+            "caption": "The slice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Slicing",
+                  "lists"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -519,223 +345,81 @@
       "partTitle": "Copies and the \"same list\" trap",
       "codeHash": "75060fc705a172a7621b9df7cbecb51b27557a0b57a13bb8251ca4213913cddb",
       "spec": {
-        "template": "flow",
-        "title": "Copies and the \"same list\" trap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Copies and the \"sam...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Copies and the \"same list\" trap",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Copies and the \"same list\" trap.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Copies and the \"sam... [Deight.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The trap concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Copies"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Copies and the \"same list\" trap.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "same"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Copies and the \"same list\" trap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Copies and the \"sam...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Copies and the \"same list\" trap",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Copies and the \"same list\" trap [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Copies and the \"sam... [D8.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The trap concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Copies",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Copies and the \"same list\" trap [D8.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "same"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -745,223 +429,81 @@
       "partTitle": "Putting it together: a list of expenses",
       "codeHash": "d009aac4ce9684b5333b722b6d97eeaf4d99ad8a74f4c62e71cbffb155786f3b",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: a list of expenses — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a list of expenses",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: a list of expenses.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The lists concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: a list of ex.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "list"
+                  },
+                  {
+                    "text": "expenses"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: a list of expenses — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a list of expenses",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a list of expenses [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The lists concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a list of ex.. [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "list",
+                  "expenses"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

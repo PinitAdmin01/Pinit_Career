@@ -2,97 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 25,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "6f5114952db6d40ac0e732e8ea0d30819fd523e7b3e39014579c36855006048c",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "A summary of spending",
       "codeHash": "9c7ee85c46fb128f5f4bcf1d47492bae5b0ebf2b446d224fa3bd25592d487e51",
       "spec": {
-        "template": "boxes",
-        "title": "Aggregating spending metrics",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "count",
-            "label": "count"
-          }
+        "template": "table",
+        "title": "A summary of spending",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "summary calculates total spent count and biggest single expense.",
-            "values": {
-              "total": {
-                "text": "20"
-              },
-              "count": {
-                "text": "0"
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "summary"
+                  },
+                  {
+                    "text": "spending"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "total": "data",
-              "count": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "With no expenses total is zero count is zero.",
-            "values": {
-              "total": {
-                "text": "0"
-              },
-              "count": {
-                "text": "0"
+            "caption": "The think logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "summary"
+                  },
+                  {
+                    "text": "spending"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "total": "ok",
-              "count": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Aggregating spending metrics",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "count",
-            "label": "count"
-          }
+        "template": "table",
+        "title": "A summary of spending",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "summary calculates total spent count and biggest single expense.",
-            "values": {
-              "total": "20",
-              "count": "0"
-            },
-            "tones": {
-              "total": "data",
-              "count": "idle"
-            }
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "summary",
+                  "spending"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "With no expenses total is 0 count is 0.",
-            "values": {
-              "total": "0",
-              "count": "0"
-            },
-            "tones": {
-              "total": "ok",
-              "count": "ok"
-            }
+            "caption": "The think logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "summary",
+                  "spending"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -101,90 +93,82 @@
       "partTitle": "Totals per category",
       "codeHash": "efcb7a72d7fc23fca97cdf3edbd0a1072dc1a3be83dc6c1db4bed791f4db60ac",
       "spec": {
-        "template": "boxes",
-        "title": "Grouping and sorting category totals",
-        "boxes": [
-          {
-            "id": "category",
-            "label": "category"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Totals per category",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "category_totals groups spending in dictionary by category.",
-            "values": {
-              "category": {
-                "text": "food"
-              },
-              "amount": {
-                "text": "400"
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Totals"
+                  },
+                  {
+                    "text": "per"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "category": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Menu shows categories sorted from biggest spend to smallest.",
-            "values": {
-              "category": {
-                "text": "rent"
-              },
-              "amount": {
-                "text": "350"
+            "at": "say3",
+            "caption": "The percentage logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "category"
+                  },
+                  {
+                    "text": "per"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "category": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Grouping and sorting category totals",
-        "boxes": [
-          {
-            "id": "category",
-            "label": "category"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Totals per category",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "category_totals groups spending in dictionary by category.",
-            "values": {
-              "category": "food",
-              "amount": "400"
-            },
-            "tones": {
-              "category": "data",
-              "amount": "idle"
-            }
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Totals",
+                  "per"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Menu shows categories sorted from biggest spend to smallest.",
-            "values": {
-              "category": "rent",
-              "amount": "350"
-            },
-            "tones": {
-              "category": "ok",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The percentage logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "category",
+                  "per"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -193,91 +177,82 @@
       "partTitle": "Filtering by month",
       "codeHash": "e123642d0ec875a11a068149db058207ffac0c0113b2d834ed1e66f237a42fdd",
       "spec": {
-        "template": "boxes",
-        "title": "Filtering date slices by month",
-        "boxes": [
-          {
-            "id": "september",
-            "label": "september"
-          },
-          {
-            "id": "month",
-            "label": "month"
-          }
+        "template": "table",
+        "title": "Filtering by month",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Date slice takes first seven characters for month.",
-            "values": {
-              "september": {
-                "text": "Rent"
-              },
-              "month": {
-                "text": "2026-09"
+            "caption": "The people concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Filtering"
+                  },
+                  {
+                    "text": "month"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "september": "data",
-              "month": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "in_month returns only expenses in given month.",
-            "values": {
-              "september": {
-                "var": "september",
-                "line": 13
-              },
-              "month": {
-                "text": "2026-09"
+            "at": "say3",
+            "caption": "The offer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Filtering"
+                  },
+                  {
+                    "text": "month"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "september": "ok",
-              "month": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Filtering date slices by month",
-        "boxes": [
-          {
-            "id": "september",
-            "label": "september"
-          },
-          {
-            "id": "month",
-            "label": "month"
-          }
+        "template": "table",
+        "title": "Filtering by month",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Date slice takes first seven characters for month.",
-            "values": {
-              "september": "Rent",
-              "month": "2026-09"
-            },
-            "tones": {
-              "september": "data",
-              "month": "idle"
-            }
+            "caption": "The people concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Filtering",
+                  "month"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "in_month returns only expenses in given month.",
-            "values": {
-              "september": "[{'item': 'Rent', 'amount': 8000, 'date…",
-              "month": "2026-09"
-            },
-            "tones": {
-              "september": "ok",
-              "month": "ok"
-            }
+            "at": "say3",
+            "caption": "The offer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Filtering",
+                  "month"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -286,223 +261,81 @@
       "partTitle": "Saving and loading with JSON",
       "codeHash": "9016c3217cb10086185a2a22c8fd878ccff05ea324222fc2e27387a5fd8c8a1a",
       "spec": {
-        "template": "flow",
-        "title": "Saving and loading with JSON — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Saving and loading ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Saving and loading with JSON",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Saving and loading with JSON [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Saving and loading ... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The important concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Saving"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Saving and loading with JSON.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The saving logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "loading"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saving and loading with JSON — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Saving and loading ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Saving and loading with JSON",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Saving and loading with JSON [D25.P4.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Saving and loading ... [D25.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The important concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Saving",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Saving and loading with JSON [D25.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The saving logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "loading",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -512,223 +345,81 @@
       "partTitle": "Connecting it all in the menu",
       "codeHash": "aa07e4e88ee143ff8215baccb3082bb9cba0c1efd253806662b79807994c7c17",
       "spec": {
-        "template": "flow",
-        "title": "Connecting it all in the menu — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Connecting it all i...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Connecting it all in the menu",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Connecting it all in the menu [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Connecting it all i... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The menu concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Connecting"
+                  },
+                  {
+                    "text": "all"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Connecting it all in the menu.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The program logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "menu"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Connecting it all in the menu — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Connecting it all i...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Connecting it all in the menu",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Connecting it all in the menu [D25.P5.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Connecting it all i... [D25.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The menu concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Connecting",
+                  "all"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Connecting it all in the menu [D25.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The program logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "menu"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -738,223 +429,81 @@
       "partTitle": "Putting it together: all must-haves done",
       "codeHash": "95ada380028a5d45aab6d1d8d675cb2c7d1d2929d352306e98bbbbc99907a1f7",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: all must-haves done — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: all must-haves done",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: all must-haves done.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: all must-hav.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "all"
+                  },
+                  {
+                    "text": "must"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: all must-haves done — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: all must-haves done",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: all must-haves done [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: all must-hav.. [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "all",
+                  "must"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

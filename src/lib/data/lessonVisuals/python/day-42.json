@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 42,
-  "promptSha": "a77fed73213d4714c3d77f4db84d98f2e0e2471ea7ee89e7e8b3f879f6c9db70",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "2d02756e306fd08a0fa8cc272ef065c3ff1610f6a623504a31c194fa72eb94a1",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Celery Canvas Primitives Deep Dive: Signatures, Chains & Chords",
       "codeHash": "895c11524ee60fcc66a8ff8c1450fd2de426554a95c65c773729a298cb454165",
       "spec": {
-        "template": "states",
-        "title": "Celery Canvas Primitives Deep Dive: Signatures, Chains & Chords — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Celery Canvas Primitives Deep Dive: Signatures, Ch",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The enterprise concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Celery"
+                  },
+                  {
+                    "text": "Canvas"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The fundamental logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Primitives"
+                  },
+                  {
+                    "text": "Deep"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Celery Canvas Primitives Deep Dive: Signatures, Ch",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The enterprise concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Celery",
+                  "Canvas"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The fundamental logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Primitives",
+                  "Deep"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Parallel Task Group Execution & Concurrency Scaling",
       "codeHash": "576c12c2754f30fefc01d1a509681e4a81112c92f8c073b33d32b74259914153",
       "spec": {
-        "template": "states",
-        "title": "Parallel Task Group Execution & Concurrency Scaling — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Parallel Task Group Execution & Concurrency Scalin",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The sequential concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Parallel"
+                  },
+                  {
+                    "text": "Task"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The execution logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Group"
+                  },
+                  {
+                    "text": "Execution"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Parallel Task Group Execution & Concurrency Scalin",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The sequential concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Parallel",
+                  "Task"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The execution logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Group",
+                  "Execution"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Chord Barrier Synchronization & Callback Dispatch Mechanics",
       "codeHash": "6e8d5cb07de9fcbd5979df6205ee6e2fc714c1d5e82f66e5a9e40f80a739a7da",
       "spec": {
-        "template": "states",
-        "title": "Chord Barrier Synchronization & Callback Dispatch Mechanics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Chord Barrier Synchronization & Callback Dispatch ",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The real concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Chord"
+                  },
+                  {
+                    "text": "Barrier"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The internal logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Synchronization"
+                  },
+                  {
+                    "text": "Callback"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Chord Barrier Synchronization & Callback Dispatch ",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The real concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Chord",
+                  "Barrier"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The internal logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Synchronization",
+                  "Callback"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Chord Barrier Synchronization & Redis Polling Storm Forensics",
       "codeHash": "9d725697dd19f5d0a130898b17d789ba3dd21e8afa0b816ee4b72e4c2e0ada1c",
       "spec": {
-        "template": "states",
-        "title": "Chord Barrier Synchronization & Redis Polling Storm Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Chord Barrier Synchronization & Redis Polling Stor",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The celery concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Chord"
+                  },
+                  {
+                    "text": "Barrier"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The phenomenon logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Synchronization"
+                  },
+                  {
+                    "text": "Redis"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Chord Barrier Synchronization & Redis Polling Stor",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The celery concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Chord",
+                  "Barrier"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The phenomenon logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Synchronization",
+                  "Redis"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Media Processing Pipeline Workflow Modernization",
       "codeHash": "acd01c5504d4c02a36374306109e5f9fc35ecbd4d6b3cd35c595dd9b2f1d99f7",
       "spec": {
-        "template": "states",
-        "title": "Media Processing Pipeline Workflow Modernization — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Media Processing Pipeline Workflow Modernization",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Media"
+                  },
+                  {
+                    "text": "Processing"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The phase logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Pipeline"
+                  },
+                  {
+                    "text": "Workflow"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Media Processing Pipeline Workflow Modernization",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Media",
+                  "Processing"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The phase logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Pipeline",
+                  "Workflow"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

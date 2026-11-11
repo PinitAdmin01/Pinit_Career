@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 30,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "01959bd903eadda4d982b016998bad74aac309e9441baa3361f7e700f050e633",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What junior Python interviews look like",
       "codeHash": "ef692917f4a04da7f1e92002e6f9abbd91d6a4b7b502cad26ed24332c87897ed",
       "spec": {
-        "template": "flow",
-        "title": "What junior Python interviews look like — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What junior Python ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "What junior Python interviews look like",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What junior Python interviews look like.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What junior Python ... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The congratulations concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "junior"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What junior Python interviews loo.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The interviewers logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Python"
+                  },
+                  {
+                    "text": "interviews"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What junior Python interviews look like — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What junior Python ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "What junior Python interviews look like",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What junior Python interviews look like [D30.P1.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What junior Python ... [D30.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The congratulations concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "junior"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What junior Python interviews loo.. [D30.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The interviewers logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Python",
+                  "interviews"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,92 +93,82 @@
       "partTitle": "Common Python questions",
       "codeHash": "5f36b1366fd2ffef62208ba0843258af689529acbd74d5027a14514135cd0b05",
       "spec": {
-        "template": "boxes",
-        "title": "Comparing equality versus identity semantics",
-        "boxes": [
-          {
-            "id": "a",
-            "label": "a"
-          },
-          {
-            "id": "b",
-            "label": "b"
-          }
+        "template": "table",
+        "title": "Common Python questions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Difference between list and tuple where list can change.",
-            "values": {
-              "a": {
-                "text": "1"
-              },
-              "b": {
-                "text": "2"
+            "caption": "The questions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Common"
+                  },
+                  {
+                    "text": "Python"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "a": "data",
-              "b": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Equals compares values while is checks same object.",
-            "values": {
-              "a": {
-                "var": "a",
-                "line": 4
-              },
-              "b": {
-                "var": "b",
-                "line": 4
+            "at": "say3",
+            "caption": "The difference logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "questions"
+                  },
+                  {
+                    "text": "Python"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "a": "ok",
-              "b": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Comparing equality versus identity semantics",
-        "boxes": [
-          {
-            "id": "a",
-            "label": "a"
-          },
-          {
-            "id": "b",
-            "label": "b"
-          }
+        "template": "table",
+        "title": "Common Python questions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Difference between list and tuple where list can change.",
-            "values": {
-              "a": "1",
-              "b": "2"
-            },
-            "tones": {
-              "a": "data",
-              "b": "idle"
-            }
+            "caption": "The questions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Common",
+                  "Python"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Equals compares values while is checks same object.",
-            "values": {
-              "a": "[1, 2]",
-              "b": "[1, 2]"
-            },
-            "tones": {
-              "a": "ok",
-              "b": "ok"
-            }
+            "at": "say3",
+            "caption": "The difference logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "questions",
+                  "Python"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -329,223 +177,81 @@
       "partTitle": "Explaining your project in two minutes",
       "codeHash": "9dfd4e94f43753ffc9161a6d6560c876448a3552ee59c23428450acfc4b88acb",
       "spec": {
-        "template": "flow",
-        "title": "Explaining your project in two minutes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Explaining your pro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Explaining your project in two minutes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Explaining your project in two minutes.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Explaining your pro... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The important concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Explaining"
+                  },
+                  {
+                    "text": "your"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Explaining your project in two mi.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The improve logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "project"
+                  },
+                  {
+                    "text": "two"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Explaining your project in two minutes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Explaining your pro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Explaining your project in two minutes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Explaining your project in two minutes [D30.P3.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Explaining your pro... [D30.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The important concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Explaining",
+                  "your"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Explaining your project in two mi.. [D30.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The improve logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "project",
+                  "two"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -555,92 +261,82 @@
       "partTitle": "Solving a coding task out loud",
       "codeHash": "40ac8483d3465fe1f0d5ac6d5b69f7954cb8e93c69584b43ba6fa4357ac360eb",
       "spec": {
-        "template": "boxes",
-        "title": "Evaluating divisibility branching conditions",
-        "boxes": [
-          {
-            "id": "n",
-            "label": "n"
-          },
-          {
-            "id": "expected",
-            "label": "expected"
-          }
+        "template": "table",
+        "title": "Solving a coding task out loud",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Write simple solution that works and test with examples.",
-            "values": {
-              "n": {
-                "text": "15"
-              },
-              "expected": {
-                "text": "FizzBuzz"
+            "at": "say1",
+            "caption": "The coding concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Solving"
+                  },
+                  {
+                    "text": "coding"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "n": "data",
-              "expected": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "FizzBuzz checks divisibility by three and five.",
-            "values": {
-              "n": {
-                "var": "n",
-                "line": 11
-              },
-              "expected": {
-                "var": "expected",
-                "line": 11
+            "caption": "The fizzbuzz logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "task"
+                  },
+                  {
+                    "text": "out"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "n": "ok",
-              "expected": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Evaluating divisibility branching conditions",
-        "boxes": [
-          {
-            "id": "n",
-            "label": "n"
-          },
-          {
-            "id": "expected",
-            "label": "expected"
-          }
+        "template": "table",
+        "title": "Solving a coding task out loud",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Write simple solution that works and test with examples.",
-            "values": {
-              "n": "15",
-              "expected": "FizzBuzz"
-            },
-            "tones": {
-              "n": "data",
-              "expected": "idle"
-            }
+            "at": "say1",
+            "caption": "The coding concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Solving",
+                  "coding"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "FizzBuzz checks divisibility by 3 and 5.",
-            "values": {
-              "n": "15",
-              "expected": "'FizzBuzz'"
-            },
-            "tones": {
-              "n": "ok",
-              "expected": "ok"
-            }
+            "caption": "The fizzbuzz logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "task",
+                  "out"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -649,90 +345,82 @@
       "partTitle": "More classic small problems",
       "codeHash": "1a30aa9513e5b6b8e85ece4f552c94c844044c9db421343b58161d341811c929",
       "spec": {
-        "template": "boxes",
-        "title": "String reversal and palindrome verification",
-        "boxes": [
-          {
-            "id": "word",
-            "label": "word"
-          },
-          {
-            "id": "sentence",
-            "label": "sentence"
-          }
+        "template": "table",
+        "title": "More classic small problems",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reverse words in sentence and check whether word is palindrome.",
-            "values": {
-              "word": {
-                "text": "Malayalam"
-              },
-              "sentence": {
-                "text": "I love Python"
+            "caption": "The problems concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "More"
+                  },
+                  {
+                    "text": "classic"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "word": "data",
-              "sentence": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Loop with set of seen values to find duplicates in list.",
-            "values": {
-              "word": {
-                "text": "Python"
-              },
-              "sentence": {
-                "text": "I love Python"
+            "at": "say3",
+            "caption": "The used logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "small"
+                  },
+                  {
+                    "text": "problems"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "word": "ok",
-              "sentence": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "String reversal and palindrome verification",
-        "boxes": [
-          {
-            "id": "word",
-            "label": "word"
-          },
-          {
-            "id": "sentence",
-            "label": "sentence"
-          }
+        "template": "table",
+        "title": "More classic small problems",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reverse words in sentence and check whether word is palindrome.",
-            "values": {
-              "word": "Malayalam",
-              "sentence": "I love Python"
-            },
-            "tones": {
-              "word": "data",
-              "sentence": "idle"
-            }
+            "caption": "The problems concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "More",
+                  "classic"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Loop with set of seen values to find duplicates in list.",
-            "values": {
-              "word": "Python",
-              "sentence": "I love Python"
-            },
-            "tones": {
-              "word": "ok",
-              "sentence": "ok"
-            }
+            "at": "say3",
+            "caption": "The used logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "small",
+                  "problems"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -741,223 +429,81 @@
       "partTitle": "Your next steps after this month",
       "codeHash": "25fac54f226d216bc89fd475dc7b601c2f2c00f5f471274a77d9428c526b92f5",
       "spec": {
-        "template": "flow",
-        "title": "Your next steps after this month — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your next steps aft...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Your next steps after this month",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Your next steps after this month [D.Psix.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Your next steps aft... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The month concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Your"
+                  },
+                  {
+                    "text": "next"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Your next steps after this month.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "steps"
+                  },
+                  {
+                    "text": "after"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Your next steps after this month — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your next steps aft...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Your next steps after this month",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your next steps after this month [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your next steps aft... [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The month concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Your",
+                  "next"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your next steps after this month [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "steps",
+                  "after"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

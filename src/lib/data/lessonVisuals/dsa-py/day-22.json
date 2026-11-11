@@ -2,113 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "c323de0a096978cadc8faf44fd4a73fbc3dea8703950be8aa88dc6561726f5ac",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Weighted graphs",
       "codeHash": "57e19c38187b6e889f6c007ae03bde3ea9da1ff2878388803630e93d1e03427d",
       "spec": {
-        "template": "tree-graph",
-        "title": "Weighted graph edges with costs",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "Node A"
-          },
-          {
-            "id": "B",
-            "label": "Node B"
-          },
-          {
-            "id": "C",
-            "label": "Node C"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "w: 5"
-          },
-          {
-            "from": "A",
-            "to": "C",
-            "label": "w: 1"
-          },
-          {
-            "from": "C",
-            "to": "B",
-            "label": "w: 2"
-          }
+        "template": "table",
+        "title": "Weighted graphs",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a weighted graph each edge has a number like a distance or price.",
-            "highlightNodes": [
-              "A",
-              "B",
-              "C"
+            "caption": "The weighted concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Weighted"
+                  },
+                  {
+                    "text": "graphs"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dijkstra finds the cheapest route from start node to every other node.",
-            "highlightNodes": [
-              "A",
-              "C",
-              "B"
-            ],
-            "highlightEdges": [
-              "A->C",
-              "C->B"
+            "at": "say3",
+            "caption": "The longer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Weighted"
+                  },
+                  {
+                    "text": "graphs"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Weighted graph edges with costs",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "Node A"
-          },
-          {
-            "id": "B",
-            "label": "Node B"
-          },
-          {
-            "id": "C",
-            "label": "Node C"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "w: 5"
-          },
-          {
-            "from": "A",
-            "to": "C",
-            "label": "w: 1"
-          },
-          {
-            "from": "C",
-            "to": "B",
-            "label": "w: 2"
-          }
+        "template": "table",
+        "title": "Weighted graphs",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a weighted graph each edge has a number like a distance or price."
+            "caption": "The weighted concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Weighted",
+                  "graphs"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Dijkstra finds the cheapest route from start node to every other node."
+            "at": "say3",
+            "caption": "The longer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Weighted",
+                  "graphs"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -118,61 +94,40 @@
       "codeHash": "4e444697c285b33fc4ad1a09dad4f77ecfe0e448fa0ec58b8ad8b23ce12b8ba4",
       "spec": {
         "template": "table",
-        "title": "Greedy distance relaxation step",
+        "title": "The idea: always settle the closest node",
         "columns": [
-          "Candidate Node",
-          "Current Best Distance",
-          "Relaxation Action"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Pick the unsettled node with the smallest known distance to settle.",
+            "at": "say1",
+            "caption": "The dijkstra concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Node C"
+                    "text": "The"
                   },
                   {
-                    "text": "dist: 1"
-                  },
-                  {
-                    "text": "Settle node"
+                    "text": "idea"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Relax edges to update neighbours whenever a cheaper path is found.",
+            "caption": "The relax logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Node C"
+                    "text": "always"
                   },
                   {
-                    "text": "dist: 1"
-                  },
-                  {
-                    "text": "Settle node"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Node B"
-                  },
-                  {
-                    "text": "dist: 3"
-                  },
-                  {
-                    "text": "Relax edge via Node C"
+                    "text": "settle"
                   }
                 ],
                 "tone": "ok"
@@ -183,44 +138,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Greedy distance relaxation step",
+        "title": "The idea: always settle the closest node",
         "columns": [
-          "Candidate Node",
-          "Current Best Distance",
-          "Relaxation Action"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Pick the unsettled node with the smallest known distance to settle.",
+            "at": "say1",
+            "caption": "The dijkstra concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Node C",
-                  "dist: 1",
-                  "Settle node"
+                  "The",
+                  "idea"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Relax edges to update neighbours whenever a cheaper path is found.",
+            "caption": "The relax logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Node C",
-                  "dist: 1",
-                  "Settle node"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Node B",
-                  "dist: 3",
-                  "Relax edge via Node C"
+                  "always",
+                  "settle"
                 ],
                 "tone": "ok"
               }
@@ -233,52 +177,81 @@
       "partTitle": "Dijkstra with heapq",
       "codeHash": "0d253e02148db80d8f1bab408b2c36794b2cc070be752b9e8e1760bcbe034b72",
       "spec": {
-        "template": "stack-queue",
-        "title": "Dijkstra priority queue tracking minimum distances",
-        "kind": "queue",
+        "template": "table",
+        "title": "Dijkstra with heapq",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Push the start node with distance zero onto the heap queue.",
-            "items": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "(dist 0, Node A)"
+                "cells": [
+                  {
+                    "text": "Dijkstra"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Pop smallest entry and skip if current distance is already better.",
-            "items": [
+            "at": "say3",
+            "caption": "The otherwise logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "popped: (0, A)"
-              },
-              {
-                "text": "pushed: (1, C)"
+                "cells": [
+                  {
+                    "text": "heapq"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "Dijkstra priority queue tracking minimum distances",
+        "template": "table",
+        "title": "Dijkstra with heapq",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Push the start node with distance zero onto the heap queue.",
-            "mode": "stack",
-            "items": [
-              "(dist 0, Node A)"
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Dijkstra",
+                  "with"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Pop smallest entry and skip if current distance is already better.",
-            "mode": "stack",
-            "items": [
-              "popped: (0, A)",
-              "pushed: (1, C)"
+            "at": "say3",
+            "caption": "The otherwise logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "heapq",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -288,223 +261,81 @@
       "partTitle": "Recovering the actual route",
       "codeHash": "9219ce97fca6142d8f5c2c38d44e29c6fd439c3fb50a41ac2475ee3209717029",
       "spec": {
-        "template": "flow",
-        "title": "Recovering the actual route — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Recovering the actu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Recovering the actual route",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Recovering the actual route [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Recovering the actu... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The distances concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Recovering"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Recovering the actual route.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The target logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "actual"
+                  },
+                  {
+                    "text": "route"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Recovering the actual route — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Recovering the actu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Recovering the actual route",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Recovering the actual route [D22.P4.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Recovering the actu... [D22.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The distances concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Recovering",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Recovering the actual route [D22.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The target logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "actual",
+                  "route"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -514,223 +345,81 @@
       "partTitle": "Network delay time",
       "codeHash": "cfdf5aa5344048fb38b470b50e386c5b1ae4da2c7b125c88cde20efd7bc3c516",
       "spec": {
-        "template": "flow",
-        "title": "Network delay time — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Network delay time",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Network delay time",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Network delay time [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Network delay time [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Network"
+                  },
+                  {
+                    "text": "delay"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Network delay time [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The fewer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "time"
+                  },
+                  {
+                    "text": "delay"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Network delay time — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Network delay time",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Network delay time",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Network delay time [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Network delay time [D22.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Network",
+                  "delay"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Network delay time [D22.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The fewer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "time",
+                  "delay"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -740,94 +429,82 @@
       "partTitle": "Why negative weights break Dijkstra",
       "codeHash": "ddf3332aa148eebe739454c98801e3567d9a374acffe23c0c14180a41226016a",
       "spec": {
-        "template": "compare",
-        "title": "Dijkstra failure on negative edge weights vs Bellman-Ford",
-        "leftLabel": "Dijkstra Algorithm",
-        "rightLabel": "Bellman-Ford Algorithm",
+        "template": "table",
+        "title": "Why negative weights break Dijkstra",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Negative edges violate greedy settlement and produce incorrect answers.",
-            "left": {
-              "code": "greedy settle",
-              "result": {
-                "text": "fails on negative"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "multiple passes",
-              "result": {
-                "text": "correct"
-              },
-              "tone": "ok"
-            }
+            "caption": "The dijkstra concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "negative"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Use Bellman-Ford for negative edge graphs relaxing edges repeatedly.",
-            "left": {
-              "code": "Dijkstra",
-              "result": {
-                "text": "O((V+E) log V)"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "Bellman-Ford",
-              "result": {
-                "text": "O(V * E)"
-              },
-              "tone": "ok"
-            }
+            "caption": "The graphs logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "weights"
+                  },
+                  {
+                    "text": "break"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Dijkstra failure on negative edge weights vs Bellman-Ford",
-        "leftLabel": "Dijkstra Algorithm",
-        "rightLabel": "Bellman-Ford Algorithm",
+        "template": "table",
+        "title": "Why negative weights break Dijkstra",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Negative edges violate greedy settlement and produce incorrect answers.",
-            "left": {
-              "code": "greedy settle",
-              "result": "fails on negative",
-              "tone": "error",
-              "checks": [
-                "fails on negative"
-              ]
-            },
-            "right": {
-              "code": "multiple passes",
-              "result": "correct",
-              "tone": "ok",
-              "checks": [
-                "correct"
-              ]
-            }
+            "caption": "The dijkstra concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "negative"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Use Bellman-Ford for negative edge graphs relaxing edges repeatedly.",
-            "left": {
-              "code": "Dijkstra",
-              "result": "O((V+E) log V)",
-              "tone": "data",
-              "checks": [
-                "O((V+E) log V)"
-              ]
-            },
-            "right": {
-              "code": "Bellman-Ford",
-              "result": "O(V * E)",
-              "tone": "ok",
-              "checks": [
-                "O(V * E)"
-              ]
-            }
+            "caption": "The graphs logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "weights",
+                  "break"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

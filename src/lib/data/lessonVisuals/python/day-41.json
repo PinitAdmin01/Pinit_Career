@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 41,
-  "promptSha": "0765d4c0a866f067aed73b2b8ea8ffcbb68d01791f1b47f26b47cac258e15995",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "58fdcd8d9825973774eef08d41c7b8689b5690811a2143878cab24c8a3b576a0",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Celery Architecture & Broker Protocol (AMQP/Redis) Dissection",
       "codeHash": "03affcb06107bcf2462d7ed6cacec2fc89fd74365b5824fd8909195022d49a9e",
       "spec": {
-        "template": "states",
-        "title": "Celery Architecture & Broker Protocol (AMQP/Redis) Dissection — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Celery Architecture & Broker Protocol (AMQP/Redis)",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The high concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Celery"
+                  },
+                  {
+                    "text": "Architecture"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The message logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Broker"
+                  },
+                  {
+                    "text": "Protocol"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Celery Architecture & Broker Protocol (AMQP/Redis)",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The high concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Celery",
+                  "Architecture"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The message logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Broker",
+                  "Protocol"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Worker Crash & Early vs Late ACK Task Loss Forensics",
       "codeHash": "c302301e779c72ee64302b390200891086872c1a0d635b9e6675a5b12681ebee",
       "spec": {
-        "template": "states",
-        "title": "Worker Crash & Early vs Late ACK Task Loss Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Worker Crash & Early vs Late ACK Task Loss Forensi",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The offloading concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Worker"
+                  },
+                  {
+                    "text": "Crash"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Early"
+                  },
+                  {
+                    "text": "Late"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Worker Crash & Early vs Late ACK Task Loss Forensi",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The offloading concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Worker",
+                  "Crash"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Early",
+                  "Late"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Bounded Prefetch Limits & Fair Worker Dispatch",
       "codeHash": "e775206b9c40b905e2ce35c5259bd26cd3085bb5728348e4cb559a9cf4f7b18e",
       "spec": {
-        "template": "states",
-        "title": "Bounded Prefetch Limits & Fair Worker Dispatch — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Bounded Prefetch Limits & Fair Worker Dispatch",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The beyond concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Bounded"
+                  },
+                  {
+                    "text": "Prefetch"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The phenomenon logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Limits"
+                  },
+                  {
+                    "text": "Fair"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Bounded Prefetch Limits & Fair Worker Dispatch",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The beyond concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Bounded",
+                  "Prefetch"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The phenomenon logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Limits",
+                  "Fair"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Asynchronous Result Backend & State Transitions",
       "codeHash": "16d8f6db5ebec1f6b6a0ffc6c7d915b0d67cd36b077d38df44d9a24b4f2ea77b",
       "spec": {
-        "template": "states",
-        "title": "Asynchronous Result Backend & State Transitions — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Asynchronous Result Backend & State Transitions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The distributed concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Asynchronous"
+                  },
+                  {
+                    "text": "Result"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The result logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Backend"
+                  },
+                  {
+                    "text": "State"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Asynchronous Result Backend & State Transitions",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The distributed concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Asynchronous",
+                  "Result"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The result logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Backend",
+                  "State"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Distributed Task Supervisor & Fault-Tolerant Execution",
       "codeHash": "2045858b6816c95b8a72b3b9f052915b0c02a5ecb9f18cc87808e1867ae13129",
       "spec": {
-        "template": "states",
-        "title": "Distributed Task Supervisor & Fault-Tolerant Execution — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Enqueued to Broker"
-          },
-          {
-            "id": "st2",
-            "label": "In-Flight Lease (Unacked)"
-          },
-          {
-            "id": "st3",
-            "label": "Execution & Idempotency Lock"
-          },
-          {
-            "id": "st4",
-            "label": "Late ACK / Result Resolved"
-          }
+        "template": "table",
+        "title": "Distributed Task Supervisor & Fault-Tolerant Execu",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Distributed"
+                  },
+                  {
+                    "text": "Task"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The worker logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Supervisor"
+                  },
+                  {
+                    "text": "Fault"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Distributed Task Supervisor & Fault-Tolerant Execu",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to In-Flight Lease (Unacked) with late ACK tracking and prefetch bounds enforcement.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "lease_task()"
-            },
-            "tone": "data"
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Distributed",
+                  "Task"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Execution & Idempotency Lock with distributed mutex lease and idempotency cache verification.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "acquire_lock_and_execute()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "acknowledge_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The worker logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Supervisor",
+                  "Fault"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

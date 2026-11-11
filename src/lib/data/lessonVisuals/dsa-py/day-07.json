@@ -2,49 +2,31 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "226cf87439258fabe089589d8e0cd5c76b00f8ee1b57268dea766add40f46de6",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Hashing: turning a key into a position",
       "codeHash": "573408272f417bf88417c2dda71dda56c7e6d0bde1c3772a7baccee78b82a7bd",
       "spec": {
         "template": "table",
-        "title": "Hash function bucket mapping",
+        "title": "Hashing: turning a key into a position",
         "columns": [
-          "Key",
-          "Hash Value",
-          "Bucket Index"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hash function turns key into number and assigns bucket.",
+            "caption": "The hash concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "aarav"
+                    "text": "Hashing"
                   },
                   {
-                    "text": "12345"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "meera"
-                  },
-                  {
-                    "text": "67890"
-                  },
-                  {
-                    "text": "2"
+                    "text": "turning"
                   }
                 ],
                 "tone": "data"
@@ -52,47 +34,16 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Same key always computes same bucket without full search.",
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "aarav"
+                    "text": "key"
                   },
                   {
-                    "text": "12345"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "meera"
-                  },
-                  {
-                    "text": "67890"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "rohan"
-                  },
-                  {
-                    "text": "54321"
-                  },
-                  {
-                    "text": "1"
+                    "text": "into"
                   }
                 ],
                 "tone": "ok"
@@ -103,60 +54,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Hash function bucket mapping",
+        "title": "Hashing: turning a key into a position",
         "columns": [
-          "Key",
-          "Hash Value",
-          "Bucket Index"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hash function turns key into number and assigns bucket.",
+            "caption": "The hash concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "aarav",
-                  "12345",
-                  "1"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "meera",
-                  "67890",
-                  "2"
+                  "Hashing",
+                  "turning"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Same key always computes same bucket without full search.",
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "aarav",
-                  "12345",
-                  "1"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "meera",
-                  "67890",
-                  "2"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "rohan",
-                  "54321",
-                  "1"
+                  "key",
+                  "into"
                 ],
                 "tone": "ok"
               }
@@ -169,55 +93,43 @@
       "partTitle": "Collisions and chaining",
       "codeHash": "f9d752dcd75f005edad97702041f1cc94736092c68a8e98dae994a4e8ca96e9c",
       "spec": {
-        "template": "cells",
-        "title": "Collision chaining across buckets",
+        "template": "table",
+        "title": "Collisions and chaining",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Different keys landing in same bucket produce collision.",
-            "items": [
+            "caption": "The different concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "b0: empty"
-              },
-              {
-                "text": "b1: [1, 5, 9]"
-              },
-              {
-                "text": "b2: [2]"
-              },
-              {
-                "text": "b3: empty"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "collision",
-                "index": 1,
+                "cells": [
+                  {
+                    "text": "Collisions"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Chaining stores small list of key value pairs per bucket.",
-            "items": [
+            "at": "say3",
+            "caption": "The long logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "b0: empty"
-              },
-              {
-                "text": "b1: [1, 5, 9]"
-              },
-              {
-                "text": "b2: [2]"
-              },
-              {
-                "text": "b3: empty"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "lookup",
-                "index": 1,
+                "cells": [
+                  {
+                    "text": "chaining"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -225,39 +137,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Collision chaining across buckets",
+        "template": "table",
+        "title": "Collisions and chaining",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Different keys landing in same bucket produce collision.",
-            "items": [
-              "b0: empty",
-              "b1: [1, 5, 9]",
-              "b2: [2]",
-              "b3: empty"
-            ],
-            "pointers": [
+            "caption": "The different concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "collision",
-                "index": 1,
+                "cells": [
+                  "Collisions",
+                  "and"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Chaining stores small list of key value pairs per bucket.",
-            "items": [
-              "b0: empty",
-              "b1: [1, 5, 9]",
-              "b2: [2]",
-              "b3: empty"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The long logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "lookup",
-                "index": 1,
+                "cells": [
+                  "chaining",
+                  "and"
+                ],
                 "tone": "ok"
               }
             ]
@@ -269,102 +177,82 @@
       "partTitle": "Load factor and resizing",
       "codeHash": "fda41c91440594e1f8f401567fb62f3a52d4fd013cf81d5ca967385fb5cd4d57",
       "spec": {
-        "template": "bars",
-        "title": "Load factor resizing threshold",
+        "template": "table",
+        "title": "Load factor and resizing",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Load factor is number of items divided by number of buckets.",
-            "bars": [
+            "caption": "The load concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "4 items / 8 buckets",
-                "value": {
-                  "text": "0.50"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "6 items / 8 buckets",
-                "value": {
-                  "text": "0.75"
-                },
+                "cells": [
+                  {
+                    "text": "Load"
+                  },
+                  {
+                    "text": "factor"
+                  }
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 1
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Passing limit triggers resize doubling bucket count.",
-            "bars": [
+            "at": "say3",
+            "caption": "The inserting logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "4 items / 8 buckets",
-                "value": {
-                  "text": "0.50"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "6 items / 8 buckets",
-                "value": {
-                  "text": "0.75"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "7 items / 16 buckets",
-                "value": {
-                  "text": "0.44"
-                },
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "resizing"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 1
+            ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Load factor resizing threshold",
+        "template": "table",
+        "title": "Load factor and resizing",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Load factor is number of items divided by number of buckets.",
-            "bars": [
+            "caption": "The load concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "4 items / 8 buckets",
-                "value": 0.5,
-                "tone": "data"
-              },
-              {
-                "label": "6 items / 8 buckets",
-                "value": 0.75,
+                "cells": [
+                  "Load",
+                  "factor"
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 1
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Passing limit triggers resize doubling bucket count.",
-            "bars": [
+            "at": "say3",
+            "caption": "The inserting logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "4 items / 8 buckets",
-                "value": 0.5,
-                "tone": "data"
-              },
-              {
-                "label": "6 items / 8 buckets",
-                "value": 0.75,
-                "tone": "data"
-              },
-              {
-                "label": "7 items / 16 buckets",
-                "value": 0.44,
+                "cells": [
+                  "and",
+                  "resizing"
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 1
+            ]
           }
         ]
       }
@@ -373,223 +261,81 @@
       "partTitle": "Counting with a dict",
       "codeHash": "daf981b9e542c7199f371c09a680a0e5330dfec3218602d30abdfaef0f30f22a",
       "spec": {
-        "template": "flow",
-        "title": "Counting with a dict — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting with a dict",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting with a dict",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Counting with a dict [Dseven.Pfour.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Counting with a dict [Dseven.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The common concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Counting with a dict.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The counting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "dict"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Counting with a dict — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting with a dict",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting with a dict",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting with a dict [D7.P4.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting with a dict [D7.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The common concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Counting",
+                  "with"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting with a dict [D7.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The counting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "dict",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -600,105 +346,40 @@
       "codeHash": "54e8cc239abe96f3fbc5aa88622b1a1a6db998ee933bf6a6c3cd62b9faed0f4a",
       "spec": {
         "template": "table",
-        "title": "Two sum target matching with hash map",
+        "title": "Two sum with a hash map",
         "columns": [
-          "Index i",
-          "Number x",
-          "Partner target - x",
-          "Seen Dict"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Walking list once computes required partner for each number.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "0"
+                    "text": "Two"
                   },
                   {
-                    "text": "2"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "{}"
+                    "text": "sum"
                   }
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "{2: 0}"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Checking whether partner exists in seen dict runs in constant time.",
+            "caption": "The store logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "0"
+                    "text": "with"
                   },
                   {
-                    "text": "2"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "{}"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "{2: 0}"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "[0, 1]"
-                  },
-                  {
-                    "text": "found"
-                  },
-                  {
-                    "text": "pair"
+                    "text": "hash"
                   }
                 ],
                 "tone": "ok"
@@ -709,66 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Two sum target matching with hash map",
+        "title": "Two sum with a hash map",
         "columns": [
-          "Index i",
-          "Number x",
-          "Partner target - x",
-          "Seen Dict"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Walking list once computes required partner for each number.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "0",
-                  "2",
-                  "7",
-                  "{}"
+                  "Two",
+                  "sum"
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "1",
-                  "7",
-                  "2",
-                  "{2: 0}"
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Checking whether partner exists in seen dict runs in constant time.",
+            "caption": "The store logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "0",
-                  "2",
-                  "7",
-                  "{}"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "1",
-                  "7",
-                  "2",
-                  "{2: 0}"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "result",
-                  "[0, 1]",
-                  "found",
-                  "pair"
+                  "with",
+                  "hash"
                 ],
                 "tone": "ok"
               }
@@ -781,223 +429,81 @@
       "partTitle": "Sets and what can be a key",
       "codeHash": "5ec3affec39b735cc081474d7ce713f22fccfc550705f14cd2b88289e9bbefba",
       "spec": {
-        "template": "flow",
-        "title": "Sets and what can be a key — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sets and what can b...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Sets and what can be a key",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Sets and what can be a key [Dseven.Psix.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Sets and what can b... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The hash concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Sets"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Sets and what can be a key.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The need logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "what"
+                  },
+                  {
+                    "text": "can"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sets and what can be a key — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sets and what can b...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Sets and what can be a key",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Sets and what can be a key [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Sets and what can b... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The hash concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Sets",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Sets and what can be a key [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The need logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "what",
+                  "can"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

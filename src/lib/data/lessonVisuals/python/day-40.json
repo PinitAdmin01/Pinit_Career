@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 40,
-  "promptSha": "2aea062f5b75be959cb263f825e97367cce2241c67fc9e9af5ac044fe7f6b166",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "012db8d89f9cccd30095f8eb1285fc6d97a2fd01f3628fbe4944b0c7752fdc12",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Milestone 7 Architecture Specification & Data Contracts",
       "codeHash": "c1be675c11c49baee98d409432899b2aa35344c5c05be580e618280b45c4f1d2",
       "spec": {
-        "template": "states",
-        "title": "Milestone 7 Architecture Specification & Data Contracts — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Milestone 7 Architecture Specification & Data Cont",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Milestone"
+                  },
+                  {
+                    "text": "Architecture"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The crucially logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Specification"
+                  },
+                  {
+                    "text": "Data"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Milestone 7 Architecture Specification & Data Cont",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Milestone",
+                  "Architecture"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The crucially logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Specification",
+                  "Data"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Database Failover & Connection Leak Stress Testing",
       "codeHash": "9f0cadb628d1d56f32b9d64f80fdafb9f969a4fec63bd9bf53a85462cb49f339",
       "spec": {
-        "template": "states",
-        "title": "Database Failover & Connection Leak Stress Testing — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Database Failover & Connection Leak Stress Testing",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The second concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Database"
+                  },
+                  {
+                    "text": "Failover"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The eliminate logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Connection"
+                  },
+                  {
+                    "text": "Leak"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Database Failover & Connection Leak Stress Testing",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The second concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Database",
+                  "Failover"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The eliminate logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Connection",
+                  "Leak"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Integrated Unit of Work & Identity Map Engine",
       "codeHash": "8d05c8499e720b187e6e276b6c9e275f79e99681924ab7214cc4ca2762987b4c",
       "spec": {
-        "template": "states",
-        "title": "Integrated Unit of Work & Identity Map Engine — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Integrated Unit of Work & Identity Map Engine",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The connection concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Integrated"
+                  },
+                  {
+                    "text": "Unit"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The complementing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Work"
+                  },
+                  {
+                    "text": "Identity"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Integrated Unit of Work & Identity Map Engine",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The connection concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Integrated",
+                  "Unit"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The complementing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Work",
+                  "Identity"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Query Execution Planner with Eager Loading",
       "codeHash": "3151ccad5a89ee6f76141ca603a3d2d14de93be9ff3bec4ccee32566b927ab48",
       "spec": {
-        "template": "states",
-        "title": "Query Execution Planner with Eager Loading — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Query Execution Planner with Eager Loading",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The fourth concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Query"
+                  },
+                  {
+                    "text": "Execution"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The selectinload logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Planner"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Query Execution Planner with Eager Loading",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The fourth concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Query",
+                  "Execution"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The selectinload logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Planner",
+                  "with"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Milestone 7 Production Defense & Verification Gate",
       "codeHash": "871273f6a09e48f3e91dd00de471b1765fe16aeaf49ed9c275cbde6cf77dbf9d",
       "spec": {
-        "template": "states",
-        "title": "Milestone 7 Production Defense & Verification Gate — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Milestone 7 Production Defense & Verification Gate",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Milestone"
+                  },
+                  {
+                    "text": "Production"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The simultaneously logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Defense"
+                  },
+                  {
+                    "text": "Verification"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Milestone 7 Production Defense & Verification Gate",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Milestone",
+                  "Production"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The simultaneously logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Defense",
+                  "Verification"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

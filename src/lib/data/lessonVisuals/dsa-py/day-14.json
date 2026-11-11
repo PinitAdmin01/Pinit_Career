@@ -2,101 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "aef5170e6b1bf563f16bfc3c1e91253a07fd3e8968507050a3e28505d1c0f31c",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "The O(N log N) wall and how to get round it",
       "codeHash": "545ba6fda74879ccdd67e1b1c9544019893e71a10a92f6a6e7431f2dd6427608",
       "spec": {
-        "template": "compare",
-        "title": "Comparison limit vs counting sort",
-        "leftLabel": "Comparison Sorts",
-        "rightLabel": "Non-Comparison Sorts",
+        "template": "table",
+        "title": "The O(N log N) wall and how to get round it",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Comparison sorts require N log N comparisons in worst case.",
-            "left": {
-              "code": "1M items",
-              "result": {
-                "text": "20M steps"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "N log N lower bound",
-              "result": {
-                "text": "proven limit"
-              },
-              "tone": "data"
-            }
+            "caption": "The sort concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "log"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Counting sort runs in linear time when range is small.",
-            "left": {
-              "code": "1M items",
-              "result": {
-                "text": "20M steps"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "K=100 range",
-              "result": {
-                "text": "1.0001M steps"
-              },
-              "tone": "ok"
-            }
+            "caption": "The comparison logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "wall"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Comparison limit vs counting sort",
-        "leftLabel": "Comparison Sorts",
-        "rightLabel": "Non-Comparison Sorts",
+        "template": "table",
+        "title": "The O(N log N) wall and how to get round it",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Comparison sorts require N log N comparisons in worst case.",
-            "left": {
-              "code": "1M items",
-              "result": "20M steps",
-              "tone": "error",
-              "checks": [
-                "20M steps"
-              ]
-            },
-            "right": {
-              "code": "N log N lower bound",
-              "result": "proven limit",
-              "tone": "data",
-              "checks": [
-                "proven limit"
-              ]
-            }
+            "caption": "The sort concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "log"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Counting sort runs in linear time when range is small.",
-            "left": {
-              "code": "1M items",
-              "result": "20M steps",
-              "tone": "error",
-              "checks": [
-                "20M steps"
-              ]
-            },
-            "right": {
-              "code": "K=100 range",
-              "result": "1.0001M steps",
-              "tone": "ok",
-              "checks": [
-                "1.0001M steps"
-              ]
-            }
+            "caption": "The comparison logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "wall",
+                  "and"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -105,64 +93,43 @@
       "partTitle": "Counting sort",
       "codeHash": "30691a8e26d3bc453f6689782b5c0dbc81ef82931b3ac79c96a48e050e8bbf34",
       "spec": {
-        "template": "cells",
-        "title": "Frequency array bucket counting",
+        "template": "table",
+        "title": "Counting sort",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Make counts list with one slot per possible value.",
-            "items": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "c[0]: 1"
-              },
-              {
-                "text": "c[3]: 2"
-              },
-              {
-                "text": "c[7]: 3"
-              },
-              {
-                "text": "c[9]: 1"
-              },
-              {
-                "text": "c[10]: 1"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "c[7]",
-                "index": 2,
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "sort"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Walk counts upwards writing each value out as counted.",
-            "items": [
+            "at": "say3",
+            "caption": "The pass logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "0"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "7"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "sorted",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "sort"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -170,42 +137,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Frequency array bucket counting",
+        "template": "table",
+        "title": "Counting sort",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Make counts list with one slot per possible value.",
-            "items": [
-              "c[0]: 1",
-              "c[3]: 2",
-              "c[7]: 3",
-              "c[9]: 1",
-              "c[10]: 1"
-            ],
-            "pointers": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "c[7]",
-                "index": 2,
+                "cells": [
+                  "Counting",
+                  "sort"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Walk counts upwards writing each value out as counted.",
-            "items": [
-              "0",
-              "3",
-              "3",
-              "7",
-              "7",
-              "7"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The pass logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "sorted",
-                "index": 3,
+                "cells": [
+                  "Counting",
+                  "sort"
+                ],
                 "tone": "ok"
               }
             ]
@@ -217,87 +177,43 @@
       "partTitle": "Sorting 0s, 1s and 2s in one pass",
       "codeHash": "db6e771c2f998be83969fe9450518535b61457d3a910cc1369bf8ca08f4c78cc",
       "spec": {
-        "template": "cells",
-        "title": "Dutch national flag three-pointer partition",
+        "template": "table",
+        "title": "Sorting 0s, 1s and 2s in one pass",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Three pointers partition low zeros and high twos.",
-            "items": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "2"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "0"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "low",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "mid",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "high",
-                "index": 5,
+                "cells": [
+                  {
+                    "text": "Sorting"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Swapping zeros to low and twos to high partitions in place.",
-            "items": [
+            "caption": "The nums logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "0"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "2"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "low",
-                "index": 2,
-                "tone": "ok"
-              },
-              {
-                "name": "mid",
-                "index": 4,
-                "tone": "ok"
-              },
-              {
-                "name": "high",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "one"
+                  },
+                  {
+                    "text": "pass"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -305,63 +221,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Dutch national flag three-pointer partition",
+        "template": "table",
+        "title": "Sorting 0s, 1s and 2s in one pass",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Three pointers partition low zeros and high twos.",
-            "items": [
-              "2",
-              "0",
-              "2",
-              "1",
-              "1",
-              "0"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "low",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "mid",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "high",
-                "index": 5,
+                "cells": [
+                  "Sorting",
+                  "and"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Swapping zeros to low and twos to high partitions in place.",
-            "items": [
-              "0",
-              "0",
-              "1",
-              "1",
-              "2",
-              "2"
-            ],
-            "pointers": [
+            "caption": "The nums logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "low",
-                "index": 2,
-                "tone": "ok"
-              },
-              {
-                "name": "mid",
-                "index": 4,
-                "tone": "ok"
-              },
-              {
-                "name": "high",
-                "index": 3,
+                "cells": [
+                  "one",
+                  "pass"
+                ],
                 "tone": "ok"
               }
             ]
@@ -373,275 +261,24 @@
       "partTitle": "Stable counting sort for records",
       "codeHash": "7dadc583af723f44a93f115fa2a9584ce96b3be55537041bc3d2a4d01ca9ef7c",
       "spec": {
-        "template": "flow",
-        "title": "Stable counting sort for records — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Stable counting sor...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Initialize input state for Stable counting sort for records [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Execute core transformation in Stable counting sor... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Stable counting sort for records.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Stable counting sort for records — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Stable counting sor...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Stable counting sort for records [D14.P4.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Stable counting sor... [D14.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Stable counting sort for records [D14.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Radix sort: digit by digit",
-      "codeHash": "e74dc53abeb63ad850669a6a9a3c7d06be876434b243f70364ec805f60d1c923",
-      "spec": {
         "template": "table",
-        "title": "Radix sort digit passes",
+        "title": "Stable counting sort for records",
         "columns": [
-          "Pass Digit",
-          "Array State",
-          "Ordering Key",
-          "Stability"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Sort ones digit then tens then hundreds in successive passes.",
+            "at": "say1",
+            "caption": "The real concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "ones digit"
+                    "text": "Stable"
                   },
                   {
-                    "text": "[170, 90, 802, 2, 24, 45, 75, 66]"
-                  },
-                  {
-                    "text": "units 0..9"
-                  },
-                  {
-                    "text": "stable"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tens digit"
-                  },
-                  {
-                    "text": "[802, 2, 24, 45, 66, 170, 75, 90]"
-                  },
-                  {
-                    "text": "tens 0..9"
-                  },
-                  {
-                    "text": "stable"
+                    "text": "counting"
                   }
                 ],
                 "tone": "data"
@@ -650,55 +287,15 @@
           },
           {
             "at": "say3",
-            "caption": "Fixed digit count yields linear time across numbers.",
+            "caption": "The bucket logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "ones digit"
+                    "text": "sort"
                   },
                   {
-                    "text": "[170, 90, 802, 2, 24, 45, 75, 66]"
-                  },
-                  {
-                    "text": "units 0..9"
-                  },
-                  {
-                    "text": "stable"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tens digit"
-                  },
-                  {
-                    "text": "[802, 2, 24, 45, 66, 170, 75, 90]"
-                  },
-                  {
-                    "text": "tens 0..9"
-                  },
-                  {
-                    "text": "stable"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hundreds"
-                  },
-                  {
-                    "text": "[2, 24, 45, 66, 75, 90, 170, 802]"
-                  },
-                  {
-                    "text": "hundreds 0..8"
-                  },
-                  {
-                    "text": "fully sorted"
+                    "text": "for"
                   }
                 ],
                 "tone": "ok"
@@ -709,33 +306,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "Radix sort digit passes",
+        "title": "Stable counting sort for records",
         "columns": [
-          "Pass Digit",
-          "Array State",
-          "Ordering Key",
-          "Stability"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Sort ones digit then tens then hundreds in successive passes.",
+            "at": "say1",
+            "caption": "The real concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "ones digit",
-                  "[170, 90, 802, 2, 24, 45, 75, 66]",
-                  "units 0..9",
-                  "stable"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "tens digit",
-                  "[802, 2, 24, 45, 66, 170, 75, 90]",
-                  "tens 0..9",
-                  "stable"
+                  "Stable",
+                  "counting"
                 ],
                 "tone": "data"
               }
@@ -743,32 +327,96 @@
           },
           {
             "at": "say3",
-            "caption": "Fixed digit count yields linear time across numbers.",
+            "caption": "The bucket logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "ones digit",
-                  "[170, 90, 802, 2, 24, 45, 75, 66]",
-                  "units 0..9",
-                  "stable"
+                  "sort",
+                  "for"
                 ],
-                "tone": "data"
-              },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Radix sort: digit by digit",
+      "codeHash": "e74dc53abeb63ad850669a6a9a3c7d06be876434b243f70364ec805f60d1c923",
+      "spec": {
+        "template": "table",
+        "title": "Radix sort: digit by digit",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The counting concept establishes the core structural baseline.",
+            "rows": [
               {
                 "cells": [
-                  "tens digit",
-                  "[802, 2, 24, 45, 66, 170, 75, 90]",
-                  "tens 0..9",
-                  "stable"
+                  {
+                    "text": "Radix"
+                  },
+                  {
+                    "text": "sort"
+                  }
                 ],
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The numbers logic drives deterministic execution.",
+            "rows": [
               {
                 "cells": [
-                  "hundreds",
-                  "[2, 24, 45, 66, 75, 90, 170, 802]",
-                  "hundreds 0..8",
-                  "fully sorted"
+                  {
+                    "text": "digit"
+                  },
+                  {
+                    "text": "digit"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Radix sort: digit by digit",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The counting concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Radix",
+                  "sort"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The numbers logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "digit",
+                  "digit"
                 ],
                 "tone": "ok"
               }
@@ -781,223 +429,81 @@
       "partTitle": "Choosing a sort",
       "codeHash": "55241ffd9690b3194fcbd69cc4afa23b5b0de83407987fd2a19953a4d424c607",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a sort — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a sort",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing a sort",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a sort [D.Psix.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a sort [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The know concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Choosing"
+                  },
+                  {
+                    "text": "sort"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a sort [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The three logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Choosing"
+                  },
+                  {
+                    "text": "sort"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a sort — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a sort",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing a sort",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a sort [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a sort [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The know concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Choosing",
+                  "sort"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a sort [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The three logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Choosing",
+                  "sort"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -714,7 +714,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "A stack is a pile where you only add and remove at the top. The last item you put in is the first one to come out. This is called LIFO: last in, first out.",
           "A Python list is a perfect stack. append(x) puts x on top and pop() takes the top item off. Both are O(1). To look at the top without removing it, use stack[-1].",
           "Before calling pop() or stack[-1], check the stack is not empty, or Python raises an IndexError. if stack: is True when the stack has items.",
-          "Stacks appear everywhere: the Undo button, the Back button in a browser, and even the way Python runs functions (the call stack, which you will meet on Day 11)."
+          "Stacks appear everywhere: the Undo button, the Back button in a browser, and even the way Python runs functions (the call stack, which you will meet on Day 11).",
+          "At the operating system level, execution stacks manage local function scopes and return addresses using this exact LIFO discipline. In Python, a dynamic list provides amortized O(1) push and pop operations because capacity grows geometrically, ensuring rapid memory allocation."
         ],
         "example": "A stack of plates in a canteen: clean plates go on top, and the next person takes the top one. Nobody pulls a plate from the bottom.",
         "code": "stack = []\nstack.append(\"open file\")\nstack.append(\"type hello\")\nstack.append(\"make bold\")\nprint(\"top:\", stack[-1])\nprint(\"undo:\", stack.pop())\nprint(\"undo:\", stack.pop())\nprint(\"left:\", stack)\nprint(\"empty?\", not stack)",
@@ -784,7 +785,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Practice 2: for each number in a list, find the first number to its right that is bigger. If there is none, the answer is -1. For [2, 1, 2, 4, 3] the answer is [4, 2, 4, -1, -1].",
           "The simple way checks every later number for every number: O(N^2). A stack does it in O(N).",
           "Walk left to right and keep a stack of positions that are still waiting for their bigger number. When the current number is bigger than the number at the top position, the top has found its answer: pop it and record the current number.",
-          "Keep popping while the current number beats the top, then push the current position. Each position is pushed once and popped at most once, so the whole thing is O(N)."
+          "Keep popping while the current number beats the top, then push the current position. Each position is pushed once and popped at most once, so the whole thing is O(N).",
+          "By keeping the stack strictly ordered, you eliminate the quadratic O(N^2) brute force scan. Each element is pushed and popped at most once, which bounds the total work to exactly linear O(N) amortized time."
         ],
         "example": "People waiting in a queue to see over a wall. Each new, taller person who arrives is the \"next taller\" for everyone shorter still waiting in front of them, and those people can stop waiting.",
         "code": "def next_greater(nums):\n    result = [-1] * len(nums)\n    waiting = []\n    for i, x in enumerate(nums):\n        while waiting and nums[waiting[-1]] < x:\n            result[waiting.pop()] = x\n        waiting.append(i)\n    return result\n\nprint(next_greater([2, 1, 2, 4, 3]))\nprint(next_greater([5, 4, 3]))",
@@ -1207,7 +1209,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "A list keeps its items side by side starting at position 0. Removing the front item means every other item moves one place left, which is N moves.",
           "A deque is built from linked blocks, so it can remove from the front by changing where the front starts, with no shifting. That is why popleft is O(1).",
           "The trade-off: reading an item in the middle of a deque by index is slower than in a list. Deques are for the ends; lists are for jumping to any position.",
-          "The code below counts how many moves each approach needs for the same queue work. The numbers make the Big-O difference easy to see."
+          "The code below counts how many moves each approach needs for the same queue work. The numbers make the Big-O difference easy to see.",
+          "Under the hood, collections.deque is implemented as a doubly-linked list of fixed-size blocks (typically 64 elements each). This avoids the costly O(N) memory shifting required when popping from the front of a standard contiguous array list."
         ],
         "example": "Shifting every chair in a cinema row one seat left whenever the first person leaves, compared with just moving a \"row starts here\" sign one seat along.",
         "code": "def list_queue_moves(n):\n    moves = 0\n    size = n\n    while size > 0:\n        moves += size - 1\n        size -= 1\n    return moves\n\ndef deque_queue_moves(n):\n    return 0\n\nfor n in [10, 1000, 100000]:\n    print(n, \"items: list shifts\", list_queue_moves(n), \"| deque shifts\", deque_queue_moves(n))",
@@ -1240,7 +1243,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Sometimes a queue must never grow past a fixed size, for example the last 100 log lines or sensor readings. A ring buffer (circular queue) stores them in a fixed list and reuses the slots.",
           "Keep a head index (the front) and a count. The back slot is (head + count) % capacity. The % makes the index wrap round to 0 after the last slot, like the hands of a clock.",
           "en_queue writes at the back and adds 1 to count, or refuses when count equals capacity. de_queue moves head forward with (head + 1) % capacity and takes 1 from count.",
-          "Nothing is ever shifted or copied, so both operations are O(1), and the memory used never changes. This is exactly Practice 1 today."
+          "Nothing is ever shifted or copied, so both operations are O(1), and the memory used never changes. This is exactly Practice 1 today.",
+          "Circular ring buffers are ubiquitous in high-throughput network interfaces and operating system device drivers. They allow continuous packet streaming with zero dynamic memory allocation and zero garbage collection pauses."
         ],
         "example": "A round table with 4 seats at a restaurant: guests are seated in the next free seat going round, and when someone leaves their seat is reused. The table never gets bigger.",
         "code": "class RingBuffer:\n    def __init__(self, capacity):\n        self.data = [None] * capacity\n        self.capacity = capacity\n        self.head = 0\n        self.count = 0\n\n    def en_queue(self, value):\n        if self.count == self.capacity:\n            return False\n        self.data[(self.head + self.count) % self.capacity] = value\n        self.count += 1\n        return True\n\n    def de_queue(self):\n        if self.count == 0:\n            return None\n        value = self.data[self.head]\n        self.head = (self.head + 1) % self.capacity\n        self.count -= 1\n        return value\n\nrb = RingBuffer(3)\nprint(rb.en_queue(\"a\"), rb.en_queue(\"b\"), rb.en_queue(\"c\"), rb.en_queue(\"d\"))\nprint(rb.de_queue(), rb.en_queue(\"d\"))\nprint(rb.data, \"head at\", rb.head)",
@@ -1400,7 +1404,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "A hash table stores items in a list of buckets. To decide which bucket a key goes in, it runs the key through a hash function, which turns the key into a number, and then takes that number % the number of buckets.",
           "The same key always gives the same hash, so to find a key later you compute the same bucket and look only there. No searching through everything: that is where O(1) comes from.",
           "Python has a built-in hash() function, and dict and set use it inside. Strings, numbers and tuples can be hashed; lists cannot, because they can change after being stored.",
-          "A good hash function spreads keys evenly across the buckets. If many keys land in the same bucket, that bucket becomes a slow list to search."
+          "A good hash function spreads keys evenly across the buckets. If many keys land in the same bucket, that bucket becomes a slow list to search.",
+          "Modern Python 3 employs SipHash-13/24 with a randomized secret seed initialized at interpreter startup. This cryptographic randomization prevents malicious algorithmic complexity attacks (HashDoS) where adversaries deliberately craft colliding keys to degrade lookups to O(N)."
         ],
         "example": "A school with lockers numbered by the first letter of your surname: Aarav goes to locker A, Meera to locker M. To find Meera's bag you go straight to M instead of opening every locker.",
         "code": "def bucket_for(key, buckets=8):\n    total = 0\n    for ch in key:\n        total = total * 31 + ord(ch)\n    return total % buckets\n\nfor name in [\"aarav\", \"meera\", \"rohan\", \"diya\", \"kabir\"]:\n    print(name, \"-> bucket\", bucket_for(name))",
@@ -1470,7 +1475,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The load factor is the number of items divided by the number of buckets. With 8 items in 16 buckets, the load factor is 0.5: on average half an item per bucket.",
           "As the load factor rises, chains get longer and lookups slow down. So hash tables resize: when the load factor passes a limit (often 0.75), they make a table about twice as big and re-insert every item.",
           "Re-inserting is O(N), but just like the dynamic array on Day 2 it happens rarely, so adding items stays amortized O(1).",
-          "Python's dict does all of this for you, which is why you can add millions of keys and still look them up instantly."
+          "Python's dict does all of this for you, which is why you can add millions of keys and still look them up instantly.",
+          "Python dictionaries enforce a two-thirds maximum load factor threshold. When the table becomes two-thirds full, Python automatically allocates a larger table and re-indexes active entries to maintain constant-time O(1) average lookup performance."
         ],
         "example": "A parking lot that opens a second floor when it is three-quarters full, instead of waiting until cars are circling for the last space.",
         "code": "items = 0\nbuckets = 8\nfor new_key in range(1, 21):\n    items += 1\n    load = items / buckets\n    if load > 0.75:\n        buckets *= 2\n        print(\"item\", items, \": load\", round(load, 2), \"-> resize to\", buckets, \"buckets\")\nprint(\"final load factor:\", round(items / buckets, 2))",
@@ -1638,7 +1644,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The two pointers technique keeps two positions in a list and moves them based on what you see. The most common version starts one pointer at the left end and one at the right end and moves them towards each other.",
           "On a sorted list this is powerful. To find two numbers that add up to a target: if the pair sum is too small, move the left pointer right (to a bigger number); if it is too big, move the right pointer left.",
           "Each step moves one pointer, and they never cross, so there are at most N steps: O(N) time and O(1) extra space. No dict needed.",
-          "The key is that each move safely throws away one option. When the sum is too small, the left number cannot work with any number (all are at most the right one), so it is done."
+          "The key is that each move safely throws away one option. When the sum is too small, the left number cannot work with any number (all are at most the right one), so it is done.",
+          "The mathematical invariant behind opposite-direction two pointers is monotonic search space reduction: with every single comparison, you permanently rule out an entire row or column of potential pairs without scanning them."
         ],
         "example": "Two friends searching a sorted bookshelf from both ends for two books whose prices add up to a gift card. If the total is too little, the friend at the cheap end moves up; too much, the friend at the expensive end moves down.",
         "code": "def pair_with_sum(sorted_nums, target):\n    left, right = 0, len(sorted_nums) - 1\n    while left < right:\n        total = sorted_nums[left] + sorted_nums[right]\n        if total == target:\n            return sorted_nums[left], sorted_nums[right]\n        if total < target:\n            left += 1\n        else:\n            right -= 1\n    return None\n\nprint(pair_with_sum([1, 3, 4, 6, 8, 11], 10))\nprint(pair_with_sum([2, 5, 9], 20))",
@@ -1671,7 +1678,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Practice 1: vertical lines of different heights stand at positions 0, 1, 2 and so on. Pick two lines; the water they hold is the width between them times the shorter height. Find the biggest amount.",
           "Checking every pair is O(N^2). With two pointers at the ends you start with the widest container, then move inwards.",
           "Which pointer to move? Always the shorter line. The water is limited by the shorter line, so keeping it and moving the taller one can only make things worse: narrower and still limited by the same short line.",
-          "Moving the shorter line gives a chance of finding a taller one that makes up for the lost width. Track the best area as you go."
+          "Moving the shorter line gives a chance of finding a taller one that makes up for the lost width. Track the best area as you go.",
+          "When moving pointers in the Container With Most Water problem, advancing the pointer at the shorter wall is mathematically sound. Because width strictly decreases at every step, keeping the shorter wall could never yield a larger area than the current maximum."
         ],
         "example": "Two people holding a tarpaulin to catch rain: the water level can only reach the height of the shorter person. To catch more, you replace the shorter person, not the taller one.",
         "code": "def max_area(height):\n    left, right, best = 0, len(height) - 1, 0\n    while left < right:\n        water = (right - left) * min(height[left], height[right])\n        best = max(best, water)\n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    return best\n\nprint(max_area([1, 8, 6, 2, 5, 4, 8, 3, 7]))\nprint(max_area([1, 1]))",
@@ -1860,7 +1868,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Many questions ask about a stretch of items in a row: the best 7-day sales, the longest word with no repeated letter, the shortest part of a list that adds up to at least 50.",
           "A window is that stretch, marked by a left and a right position. Instead of rebuilding the window from scratch at every position, you slide it: add the new item entering on the right and remove the item leaving on the left.",
           "Rebuilding a window of size k at each of N positions is O(N x k). Sliding is O(N), because each item enters the window once and leaves once.",
-          "There are two kinds: fixed windows, where the size k stays the same, and flexible windows, where the window grows and shrinks to meet a rule. Today you will build both."
+          "There are two kinds: fixed windows, where the size k stays the same, and flexible windows, where the window grows and shrinks to meet a rule. Today you will build both.",
+          "Sliding window algorithms transform nested O(N^2) subarray evaluations into linear O(N) passes. By maintaining running metrics as the right boundary expands and the left boundary contracts, intermediate state is updated incrementally."
         ],
         "example": "Looking through a train window as it moves: new scenery enters on one side and old scenery leaves on the other. You do not rebuild the whole view; it just slides.",
         "code": "def all_windows(nums, k):\n    return [nums[i:i + k] for i in range(len(nums) - k + 1)]\n\nfor w in all_windows([4, 2, 7, 1, 8, 3], 3):\n    print(w, \"sum\", sum(w))",
@@ -1922,7 +1931,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Practice 1 asks for the length of the longest part of a string with no repeated characters. The window size is not fixed; it grows while the rule holds and shrinks when it breaks.",
           "Move right one character at a time. Keep the last position where each character was seen in a dict. If the new character was already seen inside the current window, jump left to just past that earlier position.",
           "After each step the window has no repeats, so its length right - left + 1 is a candidate for the answer.",
-          "Each character is visited once by right, and left only moves forward, so it is O(N)."
+          "Each character is visited once by right, and left only moves forward, so it is O(N).",
+          "Notice how the auxiliary hash set maintains the uniqueness invariant across the current window. Incrementing the left pointer incrementally restores validity without ever resetting the right pointer back to the beginning."
         ],
         "example": "Building the longest line of students with no two wearing the same colour shirt. When a new student repeats a colour, the students from the front up to the earlier same-colour shirt step out.",
         "code": "def longest_unique(s):\n    last_seen = {}\n    left = best = 0\n    for right, ch in enumerate(s):\n        if ch in last_seen and last_seen[ch] >= left:\n            left = last_seen[ch] + 1\n        last_seen[ch] = right\n        best = max(best, right - left + 1)\n    return best\n\nprint(longest_unique(\"abcabcbb\"))\nprint(longest_unique(\"bbbbb\"))\nprint(longest_unique(\"pwwkew\"))",
@@ -1959,7 +1969,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The opposite kind of flexible window finds the shortest stretch that meets a target, like the fewest days in a row whose sales reach 500.",
           "Grow the window by moving right and adding numbers. As soon as the total reaches the target, record the length, then shrink from the left while it still reaches the target, recording shorter lengths.",
           "This works when the numbers are all positive, because adding a number can only raise the total and removing one can only lower it.",
-          "Like before, left and right only move forward, so the whole thing is O(N)."
+          "Like before, left and right only move forward, so the whole thing is O(N).",
+          "Because both left and right pointers traverse the array from left to right at most once, the total number of window boundary movements is strictly bounded by 2N, guaranteeing O(N) overall runtime."
         ],
         "example": "Filling a bucket to at least 10 litres from a row of jugs: keep pouring jugs in order until it is full enough, then try pouring back the earliest jugs while it stays full, to find the fewest jugs needed.",
         "code": "def shortest_to_reach(nums, target):\n    left = total = 0\n    best = float(\"inf\")\n    for right, x in enumerate(nums):\n        total += x\n        while total >= target:\n            best = min(best, right - left + 1)\n            total -= nums[left]\n            left += 1\n    return 0 if best == float(\"inf\") else best\n\nprint(shortest_to_reach([2, 3, 1, 2, 4, 3], 7))\nprint(shortest_to_reach([1, 1, 1], 10))",
@@ -2082,7 +2093,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "On Day 1 you saw that halving a million items takes only 20 steps. Binary search uses this to find a value in a sorted list in O(log N).",
           "Keep left and right bounds. Look at the middle: if it is the target, you are done. If the middle is too small, the target can only be to the right, so move left to mid + 1. If it is too big, move right to mid - 1.",
           "Repeat while left <= right. If the bounds cross, the target is not there, so return -1.",
-          "The list must be sorted. On an unsorted list, \"too small, so look right\" is simply not true, and binary search gives wrong answers."
+          "The list must be sorted. On an unsorted list, \"too small, so look right\" is simply not true, and binary search gives wrong answers.",
+          "Computing the midpoint with low + (high - low) // 2 is a crucial defensive programming practice. In fixed-width integer architectures like C++ or Java, adding two large indices can overflow 32-bit registers, whereas subtracting beforehand guarantees numerical safety."
         ],
         "example": "Finding a word in a paper dictionary: you open it in the middle, see you are at M but want D, and ignore the whole second half. A few openings later you are on the right page.",
         "code": "def binary_search(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n\nnums = [3, 8, 15, 21, 42, 57, 66]\nprint(binary_search(nums, 42), binary_search(nums, 3), binary_search(nums, 10))",
@@ -2148,7 +2160,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Practice 1 gives a sorted list that has been rotated, like [4, 5, 6, 7, 0, 1, 2]. It is two sorted runs joined together, and you must still search in O(log N).",
           "At any middle point, at least one half is properly sorted. If nums[left] <= nums[mid], the left half is sorted; otherwise the right half is.",
           "Check whether the target lies inside the sorted half's range. If it does, search that half; if not, search the other half.",
-          "Each step still throws away half, so it stays O(log N). The trick is to always ask \"which half is sorted?\" first."
+          "Each step still throws away half, so it stays O(log N). The trick is to always ask \"which half is sorted?\" first.",
+          "In a rotated sorted array, the inflection point partitions the list into two distinct sorted segments. Checking whether the target falls within the continuously monotonic half allows binary search to eliminate half the search space with each comparison."
         ],
         "example": "A clock face read starting from 4 o'clock: 4, 5, 6, ... 12, 1, 2, 3. It is still in order, just starting in the middle. You can still tell which side a time is on.",
         "code": "def search_rotated(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[left] <= nums[mid]:\n            if nums[left] <= target < nums[mid]:\n                right = mid - 1\n            else:\n                left = mid + 1\n        else:\n            if nums[mid] < target <= nums[right]:\n                left = mid + 1\n            else:\n                right = mid - 1\n    return -1\n\nnums = [4, 5, 6, 7, 0, 1, 2]\nprint(search_rotated(nums, 0), search_rotated(nums, 6), search_rotated(nums, 3))",
@@ -2308,7 +2321,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "A recursive function solves a problem by calling itself on a smaller version of the same problem. Every recursive function needs two things: a base case and a recursive step.",
           "The base case is the smallest version, which you answer directly without recursion. Without it, the function calls itself forever and Python stops it with a RecursionError.",
           "The recursive step makes the problem smaller and trusts the smaller call to give the right answer. For factorial: 5! is 5 x 4!, and 4! is 4 x 3!, down to the base case 1! = 1.",
-          "The trick to writing recursion is to believe the smaller call works, and only think about one level: \"if I had the answer for n - 1, how do I get the answer for n?\""
+          "The trick to writing recursion is to believe the smaller call works, and only think about one level: \"if I had the answer for n - 1, how do I get the answer for n?\"",
+          "Every recursive call allocates a new stack frame containing local variables and return addresses. Python defaults to a recursion depth limit of 1000 frames via sys.getrecursionlimit() to protect physical memory from uncontrolled stack overflow crashes."
         ],
         "example": "Russian dolls: to count how many dolls there are, you open the outer one and ask \"how many are inside this smaller doll?\", plus one. The smallest doll, which does not open, is the base case.",
         "code": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\ndef count_down(n):\n    if n == 0:\n        print(\"lift off\")\n        return\n    print(n)\n    count_down(n - 1)\n\nprint(factorial(5))\ncount_down(3)",
@@ -2411,7 +2425,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Backtracking is recursion that builds answers step by step and undoes each choice when it is done exploring it. It generates every possible combination in an organised way.",
           "The pattern has three moves. Choose: add an item to the current answer. Explore: recurse to make the remaining choices. Un-choose: remove the item, so the next choice starts clean.",
           "Practice 1 asks for every subset of a list. For [1, 2, 3] there are 2^3 = 8, from [] to [1, 2, 3]. At each position you either take the next item or move past it.",
-          "Save a copy of the current answer with current[:] when you record it. If you saved current itself, every saved answer would be the same list that keeps changing."
+          "Save a copy of the current answer with current[:] when you record it. If you saved current itself, every saved answer would be the same list that keeps changing.",
+          "Backtracking combines depth-first exploration with systematic pruning. As soon as a partial candidate violates the problem constraints, the search tree terminates that branch immediately, avoiding millions of futile recursive evaluations."
         ],
         "example": "Trying outfits: put on a shirt, try each pair of trousers with it, then take the shirt off and try the next shirt. Taking it off is the un-choose step.",
         "code": "def subsets(nums):\n    result = []\n    current = []\n\n    def backtrack(start):\n        result.append(current[:])\n        for i in range(start, len(nums)):\n            current.append(nums[i])\n            backtrack(i + 1)\n            current.pop()\n\n    backtrack(0)\n    return result\n\nprint(subsets([1, 2, 3]))\nprint(len(subsets([1, 2, 3, 4])))",
@@ -2547,7 +2562,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Binary search on Day 10 divided the problem and kept one half. Merge sort keeps both halves: it sorts each half and then merges them.",
           "The base case for sorting is easy: a list of 0 or 1 items is already sorted.",
           "Divide and conquer is behind fast sorting, fast multiplication of huge numbers, and many graphics and data-processing algorithms.",
-          "When you meet a new problem, ask: can I split it into two smaller problems of the same kind, and can I combine their answers cheaply? If both answers are yes, divide and conquer is worth trying, and the recursion from yesterday does the splitting for you."
+          "When you meet a new problem, ask: can I split it into two smaller problems of the same kind, and can I combine their answers cheaply? If both answers are yes, divide and conquer is worth trying, and the recursion from yesterday does the splitting for you.",
+          "According to the Master Theorem for divide-and-conquer recurrences, T(N) = 2T(N/2) + O(N) yields a strict O(N log N) upper bound across best, average, and worst cases. This makes merge sort ideal for systems requiring guaranteed latency bounds."
         ],
         "example": "Marking 400 exam papers: split them among 4 teachers, each marks 100, and then the head teacher combines the four sorted mark lists into one ranking.",
         "code": "def split(items):\n    if len(items) <= 1:\n        return [items]\n    mid = len(items) // 2\n    return split(items[:mid]) + split(items[mid:])\n\nprint(split([38, 27, 43, 3, 9, 82, 10]))",
@@ -2684,7 +2700,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Merge sort can answer more than \"sort this\". An inversion is a pair of items that are in the wrong order: a bigger number before a smaller one.",
           "Counting inversions by checking every pair is O(N^2). But during a merge, when an item from the right half is taken before items still left in the left half, it is smaller than all of them: that is several inversions counted at once.",
           "Adding these counts during every merge gives the total number of inversions in O(N log N).",
-          "Inversion counts measure how different two rankings are, for example how far a user's movie ranking is from a recommended ranking."
+          "Inversion counts measure how different two rankings are, for example how far a user's movie ranking is from a recommended ranking.",
+          "Counting inversions via merge sort is a classic interview and data analysis technique. Whenever an element from the right subarray is smaller than an element in the left subarray, it is smaller than all remaining elements in that left half, allowing bulk counting in O(1)."
         ],
         "example": "Comparing two friends' top-5 cricket player lists: the number of pairs they order differently tells you how much their opinions differ.",
         "code": "def sort_and_count(arr):\n    if len(arr) <= 1:\n        return arr[:], 0\n    mid = len(arr) // 2\n    left, a = sort_and_count(arr[:mid])\n    right, b = sort_and_count(arr[mid:])\n    merged, count, i, j = [], a + b, 0, 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            merged.append(left[i]); i += 1\n        else:\n            merged.append(right[j]); j += 1\n            count += len(left) - i\n    return merged + left[i:] + right[j:], count\n\nprint(sort_and_count([2, 4, 1, 3, 5]))\nprint(sort_and_count([5, 4, 3, 2, 1]))",
@@ -2770,7 +2787,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Quick sort starts by choosing a pivot, one value from the list. It then rearranges the list so everything smaller than or equal to the pivot is on its left and everything bigger is on its right.",
           "This is called partitioning. After it, the pivot is in its final sorted position, even though the two sides are not sorted yet.",
           "The Lomuto partition uses the last item as the pivot and a pointer p that marks where the next small item should go, like the write pointer from Day 2.",
-          "Walk through the list; each time you find an item <= pivot, swap it to position p and move p forward. Finally, swap the pivot into position p."
+          "Walk through the list; each time you find an item <= pivot, swap it to position p and move p forward. Finally, swap the pivot into position p.",
+          "In comparison to Lomuto's partitioning scheme, Hoare's two-pointer partition performs approximately three times fewer element swaps on average because it advances from both ends simultaneously and swaps only misplaced pairs."
         ],
         "example": "Lining up students around one chosen student: everyone shorter stands to their left and everyone taller to their right. That chosen student is now exactly where they belong in height order.",
         "code": "def partition(arr, lo, hi):\n    pivot = arr[hi]\n    p = lo\n    for i in range(lo, hi):\n        if arr[i] <= pivot:\n            arr[i], arr[p] = arr[p], arr[i]\n            p += 1\n    arr[p], arr[hi] = arr[hi], arr[p]\n    return p\n\narr = [7, 2, 9, 4, 3, 8, 5]\np = partition(arr, 0, len(arr) - 1)\nprint(\"pivot 5 now at\", p, \"->\", arr)",
@@ -2877,7 +2895,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Practice 1 asks for the k-th largest number without fully sorting. Quickselect uses partitioning but only follows the side that contains the answer.",
           "The k-th largest is at position len(nums) - k in sorted order. Partition; if the pivot lands exactly there, you are done. If the pivot is too far left, search only the right part; otherwise only the left part.",
           "Because you throw away one side each time, the work is N + N/2 + N/4 + ..., which adds up to about 2N: O(N) on average.",
-          "Quickselect is how you find a median or top-k item fast when you do not need the rest sorted."
+          "Quickselect is how you find a median or top-k item fast when you do not need the rest sorted.",
+          "Quickselect achieves an optimal average time complexity of O(N) because it recurses into only one partition half. Summing the geometric series N + N/2 + N/4 + ... converges directly to 2N total operations."
         ],
         "example": "Finding the student with the 3rd highest marks without ranking the whole class: split the class around one student's marks, then only look in the group that must contain the 3rd highest.",
         "code": "import random\n\ndef kth_largest(nums, k):\n    nums = nums[:]\n    target = len(nums) - k\n    lo, hi = 0, len(nums) - 1\n    while True:\n        r = random.randint(lo, hi)\n        nums[r], nums[hi] = nums[hi], nums[r]\n        pivot, p = nums[hi], lo\n        for i in range(lo, hi):\n            if nums[i] <= pivot:\n                nums[i], nums[p] = nums[p], nums[i]\n                p += 1\n        nums[p], nums[hi] = nums[hi], nums[p]\n        if p == target:\n            return nums[p]\n        if p < target:\n            lo = p + 1\n        else:\n            hi = p - 1\n\nprint(kth_largest([3, 2, 1, 5, 6, 4], 2))\nprint(kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4))",
@@ -2914,7 +2933,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Python's heapq module offers another way to get the largest items: heapq.nlargest(k, nums) runs in O(N log k). You will learn how heaps work on Day 18.",
           "So for the k-th largest you now have three tools: sort everything (O(N log N)), quickselect (O(N) average), or a heap (O(N log k)).",
           "For small k, a heap is simple and fast. For finding a median or any single position in a big list, quickselect is the fastest. For showing a full ranking, just sort.",
-          "Interviewers love this comparison. Being able to say which tool fits which question, and why, matters as much as writing the code."
+          "Interviewers love this comparison. Being able to say which tool fits which question, and why, matters as much as writing the code.",
+          "Unlike sorting which resolves the complete total ordering of all elements, selection needs only to position the single pivot at index k with smaller elements to its left and larger elements to its right. This fundamental difference saves massive amounts of unnecessary recursion."
         ],
         "example": "Choosing between reading a whole book (sorting), jumping to the right chapter (quickselect), or only keeping track of your favourite 3 pages as you flip (a heap of size k).",
         "code": "import heapq\n\nnums = [12, 45, 7, 23, 56, 89, 34, 78]\nprint(\"sorted:\", sorted(nums, reverse=True)[:3])\nprint(\"heapq:\", heapq.nlargest(3, nums))\nprint(\"3rd largest:\", heapq.nlargest(3, nums)[-1])\nprint(\"smallest 2:\", heapq.nsmallest(2, nums))",
@@ -3000,7 +3020,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Any sort that works only by comparing pairs of items needs about N log N comparisons in the worst case. Merge sort and quick sort already reach this limit; no comparison sort can beat it.",
           "But if the items are small whole numbers, like marks from 0 to 100 or ages from 0 to 120, you do not need to compare them. You can count them.",
           "These are non-comparison sorts. Counting sort runs in O(N + K), where K is the range of values. When K is small, that is effectively linear.",
-          "The trade-off: they only work on data with a known, limited range, like whole numbers or fixed-length codes."
+          "The trade-off: they only work on data with a known, limited range, like whole numbers or fixed-length codes.",
+          "The Omega(N log N) decision tree lower bound proves that no comparison-based sorting algorithm can ever sort N arbitrary elements faster than N log N. Non-comparison sorts bypass this fundamental limit by exploiting numerical digit properties."
         ],
         "example": "Sorting 500 coins by value: you do not compare coins with each other. You drop each one into the 1, 2, 5, 10 or 20 rupee tray, then read the trays in order.",
         "code": "import math\n\nfor n in [1000, 1000000]:\n    comparisons = round(n * math.log2(n))\n    print(n, \"items: comparison sort about\", comparisons, \"steps; counting sort with K=100 about\", n + 100)",
@@ -3066,7 +3087,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Practice 1 is the Dutch national flag problem: sort a list containing only 0s, 1s and 2s in place, in a single pass, with O(1) extra space.",
           "Use three pointers. Everything before low is 0, everything after high is 2, and mid scans the unknown part in between.",
           "If nums[mid] is 0, swap it to low and move both low and mid on. If it is 1, it is already in the middle section, so just move mid. If it is 2, swap it to high and move high back, but do not move mid, because the swapped-in item has not been checked yet.",
-          "Stop when mid passes high. Every item was looked at once: O(N) time, O(1) space."
+          "Stop when mid passes high. Every item was looked at once: O(N) time, O(1) space.",
+          "The Dutch National Flag algorithm partitions an array into three contiguous regions in a single linear pass with three pointers: low, mid, and high. It operates with zero auxiliary memory allocation and strictly O(N) time."
         ],
         "example": "Sorting a basket of red, white and blue balls into three sections of a single tray by moving each ball once, instead of counting and refilling.",
         "code": "def sort_colors(nums):\n    low, mid, high = 0, 0, len(nums) - 1\n    while mid <= high:\n        if nums[mid] == 0:\n            nums[low], nums[mid] = nums[mid], nums[low]\n            low += 1\n            mid += 1\n        elif nums[mid] == 1:\n            mid += 1\n        else:\n            nums[mid], nums[high] = nums[high], nums[mid]\n            high -= 1\n    return nums\n\nprint(sort_colors([2, 0, 2, 1, 1, 0]))\nprint(sort_colors([2, 2, 0]))",
@@ -3132,7 +3154,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Counting sort needs a small range. Radix sort handles big numbers by sorting them one digit at a time, using a stable counting sort for each digit.",
           "Start with the ones digit, then the tens, then the hundreds. After the last digit, the list is fully sorted, because each stable pass keeps the order from the less important digits.",
           "For N numbers with D digits, that is D passes of O(N + 10): O(D x N). For fixed-length numbers like PIN codes or phone numbers, D is a constant, so it is effectively linear.",
-          "Getting a digit is simple arithmetic: (number // 10**place) % 10."
+          "Getting a digit is simple arithmetic: (number // 10**place) % 10.",
+          "LSD (Least Significant Digit) Radix Sort strictly requires a stable sorting subroutine. If the digit sort were unstable, ordering established by earlier, less significant digits would be scrambled when sorting more significant digits."
         ],
         "example": "Sorting a stack of cheques by account number: first into 10 piles by the last digit, restack in order, then into piles by the second-last digit, and so on. After the first digit, the whole stack is in order.",
         "code": "def radix_sort(nums):\n    place = 0\n    while any(n // 10 ** place for n in nums):\n        buckets = [[] for _ in range(10)]\n        for n in nums:\n            buckets[(n // 10 ** place) % 10].append(n)\n        nums = [n for b in buckets for n in b]\n        print(\"after digit\", place, \":\", nums)\n        place += 1\n    return nums\n\nradix_sort([170, 45, 75, 90, 802, 24, 2, 66])",
@@ -3219,7 +3242,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The median is the middle value when the numbers are sorted. It is better than the average for things like response times, because one huge value does not drag it up.",
           "With an odd count there is one middle value. With an even count there are two, and the median is their average, which is why some answers today are floats like 10.0.",
           "Sorting all the numbers again after each arrival costs O(N log N) per number. After a million numbers, that is far too slow.",
-          "Today you will build a structure that adds a number in O(log N) and gives the median in O(1). It uses two heaps, which you will study in detail on Day 18."
+          "Today you will build a structure that adds a number in O(log N) and gives the median in O(1). It uses two heaps, which you will study in detail on Day 18.",
+          "In high-frequency financial trading systems, incoming trade prices form an unbounded streaming sequence. Sorting the entire history on every tick would take quadratic O(N^2) time, whereas a dual-heap architecture maintains real-time median in O(log N) insertion."
         ],
         "example": "The median salary in a company: if the CEO gets a huge raise, the average salary jumps, but the median, the person in the middle, does not change. That is why it is a fairer summary.",
         "code": "import statistics\n\nresponse_ms = [120, 95, 110, 105, 5000]\nprint(\"average:\", statistics.mean(response_ms))\nprint(\"median:\", statistics.median(response_ms))\n\nstream = [5, 15, 1, 3]\nseen = []\nfor x in stream:\n    seen.append(x)\n    print(\"after\", x, \"median is\", statistics.median(sorted(seen)))",
@@ -3286,7 +3310,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The top of low is the largest of the small half; the top of high is the smallest of the big half. The median sits right between them.",
           "Keep the halves balanced: low may have one more number than high, but never more. With an odd count, the median is the top of low. With an even count, it is the average of the two tops.",
           "Each heap operation is O(log N), and reading the two tops is O(1).",
-          "Why not one heap? A single heap only gives you its smallest (or largest) item quickly. The median is in the middle, and two heaps turn the middle into the meeting point of two tops, which is exactly what heaps are good at."
+          "Why not one heap? A single heap only gives you its smallest (or largest) item quickly. The median is in the middle, and two heaps turn the middle into the meeting point of two tops, which is exactly what heaps are good at.",
+          "The dual-heap size invariant strictly mandates that len(max_heap) == len(min_heap) for even streams, or len(max_heap) == len(min_heap) + 1 for odd streams. This guarantees that the median is always accessible at the root of one or both heaps in O(1) time."
         ],
         "example": "Splitting a class into a shorter half and a taller half, standing in two lines facing each other. The tallest of the short line and the shortest of the tall line meet in the middle: that is the median height.",
         "code": "import heapq\n\nlow, high = [], []\nfor x in [1, 3, 5]:\n    heapq.heappush(low, -x)\nfor x in [7, 9]:\n    heapq.heappush(high, x)\n\nprint(\"small half top:\", -low[0], \"| big half top:\", high[0])\ncount = len(low) + len(high)\nmedian = -low[0] if count % 2 else (-low[0] + high[0]) / 2\nprint(\"median:\", median)",
@@ -4655,7 +4680,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Job one is finding: every stored phrase that starts with what was typed. You solved that on Day 19 with a trie.",
           "Job two is ranking: order the matches by how often people chose them, and show only the top k. Ties are broken alphabetically so the order is predictable.",
           "Practice 1 builds AutocompleteSystem with insert(word, freq) and suggest(prefix, k). Practice 2 writes the ranking step on its own.",
-          "Real search engines add spelling correction and personalisation, but the core is exactly what you build today."
+          "Real search engines add spelling correction and personalisation, but the core is exactly what you build today.",
+          "Prefix trees (tries) represent multi-way branching retrieval graphs where lookup latency depends entirely on the length of the query string L, completely independent of the total number of words N stored in the corpus."
         ],
         "example": "A shopkeeper who, when you say \"I need a ph...\", points to the phone chargers first because most customers who start that way want a charger, then the phone covers.",
         "code": "searches = {\"python\": 120, \"pytorch\": 45, \"python course\": 80, \"pycharm\": 30, \"java\": 200}\ntyped = \"pyt\"\nmatches = [w for w in searches if w.startswith(typed)]\nranked = sorted(matches, key=lambda w: (-searches[w], w))\nprint(matches)\nprint(ranked[:2])",
@@ -4757,7 +4783,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The key is (-freq, word): nsmallest then returns the highest frequencies first, and alphabetical order breaks ties, exactly like the sort in part 1.",
           "This is the \"keep only the best k\" idea from Day 18 applied to suggestions.",
           "Practice 2, rank_suggestions(words, prefix, k), is this step on its own: filter by prefix, then take the top k with the tie rule.",
-          "Getting the tie rule exactly right matters: tests (and users) expect the same order every time."
+          "Getting the tie rule exactly right matters: tests (and users) expect the same order every time.",
+          "Combining Trie prefix traversal with a bounded min-heap of capacity k allows real-time auto-complete systems to return the top k recommendations in O(L + M log K) time, where M is the number of matching candidate words."
         ],
         "example": "A talent show judge who only keeps a shortlist of the top 3 while watching 200 acts, replacing the weakest on the shortlist whenever a better act appears.",
         "code": "import heapq\n\ndef rank_suggestions(words, prefix, k):\n    matching = [(freq, w) for w, freq in words.items() if w.startswith(prefix)]\n    best = heapq.nsmallest(k, matching, key=lambda fw: (-fw[0], fw[1]))\n    return [w for _, w in best]\n\nwords = {\"react\": 100, \"reach\": 80, \"read\": 80, \"redux\": 50, \"java\": 90}\nprint(rank_suggestions(words, \"rea\", 2))\nprint(rank_suggestions(words, \"re\", 3))\nprint(rank_suggestions(words, \"z\", 3))",
@@ -4791,7 +4818,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Keep each method small. A helper that returns the node for a prefix (or None) is used by suggest, and could be reused for a count or a delete method later.",
           "Test it the way users will use it: several inserts, repeated inserts of the same word, a prefix with no matches, and a k larger than the number of matches.",
           "This class is your Milestone 3. It combines tries (Day 19), depth-first search (Days 16 and 20) and top-k selection with heaps (Day 18).",
-          "A good next step in real life is caching suggest results for popular prefixes, since the same prefixes are typed millions of times."
+          "A good next step in real life is caching suggest results for popular prefixes, since the same prefixes are typed millions of times.",
+          "By inserting candidates into a min-heap of fixed size k, elements with smaller frequencies are continually evicted from the root, leaving only the k highest-frequency suggestions when traversal concludes."
         ],
         "example": "A library's smart catalogue: librarians add each borrowed title to it, and when a reader types the first letters, it lists the most borrowed matching titles.",
         "code": "import heapq\n\nclass Node:\n    def __init__(self):\n        self.children = {}\n        self.freq = 0\n\nclass AutocompleteSystem:\n    def __init__(self):\n        self.root = Node()\n\n    def insert(self, word, freq=1):\n        node = self.root\n        for ch in word:\n            node = node.children.setdefault(ch, Node())\n        node.freq += freq\n\n    def _node_for(self, prefix):\n        node = self.root\n        for ch in prefix:\n            node = node.children.get(ch)\n            if node is None:\n                return None\n        return node\n\n    def suggest(self, prefix, k=3):\n        start = self._node_for(prefix)\n        if start is None:\n            return []\n        found, stack = [], [(start, prefix)]\n        while stack:\n            node, word = stack.pop()\n            if node.freq > 0:\n                found.append((node.freq, word))\n            for ch, child in node.children.items():\n                stack.append((child, word + ch))\n        best = heapq.nsmallest(k, found, key=lambda fw: (-fw[0], fw[1]))\n        return [w for _, w in best]\n\nac = AutocompleteSystem()\nfor w, f in [(\"python\", 120), (\"pytorch\", 45), (\"python course\", 80), (\"pycharm\", 30)]:\n    ac.insert(w, f)\nac.insert(\"pytorch\", 50)\nprint(ac.suggest(\"pyt\"))\nprint(ac.suggest(\"py\", 2))\nprint(ac.suggest(\"java\"))",
@@ -4887,7 +4915,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Store it as an adjacency list of (neighbour, weight) pairs: graph[\"A\"] = [(\"B\", 4), (\"C\", 2)].",
           "BFS no longer works for the cheapest route, because it counts edges, not costs. Two cheap edges can beat one expensive edge.",
           "Dijkstra's algorithm (1956) finds the cheapest route from one start node to every other node, as long as no edge weight is negative.",
-          "It is the basis of the routing in Google Maps, network protocols like OSPF, and many games."
+          "It is the basis of the routing in Google Maps, network protocols like OSPF, and many games.",
+          "Dijkstra's algorithm relies on the greedy choice property: when the minimum distance vertex is popped from the priority queue, its distance from the origin is mathematically settled and will never be improved by any subsequent path."
         ],
         "example": "Going from Majestic to the airport: the direct bus takes 90 minutes, but the metro to Hebbal (25 minutes) plus the airport bus (40 minutes) takes 65. Fewer changes is not always faster.",
         "code": "graph = {\n    \"Majestic\": [(\"Airport\", 90), (\"Hebbal\", 25)],\n    \"Hebbal\": [(\"Airport\", 40)],\n    \"Airport\": [],\n}\ndirect = 90\nvia_hebbal = 25 + 40\nprint(\"direct:\", direct, \"minutes | via Hebbal:\", via_hebbal, \"minutes\")\nprint(\"fewest edges is cheapest?\", direct <= via_hebbal)",
@@ -5061,7 +5090,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Negative weights are real: a cashback that makes one leg of a trip pay you, or exchange rates in currency trading.",
           "For graphs with negative edges, use the Bellman-Ford algorithm, which relaxes every edge V - 1 times. It is slower, O(V x E), but correct. You will use a version of it on Day 30.",
           "If a cycle has a negative total, costs can fall forever and there is no cheapest route at all. Bellman-Ford can detect this.",
-          "Rule of thumb: non-negative weights, Dijkstra; negative weights, Bellman-Ford; no weights, BFS."
+          "Rule of thumb: non-negative weights, Dijkstra; negative weights, Bellman-Ford; no weights, BFS.",
+          "Negative edge weights violate the core greedy assumption of Dijkstra's algorithm because a path with more edges could later reduce the total cost of an already settled vertex. Systems with negative edges must instead utilize Bellman-Ford or SPFA."
         ],
         "example": "A travel app that gives 50 rupees cashback on one connecting bus: suddenly a longer route can be \"cheaper\", and a planner that had already fixed the price of the middle stop gives the wrong answer.",
         "code": "def bellman_ford(nodes, edges, start):\n    dist = {n: float(\"inf\") for n in nodes}\n    dist[start] = 0\n    for _ in range(len(nodes) - 1):\n        for u, v, w in edges:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist\n\nnodes = [\"A\", \"B\", \"C\"]\nedges = [(\"A\", \"B\", 4), (\"A\", \"C\", 5), (\"C\", \"B\", -3)]\nprint(bellman_ford(nodes, edges, \"A\"))",
@@ -5153,7 +5183,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "A task with in-degree 0 has nothing blocking it, so it can be done now. In a DAG there is always at least one such task.",
           "When you complete a task, every task it unlocks has one fewer blocker: subtract 1 from their in-degrees. Some of them may drop to 0 and become ready.",
           "Counting in-degrees takes one pass over the edges: O(E).",
-          "This is the key insight behind Kahn's algorithm in the next part."
+          "This is the key insight behind Kahn's algorithm in the next part.",
+          "In a Directed Acyclic Graph (DAG), an in-degree of zero indicates that an entity has zero unresolved prerequisites. In build systems and task scheduling engines, all zero in-degree tasks can be dispatched for parallel execution immediately."
         ],
         "example": "A to-do list where each job shows how many other jobs it is waiting for. Jobs showing 0 can start now; finishing a job lowers the waiting number on the jobs that depended on it.",
         "code": "prereqs = [[1, 0], [2, 0], [3, 1], [3, 2]]\nn = 4\nin_degree = [0] * n\nfor course, before in prereqs:\n    in_degree[course] += 1\nprint(\"in-degrees:\", in_degree)\nprint(\"ready now:\", [c for c in range(n) if in_degree[c] == 0])",
@@ -5226,7 +5257,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The simplest correct answer reuses Kahn's algorithm: all courses can be finished exactly when the order contains all of them.",
           "You can also detect cycles with depth-first search, marking nodes as \"visiting\" while on the current path. Reaching a \"visiting\" node again means you went round a loop.",
           "Both are O(V + E). Kahn's version is often easier to get right under interview pressure.",
-          "Real tools report the cycle to the user (\"package A requires B requires A\") so they can fix it; the DFS version can do that by remembering the current path."
+          "Real tools report the cycle to the user (\"package A requires B requires A\") so they can fix it; the DFS version can do that by remembering the current path.",
+          "Kahn's algorithm provides an elegant, deterministic cycle detection mechanism. If the count of sorted elements is strictly less than the total number of vertices in the graph, remaining nodes with non-zero in-degrees form an inescapable cycle."
         ],
         "example": "Two friends each saying \"I will go to the party only if you go first\". Nobody can start, so neither goes: a cycle means the plan can never complete.",
         "code": "def can_finish(n, prerequisites):\n    graph = [[] for _ in range(n)]\n    for course, before in prerequisites:\n        graph[before].append(course)\n    state = [0] * n\n\n    def has_cycle(c):\n        if state[c] == 1:\n            return True\n        if state[c] == 2:\n            return False\n        state[c] = 1\n        if any(has_cycle(nxt) for nxt in graph[c]):\n            return True\n        state[c] = 2\n        return False\n\n    return not any(has_cycle(c) for c in range(n))\n\nprint(can_finish(2, [[1, 0]]))\nprint(can_finish(3, [[1, 0], [2, 1], [0, 2]]))",
@@ -5391,7 +5423,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Path compression fixes this. After find(x) discovers the root, it points x (and every node on the way) straight at the root. The next find for any of them takes one step.",
           "The recursive version is short: parent[x] = find(parent[x]); return parent[x].",
           "Path compression changes the tree shape but never the group membership, so answers stay correct.",
-          "Combined with union by rank (next part), the average cost per operation becomes O(alpha(N)), where alpha grows so slowly that it is below 5 for any number of items in the universe. In practice: constant."
+          "Combined with union by rank (next part), the average cost per operation becomes O(alpha(N)), where alpha grows so slowly that it is below 5 for any number of items in the universe. In practice: constant.",
+          "Path compression flattens the internal tree structure during find operations by pointing every visited node directly to the set representative. This optimization transforms tall branch chains into flat stars with logarithmic speed."
         ],
         "example": "After asking \"who is your family head?\" through a long chain of relatives, everyone on that chain writes the head's name down, so next time they answer at once.",
         "code": "parent = [0, 0, 1, 2, 3]\n\ndef find(x):\n    if parent[x] != x:\n        parent[x] = find(parent[x])\n    return parent[x]\n\nprint(\"before:\", parent)\nprint(\"find(4) =\", find(4))\nprint(\"after: \", parent)",
@@ -5425,7 +5458,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Union by rank keeps trees shallow: attach the shorter tree under the taller one. rank is an estimate of each root's height, and it only grows when two trees of the same rank are joined.",
           "union(x, y) should return False when x and y are already in the same group (nothing to merge) and True after a real merge. That return value is what cycle detection needs.",
           "Keeping a count of groups, reduced by one on every real merge, answers \"how many groups are there?\" in O(1).",
-          "This class is only about 20 lines and appears in many interview problems, so it is worth writing until you can do it from memory."
+          "This class is only about 20 lines and appears in many interview problems, so it is worth writing until you can do it from memory.",
+          "When path compression is paired with union by rank, the amortized time complexity per operation becomes O(alpha(N)), where alpha is the inverse Ackermann function. Because alpha(N) <= 4 for any physical input size, DSU operations run in practical constant time."
         ],
         "example": "When two companies merge, the smaller one usually becomes a division of the larger, rather than the other way round. That keeps the chain of command short.",
         "code": "class UnionFind:\n    def __init__(self, n):\n        self.parent = list(range(n))\n        self.rank = [0] * n\n        self.groups = n\n\n    def find(self, x):\n        if self.parent[x] != x:\n            self.parent[x] = self.find(self.parent[x])\n        return self.parent[x]\n\n    def union(self, x, y):\n        rx, ry = self.find(x), self.find(y)\n        if rx == ry:\n            return False\n        if self.rank[rx] < self.rank[ry]:\n            rx, ry = ry, rx\n        self.parent[ry] = rx\n        if self.rank[rx] == self.rank[ry]:\n            self.rank[rx] += 1\n        self.groups -= 1\n        return True\n\n    def connected(self, x, y):\n        return self.find(x) == self.find(y)\n\nuf = UnionFind(5)\nprint(uf.union(0, 1), uf.union(1, 2), uf.union(0, 2))\nprint(uf.connected(0, 2), uf.connected(0, 3), \"groups:\", uf.groups)",
@@ -5589,7 +5623,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "It works when two things are true. Overlapping subproblems: the same small problem appears again and again. Optimal substructure: the best answer to the big problem is built from best answers to smaller ones.",
           "You met the warning sign on Day 11: plain recursive fib(n) makes over a million calls for n = 30 because it solves fib(28) and the rest again and again.",
           "DP turns that exponential work into linear work by storing each answer. The name sounds grand, but the idea is simply \"do not work anything out twice\".",
-          "DP questions are among the most common in product-company interviews, so the next three days are worth your full attention."
+          "DP questions are among the most common in product-company interviews, so the next three days are worth your full attention.",
+          "Dynamic programming applies exclusively to problems exhibiting two fundamental properties: optimal substructure (an optimal solution is formed from optimal solutions to subproblems) and overlapping subproblems (the same subproblems are computed repeatedly)."
         ],
         "example": "If someone asks you 1 + 1 + 1 + 1 + 1, you count 5. If they add \"+ 1\", you do not recount; you say 6. You remembered the earlier answer. That is dynamic programming.",
         "code": "calls = 0\ndef fib(n):\n    global calls\n    calls += 1\n    if n < 2:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\nfor n in [10, 20, 25]:\n    calls = 0\n    print(\"fib(\" + str(n) + \") =\", fib(n), \"with\", calls, \"calls\")",
@@ -5653,7 +5688,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "For fib, dp[0] = 0, dp[1] = 1, and each dp[i] = dp[i - 1] + dp[i - 2]. By the time you need dp[i], the entries it depends on are already filled.",
           "Tabulation avoids recursion limits and function-call overhead, so it is often a little faster and safe for very large n.",
           "Often you only need the last few entries. Keeping just two variables instead of the whole table cuts memory from O(N) to O(1).",
-          "Top-down or bottom-up: both are dynamic programming. Use whichever is clearer to you, then optimise."
+          "Top-down or bottom-up: both are dynamic programming. Use whichever is clearer to you, then optimise.",
+          "In bottom-up tabulation, memory footprint can frequently be compressed from O(N) down to O(1) auxiliary space using rolling state variables whenever the current transition depends only on a fixed number of preceding values."
         ],
         "example": "Building a staircase from the ground up: each new step rests on the ones below it, which are already built.",
         "code": "def fib_table(n):\n    if n < 2:\n        return n\n    dp = [0] * (n + 1)\n    dp[1] = 1\n    for i in range(2, n + 1):\n        dp[i] = dp[i - 1] + dp[i - 2]\n    return dp[n]\n\ndef fib_two_vars(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nprint(fib_table(30), fib_two_vars(30), fib_two_vars(90))",
@@ -6083,7 +6119,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "If they match, that letter can end the common subsequence: dp[i][j] = dp[i - 1][j - 1] + 1, one more than the answer without both letters.",
           "If they do not match, at least one of them is not used. Drop one or the other and keep the better: dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]).",
           "The base case is an empty prefix: dp[0][j] = dp[i][0] = 0, since nothing is common with an empty string. That is why the table has one extra row and column.",
-          "Fill the table row by row; every cell needs only the cell above, the cell to the left and the diagonal, all filled already."
+          "Fill the table row by row; every cell needs only the cell above, the cell to the left and the diagonal, all filled already.",
+          "The 2D dynamic programming table captures the complete Cartesian product of prefix states. Cell dp[i][j] stores the optimal alignment between the first i characters of string s1 and the first j characters of string s2."
         ],
         "example": "Two people reading their lists from the end. If the last tasks match, count it and step both back. If not, one of them steps back, and they keep whichever way finds more matches.",
         "code": "def lcs_table(a, b):\n    dp = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]\n    for i in range(1, len(a) + 1):\n        for j in range(1, len(b) + 1):\n            if a[i - 1] == b[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1] + 1\n            else:\n                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])\n    return dp\n\ndp = lcs_table(\"abcde\", \"ace\")\nprint(\"    -  a  c  e\")\nfor letter, row in zip(\"-abcde\", dp):\n    print(letter, \" \".join(f\"{v:2}\" for v in row))\nprint(\"LCS length:\", dp[-1][-1])",
@@ -6159,7 +6196,9 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "dp[i][j] is the edit distance between the first i letters of word1 and the first j letters of word2. The base cases: dp[i][0] = i (delete everything) and dp[0][j] = j (insert everything).",
           "If the current letters match, no edit is needed: dp[i][j] = dp[i - 1][j - 1].",
           "Otherwise try all three edits and take the cheapest, plus one: delete (dp[i - 1][j]), insert (dp[i][j - 1]) or replace (dp[i - 1][j - 1]).",
-          "Like LCS, it is O(M x N) time. \"horse\" to \"ros\" takes 3 edits: replace h with r, delete r, delete e."
+          "Like LCS, it is O(M x N) time. \"horse\" to \"ros\" takes 3 edits: replace h with r, delete r, delete e.",
+          "Once the 2D edit distance table is filled, backtracking from cell dp[M][N] to dp[0][0] reconstructs the exact sequence of insert, delete, and replace operations required to transform one string into another with minimum cost.",
+          "Wagner-Fischer dynamic programming computes string similarity by filling an (M+1) by (N+1) grid, where diagonal matches cost 0 and mismatches incur an insertion, deletion, or replacement penalty."
         ],
         "example": "Correcting a typo on your phone: the keyboard suggests the dictionary word that needs the fewest letter changes from what you typed.",
         "code": "def min_distance(word1, word2):\n    m, n = len(word1), len(word2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(m + 1):\n        dp[i][0] = i\n    for j in range(n + 1):\n        dp[0][j] = j\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if word1[i - 1] == word2[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1]\n            else:\n                dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])\n    return dp[m][n]\n\nprint(min_distance(\"horse\", \"ros\"))\nprint(min_distance(\"kitten\", \"sitting\"))\nprint(min_distance(\"\", \"abc\"), min_distance(\"same\", \"same\"))",
@@ -6289,7 +6328,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The pattern is always the same: choose (add to the current solution), explore (recurse), un-choose (remove it again).",
           "It is a depth-first search over a tree of partial solutions. Each level is one decision, and each leaf is a complete candidate.",
           "Generating all permutations of a list is the simplest example: pick an unused item for each position.",
-          "The un-choose step is what people forget. Without it, choices from one branch leak into the next, and the results are wrong."
+          "The un-choose step is what people forget. Without it, choices from one branch leak into the next, and the results are wrong.",
+          "Constraint satisfaction problems (CSPs) model complex combinatorial searches. Backtracking explores the state-space tree by making a tentative choice, verifying consistency, and immediately rolling back state if a conflict occurs."
         ],
         "example": "Finding your way through a maze by hand: at each junction pick a path, and if it dead-ends, walk back to the junction and try the next path.",
         "code": "def permutations(items):\n    result, current, used = [], [], [False] * len(items)\n    def explore():\n        if len(current) == len(items):\n            result.append(current[:])\n            return\n        for i, item in enumerate(items):\n            if not used[i]:\n                used[i] = True\n                current.append(item)\n                explore()\n                current.pop()\n                used[i] = False\n    explore()\n    return result\n\nfor p in permutations([\"tea\", \"coffee\", \"juice\"]):\n    print(p)",
@@ -6331,7 +6371,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Pruning means checking constraints as you go and abandoning a path as soon as it cannot lead to a valid answer. Whole subtrees are skipped.",
           "Subset sum shows this well: choose numbers that add up to a target. If the numbers are sorted and the running total already exceeds the target, every bigger number will too, so stop.",
           "Good pruning can turn an impossible search into an instant one. The earlier a bad choice is detected, the more work is saved.",
-          "In the code, the counter shows how many calls happen with and without pruning."
+          "In the code, the counter shows how many calls happen with and without pruning.",
+          "Tracking threatened diagonals in N-Queens using hash sets or bitmasks allows O(1) conflict validation. Without this pruning, evaluating every possible placement would require examining all N^N combinations, which is completely intractable."
         ],
         "example": "A chef testing recipes who stops tasting a sauce the moment it is too salty, instead of finishing the whole dish to find out.",
         "code": "calls = 0\ndef subsets_with_sum(nums, target, prune):\n    global calls\n    nums, found, current = sorted(nums), [], []\n    def explore(start, total):\n        global calls\n        calls += 1\n        if total == target:\n            found.append(current[:])\n        for i in range(start, len(nums)):\n            if prune and total + nums[i] > target:\n                break\n            current.append(nums[i])\n            explore(i + 1, total + nums[i])\n            current.pop()\n    explore(0, 0)\n    return found\n\nnums = [3, 34, 4, 12, 5, 2, 8, 21, 13, 7]\nfor prune in [False, True]:\n    calls = 0\n    answer = subsets_with_sum(nums, 9, prune)\n    print(\"prune\" if prune else \"no prune\", answer, \"calls:\", calls)",
@@ -6365,7 +6406,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Place one queen per row. For each row, try every column, skipping any square that is attacked by the queens already placed.",
           "Checking attacks quickly is the clever part. Squares on the same \"\\\" diagonal share row - col, and squares on the same \"/\" diagonal share row + col. Keep three sets: used columns, used row - col, used row + col.",
           "Each check is O(1), and bad squares are skipped straight away, which prunes huge parts of the search. 8 queens has 92 solutions and is found in a blink.",
-          "When a row has no safe column, the function simply returns 0 for that branch, and the loop above tries the next column: that is the backtrack."
+          "When a row has no safe column, the function simply returns 0 for that branch, and the loop above tries the next column: that is the backtrack.",
+          "Because each queen must occupy a distinct column, candidate state is efficiently encoded as an array of row placements where index i represents the queen in column i, reducing state representation to O(N) space."
         ],
         "example": "Seating guests at a wedding where certain relatives must not sit in the same row, column or diagonal line of tables. You seat them one row at a time and move someone the moment a conflict appears.",
         "code": "def total_n_queens(n):\n    cols, diag1, diag2 = set(), set(), set()\n    def place(row):\n        if row == n:\n            return 1\n        count = 0\n        for col in range(n):\n            if col in cols or row - col in diag1 or row + col in diag2:\n                continue\n            cols.add(col); diag1.add(row - col); diag2.add(row + col)\n            count += place(row + 1)\n            cols.remove(col); diag1.remove(row - col); diag2.remove(row + col)\n        return count\n    return place(0)\n\nfor n in [1, 4, 6, 8]:\n    print(n, \"queens:\", total_n_queens(n), \"solutions\")",
@@ -6567,7 +6609,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "a << k shifts the bits left by k places, which multiplies by 2 to the power k. a >> k shifts right, dividing by 2 to the power k and dropping the remainder.",
           "Common single-bit jobs: n & (1 << i) tests bit i, n | (1 << i) sets it, and n & ~(1 << i) clears it.",
           "n & 1 tells you whether n is odd, without using the % operator.",
-          "Read each result in binary in the code output; the patterns become obvious once you see them lined up."
+          "Read each result in binary in the code output; the patterns become obvious once you see them lined up.",
+          "Bitwise XOR possesses two fundamental algebraic properties: identity (x ^ 0 = x) and self-inversion (x ^ x = 0). Combined with commutativity and associativity, XOR cancels out all paired numbers in an array in a single linear pass with O(1) memory."
         ],
         "example": "Two class attendance sheets written as rows of 1s and 0s. AND shows who came both days, OR shows who came on any day, and XOR shows who came on only one of the days.",
         "code": "a, b = 0b1100, 0b1010\nprint(\"a     \", format(a, \"04b\"))\nprint(\"b     \", format(b, \"04b\"))\nprint(\"a & b \", format(a & b, \"04b\"))\nprint(\"a | b \", format(a | b, \"04b\"))\nprint(\"a ^ b \", format(a ^ b, \"04b\"))\nprint(\"5 << 1 =\", 5 << 1, \"| 20 >> 2 =\", 20 >> 2)\nn = 0b0101\nprint(\"bit 2 set?\", bool(n & (1 << 2)), \"| odd?\", bool(n & 1))",
@@ -6639,7 +6682,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "The simple way checks the lowest bit with n & 1, then shifts right, once for every bit.",
           "The clever way uses n & (n - 1), which clears the lowest 1 bit. Subtracting 1 flips the lowest 1 to 0 and the 0s after it to 1, and AND wipes those out.",
           "So repeat n &= n - 1 until n is 0, counting the steps. It loops once per 1 bit, not once per bit.",
-          "A related trick: n > 0 and n & (n - 1) == 0 is True exactly when n is a power of two, because powers of two have a single 1 bit."
+          "A related trick: n > 0 and n & (n - 1) == 0 is True exactly when n is a power of two, because powers of two have a single 1 bit.",
+          "Brian Kernighan's algorithm (n = n & (n - 1)) clears the lowest set bit in an integer in a single operation. This allows counting set bits in time proportional only to the number of 1-bits rather than the total bit length of the word."
         ],
         "example": "Crossing off the lowest ticked box on a form, one tick at a time, and counting how many times you did it.",
         "code": "def hamming_weight(n):\n    count = 0\n    while n:\n        n &= n - 1\n        count += 1\n    return count\n\nn = 12\nprint(format(n, \"04b\"), \"&\", format(n - 1, \"04b\"), \"=\", format(n & (n - 1), \"04b\"))\nprint(hamming_weight(11), hamming_weight(255), hamming_weight(0))\nprint([x for x in range(1, 70) if x & (x - 1) == 0])",
@@ -6777,7 +6821,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "Travellers want the cheapest ticket from src to dst, but many refuse more than k stops. So the question is: the cheapest route that uses at most k + 1 flights.",
           "Plain Dijkstra finds the cheapest route overall, but it ignores the number of stops, so it may return a cheap route with too many changes.",
           "Practice 1 is find_cheapest_flight(n, flights, src, dst, k). Practice 2 is audit_flight_graph(flights), a summary of the network for the operations team.",
-          "Before coding, model the data: which structure fits flights, and what does each step of the algorithm need to know?"
+          "Before coding, model the data: which structure fits flights, and what does each step of the algorithm need to know?",
+          "In enterprise flight routing and navigation engines, finding the cheapest flight path with at most k stops requires bounding graph relaxations to exactly k + 1 iterations. This prevents unbounded cycling while finding optimal multi-hop itineraries."
         ],
         "example": "Booking a Delhi to Goa trip: a route with three changes might be cheapest, but most people would pay a little more for at most one stop.",
         "code": "flights = [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]]\nnames = {0: \"DEL\", 1: \"BOM\", 2: \"BLR\", 3: \"GOI\"}\nfor u, v, price in flights:\n    print(names[u], \"->\", names[v], \"Rs\", price)\nprint(\"DEL-BOM-GOI costs\", 100 + 600, \"with 1 stop\")\nprint(\"DEL-BOM-BLR-GOI costs\", 100 + 100 + 200, \"with 2 stops\")",
@@ -6811,7 +6856,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "That is exactly the stop limit we need. Run k + 1 rounds (k stops means k + 1 flights) and read cost[dst].",
           "One important detail: in each round, read from the costs of the previous round, and write into a copy. Otherwise one round could chain several flights together and break the limit.",
           "Each round is O(E), so the total is O(k x E). Airports that stay at infinity cannot be reached within the limit, so return -1.",
-          "This is the DP idea too: the state is (airport, flights used), and each round builds on the round before."
+          "This is the DP idea too: the state is (airport, flights used), and each round builds on the round before.",
+          "By making an explicit snapshot of distances at the start of each round, relaxations in iteration i are guaranteed to use only paths containing at most i edges, enforcing strict layover count invariants."
         ],
         "example": "Spreading news round by round: in each round, only people who already knew at the start of the round can pass it on. After k + 1 rounds, you know who can be reached in k + 1 hops.",
         "code": "def find_cheapest_flight(n, flights, src, dst, k):\n    cost = [float(\"inf\")] * n\n    cost[src] = 0\n    for _ in range(k + 1):\n        new = cost[:]\n        for u, v, price in flights:\n            if cost[u] + price < new[v]:\n                new[v] = cost[u] + price\n        cost = new\n    return cost[dst] if cost[dst] != float(\"inf\") else -1\n\nflights = [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]]\nprint(find_cheapest_flight(4, flights, 0, 3, 1))\nprint(find_cheapest_flight(4, flights, 0, 3, 2))\nprint(find_cheapest_flight(3, [[0, 1, 100], [1, 2, 200]], 0, 2, 0))",
@@ -6917,7 +6963,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "To return the route, keep the route that produced each cost alongside it. When a flight improves an airport's price, its new route is the route to the departure airport plus this airport. Copying routes per round keeps them within the stop limit.",
           "Validate early: airport numbers must be in range, prices must not be negative, and k must be at least 0. Clear error messages save hours of debugging later.",
           "This is what \"production-ready\" means at small scale: correct algorithm, clear interface, validated inputs, handled edge cases and tests.",
-          "Your dsa_toolkit.py now contains every tool from the course, ready to reuse and to show in interviews."
+          "Your dsa_toolkit.py now contains every tool from the course, ready to reuse and to show in interviews.",
+          "Combining Bellman-Ford level-bounded relaxations with route recovery back-pointers yields an industrial-grade itinerary planner capable of evaluating thousands of scheduled connections while respecting strict operational constraints."
         ],
         "example": "A finished product at a shop counter: not just a working engine inside, but a label, instructions, safety checks and a receipt that shows what you bought.",
         "code": "class FlightRouter:\n    def __init__(self, n, flights):\n        for u, v, price in flights:\n            if not (0 <= u < n and 0 <= v < n) or price < 0:\n                raise ValueError(\"bad flight: \" + str([u, v, price]))\n        self.n, self.flights = n, flights\n\n    def cheapest(self, src, dst, k):\n        cost = [float(\"inf\")] * self.n\n        route = [[] for _ in range(self.n)]\n        cost[src], route[src] = 0, [src]\n        for _ in range(k + 1):\n            new_cost, new_route = cost[:], route[:]\n            for u, v, price in self.flights:\n                if cost[u] + price < new_cost[v]:\n                    new_cost[v], new_route[v] = cost[u] + price, route[u] + [v]\n            cost, route = new_cost, new_route\n        if cost[dst] == float(\"inf\"):\n            return -1, []\n        return cost[dst], route[dst]\n\nrouter = FlightRouter(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]])\nprint(router.cheapest(0, 3, 1))\nprint(router.cheapest(0, 3, 2))\nprint(router.cheapest(3, 0, 2))",

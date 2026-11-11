@@ -2,159 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "5945bd54b10f06d7f734f99fac6059c58154b6a2dad2dc52c5ed28612d4288f1",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "A tree of letters",
       "codeHash": "f463d7ddae60b97b9eaf0d6ee8d30415f1c05faa5e545cf54db06e3a62cf0f74",
       "spec": {
-        "template": "tree-graph",
-        "title": "Trie branching structure with shared prefix path",
-        "nodes": [
-          {
-            "id": "root",
-            "label": "root"
-          },
-          {
-            "id": "c",
-            "label": "c"
-          },
-          {
-            "id": "a",
-            "label": "a"
-          },
-          {
-            "id": "t",
-            "label": "t (end)"
-          },
-          {
-            "id": "r",
-            "label": "r (end)"
-          },
-          {
-            "id": "d",
-            "label": "d (end)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "root",
-            "to": "c",
-            "label": "c"
-          },
-          {
-            "from": "c",
-            "to": "a",
-            "label": "a"
-          },
-          {
-            "from": "a",
-            "to": "t",
-            "label": "t"
-          },
-          {
-            "from": "a",
-            "to": "r",
-            "label": "r"
-          },
-          {
-            "from": "r",
-            "to": "d",
-            "label": "d"
-          }
+        "template": "table",
+        "title": "A tree of letters",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Words that share a beginning follow the same path from root.",
-            "highlightNodes": [
-              "root",
-              "c",
-              "a"
+            "caption": "The trie concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tree"
+                  },
+                  {
+                    "text": "letters"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "The root child branches into card and car word paths.",
-            "highlightNodes": [
-              "a",
-              "t",
-              "r",
-              "d"
-            ],
-            "highlightEdges": [
-              "a->t",
-              "a->r",
-              "r->d"
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tree"
+                  },
+                  {
+                    "text": "letters"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Trie branching structure with shared prefix path",
-        "nodes": [
-          {
-            "id": "root",
-            "label": "root"
-          },
-          {
-            "id": "c",
-            "label": "c"
-          },
-          {
-            "id": "a",
-            "label": "a"
-          },
-          {
-            "id": "t",
-            "label": "t (end)"
-          },
-          {
-            "id": "r",
-            "label": "r (end)"
-          },
-          {
-            "id": "d",
-            "label": "d (end)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "root",
-            "to": "c",
-            "label": "c"
-          },
-          {
-            "from": "c",
-            "to": "a",
-            "label": "a"
-          },
-          {
-            "from": "a",
-            "to": "t",
-            "label": "t"
-          },
-          {
-            "from": "a",
-            "to": "r",
-            "label": "r"
-          },
-          {
-            "from": "r",
-            "to": "d",
-            "label": "d"
-          }
+        "template": "table",
+        "title": "A tree of letters",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Words that share a beginning follow the same path from root."
+            "caption": "The trie concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "tree",
+                  "letters"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The root child branches into card and car word paths."
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "tree",
+                  "letters"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -164,61 +94,40 @@
       "codeHash": "2e007c65d123f003c682e20b0d863e5142d8bfa36da80bc55fbcaee4429c4f55",
       "spec": {
         "template": "table",
-        "title": "Core Trie operations complexity and logic",
+        "title": "insert, search and starts_with",
         "columns": [
-          "Operation",
-          "Lookup Strategy",
-          "Time Complexity"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "insert walks the letters creating missing nodes and marking end.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "insert(word)"
+                    "text": "insert"
                   },
                   {
-                    "text": "Create missing TrieNode child"
-                  },
-                  {
-                    "text": "O(L)"
+                    "text": "search"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "starts_with returns true as soon as the prefix walk finishes.",
+            "caption": "The starts logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "insert(word)"
+                    "text": "and"
                   },
                   {
-                    "text": "Create missing TrieNode child"
-                  },
-                  {
-                    "text": "O(L)"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "starts_with(pre)"
-                  },
-                  {
-                    "text": "Match prefix path only"
-                  },
-                  {
-                    "text": "O(L)"
+                    "text": "starts"
                   }
                 ],
                 "tone": "ok"
@@ -229,44 +138,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Core Trie operations complexity and logic",
+        "title": "insert, search and starts_with",
         "columns": [
-          "Operation",
-          "Lookup Strategy",
-          "Time Complexity"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "insert walks the letters creating missing nodes and marking end.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "insert(word)",
-                  "Create missing TrieNode child",
-                  "O(L)"
+                  "insert",
+                  "search"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "starts_with returns true as soon as the prefix walk finishes.",
+            "caption": "The starts logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "insert(word)",
-                  "Create missing TrieNode child",
-                  "O(L)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "starts_with(pre)",
-                  "Match prefix path only",
-                  "O(L)"
+                  "and",
+                  "starts"
                 ],
                 "tone": "ok"
               }
@@ -280,61 +178,40 @@
       "codeHash": "c9c7270cb2250663fe8a8bb2b2d0a7ebf7c89b1d3d7e077698c3894db80714b2",
       "spec": {
         "template": "table",
-        "title": "Listing matching words using depth-first search",
+        "title": "Listing words with a prefix",
         "columns": [
-          "Prefix Query",
-          "DFS Exploration",
-          "Words Found"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Walk down to the prefix node to begin searching for matching words.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "car"
+                    "text": "Listing"
                   },
                   {
-                    "text": "Walk prefix node"
-                  },
-                  {
-                    "text": "[]"
+                    "text": "words"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Explore below that node with depth-first search to find word results.",
+            "at": "say3",
+            "caption": "The visiting logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "car"
+                    "text": "with"
                   },
                   {
-                    "text": "Walk prefix node"
-                  },
-                  {
-                    "text": "[]"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "car"
-                  },
-                  {
-                    "text": "DFS children"
-                  },
-                  {
-                    "text": "car, card, care"
+                    "text": "prefix"
                   }
                 ],
                 "tone": "ok"
@@ -345,44 +222,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Listing matching words using depth-first search",
+        "title": "Listing words with a prefix",
         "columns": [
-          "Prefix Query",
-          "DFS Exploration",
-          "Words Found"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Walk down to the prefix node to begin searching for matching words.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "car",
-                  "Walk prefix node",
-                  "[]"
+                  "Listing",
+                  "words"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Explore below that node with depth-first search to find word results.",
+            "at": "say3",
+            "caption": "The visiting logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "car",
-                  "Walk prefix node",
-                  "[]"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "car",
-                  "DFS children",
-                  "car, card, care"
+                  "with",
+                  "prefix"
                 ],
                 "tone": "ok"
               }
@@ -395,223 +261,81 @@
       "partTitle": "Counting words and prefixes",
       "codeHash": "e053d1924798e647a551e3e2454234e447186d7f8962e4ca183f014c9b1d5889",
       "spec": {
-        "template": "flow",
-        "title": "Counting words and prefixes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting words and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting words and prefixes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Counting words and prefixes [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Counting words and ... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The tries concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "words"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Counting words and prefixes.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The store logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "prefixes"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Counting words and prefixes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting words and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting words and prefixes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting words and prefixes [D19.P4.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting words and ... [D19.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The tries concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Counting",
+                  "words"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting words and prefixes [D19.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The store logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "prefixes"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -621,94 +345,82 @@
       "partTitle": "Tries versus sets and sorted lists",
       "codeHash": "c2f06555231120e126d7d28c9da2e4c77abd7864f45d08d50814f200c93e42c9",
       "spec": {
-        "template": "compare",
-        "title": "Prefix query cost between hash set and trie",
-        "leftLabel": "Hash Set",
-        "rightLabel": "Prefix Trie",
+        "template": "table",
+        "title": "Tries versus sets and sorted lists",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Finding all words with a prefix means checking every single word in a set.",
-            "left": {
-              "code": "prefix scan",
-              "result": {
-                "text": "O(N)"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "trie scan",
-              "result": {
-                "text": "O(L)"
-              },
-              "tone": "ok"
-            }
+            "caption": "The store concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Tries"
+                  },
+                  {
+                    "text": "versus"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "A trie finds prefixes in constant letter time regardless of dictionary size.",
-            "left": {
-              "code": "check all",
-              "result": {
-                "text": "slow"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "path lookup",
-              "result": {
-                "text": "instant"
-              },
-              "tone": "ok"
-            }
+            "caption": "The trie logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sets"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Prefix query cost between hash set and trie",
-        "leftLabel": "Hash Set",
-        "rightLabel": "Prefix Trie",
+        "template": "table",
+        "title": "Tries versus sets and sorted lists",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Finding all words with a prefix means checking every single word in a set.",
-            "left": {
-              "code": "prefix scan",
-              "result": "O(N)",
-              "tone": "error",
-              "checks": [
-                "O(N)"
-              ]
-            },
-            "right": {
-              "code": "trie scan",
-              "result": "O(L)",
-              "tone": "ok",
-              "checks": [
-                "O(L)"
-              ]
-            }
+            "caption": "The store concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Tries",
+                  "versus"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "A trie finds prefixes in constant letter time regardless of dictionary size.",
-            "left": {
-              "code": "check all",
-              "result": "slow",
-              "tone": "error",
-              "checks": [
-                "slow"
-              ]
-            },
-            "right": {
-              "code": "path lookup",
-              "result": "instant",
-              "tone": "ok",
-              "checks": [
-                "instant"
-              ]
-            }
+            "caption": "The trie logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "sets",
+                  "and"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -717,223 +429,81 @@
       "partTitle": "A word-search game with a trie",
       "codeHash": "56cf674a513ccb624a834ab334b268a0446a8c9cb185373cfa7df6d8e4377975",
       "spec": {
-        "template": "flow",
-        "title": "A word-search game with a trie — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A word-search game ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A word-search game with a trie",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A word-search game with a trie [D.Psix.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A word-search game ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The tries concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "word"
+                  },
+                  {
+                    "text": "search"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A word-search game with a trie.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The walk logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "game"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A word-search game with a trie — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A word-search game ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A word-search game with a trie",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A word-search game with a trie [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A word-search game ... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The tries concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "word",
+                  "search"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A word-search game with a trie [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The walk logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "game",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

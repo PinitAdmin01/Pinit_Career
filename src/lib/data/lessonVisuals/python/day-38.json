@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 38,
-  "promptSha": "ebd1e14e44ea53efb6ddc2045385d65c9baf5ced27cf9734a44b2723c6248abc",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "95fb089e761ecf2f160b80330914d28299335f2e329ab140ab4b371fedc2dccb",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "N+1 Problem Mechanics & Cartesian Product Analysis",
       "codeHash": "5c01bf2b4320db1a6074c7aec961cec607953ba8316f458eee0e3dee8e1e620d",
       "spec": {
-        "template": "states",
-        "title": "N+1 Problem Mechanics & Cartesian Product Analysis — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "N+1 Problem Mechanics & Cartesian Product Analysis",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Problem"
+                  },
+                  {
+                    "text": "Mechanics"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The however logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Cartesian"
+                  },
+                  {
+                    "text": "Product"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "N+1 Problem Mechanics & Cartesian Product Analysis",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Problem",
+                  "Mechanics"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The however logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Cartesian",
+                  "Product"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "SQLAlchemy Query Profiling with echo=True & EXPLAIN ANALYZE",
       "codeHash": "afea28a4a21d76f33f125dbd5f9112a2afb19629df4d3eea1ca9f142bd4bda73",
       "spec": {
-        "template": "states",
-        "title": "SQLAlchemy Query Profiling with echo=True & EXPLAIN ANALYZE — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "SQLAlchemy Query Profiling with echo=True & EXPLAI",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "SQLAlchemy"
+                  },
+                  {
+                    "text": "Query"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The however logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Profiling"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "SQLAlchemy Query Profiling with echo=True & EXPLAI",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "SQLAlchemy",
+                  "Query"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The however logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Profiling",
+                  "with"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Eager Loading Query Execution Engine Implementation",
       "codeHash": "891d1d983c0ed788da329995a9686ae48e91334f2cb9f18d0eb413ee6f6e2167",
       "spec": {
-        "template": "states",
-        "title": "Eager Loading Query Execution Engine Implementation — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Eager Loading Query Execution Engine Implementatio",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Eager"
+                  },
+                  {
+                    "text": "Loading"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The second logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Query"
+                  },
+                  {
+                    "text": "Execution"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Eager Loading Query Execution Engine Implementatio",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Eager",
+                  "Loading"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The second logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Query",
+                  "Execution"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Enterprise Reporting Endpoint Query Optimization",
       "codeHash": "c1625bac95211cc413cabd664e738ae058e10c697e193013cadb39beb2a1edcd",
       "spec": {
-        "template": "states",
-        "title": "Enterprise Reporting Endpoint Query Optimization — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Enterprise Reporting Endpoint Query Optimization",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Enterprise"
+                  },
+                  {
+                    "text": "Reporting"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Endpoint"
+                  },
+                  {
+                    "text": "Query"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Enterprise Reporting Endpoint Query Optimization",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Enterprise",
+                  "Reporting"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Endpoint",
+                  "Query"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Full Eager Loading & Query Planner Synthesis Lab",
       "codeHash": "9d4f14b62bcf3cb7e8a4832e8724fa308004dd8b7d9d014157137e4db2816eaf",
       "spec": {
-        "template": "states",
-        "title": "Full Eager Loading & Query Planner Synthesis Lab — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Full Eager Loading & Query Planner Synthesis Lab",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Full"
+                  },
+                  {
+                    "text": "Eager"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The furthermore logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Loading"
+                  },
+                  {
+                    "text": "Query"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Full Eager Loading & Query Planner Synthesis Lab",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Full",
+                  "Eager"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The furthermore logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Loading",
+                  "Query"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

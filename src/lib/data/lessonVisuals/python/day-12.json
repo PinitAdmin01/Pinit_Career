@@ -2,100 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 12,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "50d1f890e385c24412ecd52bb94c762b5b5085571ca8e38c163955db76175dcc",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Tuples: fixed groups of values",
       "codeHash": "eb3292009e2fc77de151ea4b1cef8b2908ba8374692c2f8e08d12a3fca9177d3",
       "spec": {
-        "template": "boxes",
-        "title": "Tuples as fixed groups",
-        "boxes": [
-          {
-            "id": "bengaluru",
-            "label": "bengaluru"
-          },
-          {
-            "id": "birthday",
-            "label": "birthday"
-          }
+        "template": "table",
+        "title": "Tuples: fixed groups of values",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tuple is written with round brackets.",
-            "values": {
-              "bengaluru": {
-                "var": "bengaluru",
-                "line": 1
-              },
-              "birthday": {
-                "text": "(15, 8, 2004)"
+            "caption": "The tuple concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Tuples"
+                  },
+                  {
+                    "text": "fixed"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "bengaluru": "data",
-              "birthday": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Tuples are used where each position has a fixed meaning.",
-            "values": {
-              "bengaluru": {
-                "var": "bengaluru",
-                "line": 5
-              },
-              "birthday": {
-                "var": "birthday",
-                "line": 5
+            "caption": "The tuples logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "groups"
+                  },
+                  {
+                    "text": "values"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "bengaluru": "data",
-              "birthday": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Tuples as fixed groups",
-        "boxes": [
-          {
-            "id": "bengaluru",
-            "label": "bengaluru"
-          },
-          {
-            "id": "birthday",
-            "label": "birthday"
-          }
+        "template": "table",
+        "title": "Tuples: fixed groups of values",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tuple is written with round brackets.",
-            "values": {
-              "bengaluru": "[12.97, 77.59]",
-              "birthday": "(15, 8, 2004)"
-            },
-            "tones": {
-              "bengaluru": "data",
-              "birthday": "idle"
-            }
+            "caption": "The tuple concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Tuples",
+                  "fixed"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Tuples are used where each position has a fixed meaning.",
-            "values": {
-              "bengaluru": "[12.97, 77.59]",
-              "birthday": "[15, 8, 2004]"
-            },
-            "tones": {
-              "bengaluru": "data",
-              "birthday": "ok"
-            }
+            "caption": "The tuples logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "groups",
+                  "values"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -104,94 +93,82 @@
       "partTitle": "Unpacking and returning several values",
       "codeHash": "7f449a023c6f80036d676b6d8edec4d384497d1951eec9256c72e39c523d8607",
       "spec": {
-        "template": "boxes",
-        "title": "Unpacking tuple values",
-        "boxes": [
-          {
-            "id": "lat",
-            "label": "lat"
-          },
-          {
-            "id": "lng",
-            "label": "lng"
-          }
+        "template": "table",
+        "title": "Unpacking and returning several values",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unpacking takes values out of a tuple into separate variables.",
-            "values": {
-              "lat": {
-                "var": "lat",
-                "line": 2
-              },
-              "lng": {
-                "var": "lng",
-                "line": 2
+            "caption": "The unpacking concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Unpacking"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "lat": "data",
-              "lng": "data"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "A function can return more than one value as a tuple.",
-            "values": {
-              "lat": {
-                "var": "lat",
-                "line": 8
-              },
-              "lng": {
-                "var": "lng",
-                "line": 8
+            "caption": "The tuples logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "returning"
+                  },
+                  {
+                    "text": "several"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "lat": "ok",
-              "lng": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Unpacking tuple values",
-        "boxes": [
-          {
-            "id": "lat",
-            "label": "lat"
-          },
-          {
-            "id": "lng",
-            "label": "lng"
-          }
+        "template": "table",
+        "title": "Unpacking and returning several values",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unpacking takes values out of a tuple into separate variables.",
-            "values": {
-              "lat": "12.97",
-              "lng": "77.59"
-            },
-            "tones": {
-              "lat": "data",
-              "lng": "data"
-            }
+            "caption": "The unpacking concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Unpacking",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "A function can return more than one value as a tuple.",
-            "values": {
-              "lat": "12.97",
-              "lng": "77.59"
-            },
-            "tones": {
-              "lat": "ok",
-              "lng": "ok"
-            }
+            "caption": "The tuples logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "returning",
+                  "several"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -200,93 +177,82 @@
       "partTitle": "Sets: only unique values",
       "codeHash": "589446a9098789d384e7358a09e5162a00534b033158ff7d1c08ec2a4ac9d88c",
       "spec": {
-        "template": "boxes",
-        "title": "Unique items with sets",
-        "boxes": [
-          {
-            "id": "categories",
-            "label": "categories"
-          },
-          {
-            "id": "unique",
-            "label": "unique"
-          }
+        "template": "table",
+        "title": "Sets: only unique values",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A set keeps values where each value appears only once.",
-            "values": {
-              "categories": {
-                "var": "categories",
-                "line": 1
-              },
-              "unique": {
-                "text": "set(categories)"
+            "caption": "The group concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Sets"
+                  },
+                  {
+                    "text": "only"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "categories": "data",
-              "unique": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Turning a list into a set drops repeated values.",
-            "values": {
-              "categories": {
-                "var": "categories",
-                "line": 2
-              },
-              "unique": {
-                "var": "unique",
-                "line": 2
+            "at": "say3",
+            "caption": "The sets logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "unique"
+                  },
+                  {
+                    "text": "values"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "categories": "data",
-              "unique": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Unique items with sets",
-        "boxes": [
-          {
-            "id": "categories",
-            "label": "categories"
-          },
-          {
-            "id": "unique",
-            "label": "unique"
-          }
+        "template": "table",
+        "title": "Sets: only unique values",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A set keeps values where each value appears only once.",
-            "values": {
-              "categories": "['food', 'travel', 'food', 'rent', 'foo…",
-              "unique": "set(categories)"
-            },
-            "tones": {
-              "categories": "data",
-              "unique": "idle"
-            }
+            "caption": "The group concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Sets",
+                  "only"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Turning a list into a set drops repeated values.",
-            "values": {
-              "categories": "['food', 'travel', 'food', 'rent', 'foo…",
-              "unique": "{'food', 'rent', 'travel'}"
-            },
-            "tones": {
-              "categories": "data",
-              "unique": "ok"
-            }
+            "at": "say3",
+            "caption": "The sets logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "unique",
+                  "values"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -295,223 +261,81 @@
       "partTitle": "Checking membership quickly",
       "codeHash": "a3ae4fc2b76d845e40ba9025a6536bc3c927ec170b0d90bfb1eaf2a891298c3e",
       "spec": {
-        "template": "flow",
-        "title": "Checking membership quickly — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking membership...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Checking membership quickly",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Checking membership quickly.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Checking membership... [Dtwelve.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The word concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Checking"
+                  },
+                  {
+                    "text": "membership"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Checking membership quickly.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The sets logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "quickly"
+                  },
+                  {
+                    "text": "membership"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Checking membership quickly — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking membership...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Checking membership quickly",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Checking membership quickly [D12.P4.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Checking membership... [D12.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The word concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Checking",
+                  "membership"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Checking membership quickly [D12.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The sets logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "quickly",
+                  "membership"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -521,223 +345,81 @@
       "partTitle": "Choosing the right container",
       "codeHash": "fa53c6bcf13025aec9c68b4bebfdfc01338c9e338c74030c7bde36081dae58d2",
       "spec": {
-        "template": "flow",
-        "title": "Choosing the right container — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing the right ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing the right container",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing the right container.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing the right ... [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The know concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Choosing"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing the right container.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The care logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "right"
+                  },
+                  {
+                    "text": "container"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing the right container — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing the right ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing the right container",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing the right container [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing the right ... [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The know concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Choosing",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing the right container [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The care logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "right",
+                  "container"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -747,223 +429,81 @@
       "partTitle": "Putting it together: categories and ranges",
       "codeHash": "14271e14036d08a7d837c5114f3210ca9b9e8e64aae1e2f7194ffdb94f4a23bd",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: categories and ranges — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: categories and ranges",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: categories and ranges.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: categories a.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The level logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "categories"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: categories and ranges — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: categories and ranges",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: categories and ranges [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: categories a.. [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The level logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "categories",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

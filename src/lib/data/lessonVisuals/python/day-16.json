@@ -2,98 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 16,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "37e6475a32035fe32911d8d9cc654f674dbfb1d5973cf890d32536847c887b14",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Why programs need files",
       "codeHash": "4cb7c0abe7c8fd8f570f4e2813c0030854546cdb809f1b2e426ec296a7eb2285",
       "spec": {
-        "template": "boxes",
-        "title": "Reading and writing files",
-        "boxes": [
-          {
-            "id": "content",
-            "label": "content"
-          },
-          {
-            "id": "mode",
-            "label": "mode"
-          }
+        "template": "table",
+        "title": "Why programs need files",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Text files hold plain text on a disk.",
-            "values": {
-              "content": {
-                "text": "Tea,20"
-              },
-              "mode": {
-                "text": "w"
+            "at": "say1",
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "programs"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "content": "data",
-              "mode": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The mode says what you want to do.",
-            "values": {
-              "content": {
-                "var": "content",
-                "line": 6
-              },
-              "mode": {
-                "text": "r"
+            "caption": "The open logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "need"
+                  },
+                  {
+                    "text": "files"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "content": "data",
-              "mode": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Reading and writing files",
-        "boxes": [
-          {
-            "id": "content",
-            "label": "content"
-          },
-          {
-            "id": "mode",
-            "label": "mode"
-          }
+        "template": "table",
+        "title": "Why programs need files",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Text files hold plain text on a disk.",
-            "values": {
-              "content": "Tea,20",
-              "mode": "w"
-            },
-            "tones": {
-              "content": "data",
-              "mode": "idle"
-            }
+            "at": "say1",
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "programs"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The mode says what you want to do.",
-            "values": {
-              "content": "'Tea,20\nBus,45\n'",
-              "mode": "r"
-            },
-            "tones": {
-              "content": "data",
-              "mode": "ok"
-            }
+            "caption": "The open logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "need",
+                  "files"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -102,223 +93,81 @@
       "partTitle": "The with statement",
       "codeHash": "e1241b308c7a1b436acdac915935ef51e3f56e81e02a199a1cf7e8028ca8339a",
       "spec": {
-        "template": "flow",
-        "title": "The with statement — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The with statement",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The with statement",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The with statement [Dsixteen.Ptwo.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The with statement [Dsixteen.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The open concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The with statement [Dsixteen.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The almost logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "statement"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The with statement — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The with statement",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The with statement",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The with statement [D16.P2.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The with statement [D16.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The open concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "with"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The with statement [D16.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The almost logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "statement",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -328,223 +177,81 @@
       "partTitle": "Appending and reading line by line",
       "codeHash": "b828e59012691d0e9f6427857b60b541b8fd9c0ac4bec009b57e6f5a7a27304e",
       "spec": {
-        "template": "flow",
-        "title": "Appending and reading line by line — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Appending and readi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Appending and reading line by line",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Appending and reading line by line.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Appending and readi.",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The data concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Appending"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Appending and reading line by line.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The reading logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "reading"
+                  },
+                  {
+                    "text": "line"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Appending and reading line by line — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Appending and readi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Appending and reading line by line",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Appending and reading line by line [D16.P3.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Appending and readi... [D16.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The data concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Appending",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Appending and reading line by line [D16.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The reading logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "reading",
+                  "line"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -554,92 +261,82 @@
       "partTitle": "Turning lines into data with split",
       "codeHash": "5c3e6a54d5de43a5c160cf387241a6e2c199993bb7ef908ac9e788ac43ee3df8",
       "spec": {
-        "template": "boxes",
-        "title": "Splitting line text into values",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Turning lines into data with split",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Split cuts the text wherever it finds the separator.",
-            "values": {
-              "item": {
-                "text": "Tea"
-              },
-              "amount": {
-                "text": "20"
+            "caption": "The line concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Turning"
+                  },
+                  {
+                    "text": "lines"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Unpack into variables and convert to a number.",
-            "values": {
-              "item": {
-                "var": "item",
-                "line": 4
-              },
-              "amount": {
-                "var": "amount",
-                "line": 4
+            "at": "say3",
+            "caption": "The simple logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "into"
+                  },
+                  {
+                    "text": "data"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Splitting line text into values",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Turning lines into data with split",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Split cuts the text wherever it finds the separator.",
-            "values": {
-              "item": "Tea",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            "caption": "The line concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Turning",
+                  "lines"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Unpack into variables and convert to a number.",
-            "values": {
-              "item": "'Tea'",
-              "amount": "'20'"
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The simple logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "into",
+                  "data"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -648,93 +345,82 @@
       "partTitle": "Saving and loading a list of records",
       "codeHash": "6bfb88eb088e71b3787f1cbee89c908021ca8feabd4c863840f0616ff5986706",
       "spec": {
-        "template": "boxes",
-        "title": "Round trip serialization",
-        "boxes": [
-          {
-            "id": "data",
-            "label": "data"
-          },
-          {
-            "id": "loaded",
-            "label": "loaded"
-          }
+        "template": "table",
+        "title": "Saving and loading a list of records",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Save and load functions turn data into text and back.",
-            "values": {
-              "data": {
-                "var": "data",
-                "line": 18
-              },
-              "loaded": {
-                "text": "tracker.csv"
+            "caption": "The save concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Saving"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "data": "data",
-              "loaded": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Check that you got the same data after loading.",
-            "values": {
-              "data": {
-                "var": "data",
-                "line": 20
-              },
-              "loaded": {
-                "var": "loaded",
-                "line": 20
+            "at": "say3",
+            "caption": "The load logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "loading"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "data": "ok",
-              "loaded": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Round trip serialization",
-        "boxes": [
-          {
-            "id": "data",
-            "label": "data"
-          },
-          {
-            "id": "loaded",
-            "label": "loaded"
-          }
+        "template": "table",
+        "title": "Saving and loading a list of records",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Save and load functions turn data into text and back.",
-            "values": {
-              "data": "[{'item': 'Tea', 'amount': 20}, {'item'…",
-              "loaded": "tracker.csv"
-            },
-            "tones": {
-              "data": "data",
-              "loaded": "idle"
-            }
+            "caption": "The save concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Saving",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Check that you got the same data after loading.",
-            "values": {
-              "data": "[{'item': 'Tea', 'amount': 20}, {'item'…",
-              "loaded": "[{'item': 'Tea', 'amount': 20}, {'item'…"
-            },
-            "tones": {
-              "data": "ok",
-              "loaded": "ok"
-            }
+            "at": "say3",
+            "caption": "The load logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "loading",
+                  "list"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -743,223 +429,81 @@
       "partTitle": "Putting it together: a tracker that remembers",
       "codeHash": "c8554b024695df0a984c614c19b194cc381dd791bfe2bfe52fc5f3773e6a1238",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: a tracker that remembers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a tracker that remembers",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: a tracker that reme.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [Dsixteen.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The simulate concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: a tracker th.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The right logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tracker"
+                  },
+                  {
+                    "text": "that"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: a tracker that remembers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a tracker that remembers",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a tracker that reme.. [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The simulate concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a tracker th.. [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The right logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "tracker",
+                  "that"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

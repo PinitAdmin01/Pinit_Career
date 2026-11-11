@@ -2,101 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "17286ca2bf59b313b2ed74e981169aa2336e9c2b1032842aad65505fff72beb0",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "The capstone problem",
       "codeHash": "6a0d7818f08696e092637a0d8b267a0c6cf7609c426319c9189ff6f0dea76b3e",
       "spec": {
-        "template": "compare",
-        "title": "Unconstrained Dijkstra versus stop-bounded flight search",
-        "leftLabel": "Unbounded Dijkstra",
-        "rightLabel": "Constrained Bellman-Ford",
+        "template": "table",
+        "title": "The capstone problem",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Find the cheapest route that uses at most k plus one flights.",
-            "left": {
-              "code": "route search",
-              "result": {
-                "text": "cheap but 6 stops"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "route search",
-              "result": {
-                "text": "valid <= k stops"
-              },
-              "tone": "ok"
-            }
+            "at": "say1",
+            "caption": "The building concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "capstone"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Plain Dijkstra ignores the number of stops returning too many changes.",
-            "left": {
-              "code": "stops check",
-              "result": {
-                "text": "unbounded changes"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "stops check",
-              "result": {
-                "text": "bounded rounds"
-              },
-              "tone": "ok"
-            }
+            "caption": "The plain logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "problem"
+                  },
+                  {
+                    "text": "capstone"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Unconstrained Dijkstra versus stop-bounded flight search",
-        "leftLabel": "Unbounded Dijkstra",
-        "rightLabel": "Constrained Bellman-Ford",
+        "template": "table",
+        "title": "The capstone problem",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Find the cheapest route that uses at most k plus one flights.",
-            "left": {
-              "code": "route search",
-              "result": "cheap but 6 stops",
-              "tone": "error",
-              "checks": [
-                "cheap but 6 stops"
-              ]
-            },
-            "right": {
-              "code": "route search",
-              "result": "valid <= k stops",
-              "tone": "ok",
-              "checks": [
-                "valid <= k stops"
-              ]
-            }
+            "at": "say1",
+            "caption": "The building concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "capstone"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Plain Dijkstra ignores the number of stops returning too many changes.",
-            "left": {
-              "code": "stops check",
-              "result": "unbounded changes",
-              "tone": "error",
-              "checks": [
-                "unbounded changes"
-              ]
-            },
-            "right": {
-              "code": "stops check",
-              "result": "bounded rounds",
-              "tone": "ok",
-              "checks": [
-                "bounded rounds"
-              ]
-            }
+            "caption": "The plain logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "problem",
+                  "capstone"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -106,61 +94,40 @@
       "codeHash": "4afe62ec70f13291c0991a399d7ed863887b2b4610a6cfd4efc21cdb09d330c0",
       "spec": {
         "template": "table",
-        "title": "Step-limited Bellman-Ford cost relaxation rounds",
+        "title": "Bellman-Ford limited to k + 1 rounds",
         "columns": [
-          "Round Iteration",
-          "Cost Reading Source",
-          "Flights Step Bound"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Relax every edge round after round to bound routes by flight count.",
+            "caption": "The recall concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Round 1"
+                    "text": "Bellman"
                   },
                   {
-                    "text": "Read cost from round 0"
-                  },
-                  {
-                    "text": "At most 1 flight"
+                    "text": "Ford"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Read from costs of the previous round and write into a separate copy.",
+            "caption": "The important logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Round 1"
+                    "text": "limited"
                   },
                   {
-                    "text": "Read cost from round 0"
-                  },
-                  {
-                    "text": "At most 1 flight"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Round 2"
-                  },
-                  {
-                    "text": "Read cost from copy 1"
-                  },
-                  {
-                    "text": "At most 2 flights"
+                    "text": "rounds"
                   }
                 ],
                 "tone": "ok"
@@ -171,44 +138,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Step-limited Bellman-Ford cost relaxation rounds",
+        "title": "Bellman-Ford limited to k + 1 rounds",
         "columns": [
-          "Round Iteration",
-          "Cost Reading Source",
-          "Flights Step Bound"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Relax every edge round after round to bound routes by flight count.",
+            "caption": "The recall concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Round 1",
-                  "Read cost from round 0",
-                  "At most 1 flight"
+                  "Bellman",
+                  "Ford"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Read from costs of the previous round and write into a separate copy.",
+            "caption": "The important logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Round 1",
-                  "Read cost from round 0",
-                  "At most 1 flight"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Round 2",
-                  "Read cost from copy 1",
-                  "At most 2 flights"
+                  "limited",
+                  "rounds"
                 ],
                 "tone": "ok"
               }
@@ -221,223 +177,81 @@
       "partTitle": "A heap-based alternative",
       "codeHash": "98e4bb1da3499c926b8616fa3bcd7eaec9e8e58aeefd7eeb29a29212b6b965c4",
       "spec": {
-        "template": "flow",
-        "title": "A heap-based alternative — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A heap-based altern...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A heap-based alternative",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A heap-based alternative [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A heap-based altern... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The second concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "heap"
+                  },
+                  {
+                    "text": "based"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A heap-based alternative.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The avoid logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "alternative"
+                  },
+                  {
+                    "text": "based"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A heap-based alternative — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A heap-based altern...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A heap-based alternative",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A heap-based alternative [D30.P3.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A heap-based altern... [D30.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The second concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "heap",
+                  "based"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A heap-based alternative [D30.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The avoid logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "alternative",
+                  "based"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -448,61 +262,40 @@
       "codeHash": "63dfb1afa9b6045ccfd8b8ed3f143a02dce534ee341af29840a4b668e49b2ea0",
       "spec": {
         "template": "table",
-        "title": "Flight network sanity audit and metrics summary",
+        "title": "Auditing the network",
         "columns": [
-          "Audit Metric",
-          "Extraction Method",
-          "Inspection Value"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "audit_flight_graph returns summary with routes airports and cheapest price.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Total Routes"
+                    "text": "Auditing"
                   },
                   {
-                    "text": "len(flights)"
-                  },
-                  {
-                    "text": "12 flights"
+                    "text": "the"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A set collects airports from both ends so each is counted once.",
+            "at": "say3",
+            "caption": "The default logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Total Routes"
+                    "text": "network"
                   },
                   {
-                    "text": "len(flights)"
-                  },
-                  {
-                    "text": "12 flights"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Unique Airports"
-                  },
-                  {
-                    "text": "Set of src and dst"
-                  },
-                  {
-                    "text": "5 airports"
+                    "text": "the"
                   }
                 ],
                 "tone": "ok"
@@ -513,44 +306,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Flight network sanity audit and metrics summary",
+        "title": "Auditing the network",
         "columns": [
-          "Audit Metric",
-          "Extraction Method",
-          "Inspection Value"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "audit_flight_graph returns summary with routes airports and cheapest price.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Total Routes",
-                  "len(flights)",
-                  "12 flights"
+                  "Auditing",
+                  "the"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A set collects airports from both ends so each is counted once.",
+            "at": "say3",
+            "caption": "The default logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Total Routes",
-                  "len(flights)",
-                  "12 flights"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Unique Airports",
-                  "Set of src and dst",
-                  "5 airports"
+                  "network",
+                  "the"
                 ],
                 "tone": "ok"
               }
@@ -564,61 +346,40 @@
       "codeHash": "543801be7d3a8e64a12003c922c9e5f2b6141f55cec25ccbf30ab62b7497db70",
       "spec": {
         "template": "table",
-        "title": "Production routing engine qualities",
+        "title": "Putting the engine together",
         "columns": [
-          "Capstone Quality",
-          "Engineering Measure",
-          "Production Impact"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final engine wraps functions in a class and returns the route itself.",
+            "caption": "The final concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Class Architecture"
+                    "text": "Putting"
                   },
                   {
-                    "text": "FlightRouter engine"
-                  },
-                  {
-                    "text": "Reusable interface"
+                    "text": "the"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Production ready software validates inputs and handles edge cases.",
+            "at": "say3",
+            "caption": "The validate logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Class Architecture"
+                    "text": "engine"
                   },
                   {
-                    "text": "FlightRouter engine"
-                  },
-                  {
-                    "text": "Reusable interface"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Robust Validation"
-                  },
-                  {
-                    "text": "Range check inputs"
-                  },
-                  {
-                    "text": "Clear error messages"
+                    "text": "together"
                   }
                 ],
                 "tone": "ok"
@@ -629,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Production routing engine qualities",
+        "title": "Putting the engine together",
         "columns": [
-          "Capstone Quality",
-          "Engineering Measure",
-          "Production Impact"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final engine wraps functions in a class and returns the route itself.",
+            "caption": "The final concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Class Architecture",
-                  "FlightRouter engine",
-                  "Reusable interface"
+                  "Putting",
+                  "the"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Production ready software validates inputs and handles edge cases.",
+            "at": "say3",
+            "caption": "The validate logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Class Architecture",
-                  "FlightRouter engine",
-                  "Reusable interface"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Robust Validation",
-                  "Range check inputs",
-                  "Clear error messages"
+                  "engine",
+                  "together"
                 ],
                 "tone": "ok"
               }
@@ -679,223 +429,81 @@
       "partTitle": "Looking back, and next steps",
       "codeHash": "e3254dc875d795b85a2c7163741e49c0106f5e4ce92567430786ccc9c58c8c19",
       "spec": {
-        "template": "flow",
-        "title": "Looking back, and next steps — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Looking back, and n...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Looking back, and next steps",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Looking back, and next steps [D.Psix.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Looking back, and n... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The began concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Looking"
+                  },
+                  {
+                    "text": "back"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Looking back, and next steps.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "next"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Looking back, and next steps — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Looking back, and n...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Looking back, and next steps",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Looking back, and next steps [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Looking back, and n... [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The began concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Looking",
+                  "back"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Looking back, and next steps [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "next"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

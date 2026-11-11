@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 39,
-  "promptSha": "d458c058eb429f2904cfb1205f67bac4c2e055cb505e969788cbcc63628bd712",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "ec8f9900067f3b7cfe6e57acd77323776f8e1881b1c40d844c5395d7618d649b",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Alembic Revision Graph & DDL Locking Mechanics",
       "codeHash": "0cd597e11eb8d008e7f23d76dcf1b3e9f69f1161686c8c600c7064a63d1c3059",
       "spec": {
-        "template": "states",
-        "title": "Alembic Revision Graph & DDL Locking Mechanics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Alembic Revision Graph & DDL Locking Mechanics",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The high concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Alembic"
+                  },
+                  {
+                    "text": "Revision"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The access logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Graph"
+                  },
+                  {
+                    "text": "DDL"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Alembic Revision Graph & DDL Locking Mechanics",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The high concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Alembic",
+                  "Revision"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The access logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Graph",
+                  "DDL"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Rolling Deployment Migration Failure Forensics",
       "codeHash": "fb2d8f71e3e337519d758e8efaa848654425900de874fd8280f037a33edfbd4a",
       "spec": {
-        "template": "states",
-        "title": "Rolling Deployment Migration Failure Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Rolling Deployment Migration Failure Forensics",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The modern concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Rolling"
+                  },
+                  {
+                    "text": "Deployment"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The similarly logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Migration"
+                  },
+                  {
+                    "text": "Failure"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Rolling Deployment Migration Failure Forensics",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The modern concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Rolling",
+                  "Deployment"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The similarly logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Migration",
+                  "Failure"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Expand and Contract Schema Migration Engine",
       "codeHash": "b1154ccc26e8352a4177011ba791a517c3a1391eae667c203ff2ca267e84e9b4",
       "spec": {
-        "template": "states",
-        "title": "Expand and Contract Schema Migration Engine — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Expand and Contract Schema Migration Engine",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The achieve concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Expand"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The phase logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Contract"
+                  },
+                  {
+                    "text": "Schema"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Expand and Contract Schema Migration Engine",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The achieve concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Expand",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The phase logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Contract",
+                  "Schema"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Online DDL & Index Creation Mechanics",
       "codeHash": "4b5c3a5fb3b6dfc6e3062f05b0bb41f3c536619c55113da09970c99e53068f53",
       "spec": {
-        "template": "states",
-        "title": "Online DDL & Index Creation Mechanics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Online DDL & Index Creation Mechanics",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The database concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Online"
+                  },
+                  {
+                    "text": "DDL"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The internal logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Index"
+                  },
+                  {
+                    "text": "Creation"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Online DDL & Index Creation Mechanics",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The database concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Online",
+                  "DDL"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The internal logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Index",
+                  "Creation"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Enterprise Zero-Downtime Migration Coordinator",
       "codeHash": "27c219ef4988238927441c1e680b55e3d9377bcd590d46ff097e1a70c8a7ddbd",
       "spec": {
-        "template": "states",
-        "title": "Enterprise Zero-Downtime Migration Coordinator — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Enterprise Zero-Downtime Migration Coordinator",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Enterprise"
+                  },
+                  {
+                    "text": "Zero"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The phase logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Downtime"
+                  },
+                  {
+                    "text": "Migration"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Enterprise Zero-Downtime Migration Coordinator",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Enterprise",
+                  "Zero"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The phase logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Downtime",
+                  "Migration"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

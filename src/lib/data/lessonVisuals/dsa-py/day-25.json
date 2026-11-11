@@ -2,131 +2,31 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "8e79e64e6542af4723b9e607082441a5e107b60880c6353b80787baa1a1cc7b6",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What dynamic programming is",
       "codeHash": "fae41d57bd868dc40bef70d6860bc5417718468c2322b2b8216b4cd665b24ee4",
       "spec": {
-        "template": "compare",
-        "title": "Exponential recursive tree vs memoized linear work",
-        "leftLabel": "Naive Recursion",
-        "rightLabel": "Dynamic Programming",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Dynamic programming solves smaller subproblems once and reuses answers.",
-            "left": {
-              "code": "fib(30)",
-              "result": {
-                "text": "1M calls"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "memo fib(30)",
-              "result": {
-                "text": "30 cached steps"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "DP turns exponential work into linear work by storing each answer.",
-            "left": {
-              "code": "work complexity",
-              "result": {
-                "text": "O(2^N) exponential"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "work complexity",
-              "result": {
-                "text": "O(N) linear"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Exponential recursive tree vs memoized linear work",
-        "leftLabel": "Naive Recursion",
-        "rightLabel": "Dynamic Programming",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Dynamic programming solves smaller subproblems once and reuses answers.",
-            "left": {
-              "code": "fib(30)",
-              "result": "1M calls",
-              "tone": "error",
-              "checks": [
-                "1M calls"
-              ]
-            },
-            "right": {
-              "code": "memo fib(30)",
-              "result": "30 cached steps",
-              "tone": "ok",
-              "checks": [
-                "30 cached steps"
-              ]
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "DP turns exponential work into linear work by storing each answer.",
-            "left": {
-              "code": "work complexity",
-              "result": "O(2^N) exponential",
-              "tone": "error",
-              "checks": [
-                "O(2^N) exponential"
-              ]
-            },
-            "right": {
-              "code": "work complexity",
-              "result": "O(N) linear",
-              "tone": "ok",
-              "checks": [
-                "O(N) linear"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Memoization: top-down DP",
-      "codeHash": "58fe503a30413f03b1c9734a5020b7d56288ee71b19db76c32314d33aa4bde5d",
-      "spec": {
         "template": "table",
-        "title": "Top-down memoization dictionary cache lookups",
+        "title": "What dynamic programming is",
         "columns": [
-          "Call Stage",
-          "Subproblem Argument",
-          "Cache Action"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Memoization stores each computed answer returning it immediately next time.",
+            "caption": "The dynamic concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "First Call"
+                    "text": "What"
                   },
                   {
-                    "text": "fib(5)"
-                  },
-                  {
-                    "text": "Compute and memoize"
+                    "text": "dynamic"
                   }
                 ],
                 "tone": "data"
@@ -134,33 +34,16 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Top-down recursion fills the memo cache on the way back up.",
+            "at": "say3",
+            "caption": "The warning logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "First Call"
+                    "text": "programming"
                   },
                   {
-                    "text": "fib(5)"
-                  },
-                  {
-                    "text": "Compute and memoize"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Second Call"
-                  },
-                  {
-                    "text": "fib(5)"
-                  },
-                  {
-                    "text": "Return memo[5]"
+                    "text": "dynamic"
                   }
                 ],
                 "tone": "ok"
@@ -171,44 +54,117 @@
       },
       "filled": {
         "template": "table",
-        "title": "Top-down memoization dictionary cache lookups",
+        "title": "What dynamic programming is",
         "columns": [
-          "Call Stage",
-          "Subproblem Argument",
-          "Cache Action"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Memoization stores each computed answer returning it immediately next time.",
+            "caption": "The dynamic concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "First Call",
-                  "fib(5)",
-                  "Compute and memoize"
+                  "What",
+                  "dynamic"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Top-down recursion fills the memo cache on the way back up.",
+            "at": "say3",
+            "caption": "The warning logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "First Call",
-                  "fib(5)",
-                  "Compute and memoize"
+                  "programming",
+                  "dynamic"
                 ],
-                "tone": "data"
-              },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Memoization: top-down DP",
+      "codeHash": "58fe503a30413f03b1c9734a5020b7d56288ee71b19db76c32314d33aa4bde5d",
+      "spec": {
+        "template": "table",
+        "title": "Memoization: top-down DP",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The memoization concept establishes the core structural baseline.",
+            "rows": [
               {
                 "cells": [
-                  "Second Call",
-                  "fib(5)",
-                  "Return memo[5]"
+                  {
+                    "text": "Memoization"
+                  },
+                  {
+                    "text": "top"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "down"
+                  },
+                  {
+                    "text": "top"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Memoization: top-down DP",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The memoization concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Memoization",
+                  "top"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "down",
+                  "top"
                 ],
                 "tone": "ok"
               }
@@ -221,76 +177,43 @@
       "partTitle": "Tabulation: bottom-up DP",
       "codeHash": "0a408e928385181b92fd59c285d51e6ff497152bb6f8da5160c36e44c9475d23",
       "spec": {
-        "template": "cells",
-        "title": "Bottom-up DP table populated sequentially",
+        "template": "table",
+        "title": "Tabulation: bottom-up DP",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tabulation fills a table from smallest subproblems upwards with a loop.",
-            "items": [
+            "caption": "The tabulation concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "?"
-              },
-              {
-                "text": "?"
-              },
-              {
-                "text": "?"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "base",
-                "index": 0,
-                "tone": "ok"
-              },
-              {
-                "name": "base",
-                "index": 1,
-                "tone": "ok"
+                "cells": [
+                  {
+                    "text": "Tabulation"
+                  },
+                  {
+                    "text": "bottom"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each entry is filled from the sum of the two preceding values.",
-            "items": [
+            "at": "say3",
+            "caption": "The tabulation logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "3"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "dp[i-2]",
-                "index": 1,
-                "tone": "data"
-              },
-              {
-                "name": "dp[i-1]",
-                "index": 2,
-                "tone": "data"
-              },
-              {
-                "name": "dp[i]",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "Tabulation"
+                  },
+                  {
+                    "text": "bottom"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -298,56 +221,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Bottom-up DP table populated sequentially",
+        "template": "table",
+        "title": "Tabulation: bottom-up DP",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tabulation fills a table from smallest subproblems upwards with a loop.",
-            "items": [
-              "0",
-              "1",
-              "?",
-              "?",
-              "?"
-            ],
-            "pointers": [
+            "caption": "The tabulation concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "base",
-                "index": 0,
-                "tone": "ok"
-              },
-              {
-                "name": "base",
-                "index": 1,
-                "tone": "ok"
+                "cells": [
+                  "Tabulation",
+                  "bottom"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each entry is filled from the sum of the two preceding values.",
-            "items": [
-              "0",
-              "1",
-              "1",
-              "2",
-              "3"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The tabulation logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "dp[i-2]",
-                "index": 1,
-                "tone": "data"
-              },
-              {
-                "name": "dp[i-1]",
-                "index": 2,
-                "tone": "data"
-              },
-              {
-                "name": "dp[i]",
-                "index": 3,
+                "cells": [
+                  "Tabulation",
+                  "bottom"
+                ],
                 "tone": "ok"
               }
             ]
@@ -359,223 +261,81 @@
       "partTitle": "Climbing stairs",
       "codeHash": "deff1ae77d5ab53fe761de21b23868f348f3af78437eaee9aa43da1795139bfb",
       "spec": {
-        "template": "flow",
-        "title": "Climbing stairs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Climbing stairs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Climbing stairs",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Climbing stairs [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Climbing stairs [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Climbing"
+                  },
+                  {
+                    "text": "stairs"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Climbing stairs [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The base logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Climbing"
+                  },
+                  {
+                    "text": "stairs"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Climbing stairs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Climbing stairs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Climbing stairs",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Climbing stairs [D25.P4.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Climbing stairs [D25.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Climbing",
+                  "stairs"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Climbing stairs [D25.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The base logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Climbing",
+                  "stairs"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -586,71 +346,40 @@
       "codeHash": "7e851a1a81a5468bdf89e0af87c9a77e0368d8d0a014458aceecd8bc53d4abc3",
       "spec": {
         "template": "table",
-        "title": "House robber decision choices: skip or take",
+        "title": "House robber: choose or skip",
         "columns": [
-          "House Index",
-          "Skip Choice (i-1)",
-          "Take Choice (i-2 + val)",
-          "Optimal Max"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "At each house choose to skip keeping previous or take adding current money.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "House 0"
+                    "text": "House"
                   },
                   {
-                    "text": "0"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2"
+                    "text": "robber"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The choose or skip pattern takes the maximum between both possibilities.",
+            "caption": "The best logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "House 0"
+                    "text": "choose"
                   },
                   {
-                    "text": "0"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "House 1"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "7"
+                    "text": "skip"
                   }
                 ],
                 "tone": "ok"
@@ -661,48 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "House robber decision choices: skip or take",
+        "title": "House robber: choose or skip",
         "columns": [
-          "House Index",
-          "Skip Choice (i-1)",
-          "Take Choice (i-2 + val)",
-          "Optimal Max"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "At each house choose to skip keeping previous or take adding current money.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "House 0",
-                  "0",
-                  "2",
-                  "2"
+                  "House",
+                  "robber"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The choose or skip pattern takes the maximum between both possibilities.",
+            "caption": "The best logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "House 0",
-                  "0",
-                  "2",
-                  "2"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "House 1",
-                  "2",
-                  "7",
-                  "7"
+                  "choose",
+                  "skip"
                 ],
                 "tone": "ok"
               }
@@ -715,223 +429,81 @@
       "partTitle": "A recipe for DP problems",
       "codeHash": "1b70c0619f07ef4659ea60fd92cbca43051337760f0959a1077b5329fd5b2c15",
       "spec": {
-        "template": "flow",
-        "title": "A recipe for DP problems — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A recipe for DP pro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A recipe for DP problems",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A recipe for DP problems [D.Psix.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A recipe for DP pro... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The problems concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "recipe"
+                  },
+                  {
+                    "text": "for"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A recipe for DP problems [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The check logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "problems"
+                  },
+                  {
+                    "text": "for"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A recipe for DP problems — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A recipe for DP pro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A recipe for DP problems",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A recipe for DP problems [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A recipe for DP pro... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The problems concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "recipe",
+                  "for"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A recipe for DP problems [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The check logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "problems",
+                  "for"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

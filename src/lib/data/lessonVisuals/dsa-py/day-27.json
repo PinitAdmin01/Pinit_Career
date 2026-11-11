@@ -2,101 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "a552cea9611e1d577a71c53a2da09d7173d3350b6f59ecb0ad1a869d6e684523",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Comparing two strings",
       "codeHash": "a1401fb8b9574b81fbcc29719461c6cd533c17f0313aed398137aad7023c37aa",
       "spec": {
-        "template": "compare",
-        "title": "Valid subsequence preserving order versus invalid scrambled sequence",
-        "leftLabel": "Ordered Subsequence",
-        "rightLabel": "Invalid Order",
+        "template": "table",
+        "title": "Comparing two strings",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A subsequence keeps letters in their order but may skip some.",
-            "left": {
-              "code": "subsequence ace",
-              "result": {
-                "text": "valid from abcde"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "subsequence aec",
-              "result": {
-                "text": "invalid order"
-              },
-              "tone": "error"
-            }
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Comparing"
+                  },
+                  {
+                    "text": "two"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The longest common subsequence is the longest subsequence found in both.",
-            "left": {
-              "code": "text1=abcde",
-              "result": {
-                "text": "matched"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "LCS=ace",
-              "result": {
-                "text": "length 3"
-              },
-              "tone": "ok"
-            }
+            "caption": "The longest logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "strings"
+                  },
+                  {
+                    "text": "two"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Valid subsequence preserving order versus invalid scrambled sequence",
-        "leftLabel": "Ordered Subsequence",
-        "rightLabel": "Invalid Order",
+        "template": "table",
+        "title": "Comparing two strings",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A subsequence keeps letters in their order but may skip some.",
-            "left": {
-              "code": "subsequence ace",
-              "result": "valid from abcde",
-              "tone": "ok",
-              "checks": [
-                "valid from abcde"
-              ]
-            },
-            "right": {
-              "code": "subsequence aec",
-              "result": "invalid order",
-              "tone": "error",
-              "checks": [
-                "invalid order"
-              ]
-            }
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Comparing",
+                  "two"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The longest common subsequence is the longest subsequence found in both.",
-            "left": {
-              "code": "text1=abcde",
-              "result": "matched",
-              "tone": "data",
-              "checks": [
-                "matched"
-              ]
-            },
-            "right": {
-              "code": "LCS=ace",
-              "result": "length 3",
-              "tone": "ok",
-              "checks": [
-                "length 3"
-              ]
-            }
+            "caption": "The longest logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "strings",
+                  "two"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -106,61 +94,40 @@
       "codeHash": "3035795974d36da5af8eff418c7f5552b4c3808d7d91ffd6fca6505e3c9f8c46",
       "spec": {
         "template": "table",
-        "title": "2D LCS cell recurrence conditions",
+        "title": "The LCS recurrence",
         "columns": [
-          "Character Condition",
-          "Recurrence Transition",
-          "Cell Origin"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "If characters match take diagonal answer plus one for common subsequence.",
+            "at": "say1",
+            "caption": "The compare concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "text1[i] == text2[j]"
+                    "text": "The"
                   },
                   {
-                    "text": "dp[i-1][j-1] + 1"
-                  },
-                  {
-                    "text": "Diagonal up-left"
+                    "text": "LCS"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "If they do not match drop one or other taking maximum better value.",
+            "caption": "The match logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "text1[i] == text2[j]"
+                    "text": "recurrence"
                   },
                   {
-                    "text": "dp[i-1][j-1] + 1"
-                  },
-                  {
-                    "text": "Diagonal up-left"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text1[i] != text2[j]"
-                  },
-                  {
-                    "text": "max(dp[i-1][j], dp[i][j-1])"
-                  },
-                  {
-                    "text": "Max of top or left"
+                    "text": "LCS"
                   }
                 ],
                 "tone": "ok"
@@ -171,44 +138,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "2D LCS cell recurrence conditions",
+        "title": "The LCS recurrence",
         "columns": [
-          "Character Condition",
-          "Recurrence Transition",
-          "Cell Origin"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "If characters match take diagonal answer plus one for common subsequence.",
+            "at": "say1",
+            "caption": "The compare concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "text1[i] == text2[j]",
-                  "dp[i-1][j-1] + 1",
-                  "Diagonal up-left"
+                  "The",
+                  "LCS"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "If they do not match drop one or other taking maximum better value.",
+            "caption": "The match logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "text1[i] == text2[j]",
-                  "dp[i-1][j-1] + 1",
-                  "Diagonal up-left"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text1[i] != text2[j]",
-                  "max(dp[i-1][j], dp[i][j-1])",
-                  "Max of top or left"
+                  "recurrence",
+                  "LCS"
                 ],
                 "tone": "ok"
               }
@@ -221,223 +177,81 @@
       "partTitle": "Rebuilding the common letters",
       "codeHash": "43fe2d1259f991daec18a3a1264d5e5691e6a2006c2c03cfd79a76deb6fa3caf",
       "spec": {
-        "template": "flow",
-        "title": "Rebuilding the common letters — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Rebuilding the comm...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Rebuilding the common letters",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Rebuilding the common letters [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Rebuilding the comm... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Rebuilding"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Rebuilding the common letters.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The collect logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "common"
+                  },
+                  {
+                    "text": "letters"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Rebuilding the common letters — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Rebuilding the comm...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Rebuilding the common letters",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Rebuilding the common letters [D27.P3.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rebuilding the comm... [D27.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Rebuilding",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rebuilding the common letters [D27.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The collect logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "common",
+                  "letters"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -448,61 +262,40 @@
       "codeHash": "209f733497b8dd78b45328db196b0d10111982d01cb93d96ce3a28df058535d3",
       "spec": {
         "template": "table",
-        "title": "Edit distance dynamic operations matrix",
+        "title": "Edit distance",
         "columns": [
-          "Edit Operation",
-          "Subproblem Transition",
-          "Unit Cost Added"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Edit distance counts fewest inserts deletes or replacements between words.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Match"
+                    "text": "Edit"
                   },
                   {
-                    "text": "dp[i-1][j-1]"
-                  },
-                  {
-                    "text": "+0"
+                    "text": "distance"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Try all three edits and take the cheapest plus one for cost.",
+            "at": "say3",
+            "caption": "The current logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Match"
+                    "text": "Edit"
                   },
                   {
-                    "text": "dp[i-1][j-1]"
-                  },
-                  {
-                    "text": "+0"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Insert / Delete / Replace"
-                  },
-                  {
-                    "text": "min(top, left, diag)"
-                  },
-                  {
-                    "text": "+1"
+                    "text": "distance"
                   }
                 ],
                 "tone": "ok"
@@ -513,44 +306,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Edit distance dynamic operations matrix",
+        "title": "Edit distance",
         "columns": [
-          "Edit Operation",
-          "Subproblem Transition",
-          "Unit Cost Added"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Edit distance counts fewest inserts deletes or replacements between words.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Match",
-                  "dp[i-1][j-1]",
-                  "+0"
+                  "Edit",
+                  "distance"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Try all three edits and take the cheapest plus one for cost.",
+            "at": "say3",
+            "caption": "The current logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Match",
-                  "dp[i-1][j-1]",
-                  "+0"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Insert / Delete / Replace",
-                  "min(top, left, diag)",
-                  "+1"
+                  "Edit",
+                  "distance"
                 ],
                 "tone": "ok"
               }
@@ -564,61 +346,40 @@
       "codeHash": "671c6ca6fadad5e607f8ffef3615a9bb55e1dfd181396c950b338a06fc405c96",
       "spec": {
         "template": "table",
-        "title": "Spell checker ranking using edit distance metric",
+        "title": "A tiny spell checker",
         "columns": [
-          "Dictionary Word",
-          "Edit Distance",
-          "Suggestion Filter"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Suggest closest dictionary words based on computed edit distance.",
+            "caption": "The edit concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "spelling"
+                    "text": "tiny"
                   },
                   {
-                    "text": "dist: 0"
-                  },
-                  {
-                    "text": "Exact match"
+                    "text": "spell"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compute distance to every word keeping candidates within small limit.",
+            "at": "say3",
+            "caption": "The checks logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "spelling"
+                    "text": "checker"
                   },
                   {
-                    "text": "dist: 0"
-                  },
-                  {
-                    "text": "Exact match"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "spelled"
-                  },
-                  {
-                    "text": "dist: 2"
-                  },
-                  {
-                    "text": "Suggest candidate"
+                    "text": "spell"
                   }
                 ],
                 "tone": "ok"
@@ -629,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Spell checker ranking using edit distance metric",
+        "title": "A tiny spell checker",
         "columns": [
-          "Dictionary Word",
-          "Edit Distance",
-          "Suggestion Filter"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Suggest closest dictionary words based on computed edit distance.",
+            "caption": "The edit concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "spelling",
-                  "dist: 0",
-                  "Exact match"
+                  "tiny",
+                  "spell"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compute distance to every word keeping candidates within small limit.",
+            "at": "say3",
+            "caption": "The checks logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "spelling",
-                  "dist: 0",
-                  "Exact match"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "spelled",
-                  "dist: 2",
-                  "Suggest candidate"
+                  "checker",
+                  "spell"
                 ],
                 "tone": "ok"
               }
@@ -679,223 +429,81 @@
       "partTitle": "Spotting 2D DP problems",
       "codeHash": "8709d53f9bf87f1d43f1afe848fbb7da32b38feb6735ac003c135f9e335a8321",
       "spec": {
-        "template": "flow",
-        "title": "Spotting 2D DP problems — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Spotting 2D DP prob...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Spotting 2D DP problems",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Spotting two-dimensional DP problems.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Spotting two-dimensional DP prob.",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The inputs concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Spotting"
+                  },
+                  {
+                    "text": "problems"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Spotting two-dimensional DP problems.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The recipe logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Spotting"
+                  },
+                  {
+                    "text": "problems"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Spotting 2D DP problems — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Spotting 2D DP prob...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Spotting 2D DP problems",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Spotting 2D DP problems [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Spotting 2D DP prob... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The inputs concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Spotting",
+                  "problems"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Spotting 2D DP problems [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The recipe logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Spotting",
+                  "problems"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,73 +2,50 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "1c9e5eb3973774b2c319a8af94c87a493243a70fdbecff44e34c63470f0020e8",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "A heap stored in a list",
       "codeHash": "db81c02908474cd30b464bd0c523976a0921bf50b80b184f9669d0fa68d58b3c",
       "spec": {
-        "template": "cells",
-        "title": "Min-heap elements flattened into a contiguous list",
+        "template": "table",
+        "title": "A heap stored in a list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every parent is smaller than or equal to children in a min-heap.",
-            "items": [
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "6"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "root",
-                "index": 0,
-                "tone": "ok"
+                "cells": [
+                  {
+                    "text": "heap"
+                  },
+                  {
+                    "text": "stored"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A complete binary tree stores elements sequentially in a plain list.",
-            "items": [
+            "at": "say3",
+            "caption": "The item logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "6"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "parent",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "child",
-                "index": 1,
+                "cells": [
+                  {
+                    "text": "list"
+                  },
+                  {
+                    "text": "stored"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -76,46 +53,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Min-heap elements flattened into a contiguous list",
+        "template": "table",
+        "title": "A heap stored in a list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every parent is smaller than or equal to children in a min-heap.",
-            "items": [
-              "1",
-              "3",
-              "2",
-              "7",
-              "6"
-            ],
-            "pointers": [
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "root",
-                "index": 0,
-                "tone": "ok"
+                "cells": [
+                  "heap",
+                  "stored"
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A complete binary tree stores elements sequentially in a plain list.",
-            "items": [
-              "1",
-              "3",
-              "2",
-              "7",
-              "6"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The item logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "parent",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "child",
-                "index": 1,
+                "cells": [
+                  "list",
+                  "stored"
+                ],
                 "tone": "ok"
               }
             ]
@@ -127,112 +93,82 @@
       "partTitle": "Push with sift up",
       "codeHash": "80ca7ae83ebde64458745c9a123be64395ee4b707d51a0af4492a9ca5cde5da5",
       "spec": {
-        "template": "tree-graph",
-        "title": "Inserting element and sifting up towards root",
-        "nodes": [
-          {
-            "id": "1",
-            "label": "1 (root)"
-          },
-          {
-            "id": "3",
-            "label": "3"
-          },
-          {
-            "id": "2",
-            "label": "2"
-          },
-          {
-            "id": "0",
-            "label": "0 (new)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "1",
-            "to": "3",
-            "label": "left"
-          },
-          {
-            "from": "1",
-            "to": "2",
-            "label": "right"
-          },
-          {
-            "from": "3",
-            "to": "0",
-            "label": "left"
-          }
+        "template": "table",
+        "title": "Push with sift up",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Place the new value at the end of the list to keep tree shape.",
-            "highlightNodes": [
-              "0"
+            "caption": "The value concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Push"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Fix violation by sifting up until parent is smaller or root is reached.",
-            "highlightNodes": [
-              "0",
-              "3",
-              "1"
-            ],
-            "highlightEdges": [
-              "3->0",
-              "1->3"
+            "at": "say3",
+            "caption": "The tree logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sift"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Inserting element and sifting up towards root",
-        "nodes": [
-          {
-            "id": "1",
-            "label": "1 (root)"
-          },
-          {
-            "id": "3",
-            "label": "3"
-          },
-          {
-            "id": "2",
-            "label": "2"
-          },
-          {
-            "id": "0",
-            "label": "0 (new)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "1",
-            "to": "3",
-            "label": "left"
-          },
-          {
-            "from": "1",
-            "to": "2",
-            "label": "right"
-          },
-          {
-            "from": "3",
-            "to": "0",
-            "label": "left"
-          }
+        "template": "table",
+        "title": "Push with sift up",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Place the new value at the end of the list to keep tree shape."
+            "caption": "The value concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Push",
+                  "with"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Fix violation by sifting up until parent is smaller or root is reached."
+            "at": "say3",
+            "caption": "The tree logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "sift",
+                  "with"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -241,223 +177,81 @@
       "partTitle": "Pop with sift down",
       "codeHash": "933ac661a8b5a0ccb9d716c7903403d59ea8cf70c657c3bdcf695e0829cb4a90",
       "spec": {
-        "template": "flow",
-        "title": "Pop with sift down — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Pop with sift down",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Pop with sift down",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Pop with sift down [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Pop with sift down [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The removes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Pop"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Pop with sift down [D.Pthree.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The swapping logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sift"
+                  },
+                  {
+                    "text": "down"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Pop with sift down — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Pop with sift down",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Pop with sift down",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Pop with sift down [D18.P3.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Pop with sift down [D18.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The removes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Pop",
+                  "with"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pop with sift down [D18.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The swapping logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "sift",
+                  "down"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -467,94 +261,82 @@
       "partTitle": "heapq and the k-th smallest",
       "codeHash": "ab2f0890a434181c8ba6de1154cbaf3b0e89bd5df6f770315ff722ba94325f38",
       "spec": {
-        "template": "compare",
-        "title": "Finding k-th smallest using full heapify versus size-k heap",
-        "leftLabel": "Heapify & Pop",
-        "rightLabel": "Bounded Max-Heap",
+        "template": "table",
+        "title": "heapq and the k-th smallest",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Heapify the list and pop repeatedly until reaching the desired rank.",
-            "left": {
-              "code": "heapify + pop",
-              "result": {
-                "text": "O(N + k log N)"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "bounded k",
-              "result": {
-                "text": "O(N log k)"
-              },
-              "tone": "ok"
-            }
+            "at": "say1",
+            "caption": "The real concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "heapq"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Keep a bounded heap of size k popping largest to save memory on streams.",
-            "left": {
-              "code": "memory footprint",
-              "result": {
-                "text": "O(N)"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "memory footprint",
-              "result": {
-                "text": "O(k)"
-              },
-              "tone": "ok"
-            }
+            "caption": "The another logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "smallest"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Finding k-th smallest using full heapify versus size-k heap",
-        "leftLabel": "Heapify & Pop",
-        "rightLabel": "Bounded Max-Heap",
+        "template": "table",
+        "title": "heapq and the k-th smallest",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Heapify the list and pop repeatedly until reaching the desired rank.",
-            "left": {
-              "code": "heapify + pop",
-              "result": "O(N + k log N)",
-              "tone": "data",
-              "checks": [
-                "O(N + k log N)"
-              ]
-            },
-            "right": {
-              "code": "bounded k",
-              "result": "O(N log k)",
-              "tone": "ok",
-              "checks": [
-                "O(N log k)"
-              ]
-            }
+            "at": "say1",
+            "caption": "The real concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "heapq",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Keep a bounded heap of size k popping largest to save memory on streams.",
-            "left": {
-              "code": "memory footprint",
-              "result": "O(N)",
-              "tone": "data",
-              "checks": [
-                "O(N)"
-              ]
-            },
-            "right": {
-              "code": "memory footprint",
-              "result": "O(k)",
-              "tone": "ok",
-              "checks": [
-                "O(k)"
-              ]
-            }
+            "caption": "The another logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "smallest"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -564,61 +346,40 @@
       "codeHash": "a30a38f1707734bcb6fc8474aaf8cb560b4af51062dc5cde40a0ba59f2ef0c39",
       "spec": {
         "template": "table",
-        "title": "Priority queue order with tie-breaking tuple",
+        "title": "Priority queues for tasks",
         "columns": [
-          "Priority Level",
-          "Tie-breaker Order",
-          "Task Payload"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A heap priority queue returns items by urgency rather than arrival time.",
+            "caption": "The heap concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "priority 1"
+                    "text": "Priority"
                   },
                   {
-                    "text": "order 0"
-                  },
-                  {
-                    "text": "render_ui"
+                    "text": "queues"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Push priority order task tuples to break ties between equal priorities.",
+            "at": "say3",
+            "caption": "The priority logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "priority 1"
+                    "text": "for"
                   },
                   {
-                    "text": "order 0"
-                  },
-                  {
-                    "text": "render_ui"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "priority 1"
-                  },
-                  {
-                    "text": "order 1"
-                  },
-                  {
-                    "text": "flush_logs"
+                    "text": "tasks"
                   }
                 ],
                 "tone": "ok"
@@ -629,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Priority queue order with tie-breaking tuple",
+        "title": "Priority queues for tasks",
         "columns": [
-          "Priority Level",
-          "Tie-breaker Order",
-          "Task Payload"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A heap priority queue returns items by urgency rather than arrival time.",
+            "caption": "The heap concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "priority 1",
-                  "order 0",
-                  "render_ui"
+                  "Priority",
+                  "queues"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Push priority order task tuples to break ties between equal priorities.",
+            "at": "say3",
+            "caption": "The priority logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "priority 1",
-                  "order 0",
-                  "render_ui"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "priority 1",
-                  "order 1",
-                  "flush_logs"
+                  "for",
+                  "tasks"
                 ],
                 "tone": "ok"
               }
@@ -679,223 +429,81 @@
       "partTitle": "Merging k sorted lists with a heap",
       "codeHash": "b05c1e07822f6b7e4e5b4ef41435b00d8b4d33b138323004fd200904447000da",
       "spec": {
-        "template": "flow",
-        "title": "Merging k sorted lists with a heap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Merging k sorted li...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Merging k sorted lists with a heap",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Merging k sorted lists with a heap.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Merging k sorted li... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The heap concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Merging"
+                  },
+                  {
+                    "text": "sorted"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Merging k sorted lists with a heap.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The total logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "lists"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Merging k sorted lists with a heap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Merging k sorted li...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Merging k sorted lists with a heap",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Merging k sorted lists with a heap [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Merging k sorted li... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The heap concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Merging",
+                  "sorted"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Merging k sorted lists with a heap [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The total logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "lists",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

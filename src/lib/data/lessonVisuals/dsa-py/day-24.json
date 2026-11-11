@@ -2,101 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "570c090aadc72f2d3e7a4db7afd722ef0616811bcf7b401d2899ea2ce7915595",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Groups that merge over time",
       "codeHash": "e88c51ac04b8f2e42d89740e4f7712bbb7c5aa68199f1ae8e2a9d6b6aae2085f",
       "spec": {
-        "template": "tree-graph",
-        "title": "Disjoint set tree with root representative",
-        "nodes": [
-          {
-            "id": "0",
-            "label": "0 (root)"
-          },
-          {
-            "id": "1",
-            "label": "1"
-          },
-          {
-            "id": "2",
-            "label": "2"
-          }
-        ],
-        "edges": [
-          {
-            "from": "1",
-            "to": "0",
-            "label": "parent"
-          },
-          {
-            "from": "2",
-            "to": "0",
-            "label": "parent"
-          }
+        "template": "table",
+        "title": "Groups that merge over time",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "find identifies the group representative while union merges two sets.",
-            "highlightNodes": [
-              "0"
+            "at": "say1",
+            "caption": "The problems concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Groups"
+                  },
+                  {
+                    "text": "that"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The root of the tree is the group representative and find follows parents.",
-            "highlightNodes": [
-              "0",
-              "1",
-              "2"
-            ],
-            "highlightEdges": [
-              "1->0",
-              "2->0"
+            "at": "say3",
+            "caption": "The running logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "merge"
+                  },
+                  {
+                    "text": "over"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Disjoint set tree with root representative",
-        "nodes": [
-          {
-            "id": "0",
-            "label": "0 (root)"
-          },
-          {
-            "id": "1",
-            "label": "1"
-          },
-          {
-            "id": "2",
-            "label": "2"
-          }
-        ],
-        "edges": [
-          {
-            "from": "1",
-            "to": "0",
-            "label": "parent"
-          },
-          {
-            "from": "2",
-            "to": "0",
-            "label": "parent"
-          }
+        "template": "table",
+        "title": "Groups that merge over time",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "find identifies the group representative while union merges two sets."
+            "at": "say1",
+            "caption": "The problems concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Groups",
+                  "that"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "The root of the tree is the group representative and find follows parents."
+            "at": "say3",
+            "caption": "The running logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "merge",
+                  "over"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -105,94 +93,82 @@
       "partTitle": "Path compression",
       "codeHash": "0f56fe8c3f274593d3d9b6abfa88f9f8a878a45cc5a517810ba8a248e5919c6c",
       "spec": {
-        "template": "compare",
-        "title": "Chained tree without compression versus flattened paths",
-        "leftLabel": "Without Compression",
-        "rightLabel": "Path Compression",
+        "template": "table",
+        "title": "Path compression",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Without care tree chains make find operations slow in the worst case.",
-            "left": {
-              "code": "chain 3->2->1->0",
-              "result": {
-                "text": "depth 4"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "flattened to 0",
-              "result": {
-                "text": "depth 1"
-              },
-              "tone": "ok"
-            }
+            "caption": "The without concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Path"
+                  },
+                  {
+                    "text": "compression"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Path compression points every visited node straight at the root.",
-            "left": {
-              "code": "find(3)",
-              "result": {
-                "text": "O(N) steps"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "find(3)",
-              "result": {
-                "text": "O(1) step"
-              },
-              "tone": "ok"
-            }
+            "at": "say3",
+            "caption": "The recursive logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Path"
+                  },
+                  {
+                    "text": "compression"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Chained tree without compression versus flattened paths",
-        "leftLabel": "Without Compression",
-        "rightLabel": "Path Compression",
+        "template": "table",
+        "title": "Path compression",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Without care tree chains make find operations slow in the worst case.",
-            "left": {
-              "code": "chain 3->2->1->0",
-              "result": "depth 4",
-              "tone": "error",
-              "checks": [
-                "depth 4"
-              ]
-            },
-            "right": {
-              "code": "flattened to 0",
-              "result": "depth 1",
-              "tone": "ok",
-              "checks": [
-                "depth 1"
-              ]
-            }
+            "caption": "The without concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Path",
+                  "compression"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Path compression points every visited node straight at the root.",
-            "left": {
-              "code": "find(3)",
-              "result": "O(N) steps",
-              "tone": "data",
-              "checks": [
-                "O(N) steps"
-              ]
-            },
-            "right": {
-              "code": "find(3)",
-              "result": "O(1) step",
-              "tone": "ok",
-              "checks": [
-                "O(1) step"
-              ]
-            }
+            "at": "say3",
+            "caption": "The recursive logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Path",
+                  "compression"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -202,61 +178,40 @@
       "codeHash": "0b21a5c965c785b66206b0195a0f97c0989be812bf3719568d5d2f03c0245dab",
       "spec": {
         "template": "table",
-        "title": "Union by rank balancing rules",
+        "title": "Union by rank and the UnionFind class",
         "columns": [
-          "Union Case",
-          "Rank Comparison",
-          "Merge Action"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Union by rank keeps trees shallow by attaching shorter tree under taller.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "rank(x) > rank(y)"
+                    "text": "Union"
                   },
                   {
-                    "text": "x taller than y"
-                  },
-                  {
-                    "text": "parent[y] = x"
+                    "text": "rank"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "union returns False when both elements already share the same group.",
+            "caption": "The union logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "rank(x) > rank(y)"
+                    "text": "and"
                   },
                   {
-                    "text": "x taller than y"
-                  },
-                  {
-                    "text": "parent[y] = x"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "root(x) == root(y)"
-                  },
-                  {
-                    "text": "Same component"
-                  },
-                  {
-                    "text": "Return False (cycle)"
+                    "text": "the"
                   }
                 ],
                 "tone": "ok"
@@ -267,44 +222,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Union by rank balancing rules",
+        "title": "Union by rank and the UnionFind class",
         "columns": [
-          "Union Case",
-          "Rank Comparison",
-          "Merge Action"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Union by rank keeps trees shallow by attaching shorter tree under taller.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "rank(x) > rank(y)",
-                  "x taller than y",
-                  "parent[y] = x"
+                  "Union",
+                  "rank"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "union returns False when both elements already share the same group.",
+            "caption": "The union logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "rank(x) > rank(y)",
-                  "x taller than y",
-                  "parent[y] = x"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "root(x) == root(y)",
-                  "Same component",
-                  "Return False (cycle)"
+                  "and",
+                  "the"
                 ],
                 "tone": "ok"
               }
@@ -317,223 +261,81 @@
       "partTitle": "Finding the redundant connection",
       "codeHash": "e21c47670382bb4f171d85d650b64615bb934e4ffc2827c62688a59e9d61c6a5",
       "spec": {
-        "template": "flow",
-        "title": "Finding the redundant connection — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finding the redunda...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Finding the redundant connection",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Finding the redundant connection [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Finding the redunda... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Finding"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Finding the redundant connection.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The cycle logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "redundant"
+                  },
+                  {
+                    "text": "connection"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Finding the redundant connection — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finding the redunda...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Finding the redundant connection",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finding the redundant connection [D24.P4.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finding the redunda... [D24.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Finding",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finding the redundant connection [D24.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The cycle logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "redundant",
+                  "connection"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -544,64 +346,43 @@
       "codeHash": "fcba1dbd725314f60a33367ac2fb4b36189f420b5dd0a25ea0ca00987dec466e",
       "spec": {
         "template": "table",
-        "title": "Kruskal greedy edge selection table",
+        "title": "Kruskal's minimum spanning tree",
         "columns": [
-          "Sorted Edge",
-          "Edge Weight",
-          "Kruskal Decision"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A minimum spanning tree connects all nodes with cheapest total edge cost.",
+            "caption": "The minimum concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "(A, B)"
+                    "text": "Kruskal"
                   },
                   {
-                    "text": "cost: 1"
-                  },
-                  {
-                    "text": "Connect buildings"
+                    "text": "minimum"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Kruskal algorithm sorts edges adding each edge unless it creates a loop.",
+            "at": "say3",
+            "caption": "The sorting logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "(A, B)"
+                    "text": "spanning"
                   },
                   {
-                    "text": "cost: 1"
-                  },
-                  {
-                    "text": "Union joins groups"
+                    "text": "tree"
                   }
                 ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "(B, C)"
-                  },
-                  {
-                    "text": "cost: 4"
-                  },
-                  {
-                    "text": "Skip: creates cycle"
-                  }
-                ],
-                "tone": "error"
+                "tone": "ok"
               }
             ]
           }
@@ -609,46 +390,35 @@
       },
       "filled": {
         "template": "table",
-        "title": "Kruskal greedy edge selection table",
+        "title": "Kruskal's minimum spanning tree",
         "columns": [
-          "Sorted Edge",
-          "Edge Weight",
-          "Kruskal Decision"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A minimum spanning tree connects all nodes with cheapest total edge cost.",
+            "caption": "The minimum concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "(A, B)",
-                  "cost: 1",
-                  "Connect buildings"
+                  "Kruskal",
+                  "minimum"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Kruskal algorithm sorts edges adding each edge unless it creates a loop.",
+            "at": "say3",
+            "caption": "The sorting logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "(A, B)",
-                  "cost: 1",
-                  "Union joins groups"
+                  "spanning",
+                  "tree"
                 ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "(B, C)",
-                  "cost: 4",
-                  "Skip: creates cycle"
-                ],
-                "tone": "error"
+                "tone": "ok"
               }
             ]
           }
@@ -659,223 +429,81 @@
       "partTitle": "Union-find or BFS?",
       "codeHash": "8fcd2c3a1d247a841defdcc3b49bcabab5a3d62151c5134586522354d415611c",
       "spec": {
-        "template": "flow",
-        "title": "Union-find or BFS? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Union-find or BFS?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Union-find or BFS?",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Union-find or BFS? [D.Psix.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Union-find or BFS? [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The both concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Union"
+                  },
+                  {
+                    "text": "find"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Union-find or BFS? [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The edges logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "BFS"
+                  },
+                  {
+                    "text": "find"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Union-find or BFS? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Union-find or BFS?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Union-find or BFS?",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Union-find or BFS? [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Union-find or BFS? [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The both concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Union",
+                  "find"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Union-find or BFS? [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The edges logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "BFS",
+                  "find"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

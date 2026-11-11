@@ -2,100 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 13,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "768f8e40cd21c159c90e6dab199c6c494b6e8218b4823caf83257a041f975d0b",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What an f-string is",
       "codeHash": "3cf49e8079e5a4b69a05961d4447fcd663a99a1a6d2f3c8b7d0cf6cfd613ae74",
       "spec": {
-        "template": "boxes",
-        "title": "Interpolating with f-strings",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "What an f-string is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Put the letter f just before the opening quote.",
-            "values": {
-              "item": {
-                "var": "item",
-                "line": 1
-              },
-              "amount": {
-                "text": "20"
+            "at": "say1",
+            "caption": "The until concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "string"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Python replaces curly brackets with the variable value.",
-            "values": {
-              "item": {
-                "var": "item",
-                "line": 2
-              },
-              "amount": {
-                "var": "amount",
-                "line": 2
+            "at": "say3",
+            "caption": "The stands logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "string"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Interpolating with f-strings",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "What an f-string is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Put the letter f just before the opening quote.",
-            "values": {
-              "item": "'Tea'",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            "at": "say1",
+            "caption": "The until concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "string"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Python replaces curly brackets with the variable value.",
-            "values": {
-              "item": "'Tea'",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The stands logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "string"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -104,94 +93,82 @@
       "partTitle": "Expressions inside the brackets",
       "codeHash": "6ae6ffdc89154348dd8b9c70632f05d2ad5076143c496a6a801758c7e9b4b5ab",
       "spec": {
-        "template": "boxes",
-        "title": "Evaluating expressions in f-strings",
-        "boxes": [
-          {
-            "id": "price",
-            "label": "price"
-          },
-          {
-            "id": "quantity",
-            "label": "quantity"
-          }
+        "template": "table",
+        "title": "Expressions inside the brackets",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Any expression works inside the curly brackets.",
-            "values": {
-              "price": {
-                "var": "price",
-                "line": 1
-              },
-              "quantity": {
-                "var": "quantity",
-                "line": 2
+            "caption": "The variable concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Expressions"
+                  },
+                  {
+                    "text": "inside"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "price": "data",
-              "quantity": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Keep the expressions short for readable text.",
-            "values": {
-              "price": {
-                "var": "price",
-                "line": 5
-              },
-              "quantity": {
-                "var": "quantity",
-                "line": 5
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "brackets"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "price": "data",
-              "quantity": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Evaluating expressions in f-strings",
-        "boxes": [
-          {
-            "id": "price",
-            "label": "price"
-          },
-          {
-            "id": "quantity",
-            "label": "quantity"
-          }
+        "template": "table",
+        "title": "Expressions inside the brackets",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Any expression works inside the curly brackets.",
-            "values": {
-              "price": "20",
-              "quantity": "3"
-            },
-            "tones": {
-              "price": "data",
-              "quantity": "idle"
-            }
+            "caption": "The variable concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Expressions",
+                  "inside"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Keep the expressions short for readable text.",
-            "values": {
-              "price": "20",
-              "quantity": "3"
-            },
-            "tones": {
-              "price": "data",
-              "quantity": "ok"
-            }
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "brackets"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -200,93 +177,82 @@
       "partTitle": "Formatting numbers: decimals and commas",
       "codeHash": "1afe8725e68bb97c6230a8243dd31355faa681d8be609fe5ee2234d0fbfba16b",
       "spec": {
-        "template": "boxes",
-        "title": "Formatting numeric display",
-        "boxes": [
-          {
-            "id": "amount",
-            "label": "amount"
-          },
-          {
-            "id": "salary",
-            "label": "salary"
-          }
+        "template": "table",
+        "title": "Formatting numbers: decimals and commas",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Add a colon and a format after the value.",
-            "values": {
-              "amount": {
-                "var": "amount",
-                "line": 1
-              },
-              "salary": {
-                "text": "1250000"
+            "caption": "The strings concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Formatting"
+                  },
+                  {
+                    "text": "numbers"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "amount": "data",
-              "salary": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Format codes add commas as thousands separators.",
-            "values": {
-              "amount": {
-                "var": "amount",
-                "line": 4
-              },
-              "salary": {
-                "var": "salary",
-                "line": 4
+            "caption": "The adds logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "decimals"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "amount": "data",
-              "salary": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Formatting numeric display",
-        "boxes": [
-          {
-            "id": "amount",
-            "label": "amount"
-          },
-          {
-            "id": "salary",
-            "label": "salary"
-          }
+        "template": "table",
+        "title": "Formatting numbers: decimals and commas",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Add a colon and a format after the value.",
-            "values": {
-              "amount": "99.5",
-              "salary": "1250000"
-            },
-            "tones": {
-              "amount": "data",
-              "salary": "idle"
-            }
+            "caption": "The strings concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Formatting",
+                  "numbers"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Format codes add commas as thousands separators.",
-            "values": {
-              "amount": "99.5",
-              "salary": "1250000"
-            },
-            "tones": {
-              "amount": "data",
-              "salary": "ok"
-            }
+            "caption": "The adds logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "decimals",
+                  "and"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -295,223 +261,81 @@
       "partTitle": "Lining up columns",
       "codeHash": "85839250a8aba1757bd3daf2e5a81f462f83e1437cb2d6dd2aef4f99dd581d78",
       "spec": {
-        "template": "flow",
-        "title": "Lining up columns — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Lining up columns",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Lining up columns",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Lining up columns [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Lining up columns [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The neat concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Lining"
+                  },
+                  {
+                    "text": "columns"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Lining up columns [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The combine logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Lining"
+                  },
+                  {
+                    "text": "columns"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Lining up columns — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Lining up columns",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Lining up columns",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Lining up columns [D13.P4.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Lining up columns [D13.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The neat concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Lining",
+                  "columns"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Lining up columns [D13.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The combine logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Lining",
+                  "columns"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -521,223 +345,81 @@
       "partTitle": "Multi-line text and join",
       "codeHash": "5f038a4ba28ade6ba9f5437545dc56053ba5148f8f2ad0870841f81e7fa09d03",
       "spec": {
-        "template": "flow",
-        "title": "Multi-line text and join — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-line text and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Multi-line text and join",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Multi-line text and join [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Multi-line text and... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The longer concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Multi"
+                  },
+                  {
+                    "text": "line"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Multi-line text and join [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The join logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "text"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-line text and join — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-line text and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Multi-line text and join",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-line text and join [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-line text and... [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The longer concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Multi",
+                  "line"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-line text and join [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The join logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "text",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -747,223 +429,81 @@
       "partTitle": "Putting it together: a printed receipt",
       "codeHash": "0078945c74dad9b9e5c45b7ef15bdf264977c0b3db2b97b9f2b400953397b84d",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: a printed receipt — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a printed receipt",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: a printed receipt.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: a printed re.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "printed"
+                  },
+                  {
+                    "text": "receipt"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: a printed receipt — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a printed receipt",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a printed receipt [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a printed re.. [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "printed",
+                  "receipt"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

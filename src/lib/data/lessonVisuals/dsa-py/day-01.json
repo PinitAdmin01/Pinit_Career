@@ -2,35 +2,31 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "3b585903bd2e6af45fe10f5c8494162903a9db37649d137dbc6859a8210649a8",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Why speed depends on the size of the input",
       "codeHash": "5f32e4be72d286373acd7f1af1c26c4be0c336fd5f3a7c21a2d30714907150a5",
       "spec": {
         "template": "table",
-        "title": "Step count growth with input size",
+        "title": "Why speed depends on the size of the input",
         "columns": [
-          "Input n",
-          "Single loop (n)",
-          "Nested loop (n^2)"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Count how fast steps grow as input gets bigger.",
+            "at": "say1",
+            "caption": "The algorithm concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "10"
+                    "text": "Why"
                   },
                   {
-                    "text": "10"
-                  },
-                  {
-                    "text": "100"
+                    "text": "speed"
                   }
                 ],
                 "tone": "data"
@@ -38,47 +34,16 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "One loop takes n steps while nested loop takes n times n.",
+            "at": "say3",
+            "caption": "The instead logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "10"
+                    "text": "depends"
                   },
                   {
-                    "text": "10"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "10,000"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1,000"
-                  },
-                  {
-                    "text": "1,000"
-                  },
-                  {
-                    "text": "1,000,000"
+                    "text": "the"
                   }
                 ],
                 "tone": "ok"
@@ -89,52 +54,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Step count growth with input size",
+        "title": "Why speed depends on the size of the input",
         "columns": [
-          "Input n",
-          "Single loop (n)",
-          "Nested loop (n^2)"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Count how fast steps grow as input gets bigger.",
+            "at": "say1",
+            "caption": "The algorithm concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "10",
-                  "10",
-                  "100"
+                  "Why",
+                  "speed"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "One loop takes n steps while nested loop takes n times n.",
+            "at": "say3",
+            "caption": "The instead logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "10",
-                  "10",
-                  "100"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "100",
-                  "100",
-                  "10,000"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "1,000",
-                  "1,000",
-                  "1,000,000"
+                  "depends",
+                  "the"
                 ],
                 "tone": "ok"
               }
@@ -147,350 +93,24 @@
       "partTitle": "Big-O: keep the part that grows fastest",
       "codeHash": "7e737fb4ca1b8fe081db1f9ef69b9ed461cd0fd9edcfe0462eeb49e294cca322",
       "spec": {
-        "template": "compare",
-        "title": "Dropping constants and keeping dominant terms",
-        "leftLabel": "Function",
-        "rightLabel": "Big-O class",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Drop constant numbers so linear function is still O(N).",
-            "left": {
-              "code": "3*n + 5",
-              "result": {
-                "text": "O(N)"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "+ 5 dropped",
-              "result": {
-                "text": "O(N)"
-              },
-              "tone": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Keep only fastest-growing dominant term.",
-            "left": {
-              "code": "n * n + n",
-              "result": {
-                "text": "O(N^2)"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "+ n ignored",
-              "result": {
-                "text": "O(N^2)"
-              },
-              "tone": "data"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Dropping constants and keeping dominant terms",
-        "leftLabel": "Function",
-        "rightLabel": "Big-O class",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Drop constant numbers so linear function is still O(N).",
-            "left": {
-              "code": "3*n + 5",
-              "result": "O(N)",
-              "tone": "ok",
-              "checks": [
-                "O(N)"
-              ]
-            },
-            "right": {
-              "code": "+ 5 dropped",
-              "result": "O(N)",
-              "tone": "data",
-              "checks": [
-                "O(N)"
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Keep only fastest-growing dominant term.",
-            "left": {
-              "code": "n * n + n",
-              "result": "O(N^2)",
-              "tone": "ok",
-              "checks": [
-                "O(N^2)"
-              ]
-            },
-            "right": {
-              "code": "+ n ignored",
-              "result": "O(N^2)",
-              "tone": "data",
-              "checks": [
-                "O(N^2)"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "O(1) and O(N): constant and linear time",
-      "codeHash": "d0c29db44df3eca3f5c710a8f92728ff3f6ee6be0833c77bab760c433ba7c0f2",
-      "spec": {
-        "template": "flow",
-        "title": "O(1) and O(N): constant and linear time — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. O(1) and O(N): cons...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Initialize input state for constant-time and O(N): constant and linear.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Execute core transformation in constant-time and O(N): cons.",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for constant-time and O(N): constant and.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "O(1) and O(N): constant and linear time — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. O(1) and O(N): cons...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for O(1) and O(N): constant and linear time [D1.P3.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in O(1) and O(N): cons... [D1.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for O(1) and O(N): constant and linea.. [D1.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "O(log N): halving the problem",
-      "codeHash": "409ef69af20fb3b8000335af214db5afb93be7a5dce66cc5a5990b850f145a5f",
-      "spec": {
         "template": "table",
-        "title": "Halving steps for logarithmic time",
+        "title": "Big-O: keep the part that grows fastest",
         "columns": [
-          "Input size N",
-          "Halvings to reach 1",
-          "Big-O"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Logarithm is how many times you can halve before reaching one.",
+            "caption": "The notation concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "100"
+                    "text": "Big"
                   },
                   {
-                    "text": "7 steps"
-                  },
-                  {
-                    "text": "O(log N)"
+                    "text": "keep"
                   }
                 ],
                 "tone": "data"
@@ -498,47 +118,16 @@
             ]
           },
           {
-            "at": "say2",
-            "caption": "Halving takes only few steps to reach one.",
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "100"
+                    "text": "the"
                   },
                   {
-                    "text": "7 steps"
-                  },
-                  {
-                    "text": "O(log N)"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1,000,000"
-                  },
-                  {
-                    "text": "20 steps"
-                  },
-                  {
-                    "text": "O(log N)"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1,000,000,000"
-                  },
-                  {
-                    "text": "30 steps"
-                  },
-                  {
-                    "text": "O(log N)"
+                    "text": "part"
                   }
                 ],
                 "tone": "ok"
@@ -549,52 +138,201 @@
       },
       "filled": {
         "template": "table",
-        "title": "Halving steps for logarithmic time",
+        "title": "Big-O: keep the part that grows fastest",
         "columns": [
-          "Input size N",
-          "Halvings to reach 1",
-          "Big-O"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Logarithm is how many times you can halve before reaching one.",
+            "caption": "The notation concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "100",
-                  "7 steps",
-                  "O(log N)"
+                  "Big",
+                  "keep"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Halving takes only few steps to reach one.",
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "100",
-                  "7 steps",
-                  "O(log N)"
+                  "the",
+                  "part"
                 ],
-                "tone": "data"
-              },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "O(1) and O(N): constant and linear time",
+      "codeHash": "d0c29db44df3eca3f5c710a8f92728ff3f6ee6be0833c77bab760c433ba7c0f2",
+      "spec": {
+        "template": "table",
+        "title": "O(1) and O(N): constant and linear time",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The constant concept establishes the core structural baseline.",
+            "rows": [
               {
                 "cells": [
-                  "1,000,000",
-                  "20 steps",
-                  "O(log N)"
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "constant"
+                  }
                 ],
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The linear logic drives deterministic execution.",
+            "rows": [
               {
                 "cells": [
-                  "1,000,000,000",
-                  "30 steps",
-                  "O(log N)"
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "linear"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "O(1) and O(N): constant and linear time",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The constant concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "constant"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The linear logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "linear"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "O(log N): halving the problem",
+      "codeHash": "409ef69af20fb3b8000335af214db5afb93be7a5dce66cc5a5990b850f145a5f",
+      "spec": {
+        "template": "table",
+        "title": "O(log N): halving the problem",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The logarithmic concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "log"
+                  },
+                  {
+                    "text": "halving"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The classic logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "problem"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "O(log N): halving the problem",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The logarithmic concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "log",
+                  "halving"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The classic logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "problem"
                 ],
                 "tone": "ok"
               }
@@ -607,223 +345,81 @@
       "partTitle": "O(N^2) and how to spot it",
       "codeHash": "1b1b54397c2e11374f144da53071a680a72cfddfb3b8a7d5bb62b6e3ecb92d14",
       "spec": {
-        "template": "flow",
-        "title": "O(N^2) and how to spot it — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. O(N^2) and how to s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "O(N^2) and how to spot it",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for quadratic-time and how to spot it.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in quadratic-time and how to s.",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The quadratic concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "how"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for quadratic-time and how to spot it.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "spot"
+                  },
+                  {
+                    "text": "how"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "O(N^2) and how to spot it — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. O(N^2) and how to s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "O(N^2) and how to spot it",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for O(N^2) and how to spot it [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in O(N^2) and how to s... [D1.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The quadratic concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "how"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for O(N^2) and how to spot it [D1.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "spot",
+                  "how"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -833,71 +429,43 @@
       "partTitle": "Space complexity: memory counts too",
       "codeHash": "a280e71efdfcac4e87dfc8e6202c7a140b7af0dfb505bd2fb217bf4c8d9313ba",
       "spec": {
-        "template": "cells",
-        "title": "Two pointers in-place swap",
+        "template": "table",
+        "title": "Space complexity: memory counts too",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Reversing list in place with two pointers that swap items.",
-            "items": [
+            "at": "say1",
+            "caption": "The describes concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "5"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "Space"
+                  },
+                  {
+                    "text": "complexity"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "In-place swap saves memory without making second list copy.",
-            "items": [
+            "caption": "The making logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "5"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "1"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 1,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "memory"
+                  },
+                  {
+                    "text": "counts"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -905,51 +473,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Two pointers in-place swap",
+        "template": "table",
+        "title": "Space complexity: memory counts too",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Reversing list in place with two pointers that swap items.",
-            "items": [
-              "1",
-              "2",
-              "3",
-              "4",
-              "5"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The describes concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 4,
+                "cells": [
+                  "Space",
+                  "complexity"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "In-place swap saves memory without making second list copy.",
-            "items": [
-              "5",
-              "2",
-              "3",
-              "4",
-              "1"
-            ],
-            "pointers": [
+            "caption": "The making logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "left",
-                "index": 1,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 3,
+                "cells": [
+                  "memory",
+                  "counts"
+                ],
                 "tone": "ok"
               }
             ]

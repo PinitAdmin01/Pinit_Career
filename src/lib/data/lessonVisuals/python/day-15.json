@@ -2,98 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 15,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "5f57eaa1347e244b63e17cc3bd89d05954fd2d1003d97aecd1d5a95658793c21",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What a module is and how to import it",
       "codeHash": "8538814cd12f1f701f2b5747c9e37a609e83bf0aeb3019b1a5596c2b3009a92b",
       "spec": {
-        "template": "boxes",
-        "title": "Importing tools from modules",
-        "boxes": [
-          {
-            "id": "math",
-            "label": "math"
-          },
-          {
-            "id": "pi",
-            "label": "pi"
-          }
+        "template": "table",
+        "title": "What a module is and how to import it",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "To use a module import it at the top of your file.",
-            "values": {
-              "math": {
-                "text": "import math"
-              },
-              "pi": {
-                "text": "math.sqrt(16)"
+            "at": "say1",
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "module"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "math": "data",
-              "pi": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Import just the tools you need directly without module name.",
-            "values": {
-              "math": {
-                "text": "from math import pi"
-              },
-              "pi": {
-                "var": "pi",
-                "line": 5
+            "caption": "The import logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "how"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "math": "data",
-              "pi": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Importing tools from modules",
-        "boxes": [
-          {
-            "id": "math",
-            "label": "math"
-          },
-          {
-            "id": "pi",
-            "label": "pi"
-          }
+        "template": "table",
+        "title": "What a module is and how to import it",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "To use a module import it at the top of your file.",
-            "values": {
-              "math": "import math",
-              "pi": "math.sqrt(16)"
-            },
-            "tones": {
-              "math": "data",
-              "pi": "idle"
-            }
+            "at": "say1",
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "module"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Import just the tools you need directly without module name.",
-            "values": {
-              "math": "from math import pi",
-              "pi": "3.141592653589793"
-            },
-            "tones": {
-              "math": "data",
-              "pi": "ok"
-            }
+            "caption": "The import logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "how"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -102,223 +93,81 @@
       "partTitle": "The random module",
       "codeHash": "309bdd5834b600fa51862a1b10dc46c1ac666eaf6a262e11c0a8f3033001efba",
       "spec": {
-        "template": "flow",
-        "title": "The random module — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The random module",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The random module",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The random module [D.Ptwo.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The random module [D.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The random concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "random"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The random module [D.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The random logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "module"
+                  },
+                  {
+                    "text": "random"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The random module — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The random module",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The random module",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The random module [D15.P2.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The random module [D15.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The random concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "random"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The random module [D15.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The random logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "module",
+                  "random"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -328,93 +177,82 @@
       "partTitle": "Dates with datetime",
       "codeHash": "d6fc83df2142b5933efeefa3b45dfccce47016fae0b4977acc34901790a07e4b",
       "spec": {
-        "template": "boxes",
-        "title": "Working with dates and timedeltas",
-        "boxes": [
-          {
-            "id": "start",
-            "label": "start"
-          },
-          {
-            "id": "end",
-            "label": "end"
-          }
+        "template": "table",
+        "title": "Dates with datetime",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Turns text in year month day format into a date.",
-            "values": {
-              "start": {
-                "var": "start",
-                "line": 2
-              },
-              "end": {
-                "text": "date(2026, 10, 1)"
+            "at": "say1",
+            "caption": "The almost concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Dates"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "start": "data",
-              "end": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Subtracting two dates gives a timedelta length of time.",
-            "values": {
-              "start": {
-                "var": "start",
-                "line": 3
-              },
-              "end": {
-                "var": "end",
-                "line": 3
+            "caption": "The subtracting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "datetime"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "start": "data",
-              "end": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Working with dates and timedeltas",
-        "boxes": [
-          {
-            "id": "start",
-            "label": "start"
-          },
-          {
-            "id": "end",
-            "label": "end"
-          }
+        "template": "table",
+        "title": "Dates with datetime",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Turns text in year month day format into a date.",
-            "values": {
-              "start": "{'__other__': 'date'}",
-              "end": "date(2026, 10, 1)"
-            },
-            "tones": {
-              "start": "data",
-              "end": "idle"
-            }
+            "at": "say1",
+            "caption": "The almost concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Dates",
+                  "with"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Subtracting two dates gives a timedelta length of time.",
-            "values": {
-              "start": "{'__other__': 'date'}",
-              "end": "{'__other__': 'date'}"
-            },
-            "tones": {
-              "start": "data",
-              "end": "ok"
-            }
+            "caption": "The subtracting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "datetime",
+                  "with"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -423,93 +261,82 @@
       "partTitle": "Other useful modules",
       "codeHash": "c6024f0922a98b38e6d29d18dc2d29d0843e5d6164f9822f44dabb16eb9640db",
       "spec": {
-        "template": "boxes",
-        "title": "Useful modules in the standard library",
-        "boxes": [
-          {
-            "id": "amounts",
-            "label": "amounts"
-          },
-          {
-            "id": "categories",
-            "label": "categories"
-          }
+        "template": "table",
+        "title": "Other useful modules",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Statistics calculates mean and median for you.",
-            "values": {
-              "amounts": {
-                "var": "amounts",
-                "line": 3
-              },
-              "categories": {
-                "text": "Counter(categories)"
+            "at": "say1",
+            "caption": "The standard concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Other"
+                  },
+                  {
+                    "text": "useful"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "amounts": "data",
-              "categories": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Counter gives the count of each value in categories.",
-            "values": {
-              "amounts": {
-                "var": "amounts",
-                "line": 6
-              },
-              "categories": {
-                "var": "categories",
-                "line": 6
+            "caption": "The counter logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "modules"
+                  },
+                  {
+                    "text": "useful"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "amounts": "data",
-              "categories": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Useful modules in the standard library",
-        "boxes": [
-          {
-            "id": "amounts",
-            "label": "amounts"
-          },
-          {
-            "id": "categories",
-            "label": "categories"
-          }
+        "template": "table",
+        "title": "Other useful modules",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Statistics calculates mean and median for you.",
-            "values": {
-              "amounts": "[20, 45, 120, 45, 300]",
-              "categories": "Counter(categories)"
-            },
-            "tones": {
-              "amounts": "data",
-              "categories": "idle"
-            }
+            "at": "say1",
+            "caption": "The standard concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Other",
+                  "useful"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Counter gives the count of each value in categories.",
-            "values": {
-              "amounts": "[20, 45, 120, 45, 300]",
-              "categories": "['food', 'travel', 'food', 'rent', 'foo…"
-            },
-            "tones": {
-              "amounts": "data",
-              "categories": "ok"
-            }
+            "caption": "The counter logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "modules",
+                  "useful"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -518,223 +345,81 @@
       "partTitle": "Your own modules",
       "codeHash": "659a3beb2ce9acecc549a2110d9f2a97039c0a9565e2e0d9c16ffe4597a0f1d3",
       "spec": {
-        "template": "flow",
-        "title": "Your own modules — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your own modules",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Your own modules",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Your own modules [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Your own modules [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The module concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Your"
+                  },
+                  {
+                    "text": "own"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Your own modules [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The file logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "modules"
+                  },
+                  {
+                    "text": "own"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Your own modules — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your own modules",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Your own modules",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your own modules [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your own modules [D15.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The module concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Your",
+                  "own"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your own modules [D15.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The file logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "modules",
+                  "own"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -744,223 +429,81 @@
       "partTitle": "Putting it together: due dates for bills",
       "codeHash": "9b4217f668fdd6fa1ab9000cfe255b175f71495ad9a204dadfde3cf58c8fd408",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: due dates for bills — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: due dates for bills",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: due dates for bills.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The modules concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: due dates fo.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The fixed logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "due"
+                  },
+                  {
+                    "text": "dates"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: due dates for bills — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: due dates for bills",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: due dates for bills [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The modules concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: due dates fo.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The fixed logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "due",
+                  "dates"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

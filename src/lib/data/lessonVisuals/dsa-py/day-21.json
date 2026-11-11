@@ -2,101 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "94a5bee30f8bc3d74553883d3eea97027192d1dd5c1eff502fb75a8a25160d48",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What an auto-complete engine must do",
       "codeHash": "55e76dbba751385b0f55b0175e48e2f79bda3c2715875ddc0687fb825b652e37",
       "spec": {
-        "template": "compare",
-        "title": "Auto-complete two jobs: finding and ranking",
-        "leftLabel": "Phase 1: Finding",
-        "rightLabel": "Phase 2: Ranking",
+        "template": "table",
+        "title": "What an auto-complete engine must do",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Job one is finding every stored phrase that starts with what was typed.",
-            "left": {
-              "code": "trie prefix walk",
-              "result": {
-                "text": "candidates"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "heap ranking",
-              "result": {
-                "text": "pending"
-              },
-              "tone": "idle"
-            }
+            "at": "say1",
+            "caption": "The type concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "auto"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Job two is ranking matches by frequency and picking top choices.",
-            "left": {
-              "code": "candidates",
-              "result": {
-                "text": "M phrases"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "top k heap",
-              "result": {
-                "text": "sorted list"
-              },
-              "tone": "ok"
-            }
+            "caption": "The ranking logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "complete"
+                  },
+                  {
+                    "text": "engine"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Auto-complete two jobs: finding and ranking",
-        "leftLabel": "Phase 1: Finding",
-        "rightLabel": "Phase 2: Ranking",
+        "template": "table",
+        "title": "What an auto-complete engine must do",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Job one is finding every stored phrase that starts with what was typed.",
-            "left": {
-              "code": "trie prefix walk",
-              "result": "candidates",
-              "tone": "ok",
-              "checks": [
-                "candidates"
-              ]
-            },
-            "right": {
-              "code": "heap ranking",
-              "result": "pending",
-              "tone": "idle",
-              "checks": [
-                "pending"
-              ]
-            }
+            "at": "say1",
+            "caption": "The type concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "auto"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Job two is ranking matches by frequency and picking top choices.",
-            "left": {
-              "code": "candidates",
-              "result": "M phrases",
-              "tone": "data",
-              "checks": [
-                "M phrases"
-              ]
-            },
-            "right": {
-              "code": "top k heap",
-              "result": "sorted list",
-              "tone": "ok",
-              "checks": [
-                "sorted list"
-              ]
-            }
+            "caption": "The ranking logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "complete",
+                  "engine"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -105,111 +93,82 @@
       "partTitle": "Storing frequencies in the trie",
       "codeHash": "ab6bdc9fb5f19c5e66c218a761f988009bb4c69e971cf68481f661489d92e21d",
       "spec": {
-        "template": "tree-graph",
-        "title": "Trie augmented with word frequencies",
-        "nodes": [
-          {
-            "id": "root",
-            "label": "root"
-          },
-          {
-            "id": "p",
-            "label": "p"
-          },
-          {
-            "id": "y",
-            "label": "y"
-          },
-          {
-            "id": "t",
-            "label": "t (freq: 10)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "root",
-            "to": "p",
-            "label": "p"
-          },
-          {
-            "from": "p",
-            "to": "y",
-            "label": "y"
-          },
-          {
-            "from": "y",
-            "to": "t",
-            "label": "t"
-          }
+        "template": "table",
+        "title": "Storing frequencies in the trie",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Add a freq field to each node when inserting words.",
-            "highlightNodes": [
-              "root",
-              "p",
-              "y"
+            "at": "say1",
+            "caption": "The checking concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Storing"
+                  },
+                  {
+                    "text": "frequencies"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "A node with positive freq marks a complete word.",
-            "highlightNodes": [
-              "t"
-            ],
-            "highlightEdges": [
-              "y->t"
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "trie"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Trie augmented with word frequencies",
-        "nodes": [
-          {
-            "id": "root",
-            "label": "root"
-          },
-          {
-            "id": "p",
-            "label": "p"
-          },
-          {
-            "id": "y",
-            "label": "y"
-          },
-          {
-            "id": "t",
-            "label": "t (freq: 10)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "root",
-            "to": "p",
-            "label": "p"
-          },
-          {
-            "from": "p",
-            "to": "y",
-            "label": "y"
-          },
-          {
-            "from": "y",
-            "to": "t",
-            "label": "t"
-          }
+        "template": "table",
+        "title": "Storing frequencies in the trie",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Add a freq field to each node when inserting words."
+            "at": "say1",
+            "caption": "The checking concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Storing",
+                  "frequencies"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "A node with positive freq marks a complete word."
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "trie"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -218,223 +177,81 @@
       "partTitle": "Collecting the matches below a prefix",
       "codeHash": "941c13312e75bbb68ef265da12e553152181a2b48aa25f4f0ea8022dc7aa5e68",
       "spec": {
-        "template": "flow",
-        "title": "Collecting the matches below a prefix — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Collecting the matc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Collecting the matches below a prefix",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Collecting the matches below a prefix.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Collecting the matc... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The suggest concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Collecting"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Collecting the matches below a pr.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The wrote logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "matches"
+                  },
+                  {
+                    "text": "below"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Collecting the matches below a prefix — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Collecting the matc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Collecting the matches below a prefix",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Collecting the matches below a prefix [D21.P3.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Collecting the matc... [D21.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The suggest concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Collecting",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Collecting the matches below a pr.. [D21.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The wrote logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "matches",
+                  "below"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -445,61 +262,40 @@
       "codeHash": "720d2b920c481194e92fe72b28d336b12e24f3b3fe1a7a8b1f4dff0e5f0a2e6b",
       "spec": {
         "template": "table",
-        "title": "Heap-based ranking with tie-breaking tuple",
+        "title": "Picking the top k with a heap",
         "columns": [
-          "Query Tuple",
-          "Frequency Priority",
-          "Tie-breaker Order"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "nsmallest with the right key keeps only the best choices while scanning.",
+            "caption": "The sorting concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "(-10, python)"
+                    "text": "Picking"
                   },
                   {
-                    "text": "freq: 10"
-                  },
-                  {
-                    "text": "rank 1"
+                    "text": "the"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Highest frequencies return first with alphabetical order breaking ties.",
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "(-10, python)"
+                    "text": "top"
                   },
                   {
-                    "text": "freq: 10"
-                  },
-                  {
-                    "text": "rank 1"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "(-5, pytorch)"
-                  },
-                  {
-                    "text": "freq: 5"
-                  },
-                  {
-                    "text": "rank 2"
+                    "text": "with"
                   }
                 ],
                 "tone": "ok"
@@ -510,44 +306,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Heap-based ranking with tie-breaking tuple",
+        "title": "Picking the top k with a heap",
         "columns": [
-          "Query Tuple",
-          "Frequency Priority",
-          "Tie-breaker Order"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "nsmallest with the right key keeps only the best choices while scanning.",
+            "caption": "The sorting concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "(-10, python)",
-                  "freq: 10",
-                  "rank 1"
+                  "Picking",
+                  "the"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Highest frequencies return first with alphabetical order breaking ties.",
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "(-10, python)",
-                  "freq: 10",
-                  "rank 1"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "(-5, pytorch)",
-                  "freq: 5",
-                  "rank 2"
+                  "top",
+                  "with"
                 ],
                 "tone": "ok"
               }
@@ -561,61 +346,40 @@
       "codeHash": "dfcaa6c4393cc6c044acecb3cd2d9c03bd643f68c1be721a06d25125300a0288",
       "spec": {
         "template": "table",
-        "title": "Complete milestone pipeline components",
+        "title": "The complete AutocompleteSystem",
         "columns": [
-          "Component Stage",
-          "Data Structure",
-          "Time Complexity"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Combine trie with frequencies and top ranked suggestion logic.",
+            "caption": "The combine concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Prefix Lookup"
+                    "text": "The"
                   },
                   {
-                    "text": "Trie Walk"
-                  },
-                  {
-                    "text": "O(L)"
+                    "text": "complete"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Milestone combines tries, depth-first search and heap selection.",
+            "at": "say3",
+            "caption": "The test logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Prefix Lookup"
+                    "text": "AutocompleteSystem"
                   },
                   {
-                    "text": "Trie Walk"
-                  },
-                  {
-                    "text": "O(L)"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Ranking Top-k"
-                  },
-                  {
-                    "text": "Heap Priority"
-                  },
-                  {
-                    "text": "O(M log k)"
+                    "text": "complete"
                   }
                 ],
                 "tone": "ok"
@@ -626,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Complete milestone pipeline components",
+        "title": "The complete AutocompleteSystem",
         "columns": [
-          "Component Stage",
-          "Data Structure",
-          "Time Complexity"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Combine trie with frequencies and top ranked suggestion logic.",
+            "caption": "The combine concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Prefix Lookup",
-                  "Trie Walk",
-                  "O(L)"
+                  "The",
+                  "complete"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Milestone combines tries, depth-first search and heap selection.",
+            "at": "say3",
+            "caption": "The test logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Prefix Lookup",
-                  "Trie Walk",
-                  "O(L)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Ranking Top-k",
-                  "Heap Priority",
-                  "O(M log k)"
+                  "AutocompleteSystem",
+                  "complete"
                 ],
                 "tone": "ok"
               }
@@ -676,223 +429,81 @@
       "partTitle": "Making suggestions fast at scale",
       "codeHash": "434328c00d4da97048f6038319131c6dd3de1a5f941222a876f79f2a6f762256",
       "spec": {
-        "template": "flow",
-        "title": "Making suggestions fast at scale — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Making suggestions ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Making suggestions fast at scale",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Making suggestions fast at scale [D.Psix.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Making suggestions ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The search concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Making"
+                  },
+                  {
+                    "text": "suggestions"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Making suggestions fast at scale.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The cost logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "fast"
+                  },
+                  {
+                    "text": "scale"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Making suggestions fast at scale — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Making suggestions ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Making suggestions fast at scale",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Making suggestions fast at scale [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Making suggestions ... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The search concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Making",
+                  "suggestions"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Making suggestions fast at scale [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The cost logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "fast",
+                  "scale"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

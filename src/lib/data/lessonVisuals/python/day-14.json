@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 14,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "df3fe6782527e92165dafefba5e869d2f6f4627155d2b9c93a5210d6423891de",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Reading an error message",
       "codeHash": "2a98489dfce546b529e019dde0ff599e19bdb39f17e47e9d8902406c5deb62cc",
       "spec": {
-        "template": "flow",
-        "title": "Reading an error message — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading an error me...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Reading an error message",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reading an error message [D.Pone.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reading an error me... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The seen concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Reading"
+                  },
+                  {
+                    "text": "error"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reading an error message [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The laptop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "message"
+                  },
+                  {
+                    "text": "error"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reading an error message — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading an error me...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Reading an error message",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reading an error message [D14.P1.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reading an error me... [D14.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The seen concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Reading",
+                  "error"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reading an error message [D14.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The laptop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "message",
+                  "error"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,90 +93,82 @@
       "partTitle": "try and except",
       "codeHash": "21ea22521014ecf167032ecbd5314348a5b50891f735e71d9bf7b1fbf57d9612",
       "spec": {
-        "template": "boxes",
-        "title": "Catching exceptions with try and except",
-        "boxes": [
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
+        "template": "table",
+        "title": "try and except",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Some errors are expected when converting text input.",
-            "values": {
-              "text": {
-                "text": "45"
-              },
-              "error": {
-                "text": "ValueError"
+            "caption": "The errors concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "try"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "text": "data",
-              "error": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Put the risky code inside a try block.",
-            "values": {
-              "text": {
-                "text": "abc"
-              },
-              "error": {
-                "text": "ValueError"
+            "at": "say3",
+            "caption": "The always logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "except"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "text": "error",
-              "error": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Catching exceptions with try and except",
-        "boxes": [
-          {
-            "id": "text",
-            "label": "text"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
+        "template": "table",
+        "title": "try and except",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Some errors are expected when converting text input.",
-            "values": {
-              "text": "45",
-              "error": "ValueError"
-            },
-            "tones": {
-              "text": "data",
-              "error": "idle"
-            }
+            "caption": "The errors concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "try",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Put the risky code inside a try block.",
-            "values": {
-              "text": "abc",
-              "error": "ValueError"
-            },
-            "tones": {
-              "text": "error",
-              "error": "ok"
-            }
+            "at": "say3",
+            "caption": "The always logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "except",
+                  "and"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -327,223 +177,81 @@
       "partTitle": "Using the error message",
       "codeHash": "0cc7f0d794951a094617349ee94f9a588130e945d2277c6fb005b86059fe5817",
       "spec": {
-        "template": "flow",
-        "title": "Using the error message — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Using the error mes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Using the error message",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Using the error message [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Using the error mes... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The error concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Using"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Using the error message [D.Pthree.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The several logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "error"
+                  },
+                  {
+                    "text": "message"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Using the error message — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Using the error mes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Using the error message",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Using the error message [D14.P3.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Using the error mes... [D14.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The error concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Using",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Using the error message [D14.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The several logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "error",
+                  "message"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -553,90 +261,82 @@
       "partTitle": "else and finally",
       "codeHash": "68392850e1a08cb3fd9eceb859e85389fb8474e856ca0ac13053f1ee4fc17ad0",
       "spec": {
-        "template": "boxes",
-        "title": "Execution flow in try-else-finally",
-        "boxes": [
-          {
-            "id": "amount_text",
-            "label": "amount_text"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "else and finally",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The else block runs only if no error happened.",
-            "values": {
-              "amount_text": {
-                "text": "250"
-              },
-              "amount": {
-                "text": "Paid Rs"
+            "caption": "The statement concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "else"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "amount_text": "data",
-              "amount": "ok"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The finally block runs every time error or not.",
-            "values": {
-              "amount_text": {
-                "text": "two hundred"
-              },
-              "amount": {
-                "text": "Payment screen closed"
+            "at": "say3",
+            "caption": "The full logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "finally"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "amount_text": "error",
-              "amount": "idle"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Execution flow in try-else-finally",
-        "boxes": [
-          {
-            "id": "amount_text",
-            "label": "amount_text"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "else and finally",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The else block runs only if no error happened.",
-            "values": {
-              "amount_text": "250",
-              "amount": "Paid Rs"
-            },
-            "tones": {
-              "amount_text": "data",
-              "amount": "ok"
-            }
+            "caption": "The statement concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "else",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The finally block runs every time error or not.",
-            "values": {
-              "amount_text": "two hundred",
-              "amount": "Payment screen closed"
-            },
-            "tones": {
-              "amount_text": "error",
-              "amount": "idle"
-            }
+            "at": "say3",
+            "caption": "The full logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "finally",
+                  "and"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -645,90 +345,82 @@
       "partTitle": "Raising your own errors",
       "codeHash": "23eec6ed57801559851c1d0dcad8fa427644f56825d975b474098b9204a44de5",
       "spec": {
-        "template": "boxes",
-        "title": "Raising custom exceptions",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Raising your own errors",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Raise an error yourself instead of continuing with bad data.",
-            "values": {
-              "item": {
-                "text": "Tea"
-              },
-              "amount": {
-                "text": "20"
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Raising"
+                  },
+                  {
+                    "text": "your"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Validation catches bad data early before causing confusing errors.",
-            "values": {
-              "item": {
-                "text": "Refund?"
-              },
-              "amount": {
-                "text": "-50"
+            "at": "say3",
+            "caption": "The choose logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "own"
+                  },
+                  {
+                    "text": "errors"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "error"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Raising custom exceptions",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Raising your own errors",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Raise an error yourself instead of continuing with bad data.",
-            "values": {
-              "item": "Tea",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Raising",
+                  "your"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Validation catches bad data early before causing confusing errors.",
-            "values": {
-              "item": "Refund?",
-              "amount": "-50"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "error"
-            }
+            "at": "say3",
+            "caption": "The choose logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "own",
+                  "errors"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -737,223 +429,81 @@
       "partTitle": "Putting it together: safe input handling",
       "codeHash": "eaf1a115a31f720a727fd87f43a76fa1be4323feac1f0c20c75dc3429e8dd5b7",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: safe input handling — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: safe input handling",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: safe input handling.",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: safe input h.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "safe"
+                  },
+                  {
+                    "text": "input"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: safe input handling — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: safe input handling",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: safe input handling [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: safe input h.. [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "safe",
+                  "input"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

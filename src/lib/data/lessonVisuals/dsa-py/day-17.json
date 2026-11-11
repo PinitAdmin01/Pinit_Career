@@ -2,139 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "345993ce1bbce67154d6b2229f000bf9d7ce9914ab5781e86d98e9f54f078209",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "The binary search tree rule",
       "codeHash": "22ad012b5111c5437109f098b7b2fb7fe31a0c1562bc19a5bb8299ab2b5cea7e",
       "spec": {
-        "template": "tree-graph",
-        "title": "Binary search tree ordering invariant",
-        "nodes": [
-          {
-            "id": "4",
-            "label": "4 (root)"
-          },
-          {
-            "id": "2",
-            "label": "2 (< 4)"
-          },
-          {
-            "id": "6",
-            "label": "6 (> 4)"
-          },
-          {
-            "id": "1",
-            "label": "1"
-          },
-          {
-            "id": "7",
-            "label": "7"
-          }
-        ],
-        "edges": [
-          {
-            "from": "4",
-            "to": "2",
-            "label": "left"
-          },
-          {
-            "from": "4",
-            "to": "6",
-            "label": "right"
-          },
-          {
-            "from": "2",
-            "to": "1",
-            "label": "left"
-          },
-          {
-            "from": "6",
-            "to": "7",
-            "label": "right"
-          }
+        "template": "table",
+        "title": "The binary search tree rule",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Left subtree values are smaller while right subtree values are bigger.",
-            "highlightNodes": [
-              "4",
-              "2",
-              "6"
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "binary"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compare target with node to go left or right until found.",
-            "highlightNodes": [
-              "4",
-              "6",
-              "7"
-            ],
-            "highlightEdges": [
-              "4->6",
-              "6->7"
+            "at": "say3",
+            "caption": "The rule logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "search"
+                  },
+                  {
+                    "text": "tree"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Binary search tree ordering invariant",
-        "nodes": [
-          {
-            "id": "4",
-            "label": "4 (root)"
-          },
-          {
-            "id": "2",
-            "label": "2 (< 4)"
-          },
-          {
-            "id": "6",
-            "label": "6 (> 4)"
-          },
-          {
-            "id": "1",
-            "label": "1"
-          },
-          {
-            "id": "7",
-            "label": "7"
-          }
-        ],
-        "edges": [
-          {
-            "from": "4",
-            "to": "2",
-            "label": "left"
-          },
-          {
-            "from": "4",
-            "to": "6",
-            "label": "right"
-          },
-          {
-            "from": "2",
-            "to": "1",
-            "label": "left"
-          },
-          {
-            "from": "6",
-            "to": "7",
-            "label": "right"
-          }
+        "template": "table",
+        "title": "The binary search tree rule",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Left subtree values are smaller while right subtree values are bigger."
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "binary"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Compare target with node to go left or right until found."
+            "at": "say3",
+            "caption": "The rule logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "search",
+                  "tree"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,94 +93,82 @@
       "partTitle": "Searching and the cost of balance",
       "codeHash": "a66dc1242cc5d472ac7955967945cac94d12240c553632feb3b96d47115c3d7b",
       "spec": {
-        "template": "compare",
-        "title": "Tree balance versus degenerate linked list chain",
-        "leftLabel": "Balanced BST",
-        "rightLabel": "Degenerate Chain",
+        "template": "table",
+        "title": "Searching and the cost of balance",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Insert searches until falling off the tree then places new node.",
-            "left": {
-              "code": "insert(val)",
-              "result": {
-                "text": "height: log N"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "insert(sorted)",
-              "result": {
-                "text": "height: N"
-              },
-              "tone": "error"
-            }
+            "caption": "The search concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Searching"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Insert in sorted order degrades search height to linear time.",
-            "left": {
-              "code": "search balanced",
-              "result": {
-                "text": "O(log N)"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "search chained",
-              "result": {
-                "text": "O(N)"
-              },
-              "tone": "error"
-            }
+            "at": "say3",
+            "caption": "The inserting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "cost"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Tree balance versus degenerate linked list chain",
-        "leftLabel": "Balanced BST",
-        "rightLabel": "Degenerate Chain",
+        "template": "table",
+        "title": "Searching and the cost of balance",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Insert searches until falling off the tree then places new node.",
-            "left": {
-              "code": "insert(val)",
-              "result": "height: log N",
-              "tone": "ok",
-              "checks": [
-                "height: log N"
-              ]
-            },
-            "right": {
-              "code": "insert(sorted)",
-              "result": "height: N",
-              "tone": "error",
-              "checks": [
-                "height: N"
-              ]
-            }
+            "caption": "The search concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Searching",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Insert in sorted order degrades search height to linear time.",
-            "left": {
-              "code": "search balanced",
-              "result": "O(log N)",
-              "tone": "ok",
-              "checks": [
-                "O(log N)"
-              ]
-            },
-            "right": {
-              "code": "search chained",
-              "result": "O(N)",
-              "tone": "error",
-              "checks": [
-                "O(N)"
-              ]
-            }
+            "at": "say3",
+            "caption": "The inserting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "cost"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -239,94 +177,82 @@
       "partTitle": "Validating a BST with ranges",
       "codeHash": "5f39d64fbcdcbced2a2d7d027d6febe7245571bbbf531c2b2f02ad9ed9c23e1c",
       "spec": {
-        "template": "tree-graph",
-        "title": "Validating BST invariant with propagated bounds",
-        "nodes": [
-          {
-            "id": "10",
-            "label": "10 (-inf, +inf)"
-          },
-          {
-            "id": "5",
-            "label": "5 (-inf, 10)"
-          },
-          {
-            "id": "15",
-            "label": "15 (10, +inf)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "10",
-            "to": "5",
-            "label": "left"
-          },
-          {
-            "from": "10",
-            "to": "15",
-            "label": "right"
-          }
+        "template": "table",
+        "title": "Validating a BST with ranges",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Checking direct child values is not enough as the rule covers whole subtrees.",
-            "highlightNodes": [
-              "10",
-              "5",
-              "15"
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Validating"
+                  },
+                  {
+                    "text": "BST"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Pass an allowed range down the tree updating upper or lower limits.",
-            "highlightNodes": [
-              "10",
-              "5"
-            ],
-            "highlightEdges": [
-              "10->5"
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "ranges"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Validating BST invariant with propagated bounds",
-        "nodes": [
-          {
-            "id": "10",
-            "label": "10 (-inf, +inf)"
-          },
-          {
-            "id": "5",
-            "label": "5 (-inf, 10)"
-          },
-          {
-            "id": "15",
-            "label": "15 (10, +inf)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "10",
-            "to": "5",
-            "label": "left"
-          },
-          {
-            "from": "10",
-            "to": "15",
-            "label": "right"
-          }
+        "template": "table",
+        "title": "Validating a BST with ranges",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Checking direct child values is not enough as the rule covers whole subtrees."
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Validating",
+                  "BST"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Pass an allowed range down the tree updating upper or lower limits."
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "ranges"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -335,223 +261,81 @@
       "partTitle": "Lowest common ancestor in a BST",
       "codeHash": "82c840afedadd25b1ee1edf2ea99da4507b8d74ff7adfa7acadfa10bf4bff1dc",
       "spec": {
-        "template": "flow",
-        "title": "Lowest common ancestor in a BST — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Lowest common ances...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Lowest common ancestor in a BST",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Lowest common ancestor in a BST [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Lowest common ances... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Lowest"
+                  },
+                  {
+                    "text": "common"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Lowest common ancestor in a BST.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The otherwise logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "ancestor"
+                  },
+                  {
+                    "text": "BST"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Lowest common ancestor in a BST — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Lowest common ances...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Lowest common ancestor in a BST",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Lowest common ancestor in a BST [D17.P4.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Lowest common ances... [D17.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Lowest",
+                  "common"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Lowest common ancestor in a BST [D17.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The otherwise logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "ancestor",
+                  "BST"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -562,61 +346,40 @@
       "codeHash": "e4bc456d767e7faed5ee3c162a221e8c173484fb4cb06a6018022c307561274b",
       "spec": {
         "template": "table",
-        "title": "BST queries: k-th smallest and range queries",
+        "title": "The k-th smallest and range queries",
         "columns": [
-          "Query Operation",
-          "Traversal Method",
-          "Early Pruning Strategy"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Inorder gives sorted order allowing early exit at the target element.",
+            "caption": "The because concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "k-th Smallest"
+                    "text": "The"
                   },
                   {
-                    "text": "Inorder (LNR)"
-                  },
-                  {
-                    "text": "Stop traversal as soon as k elements visited"
+                    "text": "smallest"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A range query skips subtrees when the current node is outside bounds.",
+            "at": "say3",
+            "caption": "The skipping logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "k-th Smallest"
+                    "text": "and"
                   },
                   {
-                    "text": "Inorder (LNR)"
-                  },
-                  {
-                    "text": "Stop traversal as soon as k elements visited"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Range Query"
-                  },
-                  {
-                    "text": "Selective BST Walk"
-                  },
-                  {
-                    "text": "Skip left if node < low, skip right if node > high"
+                    "text": "range"
                   }
                 ],
                 "tone": "ok"
@@ -627,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "BST queries: k-th smallest and range queries",
+        "title": "The k-th smallest and range queries",
         "columns": [
-          "Query Operation",
-          "Traversal Method",
-          "Early Pruning Strategy"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Inorder gives sorted order allowing early exit at the target element.",
+            "caption": "The because concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "k-th Smallest",
-                  "Inorder (LNR)",
-                  "Stop traversal as soon as k elements visited"
+                  "The",
+                  "smallest"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A range query skips subtrees when the current node is outside bounds.",
+            "at": "say3",
+            "caption": "The skipping logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "k-th Smallest",
-                  "Inorder (LNR)",
-                  "Stop traversal as soon as k elements visited"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Range Query",
-                  "Selective BST Walk",
-                  "Skip left if node < low, skip right if node > high"
+                  "and",
+                  "range"
                 ],
                 "tone": "ok"
               }
@@ -677,223 +429,81 @@
       "partTitle": "Deleting from a BST",
       "codeHash": "c40440df8e4812c72754cd2ddff0b1499c94b5dfc0797232fa209947e0c5e577",
       "spec": {
-        "template": "flow",
-        "title": "Deleting from a BST — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Deleting from a BST",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Deleting from a BST",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Deleting from a BST [D.Psix.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Deleting from a BST [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The deleting concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Deleting"
+                  },
+                  {
+                    "text": "from"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Deleting from a BST [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The successor logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "BST"
+                  },
+                  {
+                    "text": "from"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deleting from a BST — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Deleting from a BST",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Deleting from a BST",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Deleting from a BST [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Deleting from a BST [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The deleting concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Deleting",
+                  "from"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Deleting from a BST [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The successor logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "BST",
+                  "from"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

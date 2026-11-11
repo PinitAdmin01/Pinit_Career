@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 58,
-  "promptSha": "f2823f2440eb94a91284c4951f88217362098739dbcf3e5aad0408aa56aab1a4",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "ac3da29752fd376fcba394c8ef53aedc1a59eca4c6a93c5c3d4a6c0994ace4c3",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Flash Sale Thundering Herd Physics & Queue Draining Architecture",
       "codeHash": "a55749eca299a6dc49f3066bc6d2920b9d820b8df673b3ed743c6a81d5d81c4e",
       "spec": {
-        "template": "states",
-        "title": "Flash Sale Thundering Herd Physics & Queue Draining Architecture — Enterprise Systems Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Thundering Herd Ingress"
-          },
-          {
-            "id": "st2",
-            "label": "Token Bucket Rate Limiting"
-          },
-          {
-            "id": "st3",
-            "label": "Atomic Redis Lua Reservation"
-          },
-          {
-            "id": "st4",
-            "label": "Asynchronous DB Queue Drain"
-          }
+        "template": "table",
+        "title": "Flash Sale Thundering Herd Physics & Queue Drainin",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Thundering Herd Ingress): Initialize architecture and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Flash"
+                  },
+                  {
+                    "text": "Sale"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The requests logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Thundering"
+                  },
+                  {
+                    "text": "Herd"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Flash Sale Thundering Herd Physics & Queue Drainin",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Token Bucket Rate Limiting verifying strict invariants and transactional semantics.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "verify_transaction_invariants()"
-            },
-            "tone": "data"
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Flash",
+                  "Sale"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Atomic Redis Lua Reservation with high-concurrency execution and fault isolation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "execute_isolated_workload()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Asynchronous DB Queue Drain): Production invariant verified.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_gate()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The requests logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Thundering",
+                  "Herd"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "TOCTOU Inventory Overselling Race Condition Forensics",
       "codeHash": "ccf3b0e63feadc81037f0fbd07dec2580b974ba7b194feacbc03101f9a461182",
       "spec": {
-        "template": "states",
-        "title": "TOCTOU Inventory Overselling Race Condition Forensics — Enterprise Systems Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Thundering Herd Ingress"
-          },
-          {
-            "id": "st2",
-            "label": "Token Bucket Rate Limiting"
-          },
-          {
-            "id": "st3",
-            "label": "Atomic Redis Lua Reservation"
-          },
-          {
-            "id": "st4",
-            "label": "Asynchronous DB Queue Drain"
-          }
+        "template": "table",
+        "title": "TOCTOU Inventory Overselling Race Condition Forens",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Thundering Herd Ingress): Initialize architecture and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The handling concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "TOCTOU"
+                  },
+                  {
+                    "text": "Inventory"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Overselling"
+                  },
+                  {
+                    "text": "Race"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "TOCTOU Inventory Overselling Race Condition Forens",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Token Bucket Rate Limiting verifying strict invariants and transactional semantics.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "verify_transaction_invariants()"
-            },
-            "tone": "data"
+            "caption": "The handling concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "TOCTOU",
+                  "Inventory"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Atomic Redis Lua Reservation with high-concurrency execution and fault isolation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "execute_isolated_workload()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Asynchronous DB Queue Drain): Production invariant verified.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_gate()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Overselling",
+                  "Race"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Atomic Redis Lua Flash Sale Inventory Engine Implementation",
       "codeHash": "47bf47ceafbde769488c44fd45d6643c79e02eb147681fc4d0acababc1c09770",
       "spec": {
-        "template": "states",
-        "title": "Atomic Redis Lua Flash Sale Inventory Engine Implementation — Enterprise Systems Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Thundering Herd Ingress"
-          },
-          {
-            "id": "st2",
-            "label": "Token Bucket Rate Limiting"
-          },
-          {
-            "id": "st3",
-            "label": "Atomic Redis Lua Reservation"
-          },
-          {
-            "id": "st4",
-            "label": "Asynchronous DB Queue Drain"
-          }
+        "template": "table",
+        "title": "Atomic Redis Lua Flash Sale Inventory Engine Imple",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Thundering Herd Ingress): Initialize architecture and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The completely concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Atomic"
+                  },
+                  {
+                    "text": "Redis"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The flash logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Lua"
+                  },
+                  {
+                    "text": "Flash"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Atomic Redis Lua Flash Sale Inventory Engine Imple",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Token Bucket Rate Limiting verifying strict invariants and transactional semantics.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "verify_transaction_invariants()"
-            },
-            "tone": "data"
+            "caption": "The completely concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Atomic",
+                  "Redis"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Atomic Redis Lua Reservation with high-concurrency execution and fault isolation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "execute_isolated_workload()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Asynchronous DB Queue Drain): Production invariant verified.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_gate()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The flash logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Lua",
+                  "Flash"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Planetary-Scale Flash Sale Thundering Herd Hardening",
       "codeHash": "010af6fd48f316096accb09d5d721da308412c673cb47c7d4010f100cad3abeb",
       "spec": {
-        "template": "states",
-        "title": "Planetary-Scale Flash Sale Thundering Herd Hardening — Enterprise Systems Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Thundering Herd Ingress"
-          },
-          {
-            "id": "st2",
-            "label": "Token Bucket Rate Limiting"
-          },
-          {
-            "id": "st3",
-            "label": "Atomic Redis Lua Reservation"
-          },
-          {
-            "id": "st4",
-            "label": "Asynchronous DB Queue Drain"
-          }
+        "template": "table",
+        "title": "Planetary-Scale Flash Sale Thundering Herd Hardeni",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Thundering Herd Ingress): Initialize architecture and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The even concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Planetary"
+                  },
+                  {
+                    "text": "Scale"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The token logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Flash"
+                  },
+                  {
+                    "text": "Sale"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Planetary-Scale Flash Sale Thundering Herd Hardeni",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Token Bucket Rate Limiting verifying strict invariants and transactional semantics.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "verify_transaction_invariants()"
-            },
-            "tone": "data"
+            "caption": "The even concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Planetary",
+                  "Scale"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Atomic Redis Lua Reservation with high-concurrency execution and fault isolation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "execute_isolated_workload()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Asynchronous DB Queue Drain): Production invariant verified.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_gate()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The token logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Flash",
+                  "Sale"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Asynchronous Order Draining, Dead-Letter Queues & Stock Reconciliation",
       "codeHash": "72f1e2cbdc6c2b7ebe82a4971bfb0a5c0b70ddd541eae88a3a49910db3a3b230",
       "spec": {
-        "template": "states",
-        "title": "Asynchronous Order Draining, Dead-Letter Queues & Stock Reconciliation — Enterprise Systems Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Thundering Herd Ingress"
-          },
-          {
-            "id": "st2",
-            "label": "Token Bucket Rate Limiting"
-          },
-          {
-            "id": "st3",
-            "label": "Atomic Redis Lua Reservation"
-          },
-          {
-            "id": "st4",
-            "label": "Asynchronous DB Queue Drain"
-          }
+        "template": "table",
+        "title": "Asynchronous Order Draining, Dead-Letter Queues & ",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Thundering Herd Ingress): Initialize architecture and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The once concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Asynchronous"
+                  },
+                  {
+                    "text": "Order"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The order logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Draining"
+                  },
+                  {
+                    "text": "Dead"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Asynchronous Order Draining, Dead-Letter Queues & ",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Token Bucket Rate Limiting verifying strict invariants and transactional semantics.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "verify_transaction_invariants()"
-            },
-            "tone": "data"
+            "caption": "The once concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Asynchronous",
+                  "Order"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Atomic Redis Lua Reservation with high-concurrency execution and fault isolation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "execute_isolated_workload()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Asynchronous DB Queue Drain): Production invariant verified.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_gate()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The order logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Draining",
+                  "Dead"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

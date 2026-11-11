@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 51,
-  "promptSha": "8d78c6faeeb18f9d39b3bea65bab1315209c7696294f93aa98584b5107eae6af",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "a42524fd05c71732db9548943105553a6602a48753eaf5ae695f8a44dcf614d9",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Distributed Tracing Foundations & W3C TraceContext",
       "codeHash": "8554039bd4fbac95a2db1bd1b6abc136419787e9206e0d5c17235e5095208219",
       "spec": {
-        "template": "states",
-        "title": "Distributed Tracing Foundations & W3C TraceContext — SRE Observability Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "W3C Header Ingestion"
-          },
-          {
-            "id": "st2",
-            "label": "Contextvars Propagation"
-          },
-          {
-            "id": "st3",
-            "label": "Span Execution & Attributes"
-          },
-          {
-            "id": "st4",
-            "label": "Trace Graph Assembly"
-          }
+        "template": "table",
+        "title": "Distributed Tracing Foundations & W3C TraceContext",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (WthreeC Header Ingestion): Initialize operational telemetry.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The monolithic concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Distributed"
+                  },
+                  {
+                    "text": "Tracing"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The heart logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Foundations"
+                  },
+                  {
+                    "text": "TraceContext"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Distributed Tracing Foundations & W3C TraceContext",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Contextvars Propagation verifying strict context propagation and schema standards.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "bind_telemetry_scope()"
-            },
-            "tone": "data"
+            "caption": "The monolithic concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Distributed",
+                  "Tracing"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Span Execution & Attributes with asynchronous processing and metric aggregation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "record_observability_event()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Trace Graph Assembly): Production invariant verified with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_sla()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The heart logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Foundations",
+                  "TraceContext"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Contextvars & Asynchronous Trace Propagation",
       "codeHash": "dd53ec4d8644c9bb1145d6dd17cc2fa4bc44626554f6510b15cfd27ff67bf55d",
       "spec": {
-        "template": "states",
-        "title": "Contextvars & Asynchronous Trace Propagation — SRE Observability Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "W3C Header Ingestion"
-          },
-          {
-            "id": "st2",
-            "label": "Contextvars Propagation"
-          },
-          {
-            "id": "st3",
-            "label": "Span Execution & Attributes"
-          },
-          {
-            "id": "st4",
-            "label": "Trace Graph Assembly"
-          }
+        "template": "table",
+        "title": "Contextvars & Asynchronous Trace Propagation",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (WthreeC Header Ingestion): Initialize operational telemetry.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The once concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Contextvars"
+                  },
+                  {
+                    "text": "Asynchronous"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The opentelemetry logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Trace"
+                  },
+                  {
+                    "text": "Propagation"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Contextvars & Asynchronous Trace Propagation",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Contextvars Propagation verifying strict context propagation and schema standards.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "bind_telemetry_scope()"
-            },
-            "tone": "data"
+            "caption": "The once concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Contextvars",
+                  "Asynchronous"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Span Execution & Attributes with asynchronous processing and metric aggregation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "record_observability_event()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Trace Graph Assembly): Production invariant verified with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_sla()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The opentelemetry logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Trace",
+                  "Propagation"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Span Lifecycle, Events & Semantic Attributes",
       "codeHash": "f7c494c2465b10a2cbc57a2a566bdb4949aac5ac9b6bc1bbd874f47c412a64d3",
       "spec": {
-        "template": "states",
-        "title": "Span Lifecycle, Events & Semantic Attributes — SRE Observability Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "W3C Header Ingestion"
-          },
-          {
-            "id": "st2",
-            "label": "Contextvars Propagation"
-          },
-          {
-            "id": "st3",
-            "label": "Span Execution & Attributes"
-          },
-          {
-            "id": "st4",
-            "label": "Trace Graph Assembly"
-          }
+        "template": "table",
+        "title": "Span Lifecycle, Events & Semantic Attributes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (WthreeC Header Ingestion): Initialize operational telemetry.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The within concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Span"
+                  },
+                  {
+                    "text": "Lifecycle"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The beyond logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Events"
+                  },
+                  {
+                    "text": "Semantic"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Span Lifecycle, Events & Semantic Attributes",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Contextvars Propagation verifying strict context propagation and schema standards.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "bind_telemetry_scope()"
-            },
-            "tone": "data"
+            "caption": "The within concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Span",
+                  "Lifecycle"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Span Execution & Attributes with asynchronous processing and metric aggregation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "record_observability_event()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Trace Graph Assembly): Production invariant verified with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_sla()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The beyond logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Events",
+                  "Semantic"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Head-Based & Tail-Based Distributed Sampling",
       "codeHash": "9d0bcd9a6176bdcc8b1c4e3b2544ea4c46fa67d17cdce3c493a769e6a55dbe8a",
       "spec": {
-        "template": "states",
-        "title": "Head-Based & Tail-Based Distributed Sampling — SRE Observability Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "W3C Header Ingestion"
-          },
-          {
-            "id": "st2",
-            "label": "Contextvars Propagation"
-          },
-          {
-            "id": "st3",
-            "label": "Span Execution & Attributes"
-          },
-          {
-            "id": "st4",
-            "label": "Trace Graph Assembly"
-          }
+        "template": "table",
+        "title": "Head-Based & Tail-Based Distributed Sampling",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (WthreeC Header Ingestion): Initialize operational telemetry.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The high concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Head"
+                  },
+                  {
+                    "text": "Based"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The simplest logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Tail"
+                  },
+                  {
+                    "text": "Based"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Head-Based & Tail-Based Distributed Sampling",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Contextvars Propagation verifying strict context propagation and schema standards.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "bind_telemetry_scope()"
-            },
-            "tone": "data"
+            "caption": "The high concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Head",
+                  "Based"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Span Execution & Attributes with asynchronous processing and metric aggregation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "record_observability_event()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Trace Graph Assembly): Production invariant verified with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_sla()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The simplest logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Tail",
+                  "Based"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Multi-Service Distributed Trace Graph Synthesis",
       "codeHash": "f064c42eb0353d51982c0a3976ef367c32595f6a108d8d76e5a82fc08b3a0d0f",
       "spec": {
-        "template": "states",
-        "title": "Multi-Service Distributed Trace Graph Synthesis — SRE Observability Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "W3C Header Ingestion"
-          },
-          {
-            "id": "st2",
-            "label": "Contextvars Propagation"
-          },
-          {
-            "id": "st3",
-            "label": "Span Execution & Attributes"
-          },
-          {
-            "id": "st4",
-            "label": "Trace Graph Assembly"
-          }
+        "template": "table",
+        "title": "Multi-Service Distributed Trace Graph Synthesis",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (WthreeC Header Ingestion): Initialize operational telemetry.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Multi"
+                  },
+                  {
+                    "text": "Service"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The microservice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Distributed"
+                  },
+                  {
+                    "text": "Trace"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Multi-Service Distributed Trace Graph Synthesis",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Contextvars Propagation verifying strict context propagation and schema standards.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "bind_telemetry_scope()"
-            },
-            "tone": "data"
+            "caption": "The capstone concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Multi",
+                  "Service"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Span Execution & Attributes with asynchronous processing and metric aggregation.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "record_observability_event()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Trace Graph Assembly): Production invariant verified with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify_production_sla()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The microservice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Distributed",
+                  "Trace"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

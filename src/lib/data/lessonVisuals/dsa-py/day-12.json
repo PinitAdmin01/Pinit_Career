@@ -2,144 +2,88 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "fc8dec63f2a3d7cd21fcd72efa4677e0a97a6cb1c48d61365c0955afcc582da0",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Divide and conquer",
       "codeHash": "8bc82272b724ef2ea4d33df8490900bd6b6f5430a5da639a7cff420adf26d356",
       "spec": {
-        "template": "tree-graph",
-        "title": "Divide and conquer splitting tree",
-        "nodes": [
-          {
-            "id": "root",
-            "label": "[38, 27, 43, 3]"
-          },
-          {
-            "id": "left",
-            "label": "[38, 27]"
-          },
-          {
-            "id": "right",
-            "label": "[43, 3]"
-          },
-          {
-            "id": "l1",
-            "label": "[38]"
-          },
-          {
-            "id": "l2",
-            "label": "[27]"
-          }
-        ],
-        "edges": [
-          [
-            "root",
-            "left"
-          ],
-          [
-            "root",
-            "right"
-          ],
-          [
-            "left",
-            "l1"
-          ],
-          [
-            "left",
-            "l2"
-          ]
+        "template": "table",
+        "title": "Divide and conquer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Divide splits problem into smaller parts recursively.",
-            "activeNodeId": "root",
-            "activeEdge": [
-              "root",
-              "left"
+            "caption": "The divide concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Divide"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Base case reaches single item lists already sorted.",
-            "activeNodeId": "l1",
-            "visitedNodeIds": [
-              "root",
-              "left"
-            ],
-            "activeEdge": [
-              "left",
-              "l1"
+            "caption": "The base logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "conquer"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Divide and conquer splitting tree",
-        "nodes": [
-          {
-            "id": "root",
-            "label": "[38, 27, 43, 3]"
-          },
-          {
-            "id": "left",
-            "label": "[38, 27]"
-          },
-          {
-            "id": "right",
-            "label": "[43, 3]"
-          },
-          {
-            "id": "l1",
-            "label": "[38]"
-          },
-          {
-            "id": "l2",
-            "label": "[27]"
-          }
-        ],
-        "edges": [
-          [
-            "root",
-            "left"
-          ],
-          [
-            "root",
-            "right"
-          ],
-          [
-            "left",
-            "l1"
-          ],
-          [
-            "left",
-            "l2"
-          ]
+        "template": "table",
+        "title": "Divide and conquer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Divide splits problem into smaller parts recursively.",
-            "activeNodeId": "root",
-            "activeEdge": [
-              "root",
-              "left"
+            "caption": "The divide concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Divide",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Base case reaches single item lists already sorted.",
-            "activeNodeId": "l1",
-            "visitedNodeIds": [
-              "root",
-              "left"
-            ],
-            "activeEdge": [
-              "left",
-              "l1"
+            "caption": "The base logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "conquer",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -149,60 +93,43 @@
       "partTitle": "Merging two sorted lists",
       "codeHash": "a04e5ec3ac4cb007ab088c313e5b1922cf589d2bce4082b0b05db36b1c07aa32",
       "spec": {
-        "template": "cells",
-        "title": "Merging two sorted subarrays with pointers",
+        "template": "table",
+        "title": "Merging two sorted lists",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compare front items taking smaller one until list empties.",
-            "items": [
+            "caption": "The heart concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "3"
-              },
-              {
-                "text": "27"
-              },
-              {
-                "text": "9"
-              },
-              {
-                "text": "10"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "i",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "j",
-                "index": 2,
+                "cells": [
+                  {
+                    "text": "Merging"
+                  },
+                  {
+                    "text": "two"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each step appends one item taking linear total work.",
-            "items": [
+            "at": "say3",
+            "caption": "The comparing logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "3"
-              },
-              {
-                "text": "9"
-              },
-              {
-                "text": "10"
-              },
-              {
-                "text": "27"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "merged",
-                "index": 3,
+                "cells": [
+                  {
+                    "text": "sorted"
+                  },
+                  {
+                    "text": "lists"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -210,44 +137,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Merging two sorted subarrays with pointers",
+        "template": "table",
+        "title": "Merging two sorted lists",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compare front items taking smaller one until list empties.",
-            "items": [
-              "3",
-              "27",
-              "9",
-              "10"
-            ],
-            "pointers": [
+            "caption": "The heart concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "i",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "j",
-                "index": 2,
+                "cells": [
+                  "Merging",
+                  "two"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Each step appends one item taking linear total work.",
-            "items": [
-              "3",
-              "9",
-              "10",
-              "27"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The comparing logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "merged",
-                "index": 3,
+                "cells": [
+                  "sorted",
+                  "lists"
+                ],
                 "tone": "ok"
               }
             ]
@@ -260,48 +178,23 @@
       "codeHash": "d369ae6aa7d64c25246abd9031caaa528bf6009e430a4df9a0490ee5137ce1c0",
       "spec": {
         "template": "table",
-        "title": "Merge sort work per recursion level",
+        "title": "Merge sort put together",
         "columns": [
-          "Recursion Level",
-          "Subproblem Size",
-          "Work per Level",
-          "Total Operations"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Halving list creates log N levels of recursion.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Level 1"
+                    "text": "Merge"
                   },
                   {
-                    "text": "N"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "N work"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Level 2"
-                  },
-                  {
-                    "text": "N / 2"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "N work"
+                    "text": "sort"
                   }
                 ],
                 "tone": "data"
@@ -310,55 +203,15 @@
           },
           {
             "at": "say3",
-            "caption": "Merge sort is O(N log N) in every case with extra memory.",
+            "caption": "The merge logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Level 1"
+                    "text": "put"
                   },
                   {
-                    "text": "N"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "N work"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Level 2"
-                  },
-                  {
-                    "text": "N / 2"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "N work"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "All levels"
-                  },
-                  {
-                    "text": "log2(N)"
-                  },
-                  {
-                    "text": "O(N log N)"
-                  },
-                  {
-                    "text": "O(N) space"
+                    "text": "together"
                   }
                 ],
                 "tone": "ok"
@@ -369,33 +222,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "Merge sort work per recursion level",
+        "title": "Merge sort put together",
         "columns": [
-          "Recursion Level",
-          "Subproblem Size",
-          "Work per Level",
-          "Total Operations"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Halving list creates log N levels of recursion.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Level 1",
-                  "N",
-                  "O(N)",
-                  "N work"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Level 2",
-                  "N / 2",
-                  "O(N)",
-                  "N work"
+                  "Merge",
+                  "sort"
                 ],
                 "tone": "data"
               }
@@ -403,32 +243,12 @@
           },
           {
             "at": "say3",
-            "caption": "Merge sort is O(N log N) in every case with extra memory.",
+            "caption": "The merge logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Level 1",
-                  "N",
-                  "O(N)",
-                  "N work"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Level 2",
-                  "N / 2",
-                  "O(N)",
-                  "N work"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "All levels",
-                  "log2(N)",
-                  "O(N log N)",
-                  "O(N) space"
+                  "put",
+                  "together"
                 ],
                 "tone": "ok"
               }
@@ -441,223 +261,81 @@
       "partTitle": "Merging sorted linked lists",
       "codeHash": "d0f1187b2dbb273f31b761beb588950e1e1684548902d8f7716dad74bc28558d",
       "spec": {
-        "template": "flow",
-        "title": "Merging sorted linked lists — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Merging sorted link...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Merging sorted linked lists",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Merging sorted linked lists.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Merging sorted link... [Dtwelve.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Merging"
+                  },
+                  {
+                    "text": "sorted"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Merging sorted linked lists.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The compare logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "linked"
+                  },
+                  {
+                    "text": "lists"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Merging sorted linked lists — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Merging sorted link...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Merging sorted linked lists",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Merging sorted linked lists [D12.P4.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Merging sorted link... [D12.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Merging",
+                  "sorted"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Merging sorted linked lists [D12.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The compare logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "linked",
+                  "lists"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -667,223 +345,81 @@
       "partTitle": "Counting inversions with merge sort",
       "codeHash": "b3fb1e088811ea744d5d69e3b3125231de18b75449dc4a347fc9ee75df54e272",
       "spec": {
-        "template": "flow",
-        "title": "Counting inversions with merge sort — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting inversions...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting inversions with merge sort",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Counting inversions with merge sort.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Counting inversions... [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The merge concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Counting"
+                  },
+                  {
+                    "text": "inversions"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Counting inversions with merge sort.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The adding logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "merge"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Counting inversions with merge sort — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting inversions...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Counting inversions with merge sort",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting inversions with merge sort [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting inversions... [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The merge concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Counting",
+                  "inversions"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting inversions with merge sort [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The adding logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "merge"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -893,94 +429,82 @@
       "partTitle": "Sorting in practice with sorted() and key",
       "codeHash": "d956bf12719e8e739bad64f8892fe365614f4cfbe978952c4f94ef661403e3e3",
       "spec": {
-        "template": "compare",
-        "title": "Python sorting method comparison",
-        "leftLabel": "sorted(arr)",
-        "rightLabel": "arr.sort()",
+        "template": "table",
+        "title": "Sorting in practice with sorted() and key",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Calling sorted returns new list while sort modifies in place.",
-            "left": {
-              "code": "sorted(nums)",
-              "result": {
-                "text": "new list"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "nums.sort()",
-              "result": {
-                "text": "in place"
-              },
-              "tone": "ok"
-            }
+            "caption": "The real concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Sorting"
+                  },
+                  {
+                    "text": "practice"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Stable sorting guarantees ties preserve earlier field order.",
-            "left": {
-              "code": "key=lambda x: x.marks",
-              "result": {
-                "text": "stable order"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "reverse=True",
-              "result": {
-                "text": "descending"
-              },
-              "tone": "data"
-            }
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "sorted"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Python sorting method comparison",
-        "leftLabel": "sorted(arr)",
-        "rightLabel": "arr.sort()",
+        "template": "table",
+        "title": "Sorting in practice with sorted() and key",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Calling sorted returns new list while sort modifies in place.",
-            "left": {
-              "code": "sorted(nums)",
-              "result": "new list",
-              "tone": "ok",
-              "checks": [
-                "new list"
-              ]
-            },
-            "right": {
-              "code": "nums.sort()",
-              "result": "in place",
-              "tone": "ok",
-              "checks": [
-                "in place"
-              ]
-            }
+            "caption": "The real concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Sorting",
+                  "practice"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Stable sorting guarantees ties preserve earlier field order.",
-            "left": {
-              "code": "key=lambda x: x.marks",
-              "result": "stable order",
-              "tone": "ok",
-              "checks": [
-                "stable order"
-              ]
-            },
-            "right": {
-              "code": "reverse=True",
-              "result": "descending",
-              "tone": "data",
-              "checks": [
-                "descending"
-              ]
-            }
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "sorted"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

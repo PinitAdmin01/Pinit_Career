@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 34,
-  "promptSha": "d8da7c7479cb4b9f7aa598bffb169e54d666510505ef8ca20e54837e13065022",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "6d6b2554ea42876232dfc2d34a27df18adc28267f8b90a61c6e0558a4aff5c9f",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "JWT Cryptographic Anatomy & OAuth2 Password Bearer Handshake",
       "codeHash": "62b3d9b2ff2009440b3ac6902aca12396bcf344d1b8fe78e92c1e72c7fef057a",
       "spec": {
-        "template": "states",
-        "title": "JWT Cryptographic Anatomy & OAuth2 Password Bearer Handshake — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "JWT Cryptographic Anatomy & OAuth2 Password Bearer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for JWT.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "JWT"
+                  },
+                  {
+                    "text": "Cryptographic"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The achieve logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Anatomy"
+                  },
+                  {
+                    "text": "OAuth"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "JWT Cryptographic Anatomy & OAuth2 Password Bearer",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "JWT",
+                  "Cryptographic"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The achieve logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Anatomy",
+                  "OAuth"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Algorithm Confusion (RS256 vs HS256) Exploit Forensics",
       "codeHash": "139eb350142e0454e29512f08f750648164b3c571d2bc2b7ccb2037a794afaaa",
       "spec": {
-        "template": "states",
-        "title": "Algorithm Confusion (RS256 vs HS256) Exploit Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "Algorithm Confusion (RS256 vs HS256) Exploit Foren",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The stateless concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Algorithm"
+                  },
+                  {
+                    "text": "Confusion"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The vulnerable logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Exploit"
+                  },
+                  {
+                    "text": "Forensics"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Algorithm Confusion (RS256 vs HS256) Exploit Foren",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The stateless concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Algorithm",
+                  "Confusion"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The vulnerable logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Exploit",
+                  "Forensics"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "OAuth2 Stateless Token & Refresh Rotation Engine Implementation",
       "codeHash": "bd2c5a66b9823519d017ca87ca20b1544329b536368b8c4cb7ad18ae02585b27",
       "spec": {
-        "template": "states",
-        "title": "OAuth2 Stateless Token & Refresh Rotation Engine Implementation — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "OAuth2 Stateless Token & Refresh Rotation Engine I",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "OAuth"
+                  },
+                  {
+                    "text": "Stateless"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The access logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Token"
+                  },
+                  {
+                    "text": "Refresh"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "OAuth2 Stateless Token & Refresh Rotation Engine I",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "OAuth",
+                  "Stateless"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The access logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Token",
+                  "Refresh"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "Redis Distributed Blocklist Token Revocation & Replay Defense",
       "codeHash": "0494b0d7e1f1e6e7c26348104f5cf9239e76f62662877e94aff82cf226177d55",
       "spec": {
-        "template": "states",
-        "title": "Redis Distributed Blocklist Token Revocation & Replay Defense — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "Redis Distributed Blocklist Token Revocation & Rep",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for Redis.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Redis"
+                  },
+                  {
+                    "text": "Distributed"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The microservice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Blocklist"
+                  },
+                  {
+                    "text": "Token"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Redis Distributed Blocklist Token Revocation & Rep",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Redis",
+                  "Distributed"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The microservice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Blocklist",
+                  "Token"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Hardened Microservice Security Engine Synthesis Lab",
       "codeHash": "5fe99b4433b95c5b787be37a6155ed6240e7460a171f2032c666f21628d264b2",
       "spec": {
-        "template": "states",
-        "title": "Hardened Microservice Security Engine Synthesis Lab — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Init State"
-          },
-          {
-            "id": "st2",
-            "label": "Execution Pipeline"
-          },
-          {
-            "id": "st3",
-            "label": "Invariant Validation"
-          },
-          {
-            "id": "st4",
-            "label": "Production Verified"
-          }
+        "template": "table",
+        "title": "Hardened Microservice Security Engine Synthesis La",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Hardened"
+                  },
+                  {
+                    "text": "Microservice"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The crucially logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Security"
+                  },
+                  {
+                    "text": "Engine"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Hardened Microservice Security Engine Synthesis La",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Execution Pipeline with zero-copy stream and strict validation.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "dispatch()"
-            },
-            "tone": "data"
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Hardened",
+                  "Microservice"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Invariant Validation and enforce cryptographic and memory invariants.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "validate()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Production Verified): Production certification complete with.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "certify()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The crucially logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Security",
+                  "Engine"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

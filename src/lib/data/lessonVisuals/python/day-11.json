@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 11,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "a652781e67a6beedba04f60b209bda0cfeeee6869e0331891f7ef1096cb87584",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "The shape of real data",
       "codeHash": "5322b7e62f9552fb6366402f82eb6806c06cc073cef8323b97158b6bfc870496",
       "spec": {
-        "template": "boxes",
-        "title": "Lists of dictionary records",
-        "boxes": [
-          {
-            "id": "expenses",
-            "label": "expenses"
-          },
-          {
-            "id": "record",
-            "label": "record"
-          }
+        "template": "table",
+        "title": "The shape of real data",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Each dictionary is one record in the list.",
-            "values": {
-              "expenses": {
-                "var": "expenses",
-                "line": 6
-              },
-              "record": {
-                "text": "{\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}"
+            "at": "say1",
+            "caption": "The yesterday concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "shape"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "expenses": "data",
-              "record": "ok"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Read one value by list position and dictionary key.",
-            "values": {
-              "expenses": {
-                "var": "expenses",
-                "line": 6
-              },
-              "record": {
-                "text": "Tea"
+            "at": "say3",
+            "caption": "The later logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "real"
+                  },
+                  {
+                    "text": "data"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "expenses": "data",
-              "record": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Lists of dictionary records",
-        "boxes": [
-          {
-            "id": "expenses",
-            "label": "expenses"
-          },
-          {
-            "id": "record",
-            "label": "record"
-          }
+        "template": "table",
+        "title": "The shape of real data",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Each dictionary is one record in the list.",
-            "values": {
-              "expenses": "[{'item': 'Tea', 'amount': 20, 'categor…",
-              "record": "{\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}"
-            },
-            "tones": {
-              "expenses": "data",
-              "record": "ok"
-            }
+            "at": "say1",
+            "caption": "The yesterday concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "shape"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Read one value by list position and dictionary key.",
-            "values": {
-              "expenses": "[{'item': 'Tea', 'amount': 20, 'categor…",
-              "record": "Tea"
-            },
-            "tones": {
-              "expenses": "data",
-              "record": "ok"
-            }
+            "at": "say3",
+            "caption": "The later logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "real",
+                  "data"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,93 +93,82 @@
       "partTitle": "Looping over records",
       "codeHash": "df2fdfa534187c134a4e31c70637b6c5411d5b5b002ae2c9f3dc106ca4ef60e7",
       "spec": {
-        "template": "boxes",
-        "title": "Iterating over dictionary items",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "expense",
-            "label": "expense"
-          }
+        "template": "table",
+        "title": "Looping over records",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loop over the list to hold one whole dictionary.",
-            "values": {
-              "total": {
-                "var": "total",
-                "line": 6
-              },
-              "expense": {
-                "text": "expense in expenses"
+            "caption": "The something concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Looping"
+                  },
+                  {
+                    "text": "over"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "total": "data",
-              "expense": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Add each amount to total inside the loop.",
-            "values": {
-              "total": {
-                "var": "total",
-                "line": 12
-              },
-              "expense": {
-                "var": "expense",
-                "line": 12
+            "caption": "The accumulator logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "records"
+                  },
+                  {
+                    "text": "over"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "total": "data",
-              "expense": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Iterating over dictionary items",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "expense",
-            "label": "expense"
-          }
+        "template": "table",
+        "title": "Looping over records",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loop over the list to hold one whole dictionary.",
-            "values": {
-              "total": "0",
-              "expense": "expense in expenses"
-            },
-            "tones": {
-              "total": "data",
-              "expense": "idle"
-            }
+            "caption": "The something concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Looping",
+                  "over"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Add each amount to total inside the loop.",
-            "values": {
-              "total": "8140",
-              "expense": "{'item': 'Lunch', 'amount': 120, 'big':…"
-            },
-            "tones": {
-              "total": "data",
-              "expense": "ok"
-            }
+            "caption": "The accumulator logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "records",
+                  "over"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -198,223 +177,81 @@
       "partTitle": "Totals and filters with comprehensions",
       "codeHash": "94b90053858b470ffa8991b2ddbb52a6db32027385fcf272ea3b16e521060141",
       "spec": {
-        "template": "flow",
-        "title": "Totals and filters with comprehensions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Totals and filters ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Totals and filters with comprehensions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Totals and filters with comprehensions.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Totals and filters .",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The everything concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Totals"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Totals and filters with comprehen.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The pull logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "filters"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Totals and filters with comprehensions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Totals and filters ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Totals and filters with comprehensions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Totals and filters with comprehensions [D11.P3.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Totals and filters ... [D11.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The everything concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Totals",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Totals and filters with comprehen.. [D11.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The pull logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "filters",
+                  "with"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -424,93 +261,82 @@
       "partTitle": "Finding one record",
       "codeHash": "8390fe1dfcfa22e746934731be0132ba1c57df6016cfe6d42c48f7f3a2d2a01e",
       "spec": {
-        "template": "boxes",
-        "title": "Finding matching records",
-        "boxes": [
-          {
-            "id": "expenses",
-            "label": "expenses"
-          },
-          {
-            "id": "biggest",
-            "label": "biggest"
-          }
+        "template": "table",
+        "title": "Finding one record",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A loop returns as soon as it finds a match.",
-            "values": {
-              "expenses": {
-                "var": "expenses",
-                "line": 1
-              },
-              "biggest": {
-                "text": "id"
+            "caption": "The often concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Finding"
+                  },
+                  {
+                    "text": "one"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "expenses": "data",
-              "biggest": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The max function gives the record with the biggest amount.",
-            "values": {
-              "expenses": {
-                "var": "expenses",
-                "line": 6
-              },
-              "biggest": {
-                "var": "biggest",
-                "line": 15
+            "caption": "The find logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "record"
+                  },
+                  {
+                    "text": "one"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "expenses": "data",
-              "biggest": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Finding matching records",
-        "boxes": [
-          {
-            "id": "expenses",
-            "label": "expenses"
-          },
-          {
-            "id": "biggest",
-            "label": "biggest"
-          }
+        "template": "table",
+        "title": "Finding one record",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A loop returns as soon as it finds a match.",
-            "values": {
-              "expenses": "[{'id': 1, 'item': 'Tea', 'amount': 20}…",
-              "biggest": "id"
-            },
-            "tones": {
-              "expenses": "data",
-              "biggest": "idle"
-            }
+            "caption": "The often concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Finding",
+                  "one"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The max function gives the record with the biggest amount.",
-            "values": {
-              "expenses": "[{'id': 1, 'item': 'Tea', 'amount': 20}…",
-              "biggest": "{'id': 2, 'item': 'Rent', 'amount': 800…"
-            },
-            "tones": {
-              "expenses": "data",
-              "biggest": "ok"
-            }
+            "caption": "The find logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "record",
+                  "one"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -519,223 +345,81 @@
       "partTitle": "Sorting records",
       "codeHash": "aec674d141064ad2f5e4865e9bb104e71ebca9d9a64962e524f4844bb8da1e94",
       "spec": {
-        "template": "flow",
-        "title": "Sorting records — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sorting records",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Sorting records",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Sorting records [Deleven.Pfive.Sone].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Sorting records [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The show concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Sorting"
+                  },
+                  {
+                    "text": "records"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Sorting records [Deleven.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The sorted logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Sorting"
+                  },
+                  {
+                    "text": "records"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sorting records — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sorting records",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Sorting records",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Sorting records [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Sorting records [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The show concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Sorting",
+                  "records"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Sorting records [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The sorted logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Sorting",
+                  "records"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -745,223 +429,81 @@
       "partTitle": "Putting it together: a monthly report",
       "codeHash": "abce2fb61d353a55f7dc31806e5533a8be9d4d0d545de71331a4ae977e45add3",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: a monthly report — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a monthly report",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: a monthly report.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The combine concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: a monthly re.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The category logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "monthly"
+                  },
+                  {
+                    "text": "report"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: a monthly report — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: a monthly report",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a monthly report [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The combine concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a monthly re.. [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The category logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "monthly",
+                  "report"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

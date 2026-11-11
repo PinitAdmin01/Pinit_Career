@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 20,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "8b7766333bc58e1d685dfb9bc1406db3204f0dcaf7d2f09014af15c2bafe4aeb",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Installing Python and VS Code",
       "codeHash": "433faa06fda4d172e852d20610b277b4b06a3cefb070184aa203c6f008269cab",
       "spec": {
-        "template": "boxes",
-        "title": "Verifying installed Python version",
-        "boxes": [
-          {
-            "id": "major",
-            "label": "major"
-          },
-          {
-            "id": "minor",
-            "label": "minor"
-          }
+        "template": "table",
+        "title": "Installing Python and VS Code",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Install Python from python org installer.",
-            "values": {
-              "major": {
-                "text": "3"
-              },
-              "minor": {
-                "text": "10"
+            "at": "say1",
+            "caption": "The written concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Installing"
+                  },
+                  {
+                    "text": "Python"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "major": "data",
-              "minor": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Check it works in terminal with python version.",
-            "values": {
-              "major": {
-                "var": "major",
-                "line": 3
-              },
-              "minor": {
-                "var": "minor",
-                "line": 3
+            "at": "say3",
+            "caption": "The second logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "Code"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "major": "ok",
-              "minor": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Verifying installed Python version",
-        "boxes": [
-          {
-            "id": "major",
-            "label": "major"
-          },
-          {
-            "id": "minor",
-            "label": "minor"
-          }
+        "template": "table",
+        "title": "Installing Python and VS Code",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Install Python from python org installer.",
-            "values": {
-              "major": "3",
-              "minor": "10"
-            },
-            "tones": {
-              "major": "data",
-              "minor": "idle"
-            }
+            "at": "say1",
+            "caption": "The written concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Installing",
+                  "Python"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Check it works in terminal with python version.",
-            "values": {
-              "major": "3",
-              "minor": "12"
-            },
-            "tones": {
-              "major": "ok",
-              "minor": "ok"
-            }
+            "at": "say3",
+            "caption": "The second logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "Code"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,223 +93,81 @@
       "partTitle": "Running a .py file from the terminal",
       "codeHash": "36f19fce9e9027f54523d2941130fe47f2cc734fd4947e8125269c46644b24c1",
       "spec": {
-        "template": "flow",
-        "title": "Running a .py file from the terminal — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Running a .py file ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Running a .py file from the terminal",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Running a .py file from the terminal.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Running a .py file ... [Dtwenty.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Running"
+                  },
+                  {
+                    "text": "file"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Running a .py file from the termi.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The terminal logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "from"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Running a .py file from the terminal — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Running a .py file ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Running a .py file from the terminal",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Running a .py file from the terminal [D20.P2.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Running a .py file ... [D20.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Running",
+                  "file"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Running a .py file from the termi.. [D20.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The terminal logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "from",
+                  "the"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -329,91 +177,82 @@
       "partTitle": "Reading what the user types with input()",
       "codeHash": "f46edb0b32bbe3e6739b6f73cfe184064a58f4f7779a2ff4838a5aa48f77b736",
       "spec": {
-        "template": "boxes",
-        "title": "Parsing string input into numbers safely",
-        "boxes": [
-          {
-            "id": "typed",
-            "label": "typed"
-          },
-          {
-            "id": "text",
-            "label": "text"
-          }
+        "template": "table",
+        "title": "Reading what the user types with input()",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Convert string to float inside try and except.",
-            "values": {
-              "typed": {
-                "text": " 120 "
-              },
-              "text": {
-                "text": "float"
+            "at": "say1",
+            "caption": "The laptop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Reading"
+                  },
+                  {
+                    "text": "what"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "typed": "data",
-              "text": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Keep logic in functions that take plain values.",
-            "values": {
-              "typed": {
-                "var": "typed",
-                "line": 9
-              },
-              "text": {
-                "text": "None"
+            "at": "say3",
+            "caption": "The input logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "user"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "typed": "ok",
-              "text": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Parsing string input into numbers safely",
-        "boxes": [
-          {
-            "id": "typed",
-            "label": "typed"
-          },
-          {
-            "id": "text",
-            "label": "text"
-          }
+        "template": "table",
+        "title": "Reading what the user types with input()",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Convert string to float inside try and except.",
-            "values": {
-              "typed": " 120 ",
-              "text": "float"
-            },
-            "tones": {
-              "typed": "data",
-              "text": "idle"
-            }
+            "at": "say1",
+            "caption": "The laptop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Reading",
+                  "what"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Keep logic in functions that take plain values.",
-            "values": {
-              "typed": "' 120 '",
-              "text": "None"
-            },
-            "tones": {
-              "typed": "ok",
-              "text": "ok"
-            }
+            "at": "say3",
+            "caption": "The input logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "user"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -422,223 +261,81 @@
       "partTitle": "A menu loop",
       "codeHash": "1b497db9dfc28a5b7f93e1a0e293a992291406b0a40a46518150eafad9600785",
       "spec": {
-        "template": "flow",
-        "title": "A menu loop — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A menu loop",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A menu loop",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A menu loop [Dtwenty.Pfour.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A menu loop [Dtwenty.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The small concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "menu"
+                  },
+                  {
+                    "text": "loop"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A menu loop [Dtwenty.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The option logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "menu"
+                  },
+                  {
+                    "text": "loop"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A menu loop — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A menu loop",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "A menu loop",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A menu loop [D20.P4.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A menu loop [D20.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The small concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "menu",
+                  "loop"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A menu loop [D20.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The option logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "menu",
+                  "loop"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -648,92 +345,82 @@
       "partTitle": "pip and packages",
       "codeHash": "a15ef1d45d6b0b4f74d5cdcdd50199491de87290041cb1ec89e56f5f86f8f7a9",
       "spec": {
-        "template": "boxes",
-        "title": "Tracking dependencies in requirements",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "version",
-            "label": "version"
-          }
+        "template": "table",
+        "title": "pip and packages",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "pip downloads and installs packages in the terminal.",
-            "values": {
-              "name": {
-                "text": "requests"
-              },
-              "version": {
-                "text": "2.32.3"
+            "at": "say1",
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "pip"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "name": "data",
-              "version": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "requirements writes exact packages and versions to file.",
-            "values": {
-              "name": {
-                "var": "name",
-                "line": 6
-              },
-              "version": {
-                "var": "version",
-                "line": 6
+            "at": "say3",
+            "caption": "The install logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "packages"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "name": "ok",
-              "version": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Tracking dependencies in requirements",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "version",
-            "label": "version"
-          }
+        "template": "table",
+        "title": "pip and packages",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "pip downloads and installs packages in the terminal.",
-            "values": {
-              "name": "requests",
-              "version": "2.32.3"
-            },
-            "tones": {
-              "name": "data",
-              "version": "idle"
-            }
+            "at": "say1",
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "pip",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "requirements writes exact packages and versions to file.",
-            "values": {
-              "name": "'requests'",
-              "version": "'2.32.3'"
-            },
-            "tones": {
-              "name": "ok",
-              "version": "ok"
-            }
+            "at": "say3",
+            "caption": "The install logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "packages",
+                  "and"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -742,223 +429,81 @@
       "partTitle": "Virtual environments",
       "codeHash": "95ff0255a44ee177a7fcac55a1875634a507c9a023ed759d692c0005c73d7667",
       "spec": {
-        "template": "flow",
-        "title": "Virtual environments — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Virtual environments",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Virtual environments",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Virtual environments [Dtwenty.Psix.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Virtual environments [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Virtual"
+                  },
+                  {
+                    "text": "environments"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Virtual environments.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The venv logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Virtual"
+                  },
+                  {
+                    "text": "environments"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Virtual environments — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Virtual environments",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Virtual environments",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Virtual environments [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Virtual environments [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Virtual",
+                  "environments"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Virtual environments [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The venv logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Virtual",
+                  "environments"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

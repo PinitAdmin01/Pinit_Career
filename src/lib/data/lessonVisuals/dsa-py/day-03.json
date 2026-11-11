@@ -2,110 +2,88 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "bfa69d099470053c083675462f0d11fc7f6aaaea7736367924b00ecbf9756624",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Nodes that point to the next node",
       "codeHash": "41fda8ec327484ec1533b7e9dbf131eb5b6349b826080783380a65e22039d76d",
       "spec": {
-        "template": "tree-graph",
-        "title": "Singly linked list node references",
-        "nodes": [
-          {
-            "id": "node1",
-            "label": "10"
-          },
-          {
-            "id": "node2",
-            "label": "20"
-          },
-          {
-            "id": "node3",
-            "label": "30"
-          }
-        ],
-        "edges": [
-          [
-            "node1",
-            "node2"
-          ],
-          [
-            "node2",
-            "node3"
-          ]
+        "template": "table",
+        "title": "Nodes that point to the next node",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Holding head reference gives access to whole chain.",
-            "activeNodeId": "node1",
-            "activeEdge": [
-              "node1",
-              "node2"
+            "at": "say1",
+            "caption": "The linked concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Nodes"
+                  },
+                  {
+                    "text": "that"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Traversing follows next references across nodes.",
-            "activeNodeId": "node2",
-            "visitedNodeIds": [
-              "node1"
-            ],
-            "activeEdge": [
-              "node2",
-              "node3"
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "point"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Singly linked list node references",
-        "nodes": [
-          {
-            "id": "node1",
-            "label": "10"
-          },
-          {
-            "id": "node2",
-            "label": "20"
-          },
-          {
-            "id": "node3",
-            "label": "30"
-          }
-        ],
-        "edges": [
-          [
-            "node1",
-            "node2"
-          ],
-          [
-            "node2",
-            "node3"
-          ]
+        "template": "table",
+        "title": "Nodes that point to the next node",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Holding head reference gives access to whole chain.",
-            "activeNodeId": "node1",
-            "activeEdge": [
-              "node1",
-              "node2"
+            "at": "say1",
+            "caption": "The linked concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Nodes",
+                  "that"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Traversing follows next references across nodes.",
-            "activeNodeId": "node2",
-            "visitedNodeIds": [
-              "node1"
-            ],
-            "activeEdge": [
-              "node2",
-              "node3"
+            "caption": "The because logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "point",
+                  "the"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -115,223 +93,81 @@
       "partTitle": "Walking, counting and finding",
       "codeHash": "58f6f9a13745394fc0f0b990ee0033a17e196bddb52d5d99d0fac9662beaf0ba",
       "spec": {
-        "template": "flow",
-        "title": "Walking, counting and finding — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Walking, counting a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Walking, counting and finding",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Walking, counting and finding.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Walking, counting a... [Dthree.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The almost concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Walking"
+                  },
+                  {
+                    "text": "counting"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Walking, counting and finding.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The always logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "finding"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Walking, counting and finding — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Walking, counting a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Walking, counting and finding",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Walking, counting and finding [D3.P2.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Walking, counting a... [D3.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The almost concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Walking",
+                  "counting"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Walking, counting and finding [D3.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The always logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "finding"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -341,94 +177,82 @@
       "partTitle": "Reversing a list in place",
       "codeHash": "ecc27426ebd992c7b2ddabab55a3aa45d0aed5f192a1e4bc3a3d6b77b7f68fdd",
       "spec": {
-        "template": "compare",
-        "title": "Reversing list in place",
-        "leftLabel": "Direction",
-        "rightLabel": "Pointer state",
+        "template": "table",
+        "title": "Reversing a list in place",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Three variables track prev curr and next pointers.",
-            "left": {
-              "code": "1 -> 2 -> 3 -> 4",
-              "result": {
-                "text": "forward"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "prev = None",
-              "result": {
-                "text": "start"
-              },
-              "tone": "data"
-            }
+            "at": "say1",
+            "caption": "The reversing concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Reversing"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Turn each arrow until prev becomes new head.",
-            "left": {
-              "code": "4 -> 3 -> 2 -> 1",
-              "result": {
-                "text": "reversed"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "prev is head",
-              "result": {
-                "text": "O(1) space"
-              },
-              "tone": "ok"
-            }
+            "caption": "The step logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "place"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Reversing list in place",
-        "leftLabel": "Direction",
-        "rightLabel": "Pointer state",
+        "template": "table",
+        "title": "Reversing a list in place",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Three variables track prev curr and next pointers.",
-            "left": {
-              "code": "1 -> 2 -> 3 -> 4",
-              "result": "forward",
-              "tone": "data",
-              "checks": [
-                "forward"
-              ]
-            },
-            "right": {
-              "code": "prev = None",
-              "result": "start",
-              "tone": "data",
-              "checks": [
-                "start"
-              ]
-            }
+            "at": "say1",
+            "caption": "The reversing concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Reversing",
+                  "list"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Turn each arrow until prev becomes new head.",
-            "left": {
-              "code": "4 -> 3 -> 2 -> 1",
-              "result": "reversed",
-              "tone": "ok",
-              "checks": [
-                "reversed"
-              ]
-            },
-            "right": {
-              "code": "prev is head",
-              "result": "O(1) space",
-              "tone": "ok",
-              "checks": [
-                "O(1) space"
-              ]
-            }
+            "caption": "The step logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "place",
+                  "list"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -437,121 +261,81 @@
       "partTitle": "Fast and slow pointers",
       "codeHash": "dbbd513f92c7615c1ea669856acb2965ff50145bbdc794df8f3a3ac53f9ce81b",
       "spec": {
-        "template": "tree-graph",
-        "title": "Cycle detection with fast and slow pointers",
-        "nodes": [
-          {
-            "id": "a",
-            "label": "1"
-          },
-          {
-            "id": "b",
-            "label": "2"
-          },
-          {
-            "id": "c",
-            "label": "3"
-          }
-        ],
-        "edges": [
-          [
-            "a",
-            "b"
-          ],
-          [
-            "b",
-            "c"
-          ],
-          [
-            "c",
-            "a"
-          ]
+        "template": "table",
+        "title": "Fast and slow pointers",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Slow moves one node while fast moves two nodes.",
-            "activeNodeId": "a",
-            "visitedNodeIds": [
-              "a"
-            ],
-            "activeEdge": [
-              "a",
-              "b"
+            "at": "say1",
+            "caption": "The linked concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Fast"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Faster runner catches slower one inside loop when cycle exists.",
-            "activeNodeId": "b",
-            "visitedNodeIds": [
-              "a",
-              "b",
-              "c"
-            ],
-            "activeEdge": [
-              "c",
-              "a"
+            "caption": "The cycle logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "slow"
+                  },
+                  {
+                    "text": "pointers"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Cycle detection with fast and slow pointers",
-        "nodes": [
-          {
-            "id": "a",
-            "label": "1"
-          },
-          {
-            "id": "b",
-            "label": "2"
-          },
-          {
-            "id": "c",
-            "label": "3"
-          }
-        ],
-        "edges": [
-          [
-            "a",
-            "b"
-          ],
-          [
-            "b",
-            "c"
-          ],
-          [
-            "c",
-            "a"
-          ]
+        "template": "table",
+        "title": "Fast and slow pointers",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Slow moves one node while fast moves two nodes.",
-            "activeNodeId": "a",
-            "visitedNodeIds": [
-              "a"
-            ],
-            "activeEdge": [
-              "a",
-              "b"
+            "at": "say1",
+            "caption": "The linked concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Fast",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Faster runner catches slower one inside loop when cycle exists.",
-            "activeNodeId": "b",
-            "visitedNodeIds": [
-              "a",
-              "b",
-              "c"
-            ],
-            "activeEdge": [
-              "c",
-              "a"
+            "caption": "The cycle logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "slow",
+                  "pointers"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -561,223 +345,81 @@
       "partTitle": "Doubly linked lists and when to use linked lists",
       "codeHash": "feb5366aac82c23e32bc7cab8b62f0c68affdd601476565512cb364ccc3a2f99",
       "spec": {
-        "template": "flow",
-        "title": "Doubly linked lists and when to use linked lists — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Doubly linked lists...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Doubly linked lists and when to use linked lists",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Doubly linked lists and when to use link.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Doubly linked lists... [Dthree.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The doubly concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Doubly"
+                  },
+                  {
+                    "text": "linked"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Doubly linked lists and when to u.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The common logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "lists"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Doubly linked lists and when to use linked lists — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Doubly linked lists...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Doubly linked lists and when to use linked lists",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Doubly linked lists and when to use link.. [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Doubly linked lists... [D3.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The doubly concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Doubly",
+                  "linked"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Doubly linked lists and when to u.. [D3.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The common logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "lists",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,119 +429,81 @@
       "partTitle": "Deleting nodes with a dummy head",
       "codeHash": "8f8e9f4a837f06857284b3b7ef28ffeed6220511c7b83fccfa6a2192fd896041",
       "spec": {
-        "template": "tree-graph",
-        "title": "Dummy head node deletion",
-        "nodes": [
-          {
-            "id": "dummy",
-            "label": "dummy"
-          },
-          {
-            "id": "n1",
-            "label": "7"
-          },
-          {
-            "id": "n2",
-            "label": "3"
-          },
-          {
-            "id": "n3",
-            "label": "5"
-          }
-        ],
-        "edges": [
-          [
-            "dummy",
-            "n1"
-          ],
-          [
-            "n1",
-            "n2"
-          ],
-          [
-            "n2",
-            "n3"
-          ]
+        "template": "table",
+        "title": "Deleting nodes with a dummy head",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Dummy node placed in front of head simplifies link updates.",
-            "activeNodeId": "dummy",
-            "activeEdge": [
-              "dummy",
-              "n1"
+            "at": "say1",
+            "caption": "The delete concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Deleting"
+                  },
+                  {
+                    "text": "nodes"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Return dummy next as new head after skipping target node.",
-            "activeNodeId": "n2",
-            "visitedNodeIds": [
-              "dummy"
-            ],
-            "activeEdge": [
-              "dummy",
-              "n2"
+            "at": "say3",
+            "caption": "The clean logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "dummy"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Dummy head node deletion",
-        "nodes": [
-          {
-            "id": "dummy",
-            "label": "dummy"
-          },
-          {
-            "id": "n1",
-            "label": "7"
-          },
-          {
-            "id": "n2",
-            "label": "3"
-          },
-          {
-            "id": "n3",
-            "label": "5"
-          }
-        ],
-        "edges": [
-          [
-            "dummy",
-            "n1"
-          ],
-          [
-            "n1",
-            "n2"
-          ],
-          [
-            "n2",
-            "n3"
-          ]
+        "template": "table",
+        "title": "Deleting nodes with a dummy head",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Dummy node placed in front of head simplifies link updates.",
-            "activeNodeId": "dummy",
-            "activeEdge": [
-              "dummy",
-              "n1"
+            "at": "say1",
+            "caption": "The delete concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Deleting",
+                  "nodes"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Return dummy next as new head after skipping target node.",
-            "activeNodeId": "n2",
-            "visitedNodeIds": [
-              "dummy"
-            ],
-            "activeEdge": [
-              "dummy",
-              "n2"
+            "at": "say3",
+            "caption": "The clean logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "dummy"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

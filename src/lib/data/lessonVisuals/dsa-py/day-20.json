@@ -2,132 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "91acec28a1e27f19f9cba33034cb5f7b7a9b2e1e50b5790a6759fe521af3d3c2",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Graphs and how to store them",
       "codeHash": "49e8c3a9d977128a3d663c7aecd3b5a88ecea2b92953b015c59aac495fb1511e",
       "spec": {
-        "template": "tree-graph",
-        "title": "Graph nodes connected by undirected edges",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "Node A"
-          },
-          {
-            "id": "B",
-            "label": "Node B"
-          },
-          {
-            "id": "C",
-            "label": "Node C"
-          },
-          {
-            "id": "D",
-            "label": "Node D"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "edge"
-          },
-          {
-            "from": "A",
-            "to": "C",
-            "label": "edge"
-          },
-          {
-            "from": "B",
-            "to": "D",
-            "label": "edge"
-          },
-          {
-            "from": "C",
-            "to": "D",
-            "label": "edge"
-          }
+        "template": "table",
+        "title": "Graphs and how to store them",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A graph connects a set of nodes or vertices with edges.",
-            "highlightNodes": [
-              "A",
-              "B",
-              "C",
-              "D"
+            "caption": "The graph concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Graphs"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "An adjacency list maps each node to the list of its neighbours.",
-            "highlightNodes": [
-              "A",
-              "B",
-              "C"
-            ],
-            "highlightEdges": [
-              "A->B",
-              "A->C"
+            "caption": "The usual logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "how"
+                  },
+                  {
+                    "text": "store"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Graph nodes connected by undirected edges",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "Node A"
-          },
-          {
-            "id": "B",
-            "label": "Node B"
-          },
-          {
-            "id": "C",
-            "label": "Node C"
-          },
-          {
-            "id": "D",
-            "label": "Node D"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "edge"
-          },
-          {
-            "from": "A",
-            "to": "C",
-            "label": "edge"
-          },
-          {
-            "from": "B",
-            "to": "D",
-            "label": "edge"
-          },
-          {
-            "from": "C",
-            "to": "D",
-            "label": "edge"
-          }
+        "template": "table",
+        "title": "Graphs and how to store them",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A graph connects a set of nodes or vertices with edges."
+            "caption": "The graph concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Graphs",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "An adjacency list maps each node to the list of its neighbours."
+            "caption": "The usual logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "how",
+                  "store"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -136,52 +93,81 @@
       "partTitle": "BFS: shortest path in steps",
       "codeHash": "fda0a3564371b781623522b6e69d5d261d1644eac8dc06afeab6227e159ca24f",
       "spec": {
-        "template": "stack-queue",
-        "title": "Breadth-first search queue tracking distance",
-        "kind": "queue",
+        "template": "table",
+        "title": "BFS: shortest path in steps",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Breadth-first search explores nodes in order of distance from start.",
-            "items": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "start (A, dist 0)"
+                "cells": [
+                  {
+                    "text": "BFS"
+                  },
+                  {
+                    "text": "shortest"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Use a queue of node and distance pairs alongside a visited set.",
-            "items": [
+            "at": "say3",
+            "caption": "The mark logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "neighbour (B, dist 1)"
-              },
-              {
-                "text": "neighbour (C, dist 1)"
+                "cells": [
+                  {
+                    "text": "path"
+                  },
+                  {
+                    "text": "steps"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "Breadth-first search queue tracking distance",
+        "template": "table",
+        "title": "BFS: shortest path in steps",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Breadth-first search explores nodes in order of distance from start.",
-            "mode": "stack",
-            "items": [
-              "start (A, dist 0)"
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "BFS",
+                  "shortest"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Use a queue of node and distance pairs alongside a visited set.",
-            "mode": "stack",
-            "items": [
-              "neighbour (B, dist 1)",
-              "neighbour (C, dist 1)"
+            "at": "say3",
+            "caption": "The mark logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "path",
+                  "steps"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -191,223 +177,81 @@
       "partTitle": "DFS: going deep",
       "codeHash": "825a5ba180d192d4bfb8664181e5de002b1bee654bb30aa8d711aa628e4c43b7",
       "spec": {
-        "template": "flow",
-        "title": "DFS: going deep — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DFS: going deep",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "DFS: going deep",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for DFS: going deep [Dtwenty.Pthree.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in DFS: going deep [Dtwenty.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The depth concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "DFS"
+                  },
+                  {
+                    "text": "going"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for DFS: going deep [Dtwenty.Pthree.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The visited logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "deep"
+                  },
+                  {
+                    "text": "going"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DFS: going deep — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DFS: going deep",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "DFS: going deep",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for DFS: going deep [D20.P3.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in DFS: going deep [D20.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The depth concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "DFS",
+                  "going"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for DFS: going deep [D20.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The visited logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "deep",
+                  "going"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -418,61 +262,40 @@
       "codeHash": "027acbe37683dcaae101deae1694954ea0000c8774eb60f5c03b17c17c7f3bba",
       "spec": {
         "template": "table",
-        "title": "Identifying disconnected components in a graph",
+        "title": "Counting connected components",
         "columns": [
-          "Component ID",
-          "Discovered Nodes",
-          "Traversal Status"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Count separate connected components across an undirected graph.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Group 1"
+                    "text": "Counting"
                   },
                   {
-                    "text": "Nodes A, B, C"
-                  },
-                  {
-                    "text": "Visited via BFS"
+                    "text": "connected"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Start traversal from each unvisited node to mark its whole group.",
+            "at": "say3",
+            "caption": "The every logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Group 1"
+                    "text": "components"
                   },
                   {
-                    "text": "Nodes A, B, C"
-                  },
-                  {
-                    "text": "Visited via BFS"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Group 2"
-                  },
-                  {
-                    "text": "Nodes D, E"
-                  },
-                  {
-                    "text": "Visited via BFS"
+                    "text": "connected"
                   }
                 ],
                 "tone": "ok"
@@ -483,44 +306,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Identifying disconnected components in a graph",
+        "title": "Counting connected components",
         "columns": [
-          "Component ID",
-          "Discovered Nodes",
-          "Traversal Status"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Count separate connected components across an undirected graph.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Group 1",
-                  "Nodes A, B, C",
-                  "Visited via BFS"
+                  "Counting",
+                  "connected"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Start traversal from each unvisited node to mark its whole group.",
+            "at": "say3",
+            "caption": "The every logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Group 1",
-                  "Nodes A, B, C",
-                  "Visited via BFS"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Group 2",
-                  "Nodes D, E",
-                  "Visited via BFS"
+                  "components",
+                  "connected"
                 ],
                 "tone": "ok"
               }
@@ -533,94 +345,82 @@
       "partTitle": "Grids are graphs too",
       "codeHash": "1f5fcddb217aefac6c511cdb2f4ef91330cb901396f0288474feb4dccb28209e",
       "spec": {
-        "template": "compare",
-        "title": "Explicit adjacency graph versus 2D implicit grid",
-        "leftLabel": "Adjacency Graph",
-        "rightLabel": "Implicit Grid",
+        "template": "table",
+        "title": "Grids are graphs too",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each grid cell is a node with neighbours up down left and right.",
-            "left": {
-              "code": "dict edges",
-              "result": {
-                "text": "explicit memory"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "rc bounds",
-              "result": {
-                "text": "implicit 4-way"
-              },
-              "tone": "ok"
-            }
+            "caption": "The grid concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Grids"
+                  },
+                  {
+                    "text": "are"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Counting islands runs search from every unvisited land cell.",
-            "left": {
-              "code": "components",
-              "result": {
-                "text": "graph search"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "island count",
-              "result": {
-                "text": "grid floodfill"
-              },
-              "tone": "ok"
-            }
+            "caption": "The counting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "graphs"
+                  },
+                  {
+                    "text": "too"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Explicit adjacency graph versus 2D implicit grid",
-        "leftLabel": "Adjacency Graph",
-        "rightLabel": "Implicit Grid",
+        "template": "table",
+        "title": "Grids are graphs too",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each grid cell is a node with neighbours up down left and right.",
-            "left": {
-              "code": "dict edges",
-              "result": "explicit memory",
-              "tone": "data",
-              "checks": [
-                "explicit memory"
-              ]
-            },
-            "right": {
-              "code": "rc bounds",
-              "result": "implicit 4-way",
-              "tone": "ok",
-              "checks": [
-                "implicit 4-way"
-              ]
-            }
+            "caption": "The grid concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Grids",
+                  "are"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Counting islands runs search from every unvisited land cell.",
-            "left": {
-              "code": "components",
-              "result": "graph search",
-              "tone": "data",
-              "checks": [
-                "graph search"
-              ]
-            },
-            "right": {
-              "code": "island count",
-              "result": "grid floodfill",
-              "tone": "ok",
-              "checks": [
-                "grid floodfill"
-              ]
-            }
+            "caption": "The counting logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "graphs",
+                  "too"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -629,223 +429,81 @@
       "partTitle": "Choosing BFS or DFS and planning a graph solution",
       "codeHash": "67d374f1c22cca0ffbebacd3353c760374d467526dd2dbb670c88b964cff372e",
       "spec": {
-        "template": "flow",
-        "title": "Choosing BFS or DFS and planning a graph solu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing BFS or DFS...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing BFS or DFS and planning a graph solution",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing BFS or DFS and planning a graph.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing BFS or DFS... [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The graph concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Choosing"
+                  },
+                  {
+                    "text": "BFS"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing BFS or DFS and planning .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The always logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "DFS"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing BFS or DFS and planning a graph solu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing BFS or DFS...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing BFS or DFS and planning a graph solution",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing BFS or DFS and planning a graph.. [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing BFS or DFS... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The graph concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Choosing",
+                  "BFS"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing BFS or DFS and planning .. [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The always logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "DFS",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

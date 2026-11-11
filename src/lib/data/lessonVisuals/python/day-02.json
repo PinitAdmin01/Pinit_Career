@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 2,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "266796bd1b40dd3f457e858cf8a29722e359e9247022b82a8010af4be23c38c6",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What a variable is",
       "codeHash": "8c57b9ed697f65e95de6c0ebb75c82eb0d2731d83d1ad7cf81d0667fbc755460",
       "spec": {
-        "template": "boxes",
-        "title": "A variable is a labelled box",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus_fare",
-            "label": "bus_fare"
-          },
-          {
-            "id": "lunch",
-            "label": "lunch"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          }
+        "template": "table",
+        "title": "What a variable is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Tea = twenty stores twenty in the box named tea.",
-            "values": {
-              "tea": {
-                "text": "20"
-              },
-              "bus_fare": {
-                "text": ""
-              },
-              "lunch": {
-                "text": ""
-              },
-              "total": {
-                "text": ""
+            "at": "say1",
+            "caption": "The yesterday concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "variable"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "tea": "data",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "= puts the value on the right into the name on the left.",
-            "values": {
-              "tea": {
-                "text": "20"
-              },
-              "bus_fare": {
-                "text": "45"
-              },
-              "lunch": {
-                "text": "120"
-              },
-              "total": {
-                "text": ""
-              }
-            },
-            "tones": {
-              "tea": "data",
-              "bus_fare": "data",
-              "lunch": "data",
-              "total": "idle"
-            }
-          },
-          {
-            "at": "example",
-            "caption": "Total uses each label: twenty + multiple + multiple = multiple.",
-            "values": {
-              "tea": {
-                "text": "20"
-              },
-              "bus_fare": {
-                "text": "45"
-              },
-              "lunch": {
-                "text": "120"
-              },
-              "total": {
-                "text": ""
-              }
-            },
-            "tones": {
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "ok"
-            },
-            "checks": [
-              "Total: 185"
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Change one box and the total follows: multiple.",
-            "values": {
-              "tea": {
-                "text": "20"
-              },
-              "bus_fare": {
-                "text": "45"
-              },
-              "lunch": {
-                "text": "150"
-              },
-              "total": {
-                "text": "215"
+            "at": "say3",
+            "caption": "The equals logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "variable"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "data",
-              "total": "ok"
-            },
-            "whatIf": "tea = 20\nbus_fare = 45\nlunch = 150\ntotal = tea + bus_fare + lunch\nprint(\"Total:\", total)",
-            "checks": [
-              "Total: 215"
             ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "A variable is a labelled box",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus_fare",
-            "label": "bus_fare"
-          },
-          {
-            "id": "lunch",
-            "label": "lunch"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          }
+        "template": "table",
+        "title": "What a variable is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "tea = 20 stores 20 in the box named tea.",
-            "values": {
-              "tea": "20",
-              "bus_fare": "",
-              "lunch": "",
-              "total": ""
-            },
-            "tones": {
-              "tea": "data",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "= puts the value on the right into the name on the left.",
-            "values": {
-              "tea": "20",
-              "bus_fare": "45",
-              "lunch": "120",
-              "total": ""
-            },
-            "tones": {
-              "tea": "data",
-              "bus_fare": "data",
-              "lunch": "data",
-              "total": "idle"
-            }
-          },
-          {
-            "at": "example",
-            "caption": "total uses each label: 20 + 45 + 120 = 185.",
-            "values": {
-              "tea": "20",
-              "bus_fare": "45",
-              "lunch": "120",
-              "total": "185"
-            },
-            "tones": {
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "ok"
-            },
-            "checks": [
-              "Total: 185"
+            "at": "say1",
+            "caption": "The yesterday concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "variable"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Change one box and the total follows: 215.",
-            "values": {
-              "tea": "20",
-              "bus_fare": "45",
-              "lunch": "150",
-              "total": "215"
-            },
-            "tones": {
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "data",
-              "total": "ok"
-            },
-            "whatIf": "tea = 20\nbus_fare = 45\nlunch = 150\ntotal = tea + bus_fare + lunch\nprint(\"Total:\", total)",
-            "checks": [
-              "Total: 215"
+            "at": "say3",
+            "caption": "The equals logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "variable"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,142 +93,82 @@
       "partTitle": "Changing a variable",
       "codeHash": "ca78868ae02600a0b2cae12d4d1402d551ba83ac164281df6c7102a866952259",
       "spec": {
-        "template": "boxes",
-        "title": "A box keeps only its newest value",
-        "boxes": [
-          {
-            "id": "balance",
-            "label": "balance"
-          }
+        "template": "table",
+        "title": "Changing a variable",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Balance starts at server-error.",
-            "values": {
-              "balance": {
-                "text": "500"
+            "caption": "The variables concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Changing"
+                  },
+                  {
+                    "text": "variable"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "balance": "data"
-            },
-            "checks": [
-              "Start: 500"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Balance = balance - twenty stores multiple; server-error is forgotten.",
-            "values": {
-              "balance": {
-                "text": ""
-              }
-            },
-            "tones": {
-              "balance": "data"
-            },
-            "checks": [
-              "After tea: 480"
             ]
           },
           {
             "at": "say3",
-            "caption": "Balance -= multiple is the short form: now multiple.",
-            "values": {
-              "balance": {
-                "text": "435"
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Changing"
+                  },
+                  {
+                    "text": "variable"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "balance": "data"
-            },
-            "checks": [
-              "After bus: 435"
             ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Balance += multiple adds the salary: multiple.",
-            "values": {
-              "balance": {
-                "text": "1435"
-              }
-            },
-            "tones": {
-              "balance": "ok"
-            },
-            "whatIf": "balance = 500\nprint(\"Start:\", balance)\nbalance = balance - 20\nprint(\"After tea:\", balance)\nbalance -= 45\nprint(\"After bus:\", balance)\nbalance += 1000\nprint(\"After salary:\", balance)",
-            "checks": [
-              "After salary: 1435"
-            ],
-            "whatIfAmount": 1000
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "A box keeps only its newest value",
-        "boxes": [
-          {
-            "id": "balance",
-            "label": "balance"
-          }
+        "template": "table",
+        "title": "Changing a variable",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "balance starts at 500.",
-            "values": {
-              "balance": "500"
-            },
-            "tones": {
-              "balance": "data"
-            },
-            "checks": [
-              "Start: 500"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "balance = balance - 20 stores 480; 500 is forgotten.",
-            "values": {
-              "balance": "480"
-            },
-            "tones": {
-              "balance": "data"
-            },
-            "checks": [
-              "After tea: 480"
+            "caption": "The variables concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Changing",
+                  "variable"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "balance -= 45 is the short form: now 435.",
-            "values": {
-              "balance": "435"
-            },
-            "tones": {
-              "balance": "data"
-            },
-            "checks": [
-              "After bus: 435"
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Changing",
+                  "variable"
+                ],
+                "tone": "ok"
+              }
             ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "balance += 1000 adds the salary: 1435.",
-            "values": {
-              "balance": "1435"
-            },
-            "tones": {
-              "balance": "ok"
-            },
-            "whatIf": "balance = 500\nprint(\"Start:\", balance)\nbalance = balance - 20\nprint(\"After tea:\", balance)\nbalance -= 45\nprint(\"After bus:\", balance)\nbalance += 1000\nprint(\"After salary:\", balance)",
-            "checks": [
-              "After salary: 1435"
-            ],
-            "whatIfAmount": 1000
           }
         ]
       }
@@ -379,219 +177,81 @@
       "partTitle": "Types of values: text, whole numbers, decimals",
       "codeHash": "6e6034191fb94885f383927883a71011e4dde5cf3550667e6665b7253087eda9",
       "spec": {
-        "template": "boxes",
-        "title": "Every value has a type",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          },
-          {
-            "id": "rating",
-            "label": "rating"
-          },
-          {
-            "id": "twenty",
-            "label": "\"20\"",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "Types of values: text, whole numbers, decimals",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Text is str, whole numbers are int, decimals are float.",
-            "values": {
-              "item": {
-                "text": "\"Tea\""
-              },
-              "amount": {
-                "text": "20"
-              },
-              "rating": {
-                "text": "4.5"
-              },
-              "twenty": {
-                "text": ""
+            "at": "say1",
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Types"
+                  },
+                  {
+                    "text": "values"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "data",
-              "rating": "data",
-              "twenty": "idle"
-            },
-            "types": {
-              "item": "str",
-              "amount": "int",
-              "rating": "float"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "type() tells you the type: str, int or float.",
-            "values": {
-              "item": {
-                "text": "\"Tea\""
-              },
-              "amount": {
-                "text": "20"
-              },
-              "rating": {
-                "text": "4.5"
-              },
-              "twenty": {
-                "text": ""
-              }
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok",
-              "rating": "ok",
-              "twenty": "idle"
-            },
-            "types": {
-              "item": "str",
-              "amount": "int",
-              "rating": "float"
-            },
-            "checks": [
-              "<class 'str'>",
-              "<class 'int'>",
-              "<class 'float'>"
             ]
           },
           {
-            "at": "say4",
-            "caption": "Quotes make it text, even when it looks like a number.",
-            "values": {
-              "item": {
-                "text": "\"Tea\""
-              },
-              "amount": {
-                "text": "20"
-              },
-              "rating": {
-                "text": "4.5"
-              },
-              "twenty": {
-                "text": "\"20\""
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "text"
+                  },
+                  {
+                    "text": "whole"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "idle",
-              "amount": "idle",
-              "rating": "idle",
-              "twenty": "error"
-            },
-            "types": {
-              "item": "str",
-              "amount": "int",
-              "rating": "float",
-              "twenty": "str"
-            },
-            "checks": [
-              "<class 'str'>"
             ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Every value has a type",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          },
-          {
-            "id": "rating",
-            "label": "rating"
-          },
-          {
-            "id": "twenty",
-            "label": "\"20\"",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "Types of values: text, whole numbers, decimals",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Text is str, whole numbers are int, decimals are float.",
-            "values": {
-              "item": "\"Tea\"",
-              "amount": "20",
-              "rating": "4.5",
-              "twenty": ""
-            },
-            "tones": {
-              "item": "data",
-              "amount": "data",
-              "rating": "data",
-              "twenty": "idle"
-            },
-            "types": {
-              "item": "str",
-              "amount": "int",
-              "rating": "float"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "type() tells you the type: str, int or float.",
-            "values": {
-              "item": "\"Tea\"",
-              "amount": "20",
-              "rating": "4.5",
-              "twenty": ""
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok",
-              "rating": "ok",
-              "twenty": "idle"
-            },
-            "types": {
-              "item": "str",
-              "amount": "int",
-              "rating": "float"
-            },
-            "checks": [
-              "<class 'str'>",
-              "<class 'int'>",
-              "<class 'float'>"
+            "at": "say1",
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Types",
+                  "values"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Quotes make it text, even when it looks like a number.",
-            "values": {
-              "item": "\"Tea\"",
-              "amount": "20",
-              "rating": "4.5",
-              "twenty": "\"20\""
-            },
-            "tones": {
-              "item": "idle",
-              "amount": "idle",
-              "rating": "idle",
-              "twenty": "error"
-            },
-            "types": {
-              "item": "str",
-              "amount": "int",
-              "rating": "float",
-              "twenty": "str"
-            },
-            "checks": [
-              "<class 'str'>"
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "text",
+                  "whole"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -602,227 +262,81 @@
       "codeHash": "e67d0d075f4c1012adcb90c34a5fe5d1c7b2e4fe7de0b84427707331bbe1dc95",
       "spec": {
         "template": "table",
-        "title": "Questions answered True or False",
+        "title": "True and False: the bool type",
         "columns": [
-          "Question",
-          "Answer"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A question about a value gives True or False.",
+            "at": "say1",
+            "caption": "The fourth concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "amount > 1000",
-                  "True"
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "and"
+                  }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amount == 500",
-                  "False"
-                ],
-                "tone": "idle"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "True",
-              "False"
             ]
           },
           {
             "at": "say3",
-            "caption": "The comparison checks equal, more than and not equal.",
+            "caption": "The comparison logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "amount > 1000",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amount == 500",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "amount != 500",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "is_big = amount >= 1000",
-                  "True"
+                  {
+                    "text": "False"
+                  },
+                  {
+                    "text": "the"
+                  }
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "True",
-              "False",
-              "True",
-              "Big expense? True"
             ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "With multiple, two answers change and two stay the same.",
-            "rows": [
-              {
-                "cells": [
-                  "amount > 1000",
-                  "False"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "amount == 500",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "amount != 500",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "is_big = amount >= 1000",
-                  "False"
-                ],
-                "tone": "data"
-              }
-            ],
-            "whatIf": "amount = 800\nprint(amount > 1000)\nprint(amount == 500)\nprint(amount != 500)\nis_big = amount >= 1000\nprint(\"Big expense?\", is_big)",
-            "checks": [
-              "Big expense? False"
-            ],
-            "whatIfAmount": 800
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Questions answered True or False",
+        "title": "True and False: the bool type",
         "columns": [
-          "Question",
-          "Answer"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A question about a value gives True or False.",
+            "at": "say1",
+            "caption": "The fourth concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "amount > 1000",
-                  "True"
+                  "True",
+                  "and"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amount == 500",
-                  "False"
-                ],
-                "tone": "idle"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "True",
-              "False"
             ]
           },
           {
             "at": "say3",
-            "caption": "The comparison checks equal, more than and not equal.",
+            "caption": "The comparison logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "amount > 1000",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amount == 500",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "amount != 500",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "is_big = amount >= 1000",
-                  "True"
+                  "False",
+                  "the"
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "True",
-              "False",
-              "True",
-              "Big expense? True"
             ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "With 800, two answers change and two stay the same.",
-            "rows": [
-              {
-                "cells": [
-                  "amount > 1000",
-                  "False"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "amount == 500",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "amount != 500",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "is_big = amount >= 1000",
-                  "False"
-                ],
-                "tone": "data"
-              }
-            ],
-            "whatIf": "amount = 800\nprint(amount > 1000)\nprint(amount == 500)\nprint(amount != 500)\nis_big = amount >= 1000\nprint(\"Big expense?\", is_big)",
-            "checks": [
-              "Big expense? False"
-            ],
-            "whatIfAmount": 800
           }
         ]
       }
@@ -831,229 +345,81 @@
       "partTitle": "Converting between types",
       "codeHash": "09db63a3144f2b09f67b82e8e3607ad75ab31b55d7fc5ccc537279179bdd7e83",
       "spec": {
-        "template": "flow",
-        "title": "Changing a value's type",
-        "nodes": [
-          {
-            "id": "value",
-            "label": "value",
-            "tappable": false
-          },
-          {
-            "id": "tool",
-            "label": "str() / int()",
-            "tappable": false
-          },
-          {
-            "id": "result",
-            "label": "result",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "Converting between types",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Str(twenty) makes the text \"twenty\", so it can join other text.",
-            "values": {
-              "value": {
-                "text": "20"
-              },
-              "tool": {
-                "text": "str()"
-              },
-              "result": {
-                "text": ""
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Converting"
+                  },
+                  {
+                    "text": "between"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "value": "idle",
-              "tool": "idle",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "value",
-                "tool"
-              ],
-              [
-                "tool",
-                "result"
-              ]
-            ],
-            "checks": [
-              "Tea costs 20"
             ]
           },
           {
             "at": "say3",
-            "caption": "Int(\"multiple\") makes the number multiple, so maths works.",
-            "values": {
-              "value": {
-                "text": "\"45\""
-              },
-              "tool": {
-                "text": "int()"
-              },
-              "result": {
-                "text": ""
+            "caption": "The turns logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "types"
+                  },
+                  {
+                    "text": "between"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "value": "idle",
-              "tool": "idle",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "value",
-                "tool"
-              ],
-              [
-                "tool",
-                "result"
-              ]
-            ],
-            "checks": [
-              "50"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Text that is not a number cannot become a number.",
-            "values": {
-              "value": {
-                "text": "\"abc\""
-              },
-              "tool": {
-                "text": "int()"
-              },
-              "result": {
-                "text": "ValueError"
-              }
-            },
-            "tones": {
-              "value": "idle",
-              "tool": "idle",
-              "result": "error"
-            },
-            "arrows": [
-              [
-                "value",
-                "tool"
-              ],
-              [
-                "tool",
-                "result"
-              ]
-            ],
-            "whatIf": "int(\"abc\")",
-            "checks": [
-              "ValueError"
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Changing a value's type",
-        "nodes": [
-          {
-            "id": "value",
-            "label": "value",
-            "tappable": false
-          },
-          {
-            "id": "tool",
-            "label": "str() / int()",
-            "tappable": false
-          },
-          {
-            "id": "result",
-            "label": "result",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "Converting between types",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "str(20) makes the text \"20\", so it can join other text.",
-            "values": {
-              "value": "20",
-              "tool": "str()",
-              "result": "Tea costs 20"
-            },
-            "tones": {
-              "value": "idle",
-              "tool": "idle",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "value",
-                "tool"
-              ],
-              [
-                "tool",
-                "result"
-              ]
-            ],
-            "checks": [
-              "Tea costs 20"
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Converting",
+                  "between"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "int(\"45\") makes the number 45, so maths works.",
-            "values": {
-              "value": "\"45\"",
-              "tool": "int()",
-              "result": "45 + 5 = 50"
-            },
-            "tones": {
-              "value": "idle",
-              "tool": "idle",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "value",
-                "tool"
-              ],
-              [
-                "tool",
-                "result"
-              ]
-            ],
-            "checks": [
-              "50"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Text that is not a number cannot become a number.",
-            "values": {
-              "value": "\"abc\"",
-              "tool": "int()",
-              "result": "ValueError"
-            },
-            "tones": {
-              "value": "idle",
-              "tool": "idle",
-              "result": "error"
-            },
-            "arrows": [
-              [
-                "value",
-                "tool"
-              ],
-              [
-                "tool",
-                "result"
-              ]
-            ],
-            "whatIf": "int(\"abc\")",
-            "checks": [
-              "ValueError"
+            "caption": "The turns logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "types",
+                  "between"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1063,189 +429,81 @@
       "partTitle": "Good variable names and a better tracker",
       "codeHash": "a1b3f7c2d58f8bdcbd5153f7f92281939d8350e1818e212440c36ac94c2770e5",
       "spec": {
-        "template": "boxes",
-        "title": "The tracker with variables",
-        "boxes": [
-          {
-            "id": "monthly_budget",
-            "label": "monthly_budget"
-          },
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus_fare",
-            "label": "bus_fare"
-          },
-          {
-            "id": "lunch",
-            "label": "lunch"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "left",
-            "label": "left"
-          }
+        "template": "table",
+        "title": "Good variable names and a better tracker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each amount is stored once; total and left are worked out.",
-            "values": {
-              "monthly_budget": {
-                "text": "5000"
-              },
-              "tea": {
-                "text": "20"
-              },
-              "bus_fare": {
-                "text": "45"
-              },
-              "lunch": {
-                "text": "120"
-              },
-              "total": {
-                "text": ""
-              },
-              "left": {
-                "text": ""
+            "caption": "The rewrite concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Good"
+                  },
+                  {
+                    "text": "variable"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "monthly_budget": "idle",
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "ok",
-              "left": "ok"
-            },
-            "checks": [
-              "Spent today: 185",
-              "Left this month: 4815",
-              "Over budget? False"
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "With a budget of one hundred the money left is negative.",
-            "values": {
-              "monthly_budget": {
-                "text": "100"
-              },
-              "tea": {
-                "text": "20"
-              },
-              "bus_fare": {
-                "text": "45"
-              },
-              "lunch": {
-                "text": "120"
-              },
-              "total": {
-                "text": ""
-              },
-              "left": {
-                "text": ""
+            "at": "say3",
+            "caption": "The words logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "names"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "monthly_budget": "data",
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "idle",
-              "left": "error"
-            },
-            "whatIf": "monthly_budget = 100\ntea = 20\nbus_fare = 45\nlunch = 120\ntotal = tea + bus_fare + lunch\nmoney_left = monthly_budget - total\nprint(\"Spent today:\", total)\nprint(\"Left this month:\", money_left)\nprint(\"Over budget?\", money_left < 0)",
-            "checks": [
-              "Left this month: -85",
-              "Over budget? True"
             ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "The tracker with variables",
-        "boxes": [
-          {
-            "id": "monthly_budget",
-            "label": "monthly_budget"
-          },
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus_fare",
-            "label": "bus_fare"
-          },
-          {
-            "id": "lunch",
-            "label": "lunch"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "left",
-            "label": "left"
-          }
+        "template": "table",
+        "title": "Good variable names and a better tracker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each amount is stored once; total and left are worked out.",
-            "values": {
-              "monthly_budget": "5000",
-              "tea": "20",
-              "bus_fare": "45",
-              "lunch": "120",
-              "total": "185",
-              "left": "4815"
-            },
-            "tones": {
-              "monthly_budget": "idle",
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "ok",
-              "left": "ok"
-            },
-            "checks": [
-              "Spent today: 185",
-              "Left this month: 4815",
-              "Over budget? False"
+            "caption": "The rewrite concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Good",
+                  "variable"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "With a budget of 100 the money left is negative.",
-            "values": {
-              "monthly_budget": "100",
-              "tea": "20",
-              "bus_fare": "45",
-              "lunch": "120",
-              "total": "185",
-              "left": "-85"
-            },
-            "tones": {
-              "monthly_budget": "data",
-              "tea": "idle",
-              "bus_fare": "idle",
-              "lunch": "idle",
-              "total": "idle",
-              "left": "error"
-            },
-            "whatIf": "monthly_budget = 100\ntea = 20\nbus_fare = 45\nlunch = 120\ntotal = tea + bus_fare + lunch\nmoney_left = monthly_budget - total\nprint(\"Spent today:\", total)\nprint(\"Left this month:\", money_left)\nprint(\"Over budget?\", money_left < 0)",
-            "checks": [
-              "Left this month: -85",
-              "Over budget? True"
+            "at": "say3",
+            "caption": "The words logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "names",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

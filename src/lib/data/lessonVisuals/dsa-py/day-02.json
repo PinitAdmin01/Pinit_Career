@@ -2,62 +2,50 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "2231ab893de59f142f331f5955497d8dda34e3eb6fe7b33f66781f7bff7fdf74",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "An array: items side by side in memory",
       "codeHash": "1c0957b9a538155055b52cf2c51b1b9eb6dcbad6ed0e4ed09ad884028bd1330d",
       "spec": {
-        "template": "cells",
-        "title": "Contiguous array items in memory",
+        "template": "table",
+        "title": "An array: items side by side in memory",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Items sit side by side in contiguous memory.",
-            "items": [
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "10"
-              },
-              {
-                "text": "20"
-              },
-              {
-                "text": "30"
-              },
-              {
-                "text": "40"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "nums[0]",
-                "index": 0,
+                "cells": [
+                  {
+                    "text": "array"
+                  },
+                  {
+                    "text": "items"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Reading nums at index two is instant with direct offset arithmetic.",
-            "items": [
+            "at": "say3",
+            "caption": "The items logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "10"
-              },
-              {
-                "text": "20"
-              },
-              {
-                "text": "30"
-              },
-              {
-                "text": "40"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "nums[2]",
-                "index": 2,
+                "cells": [
+                  {
+                    "text": "side"
+                  },
+                  {
+                    "text": "side"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -65,39 +53,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Contiguous array items in memory",
+        "template": "table",
+        "title": "An array: items side by side in memory",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Items sit side by side in contiguous memory.",
-            "items": [
-              "10",
-              "20",
-              "30",
-              "40"
-            ],
-            "pointers": [
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "nums[0]",
-                "index": 0,
+                "cells": [
+                  "array",
+                  "items"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Reading nums at index two is instant with direct offset arithmetic.",
-            "items": [
-              "10",
-              "20",
-              "30",
-              "40"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The items logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "nums[2]",
-                "index": 2,
+                "cells": [
+                  "side",
+                  "side"
+                ],
                 "tone": "ok"
               }
             ]
@@ -110,41 +94,23 @@
       "codeHash": "18ded0fa17d0b6e41bb75d2904aac535e34404799425782c7a1bfaf0ad15c037",
       "spec": {
         "template": "table",
-        "title": "Capacity growth by doubling",
+        "title": "Growing by doubling",
         "columns": [
-          "Appends",
-          "Capacity",
-          "Work cost"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Capacity grows by doubling multiple when full.",
+            "at": "say1",
+            "caption": "The list concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "1 to 2"
+                    "text": "Growing"
                   },
                   {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2 copies"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "3 to 4"
-                  },
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "4 copies"
+                    "text": "doubling"
                   }
                 ],
                 "tone": "data"
@@ -153,46 +119,15 @@
           },
           {
             "at": "say3",
-            "caption": "Most appends find free space and cost constant work.",
+            "caption": "The doubling logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "1 to 2"
+                    "text": "Growing"
                   },
                   {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2 copies"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "3 to 4"
-                  },
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "4 copies"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "5 to 8"
-                  },
-                  {
-                    "text": "8"
-                  },
-                  {
-                    "text": "8 copies"
+                    "text": "doubling"
                   }
                 ],
                 "tone": "ok"
@@ -203,30 +138,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "Capacity growth by doubling",
+        "title": "Growing by doubling",
         "columns": [
-          "Appends",
-          "Capacity",
-          "Work cost"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Capacity grows by doubling multiple when full.",
+            "at": "say1",
+            "caption": "The list concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "1 to 2",
-                  "2",
-                  "2 copies"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "3 to 4",
-                  "4",
-                  "4 copies"
+                  "Growing",
+                  "doubling"
                 ],
                 "tone": "data"
               }
@@ -234,29 +159,12 @@
           },
           {
             "at": "say3",
-            "caption": "Most appends find free space and cost constant work.",
+            "caption": "The doubling logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "1 to 2",
-                  "2",
-                  "2 copies"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "3 to 4",
-                  "4",
-                  "4 copies"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "5 to 8",
-                  "8",
-                  "8 copies"
+                  "Growing",
+                  "doubling"
                 ],
                 "tone": "ok"
               }
@@ -269,223 +177,81 @@
       "partTitle": "Amortized O(1): the average cost",
       "codeHash": "56a2f46843b012d5d993f95d868caeeb806e2c61b67402514c0615e5fb1bc3b2",
       "spec": {
-        "template": "flow",
-        "title": "Amortized O(1): the average cost — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Amortized O(1): the...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Amortized O(1): the average cost",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Amortized constant-time: the average cost.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Amortized constant-time: the.",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The appends concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Amortized"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Amortized constant-time: the average.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The append logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "average"
+                  },
+                  {
+                    "text": "cost"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Amortized O(1): the average cost — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Amortized O(1): the...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Amortized O(1): the average cost",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Amortized O(1): the average cost [D2.P3.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Amortized O(1): the... [D2.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The appends concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Amortized",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Amortized O(1): the average cost [D2.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The append logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "average",
+                  "cost"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -495,78 +261,43 @@
       "partTitle": "Changing a list in place with a write pointer",
       "codeHash": "1e74ab0ec5fed46ccc9f76c13037a5394781b17b5b8c8ccb062b818f45291f6b",
       "spec": {
-        "template": "cells",
-        "title": "Write pointer duplicate removal in place",
+        "template": "table",
+        "title": "Changing a list in place with a write pointer",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Read position walks over items while write position marks kept place.",
-            "items": [
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "read",
-                "index": 1,
-                "tone": "data"
-              },
-              {
-                "name": "write",
-                "index": 1,
+                "cells": [
+                  {
+                    "text": "Changing"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "First write items are kept in same order.",
-            "items": [
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "3"
-              },
-              {
-                "text": "4"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "write",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "place"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -574,50 +305,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Write pointer duplicate removal in place",
+        "template": "table",
+        "title": "Changing a list in place with a write pointer",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Read position walks over items while write position marks kept place.",
-            "items": [
-              "1",
-              "1",
-              "2",
-              "3",
-              "3",
-              "3",
-              "4"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "read",
-                "index": 1,
-                "tone": "data"
-              },
-              {
-                "name": "write",
-                "index": 1,
+                "cells": [
+                  "Changing",
+                  "list"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "First write items are kept in same order.",
-            "items": [
-              "1",
-              "2",
-              "3",
-              "4",
-              "3",
-              "3",
-              "4"
-            ],
-            "pointers": [
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "write",
-                "index": 4,
+                "cells": [
+                  "place",
+                  "with"
+                ],
                 "tone": "ok"
               }
             ]
@@ -630,106 +346,43 @@
       "codeHash": "136774cb7f7d7ac4df215290e787de928d0e6618e587f034c955f3e199aeffc0",
       "spec": {
         "template": "table",
-        "title": "List operations and costs",
+        "title": "List operations and their costs",
         "columns": [
-          "Operation",
-          "Cost",
-          "Reason"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Index access and append pop from end cost constant work.",
+            "caption": "The knowing concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "nums[i]"
+                    "text": "List"
                   },
                   {
-                    "text": "O(1)"
-                  },
-                  {
-                    "text": "direct index"
+                    "text": "operations"
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "append(x)"
-                  },
-                  {
-                    "text": "amortized O(1)"
-                  },
-                  {
-                    "text": "free space"
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Insert at front and remove shift items taking linear work.",
+            "at": "say3",
+            "caption": "The slicing logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "nums[i]"
+                    "text": "and"
                   },
                   {
-                    "text": "O(1)"
-                  },
-                  {
-                    "text": "direct index"
+                    "text": "their"
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "append(x)"
-                  },
-                  {
-                    "text": "amortized O(1)"
-                  },
-                  {
-                    "text": "free space"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "insert(0, x)"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "shift elements"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pop(0)"
-                  },
-                  {
-                    "text": "O(N)"
-                  },
-                  {
-                    "text": "shift elements"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
@@ -737,70 +390,35 @@
       },
       "filled": {
         "template": "table",
-        "title": "List operations and costs",
+        "title": "List operations and their costs",
         "columns": [
-          "Operation",
-          "Cost",
-          "Reason"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Index access and append pop from end cost constant work.",
+            "caption": "The knowing concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "nums[i]",
-                  "O(1)",
-                  "direct index"
+                  "List",
+                  "operations"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "append(x)",
-                  "amortized O(1)",
-                  "free space"
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Insert at front and remove shift items taking linear work.",
+            "at": "say3",
+            "caption": "The slicing logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "nums[i]",
-                  "O(1)",
-                  "direct index"
+                  "and",
+                  "their"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "append(x)",
-                  "amortized O(1)",
-                  "free space"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "insert(0, x)",
-                  "O(N)",
-                  "shift elements"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "pop(0)",
-                  "O(N)",
-                  "shift elements"
-                ],
-                "tone": "error"
               }
             ]
           }
@@ -811,223 +429,81 @@
       "partTitle": "Lists of lists and the copy trap",
       "codeHash": "578f31d3de29a2b531332ebdea135fb9930d026929b4e4dde5f2f542f1f5477a",
       "spec": {
-        "template": "flow",
-        "title": "Lists of lists and the copy trap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Lists of lists and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Lists of lists and the copy trap",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Lists of lists and the copy trap.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Lists of lists and ... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The grids concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Lists"
+                  },
+                  {
+                    "text": "lists"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Lists of lists and the copy trap.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The safe logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Lists of lists and the copy trap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Lists of lists and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Lists of lists and the copy trap",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Lists of lists and the copy trap [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Lists of lists and ... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The grids concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Lists",
+                  "lists"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Lists of lists and the copy trap [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The safe logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "the"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

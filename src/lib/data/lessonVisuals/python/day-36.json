@@ -2,72 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 36,
-  "promptSha": "0dd3d853079faeb30b209996b2522d70b54455cb8c252a9bd489600946f6e279",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "6c14a9c5254a41518eab1745e49a8940df8de8ab8c2e6e5f41335e3c6379c8d0",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver Mechanics",
       "codeHash": "9a0f1a0c2660dbd7a88dad90e337cdfb1b45dc8b8accdf748d21f7814d09225b",
       "spec": {
-        "template": "states",
-        "title": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver Mechanics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "SQLAlchemy"
+                  },
+                  {
+                    "text": "Async"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The heart logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Architecture"
+                  },
+                  {
+                    "text": "asyncpg"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The welcome concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "SQLAlchemy",
+                  "Async"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The heart logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Architecture",
+                  "asyncpg"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -76,65 +93,82 @@
       "partTitle": "Connection Pool Exhaustion & Leak Forensics",
       "codeHash": "a3d67322212b9958fcfbe55f0bf3b9bd06c9d3a52a3dea6bcbfb892224c6618a",
       "spec": {
-        "template": "states",
-        "title": "Connection Pool Exhaustion & Leak Forensics — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Connection Pool Exhaustion & Leak Forensics",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Connection"
+                  },
+                  {
+                    "text": "Pool"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The eliminate logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Exhaustion"
+                  },
+                  {
+                    "text": "Leak"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Connection Pool Exhaustion & Leak Forensics",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Connection",
+                  "Pool"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The eliminate logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Exhaustion",
+                  "Leak"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -143,65 +177,82 @@
       "partTitle": "Asynchronous QueuePool Engine Implementation",
       "codeHash": "4af5af4dbaf63c2da80e54d1e623e4a90994ca599228fd1c42e6455758232e91",
       "spec": {
-        "template": "states",
-        "title": "Asynchronous QueuePool Engine Implementation — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Asynchronous QueuePool Engine Implementation",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Asynchronous"
+                  },
+                  {
+                    "text": "QueuePool"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The checkout logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Engine"
+                  },
+                  {
+                    "text": "Implementation"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Asynchronous QueuePool Engine Implementation",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Asynchronous",
+                  "QueuePool"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The checkout logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Engine",
+                  "Implementation"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -210,65 +261,82 @@
       "partTitle": "High-Volume Checkout Connection Pool Tuning",
       "codeHash": "6d372b53338fac6f299332133c544c8d2bf2396b5daa512ead77e6eb8a456cd8",
       "spec": {
-        "template": "states",
-        "title": "High-Volume Checkout Connection Pool Tuning — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "High-Volume Checkout Connection Pool Tuning",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "High"
+                  },
+                  {
+                    "text": "Volume"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The forensic logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Checkout"
+                  },
+                  {
+                    "text": "Connection"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "High-Volume Checkout Connection Pool Tuning",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The part concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "High",
+                  "Volume"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The forensic logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Checkout",
+                  "Connection"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -277,65 +345,82 @@
       "partTitle": "Full Asynchronous Engine & Connection Lifecycle Lab",
       "codeHash": "cddb5f528e3be07b985173308d49a7a7a585d3864da504e1123987306f57e573",
       "spec": {
-        "template": "states",
-        "title": "Full Asynchronous Engine & Connection Lifecycle Lab — Python Backend Architecture",
-        "states": [
-          {
-            "id": "st1",
-            "label": "Connection Acquired"
-          },
-          {
-            "id": "st2",
-            "label": "Transactional Unit of Work"
-          },
-          {
-            "id": "st3",
-            "label": "Query Planner / Online DDL"
-          },
-          {
-            "id": "st4",
-            "label": "Committed & Verified"
-          }
+        "template": "table",
+        "title": "Full Asynchronous Engine & Connection Lifecycle La",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "State one (Connection Acquired): Initialize async database engine and.",
-            "currentState": "st1",
-            "tone": "data"
+            "at": "say1",
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Full"
+                  },
+                  {
+                    "text": "Asynchronous"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
+          {
+            "at": "say3",
+            "caption": "The unhandled logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Engine"
+                  },
+                  {
+                    "text": "Connection"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Full Asynchronous Engine & Connection Lifecycle La",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Transition to Transactional Unit of Work with identity map registration and dirty diff tracking.",
-            "currentState": "st2",
-            "transition": {
-              "from": "st1",
-              "to": "st2",
-              "label": "begin_transaction()"
-            },
-            "tone": "data"
+            "caption": "The final concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Full",
+                  "Asynchronous"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "example",
-            "caption": "Transition to Query Planner / Online DDL and enforce bounded.",
-            "currentState": "st3",
-            "transition": {
-              "from": "st2",
-              "to": "st3",
-              "label": "optimize_queries()"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "tryIt",
-            "caption": "State four (Committed & Verified): Atomic commit completed with zero.",
-            "currentState": "st4",
-            "transition": {
-              "from": "st3",
-              "to": "st4",
-              "label": "commit_and_release()"
-            },
-            "tone": "ok"
+            "at": "say3",
+            "caption": "The unhandled logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Engine",
+                  "Connection"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

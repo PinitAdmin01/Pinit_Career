@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 23,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "719fd78efba76fc8c03b7b44a6eea611e5bab50b8238d90b9189e719c63faec4",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Why plan before coding",
       "codeHash": "5ffbb8a28585b6bbc78c1b28dbdc7996b1e69d3915603eef271dce018363abdc",
       "spec": {
-        "template": "flow",
-        "title": "Why plan before coding — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why plan before coding",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Why plan before coding",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why plan before coding [D.Pone.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why plan before coding [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The week concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "plan"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why plan before coding [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The need logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "before"
+                  },
+                  {
+                    "text": "coding"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why plan before coding — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why plan before coding",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Why plan before coding",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why plan before coding [D23.P1.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why plan before coding [D23.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The week concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "plan"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why plan before coding [D23.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The need logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "before",
+                  "coding"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,92 +93,82 @@
       "partTitle": "User stories",
       "codeHash": "a53fefe58247aeca36bf71c04dd6227bb965ec1444587c4ba7ed35f8ea09bf7e",
       "spec": {
-        "template": "boxes",
-        "title": "Categorising user stories by priority",
-        "boxes": [
-          {
-            "id": "label",
-            "label": "label"
-          },
-          {
-            "id": "must",
-            "label": "must"
-          }
+        "template": "table",
+        "title": "User stories",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User story describes feature from user point of view.",
-            "values": {
-              "label": {
-                "text": "MUST"
-              },
-              "must": {
-                "text": "True"
+            "caption": "The user concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "User"
+                  },
+                  {
+                    "text": "stories"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "label": "data",
-              "must": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Mark each story as must-have or nice-to-have.",
-            "values": {
-              "label": {
-                "var": "label",
-                "line": 9
-              },
-              "must": {
-                "var": "must",
-                "line": 9
+            "at": "say3",
+            "caption": "The story logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "User"
+                  },
+                  {
+                    "text": "stories"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "label": "ok",
-              "must": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Categorising user stories by priority",
-        "boxes": [
-          {
-            "id": "label",
-            "label": "label"
-          },
-          {
-            "id": "must",
-            "label": "must"
-          }
+        "template": "table",
+        "title": "User stories",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User story describes feature from user point of view.",
-            "values": {
-              "label": "MUST",
-              "must": "True"
-            },
-            "tones": {
-              "label": "data",
-              "must": "idle"
-            }
+            "caption": "The user concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "User",
+                  "stories"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Mark each story as must-have or nice-to-have.",
-            "values": {
-              "label": "'MUST'",
-              "must": "True"
-            },
-            "tones": {
-              "label": "ok",
-              "must": "ok"
-            }
+            "at": "say3",
+            "caption": "The story logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "User",
+                  "stories"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -329,90 +177,82 @@
       "partTitle": "Designing the data shape",
       "codeHash": "60ecd6b40a6b72e7148747ca14aaa2d9c84f50970a6773881abcd568adff6771",
       "spec": {
-        "template": "boxes",
-        "title": "Validating dictionary schema fields",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "category",
-            "label": "category"
-          }
+        "template": "table",
+        "title": "Designing the data shape",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Decide keys for item text and category lower-case text.",
-            "values": {
-              "item": {
-                "text": "Tea"
-              },
-              "category": {
-                "text": "food"
+            "at": "say1",
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Designing"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "category": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Function checks record has the right shape to catch mistakes.",
-            "values": {
-              "item": {
-                "text": "Bus"
-              },
-              "category": {
-                "text": "food"
+            "caption": "The writing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "data"
+                  },
+                  {
+                    "text": "shape"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "ok",
-              "category": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Validating dictionary schema fields",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "category",
-            "label": "category"
-          }
+        "template": "table",
+        "title": "Designing the data shape",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Decide keys for item text and category lower-case text.",
-            "values": {
-              "item": "Tea",
-              "category": "food"
-            },
-            "tones": {
-              "item": "data",
-              "category": "idle"
-            }
+            "at": "say1",
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Designing",
+                  "the"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Function checks record has the right shape to catch mistakes.",
-            "values": {
-              "item": "Bus",
-              "category": "food"
-            },
-            "tones": {
-              "item": "ok",
-              "category": "ok"
-            }
+            "caption": "The writing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "data",
+                  "shape"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -421,223 +261,81 @@
       "partTitle": "Breaking the program into small functions",
       "codeHash": "f756349e69fc14bd3c212b22a106e973a6be89fbd62c0ded3e2b91522a86e4ae",
       "spec": {
-        "template": "flow",
-        "title": "Breaking the program into small functions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Breaking the progra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Breaking the program into small functions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Breaking the program into small functions.",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Breaking the progra... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Breaking"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Breaking the program into small f.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "program"
+                  },
+                  {
+                    "text": "into"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Breaking the program into small functions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Breaking the progra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Breaking the program into small functions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Breaking the program into small functions [D23.P4.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Breaking the progra... [D23.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Breaking",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Breaking the program into small f.. [D23.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "program",
+                  "into"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -647,92 +345,82 @@
       "partTitle": "Planning the build order",
       "codeHash": "aa462ab53c727956ceb5772d1f4e1dce95fcbb503e7e59acf7caa2f70bbc7ddf",
       "spec": {
-        "template": "boxes",
-        "title": "Estimating effort across build stages",
-        "boxes": [
-          {
-            "id": "step",
-            "label": "step"
-          },
-          {
-            "id": "hours",
-            "label": "hours"
-          }
+        "template": "table",
+        "title": "Planning the build order",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Build in thin working slices after each step.",
-            "values": {
-              "step": {
-                "text": "1"
-              },
-              "hours": {
-                "text": "2"
+            "caption": "The last concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Planning"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "step": "data",
-              "hours": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Estimate each step in hours and compare.",
-            "values": {
-              "step": {
-                "var": "step",
-                "line": 11
-              },
-              "hours": {
-                "var": "hours",
-                "line": 11
+            "at": "say3",
+            "caption": "The slice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "build"
+                  },
+                  {
+                    "text": "order"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "step": "ok",
-              "hours": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Estimating effort across build stages",
-        "boxes": [
-          {
-            "id": "step",
-            "label": "step"
-          },
-          {
-            "id": "hours",
-            "label": "hours"
-          }
+        "template": "table",
+        "title": "Planning the build order",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Build in thin working slices after each step.",
-            "values": {
-              "step": "1",
-              "hours": "2"
-            },
-            "tones": {
-              "step": "data",
-              "hours": "idle"
-            }
+            "caption": "The last concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Planning",
+                  "the"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Estimate each step in hours and compare.",
-            "values": {
-              "step": "1",
-              "hours": "2"
-            },
-            "tones": {
-              "step": "ok",
-              "hours": "ok"
-            }
+            "at": "say3",
+            "caption": "The slice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "build",
+                  "order"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -741,223 +429,81 @@
       "partTitle": "Putting it together: PLAN.md and the first functions",
       "codeHash": "af89791efb4a7fd310bf18c14f6b45b7873b8aa5c3c68853605d69184fb3b323",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: PLAN.md and the first fu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: PLAN.md and the first functio",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: PLAN.md and the fir.",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The finish concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: PLAN.md and .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "PLAN"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: PLAN.md and the first fu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: PLAN.md and the first functio",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: PLAN.md and the fir.. [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The finish concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: PLAN.md and .. [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "PLAN",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

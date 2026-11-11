@@ -2,103 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "dadde77144414791134846a028fe9582ee92d9793919479b9109068763e2380b",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Dependencies as a directed graph",
       "codeHash": "8778ac92f664ac9353fa6bb2a568c347ced92512dd92f7d2737d305ed48533ed",
       "spec": {
-        "template": "tree-graph",
-        "title": "Directed acyclic graph of task dependencies",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "Task A"
-          },
-          {
-            "id": "B",
-            "label": "Task B"
-          },
-          {
-            "id": "C",
-            "label": "Task C"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "prereq"
-          },
-          {
-            "from": "B",
-            "to": "C",
-            "label": "prereq"
-          }
+        "template": "table",
+        "title": "Dependencies as a directed graph",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Draw each task as a node and each requirement as a directed edge.",
-            "highlightNodes": [
-              "A",
-              "B",
-              "C"
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Dependencies"
+                  },
+                  {
+                    "text": "directed"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "If the graph has no cycles it is a DAG with valid topological order.",
-            "highlightNodes": [
-              "A",
-              "B",
-              "C"
-            ],
-            "highlightEdges": [
-              "A->B",
-              "B->C"
+            "caption": "The graph logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "graph"
+                  },
+                  {
+                    "text": "directed"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Directed acyclic graph of task dependencies",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "Task A"
-          },
-          {
-            "id": "B",
-            "label": "Task B"
-          },
-          {
-            "id": "C",
-            "label": "Task C"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "prereq"
-          },
-          {
-            "from": "B",
-            "to": "C",
-            "label": "prereq"
-          }
+        "template": "table",
+        "title": "Dependencies as a directed graph",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Draw each task as a node and each requirement as a directed edge."
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Dependencies",
+                  "directed"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "If the graph has no cycles it is a DAG with valid topological order."
+            "caption": "The graph logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "graph",
+                  "directed"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -108,64 +94,43 @@
       "codeHash": "52b316c7e46165f923a1dfd450deea6b41d2b2be7688b8a6ce0abbd101ed23b7",
       "spec": {
         "template": "table",
-        "title": "Tracking in-degree prerequisite counters",
+        "title": "In-degree: counting what you still need",
         "columns": [
-          "Task Node",
-          "Incoming Edges (In-degree)",
-          "Readiness State"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The in-degree of a node counts how many edges point into it.",
+            "caption": "The degree concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Task A"
+                    "text": "degree"
                   },
                   {
-                    "text": "0"
-                  },
-                  {
-                    "text": "Ready"
+                    "text": "counting"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A task with in-degree zero has nothing blocking it to begin.",
+            "at": "say3",
+            "caption": "The complete logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Task A"
+                    "text": "what"
                   },
                   {
-                    "text": "0"
-                  },
-                  {
-                    "text": "Ready"
+                    "text": "you"
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Task B"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "Blocked by A"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -173,46 +138,35 @@
       },
       "filled": {
         "template": "table",
-        "title": "Tracking in-degree prerequisite counters",
+        "title": "In-degree: counting what you still need",
         "columns": [
-          "Task Node",
-          "Incoming Edges (In-degree)",
-          "Readiness State"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The in-degree of a node counts how many edges point into it.",
+            "caption": "The degree concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Task A",
-                  "0",
-                  "Ready"
+                  "degree",
+                  "counting"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A task with in-degree zero has nothing blocking it to begin.",
+            "at": "say3",
+            "caption": "The complete logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Task A",
-                  "0",
-                  "Ready"
+                  "what",
+                  "you"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Task B",
-                  "1",
-                  "Blocked by A"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -223,48 +177,81 @@
       "partTitle": "Kahn's algorithm",
       "codeHash": "7793ae9279bc3b504bdc22b032ba43074fed52600c23df88d6d316d67a2cadee",
       "spec": {
-        "template": "stack-queue",
-        "title": "Kahn algorithm queue of ready nodes",
-        "kind": "queue",
+        "template": "table",
+        "title": "Kahn's algorithm",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Put every node with in-degree zero in a queue to process order.",
-            "items": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "Task A (in-deg 0)"
+                "cells": [
+                  {
+                    "text": "Kahn"
+                  },
+                  {
+                    "text": "algorithm"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "When queue runs dry check order length to ensure no cycle occurred.",
-            "items": [
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "order: [A, B, C]"
+                "cells": [
+                  {
+                    "text": "Kahn"
+                  },
+                  {
+                    "text": "algorithm"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "Kahn algorithm queue of ready nodes",
+        "template": "table",
+        "title": "Kahn's algorithm",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Put every node with in-degree zero in a queue to process order.",
-            "mode": "stack",
-            "items": [
-              "Task A (in-deg 0)"
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Kahn",
+                  "algorithm"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "When queue runs dry check order length to ensure no cycle occurred.",
-            "mode": "stack",
-            "items": [
-              "order: [A, B, C]"
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Kahn",
+                  "algorithm"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -274,223 +261,81 @@
       "partTitle": "Can all courses be finished?",
       "codeHash": "1e42d2d900b4fbf60b25a1b9e958c4d9d5a5c69a5601b3dd6a1f7613fa7c4adb",
       "spec": {
-        "template": "flow",
-        "title": "Can all courses be finished? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Can all courses be ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Can all courses be finished?",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Can all courses be finished? [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Can all courses be ... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Can"
+                  },
+                  {
+                    "text": "all"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Can all courses be finished.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The detect logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "courses"
+                  },
+                  {
+                    "text": "finished"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Can all courses be finished? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Can all courses be ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Can all courses be finished?",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Can all courses be finished? [D23.P4.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Can all courses be ... [D23.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Can",
+                  "all"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Can all courses be finished? [D23.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The detect logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "courses",
+                  "finished"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -500,94 +345,82 @@
       "partTitle": "Build systems and parallel steps",
       "codeHash": "37e6054f3b785fe9451f611b1ac4d38735fc1c646053db399acffff7d6abca8d",
       "spec": {
-        "template": "compare",
-        "title": "Sequential task execution versus parallel stage rounds",
-        "leftLabel": "Sequential Order",
-        "rightLabel": "Parallel Stages",
+        "template": "table",
+        "title": "Build systems and parallel steps",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tasks ready together in one round can execute in parallel.",
-            "left": {
-              "code": "1 worker",
-              "result": {
-                "text": "3 time units"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "N workers",
-              "result": {
-                "text": "2 stages"
-              },
-              "tone": "ok"
-            }
+            "caption": "The topological concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Build"
+                  },
+                  {
+                    "text": "systems"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Build systems group independent jobs in stages to finish sooner.",
-            "left": {
-              "code": "linear pipeline",
-              "result": {
-                "text": "slow"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "stage grouping",
-              "result": {
-                "text": "fast"
-              },
-              "tone": "ok"
-            }
+            "caption": "The number logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "parallel"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Sequential task execution versus parallel stage rounds",
-        "leftLabel": "Sequential Order",
-        "rightLabel": "Parallel Stages",
+        "template": "table",
+        "title": "Build systems and parallel steps",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tasks ready together in one round can execute in parallel.",
-            "left": {
-              "code": "1 worker",
-              "result": "3 time units",
-              "tone": "data",
-              "checks": [
-                "3 time units"
-              ]
-            },
-            "right": {
-              "code": "N workers",
-              "result": "2 stages",
-              "tone": "ok",
-              "checks": [
-                "2 stages"
-              ]
-            }
+            "caption": "The topological concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Build",
+                  "systems"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Build systems group independent jobs in stages to finish sooner.",
-            "left": {
-              "code": "linear pipeline",
-              "result": "slow",
-              "tone": "data",
-              "checks": [
-                "slow"
-              ]
-            },
-            "right": {
-              "code": "stage grouping",
-              "result": "fast",
-              "tone": "ok",
-              "checks": [
-                "fast"
-              ]
-            }
+            "caption": "The number logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "parallel"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -596,223 +429,81 @@
       "partTitle": "Choosing the right graph tool",
       "codeHash": "bf53884ab10ca769a9679e65dcd05142f359a8da87e27d1455e6af6be1f3f067",
       "spec": {
-        "template": "flow",
-        "title": "Choosing the right graph tool — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing the right ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing the right graph tool",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing the right graph tool [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing the right ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The four concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Choosing"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing the right graph tool.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The topological logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "right"
+                  },
+                  {
+                    "text": "graph"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing the right graph tool — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing the right ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing the right graph tool",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing the right graph tool [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing the right ... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The four concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Choosing",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing the right graph tool [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The topological logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "right",
+                  "graph"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

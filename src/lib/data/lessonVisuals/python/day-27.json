@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 27,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "88d708049a1ca4514feebb1e14e6aa40ee114f9bf618a51d7569c405ac466aa3",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "From a terminal menu to a web API",
       "codeHash": "6b122d07df53ed752f459f86afdd4410519697b8434b529fc747c7ba0dd5420b",
       "spec": {
-        "template": "boxes",
-        "title": "Mapping HTTP methods to endpoint paths",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
+        "template": "table",
+        "title": "From a terminal menu to a web API",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A route is a method plus a path like GET /expenses.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/expenses"
+            "at": "say1",
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "From"
+                  },
+                  {
+                    "text": "terminal"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "method": "data",
-              "path": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "The API is a new edge replacing terminal input.",
-            "values": {
-              "method": {
-                "var": "method",
-                "line": 8
-              },
-              "path": {
-                "var": "path",
-                "line": 8
+            "at": "say3",
+            "caption": "The fastapi logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "menu"
+                  },
+                  {
+                    "text": "web"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "method": "ok",
-              "path": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Mapping HTTP methods to endpoint paths",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
+        "template": "table",
+        "title": "From a terminal menu to a web API",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A route is a method plus a path like GET /expenses.",
-            "values": {
-              "method": "GET",
-              "path": "/expenses"
-            },
-            "tones": {
-              "method": "data",
-              "path": "idle"
-            }
+            "at": "say1",
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "From",
+                  "terminal"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "The API is a new edge replacing terminal input.",
-            "values": {
-              "method": "'GET'",
-              "path": "'/expenses'"
-            },
-            "tones": {
-              "method": "ok",
-              "path": "ok"
-            }
+            "at": "say3",
+            "caption": "The fastapi logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "menu",
+                  "web"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,92 +93,82 @@
       "partTitle": "Your first FastAPI app",
       "codeHash": "b75cc646e8539578684c285455573914c786ad8512c37d196f9a4261b4f47ea4",
       "spec": {
-        "template": "boxes",
-        "title": "Handling requests through route decorators",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
+        "template": "table",
+        "title": "Your first FastAPI app",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Decorator connects path to function to return JSON.",
-            "values": {
-              "status": {
-                "text": "200"
-              },
-              "path": {
-                "text": "/"
+            "at": "say1",
+            "caption": "The laptop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Your"
+                  },
+                  {
+                    "text": "first"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "status": "data",
-              "path": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Start server in terminal and open port in browser.",
-            "values": {
-              "status": {
-                "var": "status",
-                "line": 22
-              },
-              "path": {
-                "var": "path",
-                "line": 22
+            "caption": "The start logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "FastAPI"
+                  },
+                  {
+                    "text": "app"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "status": "ok",
-              "path": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Handling requests through route decorators",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
+        "template": "table",
+        "title": "Your first FastAPI app",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Decorator connects path to function to return JSON.",
-            "values": {
-              "status": "200",
-              "path": "/"
-            },
-            "tones": {
-              "status": "data",
-              "path": "idle"
-            }
+            "at": "say1",
+            "caption": "The laptop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Your",
+                  "first"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Start server in terminal and open port in browser.",
-            "values": {
-              "status": "200",
-              "path": "'/'"
-            },
-            "tones": {
-              "status": "ok",
-              "path": "ok"
-            }
+            "caption": "The start logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "FastAPI",
+                  "app"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -197,90 +177,82 @@
       "partTitle": "GET routes that reuse tracker.py",
       "codeHash": "524c8d1bf072e76bb34acc21f929760c2ad25b4d1aae09aa30ffcca22041b8a1",
       "spec": {
-        "template": "boxes",
-        "title": "Serving expense entities by identifier",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "GET routes that reuse tracker.py",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "FastAPI takes path parameter like expense_id.",
-            "values": {
-              "item": {
-                "text": "Tea"
-              },
-              "amount": {
-                "text": "20"
+            "at": "say1",
+            "caption": "The connect concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "routes"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "If expense does not exist raise HTTPException not-found.",
-            "values": {
-              "item": {
-                "text": "Rent"
-              },
-              "amount": {
-                "text": "8000"
+            "caption": "The expense logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "that"
+                  },
+                  {
+                    "text": "reuse"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Serving expense entities by identifier",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "GET routes that reuse tracker.py",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "FastAPI takes path parameter like expense_id.",
-            "values": {
-              "item": "Tea",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            "at": "say1",
+            "caption": "The connect concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "GET",
+                  "routes"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "If expense does not exist raise HTTPException 404.",
-            "values": {
-              "item": "Rent",
-              "amount": "8000"
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            "caption": "The expense logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "that",
+                  "reuse"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -289,223 +261,81 @@
       "partTitle": "POST routes and data checking with Pydantic models",
       "codeHash": "c6fad1cc202dc03ce88fefd4ea5dfef449bffd5ff5b381fb520c2aed7df11c27",
       "spec": {
-        "template": "flow",
-        "title": "POST routes and data checking with Pydantic m... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. POST routes and dat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "POST routes and data checking with Pydantic models",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for POST routes and data checking with Pydan.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in POST routes and dat... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "POST"
+                  },
+                  {
+                    "text": "routes"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for POST routes and data checking wit.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The data logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "data"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "POST routes and data checking with Pydantic m... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. POST routes and dat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "POST routes and data checking with Pydantic models",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for POST routes and data checking with Pydan.. [D27.P4.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in POST routes and dat... [D27.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The expense concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "POST",
+                  "routes"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for POST routes and data checking wit.. [D27.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The data logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "data"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -515,223 +345,81 @@
       "partTitle": "Trying and testing your API",
       "codeHash": "97c898e7689a1a8342d3f57f8ea9f757e5cb8797fa1d47d42cf20a0de30a0087",
       "spec": {
-        "template": "flow",
-        "title": "Trying and testing your API — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Trying and testing ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Trying and testing your API",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Trying and testing your API [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Trying and testing ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The docs concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Trying"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Trying and testing your API.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The test logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "testing"
+                  },
+                  {
+                    "text": "your"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Trying and testing your API — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Trying and testing ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Trying and testing your API",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Trying and testing your API [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Trying and testing ... [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The docs concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Trying",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Trying and testing your API [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The test logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "testing",
+                  "your"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -741,223 +429,81 @@
       "partTitle": "Putting it together: the Expense Tracker API",
       "codeHash": "124394278c0a3b11dfb3f1588313ddd55c3560a101df02c4d747dd51ae71fc02",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: the Expense Tracker API — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: the Expense Tracker API",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: the Expense Tracker.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The whole concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: the Expense .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "Expense"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: the Expense Tracker API — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: the Expense Tracker API",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: the Expense Tracker.. [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The whole concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: the Expense .. [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The real logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "Expense"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

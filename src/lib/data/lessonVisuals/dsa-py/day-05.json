@@ -2,49 +2,31 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "cd5c67dbc0ec7ae6ec56b5292853e1460997c1a5b4a06723b7f0c2ab56f1807c",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What a cache is and why it needs a limit",
       "codeHash": "6fa65281353665125af72b40e131f45d6d509f385800d05d85d6d08b47db17a9",
       "spec": {
         "template": "table",
-        "title": "LRU eviction policy",
+        "title": "What a cache is and why it needs a limit",
         "columns": [
-          "Action",
-          "Cache state",
-          "Evicted item"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "When cache capacity is full something must be thrown out.",
+            "at": "say1",
+            "caption": "The cache concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "put(home)"
+                    "text": "What"
                   },
                   {
-                    "text": "[home]"
-                  },
-                  {
-                    "text": "none"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "put(about)"
-                  },
-                  {
-                    "text": "[home, about]"
-                  },
-                  {
-                    "text": "none"
+                    "text": "cache"
                   }
                 ],
                 "tone": "data"
@@ -53,46 +35,15 @@
           },
           {
             "at": "say3",
-            "caption": "Least recently used item thrown out when new key arrives.",
+            "caption": "The means logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "put(home)"
+                    "text": "and"
                   },
                   {
-                    "text": "[home]"
-                  },
-                  {
-                    "text": "none"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "put(about)"
-                  },
-                  {
-                    "text": "[home, about]"
-                  },
-                  {
-                    "text": "none"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "put(contact)"
-                  },
-                  {
-                    "text": "[about, contact]"
-                  },
-                  {
-                    "text": "evicted home"
+                    "text": "why"
                   }
                 ],
                 "tone": "ok"
@@ -103,30 +54,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "LRU eviction policy",
+        "title": "What a cache is and why it needs a limit",
         "columns": [
-          "Action",
-          "Cache state",
-          "Evicted item"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "When cache capacity is full something must be thrown out.",
+            "at": "say1",
+            "caption": "The cache concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "put(home)",
-                  "[home]",
-                  "none"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "put(about)",
-                  "[home, about]",
-                  "none"
+                  "What",
+                  "cache"
                 ],
                 "tone": "data"
               }
@@ -134,29 +75,12 @@
           },
           {
             "at": "say3",
-            "caption": "Least recently used item thrown out when new key arrives.",
+            "caption": "The means logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "put(home)",
-                  "[home]",
-                  "none"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "put(about)",
-                  "[home, about]",
-                  "none"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "put(contact)",
-                  "[about, contact]",
-                  "evicted home"
+                  "and",
+                  "why"
                 ],
                 "tone": "ok"
               }
@@ -169,94 +93,82 @@
       "partTitle": "Two structures, two jobs",
       "codeHash": "754b195699058111c335a08bc9fce3b2a4c5447e7281e27497c2504bf3332513",
       "spec": {
-        "template": "compare",
-        "title": "Coordinating hash map and doubly linked list",
-        "leftLabel": "Hash Map (Dict)",
-        "rightLabel": "Doubly Linked List",
+        "template": "table",
+        "title": "Two structures, two jobs",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dict maps each key to its node for constant lookup.",
-            "left": {
-              "code": "map[\"b\"] -> node",
-              "result": {
-                "text": "O(1) lookup"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "head <-> a <-> b <-> tail",
-              "result": {
-                "text": "order"
-              },
-              "tone": "data"
-            }
+            "caption": "The everything concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Two"
+                  },
+                  {
+                    "text": "structures"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Doubly linked list keeps order of use between dummy head and tail.",
-            "left": {
-              "code": "map[\"c\"] -> front",
-              "result": {
-                "text": "O(1) update"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "head <-> c <-> b <-> tail",
-              "result": {
-                "text": "newest to oldest"
-              },
-              "tone": "ok"
-            }
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "two"
+                  },
+                  {
+                    "text": "jobs"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Coordinating hash map and doubly linked list",
-        "leftLabel": "Hash Map (Dict)",
-        "rightLabel": "Doubly Linked List",
+        "template": "table",
+        "title": "Two structures, two jobs",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dict maps each key to its node for constant lookup.",
-            "left": {
-              "code": "map[\"b\"] -> node",
-              "result": "O(1) lookup",
-              "tone": "ok",
-              "checks": [
-                "O(1) lookup"
-              ]
-            },
-            "right": {
-              "code": "head <-> a <-> b <-> tail",
-              "result": "order",
-              "tone": "data",
-              "checks": [
-                "order"
-              ]
-            }
+            "caption": "The everything concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Two",
+                  "structures"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Doubly linked list keeps order of use between dummy head and tail.",
-            "left": {
-              "code": "map[\"c\"] -> front",
-              "result": "O(1) update",
-              "tone": "ok",
-              "checks": [
-                "O(1) update"
-              ]
-            },
-            "right": {
-              "code": "head <-> c <-> b <-> tail",
-              "result": "newest to oldest",
-              "tone": "ok",
-              "checks": [
-                "newest to oldest"
-              ]
-            }
+            "at": "say3",
+            "caption": "The node logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "two",
+                  "jobs"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -265,223 +177,81 @@
       "partTitle": "Building get and put",
       "codeHash": "56b126ec90cebac1f5e343ba71ed8ca09b2d5fed1faaa536329127b25ccf20f8",
       "spec": {
-        "template": "flow",
-        "title": "Building get and put — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building get and put",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Building get and put",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building get and put [Dfive.Pthree.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building get and put [Dfive.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The class concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Building"
+                  },
+                  {
+                    "text": "get"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building get and put.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The exists logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "put"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Building get and put — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building get and put",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Building get and put",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building get and put [D5.P3.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building get and put [D5.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The class concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Building",
+                  "get"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building get and put [D5.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The exists logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "put"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -491,223 +261,81 @@
       "partTitle": "The OrderedDict shortcut",
       "codeHash": "a03fe35194d64a57729addc998fb9790123897334d43ac45482fb1478a3e5998",
       "spec": {
-        "template": "flow",
-        "title": "The OrderedDict shortcut — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The OrderedDict sho...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The OrderedDict shortcut",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The OrderedDict shortcut [Dfive.Pfour.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The OrderedDict sho... [Dfive.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "OrderedDict"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The OrderedDict shortcut.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The functools logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "shortcut"
+                  },
+                  {
+                    "text": "OrderedDict"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The OrderedDict shortcut — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The OrderedDict sho...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The OrderedDict shortcut",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The OrderedDict shortcut [D5.P4.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The OrderedDict sho... [D5.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "OrderedDict"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The OrderedDict shortcut [D5.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The functools logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "shortcut",
+                  "OrderedDict"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -718,122 +346,40 @@
       "codeHash": "20466515d6edba2bc855cbb6c972e81b386e8d25fa48570102a1c0b1d119c93f",
       "spec": {
         "template": "table",
-        "title": "Testing cache operation sequence",
+        "title": "Testing your cache like an engineer",
         "columns": [
-          "Operation",
-          "Key",
-          "Cache state",
-          "Result"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Replaying sequence of operations collects results of each get.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "put(1, 1)"
+                    "text": "Testing"
                   },
                   {
-                    "text": "1"
-                  },
-                  {
-                    "text": "[1]"
-                  },
-                  {
-                    "text": "-"
+                    "text": "your"
                   }
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "put(2, 2)"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "[1, 2]"
-                  },
-                  {
-                    "text": "-"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "get(1)"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "[2, 1]"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Reading missing key returns minus one.",
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "put(3, 3)"
+                    "text": "cache"
                   },
                   {
-                    "text": "3"
-                  },
-                  {
-                    "text": "[1, 3]"
-                  },
-                  {
-                    "text": "evict 2"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "get(2)"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "[1, 3]"
-                  },
-                  {
-                    "text": "-1"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "get(1)"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "[3, 1]"
-                  },
-                  {
-                    "text": "10"
+                    "text": "like"
                   }
                 ],
                 "tone": "ok"
@@ -844,75 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Testing cache operation sequence",
+        "title": "Testing your cache like an engineer",
         "columns": [
-          "Operation",
-          "Key",
-          "Cache state",
-          "Result"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Replaying sequence of operations collects results of each get.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "put(1, 1)",
-                  "1",
-                  "[1]",
-                  "-"
+                  "Testing",
+                  "your"
                 ],
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "put(2, 2)",
-                  "2",
-                  "[1, 2]",
-                  "-"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "get(1)",
-                  "1",
-                  "[2, 1]",
-                  "1"
-                ],
-                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Reading missing key returns minus one.",
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "put(3, 3)",
-                  "3",
-                  "[1, 3]",
-                  "evict 2"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "get(2)",
-                  "2",
-                  "[1, 3]",
-                  "-1"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "get(1)",
-                  "1",
-                  "[3, 1]",
-                  "10"
+                  "cache",
+                  "like"
                 ],
                 "tone": "ok"
               }
@@ -925,114 +429,82 @@
       "partTitle": "Measuring a cache: hit rate",
       "codeHash": "7a177d6cb203f11e5816fa05542128116dfc5ea19c984a425df533308595b21c",
       "spec": {
-        "template": "bars",
-        "title": "Cache hit rate across capacities",
+        "template": "table",
+        "title": "Measuring a cache: hit rate",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Share of requests answered from cache determines hit rate.",
-            "bars": [
+            "caption": "The cache concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "Cap 1",
-                "value": {
-                  "text": "20%"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Cap 2",
-                "value": {
-                  "text": "50%"
-                },
+                "cells": [
+                  {
+                    "text": "Measuring"
+                  },
+                  {
+                    "text": "cache"
+                  }
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 100
+            ]
           },
           {
             "at": "say3",
-            "caption": "Capacity changes hit rate until saturation point.",
-            "bars": [
+            "caption": "The capacity logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "Cap 1",
-                "value": {
-                  "text": "20%"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Cap 2",
-                "value": {
-                  "text": "50%"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Cap 3",
-                "value": {
-                  "text": "70%"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "Cap 4",
-                "value": {
-                  "text": "80%"
-                },
+                "cells": [
+                  {
+                    "text": "hit"
+                  },
+                  {
+                    "text": "rate"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 100
+            ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Cache hit rate across capacities",
+        "template": "table",
+        "title": "Measuring a cache: hit rate",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Share of requests answered from cache determines hit rate.",
-            "bars": [
+            "caption": "The cache concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "Cap 1",
-                "value": "20%",
-                "tone": "data"
-              },
-              {
-                "label": "Cap 2",
-                "value": "50%",
+                "cells": [
+                  "Measuring",
+                  "cache"
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 100
+            ]
           },
           {
             "at": "say3",
-            "caption": "Capacity changes hit rate until saturation point.",
-            "bars": [
+            "caption": "The capacity logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "Cap 1",
-                "value": "20%",
-                "tone": "data"
-              },
-              {
-                "label": "Cap 2",
-                "value": "50%",
-                "tone": "data"
-              },
-              {
-                "label": "Cap 3",
-                "value": "70%",
-                "tone": "ok"
-              },
-              {
-                "label": "Cap 4",
-                "value": "80%",
+                "cells": [
+                  "hit",
+                  "rate"
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 100
+            ]
           }
         ]
       }

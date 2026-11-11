@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 29,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "47feda80e5fbf04446864aa631f3319a3ed835fb1105c35a3f20628f9dc8d19c",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What deploying means",
       "codeHash": "c550d258d588a8ce01eed9df2b4d73ebd65d7c69438ff240c23b16e2e468f046",
       "spec": {
-        "template": "boxes",
-        "title": "Distinguishing local and public endpoints",
-        "boxes": [
-          {
-            "id": "url",
-            "label": "url"
-          },
-          {
-            "id": "who",
-            "label": "who"
-          }
+        "template": "table",
+        "title": "What deploying means",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying means running on server with public address.",
-            "values": {
-              "url": {
-                "text": "http://127.0.0.1:8000"
-              },
-              "who": {
-                "text": "only you"
+            "caption": "The right concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "deploying"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "url": "data",
-              "who": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Live link lets recruiters try API themselves.",
-            "values": {
-              "url": {
-                "var": "url",
-                "line": 5
-              },
-              "who": {
-                "var": "who",
-                "line": 5
+            "caption": "The live logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "means"
+                  },
+                  {
+                    "text": "deploying"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "url": "ok",
-              "who": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Distinguishing local and public endpoints",
-        "boxes": [
-          {
-            "id": "url",
-            "label": "url"
-          },
-          {
-            "id": "who",
-            "label": "who"
-          }
+        "template": "table",
+        "title": "What deploying means",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deploying means running on server with public address.",
-            "values": {
-              "url": "http://127.0.0.1:8000",
-              "who": "only you"
-            },
-            "tones": {
-              "url": "data",
-              "who": "idle"
-            }
+            "caption": "The right concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "deploying"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Live link lets recruiters try API themselves.",
-            "values": {
-              "url": "'http://127.0.0.1:8000'",
-              "who": "'only you'"
-            },
-            "tones": {
-              "url": "ok",
-              "who": "ok"
-            }
+            "caption": "The live logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "means",
+                  "deploying"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,223 +93,81 @@
       "partTitle": "Getting the project ready",
       "codeHash": "22d4e20f7b69ae48e8247d4998a89dc5851dcbf49c85e00c8137a93d24bfb396",
       "spec": {
-        "template": "flow",
-        "title": "Getting the project ready — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Getting the project...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Getting the project ready",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Getting the project ready [D.Ptwo.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Getting the project... [D.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The host concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Getting"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Getting the project ready [D.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The before logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "project"
+                  },
+                  {
+                    "text": "ready"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Getting the project ready — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Getting the project...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Getting the project ready",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Getting the project ready [D29.P2.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Getting the project... [D29.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The host concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Getting",
+                  "the"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Getting the project ready [D29.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The before logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "project",
+                  "ready"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -329,90 +177,82 @@
       "partTitle": "Environment variables for settings and secrets",
       "codeHash": "8bcd46ececc1be1d3671328db19b41c1cf3e5a56123778a41e0812bbf4618087",
       "spec": {
-        "template": "boxes",
-        "title": "Configuring application settings via environment",
-        "boxes": [
-          {
-            "id": "data_file",
-            "label": "data_file"
-          },
-          {
-            "id": "debug",
-            "label": "debug"
-          }
+        "template": "table",
+        "title": "Environment variables for settings and secrets",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Settings differ between laptop and server go in variables.",
-            "values": {
-              "data_file": {
-                "text": "expenses.json"
-              },
-              "debug": {
-                "text": "false"
+            "caption": "The settings concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Environment"
+                  },
+                  {
+                    "text": "variables"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "data_file": "data",
-              "debug": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Reads variable with default if not set.",
-            "values": {
-              "data_file": {
-                "text": "/data/expenses.json"
-              },
-              "debug": {
-                "text": "True"
+            "at": "say3",
+            "caption": "The environment logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "settings"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "data_file": "ok",
-              "debug": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Configuring application settings via environment",
-        "boxes": [
-          {
-            "id": "data_file",
-            "label": "data_file"
-          },
-          {
-            "id": "debug",
-            "label": "debug"
-          }
+        "template": "table",
+        "title": "Environment variables for settings and secrets",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Settings differ between laptop and server go in variables.",
-            "values": {
-              "data_file": "expenses.json",
-              "debug": "false"
-            },
-            "tones": {
-              "data_file": "data",
-              "debug": "idle"
-            }
+            "caption": "The settings concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Environment",
+                  "variables"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Reads variable with default if not set.",
-            "values": {
-              "data_file": "/data/expenses.json",
-              "debug": "True"
-            },
-            "tones": {
-              "data_file": "ok",
-              "debug": "ok"
-            }
+            "at": "say3",
+            "caption": "The environment logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "for",
+                  "settings"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -421,223 +261,81 @@
       "partTitle": "Deploying and checking it works",
       "codeHash": "5ae7e28dc211edd51f9b2f591071a0ea84d6bd553fec1165227e0b4287735aab",
       "spec": {
-        "template": "flow",
-        "title": "Deploying and checking it works — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Deploying and check...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Deploying and checking it works",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Deploying and checking it works [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Deploying and check... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The deploy concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Deploying"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Deploying and checking it works.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The says logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "checking"
+                  },
+                  {
+                    "text": "works"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deploying and checking it works — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Deploying and check...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Deploying and checking it works",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Deploying and checking it works [D29.P4.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Deploying and check... [D29.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The deploy concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Deploying",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Deploying and checking it works [D29.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The says logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "checking",
+                  "works"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -647,90 +345,82 @@
       "partTitle": "A README that sells your project",
       "codeHash": "38b500e48e1ed21c651a120f075458dcfbfcfe79e2feec95631fc52cd9e1ac4d",
       "spec": {
-        "template": "boxes",
-        "title": "Auditing repository README structure",
-        "boxes": [
-          {
-            "id": "readme",
-            "label": "readme"
-          },
-          {
-            "id": "needed",
-            "label": "needed"
-          }
+        "template": "table",
+        "title": "A README that sells your project",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "README front page of repository with most important info.",
-            "values": {
-              "readme": {
-                "text": "## Live demo"
-              },
-              "needed": {
-                "text": "## Tests"
+            "caption": "The readme concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "README"
+                  },
+                  {
+                    "text": "that"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "readme": "data",
-              "needed": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Good README includes features setup and tests.",
-            "values": {
-              "readme": {
-                "text": "## Features"
-              },
-              "needed": {
-                "text": "## Setup"
+            "at": "say3",
+            "caption": "The screenshot logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sells"
+                  },
+                  {
+                    "text": "your"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "readme": "ok",
-              "needed": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Auditing repository README structure",
-        "boxes": [
-          {
-            "id": "readme",
-            "label": "readme"
-          },
-          {
-            "id": "needed",
-            "label": "needed"
-          }
+        "template": "table",
+        "title": "A README that sells your project",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "README front page of repository with most important info.",
-            "values": {
-              "readme": "## Live demo",
-              "needed": "## Tests"
-            },
-            "tones": {
-              "readme": "data",
-              "needed": "idle"
-            }
+            "caption": "The readme concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "README",
+                  "that"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Good README includes features setup and tests.",
-            "values": {
-              "readme": "## Features",
-              "needed": "## Setup"
-            },
-            "tones": {
-              "readme": "ok",
-              "needed": "ok"
-            }
+            "at": "say3",
+            "caption": "The screenshot logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "sells",
+                  "your"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -739,223 +429,81 @@
       "partTitle": "Putting it together: your deployment checklist",
       "codeHash": "bf3c1d3a7462301672186593469d646706a9b05f043f0683f78f61c85fb47dad",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: your deployment checklist — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: your deployment checklist",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: your deployment che.",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The collect concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: your deploym.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "your"
+                  },
+                  {
+                    "text": "deployment"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: your deployment checklist — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: your deployment checklist",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: your deployment che.. [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The collect concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: your deploym.. [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "your",
+                  "deployment"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

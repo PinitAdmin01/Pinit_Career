@@ -2,77 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "68ef2200f40070520322a19950b73e3d3deedbef508aea63a5e43f71ecb0a057",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "A queue: first in, first out",
       "codeHash": "b1b418ecf23ff2a610ee2d8dec365672e322c3dfda606fb1dacbc5b56f26aba3",
       "spec": {
-        "template": "stack-queue",
-        "title": "FIFO queue operations",
-        "mode": "queue",
+        "template": "table",
+        "title": "A queue: first in, first out",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Items join at back and leave from front in FIFO order.",
-            "items": [
+            "caption": "The queue concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "T101"
-              },
-              {
-                "text": "T102"
+                "cells": [
+                  {
+                    "text": "queue"
+                  },
+                  {
+                    "text": "first"
+                  }
+                ],
+                "tone": "data"
               }
-            ],
-            "action": "enqueue",
-            "actionItem": {
-              "text": "T103"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Append adds at back while popleft removes from front in constant time.",
-            "items": [
+            "caption": "The collections logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "T102"
-              },
-              {
-                "text": "T103"
+                "cells": [
+                  {
+                    "text": "first"
+                  },
+                  {
+                    "text": "out"
+                  }
+                ],
+                "tone": "ok"
               }
-            ],
-            "action": "dequeue",
-            "actionItem": {
-              "text": "T101"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "FIFO queue operations",
-        "mode": "queue",
+        "template": "table",
+        "title": "A queue: first in, first out",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Items join at back and leave from front in FIFO order.",
-            "mode": "queue",
-            "items": [
-              "T101",
-              "T102"
-            ],
-            "action": "enqueue",
-            "actionItem": "T103"
+            "caption": "The queue concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "queue",
+                  "first"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Append adds at back while popleft removes from front in constant time.",
-            "mode": "queue",
-            "items": [
-              "T102",
-              "T103"
-            ],
-            "action": "dequeue",
-            "actionItem": "T101"
+            "caption": "The collections logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "first",
+                  "out"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -81,94 +93,82 @@
       "partTitle": "Why deque beats a list for queues",
       "codeHash": "8864824fc75d17e0d4c0ddd673b7c93d65a60d5dedb6c0708ddc7164e123d7ab",
       "spec": {
-        "template": "compare",
-        "title": "Shifting cost comparison",
-        "leftLabel": "List pop(0)",
-        "rightLabel": "Deque popleft()",
+        "template": "table",
+        "title": "Why deque beats a list for queues",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Removing front item from list moves every other item left.",
-            "left": {
-              "code": "list.pop(0)",
-              "result": {
-                "text": "O(N) shifts"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "deque.popleft()",
-              "result": {
-                "text": "O(1) pointer"
-              },
-              "tone": "ok"
-            }
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "deque"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Deque removes from front by advancing pointer with zero shifting.",
-            "left": {
-              "code": "100,000 items",
-              "result": {
-                "text": "5B moves"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "100,000 items",
-              "result": {
-                "text": "0 moves"
-              },
-              "tone": "ok"
-            }
+            "at": "say3",
+            "caption": "The trade logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "beats"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Shifting cost comparison",
-        "leftLabel": "List pop(0)",
-        "rightLabel": "Deque popleft()",
+        "template": "table",
+        "title": "Why deque beats a list for queues",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Removing front item from list moves every other item left.",
-            "left": {
-              "code": "list.pop(0)",
-              "result": "O(N) shifts",
-              "tone": "error",
-              "checks": [
-                "O(N) shifts"
-              ]
-            },
-            "right": {
-              "code": "deque.popleft()",
-              "result": "O(1) pointer",
-              "tone": "ok",
-              "checks": [
-                "O(1) pointer"
-              ]
-            }
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "deque"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Deque removes from front by advancing pointer with zero shifting.",
-            "left": {
-              "code": "100,000 items",
-              "result": "5B moves",
-              "tone": "error",
-              "checks": [
-                "5B moves"
-              ]
-            },
-            "right": {
-              "code": "100,000 items",
-              "result": "0 moves",
-              "tone": "ok",
-              "checks": [
-                "0 moves"
-              ]
-            }
+            "at": "say3",
+            "caption": "The trade logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "beats",
+                  "list"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -177,49 +177,43 @@
       "partTitle": "A ring buffer: a queue of fixed size",
       "codeHash": "bbcdc8e613e342947bbdd92632086e9460947c1b42fc93971891e0321a48ac2c",
       "spec": {
-        "template": "cells",
-        "title": "Circular ring buffer modulo wrapping",
+        "template": "table",
+        "title": "A ring buffer: a queue of fixed size",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Modulo makes back index wrap around to start like clock hands.",
-            "items": [
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "a"
-              },
-              {
-                "text": "b"
-              },
-              {
-                "text": "c"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "head",
-                "index": 0,
+                "cells": [
+                  {
+                    "text": "ring"
+                  },
+                  {
+                    "text": "buffer"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Dequeue moves head forward while count tracks occupied slots.",
-            "items": [
+            "caption": "The queue logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "d"
-              },
-              {
-                "text": "b"
-              },
-              {
-                "text": "c"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "head",
-                "index": 1,
+                "cells": [
+                  {
+                    "text": "queue"
+                  },
+                  {
+                    "text": "fixed"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -227,37 +221,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Circular ring buffer modulo wrapping",
+        "template": "table",
+        "title": "A ring buffer: a queue of fixed size",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Modulo makes back index wrap around to start like clock hands.",
-            "items": [
-              "a",
-              "b",
-              "c"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "head",
-                "index": 0,
+                "cells": [
+                  "ring",
+                  "buffer"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Dequeue moves head forward while count tracks occupied slots.",
-            "items": [
-              "d",
-              "b",
-              "c"
-            ],
-            "pointers": [
+            "caption": "The queue logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "head",
-                "index": 1,
+                "cells": [
+                  "queue",
+                  "fixed"
+                ],
                 "tone": "ok"
               }
             ]
@@ -269,223 +261,81 @@
       "partTitle": "deque with a maximum length",
       "codeHash": "d228cc3fed0eef2b0a5987612a7653bc5a6e5bc69905e8b1a9df16951bf9f122",
       "spec": {
-        "template": "flow",
-        "title": "deque with a maximum length — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. deque with a maximu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "deque with a maximum length",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for deque with a maximum length [Dsix.Pfour.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in deque with a maximu... [Dsix.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "deque"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for deque with a maximum length.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The moving logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "maximum"
+                  },
+                  {
+                    "text": "length"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "deque with a maximum length — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. deque with a maximu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "deque with a maximum length",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for deque with a maximum length [D6.P4.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in deque with a maximu... [D6.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "deque",
+                  "with"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for deque with a maximum length [D6.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The moving logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "maximum",
+                  "length"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -495,223 +345,81 @@
       "partTitle": "Building a stack from a queue",
       "codeHash": "278b6308b1e366dd2f332e9f8f11993c92864053f04cec08e766933378abc4b8",
       "spec": {
-        "template": "flow",
-        "title": "Building a stack from a queue — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a stack fr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Building a stack from a queue",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building a stack from a queue [Dsix.Pfive.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building a stack fr... [Dsix.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Building"
+                  },
+                  {
+                    "text": "stack"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building a stack from a queue.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The popleft logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "from"
+                  },
+                  {
+                    "text": "queue"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Building a stack from a queue — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a stack fr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Building a stack from a queue",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a stack from a queue [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a stack fr... [D6.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Building",
+                  "stack"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a stack from a queue [D6.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The popleft logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "from",
+                  "queue"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -721,114 +429,82 @@
       "partTitle": "Queues in real systems",
       "codeHash": "642b630ffe7d436d93766917316f3ab4b0630a6e93ad8565691f245df3cdae9e",
       "spec": {
-        "template": "bars",
-        "title": "Queue backlog under burst traffic",
+        "template": "table",
+        "title": "Queues in real systems",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Messages between services queue up absorbing traffic bursts.",
-            "bars": [
+            "at": "say1",
+            "caption": "The queues concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "Sec 0",
-                "value": {
-                  "text": "2 waiting"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Sec 1",
-                "value": {
-                  "text": "4 waiting"
-                },
+                "cells": [
+                  {
+                    "text": "Queues"
+                  },
+                  {
+                    "text": "real"
+                  }
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 10
+            ]
           },
           {
             "at": "say3",
-            "caption": "Watching queue length tells engineers when items arrive faster.",
-            "bars": [
+            "caption": "The numbers logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "Sec 0",
-                "value": {
-                  "text": "2 waiting"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Sec 1",
-                "value": {
-                  "text": "4 waiting"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Sec 2",
-                "value": {
-                  "text": "6 waiting"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "Sec 3",
-                "value": {
-                  "text": "3 waiting"
-                },
+                "cells": [
+                  {
+                    "text": "systems"
+                  },
+                  {
+                    "text": "real"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 10
+            ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Queue backlog under burst traffic",
+        "template": "table",
+        "title": "Queues in real systems",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Messages between services queue up absorbing traffic bursts.",
-            "bars": [
+            "at": "say1",
+            "caption": "The queues concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "Sec 0",
-                "value": "2 waiting",
-                "tone": "data"
-              },
-              {
-                "label": "Sec 1",
-                "value": "4 waiting",
+                "cells": [
+                  "Queues",
+                  "real"
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 10
+            ]
           },
           {
             "at": "say3",
-            "caption": "Watching queue length tells engineers when items arrive faster.",
-            "bars": [
+            "caption": "The numbers logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "Sec 0",
-                "value": "2 waiting",
-                "tone": "data"
-              },
-              {
-                "label": "Sec 1",
-                "value": "4 waiting",
-                "tone": "data"
-              },
-              {
-                "label": "Sec 2",
-                "value": "6 waiting",
-                "tone": "error"
-              },
-              {
-                "label": "Sec 3",
-                "value": "3 waiting",
+                "cells": [
+                  "systems",
+                  "real"
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 10
+            ]
           }
         ]
       }

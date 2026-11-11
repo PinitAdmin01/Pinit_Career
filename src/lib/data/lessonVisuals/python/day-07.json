@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 7,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "66146d79a085c462247c4883e3de4a123ed25f6a14335b879e4e48f06b741ae0",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What a function is",
       "codeHash": "e45233f86fa807beba11a80a8532d2839ec01e5252ff7d4e74e476f4bdd62911",
       "spec": {
-        "template": "flow",
-        "title": "What a function is — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What a function is",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "What a function is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What a function is [Dseven.Pone.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What a function is [Dseven.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The using concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "function"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What a function is [Dseven.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The create logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "function"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What a function is — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What a function is",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "What a function is",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What a function is [D7.P1.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What a function is [D7.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The using concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "function"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What a function is [D7.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The create logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "function"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,90 +93,82 @@
       "partTitle": "Parameters: giving a function information",
       "codeHash": "7e9c13bb36547ce0dfee4b22519537c6e51026b89fbff388b73a54df71bd70f8",
       "spec": {
-        "template": "boxes",
-        "title": "Function parameters and arguments",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Parameters: giving a function information",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parameters are like empty boxes filled when called.",
-            "values": {
-              "item": {
-                "text": "Tea"
-              },
-              "amount": {
-                "text": "20"
+            "caption": "The functions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Parameters"
+                  },
+                  {
+                    "text": "giving"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The values you put in brackets are called arguments.",
-            "values": {
-              "item": {
-                "text": "Bus"
-              },
-              "amount": {
-                "text": "45"
+            "at": "say3",
+            "caption": "The inside logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "function"
+                  },
+                  {
+                    "text": "information"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Function parameters and arguments",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Parameters: giving a function information",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parameters are like empty boxes filled when called.",
-            "values": {
-              "item": "Tea",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            "caption": "The functions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Parameters",
+                  "giving"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The values you put in brackets are called arguments.",
-            "values": {
-              "item": "Bus",
-              "amount": "45"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The inside logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "function",
+                  "information"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -327,93 +177,82 @@
       "partTitle": "return: giving back an answer",
       "codeHash": "feda6f23ab7f3bb119b2ff747c734dd9b2ce0c1cd7c171a5fccdf6156b7e50f0",
       "spec": {
-        "template": "boxes",
-        "title": "Returning values from functions",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "lunch",
-            "label": "lunch"
-          }
+        "template": "table",
+        "title": "return: giving back an answer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Use return to give back an answer to the program.",
-            "values": {
-              "tea": {
-                "var": "tea",
-                "line": 4
-              },
-              "lunch": {
-                "text": "add_gst(120)"
+            "caption": "The functions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "return"
+                  },
+                  {
+                    "text": "giving"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "tea": "ok",
-              "lunch": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Store returned values in a variable or use in calculation.",
-            "values": {
-              "tea": {
-                "var": "tea",
-                "line": 5
-              },
-              "lunch": {
-                "var": "lunch",
-                "line": 5
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "back"
+                  },
+                  {
+                    "text": "answer"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tea": "data",
-              "lunch": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Returning values from functions",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "lunch",
-            "label": "lunch"
-          }
+        "template": "table",
+        "title": "return: giving back an answer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Use return to give back an answer to the program.",
-            "values": {
-              "tea": "23.6",
-              "lunch": "add_gst(120)"
-            },
-            "tones": {
-              "tea": "ok",
-              "lunch": "idle"
-            }
+            "caption": "The functions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "return",
+                  "giving"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Store returned values in a variable or use in calculation.",
-            "values": {
-              "tea": "23.6",
-              "lunch": "141.6"
-            },
-            "tones": {
-              "tea": "data",
-              "lunch": "ok"
-            }
+            "at": "say3",
+            "caption": "The python logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "back",
+                  "answer"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -422,93 +261,82 @@
       "partTitle": "Why return is different from print",
       "codeHash": "4bcb525b116f89639491d18246a74c914e73789f55efa48a2676aa3b0abded99",
       "spec": {
-        "template": "boxes",
-        "title": "Comparing return and print",
-        "boxes": [
-          {
-            "id": "x",
-            "label": "x"
-          },
-          {
-            "id": "y",
-            "label": "y"
-          }
+        "template": "table",
+        "title": "Why return is different from print",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Print shows on screen while return hands a value back.",
-            "values": {
-              "x": {
-                "var": "x",
-                "line": 7
-              },
-              "y": {
-                "text": "total_with_return(20, 45)"
+            "caption": "The important concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "return"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "x": "error",
-              "y": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "A returned value can be stored and added.",
-            "values": {
-              "x": {
-                "var": "x",
-                "line": 8
-              },
-              "y": {
-                "var": "y",
-                "line": 8
+            "at": "say3",
+            "caption": "The good logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "different"
+                  },
+                  {
+                    "text": "from"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "x": "error",
-              "y": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Comparing return and print",
-        "boxes": [
-          {
-            "id": "x",
-            "label": "x"
-          },
-          {
-            "id": "y",
-            "label": "y"
-          }
+        "template": "table",
+        "title": "Why return is different from print",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Print shows on screen while return hands a value back.",
-            "values": {
-              "x": "None",
-              "y": "total_with_return(20, 45)"
-            },
-            "tones": {
-              "x": "error",
-              "y": "idle"
-            }
+            "caption": "The important concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "return"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "A returned value can be stored and added.",
-            "values": {
-              "x": "None",
-              "y": "65"
-            },
-            "tones": {
-              "x": "error",
-              "y": "ok"
-            }
+            "at": "say3",
+            "caption": "The good logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "different",
+                  "from"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -517,223 +345,81 @@
       "partTitle": "Default values for parameters",
       "codeHash": "677c7c5b2f82615f86258c14662137f64f7802455ea165f81882dbe421eea057",
       "spec": {
-        "template": "flow",
-        "title": "Default values for parameters — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Default values for ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Default values for parameters",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Default values for parameters.",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Default values for ... [Dseven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Default"
+                  },
+                  {
+                    "text": "values"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Default values for parameters.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The parameters logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "parameters"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Default values for parameters — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Default values for ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Default values for parameters",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Default values for parameters [D7.P5.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Default values for ... [D7.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Default",
+                  "values"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Default values for parameters [D7.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The parameters logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "for",
+                  "parameters"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -743,223 +429,81 @@
       "partTitle": "Putting it together: tracker functions",
       "codeHash": "626ecc60a39539d69ccc74fbbcf6ead415a46e8fa79f167c954e26dba0d20ca2",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: tracker functions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: tracker functions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: tracker functions.",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The rebuild concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: tracker func.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The average logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tracker"
+                  },
+                  {
+                    "text": "functions"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: tracker functions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: tracker functions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: tracker functions [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The rebuild concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: tracker func.. [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The average logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "tracker",
+                  "functions"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

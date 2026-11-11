@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 6,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "aac70656054b3115a93b0410ba3ab0d235b8b44e76f00e8f6c34abcc74e9e313",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Why we need loops",
       "codeHash": "f6f6247b9b5aedd0f35faed6961ca8d1caefd6250880818ef8ac2870e8f2747d",
       "spec": {
-        "template": "boxes",
-        "title": "Iterating through expenses",
-        "boxes": [
-          {
-            "id": "amount",
-            "label": "amount"
-          },
-          {
-            "id": "expenses",
-            "label": "expenses"
-          }
+        "template": "table",
+        "title": "Why we need loops",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A for loop goes through each value one at a time.",
-            "values": {
-              "amount": {
-                "var": "amount",
-                "line": 2
-              },
-              "expenses": {
-                "text": "[20, 45, 120]"
+            "at": "say1",
+            "caption": "The imagine concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "need"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "amount": "data",
-              "expenses": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Indented lines underneath repeat for every value.",
-            "values": {
-              "amount": {
-                "var": "amount",
-                "line": 3
-              },
-              "expenses": {
-                "text": "[20, 45, 120]"
+            "at": "say3",
+            "caption": "The something logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "loops"
+                  },
+                  {
+                    "text": "need"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "amount": "ok",
-              "expenses": "idle"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Iterating through expenses",
-        "boxes": [
-          {
-            "id": "amount",
-            "label": "amount"
-          },
-          {
-            "id": "expenses",
-            "label": "expenses"
-          }
+        "template": "table",
+        "title": "Why we need loops",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A for loop goes through each value one at a time.",
-            "values": {
-              "amount": "20",
-              "expenses": "[20, 45, 120]"
-            },
-            "tones": {
-              "amount": "data",
-              "expenses": "idle"
-            }
+            "at": "say1",
+            "caption": "The imagine concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "need"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Indented lines underneath repeat for every value.",
-            "values": {
-              "amount": "20",
-              "expenses": "[20, 45, 120]"
-            },
-            "tones": {
-              "amount": "ok",
-              "expenses": "idle"
-            }
+            "at": "say3",
+            "caption": "The something logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "loops",
+                  "need"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,223 +93,81 @@
       "partTitle": "Looping over text and range()",
       "codeHash": "ff2143e9db24fe6f60780deb9b2d50229d044bbb8f81d033f415cab655457193",
       "spec": {
-        "template": "flow",
-        "title": "Looping over text and range() — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Looping over text a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Looping over text and range()",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Looping over text and range() [Dsix.Ptwo.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Looping over text a... [Dsix.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The loop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Looping"
+                  },
+                  {
+                    "text": "over"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Looping over text and range().",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The range logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "text"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Looping over text and range() — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Looping over text a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Looping over text and range()",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Looping over text and range() [D6.P2.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Looping over text a... [D6.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The loop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Looping",
+                  "over"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Looping over text and range() [D6.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The range logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "text",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -329,94 +177,82 @@
       "partTitle": "The accumulator pattern: running totals",
       "codeHash": "e33cb13ad77ae6d0d2f4e143a9be6fa9c17979b87d0a78ed16045e5486e0aaae",
       "spec": {
-        "template": "boxes",
-        "title": "Accumulator totals and counts",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "big",
-            "label": "big"
-          }
+        "template": "table",
+        "title": "The accumulator pattern: running totals",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Start a variable before the loop and add to it each time.",
-            "values": {
-              "total": {
-                "var": "total",
-                "line": 2
-              },
-              "big": {
-                "var": "big",
-                "line": 3
+            "caption": "The useful concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "accumulator"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "total": "data",
-              "big": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Count only the values you care about inside the loop.",
-            "values": {
-              "total": {
-                "var": "total",
-                "line": 8
-              },
-              "big": {
-                "var": "big",
-                "line": 9
+            "caption": "The pattern logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "pattern"
+                  },
+                  {
+                    "text": "running"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "total": "data",
-              "big": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Accumulator totals and counts",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "big",
-            "label": "big"
-          }
+        "template": "table",
+        "title": "The accumulator pattern: running totals",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Start a variable before the loop and add to it each time.",
-            "values": {
-              "total": "0",
-              "big": "0"
-            },
-            "tones": {
-              "total": "data",
-              "big": "idle"
-            }
+            "caption": "The useful concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "accumulator"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Count only the values you care about inside the loop.",
-            "values": {
-              "total": "545",
-              "big": "2"
-            },
-            "tones": {
-              "total": "data",
-              "big": "ok"
-            }
+            "caption": "The pattern logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "pattern",
+                  "running"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -425,94 +261,82 @@
       "partTitle": "while loops",
       "codeHash": "dc5b680482ca0f8ccffa1a47a69b64a02b3350b392c4959dc31f2aeb65968d5e",
       "spec": {
-        "template": "boxes",
-        "title": "Tracking while loop progress",
-        "boxes": [
-          {
-            "id": "savings",
-            "label": "savings"
-          },
-          {
-            "id": "months",
-            "label": "months"
-          }
+        "template": "table",
+        "title": "while loops",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A while loop repeats as long as a condition is True.",
-            "values": {
-              "savings": {
-                "var": "savings",
-                "line": 1
-              },
-              "months": {
-                "var": "months",
-                "line": 2
+            "caption": "The loop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "while"
+                  },
+                  {
+                    "text": "loops"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "savings": "data",
-              "months": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The loop works out how many months are needed.",
-            "values": {
-              "savings": {
-                "var": "savings",
-                "line": 6
-              },
-              "months": {
-                "var": "months",
-                "line": 6
+            "at": "say3",
+            "caption": "The danger logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "while"
+                  },
+                  {
+                    "text": "loops"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "savings": "ok",
-              "months": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Tracking while loop progress",
-        "boxes": [
-          {
-            "id": "savings",
-            "label": "savings"
-          },
-          {
-            "id": "months",
-            "label": "months"
-          }
+        "template": "table",
+        "title": "while loops",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A while loop repeats as long as a condition is True.",
-            "values": {
-              "savings": "0",
-              "months": "0"
-            },
-            "tones": {
-              "savings": "data",
-              "months": "idle"
-            }
+            "caption": "The loop concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "while",
+                  "loops"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The loop works out how many months are needed.",
-            "values": {
-              "savings": "3000",
-              "months": "6"
-            },
-            "tones": {
-              "savings": "ok",
-              "months": "ok"
-            }
+            "at": "say3",
+            "caption": "The danger logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "while",
+                  "loops"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -521,223 +345,81 @@
       "partTitle": "break and continue",
       "codeHash": "acd2033e36cafcffb7bb26408e92b8089e74c4c606670f63375d5b90983ce832",
       "spec": {
-        "template": "flow",
-        "title": "break and continue — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. break and continue",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "break and continue",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for break and continue [Dsix.Pfive.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in break and continue [Dsix.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "break"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for break and continue [Dsix.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The both logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "continue"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "break and continue — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. break and continue",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "break and continue",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for break and continue [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in break and continue [D6.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "break",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for break and continue [D6.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The both logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "continue",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -747,94 +429,82 @@
       "partTitle": "Putting it together: a spending report",
       "codeHash": "0939a8968a275e541533384290ebe984f8886c7f542f3323d55d5ac965544ae6",
       "spec": {
-        "template": "boxes",
-        "title": "Spending report summary",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "largest",
-            "label": "largest"
-          }
+        "template": "table",
+        "title": "Putting it together: a spending report",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "We have a list of amounts and want a small report.",
-            "values": {
-              "total": {
-                "var": "total",
-                "line": 3
-              },
-              "largest": {
-                "var": "largest",
-                "line": 4
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "total": "data",
-              "largest": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Keep the biggest seen so far and replace it when bigger.",
-            "values": {
-              "total": {
-                "var": "total",
-                "line": 10
-              },
-              "largest": {
-                "var": "largest",
-                "line": 11
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "spending"
+                  },
+                  {
+                    "text": "report"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "total": "data",
-              "largest": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Spending report summary",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "largest",
-            "label": "largest"
-          }
+        "template": "table",
+        "title": "Putting it together: a spending report",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "We have a list of amounts and want a small report.",
-            "values": {
-              "total": "0",
-              "largest": "0"
-            },
-            "tones": {
-              "total": "data",
-              "largest": "idle"
-            }
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Keep the biggest seen so far and replace it when bigger.",
-            "values": {
-              "total": "20",
-              "largest": "300"
-            },
-            "tones": {
-              "total": "data",
-              "largest": "ok"
-            }
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "spending",
+                  "report"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

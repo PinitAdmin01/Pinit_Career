@@ -2,176 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 3,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "cef8fd80b01856bde1bd9a46a7b65daa3284644932aae8f1852221db136d5ded",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Strings and joining them",
       "codeHash": "b771e8e9967d99cdc2c5a5b49bd1ea5b320a4252fee406a2a1ea1196420b6e9c",
       "spec": {
-        "template": "flow",
-        "title": "+ joins text exactly as it is",
-        "showSpaces": true,
-        "nodes": [
-          {
-            "id": "a",
-            "label": "Hello, ",
-            "tappable": false
-          },
-          {
-            "id": "b",
-            "label": "first"
-          },
-          {
-            "id": "c",
-            "label": "!",
-            "tappable": false
-          },
-          {
-            "id": "greeting",
-            "label": "greeting"
-          }
+        "template": "table",
+        "title": "Strings and joining them",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "+ joins in order; the space must be inside the quotes.",
-            "values": {
-              "a": {
-                "text": ""
-              },
-              "b": {
-                "text": "Asha"
-              },
-              "c": {
-                "text": "!"
-              },
-              "greeting": {
-                "text": ""
+            "at": "say1",
+            "caption": "The programs concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Strings"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "a": "data",
-              "b": "data",
-              "c": "data",
-              "greeting": "ok"
-            },
-            "arrows": [
-              [
-                "a",
-                "b"
-              ],
-              [
-                "b",
-                "c"
-              ]
-            ],
-            "checks": [
-              "Hello, Asha!"
             ]
           },
           {
             "at": "say3",
-            "caption": "* repeats a string: one dash, twenty times.",
-            "values": {
-              "a": {
-                "text": "-"
-              },
-              "b": {
-                "text": "* 20"
-              },
-              "c": {
-                "text": ""
-              },
-              "greeting": {
-                "text": ""
+            "caption": "The repeat logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "joining"
+                  },
+                  {
+                    "text": "them"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "a": "idle",
-              "b": "idle",
-              "c": "idle",
-              "greeting": "ok"
-            },
-            "arrows": [],
-            "checks": [
-              "--------------------"
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "+ joins text exactly as it is",
-        "showSpaces": true,
-        "nodes": [
-          {
-            "id": "a",
-            "label": "Hello, ",
-            "tappable": false
-          },
-          {
-            "id": "b",
-            "label": "first"
-          },
-          {
-            "id": "c",
-            "label": "!",
-            "tappable": false
-          },
-          {
-            "id": "greeting",
-            "label": "greeting"
-          }
+        "template": "table",
+        "title": "Strings and joining them",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "+ joins in order; the space must be inside the quotes.",
-            "values": {
-              "a": "Hello,·",
-              "b": "Asha",
-              "c": "!",
-              "greeting": "Hello, Asha!"
-            },
-            "tones": {
-              "a": "data",
-              "b": "data",
-              "c": "data",
-              "greeting": "ok"
-            },
-            "arrows": [
-              [
-                "a",
-                "b"
-              ],
-              [
-                "b",
-                "c"
-              ]
-            ],
-            "checks": [
-              "Hello, Asha!"
+            "at": "say1",
+            "caption": "The programs concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Strings",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "* repeats a string: one dash, 20 times.",
-            "values": {
-              "a": "-",
-              "b": "* 20",
-              "c": "",
-              "greeting": "--------------------"
-            },
-            "tones": {
-              "a": "idle",
-              "b": "idle",
-              "c": "idle",
-              "greeting": "ok"
-            },
-            "arrows": [],
-            "checks": [
-              "--------------------"
+            "caption": "The repeat logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "joining",
+                  "them"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -181,103 +93,81 @@
       "partTitle": "Length and positions",
       "codeHash": "ef33dae0a12da94cdc68a71adb6b1e630f0f601032f35b6157e2430b1603897c",
       "spec": {
-        "template": "letters",
-        "title": "Positions start at 0",
-        "text": "Priya",
+        "template": "table",
+        "title": "Length and positions",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Len() counts every character: five.",
-            "range": [
-              0,
-              5
-            ],
-            "result": "len(name) = 5",
-            "tone": "ok",
-            "checks": [
-              "5"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "The first character is at position zero, not one.",
-            "pointer": 0,
-            "result": "name[0] = P",
-            "tone": "data",
-            "checks": [
-              "P"
+            "caption": "The tells concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Length"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "-one is always the last character.",
-            "pointer": -1,
-            "result": "name[-1] = a",
-            "tone": "data",
-            "checks": [
-              "a"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "There is nothing at position ten, so Python gives an IndexError.",
-            "pointer": 10,
-            "result": "IndexError",
-            "tone": "error",
-            "whatIf": "name = \"Priya\"\nprint(name[10])",
-            "checks": [
-              "IndexError"
+            "caption": "The character logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "positions"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "letters",
-        "title": "Positions start at 0",
-        "text": "Priya",
+        "template": "table",
+        "title": "Length and positions",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "len() counts every character: 5.",
-            "range": [
-              0,
-              5
-            ],
-            "result": "len(name) = 5",
-            "tone": "ok",
-            "checks": [
-              "5"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "The first character is at position 0, not 1.",
-            "pointer": 0,
-            "result": "name[0] = P",
-            "tone": "data",
-            "checks": [
-              "P"
+            "caption": "The tells concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Length",
+                  "and"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "-1 is always the last character.",
-            "pointer": -1,
-            "result": "name[-1] = a",
-            "tone": "data",
-            "checks": [
-              "a"
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "There is nothing at position 10, so Python gives an IndexError.",
-            "pointer": 10,
-            "result": "IndexError",
-            "tone": "error",
-            "whatIf": "name = \"Priya\"\nprint(name[10])",
-            "checks": [
-              "IndexError"
+            "caption": "The character logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "positions",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -287,82 +177,82 @@
       "partTitle": "Slicing: taking part of a string",
       "codeHash": "16d41067f2be4b841952e1d011be2010409c9e0c423b0b387a8a7c420432f09e",
       "spec": {
-        "template": "letters",
-        "title": "A slice stops before stop",
-        "text": "2026-09-28",
+        "template": "table",
+        "title": "Slicing: taking part of a string",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Positions zero to three are taken; position four is not.",
-            "range": [
-              0,
-              4
-            ],
-            "result": "date[0:4] = 2026",
-            "tone": "ok",
-            "checks": [
-              "2026"
-            ],
-            "endIndex": 3
-          },
-          {
-            "at": "say3",
-            "caption": "Leave out stop to go to the end: the last two characters.",
-            "range": [
-              8,
-              10
-            ],
-            "result": "date[-2:] = 28",
-            "tone": "ok",
-            "checks": [
-              "28"
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Slicing"
+                  },
+                  {
+                    "text": "taking"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Slicing gives a new string; the original stays the same.",
-            "result": "date is still 2026-09-28",
-            "tone": "data"
+            "at": "say3",
+            "caption": "The leave logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "part"
+                  },
+                  {
+                    "text": "string"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "letters",
-        "title": "A slice stops before stop",
-        "text": "2026-09-28",
+        "template": "table",
+        "title": "Slicing: taking part of a string",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Positions 0 to 3 are taken; position 4 is not.",
-            "range": [
-              0,
-              4
-            ],
-            "result": "date[0:4] = 2026",
-            "tone": "ok",
-            "checks": [
-              "2026"
-            ],
-            "endIndex": 3
-          },
-          {
-            "at": "say3",
-            "caption": "Leave out stop to go to the end: the last two characters.",
-            "range": [
-              8,
-              10
-            ],
-            "result": "date[-2:] = 28",
-            "tone": "ok",
-            "checks": [
-              "28"
+            "at": "say1",
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Slicing",
+                  "taking"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Slicing gives a new string; the original stays the same.",
-            "result": "date is still 2026-09-28",
-            "tone": "data"
+            "at": "say3",
+            "caption": "The leave logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "part",
+                  "string"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -371,224 +261,82 @@
       "partTitle": "String tools: upper, lower, strip, replace",
       "codeHash": "cfbc669c2c2dcec6f5c189f24ea21dec7c2d0234532a2a719ceccc92f75e06a4",
       "spec": {
-        "template": "flow",
-        "title": "Cleaning text step by step",
-        "showSpaces": true,
-        "nodes": [
-          {
-            "id": "typed",
-            "label": "typed"
-          },
-          {
-            "id": "strip",
-            "label": "strip()",
-            "tappable": false
-          },
-          {
-            "id": "lower",
-            "label": "lower()",
-            "tappable": false
-          },
-          {
-            "id": "category",
-            "label": "category"
-          }
+        "template": "table",
+        "title": "String tools: upper, lower, strip, replace",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "lower() turns FOOD into food, so all spellings match.",
-            "values": {
-              "typed": {
-                "text": "FOOD"
-              },
-              "strip": {
-                "text": ""
-              },
-              "lower": {
-                "text": "lower()"
-              },
-              "category": {
-                "text": "food"
+            "at": "say1",
+            "caption": "The strings concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "String"
+                  },
+                  {
+                    "text": "tools"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "typed": "idle",
-              "strip": "idle",
-              "lower": "data",
-              "category": "ok"
-            },
-            "arrows": [
-              [
-                "lower",
-                "category"
-              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "strip() removes the spaces first, then lower() runs.",
-            "values": {
-              "typed": {
-                "text": ""
-              },
-              "strip": {
-                "text": "strip()"
-              },
-              "lower": {
-                "text": "lower()"
-              },
-              "category": {
-                "text": "food"
+            "caption": "The strip logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "upper"
+                  },
+                  {
+                    "text": "lower"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "typed": "idle",
-              "strip": "data",
-              "lower": "data",
-              "category": "ok"
-            },
-            "arrows": [
-              [
-                "typed",
-                "strip"
-              ],
-              [
-                "strip",
-                "lower"
-              ],
-              [
-                "lower",
-                "category"
-              ]
-            ],
-            "checks": [
-              "[food]"
             ]
-          },
-          {
-            "at": "say4",
-            "caption": "The original string is unchanged; the clean text is in category.",
-            "values": {
-              "typed": {
-                "text": ""
-              },
-              "strip": {
-                "text": ""
-              },
-              "lower": {
-                "text": ""
-              },
-              "category": {
-                "text": "food"
-              }
-            },
-            "tones": {
-              "typed": "data",
-              "strip": "idle",
-              "lower": "idle",
-              "category": "ok"
-            },
-            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cleaning text step by step",
-        "showSpaces": true,
-        "nodes": [
-          {
-            "id": "typed",
-            "label": "typed"
-          },
-          {
-            "id": "strip",
-            "label": "strip()",
-            "tappable": false
-          },
-          {
-            "id": "lower",
-            "label": "lower()",
-            "tappable": false
-          },
-          {
-            "id": "category",
-            "label": "category"
-          }
+        "template": "table",
+        "title": "String tools: upper, lower, strip, replace",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "lower() turns FOOD into food, so all spellings match.",
-            "values": {
-              "typed": "FOOD",
-              "strip": "",
-              "lower": "lower()",
-              "category": "food"
-            },
-            "tones": {
-              "typed": "idle",
-              "strip": "idle",
-              "lower": "data",
-              "category": "ok"
-            },
-            "arrows": [
-              [
-                "lower",
-                "category"
-              ]
+            "at": "say1",
+            "caption": "The strings concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "String",
+                  "tools"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "strip() removes the spaces first, then lower() runs.",
-            "values": {
-              "typed": "··FOOD·",
-              "strip": "strip()",
-              "lower": "lower()",
-              "category": "food"
-            },
-            "tones": {
-              "typed": "idle",
-              "strip": "data",
-              "lower": "data",
-              "category": "ok"
-            },
-            "arrows": [
-              [
-                "typed",
-                "strip"
-              ],
-              [
-                "strip",
-                "lower"
-              ],
-              [
-                "lower",
-                "category"
-              ]
-            ],
-            "checks": [
-              "[food]"
+            "caption": "The strip logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "upper",
+                  "lower"
+                ],
+                "tone": "ok"
+              }
             ]
-          },
-          {
-            "at": "say4",
-            "caption": "The original string is unchanged; the clean text is in category.",
-            "values": {
-              "typed": "··FOOD·",
-              "strip": "",
-              "lower": "",
-              "category": "food"
-            },
-            "tones": {
-              "typed": "data",
-              "strip": "idle",
-              "lower": "idle",
-              "category": "ok"
-            },
-            "arrows": []
           }
         ]
       }
@@ -598,335 +346,81 @@
       "codeHash": "a731c8d2ffaf39dcac0a2135572c5f8e5fb652821005b42c034ee0c655fd164b",
       "spec": {
         "template": "table",
-        "title": "Asking questions about text",
+        "title": "Searching inside text",
         "columns": [
-          "Question",
-          "Answer"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "in checks whether the smaller text is inside the bigger one.",
+            "caption": "The often concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "\"card\" in note",
-                  "True"
+                  {
+                    "text": "Searching"
+                  },
+                  {
+                    "text": "inside"
+                  }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "True",
-              "False"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "endswith() checks the end, startswith() the beginning.",
-            "rows": [
-              {
-                "cells": [
-                  "\"card\" in note",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "\"invoice.pdf\".endswith(\".pdf\")",
-                  "True"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "True",
-              "False",
-              "True"
             ]
           },
           {
             "at": "say3",
-            "caption": "count() counts copies; find() gives the first position.",
+            "caption": "The count logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "\"card\" in note",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "\"invoice.pdf\".endswith(\".pdf\")",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"banana\".count(\"a\")",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "note.find(\"team\")",
-                  "11"
+                  {
+                    "text": "text"
+                  },
+                  {
+                    "text": "inside"
+                  }
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "True",
-              "False",
-              "True",
-              "3",
-              "11"
             ]
-          },
-          {
-            "at": "say4",
-            "caption": "Checks are case-sensitive, so capital Card is not found.",
-            "rows": [
-              {
-                "cells": [
-                  "\"card\" in note",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "\"invoice.pdf\".endswith(\".pdf\")",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"banana\".count(\"a\")",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "note.find(\"team\")",
-                  "11"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"Card\" in note",
-                  "False"
-                ],
-                "tone": "error"
-              }
-            ],
-            "whatIf": "note = \"Expense on team card\"\nprint(\"card\" in note)\nprint(\"cash\" in note)\nprint(\"invoice.pdf\".endswith(\".pdf\"))\nprint(\"banana\".count(\"a\"))\nprint(note.find(\"team\"))\nprint(\"Card\" in note)",
-            "checks": [
-              "False"
-            ],
-            "lastLine": "False"
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Asking questions about text",
+        "title": "Searching inside text",
         "columns": [
-          "Question",
-          "Answer"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "in checks whether the smaller text is inside the bigger one.",
+            "caption": "The often concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "\"card\" in note",
-                  "True"
+                  "Searching",
+                  "inside"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
+                "tone": "data"
               }
-            ],
-            "checks": [
-              "True",
-              "False"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "endswith() checks the end, startswith() the beginning.",
-            "rows": [
-              {
-                "cells": [
-                  "\"card\" in note",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "\"invoice.pdf\".endswith(\".pdf\")",
-                  "True"
-                ],
-                "tone": "ok"
-              }
-            ],
-            "checks": [
-              "True",
-              "False",
-              "True"
             ]
           },
           {
             "at": "say3",
-            "caption": "count() counts copies; find() gives the first position.",
+            "caption": "The count logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "\"card\" in note",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "\"invoice.pdf\".endswith(\".pdf\")",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"banana\".count(\"a\")",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "note.find(\"team\")",
-                  "11"
+                  "text",
+                  "inside"
                 ],
                 "tone": "ok"
               }
-            ],
-            "checks": [
-              "True",
-              "False",
-              "True",
-              "3",
-              "11"
             ]
-          },
-          {
-            "at": "say4",
-            "caption": "Checks are case-sensitive, so capital Card is not found.",
-            "rows": [
-              {
-                "cells": [
-                  "\"card\" in note",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"cash\" in note",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "\"invoice.pdf\".endswith(\".pdf\")",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"banana\".count(\"a\")",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "note.find(\"team\")",
-                  "11"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "\"Card\" in note",
-                  "False"
-                ],
-                "tone": "error"
-              }
-            ],
-            "whatIf": "note = \"Expense on team card\"\nprint(\"card\" in note)\nprint(\"cash\" in note)\nprint(\"invoice.pdf\".endswith(\".pdf\"))\nprint(\"banana\".count(\"a\"))\nprint(note.find(\"team\"))\nprint(\"Card\" in note)",
-            "checks": [
-              "False"
-            ],
-            "lastLine": "False"
           }
         ]
       }
@@ -935,197 +429,81 @@
       "partTitle": "Putting it together: tidy expense labels",
       "codeHash": "9853c0f50b40d73ebc2df8531dea2930e031a654df3d2511191023194a82c4d6",
       "spec": {
-        "template": "flow",
-        "title": "Clean the input, then use it",
-        "showSpaces": true,
-        "nodes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "clean_item",
-            "label": "clean_item"
-          },
-          {
-            "id": "category",
-            "label": "category"
-          },
-          {
-            "id": "clean_category",
-            "label": "clean_category"
-          },
-          {
-            "id": "label",
-            "label": "label",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "Putting it together: tidy expense labels",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Typed text is messy: extra spaces and random capitals.",
-            "values": {
-              "item": {
-                "text": ""
-              },
-              "clean_item": {
-                "text": ""
-              },
-              "category": {
-                "text": ""
-              },
-              "clean_category": {
-                "text": ""
-              },
-              "label": {
-                "text": ""
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "error",
-              "clean_item": "idle",
-              "category": "error",
-              "clean_category": "idle",
-              "label": "idle"
-            },
-            "arrows": []
+            ]
           },
           {
-            "at": "say2",
-            "caption": "strip(), capitalize() and lower() clean it, then + builds the label.",
-            "values": {
-              "item": {
-                "text": ""
-              },
-              "clean_item": {
-                "text": ""
-              },
-              "category": {
-                "text": ""
-              },
-              "clean_category": {
-                "text": ""
-              },
-              "label": {
-                "text": ""
+            "at": "say3",
+            "caption": "The pattern logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tidy"
+                  },
+                  {
+                    "text": "expense"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "idle",
-              "clean_item": "idle",
-              "category": "idle",
-              "clean_category": "idle",
-              "label": "ok"
-            },
-            "arrows": [
-              [
-                "item",
-                "clean_item"
-              ],
-              [
-                "category",
-                "clean_category"
-              ],
-              [
-                "clean_item",
-                "label"
-              ],
-              [
-                "clean_category",
-                "label"
-              ]
-            ],
-            "checks": [
-              "Masala chai (food)"
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Clean the input, then use it",
-        "showSpaces": true,
-        "nodes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "clean_item",
-            "label": "clean_item"
-          },
-          {
-            "id": "category",
-            "label": "category"
-          },
-          {
-            "id": "clean_category",
-            "label": "clean_category"
-          },
-          {
-            "id": "label",
-            "label": "label",
-            "tappable": false
-          }
+        "template": "table",
+        "title": "Putting it together: tidy expense labels",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Typed text is messy: extra spaces and random capitals.",
-            "values": {
-              "item": "··masala·CHAI·",
-              "clean_item": "",
-              "category": "·FOOD",
-              "clean_category": "",
-              "label": ""
-            },
-            "tones": {
-              "item": "error",
-              "clean_item": "idle",
-              "category": "error",
-              "clean_category": "idle",
-              "label": "idle"
-            },
-            "arrows": []
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "strip(), capitalize() and lower() clean it, then + builds the label.",
-            "values": {
-              "item": "··masala·CHAI·",
-              "clean_item": "Masala chai",
-              "category": "·FOOD",
-              "clean_category": "food",
-              "label": "Masala chai (food)"
-            },
-            "tones": {
-              "item": "idle",
-              "clean_item": "idle",
-              "category": "idle",
-              "clean_category": "idle",
-              "label": "ok"
-            },
-            "arrows": [
-              [
-                "item",
-                "clean_item"
-              ],
-              [
-                "category",
-                "clean_category"
-              ],
-              [
-                "clean_item",
-                "label"
-              ],
-              [
-                "clean_category",
-                "label"
-              ]
-            ],
-            "checks": [
-              "Masala chai (food)"
+            "at": "say3",
+            "caption": "The pattern logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "tidy",
+                  "expense"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,139 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "26f4af67bd3ebc4d24b050efd3cf94e5fe56e996df3fa5dadb8881c83bbfd868",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Trees: nodes with children",
       "codeHash": "df88561d1cc26c673cdda2e2b53a1b595e19f81e6b30eb2a76fc8513ef7a1ff3",
       "spec": {
-        "template": "tree-graph",
-        "title": "Binary tree structure with root and children",
-        "nodes": [
-          {
-            "id": "1",
-            "label": "1 (root)"
-          },
-          {
-            "id": "2",
-            "label": "2"
-          },
-          {
-            "id": "3",
-            "label": "3"
-          },
-          {
-            "id": "4",
-            "label": "4 (leaf)"
-          },
-          {
-            "id": "5",
-            "label": "5 (leaf)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "1",
-            "to": "2",
-            "label": "left"
-          },
-          {
-            "from": "1",
-            "to": "3",
-            "label": "right"
-          },
-          {
-            "from": "2",
-            "to": "4",
-            "label": "left"
-          },
-          {
-            "from": "2",
-            "to": "5",
-            "label": "right"
-          }
+        "template": "table",
+        "title": "Trees: nodes with children",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The top node acts as the root while nodes without children are leaves.",
-            "highlightNodes": [
-              "1",
-              "4",
-              "5"
+            "caption": "The tree concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Trees"
+                  },
+                  {
+                    "text": "nodes"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "say2",
-            "caption": "A binary tree node references at most two children named left and right.",
-            "highlightNodes": [
-              "1",
-              "2",
-              "3"
-            ],
-            "highlightEdges": [
-              "1->2",
-              "1->3"
+            "at": "say3",
+            "caption": "The trees logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "children"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "tree-graph",
-        "title": "Binary tree structure with root and children",
-        "nodes": [
-          {
-            "id": "1",
-            "label": "1 (root)"
-          },
-          {
-            "id": "2",
-            "label": "2"
-          },
-          {
-            "id": "3",
-            "label": "3"
-          },
-          {
-            "id": "4",
-            "label": "4 (leaf)"
-          },
-          {
-            "id": "5",
-            "label": "5 (leaf)"
-          }
-        ],
-        "edges": [
-          {
-            "from": "1",
-            "to": "2",
-            "label": "left"
-          },
-          {
-            "from": "1",
-            "to": "3",
-            "label": "right"
-          },
-          {
-            "from": "2",
-            "to": "4",
-            "label": "left"
-          },
-          {
-            "from": "2",
-            "to": "5",
-            "label": "right"
-          }
+        "template": "table",
+        "title": "Trees: nodes with children",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The top node acts as the root while nodes without children are leaves."
+            "caption": "The tree concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Trees",
+                  "nodes"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "A binary tree node references at most two children named left and right."
+            "at": "say3",
+            "caption": "The trees logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "children"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -144,61 +94,40 @@
       "codeHash": "2bd6cb4e282d2c8bbe48e662e66e802687bf9aeb8182788787849c066115b15a",
       "spec": {
         "template": "table",
-        "title": "Depth-first tree traversal orders",
+        "title": "Depth-first walks: preorder, inorder, postorder",
         "columns": [
-          "Traversal",
-          "Visit Order",
-          "Common Use Case"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Preorder visits the node before walking left and right subtrees.",
+            "at": "say1",
+            "caption": "The depth concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Preorder"
+                    "text": "Depth"
                   },
                   {
-                    "text": "node -> left -> right"
-                  },
-                  {
-                    "text": "copy tree or print folder"
+                    "text": "first"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Inorder visits the left subtree before the node and then right.",
+            "caption": "The inorder logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Preorder"
+                    "text": "walks"
                   },
                   {
-                    "text": "node -> left -> right"
-                  },
-                  {
-                    "text": "copy tree or print folder"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Inorder"
-                  },
-                  {
-                    "text": "left -> node -> right"
-                  },
-                  {
-                    "text": "sorted order in BST"
+                    "text": "preorder"
                   }
                 ],
                 "tone": "ok"
@@ -209,44 +138,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Depth-first tree traversal orders",
+        "title": "Depth-first walks: preorder, inorder, postorder",
         "columns": [
-          "Traversal",
-          "Visit Order",
-          "Common Use Case"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Preorder visits the node before walking left and right subtrees.",
+            "at": "say1",
+            "caption": "The depth concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Preorder",
-                  "node -> left -> right",
-                  "copy tree or print folder"
+                  "Depth",
+                  "first"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Inorder visits the left subtree before the node and then right.",
+            "caption": "The inorder logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Preorder",
-                  "node -> left -> right",
-                  "copy tree or print folder"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Inorder",
-                  "left -> node -> right",
-                  "sorted order in BST"
+                  "walks",
+                  "preorder"
                 ],
                 "tone": "ok"
               }
@@ -259,52 +177,81 @@
       "partTitle": "Level order with a queue",
       "codeHash": "0831de7788ae183299480077ba853565893b5264a31daa758f35f10862ac81ca",
       "spec": {
-        "template": "stack-queue",
-        "title": "Level order traversal with queue deque",
-        "kind": "queue",
+        "template": "table",
+        "title": "Level order with a queue",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "BFS initializes a queue deque with root node to process levels.",
-            "items": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "root (1)"
+                "cells": [
+                  {
+                    "text": "Level"
+                  },
+                  {
+                    "text": "order"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Taking queue length separates current level nodes before pushing children.",
-            "items": [
+            "caption": "The taking logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "child (2)"
-              },
-              {
-                "text": "child (3)"
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "queue"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "Level order traversal with queue deque",
+        "template": "table",
+        "title": "Level order with a queue",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "BFS initializes a queue deque with root node to process levels.",
-            "mode": "stack",
-            "items": [
-              "root (1)"
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Level",
+                  "order"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Taking queue length separates current level nodes before pushing children.",
-            "mode": "stack",
-            "items": [
-              "child (2)",
-              "child (3)"
+            "caption": "The taking logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "queue"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -314,223 +261,81 @@
       "partTitle": "Maximum depth",
       "codeHash": "29979b99098f9dd49f2259442855d58ca40841e240ff6957c40c4bc18c9e1eba",
       "spec": {
-        "template": "flow",
-        "title": "Maximum depth — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Maximum depth",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Maximum depth",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Maximum depth [Dsixteen.Pfour.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Maximum depth [Dsixteen.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Maximum"
+                  },
+                  {
+                    "text": "depth"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Maximum depth [Dsixteen.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The answer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Maximum"
+                  },
+                  {
+                    "text": "depth"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Maximum depth — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Maximum depth",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Maximum depth",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Maximum depth [D16.P4.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Maximum depth [D16.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Maximum",
+                  "depth"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Maximum depth [D16.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The answer logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Maximum",
+                  "depth"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -540,56 +345,81 @@
       "partTitle": "Walking a tree with your own stack",
       "codeHash": "d2b96363ad0facb9f685bdce9644db3fe9c859fadd60ce088703b6cfd341e610",
       "spec": {
-        "template": "stack-queue",
-        "title": "Iterative tree traversal using an explicit stack",
-        "kind": "stack",
+        "template": "table",
+        "title": "Walking a tree with your own stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Push right child before left child onto the stack during traversal.",
-            "items": [
+            "at": "say1",
+            "caption": "The recursion concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "right child (3)"
-              },
-              {
-                "text": "left child (2)"
+                "cells": [
+                  {
+                    "text": "Walking"
+                  },
+                  {
+                    "text": "tree"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Swapping queue for stack changes traversal from breadth-first to depth-first.",
-            "items": [
+            "caption": "The swapping logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "visiting node (2)"
-              },
-              {
-                "text": "remaining (3)"
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "your"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "Iterative tree traversal using an explicit stack",
+        "template": "table",
+        "title": "Walking a tree with your own stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Push right child before left child onto the stack during traversal.",
-            "mode": "stack",
-            "items": [
-              "right child (3)",
-              "left child (2)"
+            "at": "say1",
+            "caption": "The recursion concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Walking",
+                  "tree"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say3",
-            "caption": "Swapping queue for stack changes traversal from breadth-first to depth-first.",
-            "mode": "stack",
-            "items": [
-              "visiting node (2)",
-              "remaining (3)"
+            "caption": "The swapping logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "your"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -599,223 +429,81 @@
       "partTitle": "Trees from lists and tree problems in general",
       "codeHash": "504721a886a0f49e6c5db964fab528809bd9e1eea8d7b8cfbc9b8686c8962b7f",
       "spec": {
-        "template": "flow",
-        "title": "Trees from lists and tree problems in general — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Trees from lists an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Trees from lists and tree problems in general",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Trees from lists and tree problems in ge.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Trees from lists an... [Dsixteen.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The interview concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Trees"
+                  },
+                  {
+                    "text": "from"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Trees from lists and tree problem.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The before logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "lists"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Trees from lists and tree problems in general — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Trees from lists an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Trees from lists and tree problems in general",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Trees from lists and tree problems in ge.. [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Trees from lists an... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The interview concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Trees",
+                  "from"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Trees from lists and tree problem.. [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The before logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "lists",
+                  "and"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

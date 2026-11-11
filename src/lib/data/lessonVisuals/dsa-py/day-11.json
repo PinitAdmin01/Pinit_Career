@@ -2,439 +2,31 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "a94d633a19281cc67dab84a4c6bd62ba2012e0eb3f2da413161e7bd6367c37e0",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "A function that calls itself",
       "codeHash": "0f2fd70ec5ecd85404ae8f384a340c98d10527f98a0429de03091ccac6b73f92",
       "spec": {
-        "template": "compare",
-        "title": "Recursive step and base case condition",
-        "leftLabel": "Recursive Call",
-        "rightLabel": "Base Case",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Base case answers directly without infinite recursion.",
-            "left": {
-              "code": "factorial(1)",
-              "result": {
-                "text": "1"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "n <= 1",
-              "result": {
-                "text": "stops"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Recursive step makes problem smaller trusting return value.",
-            "left": {
-              "code": "5 * factorial(4)",
-              "result": {
-                "text": "120"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "n * factorial(n-1)",
-              "result": {
-                "text": "smaller call"
-              },
-              "tone": "data"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Recursive step and base case condition",
-        "leftLabel": "Recursive Call",
-        "rightLabel": "Base Case",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Base case answers directly without infinite recursion.",
-            "left": {
-              "code": "factorial(1)",
-              "result": "1",
-              "tone": "ok",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "n <= 1",
-              "result": "stops",
-              "tone": "ok",
-              "checks": [
-                "stops"
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Recursive step makes problem smaller trusting return value.",
-            "left": {
-              "code": "5 * factorial(4)",
-              "result": "120",
-              "tone": "data",
-              "checks": [
-                "120"
-              ]
-            },
-            "right": {
-              "code": "n * factorial(n-1)",
-              "result": "smaller call",
-              "tone": "data",
-              "checks": [
-                "smaller call"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The call stack",
-      "codeHash": "5b8b1c95e3a82fa6b3cf9719af13c4a3e8a8b52487358bd9a60fbdb4823bc42b",
-      "spec": {
-        "template": "stack-queue",
-        "title": "Call stack frame accumulation and unwinding",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Function calls push stack frames storing variables.",
-            "items": [
-              {
-                "text": "factorial(1)"
-              },
-              {
-                "text": "factorial(2)"
-              }
-            ],
-            "action": "push",
-            "actionItem": {
-              "text": "factorial(3)"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Base case returns allow waiting calls to pop off.",
-            "items": [
-              {
-                "text": "factorial(3)"
-              }
-            ],
-            "action": "pop",
-            "actionItem": {
-              "text": "factorial(1)"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Call stack frame accumulation and unwinding",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Function calls push stack frames storing variables.",
-            "mode": "stack",
-            "items": [
-              "factorial(1)",
-              "factorial(2)"
-            ],
-            "action": "push",
-            "actionItem": "factorial(3)"
-          },
-          {
-            "at": "say2",
-            "caption": "Base case returns allow waiting calls to pop off.",
-            "mode": "stack",
-            "items": [
-              "factorial(3)"
-            ],
-            "action": "pop",
-            "actionItem": "factorial(1)"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Recursion on lists and repeated work",
-      "codeHash": "c6b0126c06fe8120a45c2184a46150e360c8de9675698969c69f28ff3974b446",
-      "spec": {
-        "template": "flow",
-        "title": "Recursion on lists and repeated work — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Recursion on lists ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Initialize input state for Recursion on lists and repeated work.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Execute core transformation in Recursion on lists .",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Recursion on lists and repeated w.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Recursion on lists and repeated work — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Recursion on lists ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Recursion on lists and repeated work [D11.P3.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Recursion on lists ... [D11.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Recursion on lists and repeated w.. [D11.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Backtracking: choose, explore, un-choose",
-      "codeHash": "4a9a00844daa1b34409e4ab563b0a3387d4bf47739a5ffd0d87d238e38a34d39",
-      "spec": {
         "template": "table",
-        "title": "Backtracking choose explore unchoose sequence",
+        "title": "A function that calls itself",
         "columns": [
-          "Action",
-          "Decision State",
-          "Subset Result"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Choose adds item while un-choose removes item after exploration.",
+            "at": "say1",
+            "caption": "The recursive concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "choose 1"
+                    "text": "function"
                   },
                   {
-                    "text": "[1]"
-                  },
-                  {
-                    "text": "[1]"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "choose 2"
-                  },
-                  {
-                    "text": "[1, 2]"
-                  },
-                  {
-                    "text": "[1, 2]"
+                    "text": "that"
                   }
                 ],
                 "tone": "data"
@@ -443,46 +35,15 @@
           },
           {
             "at": "say3",
-            "caption": "Generating every subset branches into all combinations.",
+            "caption": "The recursive logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "choose 1"
+                    "text": "calls"
                   },
                   {
-                    "text": "[1]"
-                  },
-                  {
-                    "text": "[1]"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "choose 2"
-                  },
-                  {
-                    "text": "[1, 2]"
-                  },
-                  {
-                    "text": "[1, 2]"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "un-choose 2"
-                  },
-                  {
-                    "text": "[1]"
-                  },
-                  {
-                    "text": "[1, 3]"
+                    "text": "itself"
                   }
                 ],
                 "tone": "ok"
@@ -493,30 +54,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "Backtracking choose explore unchoose sequence",
+        "title": "A function that calls itself",
         "columns": [
-          "Action",
-          "Decision State",
-          "Subset Result"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Choose adds item while un-choose removes item after exploration.",
+            "at": "say1",
+            "caption": "The recursive concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "choose 1",
-                  "[1]",
-                  "[1]"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "choose 2",
-                  "[1, 2]",
-                  "[1, 2]"
+                  "function",
+                  "that"
                 ],
                 "tone": "data"
               }
@@ -524,29 +75,264 @@
           },
           {
             "at": "say3",
-            "caption": "Generating every subset branches into all combinations.",
+            "caption": "The recursive logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "choose 1",
-                  "[1]",
-                  "[1]"
+                  "calls",
+                  "itself"
                 ],
-                "tone": "data"
-              },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The call stack",
+      "codeHash": "5b8b1c95e3a82fa6b3cf9719af13c4a3e8a8b52487358bd9a60fbdb4823bc42b",
+      "spec": {
+        "template": "table",
+        "title": "The call stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The time concept establishes the core structural baseline.",
+            "rows": [
               {
                 "cells": [
-                  "choose 2",
-                  "[1, 2]",
-                  "[1, 2]"
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "call"
+                  }
                 ],
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The stack logic drives deterministic execution.",
+            "rows": [
               {
                 "cells": [
-                  "un-choose 2",
-                  "[1]",
-                  "[1, 3]"
+                  {
+                    "text": "stack"
+                  },
+                  {
+                    "text": "call"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "The call stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The time concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "call"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The stack logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "stack",
+                  "call"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Recursion on lists and repeated work",
+      "codeHash": "c6b0126c06fe8120a45c2184a46150e360c8de9675698969c69f28ff3974b446",
+      "spec": {
+        "template": "table",
+        "title": "Recursion on lists and repeated work",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The recursion concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Recursion"
+                  },
+                  {
+                    "text": "lists"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The memoization logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "repeated"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Recursion on lists and repeated work",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The recursion concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Recursion",
+                  "lists"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The memoization logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "repeated"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Backtracking: choose, explore, un-choose",
+      "codeHash": "4a9a00844daa1b34409e4ab563b0a3387d4bf47739a5ffd0d87d238e38a34d39",
+      "spec": {
+        "template": "table",
+        "title": "Backtracking: choose, explore, un-choose",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The backtracking concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Backtracking"
+                  },
+                  {
+                    "text": "choose"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The practice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "explore"
+                  },
+                  {
+                    "text": "choose"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Backtracking: choose, explore, un-choose",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The backtracking concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Backtracking",
+                  "choose"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "The practice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "explore",
+                  "choose"
                 ],
                 "tone": "ok"
               }
@@ -559,223 +345,81 @@
       "partTitle": "Permutations: every possible order",
       "codeHash": "2beb5130c912ec706f212b02e76d31442425ffc2e211b43c9b7d4ca358fe7c59",
       "spec": {
-        "template": "flow",
-        "title": "Permutations: every possible order — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Permutations: every...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Permutations: every possible order",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Permutations: every possible order.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Permutations: every... [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Permutations"
+                  },
+                  {
+                    "text": "every"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Permutations: every possible order.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The current logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "possible"
+                  },
+                  {
+                    "text": "order"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Permutations: every possible order — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Permutations: every...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Permutations: every possible order",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Permutations: every possible order [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Permutations: every... [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Permutations",
+                  "every"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Permutations: every possible order [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The current logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "possible",
+                  "order"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -785,90 +429,82 @@
       "partTitle": "Pruning: stopping early",
       "codeHash": "c983a461ee891db93218c6f41f66aaad5cd1e7ee37caed33dc5c37df43a25d8d",
       "spec": {
-        "template": "bars",
-        "title": "Search call count reduction via pruning",
+        "template": "table",
+        "title": "Pruning: stopping early",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Stopping branch early prevents exploring past target.",
-            "bars": [
+            "at": "say1",
+            "caption": "The backtracking concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "No Pruning",
-                "value": {
-                  "text": "256 calls"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "Target limit",
-                "value": {
-                  "text": "10"
-                },
+                "cells": [
+                  {
+                    "text": "Pruning"
+                  },
+                  {
+                    "text": "stopping"
+                  }
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 300
+            ]
           },
           {
             "at": "say3",
-            "caption": "Pruning turns impossible search into fast early stop.",
-            "bars": [
+            "caption": "The good logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "No Pruning",
-                "value": {
-                  "text": "256 calls"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "With Pruning",
-                "value": {
-                  "text": "42 calls"
-                },
+                "cells": [
+                  {
+                    "text": "early"
+                  },
+                  {
+                    "text": "stopping"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 300
+            ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Search call count reduction via pruning",
+        "template": "table",
+        "title": "Pruning: stopping early",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Stopping branch early prevents exploring past target.",
-            "bars": [
+            "at": "say1",
+            "caption": "The backtracking concept establishes the core structural baseline.",
+            "rows": [
               {
-                "label": "No Pruning",
-                "value": "256 calls",
-                "tone": "error"
-              },
-              {
-                "label": "Target limit",
-                "value": 10,
+                "cells": [
+                  "Pruning",
+                  "stopping"
+                ],
                 "tone": "data"
               }
-            ],
-            "max": 300
+            ]
           },
           {
             "at": "say3",
-            "caption": "Pruning turns impossible search into fast early stop.",
-            "bars": [
+            "caption": "The good logic drives deterministic execution.",
+            "rows": [
               {
-                "label": "No Pruning",
-                "value": "256 calls",
-                "tone": "error"
-              },
-              {
-                "label": "With Pruning",
-                "value": "42 calls",
+                "cells": [
+                  "early",
+                  "stopping"
+                ],
                 "tone": "ok"
               }
-            ],
-            "max": 300
+            ]
           }
         ]
       }

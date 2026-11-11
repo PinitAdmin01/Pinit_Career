@@ -2,24 +2,23 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "dd12b61e5b6b73f9ce2d3c701e0053c7dc79880753b33a331c06993d333ff40c",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Choose, explore, un-choose",
       "codeHash": "d8860ff3f5493a6ec787e7380ada8a4ddf0fe4a3373a2a2dcd0ae210280e1767",
       "spec": {
         "template": "table",
-        "title": "Backtracking recursion lifecycle states",
+        "title": "Choose, explore, un-choose",
         "columns": [
-          "Backtracking Phase",
-          "Action on Partial Solution",
-          "State Mutation"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The pattern is always choose explore and un-choose.",
+            "at": "say1",
+            "caption": "The backtracking concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
@@ -27,44 +26,24 @@
                     "text": "Choose"
                   },
                   {
-                    "text": "Place queen on square"
-                  },
-                  {
-                    "text": "state.add(col)"
+                    "text": "explore"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Depth-first search walks a tree of partial decisions towards leaves.",
+            "caption": "The depth logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Choose"
+                    "text": "choose"
                   },
                   {
-                    "text": "Place queen on square"
-                  },
-                  {
-                    "text": "state.add(col)"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Explore"
-                  },
-                  {
-                    "text": "Recurse to next row"
-                  },
-                  {
-                    "text": "dfs(row + 1)"
+                    "text": "explore"
                   }
                 ],
                 "tone": "ok"
@@ -75,44 +54,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Backtracking recursion lifecycle states",
+        "title": "Choose, explore, un-choose",
         "columns": [
-          "Backtracking Phase",
-          "Action on Partial Solution",
-          "State Mutation"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The pattern is always choose explore and un-choose.",
+            "at": "say1",
+            "caption": "The backtracking concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   "Choose",
-                  "Place queen on square",
-                  "state.add(col)"
+                  "explore"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Depth-first search walks a tree of partial decisions towards leaves.",
+            "caption": "The depth logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Choose",
-                  "Place queen on square",
-                  "state.add(col)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Explore",
-                  "Recurse to next row",
-                  "dfs(row + 1)"
+                  "choose",
+                  "explore"
                 ],
                 "tone": "ok"
               }
@@ -125,94 +93,82 @@
       "partTitle": "Pruning: stop early",
       "codeHash": "8dd073a1a201cee403c6f90f1c19dbb4e8099d11ec3a7f9f556cc6ad2f851df5",
       "spec": {
-        "template": "compare",
-        "title": "Exhaustive permutation tree versus branch pruning",
-        "leftLabel": "Unpruned Search",
-        "rightLabel": "Pruned Backtracking",
+        "template": "table",
+        "title": "Pruning: stop early",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Pruning checks constraints early abandoning paths that cannot succeed.",
-            "left": {
-              "code": "exhaustive search",
-              "result": {
-                "text": "explore every leaf"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "constraint check",
-              "result": {
-                "text": "abandon path early"
-              },
-              "tone": "ok"
-            }
+            "at": "say1",
+            "caption": "The plain concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Pruning"
+                  },
+                  {
+                    "text": "stop"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Good pruning detects bad choices early saving massive computation.",
-            "left": {
-              "code": "calls made",
-              "result": {
-                "text": "factorial calls"
-              },
-              "tone": "error"
-            },
-            "right": {
-              "code": "calls made",
-              "result": {
-                "text": "instant answer"
-              },
-              "tone": "ok"
-            }
+            "at": "say3",
+            "caption": "The subset logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "early"
+                  },
+                  {
+                    "text": "stop"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Exhaustive permutation tree versus branch pruning",
-        "leftLabel": "Unpruned Search",
-        "rightLabel": "Pruned Backtracking",
+        "template": "table",
+        "title": "Pruning: stop early",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Pruning checks constraints early abandoning paths that cannot succeed.",
-            "left": {
-              "code": "exhaustive search",
-              "result": "explore every leaf",
-              "tone": "error",
-              "checks": [
-                "explore every leaf"
-              ]
-            },
-            "right": {
-              "code": "constraint check",
-              "result": "abandon path early",
-              "tone": "ok",
-              "checks": [
-                "abandon path early"
-              ]
-            }
+            "at": "say1",
+            "caption": "The plain concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Pruning",
+                  "stop"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Good pruning detects bad choices early saving massive computation.",
-            "left": {
-              "code": "calls made",
-              "result": "factorial calls",
-              "tone": "error",
-              "checks": [
-                "factorial calls"
-              ]
-            },
-            "right": {
-              "code": "calls made",
-              "result": "instant answer",
-              "tone": "ok",
-              "checks": [
-                "instant answer"
-              ]
-            }
+            "at": "say3",
+            "caption": "The subset logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "early",
+                  "stop"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -222,61 +178,40 @@
       "codeHash": "1520e9a806d801a2118ef5cdb572f16a641ccbc56cd43cc60555ae1c04690c22",
       "spec": {
         "template": "table",
-        "title": "N-Queens attack validation sets",
+        "title": "N-Queens",
         "columns": [
-          "Attack Constraint",
-          "Mathematical Formula",
-          "Lookup Set"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Place one queen per row trying columns that are not attacked.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Column"
+                    "text": "Queens"
                   },
                   {
-                    "text": "col"
-                  },
-                  {
-                    "text": "cols set"
+                    "text": "Queens"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Checking attacks quickly keeps three sets for columns and diagonals.",
+            "caption": "The checking logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Column"
+                    "text": "Queens"
                   },
                   {
-                    "text": "col"
-                  },
-                  {
-                    "text": "cols set"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Diagonals"
-                  },
-                  {
-                    "text": "row - col, row + col"
-                  },
-                  {
-                    "text": "diag1, diag2 sets"
+                    "text": "Queens"
                   }
                 ],
                 "tone": "ok"
@@ -287,44 +222,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "N-Queens attack validation sets",
+        "title": "N-Queens",
         "columns": [
-          "Attack Constraint",
-          "Mathematical Formula",
-          "Lookup Set"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Place one queen per row trying columns that are not attacked.",
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Column",
-                  "col",
-                  "cols set"
+                  "Queens",
+                  "Queens"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Checking attacks quickly keeps three sets for columns and diagonals.",
+            "caption": "The checking logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Column",
-                  "col",
-                  "cols set"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Diagonals",
-                  "row - col, row + col",
-                  "diag1, diag2 sets"
+                  "Queens",
+                  "Queens"
                 ],
                 "tone": "ok"
               }
@@ -337,223 +261,81 @@
       "partTitle": "Printing a board",
       "codeHash": "daa85ff3bf1cf5af1ebc95621e57b04bcd73ad739f40a52519bc8cc75609d389",
       "spec": {
-        "template": "flow",
-        "title": "Printing a board — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Printing a board",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Printing a board",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Printing a board [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Printing a board [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The counting concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Printing"
+                  },
+                  {
+                    "text": "board"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Printing a board [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The printing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Printing"
+                  },
+                  {
+                    "text": "board"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Printing a board — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Printing a board",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Printing a board",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Printing a board [D28.P4.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Printing a board [D28.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The counting concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Printing",
+                  "board"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Printing a board [D28.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The printing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Printing",
+                  "board"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -564,61 +346,40 @@
       "codeHash": "c476d0a56935c908b452ab71d9491822ff366930239dfc00ae53e190bcc153d4",
       "spec": {
         "template": "table",
-        "title": "Sudoku constraint validation using composite tuples",
+        "title": "Sudoku validation with sets",
         "columns": [
-          "Board Dimension",
-          "Record Hash Tuple",
-          "Conflict Detection"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Validate partly filled Sudoku board ensuring no digit is repeated.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Row Constraint"
+                    "text": "Sudoku"
                   },
                   {
-                    "text": "(\"row\", r, digit)"
-                  },
-                  {
-                    "text": "Unique per row"
+                    "text": "validation"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Record each digit three ways in one set detecting duplicate rules.",
+            "at": "say3",
+            "caption": "The turn logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Row Constraint"
+                    "text": "with"
                   },
                   {
-                    "text": "(\"row\", r, digit)"
-                  },
-                  {
-                    "text": "Unique per row"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Box Constraint"
-                  },
-                  {
-                    "text": "(\"box\", r//3, c//3, digit)"
-                  },
-                  {
-                    "text": "Unique per 3x3 box"
+                    "text": "sets"
                   }
                 ],
                 "tone": "ok"
@@ -629,44 +390,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Sudoku constraint validation using composite tuples",
+        "title": "Sudoku validation with sets",
         "columns": [
-          "Board Dimension",
-          "Record Hash Tuple",
-          "Conflict Detection"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Validate partly filled Sudoku board ensuring no digit is repeated.",
+            "caption": "The practice concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Row Constraint",
-                  "(\"row\", r, digit)",
-                  "Unique per row"
+                  "Sudoku",
+                  "validation"
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Record each digit three ways in one set detecting duplicate rules.",
+            "at": "say3",
+            "caption": "The turn logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Row Constraint",
-                  "(\"row\", r, digit)",
-                  "Unique per row"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Box Constraint",
-                  "(\"box\", r//3, c//3, digit)",
-                  "Unique per 3x3 box"
+                  "with",
+                  "sets"
                 ],
                 "tone": "ok"
               }
@@ -679,223 +429,81 @@
       "partTitle": "When to reach for backtracking",
       "codeHash": "a1a9212de66888913b5faed27c41f73477d0451003598330558e4b3d03826c80",
       "spec": {
-        "template": "flow",
-        "title": "When to reach for backtracking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to reach for b...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "When to reach for backtracking",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When to reach for backtracking [D.Psix.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When to reach for b... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The clues concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "When"
+                  },
+                  {
+                    "text": "reach"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When to reach for backtracking.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The partial logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "backtracking"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When to reach for backtracking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to reach for b...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "When to reach for backtracking",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When to reach for backtracking [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When to reach for b... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The clues concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "When",
+                  "reach"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When to reach for backtracking [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The partial logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "for",
+                  "backtracking"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

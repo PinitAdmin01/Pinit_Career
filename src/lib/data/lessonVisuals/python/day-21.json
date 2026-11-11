@@ -2,97 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 21,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "c01981c5271f01b4b3380899cd6c9b9cd01d9b9f235222d0692fb94231729917",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Why developers write tests",
       "codeHash": "b61c0cc082e1069e4c754e828eaf902ebe16498d296b5c4555e870c0ebf1421d",
       "spec": {
-        "template": "boxes",
-        "title": "Testing function output with assert",
-        "boxes": [
-          {
-            "id": "price",
-            "label": "price"
-          },
-          {
-            "id": "add_gst",
-            "label": "add_gst"
-          }
+        "template": "table",
+        "title": "Why developers write tests",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Calls a function with known inputs and expected answer.",
-            "values": {
-              "price": {
-                "text": "100"
-              },
-              "add_gst": {
-                "text": "118.0"
+            "at": "say1",
+            "caption": "The checked concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Why"
+                  },
+                  {
+                    "text": "developers"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "price": "data",
-              "add_gst": "ok"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Tests give you confidence when improving code.",
-            "values": {
-              "price": {
-                "text": "0"
-              },
-              "add_gst": {
-                "text": "0"
+            "caption": "The tests logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "write"
+                  },
+                  {
+                    "text": "tests"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "price": "idle",
-              "add_gst": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Testing function output with assert",
-        "boxes": [
-          {
-            "id": "price",
-            "label": "price"
-          },
-          {
-            "id": "add_gst",
-            "label": "add_gst"
-          }
+        "template": "table",
+        "title": "Why developers write tests",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Calls a function with known inputs and expected answer.",
-            "values": {
-              "price": "100",
-              "add_gst": "118.0"
-            },
-            "tones": {
-              "price": "data",
-              "add_gst": "ok"
-            }
+            "at": "say1",
+            "caption": "The checked concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Why",
+                  "developers"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Tests give you confidence when improving code.",
-            "values": {
-              "price": "0",
-              "add_gst": "0"
-            },
-            "tones": {
-              "price": "idle",
-              "add_gst": "ok"
-            }
+            "caption": "The tests logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "write",
+                  "tests"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -101,92 +93,82 @@
       "partTitle": "assert and failure messages",
       "codeHash": "ccd204a27183612cec3ba21861adeeef3f3a8af9aa17da8339bde2b07b034d03",
       "spec": {
-        "template": "boxes",
-        "title": "Custom failure messages with assert",
-        "boxes": [
-          {
-            "id": "result",
-            "label": "result"
-          },
-          {
-            "id": "amounts",
-            "label": "amounts"
-          }
+        "template": "table",
+        "title": "assert and failure messages",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "When assert fails message is shown to understand.",
-            "values": {
-              "result": {
-                "var": "result",
-                "line": 5
-              },
-              "amounts": {
-                "text": "65"
+            "at": "say1",
+            "caption": "The assert concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "assert"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "result": "ok",
-              "amounts": "data"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Message shows both expected and what was actually got.",
-            "values": {
-              "result": {
-                "var": "result",
-                "line": 8
-              },
-              "amounts": {
-                "text": "70"
+            "caption": "The very logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "failure"
+                  },
+                  {
+                    "text": "messages"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "result": "error",
-              "amounts": "error"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Custom failure messages with assert",
-        "boxes": [
-          {
-            "id": "result",
-            "label": "result"
-          },
-          {
-            "id": "amounts",
-            "label": "amounts"
-          }
+        "template": "table",
+        "title": "assert and failure messages",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "When assert fails message is shown to understand.",
-            "values": {
-              "result": "65",
-              "amounts": "65"
-            },
-            "tones": {
-              "result": "ok",
-              "amounts": "data"
-            }
+            "at": "say1",
+            "caption": "The assert concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "assert",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Message shows both expected and what was actually got.",
-            "values": {
-              "result": "75",
-              "amounts": "70"
-            },
-            "tones": {
-              "result": "error",
-              "amounts": "error"
-            }
+            "caption": "The very logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "failure",
+                  "messages"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -195,223 +177,81 @@
       "partTitle": "Test functions and pytest",
       "codeHash": "4aed69961a82c7800a8bf920433b11a94b4bd66533e1545b5c749b99ab22ba38",
       "spec": {
-        "template": "flow",
-        "title": "Test functions and pytest — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Test functions and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Test functions and pytest",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Test functions and pytest [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Test functions and ... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The writing concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Test"
+                  },
+                  {
+                    "text": "functions"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Test functions and pytest.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The test logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "pytest"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Test functions and pytest — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Test functions and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Test functions and pytest",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Test functions and pytest [D21.P3.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Test functions and ... [D21.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The writing concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Test",
+                  "functions"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Test functions and pytest [D21.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The test logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "pytest"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -421,92 +261,82 @@
       "partTitle": "Normal cases and edge cases",
       "codeHash": "07becec6719083a06e26d93800f82e0c0b4b47a84fab9fd6688aea24db669722",
       "spec": {
-        "template": "boxes",
-        "title": "Testing boundary edge cases",
-        "boxes": [
-          {
-            "id": "bill",
-            "label": "bill"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
+        "template": "table",
+        "title": "Normal cases and edge cases",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Normal cases check usual inputs and edge cases boundaries.",
-            "values": {
-              "bill": {
-                "text": "100"
-              },
-              "status": {
-                "text": "ok"
+            "caption": "The good concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Normal"
+                  },
+                  {
+                    "text": "cases"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "bill": "data",
-              "status": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Boundaries deserve special attention like free delivery at multiple.",
-            "values": {
-              "bill": {
-                "var": "bill",
-                "line": 7
-              },
-              "status": {
-                "var": "status",
-                "line": 8
+            "caption": "The boundaries logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "edge"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "bill": "ok",
-              "status": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Testing boundary edge cases",
-        "boxes": [
-          {
-            "id": "bill",
-            "label": "bill"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
+        "template": "table",
+        "title": "Normal cases and edge cases",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Normal cases check usual inputs and edge cases boundaries.",
-            "values": {
-              "bill": "100",
-              "status": "ok"
-            },
-            "tones": {
-              "bill": "data",
-              "status": "idle"
-            }
+            "caption": "The good concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Normal",
+                  "cases"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Boundaries deserve special attention like free delivery at 499.",
-            "values": {
-              "bill": "100",
-              "status": "'ok'"
-            },
-            "tones": {
-              "bill": "ok",
-              "status": "ok"
-            }
+            "caption": "The boundaries logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "edge"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -515,223 +345,81 @@
       "partTitle": "Testing errors and keeping functions testable",
       "codeHash": "3e5dfaa58c33b7ed811c535be2485a1171d842b59ffe9ad656c2939eed83d1ae",
       "spec": {
-        "template": "flow",
-        "title": "Testing errors and keeping functions testable — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing errors and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Testing errors and keeping functions testable",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Testing errors and keeping functions tes.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Testing errors and ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The functions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Testing"
+                  },
+                  {
+                    "text": "errors"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Testing errors and keeping functi.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The code logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "keeping"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Testing errors and keeping functions testable — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing errors and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Testing errors and keeping functions testable",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing errors and keeping functions tes.. [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing errors and ... [D21.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The functions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Testing",
+                  "errors"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing errors and keeping functi.. [D21.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The code logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "keeping"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -741,223 +429,81 @@
       "partTitle": "Putting it together: tests for the tracker",
       "codeHash": "7304453b617038692b0b287e2eb62da1512c68242b407967cd8029e5ac155bef",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: tests for the tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: tests for the tracker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: tests for the tracker.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The write concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: tests for th.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The laptop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tests"
+                  },
+                  {
+                    "text": "for"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: tests for the tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: tests for the tracker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: tests for the tracker [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The write concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: tests for th.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The laptop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "tests",
+                  "for"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

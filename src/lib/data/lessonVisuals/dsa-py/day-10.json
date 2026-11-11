@@ -2,184 +2,88 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "475587644d5046b76b1a3587d83e51905f9ded8e4c5a366d6abaccf26b2251e5",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Binary search on a sorted list",
       "codeHash": "784c90f1f5fab025631b8d87e633617fa213f641d517dca38188916c17a8cf20",
       "spec": {
-        "template": "cells",
-        "title": "Halving search space with middle comparisons",
+        "template": "table",
+        "title": "Binary search on a sorted list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Compare middle element to target and narrow bounds.",
-            "items": [
+            "at": "say1",
+            "caption": "The halving concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "3"
-              },
-              {
-                "text": "8"
-              },
-              {
-                "text": "15"
-              },
-              {
-                "text": "21"
-              },
-              {
-                "text": "42"
-              },
-              {
-                "text": "57"
-              },
-              {
-                "text": "66"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "mid",
-                "index": 3,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 6,
+                "cells": [
+                  {
+                    "text": "Binary"
+                  },
+                  {
+                    "text": "search"
+                  }
+                ],
                 "tone": "data"
               }
-            ],
-            "highlightRange": [
-              0,
-              6
             ]
           },
           {
             "at": "say3",
-            "caption": "Target larger than middle shifts left bound past mid.",
-            "items": [
+            "caption": "The repeat logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "3"
-              },
-              {
-                "text": "8"
-              },
-              {
-                "text": "15"
-              },
-              {
-                "text": "21"
-              },
-              {
-                "text": "42"
-              },
-              {
-                "text": "57"
-              },
-              {
-                "text": "66"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 4,
-                "tone": "ok"
-              },
-              {
-                "name": "mid",
-                "index": 4,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 6,
+                "cells": [
+                  {
+                    "text": "sorted"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
                 "tone": "ok"
               }
-            ],
-            "highlightRange": [
-              4,
-              6
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Halving search space with middle comparisons",
+        "template": "table",
+        "title": "Binary search on a sorted list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Compare middle element to target and narrow bounds.",
-            "items": [
-              "3",
-              "8",
-              "15",
-              "21",
-              "42",
-              "57",
-              "66"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The halving concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "left",
-                "index": 0,
-                "tone": "data"
-              },
-              {
-                "name": "mid",
-                "index": 3,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 6,
+                "cells": [
+                  "Binary",
+                  "search"
+                ],
                 "tone": "data"
               }
-            ],
-            "highlightRange": [
-              0,
-              6
             ]
           },
           {
             "at": "say3",
-            "caption": "Target larger than middle shifts left bound past mid.",
-            "items": [
-              "3",
-              "8",
-              "15",
-              "21",
-              "42",
-              "57",
-              "66"
-            ],
-            "pointers": [
+            "caption": "The repeat logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "left",
-                "index": 4,
-                "tone": "ok"
-              },
-              {
-                "name": "mid",
-                "index": 4,
-                "tone": "ok"
-              },
-              {
-                "name": "right",
-                "index": 6,
+                "cells": [
+                  "sorted",
+                  "list"
+                ],
                 "tone": "ok"
               }
-            ],
-            "highlightRange": [
-              4,
-              6
             ]
           }
         ]
@@ -189,223 +93,81 @@
       "partTitle": "The off-by-one traps",
       "codeHash": "0664745f317e569ecebb5c00505c8a1e5f16b6ebd9ac2d14aa2d5200b80ea8cd",
       "spec": {
-        "template": "flow",
-        "title": "The off-by-one traps — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The off-by-one traps",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The off-by-one traps",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The off-by-one traps [Dten.Ptwo.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The off-by-one traps [Dten.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "off"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The off-by-one traps [Dten.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The loop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "one"
+                  },
+                  {
+                    "text": "traps"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The off-by-one traps — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The off-by-one traps",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The off-by-one traps",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The off-by-one traps [D10.P2.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The off-by-one traps [D10.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "off"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The off-by-one traps [D10.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The loop logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "one",
+                  "traps"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -415,147 +177,81 @@
       "partTitle": "Searching a rotated sorted list",
       "codeHash": "120017a66f92aef7ee954af337912165825d2a58d2149a3508c0e2f1c30b93c3",
       "spec": {
-        "template": "cells",
-        "title": "Rotated sorted array half determination",
+        "template": "table",
+        "title": "Searching a rotated sorted list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Identify which half of rotated array is properly sorted.",
-            "items": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "4"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              }
-            ],
-            "highlightRange": [
-              0,
-              3
-            ],
-            "pointers": [
-              {
-                "name": "left",
-                "index": 0,
-                "tone": "ok"
-              },
-              {
-                "name": "mid",
-                "index": 3,
-                "tone": "ok"
+                "cells": [
+                  {
+                    "text": "Searching"
+                  },
+                  {
+                    "text": "rotated"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "Check whether target lies inside sorted half range.",
-            "items": [
+            "caption": "The check logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "4"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              }
-            ],
-            "highlightRange": [
-              4,
-              6
-            ],
-            "pointers": [
-              {
-                "name": "search",
-                "index": 4,
-                "tone": "data"
+                "cells": [
+                  {
+                    "text": "sorted"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Rotated sorted array half determination",
+        "template": "table",
+        "title": "Searching a rotated sorted list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Identify which half of rotated array is properly sorted.",
-            "items": [
-              "4",
-              "5",
-              "6",
-              "7",
-              "0",
-              "1",
-              "2"
-            ],
-            "pointers": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "left",
-                "index": 0,
-                "tone": "ok"
-              },
-              {
-                "name": "mid",
-                "index": 3,
-                "tone": "ok"
+                "cells": [
+                  "Searching",
+                  "rotated"
+                ],
+                "tone": "data"
               }
-            ],
-            "highlightRange": [
-              0,
-              3
             ]
           },
           {
             "at": "say3",
-            "caption": "Check whether target lies inside sorted half range.",
-            "items": [
-              "4",
-              "5",
-              "6",
-              "7",
-              "0",
-              "1",
-              "2"
-            ],
-            "pointers": [
+            "caption": "The check logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "search",
-                "index": 4,
-                "tone": "data"
+                "cells": [
+                  "sorted",
+                  "list"
+                ],
+                "tone": "ok"
               }
-            ],
-            "highlightRange": [
-              4,
-              6
             ]
           }
         ]
@@ -565,78 +261,43 @@
       "partTitle": "Finding the smallest in a rotated list",
       "codeHash": "42192af75f2430c3543fd95caeea89a15d2a8855899deaa260307e4ed138b894",
       "spec": {
-        "template": "cells",
-        "title": "Rotated list minimum inflection point",
+        "template": "table",
+        "title": "Finding the smallest in a rotated list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Smallest number marks where rotation order resets.",
-            "items": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "4"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "mid",
-                "index": 3,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 6,
+                "cells": [
+                  {
+                    "text": "Finding"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compare mid with right to locate rotation reset point.",
-            "items": [
+            "at": "say3",
+            "caption": "The left logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "4"
-              },
-              {
-                "text": "5"
-              },
-              {
-                "text": "6"
-              },
-              {
-                "text": "7"
-              },
-              {
-                "text": "0"
-              },
-              {
-                "text": "1"
-              },
-              {
-                "text": "2"
-              }
-            ],
-            "pointers": [
-              {
-                "name": "min",
-                "index": 4,
+                "cells": [
+                  {
+                    "text": "smallest"
+                  },
+                  {
+                    "text": "rotated"
+                  }
+                ],
                 "tone": "ok"
               }
             ]
@@ -644,50 +305,35 @@
         ]
       },
       "filled": {
-        "template": "cells",
-        "title": "Rotated list minimum inflection point",
+        "template": "table",
+        "title": "Finding the smallest in a rotated list",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Smallest number marks where rotation order resets.",
-            "items": [
-              "4",
-              "5",
-              "6",
-              "7",
-              "0",
-              "1",
-              "2"
-            ],
-            "pointers": [
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "name": "mid",
-                "index": 3,
-                "tone": "data"
-              },
-              {
-                "name": "right",
-                "index": 6,
+                "cells": [
+                  "Finding",
+                  "the"
+                ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Compare mid with right to locate rotation reset point.",
-            "items": [
-              "4",
-              "5",
-              "6",
-              "7",
-              "0",
-              "1",
-              "2"
-            ],
-            "pointers": [
+            "at": "say3",
+            "caption": "The left logic drives deterministic execution.",
+            "rows": [
               {
-                "name": "min",
-                "index": 4,
+                "cells": [
+                  "smallest",
+                  "rotated"
+                ],
                 "tone": "ok"
               }
             ]
@@ -699,223 +345,81 @@
       "partTitle": "Binary search on the answer",
       "codeHash": "08f7fa6d987124e26578e7729bfd0a8b148dcd9d4b6a9e3b933c08b54c898d6b",
       "spec": {
-        "template": "flow",
-        "title": "Binary search on the answer — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Binary search on th...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Binary search on the answer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Binary search on the answer [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Binary search on th... [Dten.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Binary"
+                  },
+                  {
+                    "text": "search"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Binary search on the answer.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "answer"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Binary search on the answer — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Binary search on th...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Binary search on the answer",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Binary search on the answer [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Binary search on th... [D10.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The binary concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Binary",
+                  "search"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Binary search on the answer [D10.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "answer"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -926,105 +430,40 @@
       "codeHash": "71bf033007615e6baac62af0cf4341a386491161c6cb24a23678dae4d858ee41",
       "spec": {
         "template": "table",
-        "title": "Real world binary search applications",
+        "title": "Binary search in real life",
         "columns": [
-          "Problem Domain",
-          "Total Elements",
-          "Maximum Comparisons",
-          "Algorithm"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Git bisect finds buggy commit halving history log.",
+            "at": "say1",
+            "caption": "The binary concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Git history"
+                    "text": "Binary"
                   },
                   {
-                    "text": "1,000 commits"
-                  },
-                  {
-                    "text": "10 tests"
-                  },
-                  {
-                    "text": "git bisect"
+                    "text": "search"
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Database index"
-                  },
-                  {
-                    "text": "1,000,000 rows"
-                  },
-                  {
-                    "text": "20 tests"
-                  },
-                  {
-                    "text": "B-Tree search"
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bisect grade lookup searches sorted cutoffs quickly.",
+            "at": "say3",
+            "caption": "The whenever logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Git history"
+                    "text": "real"
                   },
                   {
-                    "text": "1,000 commits"
-                  },
-                  {
-                    "text": "10 tests"
-                  },
-                  {
-                    "text": "git bisect"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Database index"
-                  },
-                  {
-                    "text": "1,000,000 rows"
-                  },
-                  {
-                    "text": "20 tests"
-                  },
-                  {
-                    "text": "B-Tree search"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Exam grading"
-                  },
-                  {
-                    "text": "6 grade tiers"
-                  },
-                  {
-                    "text": "3 tests"
-                  },
-                  {
-                    "text": "bisect_right"
+                    "text": "life"
                   }
                 ],
                 "tone": "ok"
@@ -1035,66 +474,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Real world binary search applications",
+        "title": "Binary search in real life",
         "columns": [
-          "Problem Domain",
-          "Total Elements",
-          "Maximum Comparisons",
-          "Algorithm"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Git bisect finds buggy commit halving history log.",
+            "at": "say1",
+            "caption": "The binary concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "Git history",
-                  "1,000 commits",
-                  "10 tests",
-                  "git bisect"
+                  "Binary",
+                  "search"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Database index",
-                  "1,000,000 rows",
-                  "20 tests",
-                  "B-Tree search"
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bisect grade lookup searches sorted cutoffs quickly.",
+            "at": "say3",
+            "caption": "The whenever logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "Git history",
-                  "1,000 commits",
-                  "10 tests",
-                  "git bisect"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Database index",
-                  "1,000,000 rows",
-                  "20 tests",
-                  "B-Tree search"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Exam grading",
-                  "6 grade tiers",
-                  "3 tests",
-                  "bisect_right"
+                  "real",
+                  "life"
                 ],
                 "tone": "ok"
               }

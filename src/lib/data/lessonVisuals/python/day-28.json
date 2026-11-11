@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 28,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "dadfd9ea0ad4533a2839dbea01781d80fc9341f1db0cfda29217b50bbcd1d778",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Debugging is a normal part of the job",
       "codeHash": "3765c4b9a4b78916faa145507d0547a55c50418d4e75d5e8d6307eb73ddb36ed",
       "spec": {
-        "template": "flow",
-        "title": "Debugging is a normal part of the job — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Debugging is a norm...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Debugging is a normal part of the job",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Debugging is a normal part of the job.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Debugging is a norm... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The case concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Debugging"
+                  },
+                  {
+                    "text": "normal"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Debugging is a normal part of the.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The debugging logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "part"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Debugging is a normal part of the job — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Debugging is a norm...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Debugging is a normal part of the job",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Debugging is a normal part of the job [D28.P1.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Debugging is a norm... [D28.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The case concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Debugging",
+                  "normal"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Debugging is a normal part of the.. [D28.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The debugging logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "part",
+                  "the"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +93,81 @@
       "partTitle": "Reading a traceback, from the bottom up",
       "codeHash": "4253711d53039e6d1124ac5647ceeed617f522c5ac61e45c40c0c1908456a0a7",
       "spec": {
-        "template": "flow",
-        "title": "Reading a traceback, from the bottom up — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading a traceback...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Reading a traceback, from the bottom up",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reading a traceback, from the bottom up.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reading a traceback... [D.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Reading"
+                  },
+                  {
+                    "text": "traceback"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reading a traceback, from the bot.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The above logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "from"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reading a traceback, from the bottom up — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading a traceback...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Reading a traceback, from the bottom up",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reading a traceback, from the bottom up [D28.P2.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reading a traceback... [D28.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The python concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Reading",
+                  "traceback"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reading a traceback, from the bot.. [D28.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The above logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "from",
+                  "the"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -461,223 +177,81 @@
       "partTitle": "The most common errors and their usual causes",
       "codeHash": "4093a382fa8267b4b6aeff9165963360057246789ea04e1e87b02770723864b1",
       "spec": {
-        "template": "flow",
-        "title": "The most common errors and their usual causes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The most common err...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The most common errors and their usual causes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The most common errors and their usual c.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The most common err... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The error concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "most"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The most common errors and their .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The attributeerror logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "common"
+                  },
+                  {
+                    "text": "errors"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The most common errors and their usual causes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The most common err...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The most common errors and their usual causes",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The most common errors and their usual c.. [D28.P3.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The most common err... [D28.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The error concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "most"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The most common errors and their .. [D28.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The attributeerror logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "common",
+                  "errors"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -687,90 +261,82 @@
       "partTitle": "print() debugging",
       "codeHash": "9a6252dd27884045c27ebe705ca6bd8abd23dbcdbc9ec36000b7311e8c1bf071",
       "spec": {
-        "template": "boxes",
-        "title": "Inspecting loop variables via debug prints",
-        "boxes": [
-          {
-            "id": "i",
-            "label": "i"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          }
+        "template": "table",
+        "title": "print() debugging",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Add prints showing values at each step with labels.",
-            "values": {
-              "i": {
-                "text": "1"
-              },
-              "total": {
-                "text": "0"
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "print"
+                  },
+                  {
+                    "text": "debugging"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "i": "data",
-              "total": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "f-string prints name and value for quick debugging.",
-            "values": {
-              "i": {
-                "text": "1"
-              },
-              "total": {
-                "text": "100"
+            "caption": "The string logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "print"
+                  },
+                  {
+                    "text": "debugging"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "i": "ok",
-              "total": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Inspecting loop variables via debug prints",
-        "boxes": [
-          {
-            "id": "i",
-            "label": "i"
-          },
-          {
-            "id": "total",
-            "label": "total"
-          }
+        "template": "table",
+        "title": "print() debugging",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Add prints showing values at each step with labels.",
-            "values": {
-              "i": "1",
-              "total": "0"
-            },
-            "tones": {
-              "i": "data",
-              "total": "idle"
-            }
+            "at": "say1",
+            "caption": "The many concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "print",
+                  "debugging"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "f-string prints name and value for quick debugging.",
-            "values": {
-              "i": "1",
-              "total": "100"
-            },
-            "tones": {
-              "i": "ok",
-              "total": "ok"
-            }
+            "caption": "The string logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "print",
+                  "debugging"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -779,92 +345,82 @@
       "partTitle": "Breakpoints and the VS Code debugger",
       "codeHash": "04a5d328ba0dadcee3a2fa11ddefcd63ea0838fe52d9dda32c6476757071eb8c",
       "spec": {
-        "template": "boxes",
-        "title": "Monitoring state progression during debugging",
-        "boxes": [
-          {
-            "id": "result",
-            "label": "result"
-          },
-          {
-            "id": "steps",
-            "label": "steps"
-          }
+        "template": "table",
+        "title": "Breakpoints and the VS Code debugger",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Program pauses at breakpoint showing variable values.",
-            "values": {
-              "result": {
-                "text": "20"
-              },
-              "steps": {
-                "text": "total"
+            "at": "say1",
+            "caption": "The bigger concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Breakpoints"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "result": "data",
-              "steps": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Step over next line and watch values change.",
-            "values": {
-              "result": {
-                "var": "result",
-                "line": 11
-              },
-              "steps": {
-                "var": "steps",
-                "line": 11
+            "caption": "The control logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "Code"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "result": "ok",
-              "steps": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Monitoring state progression during debugging",
-        "boxes": [
-          {
-            "id": "result",
-            "label": "result"
-          },
-          {
-            "id": "steps",
-            "label": "steps"
-          }
+        "template": "table",
+        "title": "Breakpoints and the VS Code debugger",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Program pauses at breakpoint showing variable values.",
-            "values": {
-              "result": "20",
-              "steps": "total"
-            },
-            "tones": {
-              "result": "data",
-              "steps": "idle"
-            }
+            "at": "say1",
+            "caption": "The bigger concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Breakpoints",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Step over next line and watch values change.",
-            "values": {
-              "result": "60",
-              "steps": "['after 20: total=20', 'after 45: total…"
-            },
-            "tones": {
-              "result": "ok",
-              "steps": "ok"
-            }
+            "caption": "The control logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "Code"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -873,90 +429,82 @@
       "partTitle": "Putting it together: fixing a real bug",
       "codeHash": "a0a35c5d52951fe2a5cc0934428a8cce04a53f8c7edd88df49f78d09f70343f0",
       "spec": {
-        "template": "boxes",
-        "title": "Normalising categorical inputs before aggregation",
-        "boxes": [
-          {
-            "id": "category",
-            "label": "category"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Putting it together: fixing a real bug",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Users report food total is too low with mixed capitals.",
-            "values": {
-              "category": {
-                "text": "Food"
-              },
-              "amount": {
-                "text": "150"
+            "caption": "The debug concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "category": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Clean categories when added so regression test passes.",
-            "values": {
-              "category": {
-                "text": "food"
-              },
-              "amount": {
-                "text": "20"
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "fixing"
+                  },
+                  {
+                    "text": "real"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "category": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Normalising categorical inputs before aggregation",
-        "boxes": [
-          {
-            "id": "category",
-            "label": "category"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Putting it together: fixing a real bug",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Users report food total is too low with mixed capitals.",
-            "values": {
-              "category": "Food",
-              "amount": "150"
-            },
-            "tones": {
-              "category": "data",
-              "amount": "idle"
-            }
+            "caption": "The debug concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Clean categories when added so regression test passes.",
-            "values": {
-              "category": "food",
-              "amount": "20"
-            },
-            "tones": {
-              "category": "ok",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The notice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "fixing",
+                  "real"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

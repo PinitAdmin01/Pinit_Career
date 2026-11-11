@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 24,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "9390b69991c941b0bd12da7e263f6252b7a33437bb4dfde53d7aac08fff04f13",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Project structure",
       "codeHash": "320362715f555e35e3e898d36531cdd3f586e80f04164375e2099ec6a01275d6",
       "spec": {
-        "template": "boxes",
-        "title": "Separating logic from interface modules",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "job",
-            "label": "job"
-          }
+        "template": "table",
+        "title": "Project structure",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "tracker.py holds logic while main.py holds menu.",
-            "values": {
-              "name": {
-                "text": "tracker.py"
-              },
-              "job": {
-                "text": "logic"
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Project"
+                  },
+                  {
+                    "text": "structure"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "name": "data",
-              "job": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Pure testable functions can be reused by web API.",
-            "values": {
-              "name": {
-                "var": "name",
-                "line": 6
-              },
-              "job": {
-                "var": "job",
-                "line": 6
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Project"
+                  },
+                  {
+                    "text": "structure"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "name": "ok",
-              "job": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Separating logic from interface modules",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "job",
-            "label": "job"
-          }
+        "template": "table",
+        "title": "Project structure",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "tracker.py holds logic while main.py holds menu.",
-            "values": {
-              "name": "tracker.py",
-              "job": "logic"
-            },
-            "tones": {
-              "name": "data",
-              "job": "idle"
-            }
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Project",
+                  "structure"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Pure testable functions can be reused by web API.",
-            "values": {
-              "name": "'tracker.py'",
-              "job": "'logic'"
-            },
-            "tones": {
-              "name": "ok",
-              "job": "ok"
-            }
+            "at": "say3",
+            "caption": "The keep logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Project",
+                  "structure"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,90 +93,82 @@
       "partTitle": "add_expense with validation",
       "codeHash": "3dcb03a3d12eedcd0ee32d86c0dba28fbd2a768fea56d570ac2b5b3e0419a750",
       "spec": {
-        "template": "boxes",
-        "title": "Sanitising and validating expense inputs",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "add_expense with validation",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Cleans input to strip spaces from item and category.",
-            "values": {
-              "item": {
-                "text": " Tea "
-              },
-              "amount": {
-                "text": "20"
+            "at": "say1",
+            "caption": "The function concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "add"
+                  },
+                  {
+                    "text": "expense"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Raises ValueError when amount is not a number above zero.",
-            "values": {
-              "item": {
-                "text": "Bus"
-              },
-              "amount": {
-                "text": "45"
+            "caption": "The validation logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "validation"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Sanitising and validating expense inputs",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "add_expense with validation",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Cleans input to strip spaces from item and category.",
-            "values": {
-              "item": " Tea ",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            "at": "say1",
+            "caption": "The function concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "add",
+                  "expense"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Raises ValueError when amount is not a number above 0.",
-            "values": {
-              "item": "Bus",
-              "amount": "45"
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            "caption": "The validation logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "validation"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -195,90 +177,82 @@
       "partTitle": "Listing expenses neatly",
       "codeHash": "46e458e403044a7813bab13ae698851e4a61bcc0a360a22f19e7aba621e92c3c",
       "spec": {
-        "template": "boxes",
-        "title": "Formatting tabular output lines",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Listing expenses neatly",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "list_lines turns whole list into lines with a header.",
-            "values": {
-              "item": {
-                "text": "Tea"
-              },
-              "amount": {
-                "text": "20"
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Listing"
+                  },
+                  {
+                    "text": "expenses"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Empty list gets friendly message instead of blank screen.",
-            "values": {
-              "item": {
-                "text": "Metro card"
-              },
-              "amount": {
-                "text": "500"
+            "at": "say3",
+            "caption": "The handling logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "neatly"
+                  },
+                  {
+                    "text": "expenses"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Formatting tabular output lines",
-        "boxes": [
-          {
-            "id": "item",
-            "label": "item"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
+        "template": "table",
+        "title": "Listing expenses neatly",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "list_lines turns whole list into lines with a header.",
-            "values": {
-              "item": "Tea",
-              "amount": "20"
-            },
-            "tones": {
-              "item": "data",
-              "amount": "idle"
-            }
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Listing",
+                  "expenses"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Empty list gets friendly message instead of blank screen.",
-            "values": {
-              "item": "Metro card",
-              "amount": "500"
-            },
-            "tones": {
-              "item": "ok",
-              "amount": "ok"
-            }
+            "at": "say3",
+            "caption": "The handling logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "neatly",
+                  "expenses"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -287,223 +261,81 @@
       "partTitle": "The menu in main.py",
       "codeHash": "e4a401745a254d2f04e5e3240fb03e90591fe44eee6796214479223cd8ee97dd",
       "spec": {
-        "template": "flow",
-        "title": "The menu in main.py — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The menu in main.py",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The menu in main.py",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The menu in main.py [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The menu in main.py [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The menu concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "menu"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The menu in main.py [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The amount logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "main"
+                  },
+                  {
+                    "text": "menu"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The menu in main.py — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The menu in main.py",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The menu in main.py",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The menu in main.py [D24.P4.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The menu in main.py [D24.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The menu concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "menu"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The menu in main.py [D24.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The amount logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "main",
+                  "menu"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -513,223 +345,81 @@
       "partTitle": "Testing what you built",
       "codeHash": "dac68c5e24856c14a89ba83c7c0f7cab836ff6ab56ac0e631b900f22b95fa346",
       "spec": {
-        "template": "flow",
-        "title": "Testing what you built — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing what you built",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Testing what you built",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Testing what you built [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Testing what you built [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The before concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Testing"
+                  },
+                  {
+                    "text": "what"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Testing what you built [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The once logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "you"
+                  },
+                  {
+                    "text": "built"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Testing what you built — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing what you built",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Testing what you built",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing what you built [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing what you built [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The before concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Testing",
+                  "what"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing what you built [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The once logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "you",
+                  "built"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -739,223 +429,81 @@
       "partTitle": "Putting it together: today's working program",
       "codeHash": "a51fe27d947f6502a1a11ae1f45ec82ed3d1235a7d22590e6f9343f601b3fe85",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: today's working program — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: today's working program",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: today's working pro.",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: today's work.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "today"
+                  },
+                  {
+                    "text": "working"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: today's working program — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: today's working program",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: today's working pro.. [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: today's work.. [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The tomorrow logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "today",
+                  "working"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

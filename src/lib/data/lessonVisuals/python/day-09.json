@@ -2,230 +2,88 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 9,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "dc610fb3c0d41a112dcff61f61727d53bd7c6390c79e4d94875a7d0bfbf03cdf",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "enumerate: items with their positions",
       "codeHash": "d1ad61d7a7aa8480ddf33b743f3befe88ad945f0707c70bc603a36d79c781a62",
       "spec": {
-        "template": "flow",
-        "title": "enumerate: items with their positions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. enumerate: items wi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "enumerate: items with their positions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for enumerate: items with their positions.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in enumerate: items wi... [Dnine.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The looped concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "enumerate"
+                  },
+                  {
+                    "text": "items"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for enumerate: items with their posit.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The default logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "their"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "enumerate: items with their positions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. enumerate: items wi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "enumerate: items with their positions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for enumerate: items with their positions [D9.P1.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in enumerate: items wi... [D9.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The looped concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "enumerate",
+                  "items"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for enumerate: items with their posit.. [D9.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The default logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "their"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,94 +93,82 @@
       "partTitle": "Building a new list with a loop",
       "codeHash": "f63dd37f23e0645f5979d642092a278c6e520aa84b524a0def1c83c3ab40f0ab",
       "spec": {
-        "template": "boxes",
-        "title": "Transforming a list with append",
-        "boxes": [
-          {
-            "id": "prices",
-            "label": "prices"
-          },
-          {
-            "id": "with_gst",
-            "label": "with_gst"
-          }
+        "template": "table",
+        "title": "Building a new list with a loop",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Start with an empty list and append new values.",
-            "values": {
-              "prices": {
-                "var": "prices",
-                "line": 1
-              },
-              "with_gst": {
-                "var": "with_gst",
-                "line": 2
+            "at": "say1",
+            "caption": "The very concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Building"
+                  },
+                  {
+                    "text": "new"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "prices": "data",
-              "with_gst": "idle"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The original list stays the same with new values.",
-            "values": {
-              "prices": {
-                "var": "prices",
-                "line": 5
-              },
-              "with_gst": {
-                "var": "with_gst",
-                "line": 5
+            "caption": "The original logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "list"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "prices": "data",
-              "with_gst": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Transforming a list with append",
-        "boxes": [
-          {
-            "id": "prices",
-            "label": "prices"
-          },
-          {
-            "id": "with_gst",
-            "label": "with_gst"
-          }
+        "template": "table",
+        "title": "Building a new list with a loop",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Start with an empty list and append new values.",
-            "values": {
-              "prices": "[100, 250, 40]",
-              "with_gst": "[]"
-            },
-            "tones": {
-              "prices": "data",
-              "with_gst": "idle"
-            }
+            "at": "say1",
+            "caption": "The very concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Building",
+                  "new"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "The original list stays the same with new values.",
-            "values": {
-              "prices": "[100, 250, 40]",
-              "with_gst": "[118, 295, 47.2]"
-            },
-            "tones": {
-              "prices": "data",
-              "with_gst": "ok"
-            }
+            "caption": "The original logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "list",
+                  "with"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -331,93 +177,82 @@
       "partTitle": "List comprehensions: the one-line version",
       "codeHash": "9eeef89da26c6409cf09e9948394dd9ce7d2abd353b706f012d916c6f922aecc",
       "spec": {
-        "template": "boxes",
-        "title": "Transforming in one line",
-        "boxes": [
-          {
-            "id": "prices",
-            "label": "prices"
-          },
-          {
-            "id": "doubled",
-            "label": "doubled"
-          }
+        "template": "table",
+        "title": "List comprehensions: the one-line version",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A list comprehension builds a new list in one line.",
-            "values": {
-              "prices": {
-                "var": "prices",
-                "line": 1
-              },
-              "doubled": {
-                "text": "[p * 2 for p in prices]"
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "List"
+                  },
+                  {
+                    "text": "comprehensions"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "prices": "data",
-              "doubled": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The part before for is what goes into the new list.",
-            "values": {
-              "prices": {
-                "var": "prices",
-                "line": 3
-              },
-              "doubled": {
-                "var": "doubled",
-                "line": 3
+            "at": "say3",
+            "caption": "The exactly logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "one"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "prices": "data",
-              "doubled": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Transforming in one line",
-        "boxes": [
-          {
-            "id": "prices",
-            "label": "prices"
-          },
-          {
-            "id": "doubled",
-            "label": "doubled"
-          }
+        "template": "table",
+        "title": "List comprehensions: the one-line version",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A list comprehension builds a new list in one line.",
-            "values": {
-              "prices": "[100, 250, 40]",
-              "doubled": "[p * 2 for p in prices]"
-            },
-            "tones": {
-              "prices": "data",
-              "doubled": "idle"
-            }
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "List",
+                  "comprehensions"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The part before for is what goes into the new list.",
-            "values": {
-              "prices": "[100, 250, 40]",
-              "doubled": "[200, 500, 80]"
-            },
-            "tones": {
-              "prices": "data",
-              "doubled": "ok"
-            }
+            "at": "say3",
+            "caption": "The exactly logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "the",
+                  "one"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -426,93 +261,82 @@
       "partTitle": "Filtering with if",
       "codeHash": "21cf44014fe07be2956f6e05077a4b52983fdaceb091e7d87aeb02b770e92039",
       "spec": {
-        "template": "boxes",
-        "title": "Filtering items with a comprehension",
-        "boxes": [
-          {
-            "id": "amounts",
-            "label": "amounts"
-          },
-          {
-            "id": "big",
-            "label": "big"
-          }
+        "template": "table",
+        "title": "Filtering with if",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A list comprehension can keep only some items.",
-            "values": {
-              "amounts": {
-                "var": "amounts",
-                "line": 1
-              },
-              "big": {
-                "text": "[a for a in amounts if a > 100]"
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Filtering"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "amounts": "data",
-              "big": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Items where the condition is False are left out.",
-            "values": {
-              "amounts": {
-                "var": "amounts",
-                "line": 3
-              },
-              "big": {
-                "var": "big",
-                "line": 3
+            "at": "say3",
+            "caption": "The change logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Filtering"
+                  },
+                  {
+                    "text": "with"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "amounts": "data",
-              "big": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Filtering items with a comprehension",
-        "boxes": [
-          {
-            "id": "amounts",
-            "label": "amounts"
-          },
-          {
-            "id": "big",
-            "label": "big"
-          }
+        "template": "table",
+        "title": "Filtering with if",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A list comprehension can keep only some items.",
-            "values": {
-              "amounts": "[20, 450, 45, 1200, 120, 60]",
-              "big": "[a for a in amounts if a > 100]"
-            },
-            "tones": {
-              "amounts": "data",
-              "big": "idle"
-            }
+            "caption": "The list concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Filtering",
+                  "with"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Items where the condition is False are left out.",
-            "values": {
-              "amounts": "[20, 450, 45, 1200, 120, 60]",
-              "big": "[450, 1200, 120]"
-            },
-            "tones": {
-              "amounts": "data",
-              "big": "ok"
-            }
+            "at": "say3",
+            "caption": "The change logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "Filtering",
+                  "with"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -521,223 +345,81 @@
       "partTitle": "When not to use a comprehension",
       "codeHash": "a69df296e5f0dc7819ebc60ea3365dda4cf7f4152d1287b34a11e2523592ee8f",
       "spec": {
-        "template": "flow",
-        "title": "When not to use a comprehension — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When not to use a c...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "When not to use a comprehension",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When not to use a comprehension.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When not to use a c... [Dnine.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The comprehensions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "When"
+                  },
+                  {
+                    "text": "not"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When not to use a comprehension.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The nice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "use"
+                  },
+                  {
+                    "text": "comprehension"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When not to use a comprehension — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When not to use a c...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "When not to use a comprehension",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When not to use a comprehension [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When not to use a c... [D9.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The comprehensions concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "When",
+                  "not"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When not to use a comprehension [D9.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The nice logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "use",
+                  "comprehension"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -747,223 +429,81 @@
       "partTitle": "Putting it together: filtered reports",
       "codeHash": "809806a4e54adab11943021cc3bebed360a6b270665a5c15cc0d8f27f8b331df",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: filtered reports — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: filtered reports",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: filtered reports.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: filtered rep.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The comprehensions logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "filtered"
+                  },
+                  {
+                    "text": "reports"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: filtered reports — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: filtered reports",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: filtered reports [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The today concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: filtered rep.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The comprehensions logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "filtered",
+                  "reports"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

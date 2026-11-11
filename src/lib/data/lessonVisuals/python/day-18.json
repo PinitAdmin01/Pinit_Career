@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 18,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "c373c9048bddc5fd6ef0038352ad75374cf5eec694b4a9ee071fb84275d80780",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What classes and objects are",
       "codeHash": "83ab66fa25d087c8fdee3b58b51859622579b2190dd5df1eefa8c6bab45f893c",
       "spec": {
-        "template": "boxes",
-        "title": "Classes as blueprints for objects",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus",
-            "label": "bus"
-          }
+        "template": "table",
+        "title": "What classes and objects are",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A class is a blueprint for making objects.",
-            "values": {
-              "tea": {
-                "text": "Expense"
-              },
-              "bus": {
-                "text": "Expense"
+            "at": "say1",
+            "caption": "The data concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "classes"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "tea": "data",
-              "bus": "data"
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Every string and list is an object in Python.",
-            "values": {
-              "tea": {
-                "var": "tea",
-                "line": 4
-              },
-              "bus": {
-                "var": "bus",
-                "line": 5
+            "caption": "The already logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "objects"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tea": "ok",
-              "bus": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Classes as blueprints for objects",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus",
-            "label": "bus"
-          }
+        "template": "table",
+        "title": "What classes and objects are",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A class is a blueprint for making objects.",
-            "values": {
-              "tea": "Expense",
-              "bus": "Expense"
-            },
-            "tones": {
-              "tea": "data",
-              "bus": "data"
-            }
+            "at": "say1",
+            "caption": "The data concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "classes"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Every string and list is an object in Python.",
-            "values": {
-              "tea": "<Expense>",
-              "bus": "<Expense>"
-            },
-            "tones": {
-              "tea": "ok",
-              "bus": "ok"
-            }
+            "caption": "The already logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "objects"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,93 +93,82 @@
       "partTitle": "__init__ and self: giving objects their data",
       "codeHash": "aa156e5e45acd8bf8400b0766669cd31f9fd4e402dbc95296c49c7a861264d67",
       "spec": {
-        "template": "boxes",
-        "title": "Initializing object attributes",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus",
-            "label": "bus"
-          }
+        "template": "table",
+        "title": "__init__ and self: giving objects their data",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Values stored on this object are called attributes.",
-            "values": {
-              "tea": {
-                "var": "tea",
-                "line": 6
-              },
-              "bus": {
-                "text": "Bus"
+            "at": "say1",
+            "caption": "The empty concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "init"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "tea": "data",
-              "bus": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Each object has its own attributes that can be different.",
-            "values": {
-              "tea": {
-                "var": "tea",
-                "line": 7
-              },
-              "bus": {
-                "var": "bus",
-                "line": 7
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "self"
+                  },
+                  {
+                    "text": "giving"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tea": "ok",
-              "bus": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Initializing object attributes",
-        "boxes": [
-          {
-            "id": "tea",
-            "label": "tea"
-          },
-          {
-            "id": "bus",
-            "label": "bus"
-          }
+        "template": "table",
+        "title": "__init__ and self: giving objects their data",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Values stored on this object are called attributes.",
-            "values": {
-              "tea": "<Expense>",
-              "bus": "Bus"
-            },
-            "tones": {
-              "tea": "data",
-              "bus": "idle"
-            }
+            "at": "say1",
+            "caption": "The empty concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "init",
+                  "and"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Each object has its own attributes that can be different.",
-            "values": {
-              "tea": "<Expense>",
-              "bus": "<Expense>"
-            },
-            "tones": {
-              "tea": "ok",
-              "bus": "ok"
-            }
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "self",
+                  "giving"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -198,223 +177,81 @@
       "partTitle": "Methods: actions that belong to an object",
       "codeHash": "10bfb0d6ab9be22c351462bd531f220450a0e35248d59bfe64a3151b0ca3f9f0",
       "spec": {
-        "template": "flow",
-        "title": "Methods: actions that belong to an object — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Methods: actions th...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Methods: actions that belong to an object",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Methods: actions that belong to an object.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Methods: actions th... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The method concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Methods"
+                  },
+                  {
+                    "text": "actions"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Methods: actions that belong to a.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The methods logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "that"
+                  },
+                  {
+                    "text": "belong"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Methods: actions that belong to an object — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Methods: actions th...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Methods: actions that belong to an object",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Methods: actions that belong to an object [D18.P3.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Methods: actions th... [D18.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The method concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Methods",
+                  "actions"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Methods: actions that belong to a.. [D18.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The methods logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "that",
+                  "belong"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -424,92 +261,82 @@
       "partTitle": "Methods that change the object",
       "codeHash": "2eb734121783a86a8c89f265dda2abe170bea91ee394d3c8dbff3d7c1d7ba7e7",
       "spec": {
-        "template": "boxes",
-        "title": "Encapsulating state changes",
-        "boxes": [
-          {
-            "id": "w",
-            "label": "w"
-          },
-          {
-            "id": "balance",
-            "label": "balance"
-          }
+        "template": "table",
+        "title": "Methods that change the object",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Objects hold state that changes over time.",
-            "values": {
-              "w": {
-                "var": "w",
-                "line": 14
-              },
-              "balance": {
-                "text": "100"
+            "caption": "The objects concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Methods"
+                  },
+                  {
+                    "text": "that"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "w": "data",
-              "balance": "idle"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Keeping rules inside the class protects its own data.",
-            "values": {
-              "w": {
-                "var": "w",
-                "line": 17
-              },
-              "balance": {
-                "text": "Wallet(100)"
+            "at": "say3",
+            "caption": "The method logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "change"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "w": "ok",
-              "balance": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Encapsulating state changes",
-        "boxes": [
-          {
-            "id": "w",
-            "label": "w"
-          },
-          {
-            "id": "balance",
-            "label": "balance"
-          }
+        "template": "table",
+        "title": "Methods that change the object",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Objects hold state that changes over time.",
-            "values": {
-              "w": "<Wallet>",
-              "balance": "100"
-            },
-            "tones": {
-              "w": "data",
-              "balance": "idle"
-            }
+            "caption": "The objects concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Methods",
+                  "that"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Keeping rules inside the class protects its own data.",
-            "values": {
-              "w": "<Wallet>",
-              "balance": "Wallet(100)"
-            },
-            "tones": {
-              "w": "ok",
-              "balance": "ok"
-            }
+            "at": "say3",
+            "caption": "The method logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "change",
+                  "the"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -518,223 +345,81 @@
       "partTitle": "Many objects in a list",
       "codeHash": "93f4d353c58057bab69eeafc51a09688fe55ee0c574079e893c864e14b471c2c",
       "spec": {
-        "template": "flow",
-        "title": "Many objects in a list — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Many objects in a list",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Many objects in a list",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Many objects in a list [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Many objects in a list [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The objects concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Many"
+                  },
+                  {
+                    "text": "objects"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Many objects in a list [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The methods logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "list"
+                  },
+                  {
+                    "text": "objects"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Many objects in a list — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Many objects in a list",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Many objects in a list",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Many objects in a list [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Many objects in a list [D18.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The objects concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Many",
+                  "objects"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Many objects in a list [D18.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The methods logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "list",
+                  "objects"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -744,223 +429,81 @@
       "partTitle": "Putting it together: an ExpenseBook class",
       "codeHash": "ffba69782f3b1b97f778efc2ed051978e1c3b4ce6f93cd29d9f8f37300bbf33b",
       "spec": {
-        "template": "flow",
-        "title": "Putting it together: an ExpenseBook class — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: an ExpenseBook class",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting it together: an ExpenseBook class.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The wrap concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting it together: an ExpenseBo.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The rest logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "ExpenseBook"
+                  },
+                  {
+                    "text": "class"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting it together: an ExpenseBook class — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Putting it together: an ExpenseBook class",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: an ExpenseBook class [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The wrap concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: an ExpenseBo.. [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The rest logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "ExpenseBook",
+                  "class"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

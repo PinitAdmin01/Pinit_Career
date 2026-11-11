@@ -2,99 +2,89 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 5,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "fbedec470ffe329569ffbc076cbd81d6e854d0868c9d16c9d53e002f7a3d8ca5",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "if: do something only when a condition is True",
       "codeHash": "f4fcf5ca40454567ef51e60bbc8cff77854a436e31a6336caae7e4db38d7317a",
       "spec": {
-        "template": "boxes",
-        "title": "Running code with if",
-        "boxes": [
-          {
-            "id": "balance",
-            "label": "balance"
-          },
-          {
-            "id": "condition",
-            "label": "condition"
-          }
+        "template": "table",
+        "title": "if: do something only when a condition is True",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real programs make choices: show a warning if balance is low.",
-            "values": {
-              "balance": {
-                "var": "balance",
-                "line": 1
-              },
-              "condition": {
-                "text": "True"
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "something"
+                  },
+                  {
+                    "text": "only"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "balance": "data",
-              "condition": "ok"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The indented lines run only when the condition is True.",
-            "values": {
-              "balance": {
-                "var": "balance",
-                "line": 1
-              },
-              "condition": {
-                "text": "True"
+            "at": "say3",
+            "caption": "The indentation logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "when"
+                  },
+                  {
+                    "text": "condition"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "balance": "idle",
-              "condition": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Running code with if",
-        "boxes": [
-          {
-            "id": "balance",
-            "label": "balance"
-          },
-          {
-            "id": "condition",
-            "label": "condition"
-          }
+        "template": "table",
+        "title": "if: do something only when a condition is True",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real programs make choices: show a warning if balance is low.",
-            "values": {
-              "balance": "150",
-              "condition": "True"
-            },
-            "tones": {
-              "balance": "data",
-              "condition": "ok"
-            }
+            "caption": "The every concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "something",
+                  "only"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "The indented lines run only when the condition is True.",
-            "values": {
-              "balance": "150",
-              "condition": "True"
-            },
-            "tones": {
-              "balance": "idle",
-              "condition": "ok"
-            }
+            "at": "say3",
+            "caption": "The indentation logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "when",
+                  "condition"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -103,93 +93,82 @@
       "partTitle": "else: what to do otherwise",
       "codeHash": "bb5cf0cb5b0cfddec5fed092237001d7f45c2a855b61a4e1d97bdb9ab389d057",
       "spec": {
-        "template": "boxes",
-        "title": "Choosing between two blocks",
-        "boxes": [
-          {
-            "id": "bill",
-            "label": "bill"
-          },
-          {
-            "id": "fee",
-            "label": "fee"
-          }
+        "template": "table",
+        "title": "else: what to do otherwise",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Add else after if to do a different thing when False.",
-            "values": {
-              "bill": {
-                "var": "bill",
-                "line": 1
-              },
-              "fee": {
-                "text": ""
+            "caption": "The often concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "else"
+                  },
+                  {
+                    "text": "what"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "bill": "data",
-              "fee": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Python runs exactly one of the two blocks: fee is multiple.",
-            "values": {
-              "bill": {
-                "var": "bill",
-                "line": 5
-              },
-              "fee": {
-                "var": "fee",
-                "line": 5
+            "at": "say3",
+            "caption": "The else logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "otherwise"
+                  },
+                  {
+                    "text": "what"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "bill": "data",
-              "fee": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Choosing between two blocks",
-        "boxes": [
-          {
-            "id": "bill",
-            "label": "bill"
-          },
-          {
-            "id": "fee",
-            "label": "fee"
-          }
+        "template": "table",
+        "title": "else: what to do otherwise",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Add else after if to do a different thing when False.",
-            "values": {
-              "bill": "350",
-              "fee": ""
-            },
-            "tones": {
-              "bill": "data",
-              "fee": "idle"
-            }
+            "caption": "The often concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "else",
+                  "what"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Python runs exactly one of the two blocks: fee is 40.",
-            "values": {
-              "bill": "350",
-              "fee": "40"
-            },
-            "tones": {
-              "bill": "data",
-              "fee": "ok"
-            }
+            "at": "say3",
+            "caption": "The else logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "otherwise",
+                  "what"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -199,62 +178,40 @@
       "codeHash": "6125674e6941bafee1b74f9468e02adbdf0dea9bb3cf4b8e2a4d26766eba8f2a",
       "spec": {
         "template": "table",
-        "title": "Checking grades with elif",
+        "title": "elif: more than two choices",
         "columns": [
-          "Condition",
-          "Result"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Use elif for more than two choices: Distinction, First class, Pass, Fail.",
+            "caption": "The sometimes concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "score >= 75"
+                    "text": "elif"
                   },
                   {
-                    "text": "Distinction"
+                    "text": "more"
                   }
                 ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "score >= 60"
-                  },
-                  {
-                    "text": "First class"
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Python checks from top to bottom; the first True condition wins.",
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "score >= 75"
+                    "text": "than"
                   },
                   {
-                    "text": "False"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "score >= 60"
-                  },
-                  {
-                    "text": "First class"
+                    "text": "two"
                   }
                 ],
                 "tone": "ok"
@@ -265,47 +222,33 @@
       },
       "filled": {
         "template": "table",
-        "title": "Checking grades with elif",
+        "title": "elif: more than two choices",
         "columns": [
-          "Condition",
-          "Result"
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Use elif for more than two choices: Distinction, First class, Pass, Fail.",
+            "caption": "The sometimes concept establishes the core structural baseline.",
             "rows": [
               {
                 "cells": [
-                  "score >= 75",
-                  "Distinction"
+                  "elif",
+                  "more"
                 ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "score >= 60",
-                  "First class"
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say2",
-            "caption": "Python checks from top to bottom; the first True condition wins.",
+            "at": "say3",
+            "caption": "The because logic drives deterministic execution.",
             "rows": [
               {
                 "cells": [
-                  "score >= 75",
-                  "False"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "score >= 60",
-                  "First class"
+                  "than",
+                  "two"
                 ],
                 "tone": "ok"
               }
@@ -318,223 +261,81 @@
       "partTitle": "and, or, not: combining conditions",
       "codeHash": "b0b85dea411238e29ba65f914d2ad8f81ee96436cba5de6d2ef0193dffb63591",
       "spec": {
-        "template": "flow",
-        "title": "and, or, not: combining conditions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. and, or, not: combi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "and, or, not: combining conditions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for and, or, not: combining conditions.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in and, or, not: combi... [Dfive.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "not"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for and, or, not: combining conditions.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "combining"
+                  },
+                  {
+                    "text": "conditions"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "and, or, not: combining conditions — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. and, or, not: combi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "and, or, not: combining conditions",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for and, or, not: combining conditions [D5.P4.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in and, or, not: combi... [D5.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sometimes concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "and",
+                  "not"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for and, or, not: combining conditions [D5.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The write logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "combining",
+                  "conditions"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -544,223 +345,81 @@
       "partTitle": "Short one-line choices",
       "codeHash": "0c942fba90409833d2b445a7ebf4db6408065b630a8a7013212d3278c1b3d3db",
       "spec": {
-        "template": "flow",
-        "title": "Short one-line choices — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Short one-line choices",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Short one-line choices",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Short one-line choices [Dfive.Pfive.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Short one-line choices [Dfive.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The else concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Short"
+                  },
+                  {
+                    "text": "one"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Short one-line choices.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The short logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "line"
+                  },
+                  {
+                    "text": "choices"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Short one-line choices — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Short one-line choices",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Short one-line choices",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Short one-line choices [D5.P5.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Short one-line choices [D5.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The else concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Short",
+                  "one"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Short one-line choices [D5.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The short logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "line",
+                  "choices"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -770,93 +429,82 @@
       "partTitle": "Putting it together: a budget checker",
       "codeHash": "cae81291d5419196c5528506f31d053e01928ca34c73de967b0783f06d1f39b1",
       "spec": {
-        "template": "boxes",
-        "title": "Daily budget checker",
-        "boxes": [
-          {
-            "id": "daily_budget",
-            "label": "daily_budget"
-          },
-          {
-            "id": "spent",
-            "label": "spent"
-          }
+        "template": "table",
+        "title": "Putting it together: a budget checker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A budget checker compares spending with the daily budget.",
-            "values": {
-              "daily_budget": {
-                "var": "daily_budget",
-                "line": 1
-              },
-              "spent": {
-                "text": ""
+            "caption": "The finish concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Putting"
+                  },
+                  {
+                    "text": "together"
+                  }
+                ],
+                "tone": "data"
               }
-            },
-            "tones": {
-              "daily_budget": "data",
-              "spent": "idle"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Look at the order: worst case is checked first.",
-            "values": {
-              "daily_budget": {
-                "var": "daily_budget",
-                "line": 2
-              },
-              "spent": {
-                "var": "spent",
-                "line": 2
+            "at": "say3",
+            "caption": "The today logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "budget"
+                  },
+                  {
+                    "text": "checker"
+                  }
+                ],
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "daily_budget": "data",
-              "spent": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Daily budget checker",
-        "boxes": [
-          {
-            "id": "daily_budget",
-            "label": "daily_budget"
-          },
-          {
-            "id": "spent",
-            "label": "spent"
-          }
+        "template": "table",
+        "title": "Putting it together: a budget checker",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A budget checker compares spending with the daily budget.",
-            "values": {
-              "daily_budget": "300",
-              "spent": ""
-            },
-            "tones": {
-              "daily_budget": "data",
-              "spent": "idle"
-            }
+            "caption": "The finish concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Putting",
+                  "together"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Look at the order: worst case is checked first.",
-            "values": {
-              "daily_budget": "300",
-              "spent": "245"
-            },
-            "tones": {
-              "daily_budget": "data",
-              "spent": "ok"
-            }
+            "at": "say3",
+            "caption": "The today logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "budget",
+                  "checker"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }

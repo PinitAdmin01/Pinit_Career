@@ -2,73 +2,89 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "bedf0be57ecacd45efb8ba034310e8215aa983024e657aad2752c776fba3576b",
+  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "A stack: last in, first out",
       "codeHash": "782ae3b4cef9111c49a250fbfe2531883f1d3940ce5c46267b64d883bcb1ba3c",
       "spec": {
-        "template": "stack-queue",
-        "title": "LIFO stack operations",
-        "mode": "stack",
+        "template": "table",
+        "title": "A stack: last in, first out",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Last item added is first one taken off in LIFO order.",
-            "items": [
+            "caption": "The stack concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "open file"
-              },
-              {
-                "text": "type hello"
+                "cells": [
+                  {
+                    "text": "stack"
+                  },
+                  {
+                    "text": "last"
+                  }
+                ],
+                "tone": "data"
               }
-            ],
-            "action": "push",
-            "actionItem": {
-              "text": "make bold"
-            }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Append puts item on top while pop takes top item off.",
-            "items": [
+            "at": "say3",
+            "caption": "The before logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "open file"
+                "cells": [
+                  {
+                    "text": "first"
+                  },
+                  {
+                    "text": "out"
+                  }
+                ],
+                "tone": "ok"
               }
-            ],
-            "action": "pop",
-            "actionItem": {
-              "text": "type hello"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "LIFO stack operations",
-        "mode": "stack",
+        "template": "table",
+        "title": "A stack: last in, first out",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Last item added is first one taken off in LIFO order.",
-            "mode": "stack",
-            "items": [
-              "open file",
-              "type hello"
-            ],
-            "action": "push",
-            "actionItem": "make bold"
+            "caption": "The stack concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "stack",
+                  "last"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say2",
-            "caption": "Append puts item on top while pop takes top item off.",
-            "mode": "stack",
-            "items": [
-              "open file"
-            ],
-            "action": "pop",
-            "actionItem": "type hello"
+            "at": "say3",
+            "caption": "The before logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "first",
+                  "out"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -77,62 +93,82 @@
       "partTitle": "Matching brackets with a stack",
       "codeHash": "961eae5faaaf8c433a8e904524e5c6b7665e4198a90cbd006272b35eae6af459",
       "spec": {
-        "template": "stack-queue",
+        "template": "table",
         "title": "Matching brackets with a stack",
-        "mode": "stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Push each opening bracket onto stack.",
-            "items": [
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "("
+                "cells": [
+                  {
+                    "text": "Matching"
+                  },
+                  {
+                    "text": "brackets"
+                  }
+                ],
+                "tone": "data"
               }
-            ],
-            "action": "push",
-            "actionItem": {
-              "text": "["
-            }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Closing bracket matches top of stack and gets popped.",
-            "items": [
+            "caption": "The closing logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "("
+                "cells": [
+                  {
+                    "text": "with"
+                  },
+                  {
+                    "text": "stack"
+                  }
+                ],
+                "tone": "ok"
               }
-            ],
-            "action": "pop",
-            "actionItem": {
-              "text": "]"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
+        "template": "table",
         "title": "Matching brackets with a stack",
-        "mode": "stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Push each opening bracket onto stack.",
-            "mode": "stack",
-            "items": [
-              "("
-            ],
-            "action": "push",
-            "actionItem": "["
+            "at": "say1",
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "Matching",
+                  "brackets"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Closing bracket matches top of stack and gets popped.",
-            "mode": "stack",
-            "items": [
-              "("
-            ],
-            "action": "pop",
-            "actionItem": "]"
+            "caption": "The closing logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "with",
+                  "stack"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -141,223 +177,81 @@
       "partTitle": "The next greater element",
       "codeHash": "b6cce9533304d16e90e090373a7e5f0a3b61c62e612f10d0bcd4df1c32bd454b",
       "spec": {
-        "template": "flow",
-        "title": "The next greater element — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The next greater el...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The next greater element",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The next greater element [Dfour.Pthree.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The next greater el... [Dfour.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "The"
+                  },
+                  {
+                    "text": "next"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The next greater element.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The walk logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "greater"
+                  },
+                  {
+                    "text": "element"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The next greater element — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The next greater el...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The next greater element",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The next greater element [D4.P3.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The next greater el... [D4.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The practice concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "The",
+                  "next"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The next greater element [D4.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The walk logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "greater",
+                  "element"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -367,223 +261,81 @@
       "partTitle": "What \"monotonic\" means",
       "codeHash": "c06d234cd1dc1a54f49d8e9b80cbfe0656ea29a56b8adcf1be11c4b29cede7e5",
       "spec": {
-        "template": "flow",
-        "title": "What \"monotonic\" means — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What \"monotonic\" means",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "What \"monotonic\" means",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What \"monotonic\" means [Dfour.Pfour.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What \"monotonic\" means [Dfour.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What"
+                  },
+                  {
+                    "text": "monotonic"
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What \"monotonic\" means.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The monotonic logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "means"
+                  },
+                  {
+                    "text": "monotonic"
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What \"monotonic\" means — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What \"monotonic\" means",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "What \"monotonic\" means",
+        "columns": [
+          "Stage",
+          "Concept"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What \"monotonic\" means [D4.P4.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What \"monotonic\" means [D4.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The next concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "What",
+                  "monotonic"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What \"monotonic\" means [D4.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say3",
+            "caption": "The monotonic logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "means",
+                  "monotonic"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -593,94 +345,82 @@
       "partTitle": "A min stack: O(1) minimum",
       "codeHash": "7b5ca13f5b6d9c8c01ca607b2704e200634b516fd935ff5a0ceb113409d0e484",
       "spec": {
-        "template": "compare",
-        "title": "Tracking minimum alongside main stack",
-        "leftLabel": "Main Stack",
-        "rightLabel": "Min Stack",
+        "template": "table",
+        "title": "A min stack: O(1) minimum",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Push smaller of new value and current minimum onto min stack.",
-            "left": {
-              "code": "[5, 3, 7, 2]",
-              "result": {
-                "text": "items"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "[5, 3, 3, 2]",
-              "result": {
-                "text": "mins"
-              },
-              "tone": "ok"
-            }
+            "at": "say1",
+            "caption": "The common concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "min"
+                  },
+                  {
+                    "text": "stack"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Top of min stack gives overall minimum in constant time.",
-            "left": {
-              "code": "items.pop()",
-              "result": {
-                "text": "left"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "mins.pop()",
-              "result": {
-                "text": "min: 3"
-              },
-              "tone": "ok"
-            }
+            "caption": "The stack logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "minimum"
+                  },
+                  {
+                    "text": "stack"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Tracking minimum alongside main stack",
-        "leftLabel": "Main Stack",
-        "rightLabel": "Min Stack",
+        "template": "table",
+        "title": "A min stack: O(1) minimum",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Push smaller of new value and current minimum onto min stack.",
-            "left": {
-              "code": "[5, 3, 7, 2]",
-              "result": "items",
-              "tone": "data",
-              "checks": [
-                "items"
-              ]
-            },
-            "right": {
-              "code": "[5, 3, 3, 2]",
-              "result": "mins",
-              "tone": "ok",
-              "checks": [
-                "mins"
-              ]
-            }
+            "at": "say1",
+            "caption": "The common concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "min",
+                  "stack"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Top of min stack gives overall minimum in constant time.",
-            "left": {
-              "code": "items.pop()",
-              "result": "left",
-              "tone": "data",
-              "checks": [
-                "left"
-              ]
-            },
-            "right": {
-              "code": "mins.pop()",
-              "result": "min: 3",
-              "tone": "ok",
-              "checks": [
-                "min: 3"
-              ]
-            }
+            "caption": "The stack logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "minimum",
+                  "stack"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -689,62 +429,82 @@
       "partTitle": "A calculator built on a stack",
       "codeHash": "87b7c95a9ee20d5c57206df2babc943201f81950e5d930c194d8034b35e065ac",
       "spec": {
-        "template": "stack-queue",
-        "title": "Evaluating postfix arithmetic on a stack",
-        "mode": "stack",
+        "template": "table",
+        "title": "A calculator built on a stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Numbers pushed onto stack until operator arrives.",
-            "items": [
+            "at": "say1",
+            "caption": "The stacks concept establishes the core structural baseline.",
+            "rows": [
               {
-                "text": "3"
-              },
-              {
-                "text": "4"
+                "cells": [
+                  {
+                    "text": "calculator"
+                  },
+                  {
+                    "text": "built"
+                  }
+                ],
+                "tone": "data"
               }
-            ],
-            "action": "idle"
+            ]
           },
           {
             "at": "say3",
-            "caption": "Order matters when popping second number and first number.",
-            "items": [
+            "caption": "The order logic drives deterministic execution.",
+            "rows": [
               {
-                "text": "7"
+                "cells": [
+                  {
+                    "text": "stack"
+                  },
+                  {
+                    "text": "built"
+                  }
+                ],
+                "tone": "ok"
               }
-            ],
-            "action": "push",
-            "actionItem": {
-              "text": "7"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "stack-queue",
-        "title": "Evaluating postfix arithmetic on a stack",
-        "mode": "stack",
+        "template": "table",
+        "title": "A calculator built on a stack",
+        "columns": [
+          "Stage",
+          "Concept"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Numbers pushed onto stack until operator arrives.",
-            "mode": "stack",
-            "items": [
-              "3",
-              "4"
-            ],
-            "action": "idle"
+            "at": "say1",
+            "caption": "The stacks concept establishes the core structural baseline.",
+            "rows": [
+              {
+                "cells": [
+                  "calculator",
+                  "built"
+                ],
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say3",
-            "caption": "Order matters when popping second number and first number.",
-            "mode": "stack",
-            "items": [
-              "7"
-            ],
-            "action": "push",
-            "actionItem": "7"
+            "caption": "The order logic drives deterministic execution.",
+            "rows": [
+              {
+                "cells": [
+                  "stack",
+                  "built"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
