@@ -152,7 +152,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           "Do not write a comment for every line. print(\"Hello\") does not need a comment saying \"prints hello\". Write comments when the reason is not obvious from the code itself."
         ],
         "example": "Comments are like sticky notes on a textbook. The book stays the same, but your notes remind you why a page matters. Someone reading the book aloud would skip your sticky notes.",
-        "code": "# My Expense Tracker, day 1\nprint(\"Tea\", 20)\n# print(\"Movie\", 300)   <- turned off for now\nprint(\"Bus\", 45)  # the bus to college",
+        "code": "# My Expense Tracker, day 1\nprint(\"Tea\", 20)\n# print(\"Movie\", 300)  # <- turned off for now\nprint(\"Bus\", 45)  # the bus to college",
         "output": "Tea 20\nBus 45",
         "codeNotes": [
           {
@@ -961,7 +961,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           "else does not have a condition. It simply catches every case that the if did not. Think of it as \"in every other case\".",
           "A very common mistake is putting else at the wrong indentation. If you get an IndentationError or SyntaxError near an else, check that else lines up exactly with its if."
         ],
-        "example": "At a restaurant: if you order more than 499 rupees, delivery is free, else you pay 40 rupees. Every order gets exactly one of the two answers. Nobody gets both, and nobody gets neither.",
+        "example": "At a restaurant: if you order 499 rupees or more, delivery is free, else you pay 40 rupees. Every order gets exactly one of the two answers. Nobody gets both, and nobody gets neither.",
         "code": "bill = 350\nif bill >= 499:\n    fee = 0\nelse:\n    fee = 40\nprint(\"Delivery fee:\", fee)\nprint(\"Pay:\", bill + fee)",
         "output": "Delivery fee: 40\nPay: 390",
         "codeNotes": [

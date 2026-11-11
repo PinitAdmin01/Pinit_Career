@@ -53,7 +53,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Say Hello",
-    aDesc: "Welcome your user! Print `'Hello, Asha!'` to the screen using `print()`. (Or define a function `say_hello(name)`).",
+    aDesc: "Welcome your user! Print `'Hello, Asha!'` to the screen using `print()`.",
     aStarter: lines("# Print a greeting to Asha on the screen", ""),
     aHint: 'print("Hello, Asha!")',
     aTest: lines(
@@ -86,14 +86,14 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "Turning numbers into text with str() and text into numbers with int() and float()."
     ],
     eTitle: "Describe an Expense",
-    eDesc: "Store an item and amount in variables, and print a description! Create item = 'Tea' and amount = 20, and print 'Tea costs 20' (using str() to convert the number). (Or define a function describe_expense(item, amount)).",
+    eDesc: "Store an item and amount in variables, and print a description! Create item = 'Tea' and amount = 20, and print 'Tea costs 20' (using str() to convert the number).",
     eStarter: lines(
       'item = "Tea"',
       'amount = 20',
       '# Print "Tea costs 20" below using item, amount, and str()',
       ''
     ),
-    eHint: 'print(item + " costs " + str(amount))',
+    eHint: lines('item = "Tea"', 'amount = 20', 'print(item + " costs " + str(amount))'),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -118,13 +118,13 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Is It a Big Expense?",
-    aDesc: "Check if an expense is big (1000 or more). Create amount = 1200 and is_big = amount >= 1000, then print is_big. (Or define a function is_big_expense(amount)).",
+    aDesc: "Check if an expense is big (1000 or more). Create amount = 1200 and is_big = amount >= 1000, then print is_big.",
     aStarter: lines(
       'amount = 1200',
       '# Set is_big = amount >= 1000 and print it below',
       ''
     ),
-    aHint: 'is_big = amount >= 1000\\nprint(is_big)',
+    aHint: lines('amount = 1200', 'is_big = amount >= 1000', 'print(is_big)'),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -160,13 +160,13 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "String tools: upper(), lower(), strip(), replace()."
     ],
     eTitle: "Shout It (Working With Text)",
-    eDesc: "Convert text to capital letters and add an exclamation mark! Create text = 'sale' and print 'SALE!' using upper() and + '!'. (Or define a function shout(text)).",
+    eDesc: "Convert text to capital letters and add an exclamation mark! Create text = 'sale' and print 'SALE!' using upper() and + '!'.",
     eStarter: lines(
       'text = "sale"',
       '# Print text in capital letters with "!" at the end using upper() and +',
       ''
     ),
-    eHint: 'print(text.upper() + "!")',
+    eHint: lines('text = "sale"', 'print(text.upper() + "!")'),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -192,14 +192,14 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Initials (Working With Text)",
-    aDesc: "Get the initials of two names in capital letters! Create first = 'asha' and last = 'rao', and print 'AR' by taking first[0] and last[0] and using upper(). (Or define a function initials(first, last)).",
+    aDesc: "Get the initials of two names in capital letters! Create first = 'asha' and last = 'rao', and print 'AR' by taking first[0] and last[0] and using upper().",
     aStarter: lines(
       'first = "asha"',
       'last = "rao"',
       '# Print the initials in capitals (e.g. "AR") using [0], +, and upper()',
       ''
     ),
-    aHint: 'print((first[0] + last[0]).upper())',
+    aHint: lines('first = "asha"', 'last = "rao"', 'print((first[0] + last[0]).upper())'),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -234,13 +234,13 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "round() and why 0.1 + 0.2 is not exactly 0.3."
     ],
     eTitle: "Add GST",
-    eDesc: "Calculate the price with 18% GST added, rounded to 2 decimal places! Create price = 100 and print the total (118.0) using round(price * 1.18, 2). (Or define a function add_gst(price)).",
+    eDesc: "Calculate the price with 18% GST added, rounded to 2 decimal places! Create price = 100 and print the total (118.0) using round(price * 1.18, 2).",
     eStarter: lines(
       'price = 100',
       '# Calculate price + 18% GST, round to 2 decimal places, and print it below',
       ''
     ),
-    eHint: 'print(round(price * 1.18, 2))',
+    eHint: lines('price = 100', 'print(round(price * 1.18, 2))'),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -268,14 +268,14 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Split the Bill",
-    aDesc: "Split a bill among friends and round each share to 2 decimal places! Create total = 1000 and people = 4, and print each person's share (250.0) using round(total / people, 2). (Or define a function split_bill(total, people)).",
+    aDesc: "Split a bill among friends and round each share to 2 decimal places! Create total = 1000 and people = 4, and print each person's share (250.0) using round(total / people, 2).",
     aStarter: lines(
       'total = 1000',
       'people = 4',
       '# Calculate each share using round(total / people, 2) and print it below',
       ''
     ),
-    aHint: 'print(round(total / people, 2))',
+    aHint: lines('total = 1000', 'people = 4', 'print(round(total / people, 2))'),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -311,13 +311,19 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       "and, or, not."
     ],
     eTitle: "Pass or Fail",
-    eDesc: "Decide if a score is a Pass or a Fail! Create score = 40 and print 'Pass' if the score is 40 or more, otherwise print 'Fail'. (Or define a function grade(score)).",
+    eDesc: "Decide if a score is a Pass or a Fail! Create score = 40 and print 'Pass' if the score is 40 or more, otherwise print 'Fail'.",
     eStarter: lines(
       'score = 40',
       '# Print "Pass" if score >= 40, otherwise print "Fail" using if and else',
       ''
     ),
-    eHint: 'if score >= 40:\\n    print("Pass")\\nelse:\\n    print("Fail")',
+    eHint: lines(
+      'score = 40',
+      'if score >= 40:',
+      '    print("Pass")',
+      'else:',
+      '    print("Fail")'
+    ),
     eTest: lines(
       "_printed = []",
       "_orig_print = print",
@@ -345,13 +351,19 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
       done
     ),
     aTitle: "Delivery Fee",
-    aDesc: "Calculate the delivery fee for a bill! Create bill = 499 and print 0 if the bill is 499 or more, otherwise print 40. (Or define a function delivery_fee(bill)).",
+    aDesc: "Calculate the delivery fee for a bill! Create bill = 499 and print 0 if the bill is 499 or more, otherwise print 40.",
     aStarter: lines(
       'bill = 499',
       '# Print 0 if bill >= 499, otherwise print 40 using if and else',
       ''
     ),
-    aHint: 'if bill >= 499:\\n    print(0)\\nelse:\\n    print(40)',
+    aHint: lines(
+      'bill = 499',
+      'if bill >= 499:',
+      '    print(0)',
+      'else:',
+      '    print(40)'
+    ),
     aTest: lines(
       "_printed = []",
       "_orig_print = print",

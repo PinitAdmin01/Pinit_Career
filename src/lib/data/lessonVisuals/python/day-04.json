@@ -2,48 +2,98 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 4,
-  "promptSha": "ccb0574ded704dac124498a62471d570447c43b3ab6812ef0d05792c3d715113",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "The four basic operators",
       "codeHash": "ecb2daaae8589db8d17628f5130c7e7f6086ec5409a151f359ab1b388f501ff6",
       "spec": {
         "template": "table",
-        "title": "The four basic operators",
+        "title": "Order of operations and division",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Multiply runs before add so 10 + 5 * 2 is 20, while brackets give 30.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "3 * 40 + 20"
                   },
                   {
-                    "text": "four"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "10 + 5 * 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "(10 + 5) * 2"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The surprise logic drives deterministic execution.",
+            "caption": "Dividing with / always returns a float: 10 / 2 is 5.0 and 7 / 2 is 3.5.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "basic"
+                    "text": "10 / 2"
                   },
                   {
-                    "text": "operators"
+                    "out": 4
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "7 / 2"
+                  },
+                  {
+                    "out": 5
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Your own bill multiplies item prices before adding to reach 165.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "2 dosas at 60 each and 3 teas at 15 each"
+                  },
+                  {
+                    "text": "165"
                   }
                 ],
                 "tone": "ok"
@@ -54,36 +104,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "The four basic operators",
+        "title": "Order of operations and division",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Multiply runs before add so 10 + 5 * 2 is 20, while brackets give 30.",
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "four"
+                  "3 * 40 + 20",
+                  "140"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "10 + 5 * 2",
+                  "20"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "(10 + 5) * 2",
+                  "30"
+                ],
+                "tone": "ok"
               }
+            ],
+            "checks": [
+              "140",
+              "20",
+              "30"
             ]
           },
           {
             "at": "say3",
-            "caption": "The surprise logic drives deterministic execution.",
+            "caption": "Dividing with / always returns a float: 10 / 2 is 5.0 and 7 / 2 is 3.5.",
             "rows": [
               {
                 "cells": [
-                  "basic",
-                  "operators"
+                  "10 / 2",
+                  "5.0"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "7 / 2",
+                  "3.5"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "5.0",
+              "3.5"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Your own bill multiplies item prices before adding to reach 165.",
+            "rows": [
+              {
+                "cells": [
+                  "2 * 60 + 3 * 15",
+                  "165"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "print(2 * 60 + 3 * 15)",
+            "checks": [
+              "165"
             ]
           }
         ]
@@ -94,23 +191,23 @@
       "codeHash": "3bd0ccedb65261c201309c0199abf3513140e0c3bce58a17eab23c50937c4b05",
       "spec": {
         "template": "table",
-        "title": "Floor division and remainder",
+        "title": "Floor division // and remainder %",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "Floor division // divides and drops the decimal part: 17 // 5 is 3.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Floor"
+                    "text": "17 // 5"
                   },
                   {
-                    "text": "division"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -118,16 +215,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The work logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Remainder % shows what is left over after dividing: 17 % 5 gives 2.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "17 // 5"
                   },
                   {
-                    "text": "remainder"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "17 % 5"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Combining // and % converts 130 minutes into 2 hours and 10 minutes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "130 // 60"
+                  },
+                  {
+                    "text": "2 hours"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "130 % 60"
+                  },
+                  {
+                    "text": "10 minutes"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing minutes updates whole hours with // and leftover minutes with %.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Change minutes to 245"
+                  },
+                  {
+                    "text": "4 hours and 5 minutes"
                   }
                 ],
                 "tone": "ok"
@@ -138,36 +291,90 @@
       },
       "filled": {
         "template": "table",
-        "title": "Floor division and remainder",
+        "title": "Floor division // and remainder %",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "Floor division // divides and drops the decimal part: 17 // 5 is 3.",
             "rows": [
               {
                 "cells": [
-                  "Floor",
-                  "division"
+                  "17 // 5",
+                  "3"
                 ],
                 "tone": "data"
               }
+            ],
+            "checks": [
+              "3"
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Remainder % shows what is left over after dividing: 17 % 5 gives 2.",
+            "rows": [
+              {
+                "cells": [
+                  "17 // 5",
+                  "3"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "17 % 5",
+                  "2"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "checks": [
+              "3",
+              "2"
             ]
           },
           {
             "at": "say3",
-            "caption": "The work logic drives deterministic execution.",
+            "caption": "Combining // and % converts 130 minutes into 2 hours and 10 minutes.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "remainder"
+                  "minutes // 60",
+                  "2 hours"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "minutes % 60",
+                  "10 minutes"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "2 hours and 10 minutes"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing minutes updates whole hours with // and leftover minutes with %.",
+            "rows": [
+              {
+                "cells": [
+                  "minutes = 245",
+                  "4 hours and 5 minutes"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "print(17 // 5)\nprint(17 % 5)\nminutes = 245\nprint(minutes // 60, \"hours and\", minutes % 60, \"minutes\")\nprint(10 % 2 == 0)\nprint(7 % 2 == 0)",
+            "checks": [
+              "4 hours and 5 minutes"
             ]
           }
         ]
@@ -177,81 +384,184 @@
       "partTitle": "Percentages: GST and discounts",
       "codeHash": "5122c0e6cc29004e37a7c67ebaacb295d6053f50bfd04e29507a54f6849e31cb",
       "spec": {
-        "template": "table",
-        "title": "Percentages: GST and discounts",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Calculating GST on price",
+        "boxes": [
+          {
+            "id": "price",
+            "label": "price"
+          },
+          {
+            "id": "gst_rate",
+            "label": "gst_rate"
+          },
+          {
+            "id": "gst",
+            "label": "gst"
+          },
+          {
+            "id": "sale_price",
+            "label": "sale_price"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The money concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Percentages"
-                  },
-                  {
-                    "text": "GST"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A percentage calculation is just a multiplication.",
+            "values": {
+              "price": {
+                "var": "price",
+                "line": 1
+              },
+              "gst_rate": {
+                "text": ""
+              },
+              "gst": {
+                "text": ""
+              },
+              "sale_price": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "price": "data",
+              "gst_rate": "idle",
+              "gst": "idle",
+              "sale_price": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "With gst_rate = 0.18, adding gst gives price + price * 0.18.",
+            "values": {
+              "price": {
+                "var": "price",
+                "line": 3
+              },
+              "gst_rate": {
+                "var": "gst_rate",
+                "line": 3
+              },
+              "gst": {
+                "var": "gst",
+                "line": 3
+              },
+              "sale_price": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "price": "data",
+              "gst_rate": "data",
+              "gst": "ok",
+              "sale_price": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The discount logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "discounts"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A discount works the other way: store numbers in variables.",
+            "values": {
+              "price": {
+                "var": "price",
+                "line": 6
+              },
+              "gst_rate": {
+                "var": "gst_rate",
+                "line": 6
+              },
+              "gst": {
+                "var": "gst",
+                "line": 6
+              },
+              "sale_price": {
+                "var": "sale_price",
+                "line": 6
               }
-            ]
+            },
+            "tones": {
+              "price": "idle",
+              "gst_rate": "idle",
+              "gst": "idle",
+              "sale_price": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Percentages: GST and discounts",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Calculating GST on price",
+        "boxes": [
+          {
+            "id": "price",
+            "label": "price"
+          },
+          {
+            "id": "gst_rate",
+            "label": "gst_rate"
+          },
+          {
+            "id": "gst",
+            "label": "gst"
+          },
+          {
+            "id": "sale_price",
+            "label": "sale_price"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The money concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Percentages",
-                  "GST"
-                ],
-                "tone": "data"
-              }
+            "caption": "A percentage calculation is just a multiplication.",
+            "values": {
+              "price": "1000",
+              "gst_rate": "",
+              "gst": "",
+              "sale_price": ""
+            },
+            "tones": {
+              "price": "data",
+              "gst_rate": "idle",
+              "gst": "idle",
+              "sale_price": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "With gst_rate = 0.18, adding gst gives price + price * 0.18.",
+            "values": {
+              "price": "1000",
+              "gst_rate": "0.18",
+              "gst": "180.0",
+              "sale_price": ""
+            },
+            "tones": {
+              "price": "data",
+              "gst_rate": "data",
+              "gst": "ok",
+              "sale_price": "idle"
+            },
+            "checks": [
+              "GST: 180.0",
+              "Total: 1180.0"
             ]
           },
           {
             "at": "say3",
-            "caption": "The discount logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "discounts"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A discount works the other way: store numbers in variables.",
+            "values": {
+              "price": "1000",
+              "gst_rate": "0.18",
+              "gst": "180.0",
+              "sale_price": "800.0"
+            },
+            "tones": {
+              "price": "idle",
+              "gst_rate": "idle",
+              "gst": "idle",
+              "sale_price": "ok"
+            },
+            "checks": [
+              "After 20% off: 800.0"
             ]
           }
         ]
@@ -262,23 +572,68 @@
       "codeHash": "855f1466355a1bb301b617d4c0ea437453162e59c849345aaf0459920e6813f5",
       "spec": {
         "template": "table",
-        "title": "Rounding money",
+        "title": "Rounding decimals for money",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The computers concept establishes the core structural baseline.",
+            "caption": "Decimal arithmetic like 0.1 + 0.2 leaves a tiny storage error.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Rounding"
+                    "text": "0.1 + 0.2"
                   },
                   {
-                    "text": "money"
+                    "out": 1
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Use round(value, 2) to display money values cleanly to 2 decimal places.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "round(0.1 + 0.2, 2)"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "round(total, 2)"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "With one argument, round(4.6) rounds to the nearest whole number.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "round(4.6)"
+                  },
+                  {
+                    "out": 5
                   }
                 ],
                 "tone": "data"
@@ -286,16 +641,16 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The round logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Calling round() to 2 decimal places displays 333.33 cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Rounding"
+                    "text": "round(1000 / 3, 2)"
                   },
                   {
-                    "text": "money"
+                    "text": "333.33"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +661,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "Rounding money",
+        "title": "Rounding decimals for money",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The computers concept establishes the core structural baseline.",
+            "caption": "Decimal arithmetic like 0.1 + 0.2 leaves a tiny storage error.",
             "rows": [
               {
                 "cells": [
-                  "Rounding",
-                  "money"
+                  "0.1 + 0.2",
+                  "0.30000000000000004"
                 ],
-                "tone": "data"
+                "tone": "error"
               }
+            ],
+            "checks": [
+              "0.30000000000000004"
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Use round(value, 2) to display money values cleanly to 2 decimal places.",
+            "rows": [
+              {
+                "cells": [
+                  "round(0.1 + 0.2, 2)",
+                  "0.3"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "round(total, 2)",
+                  "117.99"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "checks": [
+              "0.3",
+              "117.99"
             ]
           },
           {
             "at": "say3",
-            "caption": "The round logic drives deterministic execution.",
+            "caption": "With one argument, round(4.6) rounds to the nearest whole number.",
             "rows": [
               {
                 "cells": [
-                  "Rounding",
-                  "money"
+                  "round(4.6)",
+                  "5"
+                ],
+                "tone": "data"
+              }
+            ],
+            "checks": [
+              "5"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling round() to 2 decimal places displays 333.33 cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  "round(1000 / 3, 2)",
+                  "333.33"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "print(0.1 + 0.2)\nprint(round(0.1 + 0.2, 2))\nprice = 99.99\ntotal = price * 1.18\nprint(total)\nprint(round(total, 2))\nprint(round(4.6))\nprint(round(1000 / 3, 2))",
+            "checks": [
+              "333.33"
             ]
           }
         ]
@@ -346,40 +748,85 @@
       "codeHash": "29ccd9746421927c278dfd0f0de1d4511c9bc5c5dbbdf1c01e0538454cbfe625",
       "spec": {
         "template": "table",
-        "title": "Useful number tools: abs, min, max, sum",
+        "title": "Built-in number tools",
         "columns": [
-          "Stage",
-          "Concept"
+          "Tool",
+          "Answer"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "abs() gives the distance from zero.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Useful"
+                    "text": "abs(-250)"
                   },
                   {
-                    "text": "number"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "min() gives the smallest value and max() gives the largest.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "min(20, 45, 120)"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "max(20, 45, 120)"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The adds logic drives deterministic execution.",
+            "caption": "sum() adds up a group of numbers.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "tools"
+                    "text": "sum([20, 45, 120])"
                   },
                   {
-                    "text": "abs"
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using min() on three phone prices selects 14499 as the cheapest.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "min(15999, 14499, 15250)"
+                  },
+                  {
+                    "text": "14499"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +837,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "Useful number tools: abs, min, max, sum",
+        "title": "Built-in number tools",
         "columns": [
-          "Stage",
-          "Concept"
+          "Tool",
+          "Answer"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "abs() gives the distance from zero.",
             "rows": [
               {
                 "cells": [
-                  "Useful",
-                  "number"
+                  "abs(-250)",
+                  "250"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
+            ],
+            "checks": [
+              "250"
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "min() gives the smallest value and max() gives the largest.",
+            "rows": [
+              {
+                "cells": [
+                  "min(20, 45, 120)",
+                  "20"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "max(20, 45, 120)",
+                  "120"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "checks": [
+              "20",
+              "120"
             ]
           },
           {
             "at": "say3",
-            "caption": "The adds logic drives deterministic execution.",
+            "caption": "sum() adds up a group of numbers.",
             "rows": [
               {
                 "cells": [
-                  "tools",
-                  "abs"
+                  "sum([20, 45, 120])",
+                  "185"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "185"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using min() on three phone prices selects 14499 as the cheapest.",
+            "rows": [
+              {
+                "cells": [
+                  "min(15999, 14499, 15250)",
+                  "14499"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "print(abs(-250))\nprint(min(20, 45, 120))\nprint(max(20, 45, 120))\nprint(sum([20, 45, 120]))\nbudget = 5000\nspent = 5320\nprint(\"Over by\", abs(budget - spent))\nprint(min(15999, 14499, 15250))",
+            "checks": [
+              "14499"
             ]
           }
         ]
@@ -429,81 +923,187 @@
       "partTitle": "Putting it together: a restaurant bill",
       "codeHash": "81f4c87c195e2d91be6e6dad51f6e77df68847e1033ab87fd5120cf09a0db9cd",
       "spec": {
-        "template": "table",
-        "title": "Putting it together: a restaurant bill",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Restaurant bill calculation",
+        "boxes": [
+          {
+            "id": "food",
+            "label": "food"
+          },
+          {
+            "id": "gst",
+            "label": "gst"
+          },
+          {
+            "id": "grand_total",
+            "label": "grand_total"
+          },
+          {
+            "id": "share",
+            "label": "share"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Putting"
-                  },
-                  {
-                    "text": "together"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Calculate a restaurant bill with food and GST.",
+            "values": {
+              "food": {
+                "var": "food",
+                "line": 3
+              },
+              "gst": {
+                "text": ""
+              },
+              "grand_total": {
+                "text": ""
+              },
+              "share": {
+                "text": ""
               }
-            ]
+            },
+            "tones": {
+              "food": "data",
+              "gst": "idle",
+              "grand_total": "idle",
+              "share": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Look at the steps: food total, then GST and grand total.",
+            "values": {
+              "food": {
+                "var": "food",
+                "line": 5
+              },
+              "gst": {
+                "var": "gst",
+                "line": 5
+              },
+              "grand_total": {
+                "var": "grand_total",
+                "line": 5
+              },
+              "share": {
+                "text": ""
+              }
+            },
+            "tones": {
+              "food": "data",
+              "gst": "data",
+              "grand_total": "ok",
+              "share": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "restaurant"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Store each calculation step in a variable with a clear name.",
+            "values": {
+              "food": {
+                "var": "food",
+                "line": 7
+              },
+              "gst": {
+                "var": "gst",
+                "line": 7
+              },
+              "grand_total": {
+                "var": "grand_total",
+                "line": 7
+              },
+              "share": {
+                "var": "share",
+                "line": 7
               }
-            ]
+            },
+            "tones": {
+              "food": "idle",
+              "gst": "idle",
+              "grand_total": "idle",
+              "share": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Putting it together: a restaurant bill",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Restaurant bill calculation",
+        "boxes": [
+          {
+            "id": "food",
+            "label": "food"
+          },
+          {
+            "id": "gst",
+            "label": "gst"
+          },
+          {
+            "id": "grand_total",
+            "label": "grand_total"
+          },
+          {
+            "id": "share",
+            "label": "share"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Putting",
-                  "together"
-                ],
-                "tone": "data"
-              }
+            "caption": "Calculate a restaurant bill with food and GST.",
+            "values": {
+              "food": "360",
+              "gst": "",
+              "grand_total": "",
+              "share": ""
+            },
+            "tones": {
+              "food": "data",
+              "gst": "idle",
+              "grand_total": "idle",
+              "share": "idle"
+            },
+            "checks": [
+              "Food: 360"
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Look at the steps: food total, then GST and grand total.",
+            "values": {
+              "food": "360",
+              "gst": "18.0",
+              "grand_total": "378.0",
+              "share": ""
+            },
+            "tones": {
+              "food": "data",
+              "gst": "data",
+              "grand_total": "ok",
+              "share": "idle"
+            },
+            "checks": [
+              "GST: 18.0",
+              "Total: 378.0"
             ]
           },
           {
             "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "restaurant",
-                  "bill"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Store each calculation step in a variable with a clear name.",
+            "values": {
+              "food": "360",
+              "gst": "18.0",
+              "grand_total": "378.0",
+              "share": "126.0"
+            },
+            "tones": {
+              "food": "idle",
+              "gst": "idle",
+              "grand_total": "idle",
+              "share": "ok"
+            },
+            "checks": [
+              "Each pays: 126.0"
             ]
           }
         ]
