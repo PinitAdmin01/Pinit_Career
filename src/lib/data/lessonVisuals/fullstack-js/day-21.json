@@ -587,10 +587,10 @@
           },
           {
             "at": "example",
-            "caption": "Connect the flow analogy to water execution invariants.",
+            "caption": "Connect the flow analogy to conveyor execution invariants.",
             "values": {
               "input_code": {
-                "text": "water fountain"
+                "text": "factory conveyor"
               },
               "engine": {
                 "text": "resolve"
@@ -710,9 +710,9 @@
           },
           {
             "at": "example",
-            "caption": "Connect the flow analogy to water execution invariants.",
+            "caption": "Connect the flow analogy to conveyor execution invariants.",
             "values": {
-              "input_code": "water fountain",
+              "input_code": "factory conveyor",
               "engine": "resolve",
               "out": "Consumer starting slow read cycle (3"
             },
@@ -837,10 +837,10 @@
           },
           {
             "at": "example",
-            "caption": "Connect the high analogy to speed execution invariants.",
+            "caption": "Connect the pedal analogy to fountain execution invariants.",
             "values": {
               "input_code": {
-                "text": "high-speed express"
+                "text": "water fountain"
               },
               "engine": {
                 "text": "controller.close"
@@ -960,9 +960,9 @@
           },
           {
             "at": "example",
-            "caption": "Connect the high analogy to speed execution invariants.",
+            "caption": "Connect the pedal analogy to fountain execution invariants.",
             "values": {
-              "input_code": "high-speed express",
+              "input_code": "water fountain",
               "engine": "controller.close",
               "out": "Simulating client disconnect (aborti"
             },
@@ -1087,10 +1087,10 @@
           },
           {
             "at": "example",
-            "caption": "Connect the memory analogy to factory execution invariants.",
+            "caption": "Connect the courier analogy to edge execution invariants.",
             "values": {
               "input_code": {
-                "text": "factory conveyor"
+                "text": "high-speed express"
               },
               "engine": {
                 "text": "headers"
@@ -1210,9 +1210,9 @@
           },
           {
             "at": "example",
-            "caption": "Connect the memory analogy to factory execution invariants.",
+            "caption": "Connect the courier analogy to edge execution invariants.",
             "values": {
-              "input_code": "factory conveyor",
+              "input_code": "high-speed express",
               "engine": "headers",
               "out": "Validating Edge Streaming Headers:"
             },

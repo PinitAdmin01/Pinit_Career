@@ -507,7 +507,7 @@
     },
     {
       "partTitle": "Apache Kafka Event Streaming Fabric & Partition Routing",
-      "codeHash": "ae54914f4b20fe8023c0506df30835a3ff464d1659e4421988a021917788e620",
+      "codeHash": "4674424bda2aded0fc2f6aaf4d70a624e9f4e98275d636ba0020917e1fa7432e",
       "spec": {
         "template": "flow",
         "title": "Apache Kafka Event Streaming Fabric & Partition Routing",
