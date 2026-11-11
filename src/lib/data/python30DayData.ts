@@ -783,7 +783,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Total Spent",
     eDesc: "Write `total_spent(expenses)` that returns the sum of every expense's `'amount'`.",
     eStarter: lines("def total_spent(expenses):", "    # sum(e['amount'] for e in expenses) or use a for loop", "    pass"),
-    eHint: "return sum(e['amount'] for e in expenses)",
+    eHint: lines(
+      "def total_spent(expenses):",
+      "    return sum(e['amount'] for e in expenses)"
+    ),
     eTest: lines(
       "data = [{'item': 'Tea', 'amount': 20}, {'item': 'Bus', 'amount': 45}]",
       "_fn = globals().get('total_spent')",
@@ -802,7 +805,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "One Category",
     aDesc: "Write `by_category(expenses, category)` that returns only the expenses in that category.",
     aStarter: lines("def by_category(expenses, category):", "    # keep e when e['category'] == category", "    pass"),
-    aHint: "return [e for e in expenses if e['category'] == category]",
+    aHint: lines(
+      "def by_category(expenses, category):",
+      "    return [e for e in expenses if e['category'] == category]"
+    ),
     aTest: lines(
       "data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]",
       "_fn = globals().get('by_category')",
@@ -827,7 +833,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Unique Categories",
     eDesc: "Write `unique_categories(expenses)` that returns the different categories, sorted A to Z, as a list.",
     eStarter: lines("def unique_categories(expenses):", "    # a set removes duplicates; sorted() gives a sorted list", "    pass"),
-    eHint: "return sorted({e['category'] for e in expenses})",
+    eHint: lines("def unique_categories(expenses):", "    return sorted({e['category'] for e in expenses})"),
     eTest: lines(
       "data = [{'category': 'food'}, {'category': 'travel'}, {'category': 'food'}]",
       "_fn = globals().get('unique_categories')",
@@ -843,7 +849,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Smallest and Largest",
     aDesc: "Write `min_max(numbers)` that returns a tuple `(smallest, largest)`.",
     aStarter: lines("def min_max(numbers):", "    # return (min(numbers), max(numbers))", "    pass"),
-    aHint: "return (min(numbers), max(numbers))",
+    aHint: lines("def min_max(numbers):", "    return (min(numbers), max(numbers))"),
     aTest: lines(
       "_fn = globals().get('min_max')",
       "_r1 = _fn([40, 10, 90]) if callable(_fn) else None",
@@ -863,7 +869,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Show Money",
     eDesc: "Write `money(amount)` that returns text like `'Rs 1250.50'`, always with 2 decimal places.",
     eStarter: lines("def money(amount):", "    # f'Rs {amount:.2f}'", "    pass"),
-    eHint: "return f'Rs {amount:.2f}'",
+    eHint: lines("def money(amount):", "    return f'Rs {amount:.2f}'"),
     eTest: lines(
       "_fn = globals().get('money')",
       "_v1 = _fn(1250.5) if callable(_fn) else None",
@@ -877,7 +883,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Receipt Line",
     aDesc: "Write `receipt_line(item, amount)` that returns the item padded to 10 characters on the left, then the amount right-aligned in 8 characters with 2 decimals. Example: `receipt_line('Tea', 20)` returns `'Tea          20.00'`.",
     aStarter: lines("def receipt_line(item, amount):", "    # f'{item:<10}{amount:>8.2f}'", "    pass"),
-    aHint: "return f'{item:<10}{amount:>8.2f}'",
+    aHint: lines("def receipt_line(item, amount):", "    return f'{item:<10}{amount:>8.2f}'"),
     aTest: lines(
       "_fn = globals().get('receipt_line')",
       "_r1 = _fn('Tea', 20) if callable(_fn) else None",
@@ -900,7 +906,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Safe Number",
     eDesc: "Write `safe_int(text)` that returns the text as a whole number, or 0 if it is not a valid number.",
     eStarter: lines("def safe_int(text):", "    try:", "        # convert with int() and return it", "        pass", "    except ValueError:", "        # return 0 when text is not a valid number", "        pass"),
-    eHint: "try: return int(text) / except ValueError: return 0",
+    eHint: lines("def safe_int(text):", "    try:", "        return int(text)", "    except ValueError:", "        return 0"),
     eTest: lines(
       "_fn = globals().get('safe_int')",
       "_v1 = None; _v2 = None; _v3 = None; _val_err = False",
@@ -921,7 +927,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Safe Divide",
     aDesc: "Write `safe_divide(a, b)` that returns `a / b`, or `None` when `b` is 0.",
     aStarter: lines("def safe_divide(a, b):", "    # try returning a / b, and return None on ZeroDivisionError", "    pass"),
-    aHint: "try: return a / b / except ZeroDivisionError: return None",
+    aHint: lines("def safe_divide(a, b):", "    try:", "        return a / b", "    except ZeroDivisionError:", "        return None"),
     aTest: lines(
       "_fn = globals().get('safe_divide')",
       "_v1 = None; _v2 = 'UNSET'; _z_err = False",
@@ -950,7 +956,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Circle Area",
     eDesc: "Write `circle_area(r)` that returns the area of a circle (pi times r squared), rounded to 2 decimal places, using the math module.",
     eStarter: lines("import math", "", "def circle_area(r):", "    # round(math.pi * r * r, 2)", "    pass"),
-    eHint: "return round(math.pi * r * r, 2)",
+    eHint: lines("import math", "", "def circle_area(r):", "    return round(math.pi * r * r, 2)"),
     eTest: lines(
       "_fn = globals().get('circle_area')",
       "_v1 = _fn(1) if callable(_fn) else None",
@@ -962,7 +968,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Days Between Dates",
     aDesc: "Write `days_between(start, end)` where both are dates as text like `'2026-09-01'`. Return how many days are between them.",
     aStarter: lines("from datetime import date", "", "def days_between(start, end):", "    # (date.fromisoformat(end) - date.fromisoformat(start)).days", "    pass"),
-    aHint: "return (date.fromisoformat(end) - date.fromisoformat(start)).days",
+    aHint: lines("from datetime import date", "", "def days_between(start, end):", "    return (date.fromisoformat(end) - date.fromisoformat(start)).days"),
     aTest: lines(
       "_fn = globals().get('days_between')",
       "_v1 = _fn('2026-09-01', '2026-09-28') if callable(_fn) else None",

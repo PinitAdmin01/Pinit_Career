@@ -2,88 +2,135 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 12,
-  "promptSha": "50d1f890e385c24412ecd52bb94c762b5b5085571ca8e38c163955db76175dcc",
-  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "Tuples: fixed groups of values",
       "codeHash": "eb3292009e2fc77de151ea4b1cef8b2908ba8374692c2f8e08d12a3fca9177d3",
       "spec": {
-        "template": "table",
-        "title": "Tuples: fixed groups of values",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Tuples as fixed groups",
+        "boxes": [
+          {
+            "id": "bengaluru",
+            "label": "bengaluru"
+          },
+          {
+            "id": "birthday",
+            "label": "birthday"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tuple concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Tuples"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A tuple is written with round brackets around fixed values.",
+            "values": {
+              "bengaluru": {
+                "text": "(12.97, 77.59)"
+              },
+              "birthday": {
+                "text": "(15, 8, 2004)"
               }
-            ]
+            },
+            "tones": {
+              "bengaluru": "data",
+              "birthday": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The tuples logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Each position has a fixed meaning that stays unchanged.",
+            "values": {
+              "bengaluru": {
+                "text": "(12.97, 77.59)"
+              },
+              "birthday": {
+                "out": 5
               }
-            ]
+            },
+            "tones": {
+              "bengaluru": "ok",
+              "birthday": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing item zero raises TypeError because tuples cannot change.",
+            "values": {
+              "bengaluru": {
+                "text": "bengaluru[0] = 13"
+              },
+              "birthday": {
+                "text": "TypeError"
+              }
+            },
+            "tones": {
+              "bengaluru": "error",
+              "birthday": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tuples: fixed groups of values",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Tuples as fixed groups",
+        "boxes": [
+          {
+            "id": "bengaluru",
+            "label": "bengaluru"
+          },
+          {
+            "id": "birthday",
+            "label": "birthday"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tuple concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Tuples",
-                  "fixed"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A tuple is written with round brackets around fixed values.",
+            "values": {
+              "bengaluru": "(12.97, 77.59)",
+              "birthday": "(15, 8, 2004)"
+            },
+            "tones": {
+              "bengaluru": "data",
+              "birthday": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The tuples logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "groups",
-                  "values"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Each position has a fixed meaning that stays unchanged.",
+            "values": {
+              "bengaluru": "(12.97, 77.59)",
+              "birthday": "<class 'tuple'>"
+            },
+            "tones": {
+              "bengaluru": "ok",
+              "birthday": "ok"
+            },
+            "checks": [
+              "12.97",
+              "77.59",
+              "2",
+              "(15, 8, 2004)",
+              "<class 'tuple'>"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing item zero raises TypeError because tuples cannot change.",
+            "values": {
+              "bengaluru": "bengaluru[0] = 13",
+              "birthday": "TypeError: tuple does not support item assignment"
+            },
+            "tones": {
+              "bengaluru": "error",
+              "birthday": "error"
+            },
+            "whatIf": "bengaluru = (12.97, 77.59)\nprint(bengaluru[0])\nprint(bengaluru[1])\nprint(len(bengaluru))\nbirthday = (15, 8, 2004)\nprint(birthday)\nprint(type(birthday))\nbengaluru[0] = 13",
+            "checks": [
+              "12.97",
+              "<class 'tuple'>",
+              "TypeError"
             ]
           }
         ]
@@ -94,23 +141,23 @@
       "codeHash": "7f449a023c6f80036d676b6d8edec4d384497d1951eec9256c72e39c523d8607",
       "spec": {
         "template": "table",
-        "title": "Unpacking and returning several values",
+        "title": "Unpacking tuple values",
         "columns": [
-          "Stage",
-          "Concept"
+          "Statement",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The unpacking concept establishes the core structural baseline.",
+            "caption": "Unpacking puts each tuple value into separate variables.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Unpacking"
+                    "text": "lat, lng = location"
                   },
                   {
-                    "text": "and"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -119,15 +166,54 @@
           },
           {
             "at": "say3",
-            "caption": "The tuples logic drives deterministic execution.",
+            "caption": "A function can return a tuple to unpack into low and high.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "returning"
+                    "text": "lat, lng = location"
                   },
                   {
-                    "text": "several"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "min_max([45, 20, 300, 120])"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "a, b = b, a"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Printing min_max without unpacking shows the returned tuple.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "min_max([5, 9, 1])"
+                  },
+                  {
+                    "text": "(1, 9)"
                   }
                 ],
                 "tone": "ok"
@@ -138,20 +224,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "Unpacking and returning several values",
+        "title": "Unpacking tuple values",
         "columns": [
-          "Stage",
-          "Concept"
+          "Statement",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The unpacking concept establishes the core structural baseline.",
+            "caption": "Unpacking puts each tuple value into separate variables.",
             "rows": [
               {
                 "cells": [
-                  "Unpacking",
-                  "and"
+                  "lat, lng = location",
+                  "Latitude: 12.97 (lng=77.59)"
                 ],
                 "tone": "data"
               }
@@ -159,15 +245,54 @@
           },
           {
             "at": "say3",
-            "caption": "The tuples logic drives deterministic execution.",
+            "caption": "A function can return a tuple to unpack into low and high.",
             "rows": [
               {
                 "cells": [
-                  "returning",
-                  "several"
+                  "lat, lng = location",
+                  "Latitude: 12.97"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "low, high = min_max([45, 20, 300, 120])",
+                  "20 300"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "a, b = b, a",
+                  "2 1"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Latitude: 12.97",
+              "20 300",
+              "2 1"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Printing min_max without unpacking shows the returned tuple.",
+            "rows": [
+              {
+                "cells": [
+                  "print(min_max([5, 9, 1]))",
+                  "(1, 9)"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "location = (12.97, 77.59)\nlat, lng = location\nprint(\"Latitude:\", lat)\n\ndef min_max(numbers):\n    return min(numbers), max(numbers)\n\nlow, high = min_max([45, 20, 300, 120])\nprint(low, high)\na, b = 1, 2\na, b = b, a\nprint(a, b)\nprint(min_max([5, 9, 1]))",
+            "checks": [
+              "Latitude: 12.97",
+              "20 300",
+              "2 1",
+              "(1, 9)"
             ]
           }
         ]
@@ -178,23 +303,23 @@
       "codeHash": "589446a9098789d384e7358a09e5162a00534b033158ff7d1c08ec2a4ac9d88c",
       "spec": {
         "template": "table",
-        "title": "Sets: only unique values",
+        "title": "Unique values in a set",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The group concept establishes the core structural baseline.",
+            "caption": "A set keeps each unique value only once.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Sets"
+                    "text": "len(unique)"
                   },
                   {
-                    "text": "only"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -202,16 +327,55 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sets logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Turning categories into a set removes duplicates.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "unique"
+                    "text": "len(unique)"
                   },
                   {
-                    "text": "values"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted(unique)"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted(tags)"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Counting distinct letters in mississippi with set gives four.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "len(set(\"mississippi\"))"
+                  },
+                  {
+                    "text": "4"
                   }
                 ],
                 "tone": "ok"
@@ -222,36 +386,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "Sets: only unique values",
+        "title": "Unique values in a set",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The group concept establishes the core structural baseline.",
+            "caption": "A set keeps each unique value only once.",
             "rows": [
               {
                 "cells": [
-                  "Sets",
-                  "only"
+                  "len(unique)",
+                  "3"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sets logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Turning categories into a set removes duplicates.",
             "rows": [
               {
                 "cells": [
-                  "unique",
-                  "values"
+                  "len(unique)",
+                  "3"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "sorted(unique)",
+                  "['food', 'rent', 'travel']"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "sorted(tags)",
+                  "['urgent', 'work']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "3",
+              "['food', 'rent', 'travel']",
+              "['urgent', 'work']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Counting distinct letters in mississippi with set gives four.",
+            "rows": [
+              {
+                "cells": [
+                  "len(set(\"mississippi\"))",
+                  "4"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "categories = [\"food\", \"travel\", \"food\", \"rent\", \"food\"]\nunique = set(categories)\nprint(len(unique))\nprint(sorted(unique))\ntags = set()\ntags.add(\"urgent\")\ntags.add(\"urgent\")\ntags.add(\"work\")\nprint(sorted(tags))\nprint(len(set(\"mississippi\")))",
+            "checks": [
+              "3",
+              "['food', 'rent', 'travel']",
+              "['urgent', 'work']",
+              "4"
             ]
           }
         ]
@@ -262,23 +465,34 @@
       "codeHash": "a3ae4fc2b76d845e40ba9025a6536bc3c927ec170b0d90bfb1eaf2a891298c3e",
       "spec": {
         "template": "table",
-        "title": "Checking membership quickly",
+        "title": "Set membership and operators",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check / Operator",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The word concept establishes the core structural baseline.",
+            "caption": "A set checks values with in and answers almost instantly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Checking"
+                    "text": "\"ravi\" in taken"
                   },
                   {
-                    "text": "membership"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"neha\" in taken"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "data"
@@ -287,15 +501,54 @@
           },
           {
             "at": "say3",
-            "caption": "The sets logic drives deterministic execution.",
+            "caption": "Set operators compare groups to find shared or different values.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "quickly"
+                    "text": "this_month & last_month"
                   },
                   {
-                    "text": "membership"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "this_month - last_month"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "last_month - this_month"
+                  },
+                  {
+                    "out": 5
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using | combines all five categories from both months.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sorted(this_month | last_month)"
+                  },
+                  {
+                    "text": "this_month | last_month"
                   }
                 ],
                 "tone": "ok"
@@ -306,20 +559,27 @@
       },
       "filled": {
         "template": "table",
-        "title": "Checking membership quickly",
+        "title": "Set membership and operators",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check / Operator",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The word concept establishes the core structural baseline.",
+            "caption": "A set checks values with in and answers almost instantly.",
             "rows": [
               {
                 "cells": [
-                  "Checking",
-                  "membership"
+                  "\"ravi\" in taken",
+                  "True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"neha\" in taken",
+                  "False"
                 ],
                 "tone": "data"
               }
@@ -327,15 +587,58 @@
           },
           {
             "at": "say3",
-            "caption": "The sets logic drives deterministic execution.",
+            "caption": "Set operators compare groups to find shared or different values.",
             "rows": [
               {
                 "cells": [
-                  "quickly",
-                  "membership"
+                  "sorted(this_month & last_month)",
+                  "['food', 'rent']"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "sorted(this_month - last_month)",
+                  "['movies', 'travel']"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "sorted(last_month - this_month)",
+                  "['gym']"
+                ],
+                "tone": "data"
+              }
+            ],
+            "checks": [
+              "True",
+              "False",
+              "['food', 'rent']",
+              "['movies', 'travel']",
+              "['gym']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using | combines all five categories from both months.",
+            "rows": [
+              {
+                "cells": [
+                  "sorted(this_month | last_month)",
+                  "['food', 'gym', 'movies', 'rent', 'travel']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "taken = {\"asha\", \"ravi\", \"priya\"}\nprint(\"ravi\" in taken)\nprint(\"neha\" in taken)\nthis_month = {\"food\", \"travel\", \"rent\", \"movies\"}\nlast_month = {\"food\", \"rent\", \"gym\"}\nprint(sorted(this_month & last_month))\nprint(sorted(this_month - last_month))\nprint(sorted(last_month - this_month))\nprint(sorted(this_month | last_month))",
+            "checks": [
+              "True",
+              "False",
+              "['food', 'rent']",
+              "['movies', 'travel']",
+              "['gym']",
+              "['food', 'gym', 'movies', 'rent', 'travel']"
             ]
           }
         ]
@@ -346,23 +649,23 @@
       "codeHash": "fa53c6bcf13025aec9c68b4bebfdfc01338c9e338c74030c7bde36081dae58d2",
       "spec": {
         "template": "table",
-        "title": "Choosing the right container",
+        "title": "Combining tuples, sets and dicts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Result",
+          "Value"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The know concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Use tuples when each fixed group has ordered positions.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Choosing"
+                    "text": "sorted(categories)"
                   },
                   {
-                    "text": "the"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -370,16 +673,44 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The care logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "setdefault builds a dictionary of item lists per category.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "right"
+                    "text": "sorted(categories)"
                   },
                   {
-                    "text": "container"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "by_category"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Metro appends it to the travel list inside by_category.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "(\"Metro\", 30, \"travel\")"
+                  },
+                  {
+                    "text": "travel"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +721,65 @@
       },
       "filled": {
         "template": "table",
-        "title": "Choosing the right container",
+        "title": "Combining tuples, sets and dicts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Result",
+          "Value"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The know concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Use tuples when each fixed group has ordered positions.",
             "rows": [
               {
                 "cells": [
-                  "Choosing",
-                  "the"
+                  "sorted(categories)",
+                  "['food', 'travel']"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The care logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "setdefault builds a dictionary of item lists per category.",
             "rows": [
               {
                 "cells": [
-                  "right",
-                  "container"
+                  "sorted(categories)",
+                  "['food', 'travel']"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "by_category",
+                  "{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "['food', 'travel']",
+              "{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Metro appends it to the travel list inside by_category.",
+            "rows": [
+              {
+                "cells": [
+                  "Add (\"Metro\", 30, \"travel\")",
+                  "{'food': ['Tea', 'Lunch'], 'travel': ['Bus', 'Metro']}"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "expenses = [(\"Tea\", 20, \"food\"), (\"Bus\", 45, \"travel\"), (\"Lunch\", 120, \"food\"), (\"Metro\", 30, \"travel\")]\ncategories = {category for _, _, category in expenses}\nby_category = {}\nfor item, amount, category in expenses:\n    by_category.setdefault(category, []).append(item)\nprint(sorted(categories))\nprint(by_category)",
+            "checks": [
+              "['food', 'travel']",
+              "{'food': ['Tea', 'Lunch'], 'travel': ['Bus', 'Metro']}"
             ]
           }
         ]
@@ -430,32 +790,15 @@
       "codeHash": "14271e14036d08a7d837c5114f3210ca9b9e8e64aae1e2f7194ffdb94f4a23bd",
       "spec": {
         "template": "table",
-        "title": "Putting it together: categories and ranges",
+        "title": "Unique categories and range report",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Putting"
-                  },
-                  {
-                    "text": "together"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The level logic drives deterministic execution.",
+            "caption": "A set finds unique categories and a tuple returns amount range.",
             "rows": [
               {
                 "cells": [
@@ -463,10 +806,77 @@
                     "text": "categories"
                   },
                   {
-                    "text": "and"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "amount_range(expenses)"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Each container stores records, unique values, or a pair cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "categories"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "amount_range(expenses)"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted(set(categories) - known)"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding health to known makes the new categories list empty.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "known"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -474,36 +884,81 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: categories and ranges",
+        "title": "Unique categories and range report",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Putting",
-                  "together"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The level logic drives deterministic execution.",
+            "caption": "A set finds unique categories and a tuple returns amount range.",
             "rows": [
               {
                 "cells": [
                   "categories",
-                  "and"
+                  "['food', 'health', 'travel']"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "low, high = amount_range(expenses)",
+                  "From 20 to 900"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Each container stores records, unique values, or a pair cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  "categories",
+                  "['food', 'health', 'travel']"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "low, high = amount_range(expenses)",
+                  "From 20 to 900"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "sorted(set(categories) - known)",
+                  "New categories: ['health']"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "checks": [
+              "['food', 'health', 'travel']",
+              "From 20 to 900",
+              "New categories: ['health']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding health to known makes the new categories list empty.",
+            "rows": [
+              {
+                "cells": [
+                  "Add \"health\" to known",
+                  "New categories: []"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "expenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"},\n    {\"item\": \"Lunch\", \"amount\": 120, \"category\": \"food\"},\n    {\"item\": \"Gym\", \"amount\": 900, \"category\": \"health\"},\n]\ncategories = sorted({e[\"category\"] for e in expenses})\nprint(categories)\ndef amount_range(records):\n    amounts = [e[\"amount\"] for e in records]\n    return min(amounts), max(amounts)\nlow, high = amount_range(expenses)\nprint(\"From\", low, \"to\", high)\nknown = {\"food\", \"travel\", \"rent\", \"health\"}\nprint(\"New categories:\", sorted(set(categories) - known))",
+            "checks": [
+              "['food', 'health', 'travel']",
+              "From 20 to 900",
+              "New categories: []"
             ]
           }
         ]

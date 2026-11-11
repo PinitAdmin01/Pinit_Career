@@ -2,48 +2,85 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 13,
-  "promptSha": "768f8e40cd21c159c90e6dab199c6c494b6e8218b4823caf83257a041f975d0b",
-  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What an f-string is",
       "codeHash": "3cf49e8079e5a4b69a05961d4447fcd663a99a1a6d2f3c8b7d0cf6cfd613ae74",
       "spec": {
         "template": "table",
-        "title": "What an f-string is",
+        "title": "Building text with f-strings",
         "columns": [
-          "Stage",
-          "Concept"
+          "Code",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The until concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Put the letter f before the quote so Python replaces {amount}.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "\"Old way: \" + item + \" costs \" + str(amount)"
                   },
                   {
-                    "text": "string"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"New way: {item} costs {amount}\""
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The stands logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "If you forget the f, Python prints the curly brackets as text.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "f\"New way: {item} costs {amount}\""
                   },
                   {
-                    "text": "string"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"Forgot the f: {item}\""
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding city into the f-string prints Tea in Pune costs 20.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "f\"{item} in {city} costs {amount}\""
+                  },
+                  {
+                    "text": "Pune"
                   }
                 ],
                 "tone": "ok"
@@ -54,36 +91,74 @@
       },
       "filled": {
         "template": "table",
-        "title": "What an f-string is",
+        "title": "Building text with f-strings",
         "columns": [
-          "Stage",
-          "Concept"
+          "Code",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The until concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Put the letter f before the quote so Python replaces {amount}.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "string"
+                  "\"Old way: \" + item + \" costs \" + str(amount)",
+                  "Old way: Tea costs 20"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"New way: {item} costs {amount}\"",
+                  "New way: Tea costs 20"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The stands logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "If you forget the f, Python prints the curly brackets as text.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "string"
+                  "f\"New way: {item} costs {amount}\"",
+                  "New way: Tea costs 20"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"Forgot the f: {item}\"",
+                  "Forgot the f: {item}"
+                ],
+                "tone": "error"
+              }
+            ],
+            "checks": [
+              "Old way: Tea costs 20",
+              "New way: Tea costs 20",
+              "Forgot the f: {item}"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding city into the f-string prints Tea in Pune costs 20.",
+            "rows": [
+              {
+                "cells": [
+                  "f\"{item} in {city} costs {amount}\"",
+                  "Tea in Pune costs 20"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "item = \"Tea\"\namount = 20\nprint(\"Old way: \" + item + \" costs \" + str(amount))\nprint(f\"New way: {item} costs {amount}\")\nprint(\"Forgot the f: {item}\")\ncity = \"Pune\"\nprint(f\"{item} in {city} costs {amount}\")",
+            "checks": [
+              "Old way: Tea costs 20",
+              "New way: Tea costs 20",
+              "Tea in Pune costs 20"
             ]
           }
         ]
@@ -94,23 +169,62 @@
       "codeHash": "6ae6ffdc89154348dd8b9c70632f05d2ad5076143c496a6a801758c7e9b4b5ab",
       "spec": {
         "template": "table",
-        "title": "Expressions inside the brackets",
+        "title": "Expressions inside f-string brackets",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The variable concept establishes the core structural baseline.",
+            "caption": "Maths expressions and method calls work inside the curly brackets.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Expressions"
+                    "text": "f\"{quantity} x {name.title()} = {price * quantity}\""
                   },
                   {
-                    "text": "inside"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "A conditional expression chooses a label inside the f-string.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "f\"{quantity} x {name.title()} = {price * quantity}\""
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"{expense['item']} cost {expense['amount']}\""
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"Status: {'paid' if paid else 'pending'}\""
+                  },
+                  {
+                    "out": 3
                   }
                 ],
                 "tone": "data"
@@ -118,16 +232,16 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Changing paid to True updates the printed status to paid.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "the"
+                    "text": "True"
                   },
                   {
-                    "text": "brackets"
+                    "text": "paid"
                   }
                 ],
                 "tone": "ok"
@@ -138,36 +252,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "Expressions inside the brackets",
+        "title": "Expressions inside f-string brackets",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The variable concept establishes the core structural baseline.",
+            "caption": "Maths expressions and method calls work inside the curly brackets.",
             "rows": [
               {
                 "cells": [
-                  "Expressions",
-                  "inside"
+                  "f\"{quantity} x {name.title()} = {price * quantity}\"",
+                  "3 x Masala Chai = 60"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "A conditional expression chooses a label inside the f-string.",
             "rows": [
               {
                 "cells": [
-                  "the",
-                  "brackets"
+                  "f\"{quantity} x {name.title()} = {price * quantity}\"",
+                  "3 x Masala Chai = 60"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"{expense['item']} cost {expense['amount']}\"",
+                  "Bus cost 45"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "f\"Status: {'paid' if paid else 'pending'}\"",
+                  "Status: pending"
+                ],
+                "tone": "data"
+              }
+            ],
+            "checks": [
+              "3 x Masala Chai = 60",
+              "Bus cost 45",
+              "Status: pending"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing paid to True updates the printed status to paid.",
+            "rows": [
+              {
+                "cells": [
+                  "paid = True",
+                  "Status: paid"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "price = 20\nquantity = 3\nname = \"masala chai\"\nexpense = {\"item\": \"Bus\", \"amount\": 45}\npaid = True\nprint(f\"{quantity} x {name.title()} = {price * quantity}\")\nprint(f\"{expense['item']} cost {expense['amount']}\")\nprint(f\"Status: {'paid' if paid else 'pending'}\")",
+            "checks": [
+              "3 x Masala Chai = 60",
+              "Bus cost 45",
+              "Status: paid"
+            ],
+            "mustNotShow": [
+              "Status: pending"
             ]
           }
         ]
@@ -178,40 +333,101 @@
       "codeHash": "1afe8725e68bb97c6230a8243dd31355faa681d8be609fe5ee2234d0fbfba16b",
       "spec": {
         "template": "table",
-        "title": "Formatting numbers: decimals and commas",
+        "title": "Formatting decimals, commas, percentages",
         "columns": [
-          "Stage",
-          "Concept"
+          "Format Code",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The strings concept establishes the core structural baseline.",
+            "caption": "Adding :.2f formats money with two decimal places.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Formatting"
+                    "text": "f\"Rs {amount:.2f}\""
                   },
                   {
-                    "text": "numbers"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"Rs {20:.2f}\""
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The adds logic drives deterministic execution.",
+            "caption": "Commas add thousands separators and combine with decimals.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "decimals"
+                    "text": "f\"Rs {salary:,}\""
                   },
                   {
-                    "text": "and"
+                    "out": 3
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"Rs {salary:,.2f}\""
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"Budget used: {used:.1%}\""
+                  },
+                  {
+                    "out": 5
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Print both formats to show rounded decimal 0.333 cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "f\"{1/3:.3f}\""
+                  },
+                  {
+                    "text": "0.333"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"{1/3:.0%}\""
+                  },
+                  {
+                    "text": "33%"
                   }
                 ],
                 "tone": "ok"
@@ -222,36 +438,90 @@
       },
       "filled": {
         "template": "table",
-        "title": "Formatting numbers: decimals and commas",
+        "title": "Formatting decimals, commas, percentages",
         "columns": [
-          "Stage",
-          "Concept"
+          "Format Code",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The strings concept establishes the core structural baseline.",
+            "caption": "Adding :.2f formats money with two decimal places.",
             "rows": [
               {
                 "cells": [
-                  "Formatting",
-                  "numbers"
+                  "f\"Rs {amount:.2f}\"",
+                  "Rs 99.50"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"Rs {20:.2f}\"",
+                  "Rs 20.00"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The adds logic drives deterministic execution.",
+            "caption": "Commas add thousands separators and combine with decimals.",
             "rows": [
               {
                 "cells": [
-                  "decimals",
-                  "and"
+                  "f\"Rs {salary:,}\"",
+                  "Rs 1,250,000"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"Rs {salary:,.2f}\"",
+                  "Rs 1,250,000.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "f\"Budget used: {used:.1%}\"",
+                  "Budget used: 96.3%"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Rs 99.50",
+              "Rs 20.00",
+              "Rs 1,250,000",
+              "Rs 1,250,000.00",
+              "Budget used: 96.3%"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Print both formats to show rounded decimal 0.333 cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  "f\"{1/3:.3f}\"",
+                  "0.333"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "f\"{1/3:.0%}\"",
+                  "33%"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "amount = 99.5\nprint(f\"Rs {amount:.2f}\")\nprint(f\"Rs {20:.2f}\")\nsalary = 1250000\nprint(f\"Rs {salary:,}\")\nprint(f\"Rs {salary:,.2f}\")\nused = 4815 / 5000\nprint(f\"Budget used: {used:.1%}\")\nprint(f\"{1/3:.3f}\")\nprint(f\"{1/3:.0%}\")",
+            "checks": [
+              "Rs 99.50",
+              "0.333",
+              "33%"
             ]
           }
         ]
@@ -262,40 +532,112 @@
       "codeHash": "85839250a8aba1757bd3daf2e5a81f462f83e1437cb2d6dd2aef4f99dd581d78",
       "spec": {
         "template": "table",
-        "title": "Lining up columns",
+        "title": "Padding and aligning columns",
         "columns": [
-          "Stage",
-          "Concept"
+          "Format",
+          "Aligned Text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The neat concept establishes the core structural baseline.",
+            "caption": "Left, right, and centre widths pad text with spaces.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Lining"
+                    "text": "f\"[{'Tea':<10}]\""
                   },
                   {
-                    "text": "columns"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"[{45:>8}]\""
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"[{'Menu':^10}]\""
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The combine logic drives deterministic execution.",
+            "caption": "Combine width and decimals so numbers stay right-aligned.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Lining"
+                    "text": "f\"{'Tea':<10}{20:>8.2f}\""
                   },
                   {
-                    "text": "columns"
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"{'Lunch':<10}{120.5:>8.2f}\""
+                  },
+                  {
+                    "out": 5
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "f\"{'Rent':<10}{8000:>8.2f}\""
+                  },
+                  {
+                    "out": 6
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increasing width moves amounts right while staying lined up.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "14"
+                  },
+                  {
+                    "text": "Tea"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "14"
+                  },
+                  {
+                    "text": "Lunch"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +648,98 @@
       },
       "filled": {
         "template": "table",
-        "title": "Lining up columns",
+        "title": "Padding and aligning columns",
         "columns": [
-          "Stage",
-          "Concept"
+          "Format",
+          "Aligned Text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The neat concept establishes the core structural baseline.",
+            "caption": "Left, right, and centre widths pad text with spaces.",
             "rows": [
               {
                 "cells": [
-                  "Lining",
-                  "columns"
+                  "f\"[{'Tea':<10}]\"",
+                  "[Tea       ]"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"[{45:>8}]\"",
+                  "[      45]"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"[{'Menu':^10}]\"",
+                  "[   Menu   ]"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The combine logic drives deterministic execution.",
+            "caption": "Combine width and decimals so numbers stay right-aligned.",
             "rows": [
               {
                 "cells": [
-                  "Lining",
-                  "columns"
+                  "f\"{'Tea':<10}{20:>8.2f}\"",
+                  "Tea          20.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "f\"{'Lunch':<10}{120.5:>8.2f}\"",
+                  "Lunch       120.50"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "f\"{'Rent':<10}{8000:>8.2f}\"",
+                  "Rent       8000.00"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "[Tea       ]",
+              "[      45]",
+              "[   Menu   ]",
+              "Tea          20.00",
+              "Lunch       120.50",
+              "Rent       8000.00"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increasing width moves amounts right while staying lined up.",
+            "rows": [
+              {
+                "cells": [
+                  "f\"{'Tea':<14}{20:>8.2f}\"",
+                  "Tea              20.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "f\"{'Lunch':<14}{120.5:>8.2f}\"",
+                  "Lunch           120.50"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "print(f\"[{'Tea':<10}]\")\nprint(f\"[{45:>8}]\")\nprint(f\"[{'Menu':^10}]\")\nprint(f\"{'Tea':<14}{20:>8.2f}\")\nprint(f\"{'Lunch':<14}{120.5:>8.2f}\")\nprint(f\"{'Rent':<14}{8000:>8.2f}\")",
+            "checks": [
+              "Tea              20.00",
+              "Lunch           120.50",
+              "Rent           8000.00"
             ]
           }
         ]
@@ -346,40 +750,68 @@
       "codeHash": "5f038a4ba28ade6ba9f5437545dc56053ba5148f8f2ad0870841f81e7fa09d03",
       "spec": {
         "template": "table",
-        "title": "Multi-line text and join",
+        "title": "Joining strings and multi-line reports",
         "columns": [
-          "Stage",
-          "Concept"
+          "Join Expression",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The longer concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "join connects a list of strings with a chosen separator.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Multi"
+                    "text": "\", \".join(names)"
                   },
                   {
-                    "text": "line"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The join logic drives deterministic execution.",
+            "caption": "Numbers become strings first before join combines them.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "text"
+                    "text": "\" + \".join(str(a) for a in amounts)"
                   },
                   {
-                    "text": "and"
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"\\n\".join(report)"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending the sum shows the total after the amounts.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sum(amounts)"
+                  },
+                  {
+                    "text": "185"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +822,69 @@
       },
       "filled": {
         "template": "table",
-        "title": "Multi-line text and join",
+        "title": "Joining strings and multi-line reports",
         "columns": [
-          "Stage",
-          "Concept"
+          "Join Expression",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The longer concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "join connects a list of strings with a chosen separator.",
             "rows": [
               {
                 "cells": [
-                  "Multi",
-                  "line"
+                  "\", \".join(names)",
+                  "Tea, Bus, Lunch"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The join logic drives deterministic execution.",
+            "caption": "Numbers become strings first before join combines them.",
             "rows": [
               {
                 "cells": [
-                  "text",
-                  "and"
+                  "\" + \".join(str(a) for a in amounts)",
+                  "20 + 45 + 120"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "\"\\n\".join(report)",
+                  "Report\\n------\\nItems: 3"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Tea, Bus, Lunch",
+              "20 + 45 + 120",
+              "Report",
+              "------",
+              "Items: 3"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Appending the sum shows the total after the amounts.",
+            "rows": [
+              {
+                "cells": [
+                  "\" + \".join(...) + f\" = {sum(amounts)}\"",
+                  "20 + 45 + 120 = 185"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "names = [\"Tea\", \"Bus\", \"Lunch\"]\nprint(\", \".join(names))\namounts = [20, 45, 120]\nprint(\" + \".join(str(a) for a in amounts) + f\" = {sum(amounts)}\")\nreport = [\"Report\", \"------\", f\"Items: {len(names)}\"]\nprint(\"\\n\".join(report))",
+            "checks": [
+              "Tea, Bus, Lunch",
+              "20 + 45 + 120 = 185",
+              "Items: 3"
             ]
           }
         ]
@@ -430,40 +895,90 @@
       "codeHash": "0078945c74dad9b9e5c45b7ef15bdf264977c0b3db2b97b9f2b400953397b84d",
       "spec": {
         "template": "table",
-        "title": "Putting it together: a printed receipt",
+        "title": "Building a formatted receipt",
         "columns": [
-          "Stage",
-          "Concept"
+          "Receipt Part",
+          "Printed Line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The receipt builds a centred title, dashes, items, and total.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "receipt_line(e[\"item\"], e[\"amount\"])"
                   },
                   {
-                    "text": "together"
+                    "out": 3
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "receipt_line(e[\"item\"], e[\"amount\"])"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "receipt_line(\"TOTAL\", total)"
+                  },
+                  {
+                    "out": 7
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "receipt returns the joined string cleanly instead of printing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "printed"
+                    "text": "receipt(data)"
                   },
                   {
-                    "text": "receipt"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "receipt_line(\"TOTAL\", total)"
+                  },
+                  {
+                    "out": 7
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a fourth expense updates the total and columns automatically.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "data"
+                  },
+                  {
+                    "text": "receipt(data)"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +989,81 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: a printed receipt",
+        "title": "Building a formatted receipt",
         "columns": [
-          "Stage",
-          "Concept"
+          "Receipt Part",
+          "Printed Line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The receipt builds a centred title, dashes, items, and total.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "Tea line",
+                  "Tea             20.00"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Lunch line",
+                  "Lunch          120.50"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "TOTAL line",
+                  "TOTAL         8140.50"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "receipt returns the joined string cleanly instead of printing.",
             "rows": [
               {
                 "cells": [
-                  "printed",
-                  "receipt"
+                  "Title",
+                  "     MY EXPENSES     "
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "TOTAL line",
+                  "TOTAL         8140.50"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Tea             20.00",
+              "Lunch          120.50",
+              "Rent          8000.00",
+              "TOTAL         8140.50"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a fourth expense updates the total and columns automatically.",
+            "rows": [
+              {
+                "cells": [
+                  "Add {\"item\": \"Bus\", \"amount\": 45}",
+                  "TOTAL         8185.50"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "def receipt_line(item, amount):\n    return f\"{item:<12}{amount:>9.2f}\"\n\ndef receipt(expenses):\n    lines = [f\"{'MY EXPENSES':^21}\", \"-\" * 21]\n    for e in expenses:\n        lines.append(receipt_line(e[\"item\"], e[\"amount\"]))\n    lines.append(\"-\" * 21)\n    total = sum(e[\"amount\"] for e in expenses)\n    lines.append(receipt_line(\"TOTAL\", total))\n    return \"\\n\".join(lines)\n\ndata = [{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Lunch\", \"amount\": 120.5}, {\"item\": \"Rent\", \"amount\": 8000}, {\"item\": \"Bus\", \"amount\": 45}]\nprint(receipt(data))",
+            "checks": [
+              "Bus             45.00",
+              "TOTAL         8185.50"
             ]
           }
         ]

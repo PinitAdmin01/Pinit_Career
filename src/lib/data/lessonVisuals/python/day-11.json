@@ -2,88 +2,138 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 11,
-  "promptSha": "a652781e67a6beedba04f60b209bda0cfeeee6869e0331891f7ef1096cb87584",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "The shape of real data",
       "codeHash": "5322b7e62f9552fb6366402f82eb6806c06cc073cef8323b97158b6bfc870496",
       "spec": {
-        "template": "table",
-        "title": "The shape of real data",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Lists of dictionary records",
+        "boxes": [
+          {
+            "id": "expenses",
+            "label": "expenses"
+          },
+          {
+            "id": "record",
+            "label": "record"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The yesterday concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "shape"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Each dictionary is one record in the list.",
+            "values": {
+              "expenses": {
+                "var": "expenses",
+                "line": 6
+              },
+              "record": {
+                "text": "{\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}"
               }
-            ]
+            },
+            "tones": {
+              "expenses": "data",
+              "record": "ok"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The later logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "real"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
-                "tone": "ok"
+            "at": "example",
+            "caption": "Pick a dictionary from the list stack and read its field label.",
+            "values": {
+              "expenses": {
+                "var": "expenses",
+                "line": 6
+              },
+              "record": {
+                "text": "Tea"
               }
-            ]
+            },
+            "tones": {
+              "expenses": "data",
+              "record": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a movie ticket dictionary appends another record at the end.",
+            "values": {
+              "expenses": {
+                "text": "len(expenses) is now 4"
+              },
+              "record": {
+                "text": "300"
+              }
+            },
+            "tones": {
+              "expenses": "data",
+              "record": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The shape of real data",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Lists of dictionary records",
+        "boxes": [
+          {
+            "id": "expenses",
+            "label": "expenses"
+          },
+          {
+            "id": "record",
+            "label": "record"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The yesterday concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "The",
-                  "shape"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Each dictionary is one record in the list.",
+            "values": {
+              "expenses": "[{'item': 'Tea', 'amount': 20, 'category': 'food'}, {'item': 'Bus', 'amount': 45, 'category': 'travel'}, {'item': 'Lunch', 'amount': 120, 'category': 'food'}]",
+              "record": "{\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}"
+            },
+            "tones": {
+              "expenses": "data",
+              "record": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Pick a dictionary from the list stack and read its field label.",
+            "values": {
+              "expenses": "[{'item': 'Tea', 'amount': 20, 'category': 'food'}, {'item': 'Bus', 'amount': 45, 'category': 'travel'}, {'item': 'Lunch', 'amount': 120, 'category': 'food'}]",
+              "record": "Tea"
+            },
+            "tones": {
+              "expenses": "data",
+              "record": "ok"
+            },
+            "checks": [
+              "3",
+              "{'item': 'Tea', 'amount': 20, 'category': 'food'}",
+              "Tea",
+              "120"
             ]
           },
           {
-            "at": "say3",
-            "caption": "The later logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "real",
-                  "data"
-                ],
-                "tone": "ok"
-              }
+            "at": "tryIt",
+            "caption": "Adding a movie ticket dictionary appends another record at the end.",
+            "values": {
+              "expenses": "len(expenses) == 4 (ends with Movie, 300, fun)",
+              "record": "300"
+            },
+            "tones": {
+              "expenses": "data",
+              "record": "ok"
+            },
+            "whatIf": "expenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"},\n    {\"item\": \"Lunch\", \"amount\": 120, \"category\": \"food\"},\n    {\"item\": \"Movie\", \"amount\": 300, \"category\": \"fun\"},\n]\nprint(len(expenses))\nprint(expenses[0])\nprint(expenses[0][\"item\"])\nprint(expenses[-1][\"amount\"])",
+            "checks": [
+              "4",
+              "Tea",
+              "300"
             ]
           }
         ]
@@ -93,81 +143,134 @@
       "partTitle": "Looping over records",
       "codeHash": "df2fdfa534187c134a4e31c70637b6c5411d5b5b002ae2c9f3dc106ca4ef60e7",
       "spec": {
-        "template": "table",
-        "title": "Looping over records",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Iterating over dictionary items",
+        "boxes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "expense",
+            "label": "expense"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The something concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Looping"
-                  },
-                  {
-                    "text": "over"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Loop over the list to hold one whole dictionary.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 6
+              },
+              "expense": {
+                "text": "expense in expenses"
               }
-            ]
+            },
+            "tones": {
+              "total": "data",
+              "expense": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The accumulator logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "over"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Add each amount to total inside the loop.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 12
+              },
+              "expense": {
+                "var": "expense",
+                "line": 12
               }
-            ]
+            },
+            "tones": {
+              "total": "data",
+              "expense": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Printing the first record shows False because 20 is not over 1000.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 12
+              },
+              "expense": {
+                "text": "\"big\": False"
+              }
+            },
+            "tones": {
+              "total": "data",
+              "expense": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Looping over records",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Iterating over dictionary items",
+        "boxes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "expense",
+            "label": "expense"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The something concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Looping",
-                  "over"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Loop over the list to hold one whole dictionary.",
+            "values": {
+              "total": "0",
+              "expense": "expense in expenses"
+            },
+            "tones": {
+              "total": "data",
+              "expense": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The accumulator logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "records",
-                  "over"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Add each amount to total inside the loop.",
+            "values": {
+              "total": "8140",
+              "expense": "{'item': 'Lunch', 'amount': 120, 'big': False}"
+            },
+            "tones": {
+              "total": "data",
+              "expense": "ok"
+            },
+            "checks": [
+              "Tea - 20",
+              "Rent - 8000",
+              "Lunch - 120",
+              "Total: 8140",
+              "{'item': 'Rent', 'amount': 8000, 'big': True}"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Printing the first record shows False because 20 is not over 1000.",
+            "values": {
+              "total": "8140",
+              "expense": "{'item': 'Tea', 'amount': 20, 'big': False}"
+            },
+            "tones": {
+              "total": "data",
+              "expense": "ok"
+            },
+            "whatIf": "expenses = [\n    {\"item\": \"Tea\", \"amount\": 20},\n    {\"item\": \"Rent\", \"amount\": 8000},\n    {\"item\": \"Lunch\", \"amount\": 120},\n]\ntotal = 0\nfor expense in expenses:\n    print(expense[\"item\"], \"-\", expense[\"amount\"])\n    total += expense[\"amount\"]\n    expense[\"big\"] = expense[\"amount\"] > 1000\nprint(\"Total:\", total)\nprint(expenses[1])\nprint(expenses[0])",
+            "checks": [
+              "Total: 8140",
+              "{'item': 'Rent', 'amount': 8000, 'big': True}",
+              "{'item': 'Tea', 'amount': 20, 'big': False}"
             ]
           }
         ]
@@ -178,40 +281,79 @@
       "codeHash": "94b90053858b470ffa8991b2ddbb52a6db32027385fcf272ea3b16e521060141",
       "spec": {
         "template": "table",
-        "title": "Totals and filters with comprehensions",
+        "title": "Totalling and filtering dictionary records",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The everything concept establishes the core structural baseline.",
+            "caption": "Comprehensions total all records or filter only food records in one line.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Totals"
+                    "text": "sum(e[\"amount\"] for e in expenses)"
                   },
                   {
-                    "text": "and"
+                    "out": 7
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "[e for e in expenses if e[\"category\"] == \"food\"]"
+                  },
+                  {
+                    "out": 9
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The pull logic drives deterministic execution.",
+            "caption": "Pulling out one field builds a plain list of item names.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "filters"
+                    "text": "sum(e[\"amount\"] for e in food)"
                   },
                   {
-                    "text": "with"
+                    "out": 10
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "[e[\"item\"] for e in expenses]"
+                  },
+                  {
+                    "out": 11
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering by travel keeps only Bus and Metro in the new list.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "[e[\"item\"] for e in expenses if e[\"category\"] == \"travel\"]"
+                  },
+                  {
+                    "text": "['Bus', 'Metro']"
                   }
                 ],
                 "tone": "ok"
@@ -222,36 +364,74 @@
       },
       "filled": {
         "template": "table",
-        "title": "Totals and filters with comprehensions",
+        "title": "Totalling and filtering dictionary records",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The everything concept establishes the core structural baseline.",
+            "caption": "Comprehensions total all records or filter only food records in one line.",
             "rows": [
               {
                 "cells": [
-                  "Totals",
-                  "and"
+                  "sum(e[\"amount\"] for e in expenses)",
+                  "215"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "[e for e in expenses if e[\"category\"] == \"food\"]",
+                  "2 food expenses"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The pull logic drives deterministic execution.",
+            "caption": "Pulling out one field builds a plain list of item names.",
             "rows": [
               {
                 "cells": [
-                  "filters",
-                  "with"
+                  "sum(e[\"amount\"] for e in food)",
+                  "140"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "[e[\"item\"] for e in expenses]",
+                  "['Tea', 'Bus', 'Lunch', 'Metro']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "215",
+              "2 food expenses",
+              "140",
+              "['Tea', 'Bus', 'Lunch', 'Metro']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering by travel keeps only Bus and Metro in the new list.",
+            "rows": [
+              {
+                "cells": [
+                  "[e[\"item\"] for e in expenses if e[\"category\"] == \"travel\"]",
+                  "['Bus', 'Metro']"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "expenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\"},\n    {\"item\": \"Lunch\", \"amount\": 120, \"category\": \"food\"},\n    {\"item\": \"Metro\", \"amount\": 30, \"category\": \"travel\"},\n]\nprint(sum(e[\"amount\"] for e in expenses))\nfood = [e for e in expenses if e[\"category\"] == \"food\"]\nprint(len(food), \"food expenses\")\nprint(sum(e[\"amount\"] for e in food))\nprint([e[\"item\"] for e in expenses])\nprint([e[\"item\"] for e in expenses if e[\"category\"] == \"travel\"])",
+            "checks": [
+              "215",
+              "['Bus', 'Metro']"
             ]
           }
         ]
@@ -262,40 +442,79 @@
       "codeHash": "8390fe1dfcfa22e746934731be0132ba1c57df6016cfe6d42c48f7f3a2d2a01e",
       "spec": {
         "template": "table",
-        "title": "Finding one record",
+        "title": "Finding records by id or key function",
         "columns": [
-          "Stage",
-          "Concept"
+          "Lookup",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The often concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "find_by_id returns the matching record or None when missing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Finding"
+                    "text": "find_by_id(expenses, 3)"
                   },
                   {
-                    "text": "one"
+                    "out": 12
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "find_by_id(expenses, 9)"
+                  },
+                  {
+                    "out": 13
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The find logic drives deterministic execution.",
+            "caption": "max uses a key function to return the record with the biggest amount.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "record"
+                    "text": "find_by_id(expenses, 9)"
                   },
                   {
-                    "text": "one"
+                    "out": 13
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "max(expenses, key=lambda e: e[\"amount\"])"
+                  },
+                  {
+                    "out": 15
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using min with the same key finds Tea as the cheapest expense.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "cheapest expense"
+                  },
+                  {
+                    "text": "Tea"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +525,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "Finding one record",
+        "title": "Finding records by id or key function",
         "columns": [
-          "Stage",
-          "Concept"
+          "Lookup",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The often concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "find_by_id returns the matching record or None when missing.",
             "rows": [
               {
                 "cells": [
-                  "Finding",
-                  "one"
+                  "find_by_id(expenses, 3)",
+                  "{'id': 3, 'item': 'Lunch', 'amount': 120}"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "find_by_id(expenses, 9)",
+                  "None"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The find logic drives deterministic execution.",
+            "caption": "max uses a key function to return the record with the biggest amount.",
             "rows": [
               {
                 "cells": [
-                  "record",
-                  "one"
+                  "find_by_id(expenses, 9)",
+                  "None"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "biggest[\"item\"]",
+                  "Rent"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "{'id': 3, 'item': 'Lunch', 'amount': 120}",
+              "None",
+              "Rent"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using min with the same key finds Tea as the cheapest expense.",
+            "rows": [
+              {
+                "cells": [
+                  "min(expenses, key=lambda e: e[\"amount\"])[\"item\"]",
+                  "Tea"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "expenses = [\n    {\"id\": 1, \"item\": \"Tea\", \"amount\": 20},\n    {\"id\": 2, \"item\": \"Rent\", \"amount\": 8000},\n    {\"id\": 3, \"item\": \"Lunch\", \"amount\": 120},\n]\ndef find_by_id(records, wanted):\n    for record in records:\n        if record[\"id\"] == wanted:\n            return record\n    return None\n\nprint(find_by_id(expenses, 3))\nprint(find_by_id(expenses, 9))\nbiggest = max(expenses, key=lambda e: e[\"amount\"])\nprint(biggest[\"item\"])\ncheapest = min(expenses, key=lambda e: e[\"amount\"])\nprint(cheapest[\"item\"])",
+            "checks": [
+              "{'id': 3, 'item': 'Lunch', 'amount': 120}",
+              "None",
+              "Rent",
+              "Tea"
             ]
           }
         ]
@@ -346,40 +604,79 @@
       "codeHash": "aec674d141064ad2f5e4865e9bb104e71ebca9d9a64962e524f4844bb8da1e94",
       "spec": {
         "template": "table",
-        "title": "Sorting records",
+        "title": "Sorting dictionary records by key",
         "columns": [
-          "Stage",
-          "Concept"
+          "Sort call",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The show concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Sorting with reverse=True orders amounts or dates from largest down.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Sorting"
+                    "text": "by_amount"
                   },
                   {
-                    "text": "records"
+                    "out": 7
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "newest"
+                  },
+                  {
+                    "out": 9
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The sorted logic drives deterministic execution.",
+            "caption": "sorted builds a new ordered list while the original stays untouched.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Sorting"
+                    "text": "newest"
                   },
                   {
-                    "text": "records"
+                    "out": 9
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "expenses[0][\"item\"]"
+                  },
+                  {
+                    "out": 10
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Sorting by item name returns records in alphabetical order.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "key=lambda e: e[\"item\"]"
+                  },
+                  {
+                    "text": "Lunch, Rent, Tea"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +687,73 @@
       },
       "filled": {
         "template": "table",
-        "title": "Sorting records",
+        "title": "Sorting dictionary records by key",
         "columns": [
-          "Stage",
-          "Concept"
+          "Sort call",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The show concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Sorting with reverse=True orders amounts or dates from largest down.",
             "rows": [
               {
                 "cells": [
-                  "Sorting",
-                  "records"
+                  "by_amount",
+                  "['Rent', 'Lunch', 'Tea']"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "newest",
+                  "['2026-09-10', '2026-09-03', '2026-09-01']"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The sorted logic drives deterministic execution.",
+            "caption": "sorted builds a new ordered list while the original stays untouched.",
             "rows": [
               {
                 "cells": [
-                  "Sorting",
-                  "records"
+                  "newest",
+                  "['2026-09-10', '2026-09-03', '2026-09-01']"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "expenses[0][\"item\"]",
+                  "Tea"
+                ],
+                "tone": "idle"
+              }
+            ],
+            "checks": [
+              "['Rent', 'Lunch', 'Tea']",
+              "['2026-09-10', '2026-09-03', '2026-09-01']",
+              "Tea"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Sorting by item name returns records in alphabetical order.",
+            "rows": [
+              {
+                "cells": [
+                  "sorted by item",
+                  "['Lunch', 'Rent', 'Tea']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "expenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"date\": \"2026-09-03\"},\n    {\"item\": \"Rent\", \"amount\": 8000, \"date\": \"2026-09-01\"},\n    {\"item\": \"Lunch\", \"amount\": 120, \"date\": \"2026-09-10\"},\n]\nby_amount = sorted(expenses, key=lambda e: e[\"amount\"], reverse=True)\nprint([e[\"item\"] for e in by_amount])\nnewest = sorted(expenses, key=lambda e: e[\"date\"], reverse=True)\nprint([e[\"date\"] for e in newest])\nprint(expenses[0][\"item\"])\nby_name = sorted(expenses, key=lambda e: e[\"item\"])\nprint([e[\"item\"] for e in by_name])",
+            "checks": [
+              "['Rent', 'Lunch', 'Tea']",
+              "['Lunch', 'Rent', 'Tea']"
             ]
           }
         ]
@@ -430,40 +764,79 @@
       "codeHash": "abce2fb61d353a55f7dc31806e5533a8be9d4d0d545de71331a4ae977e45add3",
       "spec": {
         "template": "table",
-        "title": "Putting it together: a monthly report",
+        "title": "Monthly expense report summary",
         "columns": [
-          "Stage",
-          "Concept"
+          "Summary metric",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine concept establishes the core structural baseline.",
+            "caption": "Grouping, summing, and finding biggest take one line per question.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "sum(e[\"amount\"] for e in expenses)"
                   },
                   {
-                    "text": "together"
+                    "out": 7
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "totals"
+                  },
+                  {
+                    "out": 11
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The category logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Clean record shapes keep the biggest and newest report lines simple.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "monthly"
+                    "text": "Biggest"
                   },
                   {
-                    "text": "report"
+                    "out": 12
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Newest"
+                  },
+                  {
+                    "out": 14
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a fifth expense with today's date moves it first in Newest.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "fifth expense"
+                  },
+                  {
+                    "text": "appear first in the Newest list"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +847,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: a monthly report",
+        "title": "Monthly expense report summary",
         "columns": [
-          "Stage",
-          "Concept"
+          "Summary metric",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine concept establishes the core structural baseline.",
+            "caption": "Grouping, summing, and finding biggest take one line per question.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "Total spent",
+                  "Total: 8185"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "By category",
+                  "By category: {'food': 140, 'home': 8000, 'travel': 45}"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The category logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Clean record shapes keep the biggest and newest report lines simple.",
             "rows": [
               {
                 "cells": [
-                  "monthly",
-                  "report"
+                  "Biggest",
+                  "Biggest: Rent"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Newest",
+                  "Newest: ['Lunch', 'Bus', 'Tea']"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Total: 8185",
+              "By category: {'food': 140, 'home': 8000, 'travel': 45}",
+              "Biggest: Rent",
+              "Newest: ['Lunch', 'Bus', 'Tea']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a fifth expense with today's date moves it first in Newest.",
+            "rows": [
+              {
+                "cells": [
+                  "with date \"2026-09-28\"",
+                  "Newest: ['Metro', 'Lunch', 'Bus']"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "expenses = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-03\"},\n    {\"item\": \"Rent\", \"amount\": 8000, \"category\": \"home\", \"date\": \"2026-09-01\"},\n    {\"item\": \"Lunch\", \"amount\": 120, \"category\": \"food\", \"date\": \"2026-09-10\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"category\": \"travel\", \"date\": \"2026-09-08\"},\n    {\"item\": \"Metro\", \"amount\": 30, \"category\": \"travel\", \"date\": \"2026-09-28\"},\n]\nprint(\"Total:\", sum(e[\"amount\"] for e in expenses))\ntotals = {}\nfor e in expenses:\n    totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\nprint(\"By category:\", totals)\nprint(\"Biggest:\", max(expenses, key=lambda e: e[\"amount\"])[\"item\"])\nnewest = sorted(expenses, key=lambda e: e[\"date\"], reverse=True)[:3]\nprint(\"Newest:\", [e[\"item\"] for e in newest])",
+            "checks": [
+              "Total: 8215",
+              "Newest: ['Metro', 'Lunch', 'Bus']"
+            ],
+            "mustNotShow": [
+              "Newest: ['Lunch', 'Bus', 'Tea']"
             ]
           }
         ]

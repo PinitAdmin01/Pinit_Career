@@ -2,31 +2,51 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 15,
-  "promptSha": "5f57eaa1347e244b63e17cc3bd89d05954fd2d1003d97aecd1d5a95658793c21",
-  "model": "gate-v2-verified",
   "entries": [
     {
       "partTitle": "What a module is and how to import it",
       "codeHash": "8538814cd12f1f701f2b5747c9e37a609e83bf0aeb3019b1a5596c2b3009a92b",
       "spec": {
         "template": "table",
-        "title": "What a module is and how to import it",
+        "title": "Importing tools from the math module",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Importing math gives access to tools like sqrt and ceil.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "math.sqrt(16)"
                   },
                   {
-                    "text": "module"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "math.ceil(4.1)"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "math.floor(4.9)"
+                  },
+                  {
+                    "out": 3
                   }
                 ],
                 "tone": "data"
@@ -35,15 +55,43 @@
           },
           {
             "at": "say3",
-            "caption": "The import logic drives deterministic execution.",
+            "caption": "Importing pi directly lets you use the name without math.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "math.sqrt(16)"
                   },
                   {
-                    "text": "how"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "round(pi, 4)"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Rounding up students divided by seats with ceil picks needed buses.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "math.ceil(130 / 40)"
+                  },
+                  {
+                    "text": "4"
                   }
                 ],
                 "tone": "ok"
@@ -54,20 +102,34 @@
       },
       "filled": {
         "template": "table",
-        "title": "What a module is and how to import it",
+        "title": "Importing tools from the math module",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Importing math gives access to tools like sqrt and ceil.",
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "module"
+                  "math.sqrt(16)",
+                  "4.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "math.ceil(4.1)",
+                  "5"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "math.floor(4.9)",
+                  "4"
                 ],
                 "tone": "data"
               }
@@ -75,15 +137,49 @@
           },
           {
             "at": "say3",
-            "caption": "The import logic drives deterministic execution.",
+            "caption": "Importing pi directly lets you use the name without math.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "how"
+                  "math.sqrt(16)",
+                  "4.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "round(pi, 4)",
+                  "3.1416"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "4.0",
+              "5",
+              "4",
+              "3.1416"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Rounding up students divided by seats with ceil picks needed buses.",
+            "rows": [
+              {
+                "cells": [
+                  "math.ceil(130 / 40)",
+                  "4"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "import math\nprint(math.sqrt(16))\nprint(math.ceil(4.1))\nprint(math.floor(4.9))\nfrom math import pi\nprint(round(pi, 4))\nprint(math.ceil(130 / 40))",
+            "checks": [
+              "4.0",
+              "5",
+              "4",
+              "3.1416",
+              "4"
             ]
           }
         ]
@@ -94,23 +190,73 @@
       "codeHash": "309bdd5834b600fa51862a1b10dc46c1ac666eaf6a262e11c0a8f3033001efba",
       "spec": {
         "template": "table",
-        "title": "The random module",
+        "title": "Testing random outcomes deterministically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The random concept establishes the core structural baseline.",
+            "caption": "random.randint includes both ends while random.choice picks one item.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "1 <= roll <= 6"
                   },
                   {
-                    "text": "random"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "pick in team"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Printing checks that are always true tests random results cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "1 <= roll <= 6"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "pick in team"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sorted(team)"
+                  },
+                  {
+                    "out": 3
                   }
                 ],
                 "tone": "data"
@@ -118,19 +264,19 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The random logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Printing roll and pick shows how values change every run.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "module"
+                    "text": "roll"
                   },
                   {
-                    "text": "random"
+                    "text": "pick"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           }
@@ -138,36 +284,79 @@
       },
       "filled": {
         "template": "table",
-        "title": "The random module",
+        "title": "Testing random outcomes deterministically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The random concept establishes the core structural baseline.",
+            "caption": "random.randint includes both ends while random.choice picks one item.",
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "random"
+                  "1 <= roll <= 6",
+                  "True"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "pick in team",
+                  "True"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The random logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Printing checks that are always true tests random results cleanly.",
             "rows": [
               {
                 "cells": [
-                  "module",
-                  "random"
+                  "1 <= roll <= 6",
+                  "True"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "pick in team",
+                  "True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "sorted(team)",
+                  "['Asha', 'Priya', 'Ravi']"
+                ],
+                "tone": "data"
               }
+            ],
+            "checks": [
+              "True",
+              "['Asha', 'Priya', 'Ravi']"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Printing roll and pick shows how values change every run.",
+            "rows": [
+              {
+                "cells": [
+                  "print(roll); print(pick)",
+                  "e.g. 4 and Ravi (changes each run)"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "import random\nroll = random.randint(1, 6)\nprint(1 <= roll <= 6)\nteam = [\"Asha\", \"Ravi\", \"Priya\"]\npick = random.choice(team)\nprint(pick in team)\nrandom.shuffle(team)\nprint(sorted(team))\nprint(roll)\nprint(pick)",
+            "checks": [
+              "True",
+              "['Asha', 'Priya', 'Ravi']"
             ]
           }
         ]
@@ -178,23 +367,34 @@
       "codeHash": "d6fc83df2142b5933efeefa3b45dfccce47016fae0b4977acc34901790a07e4b",
       "spec": {
         "template": "table",
-        "title": "Dates with datetime",
+        "title": "Date arithmetic and formatting",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The almost concept establishes the core structural baseline.",
+            "at": "say3",
+            "caption": "Subtracting dates returns a timedelta whose .days counts days.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Dates"
+                    "text": "(end - start).days"
                   },
                   {
-                    "text": "with"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "start + timedelta(days=45)"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "data"
@@ -202,16 +402,44 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The subtracting logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "strftime turns a date back into formatted text cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "datetime"
+                    "text": "due.strftime(\"%d %b %Y\")"
                   },
                   {
-                    "text": "with"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "date(2028, 3, 1) - date(2028, 2, 1)"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling date.today prints today and lets you count remaining days.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "date.today()"
+                  },
+                  {
+                    "text": "2027-01-01"
                   }
                 ],
                 "tone": "ok"
@@ -222,36 +450,76 @@
       },
       "filled": {
         "template": "table",
-        "title": "Dates with datetime",
+        "title": "Date arithmetic and formatting",
         "columns": [
-          "Stage",
-          "Concept"
+          "Expression",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The almost concept establishes the core structural baseline.",
+            "at": "say3",
+            "caption": "Subtracting dates returns a timedelta whose .days counts days.",
             "rows": [
               {
                 "cells": [
-                  "Dates",
-                  "with"
+                  "(end - start).days",
+                  "30"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "due = start + timedelta(days=45)",
+                  "2026-10-16"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The subtracting logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "strftime turns a date back into formatted text cleanly.",
             "rows": [
               {
                 "cells": [
-                  "datetime",
-                  "with"
+                  "due.strftime(\"%d %b %Y\")",
+                  "16 Oct 2026"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "date(2028, 3, 1) - date(2028, 2, 1)",
+                  "29 days, 0:00:00"
+                ],
+                "tone": "data"
+              }
+            ],
+            "checks": [
+              "30",
+              "2026-10-16",
+              "16 Oct 2026",
+              "29 days, 0:00:00"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling date.today prints today and lets you count remaining days.",
+            "rows": [
+              {
+                "cells": [
+                  "print(date.today())",
+                  "Current calendar date & days to 2027-01-01"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "from datetime import date, timedelta\nstart = date.fromisoformat(\"2026-09-01\")\nend = date(2026, 10, 1)\nprint((end - start).days)\ndue = start + timedelta(days=45)\nprint(due)\nprint(due.strftime(\"%d %b %Y\"))\nprint(date(2028, 3, 1) - date(2028, 2, 1))\nprint(date.today())\nprint((date(2027, 1, 1) - date.today()).days)",
+            "checks": [
+              "30",
+              "2026-10-16",
+              "16 Oct 2026",
+              "29 days, 0:00:00"
             ]
           }
         ]
@@ -262,23 +530,34 @@
       "codeHash": "c6024f0922a98b38e6d29d18dc2d29d0843e5d6164f9822f44dabb16eb9640db",
       "spec": {
         "template": "table",
-        "title": "Other useful modules",
+        "title": "statistics and collections.Counter outputs",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The standard concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "statistics computes mean and median while Counter counts items.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Other"
+                    "text": "mean(amounts)"
                   },
                   {
-                    "text": "useful"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "median(amounts)"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "data"
@@ -287,15 +566,43 @@
           },
           {
             "at": "say3",
-            "caption": "The counter logic drives deterministic execution.",
+            "caption": "Counter gives each count and most_common picks the frequent value.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "modules"
+                    "text": "counts[\"food\"]"
                   },
                   {
-                    "text": "useful"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "counts.most_common(1)"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling counts.most_common shows the top categories cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "counts.most_common(2)"
+                  },
+                  {
+                    "text": "food"
                   }
                 ],
                 "tone": "ok"
@@ -306,20 +613,27 @@
       },
       "filled": {
         "template": "table",
-        "title": "Other useful modules",
+        "title": "statistics and collections.Counter outputs",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Result"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The standard concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "statistics computes mean and median while Counter counts items.",
             "rows": [
               {
                 "cells": [
-                  "Other",
-                  "useful"
+                  "mean(amounts)",
+                  "106"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "median(amounts)",
+                  "45"
                 ],
                 "tone": "data"
               }
@@ -327,15 +641,49 @@
           },
           {
             "at": "say3",
-            "caption": "The counter logic drives deterministic execution.",
+            "caption": "Counter gives each count and most_common picks the frequent value.",
             "rows": [
               {
                 "cells": [
-                  "modules",
-                  "useful"
+                  "counts[\"food\"]",
+                  "3"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "counts.most_common(1)",
+                  "[('food', 3)]"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "106",
+              "45",
+              "3",
+              "[('food', 3)]"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling counts.most_common shows the top categories cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  "counts.most_common(2)",
+                  "[('food', 3), ('travel', 1)]"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "from statistics import mean, median\nfrom collections import Counter\namounts = [20, 45, 120, 45, 300]\nprint(mean(amounts))\nprint(median(amounts))\ncategories = [\"food\", \"travel\", \"food\", \"rent\", \"food\"]\ncounts = Counter(categories)\nprint(counts[\"food\"])\nprint(counts.most_common(1))\nprint(counts.most_common(2))",
+            "checks": [
+              "106",
+              "45",
+              "3",
+              "[('food', 3)]",
+              "[('food', 3), ('travel', 1)]"
             ]
           }
         ]
@@ -346,23 +694,23 @@
       "codeHash": "659a3beb2ce9acecc549a2110d9f2a97039c0a9565e2e0d9c16ffe4597a0f1d3",
       "spec": {
         "template": "table",
-        "title": "Your own modules",
+        "title": "Module execution check with __name__",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The module concept establishes the core structural baseline.",
+            "at": "say3",
+            "caption": "Top-level module code runs directly inside the main block.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Your"
+                    "text": "__name__"
                   },
                   {
-                    "text": "own"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
@@ -370,19 +718,47 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The file logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "__name__ holds __main__ when you run the script yourself.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "modules"
+                    "text": "__name__"
                   },
                   {
-                    "text": "own"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "if __name__ == \"__main__\":"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing __main__ to reports skips the block like an imported file.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"reports\""
+                  },
+                  {
+                    "text": "if __name__ == \"__main__\":"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           }
@@ -390,36 +766,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "Your own modules",
+        "title": "Module execution check with __name__",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check",
+          "Output"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The module concept establishes the core structural baseline.",
+            "at": "say3",
+            "caption": "Top-level module code runs directly inside the main block.",
             "rows": [
               {
                 "cells": [
-                  "Your",
-                  "own"
+                  "print(\"__name__ is\", __name__)",
+                  "__name__ is __main__"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The file logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "__name__ holds __main__ when you run the script yourself.",
             "rows": [
               {
                 "cells": [
-                  "modules",
-                  "own"
+                  "print(\"__name__ is\", __name__)",
+                  "__name__ is __main__"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "if __name__ == \"__main__\":",
+                  "Running directly, so this test runs: 65"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "__name__ is __main__",
+              "Running directly, so this test runs: 65"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing __main__ to reports skips the block like an imported file.",
+            "rows": [
+              {
+                "cells": [
+                  "if __name__ == \"reports\":",
+                  "(if-block skipped; only \"__name__ is __main__\" prints)"
+                ],
+                "tone": "idle"
+              }
+            ],
+            "whatIf": "def total(expenses):\n    return sum(e[\"amount\"] for e in expenses)\n\nprint(\"__name__ is\", __name__)\nif __name__ == \"reports\":\n    print(\"Running directly, so this test runs:\", total([{\"amount\": 20}, {\"amount\": 45}]))",
+            "checks": [
+              "__name__ is __main__"
+            ],
+            "mustNotShow": [
+              "Running directly, so this test runs: 65"
             ]
           }
         ]
@@ -430,40 +837,112 @@
       "codeHash": "9b4217f668fdd6fa1ab9000cfe255b175f71495ad9a204dadfde3cf58c8fd408",
       "spec": {
         "template": "table",
-        "title": "Putting it together: due dates for bills",
+        "title": "Bill countdowns and daily saving target",
         "columns": [
-          "Stage",
-          "Concept"
+          "Bill / Target",
+          "Printed Line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The modules concept establishes the core structural baseline.",
+            "caption": "datetime finds days left per bill and math rounds the saving target.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "days_left"
                   },
                   {
-                    "text": "together"
+                    "out": 1
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "days_left"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "math.ceil(total / 7)"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The fixed logic drives deterministic execution.",
+            "caption": "Using a fixed date keeps every bill output repeatable for tests.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "due"
+                    "text": "today"
                   },
                   {
-                    "text": "dates"
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "today"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "today"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "math.ceil(total / 7)"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Sorting bills by due date puts Phone first when printing.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sorted(bills, key=lambda b: b[\"due\"])"
+                  },
+                  {
+                    "text": "Phone"
                   }
                 ],
                 "tone": "ok"
@@ -474,36 +953,95 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: due dates for bills",
+        "title": "Bill countdowns and daily saving target",
         "columns": [
-          "Stage",
-          "Concept"
+          "Bill / Target",
+          "Printed Line"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The modules concept establishes the core structural baseline.",
+            "caption": "datetime finds days left per bill and math rounds the saving target.",
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "Electricity (2026-10-03)",
+                  "Electricity  due in 5 days"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Phone (2026-09-30)",
+                  "Phone        due in 2 days"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "math.ceil(9849 / 7)",
+                  "Save per day: 1407"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The fixed logic drives deterministic execution.",
+            "caption": "Using a fixed date keeps every bill output repeatable for tests.",
             "rows": [
               {
                 "cells": [
-                  "due",
-                  "dates"
+                  "Electricity",
+                  "Electricity  due in 5 days"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Phone",
+                  "Phone        due in 2 days"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Rent",
+                  "Rent         due in 7 days"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Save per day",
+                  "Save per day: 1407"
                 ],
                 "tone": "ok"
               }
+            ],
+            "checks": [
+              "Electricity  due in 5 days",
+              "Phone        due in 2 days",
+              "Rent         due in 7 days",
+              "Save per day: 1407"
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Sorting bills by due date puts Phone first when printing.",
+            "rows": [
+              {
+                "cells": [
+                  "First printed bill",
+                  "Phone        due in 2 days"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "import math\nfrom datetime import date\n\ntoday = date(2026, 9, 28)\nbills = [\n    {\"name\": \"Electricity\", \"amount\": 1450, \"due\": \"2026-10-03\"},\n    {\"name\": \"Phone\", \"amount\": 399, \"due\": \"2026-09-30\"},\n    {\"name\": \"Rent\", \"amount\": 8000, \"due\": \"2026-10-05\"},\n]\nfor bill in sorted(bills, key=lambda b: b[\"due\"]):\n    days_left = (date.fromisoformat(bill[\"due\"]) - today).days\n    print(f\"{bill['name']:<12} due in {days_left} days\")\ntotal = sum(b[\"amount\"] for b in bills)\nprint(\"Save per day:\", math.ceil(total / 7))",
+            "checks": [
+              "Phone        due in 2 days",
+              "Save per day: 1407"
             ]
           }
         ]
