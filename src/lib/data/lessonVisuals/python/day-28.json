@@ -3,47 +3,106 @@
   "prefix": "python",
   "day": 28,
   "promptSha": "dadfd9ea0ad4533a2839dbea01781d80fc9341f1db0cfda29217b50bbcd1d778",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day28",
   "entries": [
     {
       "partTitle": "Debugging is a normal part of the job",
       "codeHash": "3765c4b9a4b78916faa145507d0547a55c50418d4e75d5e8d6307eb73ddb36ed",
       "spec": {
         "template": "table",
-        "title": "Debugging is a normal part of the job",
+        "title": "Five-step debugging workflow",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Action"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The case concept establishes the core structural baseline.",
+            "caption": "Every developer fixes bugs calmly when the program acts different.",
+            "checks": [
+              "1. Reproduce the bug",
+              "3. Find the line and the values",
+              "5. Fix it and add a test"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Debugging"
+                    "text": "1"
                   },
                   {
-                    "text": "normal"
+                    "text": "Reproduce the bug"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Read the error message"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "3"
+                  },
+                  {
+                    "text": "Find the line and the values"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The debugging logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Bug fixes make debugging a key job-relevant skill for a junior developer.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "part"
+                    "text": "4"
                   },
                   {
-                    "text": "the"
+                    "text": "Guess the cause and test the guess"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "5"
+                  },
+                  {
+                    "text": "Fix it and add a test"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a sixth step completes the bug fix message cleanly.",
+            "whatIf": "steps = [\n    \"Reproduce the bug\",\n    \"Read the error message\",\n    \"Find the line and the values\",\n    \"Guess the cause and test the guess\",\n    \"Fix it and add a test\",\n    \"Commit the fix with a clear message\",\n]\nfor number, step in enumerate(steps, start=1):\n    print(f\"{number}. {step}\")",
+            "checks": [
+              "6. Commit the fix with a clear message"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "5"
+                  },
+                  {
+                    "text": "Fix it and add a test"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +113,76 @@
       },
       "filled": {
         "template": "table",
-        "title": "Debugging is a normal part of the job",
+        "title": "Five-step debugging workflow",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Action"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The case concept establishes the core structural baseline.",
+            "caption": "Every developer fixes bugs calmly when the program acts different.",
+            "checks": [
+              "1. Reproduce the bug",
+              "3. Find the line and the values",
+              "5. Fix it and add a test"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Debugging",
-                  "normal"
+                  "1",
+                  "Reproduce the bug"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Read the error message"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "3",
+                  "Find the line and the values"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The debugging logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Bug fixes make debugging a key job-relevant skill for a junior developer.",
             "rows": [
               {
                 "cells": [
-                  "part",
-                  "the"
+                  "4",
+                  "Guess the cause and test the guess"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "5",
+                  "Fix it and add a test"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a sixth step completes the bug fix message cleanly.",
+            "whatIf": "steps = [\n    \"Reproduce the bug\",\n    \"Read the error message\",\n    \"Find the line and the values\",\n    \"Guess the cause and test the guess\",\n    \"Fix it and add a test\",\n    \"Commit the fix with a clear message\",\n]\nfor number, step in enumerate(steps, start=1):\n    print(f\"{number}. {step}\")",
+            "checks": [
+              "6. Commit the fix with a clear message"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "5",
+                  "Fix it and add a test"
                 ],
                 "tone": "ok"
               }
@@ -94,40 +196,91 @@
       "codeHash": "4253711d53039e6d1124ac5647ceeed617f522c5ac61e45c40c0c1908456a0a7",
       "spec": {
         "template": "table",
-        "title": "Reading a traceback, from the bottom up",
+        "title": "Tracing TypeError back to the source value",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Amount",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "When Python crashes, read the printed traceback from the bottom up.",
+            "checks": [
+              "TypeError"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Reading"
+                    "text": "Tea"
                   },
                   {
-                    "text": "traceback"
+                    "text": "20"
+                  },
+                  {
+                    "text": "result"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "\"45\""
+                  },
+                  {
+                    "text": "TypeError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The above logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The error message shows TypeError from adding text to a number.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "from"
+                    "text": "Bus"
                   },
                   {
-                    "text": "the"
+                    "text": "\"45\""
+                  },
+                  {
+                    "text": "TypeError"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing the bus string to a number fixes the cause and yields total.",
+            "whatIf": "def total(expenses):\n    result = 0\n    for e in expenses:\n        result = result + e[\"amount\"]\n    return result\n\nexpenses = [{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Bus\", \"amount\": 45}]\nprint(total(expenses))",
+            "checks": [
+              "65"
+            ],
+            "mustNotShow": [
+              "TypeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "20"
+                  },
+                  {
+                    "text": "result"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +291,68 @@
       },
       "filled": {
         "template": "table",
-        "title": "Reading a traceback, from the bottom up",
+        "title": "Tracing TypeError back to the source value",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Amount",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
+            "caption": "When Python crashes, read the printed traceback from the bottom up.",
+            "checks": [
+              "TypeError"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Reading",
-                  "traceback"
+                  "Tea",
+                  "20",
+                  "result"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Bus",
+                  "\"45\"",
+                  "TypeError"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The above logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The error message shows TypeError from adding text to a number.",
             "rows": [
               {
                 "cells": [
-                  "from",
-                  "the"
+                  "Bus",
+                  "\"45\"",
+                  "TypeError"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing the bus string to a number fixes the cause and yields total.",
+            "whatIf": "def total(expenses):\n    result = 0\n    for e in expenses:\n        result = result + e[\"amount\"]\n    return result\n\nexpenses = [{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Bus\", \"amount\": 45}]\nprint(total(expenses))",
+            "checks": [
+              "65"
+            ],
+            "mustNotShow": [
+              "TypeError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Tea",
+                  "20",
+                  "result"
                 ],
                 "tone": "ok"
               }
@@ -178,43 +366,139 @@
       "codeHash": "4093a382fa8267b4b6aeff9165963360057246789ea04e1e87b02770723864b1",
       "spec": {
         "template": "table",
-        "title": "The most common errors and their usual causes",
+        "title": "Seven common Python exception types and triggers",
         "columns": [
-          "Stage",
-          "Concept"
+          "Error Type",
+          "Failing Expression",
+          "Reported Detail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The error concept establishes the core structural baseline.",
+            "caption": "Learning common error types makes debugging beginner bugs much faster.",
+            "checks": [
+              "NameError: name 'totl' is not defined",
+              "TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+              "KeyError: 'amont'",
+              "IndexError: list index out of range",
+              "AttributeError: 'NoneType' object has no attribute 'upper'",
+              "ValueError: invalid literal for int() with base 10: 'abc'",
+              "ZeroDivisionError: division by zero"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "NameError"
                   },
                   {
-                    "text": "most"
+                    "text": "totl"
+                  },
+                  {
+                    "text": "NameError"
                   }
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "KeyError"
+                  },
+                  {
+                    "text": "'amont'"
+                  },
+                  {
+                    "text": "KeyError"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "IndexError"
+                  },
+                  {
+                    "text": "[1, 2, 3][3]"
+                  },
+                  {
+                    "text": "list index out of range"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The attributeerror logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "NameError and KeyError flag misspelt names while IndexError flags list bounds.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "common"
+                    "text": "AttributeError"
                   },
                   {
-                    "text": "errors"
+                    "text": "None.upper()"
+                  },
+                  {
+                    "text": "'NoneType' object has no attribute 'upper'"
                   }
                 ],
-                "tone": "ok"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "ValueError"
+                  },
+                  {
+                    "text": "int(\"abc\")"
+                  },
+                  {
+                    "text": "ValueError"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "ZeroDivisionError"
+                  },
+                  {
+                    "text": "sum([]) / len([])"
+                  },
+                  {
+                    "text": "division by zero"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling len on a number raises TypeError because integers have no length.",
+            "whatIf": "broken = [\n    lambda: totl,\n    lambda: 20 + \"45\",\n    lambda: {\"amount\": 20}[\"amont\"],\n    lambda: [1, 2, 3][3],\n    lambda: None.upper(),\n    lambda: int(\"abc\"),\n    lambda: sum([]) / len([]),\n    lambda: len(5),\n]\nfor run in broken:\n    try:\n        run()\n    except Exception as error:\n        print(f\"{type(error).__name__}: {error}\")",
+            "checks": [
+              "TypeError: object of type 'int' has no len()"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "TypeError"
+                  },
+                  {
+                    "text": "20 + \"45\""
+                  },
+                  {
+                    "text": "TypeError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -222,35 +506,97 @@
       },
       "filled": {
         "template": "table",
-        "title": "The most common errors and their usual causes",
+        "title": "Seven common Python exception types and triggers",
         "columns": [
-          "Stage",
-          "Concept"
+          "Error Type",
+          "Failing Expression",
+          "Reported Detail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The error concept establishes the core structural baseline.",
+            "caption": "Learning common error types makes debugging beginner bugs much faster.",
+            "checks": [
+              "NameError: name 'totl' is not defined",
+              "TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+              "KeyError: 'amont'",
+              "IndexError: list index out of range",
+              "AttributeError: 'NoneType' object has no attribute 'upper'",
+              "ValueError: invalid literal for int() with base 10: 'abc'",
+              "ZeroDivisionError: division by zero"
+            ],
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "most"
+                  "NameError",
+                  "totl",
+                  "NameError"
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "KeyError",
+                  "'amont'",
+                  "KeyError"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "IndexError",
+                  "[1, 2, 3][3]",
+                  "list index out of range"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The attributeerror logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "NameError and KeyError flag misspelt names while IndexError flags list bounds.",
             "rows": [
               {
                 "cells": [
-                  "common",
-                  "errors"
+                  "AttributeError",
+                  "None.upper()",
+                  "'NoneType' object has no attribute 'upper'"
                 ],
-                "tone": "ok"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "ValueError",
+                  "int(\"abc\")",
+                  "ValueError"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "ZeroDivisionError",
+                  "sum([]) / len([])",
+                  "division by zero"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling len on a number raises TypeError because integers have no length.",
+            "whatIf": "broken = [\n    lambda: totl,\n    lambda: 20 + \"45\",\n    lambda: {\"amount\": 20}[\"amont\"],\n    lambda: [1, 2, 3][3],\n    lambda: None.upper(),\n    lambda: int(\"abc\"),\n    lambda: sum([]) / len([]),\n    lambda: len(5),\n]\nfor run in broken:\n    try:\n        run()\n    except Exception as error:\n        print(f\"{type(error).__name__}: {error}\")",
+            "checks": [
+              "TypeError: object of type 'int' has no len()"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "TypeError",
+                  "20 + \"45\"",
+                  "TypeError"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -262,23 +608,94 @@
       "codeHash": "9a6252dd27884045c27ebe705ca6bd8abd23dbcdbc9ec36000b7311e8c1bf071",
       "spec": {
         "template": "table",
-        "title": "print() debugging",
+        "title": "Spotting an off-by-one loop with DEBUG prints",
         "columns": [
-          "Stage",
-          "Concept"
+          "Index / Result",
+          "Running Total",
+          "Printed Trace"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
+            "caption": "When a program runs wrong with no error, print() reveals the bug.",
+            "checks": [
+              "DEBUG i=1 total=0",
+              "DEBUG i=2 total=200",
+              "Result: 500 expected 600"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "print"
+                    "text": "1"
                   },
                   {
-                    "text": "debugging"
+                    "text": "0"
+                  },
+                  {
+                    "text": "DEBUG i=1 total=0"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "200"
+                  },
+                  {
+                    "text": "DEBUG i=2 total=200"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "500"
+                  },
+                  {
+                    "text": "600"
+                  },
+                  {
+                    "text": "Result: 500 expected 600"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Labelled prints show step values to compare against what you expected.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "1"
+                  },
+                  {
+                    "text": "100"
+                  },
+                  {
+                    "text": "200"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "200"
+                  },
+                  {
+                    "text": "300"
                   }
                 ],
                 "tone": "data"
@@ -286,16 +703,26 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The string logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Changing range to start at index zero fixes total_amount.",
+            "whatIf": "def total_amount(expenses):\n    total = 0\n    for i in range(0, len(expenses)):\n        total = total + expenses[i][\"amount\"]\n    return total\n\ndata = [{\"amount\": 100}, {\"amount\": 200}, {\"amount\": 300}]\nprint(\"Result:\", total_amount(data), \"expected 600\")",
+            "checks": [
+              "Result: 600 expected 600"
+            ],
+            "mustNotShow": [
+              "DEBUG"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "print"
+                    "text": "1"
                   },
                   {
-                    "text": "debugging"
+                    "text": "0"
+                  },
+                  {
+                    "text": "600"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +733,86 @@
       },
       "filled": {
         "template": "table",
-        "title": "print() debugging",
+        "title": "Spotting an off-by-one loop with DEBUG prints",
         "columns": [
-          "Stage",
-          "Concept"
+          "Index / Result",
+          "Running Total",
+          "Printed Trace"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
+            "caption": "When a program runs wrong with no error, print() reveals the bug.",
+            "checks": [
+              "DEBUG i=1 total=0",
+              "DEBUG i=2 total=200",
+              "Result: 500 expected 600"
+            ],
             "rows": [
               {
                 "cells": [
-                  "print",
-                  "debugging"
+                  "1",
+                  "0",
+                  "DEBUG i=1 total=0"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "2",
+                  "200",
+                  "DEBUG i=2 total=200"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "500",
+                  "600",
+                  "Result: 500 expected 600"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Labelled prints show step values to compare against what you expected.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "100",
+                  "200"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2",
+                  "200",
+                  "300"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The string logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Changing range to start at index zero fixes total_amount.",
+            "whatIf": "def total_amount(expenses):\n    total = 0\n    for i in range(0, len(expenses)):\n        total = total + expenses[i][\"amount\"]\n    return total\n\ndata = [{\"amount\": 100}, {\"amount\": 200}, {\"amount\": 300}]\nprint(\"Result:\", total_amount(data), \"expected 600\")",
+            "checks": [
+              "Result: 600 expected 600"
+            ],
+            "mustNotShow": [
+              "DEBUG"
+            ],
             "rows": [
               {
                 "cells": [
-                  "print",
-                  "debugging"
+                  "1",
+                  "0",
+                  "600"
                 ],
                 "tone": "ok"
               }
@@ -346,23 +826,82 @@
       "codeHash": "04a5d328ba0dadcee3a2fa11ddefcd63ea0838fe52d9dda32c6476757071eb8c",
       "spec": {
         "template": "table",
-        "title": "Breakpoints and the VS Code debugger",
+        "title": "Stepping through loop accumulation like a debugger",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item Added",
+          "Running Total",
+          "Step Log"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The bigger concept establishes the core structural baseline.",
+            "caption": "Set a red dot breakpoint beside a line number in VS Code to pause execution.",
+            "checks": [
+              "after 20: total=20",
+              "after 45: total=65",
+              "after 115: total=180",
+              "count=3",
+              "average: 60.0"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Breakpoints"
+                    "text": "20"
                   },
                   {
-                    "text": "and"
+                    "text": "total=20"
+                  },
+                  {
+                    "text": "after 20: total=20"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "45"
+                  },
+                  {
+                    "text": "total=65"
+                  },
+                  {
+                    "text": "after 45: total=65"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "115"
+                  },
+                  {
+                    "text": "total=180"
+                  },
+                  {
+                    "text": "after 115: total=180"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The program pauses at the breakpoint and displays every variable value.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "count=3"
+                  },
+                  {
+                    "text": "total=180"
+                  },
+                  {
+                    "text": "60.0"
                   }
                 ],
                 "tone": "data"
@@ -370,16 +909,23 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The control logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Stepping line by line on your laptop watches total change.",
+            "checks": [
+              "after 20: total=20",
+              "average: 60.0"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "the"
+                    "text": "45"
                   },
                   {
-                    "text": "Code"
+                    "text": "total=65"
+                  },
+                  {
+                    "text": "after 45: total=65"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +936,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "Breakpoints and the VS Code debugger",
+        "title": "Stepping through loop accumulation like a debugger",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item Added",
+          "Running Total",
+          "Step Log"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The bigger concept establishes the core structural baseline.",
+            "caption": "Set a red dot breakpoint beside a line number in VS Code to pause execution.",
+            "checks": [
+              "after 20: total=20",
+              "after 45: total=65",
+              "after 115: total=180",
+              "count=3",
+              "average: 60.0"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Breakpoints",
-                  "and"
+                  "20",
+                  "total=20",
+                  "after 20: total=20"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "45",
+                  "total=65",
+                  "after 45: total=65"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "115",
+                  "total=180",
+                  "after 115: total=180"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The program pauses at the breakpoint and displays every variable value.",
+            "rows": [
+              {
+                "cells": [
+                  "count=3",
+                  "total=180",
+                  "60.0"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The control logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Stepping line by line on your laptop watches total change.",
+            "checks": [
+              "after 20: total=20",
+              "average: 60.0"
+            ],
             "rows": [
               {
                 "cells": [
-                  "the",
-                  "Code"
+                  "45",
+                  "total=65",
+                  "after 45: total=65"
                 ],
                 "tone": "ok"
               }
@@ -430,23 +1020,61 @@
       "codeHash": "a0a35c5d52951fe2a5cc0934428a8cce04a53f8c7edd88df49f78d09f70343f0",
       "spec": {
         "template": "table",
-        "title": "Putting it together: fixing a real bug",
+        "title": "Fixing split category keys and adding a regression test",
         "columns": [
-          "Stage",
-          "Concept"
+          "Category",
+          "Total",
+          "Check State"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The debug concept establishes the core structural baseline.",
+            "caption": "Users saw a low food total even with no error message.",
+            "checks": [
+              "Bug: {'food': 20, 'Food': 150, 'travel': 45}",
+              "Categories seen: ['Food', 'food', 'travel']",
+              "Fixed: {'food': 170, 'travel': 45}",
+              "Regression test passed"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "food"
                   },
                   {
-                    "text": "together"
+                    "text": "20"
+                  },
+                  {
+                    "text": "Bug"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Food"
+                  },
+                  {
+                    "text": "150"
+                  },
+                  {
+                    "text": "Categories seen"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "travel"
+                  },
+                  {
+                    "text": "45"
+                  },
+                  {
+                    "text": "170"
                   }
                 ],
                 "tone": "data"
@@ -454,16 +1082,58 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Cleaning categories to lower-case fixes the split between Food and food.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "fixing"
+                    "text": "food"
                   },
                   {
-                    "text": "real"
+                    "text": "170"
+                  },
+                  {
+                    "text": "Fixed"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "travel"
+                  },
+                  {
+                    "text": "45"
+                  },
+                  {
+                    "text": "Regression test passed"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Cleaning trailing spaces keeps all items inside one single food category.",
+            "whatIf": "def category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\nreported = [{\"category\": \"food\", \"amount\": 20}, {\"category\": \"Food\", \"amount\": 150}, {\"category\": \"travel\", \"amount\": 45}, {\"category\": \"food \", \"amount\": 30}]\nprint(\"Bug:\", category_totals(reported))\nprint(\"Categories seen:\", sorted({e[\"category\"] for e in reported}))\n\ndef clean(expense):\n    return {**expense, \"category\": expense[\"category\"].strip().lower()}\n\nfixed = [clean(e) for e in reported]\nprint(\"Fixed:\", category_totals(fixed))\nassert category_totals([clean({\"category\": \" FOOD\", \"amount\": 5})]) == {\"food\": 5}\nprint(\"Regression test passed\")",
+            "checks": [
+              "Fixed: {'food': 200, 'travel': 45}",
+              "Regression test passed"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "food"
+                  },
+                  {
+                    "text": "170"
+                  },
+                  {
+                    "text": "Fixed"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1144,85 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: fixing a real bug",
+        "title": "Fixing split category keys and adding a regression test",
         "columns": [
-          "Stage",
-          "Concept"
+          "Category",
+          "Total",
+          "Check State"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The debug concept establishes the core structural baseline.",
+            "caption": "Users saw a low food total even with no error message.",
+            "checks": [
+              "Bug: {'food': 20, 'Food': 150, 'travel': 45}",
+              "Categories seen: ['Food', 'food', 'travel']",
+              "Fixed: {'food': 170, 'travel': 45}",
+              "Regression test passed"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "food",
+                  "20",
+                  "Bug"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Food",
+                  "150",
+                  "Categories seen"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "travel",
+                  "45",
+                  "170"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Cleaning categories to lower-case fixes the split between Food and food.",
             "rows": [
               {
                 "cells": [
-                  "fixing",
-                  "real"
+                  "food",
+                  "170",
+                  "Fixed"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "travel",
+                  "45",
+                  "Regression test passed"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Cleaning trailing spaces keeps all items inside one single food category.",
+            "whatIf": "def category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\nreported = [{\"category\": \"food\", \"amount\": 20}, {\"category\": \"Food\", \"amount\": 150}, {\"category\": \"travel\", \"amount\": 45}, {\"category\": \"food \", \"amount\": 30}]\nprint(\"Bug:\", category_totals(reported))\nprint(\"Categories seen:\", sorted({e[\"category\"] for e in reported}))\n\ndef clean(expense):\n    return {**expense, \"category\": expense[\"category\"].strip().lower()}\n\nfixed = [clean(e) for e in reported]\nprint(\"Fixed:\", category_totals(fixed))\nassert category_totals([clean({\"category\": \" FOOD\", \"amount\": 5})]) == {\"food\": 5}\nprint(\"Regression test passed\")",
+            "checks": [
+              "Fixed: {'food': 200, 'travel': 45}",
+              "Regression test passed"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "food",
+                  "170",
+                  "Fixed"
                 ],
                 "tone": "ok"
               }

@@ -3,47 +3,95 @@
   "prefix": "python",
   "day": 29,
   "promptSha": "47feda80e5fbf04446864aa631f3319a3ed835fb1105c35a3f20628f9dc8d19c",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day29",
   "entries": [
     {
       "partTitle": "What deploying means",
       "codeHash": "c550d258d588a8ce01eed9df2b4d73ebd65d7c69438ff240c23b16e2e468f046",
       "spec": {
         "template": "table",
-        "title": "What deploying means",
+        "title": "Localhost URL versus public deployment URL",
         "columns": [
-          "Stage",
-          "Concept"
+          "Address",
+          "Reachable By"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The right concept establishes the core structural baseline.",
+            "caption": "Deploying moves your API off your laptop to a public internet server.",
+            "checks": [
+              "http://127.0.0.1:8000                -> reachable by only you",
+              "https://expense-api.onrender.com     -> reachable by anyone on the internet"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "http://127.0.0.1:8000"
                   },
                   {
-                    "text": "deploying"
+                    "text": "only you"
                   }
                 ],
-                "tone": "data"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "https://expense-api.onrender.com"
+                  },
+                  {
+                    "text": "anyone on the internet"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The live logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A hosting server builds and runs your repository from GitHub automatically.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "means"
+                    "text": "http://127.0.0.1:8000"
                   },
                   {
-                    "text": "deploying"
+                    "text": "127.0.0.1"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "https://expense-api.onrender.com"
+                  },
+                  {
+                    "text": "Render"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Updating the localhost check identifies local addresses as only you.",
+            "whatIf": "local = \"http://127.0.0.1:8000\"\nonline = \"https://expense-api.onrender.com\"\nfor url in [local, \"http://localhost:8000\", online]:\n    who = \"only you\" if (\"127.0.0.1\" in url or \"localhost\" in url) else \"anyone on the internet\"\n    print(f\"{url:<36} -> reachable by {who}\")",
+            "checks": [
+              "http://localhost:8000                -> reachable by only you",
+              "https://expense-api.onrender.com     -> reachable by anyone on the internet"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "http://127.0.0.1:8000"
+                  },
+                  {
+                    "text": "only you"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +102,69 @@
       },
       "filled": {
         "template": "table",
-        "title": "What deploying means",
+        "title": "Localhost URL versus public deployment URL",
         "columns": [
-          "Stage",
-          "Concept"
+          "Address",
+          "Reachable By"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The right concept establishes the core structural baseline.",
+            "caption": "Deploying moves your API off your laptop to a public internet server.",
+            "checks": [
+              "http://127.0.0.1:8000                -> reachable by only you",
+              "https://expense-api.onrender.com     -> reachable by anyone on the internet"
+            ],
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "deploying"
+                  "http://127.0.0.1:8000",
+                  "only you"
                 ],
-                "tone": "data"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "https://expense-api.onrender.com",
+                  "anyone on the internet"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The live logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A hosting server builds and runs your repository from GitHub automatically.",
             "rows": [
               {
                 "cells": [
-                  "means",
-                  "deploying"
+                  "http://127.0.0.1:8000",
+                  "127.0.0.1"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "https://expense-api.onrender.com",
+                  "Render"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Updating the localhost check identifies local addresses as only you.",
+            "whatIf": "local = \"http://127.0.0.1:8000\"\nonline = \"https://expense-api.onrender.com\"\nfor url in [local, \"http://localhost:8000\", online]:\n    who = \"only you\" if (\"127.0.0.1\" in url or \"localhost\" in url) else \"anyone on the internet\"\n    print(f\"{url:<36} -> reachable by {who}\")",
+            "checks": [
+              "http://localhost:8000                -> reachable by only you",
+              "https://expense-api.onrender.com     -> reachable by anyone on the internet"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "http://127.0.0.1:8000",
+                  "only you"
                 ],
                 "tone": "ok"
               }
@@ -94,40 +178,121 @@
       "codeHash": "22d4e20f7b69ae48e8247d4998a89dc5851dcbf49c85e00c8137a93d24bfb396",
       "spec": {
         "template": "table",
-        "title": "Getting the project ready",
+        "title": "Checking imports against requirements.txt",
         "columns": [
-          "Stage",
-          "Concept"
+          "Package",
+          "Source",
+          "Deploy Check"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The host concept establishes the core structural baseline.",
+            "caption": "File requirements.txt lists every package your project needs to install.",
+            "checks": [
+              "Listed: ['fastapi', 'pytest']",
+              "Missing: ['requests']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Getting"
+                    "text": "fastapi"
                   },
                   {
-                    "text": "the"
+                    "text": "requirements.txt"
+                  },
+                  {
+                    "text": "Listed"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "pytest"
+                  },
+                  {
+                    "text": "requirements.txt"
+                  },
+                  {
+                    "text": "Listed"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "requests"
+                  },
+                  {
+                    "text": "imports"
+                  },
+                  {
+                    "text": "Missing"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The before logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The start command accepts outside connections on the environment port.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "project"
+                    "text": "pydantic"
                   },
                   {
-                    "text": "ready"
+                    "text": "comes_with_fastapi"
+                  },
+                  {
+                    "text": "fastapi"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "requests"
+                  },
+                  {
+                    "text": "imports"
+                  },
+                  {
+                    "text": "Missing"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the missing package line clears Missing cleanly.",
+            "whatIf": "imports = {\"fastapi\", \"pydantic\", \"requests\"}\nrequirements = \"\"\"fastapi[standard]==0.115.0\npytest==8.3.3\nrequests==2.32.3\"\"\"\nlisted = {line.split(\"==\")[0].split(\"[\")[0] for line in requirements.splitlines()}\ncomes_with_fastapi = {\"pydantic\"}\nmissing = sorted(imports - listed - comes_with_fastapi)\nprint(\"Listed:\", sorted(listed))\nprint(\"Missing:\", missing)",
+            "checks": [
+              "Listed: ['fastapi', 'pytest', 'requests']",
+              "Missing: []"
+            ],
+            "mustNotShow": [
+              "Missing: ['requests']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "fastapi"
+                  },
+                  {
+                    "text": "requirements.txt"
+                  },
+                  {
+                    "text": "Listed"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +303,86 @@
       },
       "filled": {
         "template": "table",
-        "title": "Getting the project ready",
+        "title": "Checking imports against requirements.txt",
         "columns": [
-          "Stage",
-          "Concept"
+          "Package",
+          "Source",
+          "Deploy Check"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The host concept establishes the core structural baseline.",
+            "caption": "File requirements.txt lists every package your project needs to install.",
+            "checks": [
+              "Listed: ['fastapi', 'pytest']",
+              "Missing: ['requests']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Getting",
-                  "the"
+                  "fastapi",
+                  "requirements.txt",
+                  "Listed"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "pytest",
+                  "requirements.txt",
+                  "Listed"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "requests",
+                  "imports",
+                  "Missing"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The before logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The start command accepts outside connections on the environment port.",
             "rows": [
               {
                 "cells": [
-                  "project",
-                  "ready"
+                  "pydantic",
+                  "comes_with_fastapi",
+                  "fastapi"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "requests",
+                  "imports",
+                  "Missing"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the missing package line clears Missing cleanly.",
+            "whatIf": "imports = {\"fastapi\", \"pydantic\", \"requests\"}\nrequirements = \"\"\"fastapi[standard]==0.115.0\npytest==8.3.3\nrequests==2.32.3\"\"\"\nlisted = {line.split(\"==\")[0].split(\"[\")[0] for line in requirements.splitlines()}\ncomes_with_fastapi = {\"pydantic\"}\nmissing = sorted(imports - listed - comes_with_fastapi)\nprint(\"Listed:\", sorted(listed))\nprint(\"Missing:\", missing)",
+            "checks": [
+              "Listed: ['fastapi', 'pytest', 'requests']",
+              "Missing: []"
+            ],
+            "mustNotShow": [
+              "Missing: ['requests']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "fastapi",
+                  "requirements.txt",
+                  "Listed"
                 ],
                 "tone": "ok"
               }
@@ -178,23 +396,94 @@
       "codeHash": "8bcd46ececc1be1d3671328db19b41c1cf3e5a56123778a41e0812bbf4618087",
       "spec": {
         "template": "table",
-        "title": "Environment variables for settings and secrets",
+        "title": "Reading and converting environment variable defaults",
         "columns": [
-          "Stage",
-          "Concept"
+          "Variable",
+          "Default Value",
+          "Override Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The settings concept establishes the core structural baseline.",
+            "caption": "Settings like data file paths and keys belong in environment variables.",
+            "checks": [
+              "{'data_file': 'expenses.json', 'debug': False, 'max_items': 100}",
+              "{'data_file': '/data/expenses.json', 'debug': True, 'max_items': 20}",
+              "str"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Environment"
+                    "text": "DATA_FILE"
                   },
                   {
-                    "text": "variables"
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "/data/expenses.json"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "DEBUG"
+                  },
+                  {
+                    "text": "False"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "MAX_ITEMS"
+                  },
+                  {
+                    "text": "100"
+                  },
+                  {
+                    "text": "20"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Reading os.environ.get sets a safe default while keeping real values private.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "DATA_FILE"
+                  },
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "/data/expenses.json"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "PATH"
+                  },
+                  {
+                    "text": "str"
+                  },
+                  {
+                    "text": "False"
                   }
                 ],
                 "tone": "data"
@@ -202,16 +491,23 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The environment logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Calling settings with os.environ reads real terminal environment values.",
+            "checks": [
+              "{'data_file': 'expenses.json', 'debug': False, 'max_items': 100}",
+              "str"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "for"
+                    "text": "DEBUG"
                   },
                   {
-                    "text": "settings"
+                    "text": "False"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +518,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "Environment variables for settings and secrets",
+        "title": "Reading and converting environment variable defaults",
         "columns": [
-          "Stage",
-          "Concept"
+          "Variable",
+          "Default Value",
+          "Override Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The settings concept establishes the core structural baseline.",
+            "caption": "Settings like data file paths and keys belong in environment variables.",
+            "checks": [
+              "{'data_file': 'expenses.json', 'debug': False, 'max_items': 100}",
+              "{'data_file': '/data/expenses.json', 'debug': True, 'max_items': 20}",
+              "str"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Environment",
-                  "variables"
+                  "DATA_FILE",
+                  "expenses.json",
+                  "/data/expenses.json"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "DEBUG",
+                  "False",
+                  "True"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "MAX_ITEMS",
+                  "100",
+                  "20"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Reading os.environ.get sets a safe default while keeping real values private.",
+            "rows": [
+              {
+                "cells": [
+                  "DATA_FILE",
+                  "expenses.json",
+                  "/data/expenses.json"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "PATH",
+                  "str",
+                  "False"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The environment logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Calling settings with os.environ reads real terminal environment values.",
+            "checks": [
+              "{'data_file': 'expenses.json', 'debug': False, 'max_items': 100}",
+              "str"
+            ],
             "rows": [
               {
                 "cells": [
-                  "for",
-                  "settings"
+                  "DEBUG",
+                  "False",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -262,40 +608,90 @@
       "codeHash": "5ae7e28dc211edd51f9b2f591071a0ea84d6bd553fec1165227e0b4287735aab",
       "spec": {
         "template": "table",
-        "title": "Deploying and checking it works",
+        "title": "Diagnosing deploy logs from the bottom line",
         "columns": [
-          "Stage",
-          "Concept"
+          "Deploy Phase",
+          "Log Clue",
+          "Diagnosis"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The deploy concept establishes the core structural baseline.",
+            "caption": "Connect your GitHub repository to the host and configure build commands.",
+            "checks": [
+              "Last line: ModuleNotFoundError: No module named 'requests'",
+              "Fix: add requests to requirements.txt, commit and push"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Deploying"
+                    "text": "Installing dependencies"
                   },
                   {
-                    "text": "and"
+                    "text": "fastapi-0.115.0"
+                  },
+                  {
+                    "text": "Last line"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Starting service"
+                  },
+                  {
+                    "text": "No module named 'requests'"
+                  },
+                  {
+                    "text": "ModuleNotFoundError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The says logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Read the live deploy log like a traceback to spot why startup fails.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "checking"
+                    "text": "Starting service"
                   },
                   {
-                    "text": "works"
+                    "text": "ModuleNotFoundError"
+                  },
+                  {
+                    "text": "requests"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing the missing module name updates the fix message to pydantic.",
+            "whatIf": "log = \"\"\"==> Installing dependencies\nSuccessfully installed fastapi-0.115.0\n==> Starting service\nTraceback (most recent call last):\n  File \"/app/api.py\", line 3, in <module>\n    import requests\nModuleNotFoundError: No module named 'pydantic'\"\"\"\n\nlast = log.strip().splitlines()[-1]\nprint(\"Last line:\", last)\nif last.startswith(\"ModuleNotFoundError\"):\n    package = last.split(\"'\")[1]\n    print(f\"Fix: add {package} to requirements.txt, commit and push\")",
+            "checks": [
+              "Last line: ModuleNotFoundError: No module named 'pydantic'",
+              "Fix: add pydantic to requirements.txt, commit and push"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Installing dependencies"
+                  },
+                  {
+                    "text": "fastapi-0.115.0"
+                  },
+                  {
+                    "text": "Last line"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +702,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "Deploying and checking it works",
+        "title": "Diagnosing deploy logs from the bottom line",
         "columns": [
-          "Stage",
-          "Concept"
+          "Deploy Phase",
+          "Log Clue",
+          "Diagnosis"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The deploy concept establishes the core structural baseline.",
+            "caption": "Connect your GitHub repository to the host and configure build commands.",
+            "checks": [
+              "Last line: ModuleNotFoundError: No module named 'requests'",
+              "Fix: add requests to requirements.txt, commit and push"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Deploying",
-                  "and"
+                  "Installing dependencies",
+                  "fastapi-0.115.0",
+                  "Last line"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Starting service",
+                  "No module named 'requests'",
+                  "ModuleNotFoundError"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The says logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Read the live deploy log like a traceback to spot why startup fails.",
             "rows": [
               {
                 "cells": [
-                  "checking",
-                  "works"
+                  "Starting service",
+                  "ModuleNotFoundError",
+                  "requests"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing the missing module name updates the fix message to pydantic.",
+            "whatIf": "log = \"\"\"==> Installing dependencies\nSuccessfully installed fastapi-0.115.0\n==> Starting service\nTraceback (most recent call last):\n  File \"/app/api.py\", line 3, in <module>\n    import requests\nModuleNotFoundError: No module named 'pydantic'\"\"\"\n\nlast = log.strip().splitlines()[-1]\nprint(\"Last line:\", last)\nif last.startswith(\"ModuleNotFoundError\"):\n    package = last.split(\"'\")[1]\n    print(f\"Fix: add {package} to requirements.txt, commit and push\")",
+            "checks": [
+              "Last line: ModuleNotFoundError: No module named 'pydantic'",
+              "Fix: add pydantic to requirements.txt, commit and push"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Installing dependencies",
+                  "fastapi-0.115.0",
+                  "Last line"
                 ],
                 "tone": "ok"
               }
@@ -346,40 +776,102 @@
       "codeHash": "38b500e48e1ed21c651a120f075458dcfbfcfe79e2feec95631fc52cd9e1ac4d",
       "spec": {
         "template": "table",
-        "title": "A README that sells your project",
+        "title": "Checking required headings in README.md",
         "columns": [
-          "Stage",
-          "Concept"
+          "Section Heading",
+          "Included Detail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The readme concept establishes the core structural baseline.",
+            "caption": "Your README.md front page puts important repository facts at the top.",
+            "checks": [
+              "# Expense Tracker API",
+              "Missing: ['## Tests']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "README"
+                    "text": "## Live demo"
                   },
                   {
-                    "text": "that"
+                    "text": "https://expense-api.onrender.com/docs"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## Features"
+                  },
+                  {
+                    "text": "Add and list expenses with validation"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## Setup"
+                  },
+                  {
+                    "text": "pip install -r requirements.txt"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The screenshot logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A good README shows the live link, features, tech, and how to run tests.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "sells"
+                    "text": "## Live demo"
                   },
                   {
-                    "text": "your"
+                    "text": "## Setup"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## Tests"
+                  },
+                  {
+                    "text": "Missing"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the Tests section with pytest clears Missing completely.",
+            "whatIf": "readme = \"\"\"# Expense Tracker API\n\nTrack your spending by category, from the terminal or over a web API.\n\n## Live demo\nhttps://expense-api.onrender.com/docs\n\n## Features\n- Add and list expenses with validation\n- Totals per category and per month\n\n## Setup\npip install -r requirements.txt\n\n## Tests\npytest\n\"\"\"\n\ndef missing_sections(text):\n    needed = [\"## Live demo\", \"## Features\", \"## Setup\", \"## Tests\"]\n    return [s for s in needed if s not in text]\n\nprint(readme.splitlines()[0])\nprint(\"Missing:\", missing_sections(readme))",
+            "checks": [
+              "# Expense Tracker API",
+              "Missing: []"
+            ],
+            "mustNotShow": [
+              "Missing: ['## Tests']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "## Features"
+                  },
+                  {
+                    "text": "Totals per category and per month"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +882,79 @@
       },
       "filled": {
         "template": "table",
-        "title": "A README that sells your project",
+        "title": "Checking required headings in README.md",
         "columns": [
-          "Stage",
-          "Concept"
+          "Section Heading",
+          "Included Detail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The readme concept establishes the core structural baseline.",
+            "caption": "Your README.md front page puts important repository facts at the top.",
+            "checks": [
+              "# Expense Tracker API",
+              "Missing: ['## Tests']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "README",
-                  "that"
+                  "## Live demo",
+                  "https://expense-api.onrender.com/docs"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "## Features",
+                  "Add and list expenses with validation"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "## Setup",
+                  "pip install -r requirements.txt"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The screenshot logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A good README shows the live link, features, tech, and how to run tests.",
             "rows": [
               {
                 "cells": [
-                  "sells",
-                  "your"
+                  "## Live demo",
+                  "## Setup"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "## Tests",
+                  "Missing"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the Tests section with pytest clears Missing completely.",
+            "whatIf": "readme = \"\"\"# Expense Tracker API\n\nTrack your spending by category, from the terminal or over a web API.\n\n## Live demo\nhttps://expense-api.onrender.com/docs\n\n## Features\n- Add and list expenses with validation\n- Totals per category and per month\n\n## Setup\npip install -r requirements.txt\n\n## Tests\npytest\n\"\"\"\n\ndef missing_sections(text):\n    needed = [\"## Live demo\", \"## Features\", \"## Setup\", \"## Tests\"]\n    return [s for s in needed if s not in text]\n\nprint(readme.splitlines()[0])\nprint(\"Missing:\", missing_sections(readme))",
+            "checks": [
+              "# Expense Tracker API",
+              "Missing: []"
+            ],
+            "mustNotShow": [
+              "Missing: ['## Tests']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "## Features",
+                  "Totals per category and per month"
                 ],
                 "tone": "ok"
               }
@@ -430,40 +968,104 @@
       "codeHash": "bf3c1d3a7462301672186593469d646706a9b05f043f0683f78f61c85fb47dad",
       "spec": {
         "template": "table",
-        "title": "Putting it together: your deployment checklist",
+        "title": "Production deployment readiness checklist",
         "columns": [
-          "Stage",
-          "Concept"
+          "Checklist Item",
+          "Completed"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The collect concept establishes the core structural baseline.",
+            "caption": "Follow the deployment checklist in order before sharing your project.",
+            "checks": [
+              "[x] pytest passes",
+              "[ ] README has live link, features, setup, tests",
+              "Ready to share: False",
+              "https://expense-api.onrender.com/docs"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "pytest passes"
                   },
                   {
-                    "text": "together"
+                    "text": "True"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "deployed and /health says ok"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "README has live link, features, setup, tests"
+                  },
+                  {
+                    "text": "False"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Share your live link on GitHub, LinkedIn, and your CV.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "your"
+                    "text": "requirements.txt has every import"
                   },
                   {
-                    "text": "deployment"
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "no .env, .venv or data files in Git"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Marking the README item complete switches Ready to share to True.",
+            "whatIf": "def base_url(env):\n    return \"https://expense-api.onrender.com\" if env == \"production\" else \"http://127.0.0.1:8000\"\n\nchecklist = [\n    (\"pytest passes\", True),\n    (\"requirements.txt has every import\", True),\n    (\"no .env, .venv or data files in Git\", True),\n    (\"start command tried locally\", True),\n    (\"deployed and /health says ok\", True),\n    (\"README has live link, features, setup, tests\", True),\n]\nfor item, done in checklist:\n    print((\"[x] \" if done else \"[ ] \") + item)\nprint(\"Ready to share:\", all(done for _, done in checklist))\nprint(base_url(\"production\") + \"/docs\")",
+            "checks": [
+              "[x] README has live link, features, setup, tests",
+              "Ready to share: True"
+            ],
+            "mustNotShow": [
+              "Ready to share: False"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "start command tried locally"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1076,81 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: your deployment checklist",
+        "title": "Production deployment readiness checklist",
         "columns": [
-          "Stage",
-          "Concept"
+          "Checklist Item",
+          "Completed"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The collect concept establishes the core structural baseline.",
+            "caption": "Follow the deployment checklist in order before sharing your project.",
+            "checks": [
+              "[x] pytest passes",
+              "[ ] README has live link, features, setup, tests",
+              "Ready to share: False",
+              "https://expense-api.onrender.com/docs"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "pytest passes",
+                  "True"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "deployed and /health says ok",
+                  "True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "README has live link, features, setup, tests",
+                  "False"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Share your live link on GitHub, LinkedIn, and your CV.",
             "rows": [
               {
                 "cells": [
-                  "your",
-                  "deployment"
+                  "requirements.txt has every import",
+                  "True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "no .env, .venv or data files in Git",
+                  "True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Marking the README item complete switches Ready to share to True.",
+            "whatIf": "def base_url(env):\n    return \"https://expense-api.onrender.com\" if env == \"production\" else \"http://127.0.0.1:8000\"\n\nchecklist = [\n    (\"pytest passes\", True),\n    (\"requirements.txt has every import\", True),\n    (\"no .env, .venv or data files in Git\", True),\n    (\"start command tried locally\", True),\n    (\"deployed and /health says ok\", True),\n    (\"README has live link, features, setup, tests\", True),\n]\nfor item, done in checklist:\n    print((\"[x] \" if done else \"[ ] \") + item)\nprint(\"Ready to share:\", all(done for _, done in checklist))\nprint(base_url(\"production\") + \"/docs\")",
+            "checks": [
+              "[x] README has live link, features, setup, tests",
+              "Ready to share: True"
+            ],
+            "mustNotShow": [
+              "Ready to share: False"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "start command tried locally",
+                  "True"
                 ],
                 "tone": "ok"
               }

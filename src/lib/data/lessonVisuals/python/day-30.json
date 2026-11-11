@@ -3,30 +3,57 @@
   "prefix": "python",
   "day": 30,
   "promptSha": "01959bd903eadda4d982b016998bad74aac309e9441baa3361f7e700f050e633",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day30",
   "entries": [
     {
       "partTitle": "What junior Python interviews look like",
       "codeHash": "ef692917f4a04da7f1e92002e6f9abbd91d6a4b7b502cad26ed24332c87897ed",
       "spec": {
         "template": "table",
-        "title": "What junior Python interviews look like",
+        "title": "Three parts of a junior Python interview",
         "columns": [
-          "Stage",
-          "Concept"
+          "Interview Part",
+          "Sample Topics"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The congratulations concept establishes the core structural baseline.",
+            "caption": "Your month built a tested web API you can show in an interview.",
+            "checks": [
+              "Python basics: lists vs tuples, dictionaries, exceptions",
+              "Your project: what it does, a problem you solved, how you tested it",
+              "Coding task: FizzBuzz, reverse words, count items"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "Python basics"
                   },
                   {
-                    "text": "junior"
+                    "text": "lists vs tuples, dictionaries, exceptions"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Your project"
+                  },
+                  {
+                    "text": "what it does, a problem you solved, how you tested it"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Coding task"
+                  },
+                  {
+                    "text": "FizzBuzz, reverse words, count items"
                   }
                 ],
                 "tone": "data"
@@ -34,19 +61,76 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The interviewers logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Junior interviews cover Python basics, your project, and a coding task.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Python"
+                    "text": "Python basics"
                   },
                   {
-                    "text": "interviews"
+                    "text": "lists vs tuples"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Your project"
+                  },
+                  {
+                    "text": "a problem you solved"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Coding task"
+                  },
+                  {
+                    "text": "FizzBuzz"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a fourth part prepares thoughtful questions for the interviewer.",
+            "whatIf": "interview = {\n    \"Python basics\": [\"lists vs tuples\", \"dictionaries\", \"exceptions\"],\n    \"Your project\": [\"what it does\", \"a problem you solved\", \"how you tested it\"],\n    \"Coding task\": [\"FizzBuzz\", \"reverse words\", \"count items\"],\n}\nfor part, topics in interview.items():\n    print(f\"{part}: {', '.join(topics)}\")\ninterview[\"Questions for them\"] = [\"How do you review code?\", \"How do you test releases?\"]\nfor part, topics in interview.items():\n    print(f\"{part}: {', '.join(topics)}\")",
+            "checks": [
+              "Questions for them: How do you review code?, How do you test releases?"
+            ],
+            "mustNotShow": [
+              "Error"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Questions for them"
+                  },
+                  {
+                    "text": "How do you review code?"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Your project"
+                  },
+                  {
+                    "text": "how you tested it"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -54,35 +138,95 @@
       },
       "filled": {
         "template": "table",
-        "title": "What junior Python interviews look like",
+        "title": "Three parts of a junior Python interview",
         "columns": [
-          "Stage",
-          "Concept"
+          "Interview Part",
+          "Sample Topics"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The congratulations concept establishes the core structural baseline.",
+            "caption": "Your month built a tested web API you can show in an interview.",
+            "checks": [
+              "Python basics: lists vs tuples, dictionaries, exceptions",
+              "Your project: what it does, a problem you solved, how you tested it",
+              "Coding task: FizzBuzz, reverse words, count items"
+            ],
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "junior"
+                  "Python basics",
+                  "lists vs tuples, dictionaries, exceptions"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Your project",
+                  "what it does, a problem you solved, how you tested it"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Coding task",
+                  "FizzBuzz, reverse words, count items"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The interviewers logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Junior interviews cover Python basics, your project, and a coding task.",
             "rows": [
               {
                 "cells": [
-                  "Python",
-                  "interviews"
+                  "Python basics",
+                  "lists vs tuples"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Your project",
+                  "a problem you solved"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Coding task",
+                  "FizzBuzz"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a fourth part prepares thoughtful questions for the interviewer.",
+            "whatIf": "interview = {\n    \"Python basics\": [\"lists vs tuples\", \"dictionaries\", \"exceptions\"],\n    \"Your project\": [\"what it does\", \"a problem you solved\", \"how you tested it\"],\n    \"Coding task\": [\"FizzBuzz\", \"reverse words\", \"count items\"],\n}\nfor part, topics in interview.items():\n    print(f\"{part}: {', '.join(topics)}\")\ninterview[\"Questions for them\"] = [\"How do you review code?\", \"How do you test releases?\"]\nfor part, topics in interview.items():\n    print(f\"{part}: {', '.join(topics)}\")",
+            "checks": [
+              "Questions for them: How do you review code?, How do you test releases?"
+            ],
+            "mustNotShow": [
+              "Error"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Questions for them",
+                  "How do you review code?"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Your project",
+                  "how you tested it"
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -94,40 +238,113 @@
       "codeHash": "5f36b1366fd2ffef62208ba0843258af689529acbd74d5027a14514135cd0b05",
       "spec": {
         "template": "table",
-        "title": "Common Python questions",
+        "title": "Comparing equality, identity, and tuple mutability",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The questions concept establishes the core structural baseline.",
+            "caption": "A list can be changed, whereas assigning a tuple element fails cleanly.",
+            "checks": [
+              "True False True",
+              "tuples cannot be changed",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Common"
+                    "text": "point[0] = 0"
                   },
                   {
-                    "text": "Python"
+                    "text": "tuples cannot be changed"
                   }
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "a == b"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The difference logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Equality checks values, while is checks whether two names share one object.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "questions"
+                    "text": "a is b"
                   },
                   {
-                    "text": "Python"
+                    "text": "False"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "a is c"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "value is None"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running append on c mutates the list that both a and c share.",
+            "whatIf": "a = [1, 2]\nb = [1, 2]\nc = a\nprint(a == b, a is b, a is c)\n\npoint = (12.97, 77.59)\ntry:\n    point[0] = 0\nexcept TypeError:\n    print(\"tuples cannot be changed\")\n\nvalue = None\nprint(value is None)\nc.append(3)\nprint(a)",
+            "checks": [
+              "[1, 2, 3]"
+            ],
+            "mustNotShow": [
+              "Error"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "c = a"
+                  },
+                  {
+                    "text": "a is c"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "c.append(3)"
+                  },
+                  {
+                    "text": "[1, 2]"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +355,86 @@
       },
       "filled": {
         "template": "table",
-        "title": "Common Python questions",
+        "title": "Comparing equality, identity, and tuple mutability",
         "columns": [
-          "Stage",
-          "Concept"
+          "Check",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The questions concept establishes the core structural baseline.",
+            "caption": "A list can be changed, whereas assigning a tuple element fails cleanly.",
+            "checks": [
+              "True False True",
+              "tuples cannot be changed",
+              "True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Common",
-                  "Python"
+                  "point[0] = 0",
+                  "tuples cannot be changed"
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "a == b",
+                  "True"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The difference logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Equality checks values, while is checks whether two names share one object.",
             "rows": [
               {
                 "cells": [
-                  "questions",
-                  "Python"
+                  "a is b",
+                  "False"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "a is c",
+                  "True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "value is None",
+                  "True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running append on c mutates the list that both a and c share.",
+            "whatIf": "a = [1, 2]\nb = [1, 2]\nc = a\nprint(a == b, a is b, a is c)\n\npoint = (12.97, 77.59)\ntry:\n    point[0] = 0\nexcept TypeError:\n    print(\"tuples cannot be changed\")\n\nvalue = None\nprint(value is None)\nc.append(3)\nprint(a)",
+            "checks": [
+              "[1, 2, 3]"
+            ],
+            "mustNotShow": [
+              "Error"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "c = a",
+                  "a is c"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "c.append(3)",
+                  "[1, 2]"
                 ],
                 "tone": "ok"
               }
@@ -178,23 +448,38 @@
       "codeHash": "9dfd4e94f43753ffc9161a6d6560c876448a3552ee59c23428450acfc4b88acb",
       "spec": {
         "template": "table",
-        "title": "Explaining your project in two minutes",
+        "title": "Structuring your five-part project pitch",
         "columns": [
-          "Stage",
-          "Concept"
+          "Section",
+          "Summary"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The important concept establishes the core structural baseline.",
+            "caption": "A short pitch script helps you explain your Expense Tracker project clearly.",
+            "checks": [
+              "53 words",
+              "About 26 seconds at a calm speaking pace"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Explaining"
+                    "text": "What and why"
                   },
                   {
-                    "text": "your"
+                    "text": "An expense tracker that shows where my money goes."
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Next"
+                  },
+                  {
+                    "text": "A real database and user accounts."
                   }
                 ],
                 "tone": "data"
@@ -202,19 +487,69 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The improve logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Cover how FastAPI works, one problem solved, and how pytest checked it.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "project"
+                    "text": "How it works"
                   },
                   {
-                    "text": "two"
+                    "text": "Python logic module, a terminal menu, and a FastAPI API storing JSON."
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "A problem I solved"
+                  },
+                  {
+                    "text": "Food and food were split; I cleaned categories on entry and added a test."
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "How I checked it"
+                  },
+                  {
+                    "text": "pytest with edge cases, and it is live with a /docs page."
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expanding each part with details brings your pitch toward two minutes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What and why"
+                  },
+                  {
+                    "text": "An expense tracker that shows where my money goes."
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "53 words"
+                  },
+                  {
+                    "text": "About 26 seconds at a calm speaking pace"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           }
@@ -222,35 +557,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "Explaining your project in two minutes",
+        "title": "Structuring your five-part project pitch",
         "columns": [
-          "Stage",
-          "Concept"
+          "Section",
+          "Summary"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The important concept establishes the core structural baseline.",
+            "caption": "A short pitch script helps you explain your Expense Tracker project clearly.",
+            "checks": [
+              "53 words",
+              "About 26 seconds at a calm speaking pace"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Explaining",
-                  "your"
+                  "What and why",
+                  "An expense tracker that shows where my money goes."
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Next",
+                  "A real database and user accounts."
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The improve logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Cover how FastAPI works, one problem solved, and how pytest checked it.",
             "rows": [
               {
                 "cells": [
-                  "project",
-                  "two"
+                  "How it works",
+                  "Python logic module, a terminal menu, and a FastAPI API storing JSON."
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "A problem I solved",
+                  "Food and food were split; I cleaned categories on entry and added a test."
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "How I checked it",
+                  "pytest with edge cases, and it is live with a /docs page."
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expanding each part with details brings your pitch toward two minutes.",
+            "rows": [
+              {
+                "cells": [
+                  "What and why",
+                  "An expense tracker that shows where my money goes."
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "53 words",
+                  "About 26 seconds at a calm speaking pace"
+                ],
+                "tone": "idle"
               }
             ]
           }
@@ -262,23 +642,38 @@
       "codeHash": "40ac8483d3465fe1f0d5ac6d5b69f7954cb8e93c69584b43ba6fa4357ac360eb",
       "spec": {
         "template": "table",
-        "title": "Solving a coding task out loud",
+        "title": "Checking both conditions before single divisors in FizzBuzz",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input Check",
+          "Returned Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The coding concept establishes the core structural baseline.",
+            "caption": "Talking through your coding steps makes the divisibility order clear.",
+            "checks": [
+              "['1', '2', 'Fizz', '4', 'Buzz', 'Fizz', '7', '8', 'Fizz', 'Buzz', '11', 'Fizz', '13', '14', 'FizzBuzz']",
+              "All my examples pass"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Solving"
+                    "text": "n % 15 == 0"
                   },
                   {
-                    "text": "coding"
+                    "text": "FizzBuzz"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "n % 3 == 0"
+                  },
+                  {
+                    "text": "Fizz"
                   }
                 ],
                 "tone": "data"
@@ -286,19 +681,76 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The fizzbuzz logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Testing a simple solution against examples catches ordering bugs early.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "task"
+                    "text": "n % 15 == 0"
                   },
                   {
-                    "text": "out"
+                    "text": "FizzBuzz"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "n % 5 == 0"
+                  },
+                  {
+                    "text": "Buzz"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "str(n)"
+                  },
+                  {
+                    "text": "All my examples pass"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Moving the combined check below the single check makes assert catch the bug.",
+            "whatIf": "def fizz_buzz(n):\n    if n % 3 == 0:\n        return \"Fizz\"\n    if n % 15 == 0:\n        return \"FizzBuzz\"\n    if n % 5 == 0:\n        return \"Buzz\"\n    return str(n)\n\nprint([fizz_buzz(n) for n in range(1, 16)])\nfor n, expected in [(15, \"FizzBuzz\"), (9, \"Fizz\"), (10, \"Buzz\"), (7, \"7\")]:\n    assert fizz_buzz(n) == expected, f\"{n}: got {fizz_buzz(n)}\"\nprint(\"All my examples pass\")",
+            "checks": [
+              "AssertionError"
+            ],
+            "mustNotShow": [
+              "All my examples pass"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "n % 3 == 0"
+                  },
+                  {
+                    "text": "Fizz"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "15"
+                  },
+                  {
+                    "text": "bug for 15"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -306,35 +758,87 @@
       },
       "filled": {
         "template": "table",
-        "title": "Solving a coding task out loud",
+        "title": "Checking both conditions before single divisors in FizzBuzz",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input Check",
+          "Returned Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The coding concept establishes the core structural baseline.",
+            "caption": "Talking through your coding steps makes the divisibility order clear.",
+            "checks": [
+              "['1', '2', 'Fizz', '4', 'Buzz', 'Fizz', '7', '8', 'Fizz', 'Buzz', '11', 'Fizz', '13', '14', 'FizzBuzz']",
+              "All my examples pass"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Solving",
-                  "coding"
+                  "n % 15 == 0",
+                  "FizzBuzz"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "n % 3 == 0",
+                  "Fizz"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The fizzbuzz logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Testing a simple solution against examples catches ordering bugs early.",
             "rows": [
               {
                 "cells": [
-                  "task",
-                  "out"
+                  "n % 15 == 0",
+                  "FizzBuzz"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "n % 5 == 0",
+                  "Buzz"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "str(n)",
+                  "All my examples pass"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Moving the combined check below the single check makes assert catch the bug.",
+            "whatIf": "def fizz_buzz(n):\n    if n % 3 == 0:\n        return \"Fizz\"\n    if n % 15 == 0:\n        return \"FizzBuzz\"\n    if n % 5 == 0:\n        return \"Buzz\"\n    return str(n)\n\nprint([fizz_buzz(n) for n in range(1, 16)])\nfor n, expected in [(15, \"FizzBuzz\"), (9, \"Fizz\"), (10, \"Buzz\"), (7, \"7\")]:\n    assert fizz_buzz(n) == expected, f\"{n}: got {fizz_buzz(n)}\"\nprint(\"All my examples pass\")",
+            "checks": [
+              "AssertionError"
+            ],
+            "mustNotShow": [
+              "All my examples pass"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "n % 3 == 0",
+                  "Fizz"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "15",
+                  "bug for 15"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -346,23 +850,51 @@
       "codeHash": "1a30aa9513e5b6b8e85ece4f552c94c844044c9db421343b58161d341811c929",
       "spec": {
         "template": "table",
-        "title": "More classic small problems",
+        "title": "Four classic interview helpers side by side",
         "columns": [
-          "Stage",
-          "Concept"
+          "Function / Pattern",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The problems concept establishes the core structural baseline.",
+            "caption": "Splitting words, reversing slices, and counting tokens solve common problems.",
+            "checks": [
+              "Python love I",
+              "True False",
+              "[3, 1]",
+              "[('the', 2)]"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "More"
+                    "text": "reverse_words(\"I love Python\")"
                   },
                   {
-                    "text": "classic"
+                    "text": "Python love I"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "is_palindrome(\"Malayalam\")"
+                  },
+                  {
+                    "text": "True"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "is_palindrome(\"Python\")"
+                  },
+                  {
+                    "text": "False"
                   }
                 ],
                 "tone": "data"
@@ -370,19 +902,65 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The used logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Tracking seen values in a set lets a loop find duplicates cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "small"
+                    "text": "duplicates([3, 1, 3, 2, 1, 3])"
                   },
                   {
-                    "text": "problems"
+                    "text": "[3, 1]"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Counter(\"the cat and the hat\".split()).most_common(1)"
+                  },
+                  {
+                    "text": "[('the', 2)]"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Writing largest with a loop keeps track of the biggest value seen.",
+            "whatIf": "from collections import Counter\n\ndef reverse_words(sentence):\n    return \" \".join(reversed(sentence.split()))\n\ndef is_palindrome(word):\n    clean = word.lower()\n    return clean == clean[::-1]\n\ndef duplicates(items):\n    seen, dupes = set(), []\n    for x in items:\n        if x in seen and x not in dupes:\n            dupes.append(x)\n        seen.add(x)\n    return dupes\n\nprint(reverse_words(\"I love Python\"))\nprint(is_palindrome(\"Malayalam\"), is_palindrome(\"Python\"))\nprint(duplicates([3, 1, 3, 2, 1, 3]))\nprint(Counter(\"the cat and the hat\".split()).most_common(1))\ndef largest(numbers):\n    best = numbers[0]\n    for n in numbers[1:]:\n        if n > best:\n            best = n\n    return best\n\nprint(largest([3, 9, 2]), largest([7]))",
+            "checks": [
+              "9 7"
+            ],
+            "mustNotShow": [
+              "Error"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "largest(numbers)"
+                  },
+                  {
+                    "text": "[3, 9, 2]"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "max()"
+                  },
+                  {
+                    "text": "biggest value so far"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -390,35 +968,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "More classic small problems",
+        "title": "Four classic interview helpers side by side",
         "columns": [
-          "Stage",
-          "Concept"
+          "Function / Pattern",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The problems concept establishes the core structural baseline.",
+            "caption": "Splitting words, reversing slices, and counting tokens solve common problems.",
+            "checks": [
+              "Python love I",
+              "True False",
+              "[3, 1]",
+              "[('the', 2)]"
+            ],
             "rows": [
               {
                 "cells": [
-                  "More",
-                  "classic"
+                  "reverse_words(\"I love Python\")",
+                  "Python love I"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "is_palindrome(\"Malayalam\")",
+                  "True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "is_palindrome(\"Python\")",
+                  "False"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The used logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Tracking seen values in a set lets a loop find duplicates cleanly.",
             "rows": [
               {
                 "cells": [
-                  "small",
-                  "problems"
+                  "duplicates([3, 1, 3, 2, 1, 3])",
+                  "[3, 1]"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Counter(\"the cat and the hat\".split()).most_common(1)",
+                  "[('the', 2)]"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Writing largest with a loop keeps track of the biggest value seen.",
+            "whatIf": "from collections import Counter\n\ndef reverse_words(sentence):\n    return \" \".join(reversed(sentence.split()))\n\ndef is_palindrome(word):\n    clean = word.lower()\n    return clean == clean[::-1]\n\ndef duplicates(items):\n    seen, dupes = set(), []\n    for x in items:\n        if x in seen and x not in dupes:\n            dupes.append(x)\n        seen.add(x)\n    return dupes\n\nprint(reverse_words(\"I love Python\"))\nprint(is_palindrome(\"Malayalam\"), is_palindrome(\"Python\"))\nprint(duplicates([3, 1, 3, 2, 1, 3]))\nprint(Counter(\"the cat and the hat\".split()).most_common(1))\ndef largest(numbers):\n    best = numbers[0]\n    for n in numbers[1:]:\n        if n > best:\n            best = n\n    return best\n\nprint(largest([3, 9, 2]), largest([7]))",
+            "checks": [
+              "9 7"
+            ],
+            "mustNotShow": [
+              "Error"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "largest(numbers)",
+                  "[3, 9, 2]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "max()",
+                  "biggest value so far"
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -430,43 +1062,140 @@
       "codeHash": "25fac54f226d216bc89fd475dc7b601c2f2c00f5f471274a77d9428c526b92f5",
       "spec": {
         "template": "table",
-        "title": "Your next steps after this month",
+        "title": "Five-week learning roadmap after this month",
         "columns": [
-          "Stage",
-          "Concept"
+          "Week",
+          "Focus Area"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The month concept establishes the core structural baseline.",
+            "caption": "Ten Python and web topics form your foundation for a junior role.",
+            "checks": [
+              "Learned this month: 10 topics",
+              "Week 1 after the course: SQL and SQLite",
+              "You are ready to apply for junior Python roles. Good luck!"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Your"
+                    "text": "Learned this month: 10 topics"
                   },
                   {
-                    "text": "next"
+                    "text": "basics"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Learned this month: 10 topics"
+                  },
+                  {
+                    "text": "FastAPI"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Start next with SQLite and PostgreSQL databases, then accounts and Docker.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "steps"
+                    "text": "Week 1"
                   },
                   {
-                    "text": "after"
+                    "text": "SQL and SQLite"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Week 2"
+                  },
+                  {
+                    "text": "PostgreSQL"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Week 3"
+                  },
+                  {
+                    "text": "user accounts"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Week 4"
+                  },
+                  {
+                    "text": "Docker"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Week 5"
+                  },
+                  {
+                    "text": "two more projects"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Customizing the next steps builds a five-week plan you can run daily.",
+            "whatIf": "learned = [\"basics\", \"lists and dictionaries\", \"files and JSON\", \"classes\", \"testing\",\n           \"Git\", \"APIs\", \"FastAPI\", \"debugging\", \"deployment\"]\nnext_steps = [\"SQL joins\", \"Postgres app\", \"user login\", \"Docker build\", \"deploy portfolio\"]\nprint(f\"Learned this month: {len(learned)} topics\")\nfor week, step in enumerate(next_steps, start=1):\n    print(f\"Week {week} after the course: {step}\")\nprint(\"You are ready to apply for junior Python roles. Good luck!\")",
+            "checks": [
+              "Week 1 after the course: SQL joins",
+              "Week 5 after the course: deploy portfolio"
+            ],
+            "mustNotShow": [
+              "SQLite",
+              "two more projects"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "next_steps"
+                  },
+                  {
+                    "text": "SQL and SQLite"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "five weeks"
+                  },
+                  {
+                    "text": "PostgreSQL"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -474,35 +1203,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Your next steps after this month",
+        "title": "Five-week learning roadmap after this month",
         "columns": [
-          "Stage",
-          "Concept"
+          "Week",
+          "Focus Area"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The month concept establishes the core structural baseline.",
+            "caption": "Ten Python and web topics form your foundation for a junior role.",
+            "checks": [
+              "Learned this month: 10 topics",
+              "Week 1 after the course: SQL and SQLite",
+              "You are ready to apply for junior Python roles. Good luck!"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Your",
-                  "next"
+                  "Learned this month: 10 topics",
+                  "basics"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Learned this month: 10 topics",
+                  "FastAPI"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Start next with SQLite and PostgreSQL databases, then accounts and Docker.",
             "rows": [
               {
                 "cells": [
-                  "steps",
-                  "after"
+                  "Week 1",
+                  "SQL and SQLite"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Week 2",
+                  "PostgreSQL"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Week 3",
+                  "user accounts"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Week 4",
+                  "Docker"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Week 5",
+                  "two more projects"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Customizing the next steps builds a five-week plan you can run daily.",
+            "whatIf": "learned = [\"basics\", \"lists and dictionaries\", \"files and JSON\", \"classes\", \"testing\",\n           \"Git\", \"APIs\", \"FastAPI\", \"debugging\", \"deployment\"]\nnext_steps = [\"SQL joins\", \"Postgres app\", \"user login\", \"Docker build\", \"deploy portfolio\"]\nprint(f\"Learned this month: {len(learned)} topics\")\nfor week, step in enumerate(next_steps, start=1):\n    print(f\"Week {week} after the course: {step}\")\nprint(\"You are ready to apply for junior Python roles. Good luck!\")",
+            "checks": [
+              "Week 1 after the course: SQL joins",
+              "Week 5 after the course: deploy portfolio"
+            ],
+            "mustNotShow": [
+              "SQLite",
+              "two more projects"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "next_steps",
+                  "SQL and SQLite"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "five weeks",
+                  "PostgreSQL"
+                ],
+                "tone": "data"
               }
             ]
           }

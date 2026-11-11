@@ -1439,7 +1439,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Read the Answer",
     eDesc: "APIs often answer like `{'results': [...]}`. Write `parse_results(data)` that returns `data['results']`, or `[]` if it is missing.",
     eStarter: lines("def parse_results(data):", "    # return data.get('results', [])", "    pass"),
-    eHint: "return data.get('results', [])",
+    eHint: lines("def parse_results(data):", "    return data.get('results', [])"),
     eTest: lines(
       "_fn = globals().get('parse_results')",
       "_r1 = None; _r2 = None; _k_err = False",
@@ -1457,7 +1457,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Status Message",
     aDesc: "Write `status_message(code)` that returns `'OK'` for 200, `'Not found'` for 404, and `'Something went wrong'` for anything else.",
     aStarter: lines("def status_message(code):", "    # check 200, 404, and anything else", "    pass"),
-    aHint: "if code == 200: return 'OK'; if code == 404: return 'Not found'; return 'Something went wrong'",
+    aHint: lines("def status_message(code):", "    if code == 200:", "        return 'OK'", "    if code == 404:", "        return 'Not found'", "    return 'Something went wrong'"),
     aTest: lines(
       "_fn = globals().get('status_message')",
       "_s1 = _fn(200) if callable(_fn) else None",
@@ -1480,7 +1480,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Check Incoming Data",
     eDesc: "Write `validate_expense(data)` that returns a list of errors: `'item is required'` if item is missing or empty, and `'amount must be more than 0'` if amount is missing or not above 0.",
     eStarter: lines("def validate_expense(data):", "    errors = []", "    # append 'item is required' and/or 'amount must be more than 0'", "    return errors"),
-    eHint: "if not str(data.get('item', '')).strip(): errors.append('item is required'); amount = data.get('amount'); if not isinstance(amount, (int, float)) or amount <= 0: errors.append('amount must be more than 0')",
+    eHint: lines("def validate_expense(data):", "    errors = []", "    if not str(data.get('item', '')).strip():", "        errors.append('item is required')", "    amount = data.get('amount')", "    if not isinstance(amount, (int, float)) or amount <= 0:", "        errors.append('amount must be more than 0')", "    return errors"),
     eTest: lines(
       "_fn = globals().get('validate_expense')",
       "_v1 = None; _v2 = None; _v3 = None; _t_err = False",
@@ -1499,7 +1499,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Pages of Results (Building Your Own API with FastAPI)",
     aDesc: "APIs send long lists in pages. Write `paginate(items, page, size)` that returns the items for that page, where page 1 is the first page.",
     aStarter: lines("def paginate(items, page, size):", "    # start = (page - 1) * size", "    pass"),
-    aHint: "start = (page - 1) * size; return items[start:start + size]",
+    aHint: lines("def paginate(items, page, size):", "    start = (page - 1) * size", "    return items[start:start + size]"),
     aTest: lines(
       "items = list(range(1, 8))",
       "_fn = globals().get('paginate')",
@@ -1521,7 +1521,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Fix the Bug",
     eDesc: "This function should add up every expense's amount, but it has a bug. Find it and fix it.",
     eStarter: lines("def total_amount(expenses):", "    total = 0", "    for i in range(1, len(expenses)):", "        total = total + expenses[i]['amount']", "    return total"),
-    eHint: "Lists start at position 0, not 1: use range(len(expenses)) or range(0, len(expenses)).",
+    eHint: lines("def total_amount(expenses):", "    total = 0", "    for i in range(len(expenses)):", "        total = total + expenses[i]['amount']", "    return total"),
     eTest: lines(
       "_res = total_amount([{'amount': 100}, {'amount': 200}, {'amount': 300}])",
       "_res2 = total_amount([{'amount': 20}, {'amount': 45}])",
@@ -1533,7 +1533,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Find the Bad Record",
     aDesc: "Write `first_invalid(expenses)` that returns the first expense whose amount is 0 or less, or `None` if all are fine.",
     aStarter: lines("def first_invalid(expenses):", "    # return the first expense with e['amount'] <= 0, or None", "    pass"),
-    aHint: "for e in expenses: if e['amount'] <= 0: return e. After the loop, return None.",
+    aHint: lines("def first_invalid(expenses):", "    for e in expenses:", "        if e['amount'] <= 0:", "            return e", "    return None"),
     aTest: lines(
       "data = [{'id': 1, 'amount': 20}, {'id': 2, 'amount': 0}, {'id': 3, 'amount': -5}]",
       "_r1 = first_invalid(data)",
@@ -1555,7 +1555,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Which Address?",
     eDesc: "Write `base_url(env)` that returns `'https://expense-api.onrender.com'` for `'production'` and `'http://127.0.0.1:8000'` for anything else.",
     eStarter: lines("def base_url(env):", "    # check if env == 'production'", "    pass"),
-    eHint: "return 'https://expense-api.onrender.com' if env == 'production' else 'http://127.0.0.1:8000'",
+    eHint: lines("def base_url(env):", "    return 'https://expense-api.onrender.com' if env == 'production' else 'http://127.0.0.1:8000'"),
     eTest: lines(
       "assert base_url('production') == 'https://expense-api.onrender.com', \"Expected 'https://expense-api.onrender.com' for 'production'\"",
       "assert base_url('development') == 'http://127.0.0.1:8000', \"Expected 'http://127.0.0.1:8000' for 'development'\"",
@@ -1564,7 +1564,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "README Checker",
     aDesc: "Write `missing_sections(readme)` that returns which of `'## About'`, `'## Features'`, `'## Setup'` are missing from the README text, in that order.",
     aStarter: lines("def missing_sections(readme):", "    needed = ['## About', '## Features', '## Setup']", "    # return [s for s in needed if s not in readme]", "    pass"),
-    aHint: "return [s for s in needed if s not in readme]",
+    aHint: lines("def missing_sections(readme):", "    needed = ['## About', '## Features', '## Setup']", "    return [s for s in needed if s not in readme]"),
     aTest: lines(
       "text = '# Expense API\\n## About\\nTrack spending\\n## Setup\\npip install -r requirements.txt'",
       "assert missing_sections(text) == ['## Features'] and missing_sections('## About\\n## Features\\n## Setup') == [] and missing_sections('') == ['## About', '## Features', '## Setup'], \"Expected ['## Features']\"",
@@ -1582,7 +1582,16 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "FizzBuzz",
     eDesc: "Write `fizz_buzz(n)` that returns `'FizzBuzz'` if n divides by 3 and 5, `'Fizz'` if by 3, `'Buzz'` if by 5, otherwise the number as text.",
     eStarter: lines("def fizz_buzz(n):", "    # check 3 and 5 together first", "    pass"),
-    eHint: "if n % 15 == 0: return 'FizzBuzz' ... return str(n)",
+    eHint: lines(
+      "def fizz_buzz(n):",
+      "    if n % 15 == 0:",
+      "        return 'FizzBuzz'",
+      "    if n % 3 == 0:",
+      "        return 'Fizz'",
+      "    if n % 5 == 0:",
+      "        return 'Buzz'",
+      "    return str(n)"
+    ),
     eTest: lines(
       "_fn = globals().get('fizz_buzz')",
       "_f15 = _fn(15) if callable(_fn) else None",
@@ -1597,7 +1606,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Reverse the Words",
     aDesc: "Write `reverse_words(sentence)` that reverses the order of the words. Example: `'I love Python'` gives `'Python love I'`.",
     aStarter: lines("def reverse_words(sentence):", "    # split, reverse, join", "    pass"),
-    aHint: "return ' '.join(reversed(sentence.split()))",
+    aHint: lines(
+      "def reverse_words(sentence):",
+      "    return ' '.join(reversed(sentence.split()))"
+    ),
     aTest: lines(
       "_fn = globals().get('reverse_words')",
       "_r = _fn('I love Python') if callable(_fn) else None",

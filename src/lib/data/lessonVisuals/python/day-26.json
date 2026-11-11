@@ -3,30 +3,53 @@
   "prefix": "python",
   "day": 26,
   "promptSha": "60a4fb019be4fd79cce1e594e8d7ca62db07c7343bbeb63ff5e98f9e8456579c",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day26",
   "entries": [
     {
       "partTitle": "What a web API is",
       "codeHash": "1720559b3d549a190da65cda06b1ad875626ba8c22c70e2b8ba0e1802e80e66b",
       "spec": {
         "template": "table",
-        "title": "What a web API is",
+        "title": "Parsing JSON exchange rates from an API",
         "columns": [
-          "Stage",
-          "Concept"
+          "Base",
+          "Currency",
+          "Rate / Amount"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The apps concept establishes the core structural baseline.",
+            "caption": "Different apps talk to each other through web APIs.",
+            "checks": [
+              "INR",
+              "0.012",
+              "60.0 USD"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "INR"
                   },
                   {
-                    "text": "web"
+                    "text": "USD"
+                  },
+                  {
+                    "text": "0.012"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "INR"
+                  },
+                  {
+                    "text": "EUR"
+                  },
+                  {
+                    "text": "0.011"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +57,59 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A program sends a request to a URL and receives JSON data.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "API"
+                    "text": "5000"
                   },
                   {
-                    "text": "web"
+                    "text": "USD"
+                  },
+                  {
+                    "text": "60.0 USD"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "base"
+                  },
+                  {
+                    "text": "rates"
+                  },
+                  {
+                    "text": "0.012"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using EUR selects the euro rate for the rupee conversion answer.",
+            "whatIf": "import json\n# What an API answer to GET /rates?base=INR might look like:\nanswer_text = '{\"base\": \"INR\", \"date\": \"2026-09-28\", \"rates\": {\"USD\": 0.012, \"EUR\": 0.011}}'\ndata = json.loads(answer_text)\nprint(data[\"base\"])\nprint(data[\"rates\"][\"USD\"])\nprint(round(5000 * data[\"rates\"][\"EUR\"], 2), \"EUR\")",
+            "checks": [
+              "INR",
+              "0.012",
+              "55.0 EUR"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "5000"
+                  },
+                  {
+                    "text": "EUR"
+                  },
+                  {
+                    "text": "0.011"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +120,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "What a web API is",
+        "title": "Parsing JSON exchange rates from an API",
         "columns": [
-          "Stage",
-          "Concept"
+          "Base",
+          "Currency",
+          "Rate / Amount"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The apps concept establishes the core structural baseline.",
+            "caption": "Different apps talk to each other through web APIs.",
+            "checks": [
+              "INR",
+              "0.012",
+              "60.0 USD"
+            ],
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "web"
+                  "INR",
+                  "USD",
+                  "0.012"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "INR",
+                  "EUR",
+                  "0.011"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A program sends a request to a URL and receives JSON data.",
             "rows": [
               {
                 "cells": [
-                  "API",
-                  "web"
+                  "5000",
+                  "USD",
+                  "60.0 USD"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "base",
+                  "rates",
+                  "0.012"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Using EUR selects the euro rate for the rupee conversion answer.",
+            "whatIf": "import json\n# What an API answer to GET /rates?base=INR might look like:\nanswer_text = '{\"base\": \"INR\", \"date\": \"2026-09-28\", \"rates\": {\"USD\": 0.012, \"EUR\": 0.011}}'\ndata = json.loads(answer_text)\nprint(data[\"base\"])\nprint(data[\"rates\"][\"USD\"])\nprint(round(5000 * data[\"rates\"][\"EUR\"], 2), \"EUR\")",
+            "checks": [
+              "INR",
+              "0.012",
+              "55.0 EUR"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "5000",
+                  "EUR",
+                  "0.011"
                 ],
                 "tone": "ok"
               }
@@ -94,43 +204,117 @@
       "codeHash": "aef41f4506d58c096efa0f1d14513863573562f032fc709d0d6db046596a5c2c",
       "spec": {
         "template": "table",
-        "title": "URLs, parameters and status codes",
+        "title": "Mapping HTTP status codes to clear messages",
         "columns": [
-          "Stage",
-          "Concept"
+          "Status Code",
+          "Meaning"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The request concept establishes the core structural baseline.",
+            "caption": "Extra details go in query parameters appended to the request URL.",
+            "checks": [
+              "https://api.example.com/search?q=python+jobs&city=Pune&page=2",
+              "200 OK",
+              "404 Not found",
+              "503 Server problem, try again later"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "URLs"
+                    "text": "200"
                   },
                   {
-                    "text": "parameters"
+                    "text": "OK"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Not found"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "503"
+                  },
+                  {
+                    "text": "Server problem, try again later"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The simple logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Every status code reports whether the request succeeded or failed.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "201"
                   },
                   {
-                    "text": "status"
+                    "text": "OK"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "400"
+                  },
+                  {
+                    "text": "Problem with our request"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "A check before the general error handles unauthorized codes cleanly.",
+            "whatIf": "from urllib.parse import urlencode\nbase = \"https://api.example.com/search\"\nparams = {\"q\": \"python jobs\", \"city\": \"Pune\", \"page\": 2}\nprint(base + \"?\" + urlencode(params))\n\ndef status_message(code):\n    if 200 <= code < 300:\n        return \"OK\"\n    if code in (401, 403):\n        return \"Not allowed: check your API key\"\n    if code == 404:\n        return \"Not found\"\n    if 400 <= code < 500:\n        return \"Problem with our request\"\n    return \"Server problem, try again later\"\n\nfor code in [200, 401, 403, 404, 503]:\n    print(code, status_message(code))",
+            "checks": [
+              "200 OK",
+              "401 Not allowed: check your API key",
+              "403 Not allowed: check your API key",
+              "404 Not found"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "400"
+                  },
+                  {
+                    "text": "Problem with our request"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Not found"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -138,35 +322,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "URLs, parameters and status codes",
+        "title": "Mapping HTTP status codes to clear messages",
         "columns": [
-          "Stage",
-          "Concept"
+          "Status Code",
+          "Meaning"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The request concept establishes the core structural baseline.",
+            "caption": "Extra details go in query parameters appended to the request URL.",
+            "checks": [
+              "https://api.example.com/search?q=python+jobs&city=Pune&page=2",
+              "200 OK",
+              "404 Not found",
+              "503 Server problem, try again later"
+            ],
             "rows": [
               {
                 "cells": [
-                  "URLs",
-                  "parameters"
+                  "200",
+                  "OK"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "404",
+                  "Not found"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "503",
+                  "Server problem, try again later"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The simple logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Every status code reports whether the request succeeded or failed.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "status"
+                  "201",
+                  "OK"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "400",
+                  "Problem with our request"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "A check before the general error handles unauthorized codes cleanly.",
+            "whatIf": "from urllib.parse import urlencode\nbase = \"https://api.example.com/search\"\nparams = {\"q\": \"python jobs\", \"city\": \"Pune\", \"page\": 2}\nprint(base + \"?\" + urlencode(params))\n\ndef status_message(code):\n    if 200 <= code < 300:\n        return \"OK\"\n    if code in (401, 403):\n        return \"Not allowed: check your API key\"\n    if code == 404:\n        return \"Not found\"\n    if 400 <= code < 500:\n        return \"Problem with our request\"\n    return \"Server problem, try again later\"\n\nfor code in [200, 401, 403, 404, 503]:\n    print(code, status_message(code))",
+            "checks": [
+              "200 OK",
+              "401 Not allowed: check your API key",
+              "403 Not allowed: check your API key",
+              "404 Not found"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "400",
+                  "Problem with our request"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "404",
+                  "Not found"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -178,40 +416,103 @@
       "codeHash": "6a1f989a059a1e161124033ef7f0901cc5ba4d2b1dce04c9c20363398ab65dbb",
       "spec": {
         "template": "table",
-        "title": "Calling an API with requests",
+        "title": "Simulated GET responses with status_code and json()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Status",
+          "Name / Message",
+          "Detail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The laptop concept establishes the core structural baseline.",
+            "caption": "The requests library sends a GET request and receives a response object.",
+            "checks": [
+              "The Octocat has 8 public repos",
+              "Error 404 Not Found"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Calling"
+                    "text": "200"
                   },
                   {
-                    "text": "API"
+                    "text": "The Octocat"
+                  },
+                  {
+                    "text": "8"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Not Found"
+                  },
+                  {
+                    "text": "Error"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The always logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Read response status_code and convert the JSON answer into data.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "with"
+                    "text": "200"
                   },
                   {
-                    "text": "requests"
+                    "text": "The Octocat"
+                  },
+                  {
+                    "text": "public repos"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Not Found"
+                  },
+                  {
+                    "text": "status_code"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "The laptop script calls GitHub using any valid username.",
+            "checks": [
+              "The Octocat has 8 public repos",
+              "Error 404 Not Found"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "200"
+                  },
+                  {
+                    "text": "The Octocat"
+                  },
+                  {
+                    "text": "8"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +523,74 @@
       },
       "filled": {
         "template": "table",
-        "title": "Calling an API with requests",
+        "title": "Simulated GET responses with status_code and json()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Status",
+          "Name / Message",
+          "Detail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The laptop concept establishes the core structural baseline.",
+            "caption": "The requests library sends a GET request and receives a response object.",
+            "checks": [
+              "The Octocat has 8 public repos",
+              "Error 404 Not Found"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Calling",
-                  "API"
+                  "200",
+                  "The Octocat",
+                  "8"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "404",
+                  "Not Found",
+                  "Error"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The always logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Read response status_code and convert the JSON answer into data.",
             "rows": [
               {
                 "cells": [
-                  "with",
-                  "requests"
+                  "200",
+                  "The Octocat",
+                  "public repos"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "404",
+                  "Not Found",
+                  "status_code"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "The laptop script calls GitHub using any valid username.",
+            "checks": [
+              "The Octocat has 8 public repos",
+              "Error 404 Not Found"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "200",
+                  "The Octocat",
+                  "8"
                 ],
                 "tone": "ok"
               }
@@ -262,23 +604,79 @@
       "codeHash": "b1e466c982389dfde8e057826e5f8d64d84c609ba55fdfe50dcfaf5566ec5696",
       "spec": {
         "template": "table",
-        "title": "Reading nested JSON safely",
+        "title": "Normalizing nested JSON fields safely with get()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Role Title",
+          "Company",
+          "Extracted Field"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The real concept establishes the core structural baseline.",
+            "caption": "Nested API answers hold dictionaries inside lists inside dictionaries.",
+            "checks": [
+              "Junior Python Developer at Acme (4-6 LPA)",
+              "Backend Intern at Byte Labs (not given)"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Reading"
+                    "text": "Junior Python Developer"
                   },
                   {
-                    "text": "nested"
+                    "text": "Acme"
+                  },
+                  {
+                    "text": "4-6 LPA"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Backend Intern"
+                  },
+                  {
+                    "text": "Byte Labs"
+                  },
+                  {
+                    "text": "not given"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Reading data steps through one dictionary level deeper at a time.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Junior Python Developer"
+                  },
+                  {
+                    "text": "Acme"
+                  },
+                  {
+                    "text": "Pune"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Backend Intern"
+                  },
+                  {
+                    "text": "Byte Labs"
+                  },
+                  {
+                    "text": "Remote"
                   }
                 ],
                 "tone": "data"
@@ -286,16 +684,24 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The apis logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Including the city key adds location details to each printed line.",
+            "whatIf": "import json\ntext = \"\"\"{\n  \"total\": 2,\n  \"results\": [\n    {\"title\": \"Junior Python Developer\", \"company\": {\"name\": \"Acme\", \"city\": \"Pune\"}, \"salary\": \"4-6 LPA\"},\n    {\"title\": \"Backend Intern\", \"company\": {\"name\": \"Byte Labs\", \"city\": \"Remote\"}}\n  ]\n}\"\"\"\ndata = json.loads(text)\njobs = []\nfor item in data.get(\"results\", []):\n    jobs.append({\n        \"title\": item[\"title\"],\n        \"company\": item[\"company\"][\"name\"],\n        \"salary\": item.get(\"salary\", \"not given\"),\n        \"city\": item[\"company\"].get(\"city\", \"unknown\"),\n    })\nfor job in jobs:\n    print(f\"{job['title']} at {job['company']} in {job['city']} ({job['salary']})\")",
+            "checks": [
+              "Junior Python Developer at Acme in Pune (4-6 LPA)",
+              "Backend Intern at Byte Labs in Remote (not given)"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "JSON"
+                    "text": "Backend Intern"
                   },
                   {
-                    "text": "safely"
+                    "text": "Byte Labs"
+                  },
+                  {
+                    "text": "Remote"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +712,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "Reading nested JSON safely",
+        "title": "Normalizing nested JSON fields safely with get()",
         "columns": [
-          "Stage",
-          "Concept"
+          "Role Title",
+          "Company",
+          "Extracted Field"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The real concept establishes the core structural baseline.",
+            "caption": "Nested API answers hold dictionaries inside lists inside dictionaries.",
+            "checks": [
+              "Junior Python Developer at Acme (4-6 LPA)",
+              "Backend Intern at Byte Labs (not given)"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Reading",
-                  "nested"
+                  "Junior Python Developer",
+                  "Acme",
+                  "4-6 LPA"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Backend Intern",
+                  "Byte Labs",
+                  "not given"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Reading data steps through one dictionary level deeper at a time.",
+            "rows": [
+              {
+                "cells": [
+                  "Junior Python Developer",
+                  "Acme",
+                  "Pune"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Backend Intern",
+                  "Byte Labs",
+                  "Remote"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The apis logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Including the city key adds location details to each printed line.",
+            "whatIf": "import json\ntext = \"\"\"{\n  \"total\": 2,\n  \"results\": [\n    {\"title\": \"Junior Python Developer\", \"company\": {\"name\": \"Acme\", \"city\": \"Pune\"}, \"salary\": \"4-6 LPA\"},\n    {\"title\": \"Backend Intern\", \"company\": {\"name\": \"Byte Labs\", \"city\": \"Remote\"}}\n  ]\n}\"\"\"\ndata = json.loads(text)\njobs = []\nfor item in data.get(\"results\", []):\n    jobs.append({\n        \"title\": item[\"title\"],\n        \"company\": item[\"company\"][\"name\"],\n        \"salary\": item.get(\"salary\", \"not given\"),\n        \"city\": item[\"company\"].get(\"city\", \"unknown\"),\n    })\nfor job in jobs:\n    print(f\"{job['title']} at {job['company']} in {job['city']} ({job['salary']})\")",
+            "checks": [
+              "Junior Python Developer at Acme in Pune (4-6 LPA)",
+              "Backend Intern at Byte Labs in Remote (not given)"
+            ],
             "rows": [
               {
                 "cells": [
-                  "JSON",
-                  "safely"
+                  "Backend Intern",
+                  "Byte Labs",
+                  "Remote"
                 ],
                 "tone": "ok"
               }
@@ -346,23 +794,80 @@
       "codeHash": "7f78dfe9b2484162581e5b9156fa5ac8cb8d3fe282a79b7ab5fe5bfbaab8c2ca",
       "spec": {
         "template": "table",
-        "title": "API keys and handling failures",
+        "title": "Environment API keys and error fallbacks",
         "columns": [
-          "Stage",
-          "Concept"
+          "Source",
+          "Condition",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
+            "caption": "Secret API keys belong outside code and never on GitHub.",
+            "checks": [
+              "({'USD': 0.0121}, 'live')",
+              "({'USD': 0.012}, 'saved (may be out of date)')",
+              "Key set: False"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "API"
+                    "text": "working_api"
                   },
                   {
-                    "text": "keys"
+                    "text": "live"
+                  },
+                  {
+                    "text": "0.0121"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "broken_api"
+                  },
+                  {
+                    "text": "TimeoutError"
+                  },
+                  {
+                    "text": "saved (may be out of date)"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Environment variables store settings cleanly outside your source code.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "RATES_API_KEY"
+                  },
+                  {
+                    "text": "False"
+                  },
+                  {
+                    "text": "os.environ.get"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "broken_api"
+                  },
+                  {
+                    "text": "TimeoutError"
+                  },
+                  {
+                    "text": "0.012"
                   }
                 ],
                 "tone": "data"
@@ -370,19 +875,27 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The networks logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Calling slow_api catches ConnectionError and uses saved rates cleanly.",
+            "whatIf": "import os\n\ndef get_rates(fetch):\n    try:\n        return fetch(), \"live\"\n    except (TimeoutError, ConnectionError):\n        return {\"USD\": 0.012}, \"saved (may be out of date)\"\n\ndef working_api():\n    return {\"USD\": 0.0121}\n\ndef broken_api():\n    raise TimeoutError(\"no answer in 10 seconds\")\n\nprint(get_rates(working_api))\nprint(get_rates(broken_api))\nkey = os.environ.get(\"RATES_API_KEY\", \"\")\nprint(\"Key set:\", bool(key))\ndef slow_api():\n    raise ConnectionError(\"offline\")\nprint(get_rates(slow_api))",
+            "checks": [
+              "({'USD': 0.0121}, 'live')",
+              "({'USD': 0.012}, 'saved (may be out of date)')"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "broken_api"
                   },
                   {
-                    "text": "handling"
+                    "text": "TimeoutError"
+                  },
+                  {
+                    "text": "saved (may be out of date)"
                   }
                 ],
-                "tone": "ok"
+                "tone": "error"
               }
             ]
           }
@@ -390,35 +903,78 @@
       },
       "filled": {
         "template": "table",
-        "title": "API keys and handling failures",
+        "title": "Environment API keys and error fallbacks",
         "columns": [
-          "Stage",
-          "Concept"
+          "Source",
+          "Condition",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
+            "caption": "Secret API keys belong outside code and never on GitHub.",
+            "checks": [
+              "({'USD': 0.0121}, 'live')",
+              "({'USD': 0.012}, 'saved (may be out of date)')",
+              "Key set: False"
+            ],
             "rows": [
               {
                 "cells": [
-                  "API",
-                  "keys"
+                  "working_api",
+                  "live",
+                  "0.0121"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "broken_api",
+                  "TimeoutError",
+                  "saved (may be out of date)"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Environment variables store settings cleanly outside your source code.",
+            "rows": [
+              {
+                "cells": [
+                  "RATES_API_KEY",
+                  "False",
+                  "os.environ.get"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "broken_api",
+                  "TimeoutError",
+                  "0.012"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The networks logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Calling slow_api catches ConnectionError and uses saved rates cleanly.",
+            "whatIf": "import os\n\ndef get_rates(fetch):\n    try:\n        return fetch(), \"live\"\n    except (TimeoutError, ConnectionError):\n        return {\"USD\": 0.012}, \"saved (may be out of date)\"\n\ndef working_api():\n    return {\"USD\": 0.0121}\n\ndef broken_api():\n    raise TimeoutError(\"no answer in 10 seconds\")\n\nprint(get_rates(working_api))\nprint(get_rates(broken_api))\nkey = os.environ.get(\"RATES_API_KEY\", \"\")\nprint(\"Key set:\", bool(key))\ndef slow_api():\n    raise ConnectionError(\"offline\")\nprint(get_rates(slow_api))",
+            "checks": [
+              "({'USD': 0.0121}, 'live')",
+              "({'USD': 0.012}, 'saved (may be out of date)')"
+            ],
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "handling"
+                  "broken_api",
+                  "TimeoutError",
+                  "saved (may be out of date)"
                 ],
-                "tone": "ok"
+                "tone": "error"
               }
             ]
           }
@@ -430,43 +986,125 @@
       "codeHash": "b3d30521c882a25b269ebeed0d4d0513789b615bf0d21e522eaa78164f1fd909",
       "spec": {
         "template": "table",
-        "title": "Putting it together: expenses in another currency",
+        "title": "Converting tracker total across currencies",
         "columns": [
-          "Stage",
-          "Concept"
+          "Currency",
+          "Rate",
+          "Converted Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The small concept establishes the core structural baseline.",
+            "caption": "Converting expense total to another currency uses API exchange rates.",
+            "checks": [
+              "USD 102.0",
+              "EUR 93.5",
+              "JPY rate not available"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "USD"
                   },
                   {
-                    "text": "together"
+                    "text": "0.012"
+                  },
+                  {
+                    "text": "102.0"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "EUR"
+                  },
+                  {
+                    "text": "0.011"
+                  },
+                  {
+                    "text": "93.5"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "JPY"
+                  },
+                  {
+                    "text": "None"
+                  },
+                  {
+                    "text": "rate not available"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Handle a missing currency politely while reading rates with get().",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "expenses"
+                    "text": "AED"
                   },
                   {
-                    "text": "another"
+                    "text": "0.044"
+                  },
+                  {
+                    "text": "INR"
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "JPY"
+                  },
+                  {
+                    "text": "None"
+                  },
+                  {
+                    "text": "rate not available"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Setting status_code to failed reports the problem without converting.",
+            "whatIf": "import json\nstatus_code = 503\nbody = '{\"base\": \"INR\", \"rates\": {\"USD\": 0.012, \"EUR\": 0.011, \"AED\": 0.044}}'\n\ndef convert(amount, rates, currency):\n    rate = rates.get(currency)\n    if rate is None:\n        return None\n    return round(amount * rate, 2)\n\nexpenses = [{\"amount\": 20}, {\"amount\": 8000}, {\"amount\": 480}]\ntotal = sum(e[\"amount\"] for e in expenses)\nif status_code == 200:\n    rates = json.loads(body).get(\"rates\", {})\n    for currency in [\"USD\", \"EUR\", \"JPY\"]:\n        value = convert(total, rates, currency)\n        print(currency, value if value is not None else \"rate not available\")\nelse:\n    print(\"Could not get rates, status\", status_code)",
+            "checks": [
+              "Could not get rates, status 503"
+            ],
+            "mustNotShow": [
+              "USD 102.0",
+              "EUR 93.5"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "JPY"
+                  },
+                  {
+                    "text": "status_code"
+                  },
+                  {
+                    "text": "rate not available"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -474,35 +1112,89 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: expenses in another currency",
+        "title": "Converting tracker total across currencies",
         "columns": [
-          "Stage",
-          "Concept"
+          "Currency",
+          "Rate",
+          "Converted Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The small concept establishes the core structural baseline.",
+            "caption": "Converting expense total to another currency uses API exchange rates.",
+            "checks": [
+              "USD 102.0",
+              "EUR 93.5",
+              "JPY rate not available"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "USD",
+                  "0.012",
+                  "102.0"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "EUR",
+                  "0.011",
+                  "93.5"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "JPY",
+                  "None",
+                  "rate not available"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Handle a missing currency politely while reading rates with get().",
             "rows": [
               {
                 "cells": [
-                  "expenses",
-                  "another"
+                  "AED",
+                  "0.044",
+                  "INR"
                 ],
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "JPY",
+                  "None",
+                  "rate not available"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Setting status_code to failed reports the problem without converting.",
+            "whatIf": "import json\nstatus_code = 503\nbody = '{\"base\": \"INR\", \"rates\": {\"USD\": 0.012, \"EUR\": 0.011, \"AED\": 0.044}}'\n\ndef convert(amount, rates, currency):\n    rate = rates.get(currency)\n    if rate is None:\n        return None\n    return round(amount * rate, 2)\n\nexpenses = [{\"amount\": 20}, {\"amount\": 8000}, {\"amount\": 480}]\ntotal = sum(e[\"amount\"] for e in expenses)\nif status_code == 200:\n    rates = json.loads(body).get(\"rates\", {})\n    for currency in [\"USD\", \"EUR\", \"JPY\"]:\n        value = convert(total, rates, currency)\n        print(currency, value if value is not None else \"rate not available\")\nelse:\n    print(\"Could not get rates, status\", status_code)",
+            "checks": [
+              "Could not get rates, status 503"
+            ],
+            "mustNotShow": [
+              "USD 102.0",
+              "EUR 93.5"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "JPY",
+                  "status_code",
+                  "rate not available"
+                ],
+                "tone": "error"
               }
             ]
           }

@@ -3,30 +3,68 @@
   "prefix": "python",
   "day": 27,
   "promptSha": "88d708049a1ca4514feebb1e14e6aa40ee114f9bf618a51d7569c405ac466aa3",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day27",
   "entries": [
     {
       "partTitle": "From a terminal menu to a web API",
       "codeHash": "6b122d07df53ed752f459f86afdd4410519697b8434b529fc747c7ba0dd5420b",
       "spec": {
         "template": "table",
-        "title": "From a terminal menu to a web API",
+        "title": "Expense Tracker API route table",
         "columns": [
-          "Stage",
-          "Concept"
+          "Method",
+          "Path",
+          "Handler Purpose"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "Turning the Expense Tracker into a web API lets any program use it.",
+            "checks": [
+              "GET  /expenses    -> list all expenses",
+              "POST /expenses    -> add one expense",
+              "GET  /summary     -> total, count and biggest",
+              "GET  /categories  -> total per category"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "From"
+                    "text": "GET"
                   },
                   {
-                    "text": "terminal"
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "list all expenses"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "POST"
+                  },
+                  {
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "add one expense"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/summary"
+                  },
+                  {
+                    "text": "total, count and biggest"
                   }
                 ],
                 "tone": "data"
@@ -34,19 +72,74 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The fastapi logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Each route pairs a method and a path with a Python function returning JSON.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "menu"
+                    "text": "POST"
                   },
                   {
-                    "text": "web"
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "add one expense"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/categories"
+                  },
+                  {
+                    "text": "total per category"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a route for GET /expenses/{id} registers reading one item.",
+            "whatIf": "routes = {\n    (\"GET\", \"/expenses\"): \"list all expenses\",\n    (\"POST\", \"/expenses\"): \"add one expense\",\n    (\"GET\", \"/summary\"): \"total, count and biggest\",\n    (\"GET\", \"/categories\"): \"total per category\",\n    (\"GET\", \"/expenses/{id}\"): \"one expense by id\",\n}\nfor (method, path), job in routes.items():\n    print(f\"{method:<5}{path:<13}-> {job}\")",
+            "checks": [
+              "GET  /expenses/{id}-> one expense by id"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "list all expenses"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/summary"
+                  },
+                  {
+                    "text": "total, count and biggest"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -54,35 +147,94 @@
       },
       "filled": {
         "template": "table",
-        "title": "From a terminal menu to a web API",
+        "title": "Expense Tracker API route table",
         "columns": [
-          "Stage",
-          "Concept"
+          "Method",
+          "Path",
+          "Handler Purpose"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "Turning the Expense Tracker into a web API lets any program use it.",
+            "checks": [
+              "GET  /expenses    -> list all expenses",
+              "POST /expenses    -> add one expense",
+              "GET  /summary     -> total, count and biggest",
+              "GET  /categories  -> total per category"
+            ],
             "rows": [
               {
                 "cells": [
-                  "From",
-                  "terminal"
+                  "GET",
+                  "/expenses",
+                  "list all expenses"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "POST",
+                  "/expenses",
+                  "add one expense"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/summary",
+                  "total, count and biggest"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The fastapi logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Each route pairs a method and a path with a Python function returning JSON.",
             "rows": [
               {
                 "cells": [
-                  "menu",
-                  "web"
+                  "POST",
+                  "/expenses",
+                  "add one expense"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/categories",
+                  "total per category"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a route for GET /expenses/{id} registers reading one item.",
+            "whatIf": "routes = {\n    (\"GET\", \"/expenses\"): \"list all expenses\",\n    (\"POST\", \"/expenses\"): \"add one expense\",\n    (\"GET\", \"/summary\"): \"total, count and biggest\",\n    (\"GET\", \"/categories\"): \"total per category\",\n    (\"GET\", \"/expenses/{id}\"): \"one expense by id\",\n}\nfor (method, path), job in routes.items():\n    print(f\"{method:<5}{path:<13}-> {job}\")",
+            "checks": [
+              "GET  /expenses/{id}-> one expense by id"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "GET",
+                  "/expenses",
+                  "list all expenses"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/summary",
+                  "total, count and biggest"
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -94,40 +246,105 @@
       "codeHash": "b75cc646e8539578684c285455573914c786ad8512c37d196f9a4261b4f47ea4",
       "spec": {
         "template": "table",
-        "title": "Your first FastAPI app",
+        "title": "Decorator route dispatch in api.py",
         "columns": [
-          "Stage",
-          "Concept"
+          "Path",
+          "Status",
+          "Response Body"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The laptop concept establishes the core structural baseline.",
+            "caption": "FastAPI runs the web routes defined inside api.py.",
+            "checks": [
+              "200 {\"message\": \"Expense Tracker API is running\"}",
+              "404 {\"detail\": \"Not Found\"}"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Your"
+                    "text": "GET"
                   },
                   {
-                    "text": "first"
+                    "text": "/"
+                  },
+                  {
+                    "text": "200"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/nothing"
+                  },
+                  {
+                    "text": "404"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The start logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A decorator above a function connects a GET request route cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "FastAPI"
+                    "text": "/"
                   },
                   {
-                    "text": "app"
+                    "text": "200"
+                  },
+                  {
+                    "text": "Expense Tracker API is running"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "/nothing"
+                  },
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Not Found"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the second route handle check serves GET /health with status ok.",
+            "whatIf": "import json\nroutes = {}\n\ndef get(path):\n    def register(function):\n        routes[(\"GET\", path)] = function\n        return function\n    return register\n\n@get(\"/\")\ndef home():\n    return {\"message\": \"Expense Tracker API is running\"}\n\ndef handle(method, path):\n    function = routes.get((method, path))\n    if function is None:\n        return 404, {\"detail\": \"Not Found\"}\n    return 200, function()\n\n@get(\"/health\")\ndef health():\n    return {\"status\": \"ok\"}\n\nfor path in [\"/\", \"/health\", \"/nothing\"]:\n    status, body = handle(\"GET\", path)\n    print(status, json.dumps(body))",
+            "checks": [
+              "200 {\"message\": \"Expense Tracker API is running\"}",
+              "200 {\"status\": \"ok\"}",
+              "404 {\"detail\": \"Not Found\"}"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "/"
+                  },
+                  {
+                    "text": "200"
+                  },
+                  {
+                    "text": "Expense Tracker API is running"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +355,76 @@
       },
       "filled": {
         "template": "table",
-        "title": "Your first FastAPI app",
+        "title": "Decorator route dispatch in api.py",
         "columns": [
-          "Stage",
-          "Concept"
+          "Path",
+          "Status",
+          "Response Body"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The laptop concept establishes the core structural baseline.",
+            "caption": "FastAPI runs the web routes defined inside api.py.",
+            "checks": [
+              "200 {\"message\": \"Expense Tracker API is running\"}",
+              "404 {\"detail\": \"Not Found\"}"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Your",
-                  "first"
+                  "GET",
+                  "/",
+                  "200"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/nothing",
+                  "404"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The start logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A decorator above a function connects a GET request route cleanly.",
             "rows": [
               {
                 "cells": [
-                  "FastAPI",
-                  "app"
+                  "/",
+                  "200",
+                  "Expense Tracker API is running"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "/nothing",
+                  "404",
+                  "Not Found"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the second route handle check serves GET /health with status ok.",
+            "whatIf": "import json\nroutes = {}\n\ndef get(path):\n    def register(function):\n        routes[(\"GET\", path)] = function\n        return function\n    return register\n\n@get(\"/\")\ndef home():\n    return {\"message\": \"Expense Tracker API is running\"}\n\ndef handle(method, path):\n    function = routes.get((method, path))\n    if function is None:\n        return 404, {\"detail\": \"Not Found\"}\n    return 200, function()\n\n@get(\"/health\")\ndef health():\n    return {\"status\": \"ok\"}\n\nfor path in [\"/\", \"/health\", \"/nothing\"]:\n    status, body = handle(\"GET\", path)\n    print(status, json.dumps(body))",
+            "checks": [
+              "200 {\"message\": \"Expense Tracker API is running\"}",
+              "200 {\"status\": \"ok\"}",
+              "404 {\"detail\": \"Not Found\"}"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "/",
+                  "200",
+                  "Expense Tracker API is running"
                 ],
                 "tone": "ok"
               }
@@ -178,40 +438,118 @@
       "codeHash": "524c8d1bf072e76bb34acc21f929760c2ad25b4d1aae09aa30ffcca22041b8a1",
       "spec": {
         "template": "table",
-        "title": "GET routes that reuse tracker.py",
+        "title": "Query and path parameters on GET routes",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Status",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The connect concept establishes the core structural baseline.",
+            "caption": "Each GET route loads expenses and returns calculated tracker results.",
+            "checks": [
+              "(200, [{'id': 2, 'item': 'Rent', 'amount': 8000, 'date': '2026-09-01'}])",
+              "(200, {'id': 1, 'item': 'Tea', 'amount': 20, 'date': '2026-08-30'})",
+              "(404, {'detail': 'Expense not found'})"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "GET"
+                    "text": "month=\"2026-09\""
                   },
                   {
-                    "text": "routes"
+                    "text": "200"
+                  },
+                  {
+                    "text": "Rent"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "get_expense(1)"
+                  },
+                  {
+                    "text": "200"
+                  },
+                  {
+                    "text": "Tea"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "get_expense(99)"
+                  },
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Expense not found"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The expense logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A path parameter checks that expense_id is a valid whole number.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "that"
+                    "text": "get_expense(1)"
                   },
                   {
-                    "text": "reuse"
+                    "text": "200"
+                  },
+                  {
+                    "text": "20"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "get_expense(99)"
+                  },
+                  {
+                    "text": "404"
+                  },
+                  {
+                    "text": "Expense not found"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling list_expenses with no month returns both expenses.",
+            "whatIf": "expenses = [\n    {\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"date\": \"2026-08-30\"},\n    {\"id\": 2, \"item\": \"Rent\", \"amount\": 8000, \"date\": \"2026-09-01\"},\n]\n\ndef list_expenses(month=None):\n    if month:\n        return 200, [e for e in expenses if e[\"date\"][:7] == month]\n    return 200, expenses\n\ndef get_expense(expense_id):\n    for e in expenses:\n        if e[\"id\"] == expense_id:\n            return 200, e\n    return 404, {\"detail\": \"Expense not found\"}\n\nprint(list_expenses(month=\"2026-09\"))\nprint(get_expense(1))\nprint(get_expense(99))\nprint(list_expenses())",
+            "checks": [
+              "(200, [{'id': 1, 'item': 'Tea', 'amount': 20, 'date': '2026-08-30'}, {'id': 2, 'item': 'Rent', 'amount': 8000, 'date': '2026-09-01'}])"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "get_expense(1)"
+                  },
+                  {
+                    "text": "200"
+                  },
+                  {
+                    "text": "Tea"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +560,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "GET routes that reuse tracker.py",
+        "title": "Query and path parameters on GET routes",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Status",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The connect concept establishes the core structural baseline.",
+            "caption": "Each GET route loads expenses and returns calculated tracker results.",
+            "checks": [
+              "(200, [{'id': 2, 'item': 'Rent', 'amount': 8000, 'date': '2026-09-01'}])",
+              "(200, {'id': 1, 'item': 'Tea', 'amount': 20, 'date': '2026-08-30'})",
+              "(404, {'detail': 'Expense not found'})"
+            ],
             "rows": [
               {
                 "cells": [
-                  "GET",
-                  "routes"
+                  "month=\"2026-09\"",
+                  "200",
+                  "Rent"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "get_expense(1)",
+                  "200",
+                  "Tea"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "get_expense(99)",
+                  "404",
+                  "Expense not found"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The expense logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "A path parameter checks that expense_id is a valid whole number.",
             "rows": [
               {
                 "cells": [
-                  "that",
-                  "reuse"
+                  "get_expense(1)",
+                  "200",
+                  "20"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "get_expense(99)",
+                  "404",
+                  "Expense not found"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calling list_expenses with no month returns both expenses.",
+            "whatIf": "expenses = [\n    {\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"date\": \"2026-08-30\"},\n    {\"id\": 2, \"item\": \"Rent\", \"amount\": 8000, \"date\": \"2026-09-01\"},\n]\n\ndef list_expenses(month=None):\n    if month:\n        return 200, [e for e in expenses if e[\"date\"][:7] == month]\n    return 200, expenses\n\ndef get_expense(expense_id):\n    for e in expenses:\n        if e[\"id\"] == expense_id:\n            return 200, e\n    return 404, {\"detail\": \"Expense not found\"}\n\nprint(list_expenses(month=\"2026-09\"))\nprint(get_expense(1))\nprint(get_expense(99))\nprint(list_expenses())",
+            "checks": [
+              "(200, [{'id': 1, 'item': 'Tea', 'amount': 20, 'date': '2026-08-30'}, {'id': 2, 'item': 'Rent', 'amount': 8000, 'date': '2026-09-01'}])"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "get_expense(1)",
+                  "200",
+                  "Tea"
                 ],
                 "tone": "ok"
               }
@@ -262,43 +650,135 @@
       "codeHash": "c6fad1cc202dc03ce88fefd4ea5dfef449bffd5ff5b381fb520c2aed7df11c27",
       "spec": {
         "template": "table",
-        "title": "POST routes and data checking with Pydantic models",
+        "title": "Validating POST payloads before creating records",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Validation Detail",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "A BaseModel describes the expected JSON shape for each POST request body.",
+            "checks": [
+              "(201, {'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food'})",
+              "(422, {'detail': ['item is required', 'amount must be more than 0']})",
+              "(201, {'id': 2, 'item': 'Bus', 'amount': 45, 'category': 'other'})"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "POST"
+                    "text": "Tea"
                   },
                   {
-                    "text": "routes"
+                    "text": "20"
+                  },
+                  {
+                    "text": "201"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": " "
+                  },
+                  {
+                    "text": "\"abc\""
+                  },
+                  {
+                    "text": "422"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "45"
+                  },
+                  {
+                    "text": "201"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The data logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "FastAPI checks incoming fields and types automatically before your handler.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "Tea"
                   },
                   {
-                    "text": "data"
+                    "text": "food"
+                  },
+                  {
+                    "text": "201"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": " "
+                  },
+                  {
+                    "text": "amount must be more than 0"
+                  },
+                  {
+                    "text": "422"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "other"
+                  },
+                  {
+                    "text": "201"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Sending an amount without item produces only item is required.",
+            "whatIf": "def validate_expense(data):\n    errors = []\n    if not str(data.get(\"item\", \"\")).strip():\n        errors.append(\"item is required\")\n    amount = data.get(\"amount\")\n    if not isinstance(amount, (int, float)) or amount <= 0:\n        errors.append(\"amount must be more than 0\")\n    return errors\n\nexpenses = []\ndef create_expense(data):\n    errors = validate_expense(data)\n    if errors:\n        return 422, {\"detail\": errors}\n    new = {\"id\": len(expenses) + 1, \"item\": data[\"item\"].strip(), \"amount\": data[\"amount\"], \"category\": data.get(\"category\", \"other\")}\n    expenses.append(new)\n    return 201, new\n\nprint(create_expense({\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}))\nprint(create_expense({\"item\": \" \", \"amount\": \"abc\"}))\nprint(create_expense({\"item\": \"Bus\", \"amount\": 45}))\nprint(create_expense({\"amount\": 50}))",
+            "checks": [
+              "(422, {'detail': ['item is required']})"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": " "
+                  },
+                  {
+                    "text": "item is required"
+                  },
+                  {
+                    "text": "422"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -306,35 +786,93 @@
       },
       "filled": {
         "template": "table",
-        "title": "POST routes and data checking with Pydantic models",
+        "title": "Validating POST payloads before creating records",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Validation Detail",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "A BaseModel describes the expected JSON shape for each POST request body.",
+            "checks": [
+              "(201, {'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food'})",
+              "(422, {'detail': ['item is required', 'amount must be more than 0']})",
+              "(201, {'id': 2, 'item': 'Bus', 'amount': 45, 'category': 'other'})"
+            ],
             "rows": [
               {
                 "cells": [
-                  "POST",
-                  "routes"
+                  "Tea",
+                  "20",
+                  "201"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  " ",
+                  "\"abc\"",
+                  "422"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Bus",
+                  "45",
+                  "201"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The data logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "FastAPI checks incoming fields and types automatically before your handler.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "data"
+                  "Tea",
+                  "food",
+                  "201"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  " ",
+                  "amount must be more than 0",
+                  "422"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Bus",
+                  "other",
+                  "201"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Sending an amount without item produces only item is required.",
+            "whatIf": "def validate_expense(data):\n    errors = []\n    if not str(data.get(\"item\", \"\")).strip():\n        errors.append(\"item is required\")\n    amount = data.get(\"amount\")\n    if not isinstance(amount, (int, float)) or amount <= 0:\n        errors.append(\"amount must be more than 0\")\n    return errors\n\nexpenses = []\ndef create_expense(data):\n    errors = validate_expense(data)\n    if errors:\n        return 422, {\"detail\": errors}\n    new = {\"id\": len(expenses) + 1, \"item\": data[\"item\"].strip(), \"amount\": data[\"amount\"], \"category\": data.get(\"category\", \"other\")}\n    expenses.append(new)\n    return 201, new\n\nprint(create_expense({\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\"}))\nprint(create_expense({\"item\": \" \", \"amount\": \"abc\"}))\nprint(create_expense({\"item\": \"Bus\", \"amount\": 45}))\nprint(create_expense({\"amount\": 50}))",
+            "checks": [
+              "(422, {'detail': ['item is required']})"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  " ",
+                  "item is required",
+                  "422"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -346,40 +884,119 @@
       "codeHash": "97c898e7689a1a8342d3f57f8ea9f757e5cb8797fa1d47d42cf20a0de30a0087",
       "spec": {
         "template": "table",
-        "title": "Trying and testing your API",
+        "title": "Testing API pagination slices automatically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Case",
+          "Expected Slice",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The docs concept establishes the core structural baseline.",
+            "caption": "Interactive /docs lets you click a route and inspect status and answer.",
+            "checks": [
+              "PASS page 1",
+              "PASS page 3 is the last item",
+              "PASS page 4 is empty"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Trying"
+                    "text": "page 1"
                   },
                   {
-                    "text": "and"
+                    "text": "[1, 2, 3]"
+                  },
+                  {
+                    "text": "PASS"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "page 3 is the last item"
+                  },
+                  {
+                    "text": "[7]"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "page 4 is empty"
+                  },
+                  {
+                    "text": "[]"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The test logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Automatic tests use TestClient and assert without starting a server.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "testing"
+                    "text": "page 1"
                   },
                   {
-                    "text": "your"
+                    "text": "3"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "page 4 is empty"
+                  },
+                  {
+                    "text": "[]"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a paginate check verifies slicing on page two.",
+            "whatIf": "def paginate(items, page, size):\n    start = (page - 1) * size\n    return items[start:start + size]\n\nitems = list(range(1, 8))\nchecks = {\n    \"page 1\": paginate(items, 1, 3) == [1, 2, 3],\n    \"page 3 is the last item\": paginate(items, 3, 3) == [7],\n    \"page 4 is empty\": paginate(items, 4, 3) == [],\n    \"page 2 of 5\": paginate(items, 2, 5) == [6, 7],\n}\nfor name, ok in checks.items():\n    print(\"PASS\" if ok else \"FAIL\", name)",
+            "checks": [
+              "PASS page 1",
+              "PASS page 2 of 5"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "page 1"
+                  },
+                  {
+                    "text": "[1, 2, 3]"
+                  },
+                  {
+                    "text": "PASS"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +1007,84 @@
       },
       "filled": {
         "template": "table",
-        "title": "Trying and testing your API",
+        "title": "Testing API pagination slices automatically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Case",
+          "Expected Slice",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The docs concept establishes the core structural baseline.",
+            "caption": "Interactive /docs lets you click a route and inspect status and answer.",
+            "checks": [
+              "PASS page 1",
+              "PASS page 3 is the last item",
+              "PASS page 4 is empty"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Trying",
-                  "and"
+                  "page 1",
+                  "[1, 2, 3]",
+                  "PASS"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "page 3 is the last item",
+                  "[7]",
+                  "PASS"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "page 4 is empty",
+                  "[]",
+                  "PASS"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The test logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Automatic tests use TestClient and assert without starting a server.",
             "rows": [
               {
                 "cells": [
-                  "testing",
-                  "your"
+                  "page 1",
+                  "3",
+                  "PASS"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "page 4 is empty",
+                  "[]",
+                  "PASS"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a paginate check verifies slicing on page two.",
+            "whatIf": "def paginate(items, page, size):\n    start = (page - 1) * size\n    return items[start:start + size]\n\nitems = list(range(1, 8))\nchecks = {\n    \"page 1\": paginate(items, 1, 3) == [1, 2, 3],\n    \"page 3 is the last item\": paginate(items, 3, 3) == [7],\n    \"page 4 is empty\": paginate(items, 4, 3) == [],\n    \"page 2 of 5\": paginate(items, 2, 5) == [6, 7],\n}\nfor name, ok in checks.items():\n    print(\"PASS\" if ok else \"FAIL\", name)",
+            "checks": [
+              "PASS page 1",
+              "PASS page 2 of 5"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "page 1",
+                  "[1, 2, 3]",
+                  "PASS"
                 ],
                 "tone": "ok"
               }
@@ -430,43 +1098,152 @@
       "codeHash": "124394278c0a3b11dfb3f1588313ddd55c3560a101df02c4d747dd51ae71fc02",
       "spec": {
         "template": "table",
-        "title": "Putting it together: the Expense Tracker API",
+        "title": "Simulated end-to-end Expense Tracker API flow",
         "columns": [
-          "Stage",
-          "Concept"
+          "Method",
+          "Path / Payload",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The whole concept establishes the core structural baseline.",
+            "caption": "The whole API flow adds good input and handles a missing route.",
+            "checks": [
+              "GET /expenses -> 200 []",
+              "POST /expenses -> 201 {\"id\": 1, \"item\": \"Tea\", \"amount\": 20}",
+              "POST /expenses -> 422 {\"detail\": \"item is required and amount must be more than 0\"}",
+              "GET /summary -> 200 {\"total\": 8020, \"count\": 2}",
+              "GET /nothing -> 404 {\"detail\": \"Not Found\"}"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "GET"
                   },
                   {
-                    "text": "together"
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "200"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "POST"
+                  },
+                  {
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "201"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/summary"
+                  },
+                  {
+                    "text": "200"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/nothing"
+                  },
+                  {
+                    "text": "404"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "On your laptop api.py reuses tracker.py with pytest verification.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "the"
+                    "text": "POST"
                   },
                   {
-                    "text": "Expense"
+                    "text": "Bad"
+                  },
+                  {
+                    "text": "422"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "POST"
+                  },
+                  {
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "201"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a GET /health route returns status ok cleanly.",
+            "whatIf": "import json\nexpenses = []\n\ndef post_expenses(body):\n    if not str(body.get(\"item\", \"\")).strip() or not isinstance(body.get(\"amount\"), (int, float)) or body[\"amount\"] <= 0:\n        return 422, {\"detail\": \"item is required and amount must be more than 0\"}\n    new = {\"id\": len(expenses) + 1, \"item\": body[\"item\"].strip(), \"amount\": body[\"amount\"]}\n    expenses.append(new)\n    return 201, new\n\ndef get_summary(body):\n    return 200, {\"total\": sum(e[\"amount\"] for e in expenses), \"count\": len(expenses)}\n\nroutes = {(\"POST\", \"/expenses\"): post_expenses, (\"GET\", \"/summary\"): get_summary,\n          (\"GET\", \"/expenses\"): lambda body: (200, expenses),\n          (\"GET\", \"/health\"): lambda body: (200, {\"status\": \"ok\"})}\n\ndef request(method, path, body=None):\n    handler = routes.get((method, path))\n    status, data = handler(body or {}) if handler else (404, {\"detail\": \"Not Found\"})\n    print(method, path, \"->\", status, json.dumps(data))\n\nrequest(\"GET\", \"/expenses\")\nrequest(\"POST\", \"/expenses\", {\"item\": \"Tea\", \"amount\": 20})\nrequest(\"POST\", \"/expenses\", {\"item\": \"Bad\", \"amount\": -1})\nrequest(\"POST\", \"/expenses\", {\"item\": \"Rent\", \"amount\": 8000})\nrequest(\"GET\", \"/summary\")\nrequest(\"GET\", \"/nothing\")\nrequest(\"GET\", \"/health\")",
+            "checks": [
+              "GET /health -> 200 {\"status\": \"ok\"}",
+              "GET /summary -> 200 {\"total\": 8020, \"count\": 2}"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/expenses"
+                  },
+                  {
+                    "text": "200"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "GET"
+                  },
+                  {
+                    "text": "/nothing"
+                  },
+                  {
+                    "text": "404"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -474,35 +1251,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: the Expense Tracker API",
+        "title": "Simulated end-to-end Expense Tracker API flow",
         "columns": [
-          "Stage",
-          "Concept"
+          "Method",
+          "Path / Payload",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The whole concept establishes the core structural baseline.",
+            "caption": "The whole API flow adds good input and handles a missing route.",
+            "checks": [
+              "GET /expenses -> 200 []",
+              "POST /expenses -> 201 {\"id\": 1, \"item\": \"Tea\", \"amount\": 20}",
+              "POST /expenses -> 422 {\"detail\": \"item is required and amount must be more than 0\"}",
+              "GET /summary -> 200 {\"total\": 8020, \"count\": 2}",
+              "GET /nothing -> 404 {\"detail\": \"Not Found\"}"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "GET",
+                  "/expenses",
+                  "200"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "POST",
+                  "/expenses",
+                  "201"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/summary",
+                  "200"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/nothing",
+                  "404"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "On your laptop api.py reuses tracker.py with pytest verification.",
             "rows": [
               {
                 "cells": [
-                  "the",
-                  "Expense"
+                  "POST",
+                  "Bad",
+                  "422"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "POST",
+                  "Rent",
+                  "201"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a GET /health route returns status ok cleanly.",
+            "whatIf": "import json\nexpenses = []\n\ndef post_expenses(body):\n    if not str(body.get(\"item\", \"\")).strip() or not isinstance(body.get(\"amount\"), (int, float)) or body[\"amount\"] <= 0:\n        return 422, {\"detail\": \"item is required and amount must be more than 0\"}\n    new = {\"id\": len(expenses) + 1, \"item\": body[\"item\"].strip(), \"amount\": body[\"amount\"]}\n    expenses.append(new)\n    return 201, new\n\ndef get_summary(body):\n    return 200, {\"total\": sum(e[\"amount\"] for e in expenses), \"count\": len(expenses)}\n\nroutes = {(\"POST\", \"/expenses\"): post_expenses, (\"GET\", \"/summary\"): get_summary,\n          (\"GET\", \"/expenses\"): lambda body: (200, expenses),\n          (\"GET\", \"/health\"): lambda body: (200, {\"status\": \"ok\"})}\n\ndef request(method, path, body=None):\n    handler = routes.get((method, path))\n    status, data = handler(body or {}) if handler else (404, {\"detail\": \"Not Found\"})\n    print(method, path, \"->\", status, json.dumps(data))\n\nrequest(\"GET\", \"/expenses\")\nrequest(\"POST\", \"/expenses\", {\"item\": \"Tea\", \"amount\": 20})\nrequest(\"POST\", \"/expenses\", {\"item\": \"Bad\", \"amount\": -1})\nrequest(\"POST\", \"/expenses\", {\"item\": \"Rent\", \"amount\": 8000})\nrequest(\"GET\", \"/summary\")\nrequest(\"GET\", \"/nothing\")\nrequest(\"GET\", \"/health\")",
+            "checks": [
+              "GET /health -> 200 {\"status\": \"ok\"}",
+              "GET /summary -> 200 {\"total\": 8020, \"count\": 2}"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "GET",
+                  "/expenses",
+                  "200"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "GET",
+                  "/nothing",
+                  "404"
+                ],
+                "tone": "error"
               }
             ]
           }
