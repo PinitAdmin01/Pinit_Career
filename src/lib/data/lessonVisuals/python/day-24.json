@@ -3,30 +3,57 @@
   "prefix": "python",
   "day": 24,
   "promptSha": "9390b69991c941b0bd12da7e263f6252b7a33437bb4dfde53d7aac08fff04f13",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day24",
   "entries": [
     {
       "partTitle": "Project structure",
       "codeHash": "320362715f555e35e3e898d36531cdd3f586e80f04164375e2099ec6a01275d6",
       "spec": {
         "template": "table",
-        "title": "Project structure",
+        "title": "Separating tracker logic, menu, and tests",
         "columns": [
-          "Stage",
-          "Concept"
+          "File",
+          "Responsibility"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The files split logic into tracker.py, menu into main.py, and tests separately.",
+            "checks": [
+              "tracker.py       -> logic",
+              "main.py          -> menu (input and print)",
+              "Web API later reuses: ['tracker.py']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Project"
+                    "text": "tracker.py"
                   },
                   {
-                    "text": "structure"
+                    "text": "logic"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "main.py"
+                  },
+                  {
+                    "text": "menu (input and print)"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "test_tracker.py"
+                  },
+                  {
+                    "text": "tests"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +61,47 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Pure logic stays unchanged when the edge changes from terminal menu to web.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Project"
+                    "text": "tracker.py"
                   },
                   {
-                    "text": "structure"
+                    "text": "logic"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "main.py"
+                  },
+                  {
+                    "text": "terminal menu"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Your folder starts with those three files before writing functions.",
+            "checks": [
+              "Web API later reuses: ['tracker.py']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tracker.py"
+                  },
+                  {
+                    "text": "logic"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +112,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "Project structure",
+        "title": "Separating tracker logic, menu, and tests",
         "columns": [
-          "Stage",
-          "Concept"
+          "File",
+          "Responsibility"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The files split logic into tracker.py, menu into main.py, and tests separately.",
+            "checks": [
+              "tracker.py       -> logic",
+              "main.py          -> menu (input and print)",
+              "Web API later reuses: ['tracker.py']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Project",
-                  "structure"
+                  "tracker.py",
+                  "logic"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "main.py",
+                  "menu (input and print)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "test_tracker.py",
+                  "tests"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Pure logic stays unchanged when the edge changes from terminal menu to web.",
             "rows": [
               {
                 "cells": [
-                  "Project",
-                  "structure"
+                  "tracker.py",
+                  "logic"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "main.py",
+                  "terminal menu"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Your folder starts with those three files before writing functions.",
+            "checks": [
+              "Web API later reuses: ['tracker.py']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "tracker.py",
+                  "logic"
                 ],
                 "tone": "ok"
               }
@@ -94,43 +194,110 @@
       "codeHash": "3dcb03a3d12eedcd0ee32d86c0dba28fbd2a768fea56d570ac2b5b3e0419a750",
       "spec": {
         "template": "table",
-        "title": "add_expense with validation",
+        "title": "Validating and cleaning inputs in add_expense",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Category",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The function concept establishes the core structural baseline.",
+            "caption": "Function add_expense returns a new list without changing the original.",
+            "checks": [
+              "{'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food', 'date': '2026-09-28'}",
+              "[1, 2]",
+              "Refused: item is required"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "add"
+                    "text": "Tea"
                   },
                   {
-                    "text": "expense"
+                    "text": "food"
+                  },
+                  {
+                    "text": "1"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "travel"
+                  },
+                  {
+                    "text": "2"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The validation logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Cleaning strips spaces from item and sets category lower-case cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "with"
+                    "text": "\" Tea \""
                   },
                   {
-                    "text": "validation"
+                    "text": "\"Food \""
+                  },
+                  {
+                    "text": "food"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"  \""
+                  },
+                  {
+                    "text": "\"food\""
+                  },
+                  {
+                    "text": "item is required"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Passing Lunch with negative amount prints the message about amount.",
+            "whatIf": "def next_id(expenses):\n    return max((e[\"id\"] for e in expenses), default=0) + 1\n\ndef add_expense(expenses, item, amount, category, date):\n    item = item.strip()\n    if not item:\n        raise ValueError(\"item is required\")\n    if not isinstance(amount, (int, float)) or amount <= 0:\n        raise ValueError(\"amount must be more than 0\")\n    new = {\"id\": next_id(expenses), \"item\": item, \"amount\": amount,\n           \"category\": category.strip().lower(), \"date\": date}\n    return expenses + [new]\n\ndata = add_expense([], \" Tea \", 20, \"Food \", \"2026-09-28\")\ndata = add_expense(data, \"Bus\", 45, \"travel\", \"2026-09-28\")\nprint(data[0])\nprint([e[\"id\"] for e in data])\ntry:\n    add_expense(data, \"Lunch\", -5, \"food\", \"2026-09-28\")\nexcept ValueError as error:\n    print(\"Refused:\", error)",
+            "checks": [
+              "Refused: amount must be more than 0"
+            ],
+            "mustNotShow": [
+              "Refused: item is required"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"  \""
+                  },
+                  {
+                    "text": "food"
+                  },
+                  {
+                    "text": "amount must be more than 0"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -138,35 +305,80 @@
       },
       "filled": {
         "template": "table",
-        "title": "add_expense with validation",
+        "title": "Validating and cleaning inputs in add_expense",
         "columns": [
-          "Stage",
-          "Concept"
+          "Item",
+          "Category",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The function concept establishes the core structural baseline.",
+            "caption": "Function add_expense returns a new list without changing the original.",
+            "checks": [
+              "{'id': 1, 'item': 'Tea', 'amount': 20, 'category': 'food', 'date': '2026-09-28'}",
+              "[1, 2]",
+              "Refused: item is required"
+            ],
             "rows": [
               {
                 "cells": [
-                  "add",
-                  "expense"
+                  "Tea",
+                  "food",
+                  "1"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Bus",
+                  "travel",
+                  "2"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The validation logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Cleaning strips spaces from item and sets category lower-case cleanly.",
             "rows": [
               {
                 "cells": [
-                  "with",
-                  "validation"
+                  "\" Tea \"",
+                  "\"Food \"",
+                  "food"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "\"  \"",
+                  "\"food\"",
+                  "item is required"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Passing Lunch with negative amount prints the message about amount.",
+            "whatIf": "def next_id(expenses):\n    return max((e[\"id\"] for e in expenses), default=0) + 1\n\ndef add_expense(expenses, item, amount, category, date):\n    item = item.strip()\n    if not item:\n        raise ValueError(\"item is required\")\n    if not isinstance(amount, (int, float)) or amount <= 0:\n        raise ValueError(\"amount must be more than 0\")\n    new = {\"id\": next_id(expenses), \"item\": item, \"amount\": amount,\n           \"category\": category.strip().lower(), \"date\": date}\n    return expenses + [new]\n\ndata = add_expense([], \" Tea \", 20, \"Food \", \"2026-09-28\")\ndata = add_expense(data, \"Bus\", 45, \"travel\", \"2026-09-28\")\nprint(data[0])\nprint([e[\"id\"] for e in data])\ntry:\n    add_expense(data, \"Lunch\", -5, \"food\", \"2026-09-28\")\nexcept ValueError as error:\n    print(\"Refused:\", error)",
+            "checks": [
+              "Refused: amount must be more than 0"
+            ],
+            "mustNotShow": [
+              "Refused: item is required"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "\"  \"",
+                  "food",
+                  "amount must be more than 0"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -178,23 +390,54 @@
       "codeHash": "46e458e403044a7813bab13ae698851e4a61bcc0a360a22f19e7aba621e92c3c",
       "spec": {
         "template": "table",
-        "title": "Listing expenses neatly",
+        "title": "Aligned expense rows with list_lines",
         "columns": [
-          "Stage",
-          "Concept"
+          "Date",
+          "Item",
+          "Category",
+          "Amount"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
+            "caption": "Function list_lines sorts expenses newest first after a header line.",
+            "checks": [
+              "Date        Item        Category     Amount",
+              "2026-09-28  Metro card  travel       500.00",
+              "2026-09-27  Tea         food          20.00",
+              "No expenses yet. Choose 1 to add one."
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Listing"
+                    "text": "2026-09-28"
                   },
                   {
-                    "text": "expenses"
+                    "text": "Metro card"
+                  },
+                  {
+                    "text": "travel"
+                  },
+                  {
+                    "text": "500.00"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-09-27"
+                  },
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "food"
+                  },
+                  {
+                    "text": "20.00"
                   }
                 ],
                 "tone": "data"
@@ -202,16 +445,50 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The handling logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "An empty list returns a friendly message instead of misaligned columns.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "neatly"
+                    "text": "[]"
                   },
                   {
-                    "text": "expenses"
+                    "text": "empty"
+                  },
+                  {
+                    "text": "friendly message"
+                  },
+                  {
+                    "text": "No expenses yet. Choose 1 to add one."
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Slicing a long item name prevents columns from shifting.",
+            "whatIf": "def format_expense(e):\n    return f\"{e['date']}  {e['item'][:11]:<12}{e['category']:<10}{e['amount']:>9.2f}\"\n\ndef list_lines(expenses):\n    if not expenses:\n        return [\"No expenses yet. Choose 1 to add one.\"]\n    header = f\"{'Date':<12}{'Item':<12}{'Category':<10}{'Amount':>9}\"\n    rows = [format_expense(e) for e in sorted(expenses, key=lambda e: e[\"date\"], reverse=True)]\n    return [header, \"-\" * len(header)] + rows\n\ndata = [\n    {\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-27\"},\n    {\"id\": 2, \"item\": \"Metro card\", \"amount\": 500, \"category\": \"travel\", \"date\": \"2026-09-28\"},\n    {\"id\": 3, \"item\": \"Birthday gift for Amma\", \"amount\": 250, \"category\": \"gift\", \"date\": \"2026-09-29\"},\n]\nprint(\"\\n\".join(list_lines(data)))\nprint(\"\\n\".join(list_lines([])))",
+            "checks": [
+              "2026-09-29  Birthday gi gift         250.00",
+              "2026-09-28  Metro card  travel       500.00"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Birthday gift for Amma"
+                  },
+                  {
+                    "text": "e['item'][:11]"
+                  },
+                  {
+                    "text": "format_expense"
+                  },
+                  {
+                    "text": "columns shift"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +499,74 @@
       },
       "filled": {
         "template": "table",
-        "title": "Listing expenses neatly",
+        "title": "Aligned expense rows with list_lines",
         "columns": [
-          "Stage",
-          "Concept"
+          "Date",
+          "Item",
+          "Category",
+          "Amount"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
+            "caption": "Function list_lines sorts expenses newest first after a header line.",
+            "checks": [
+              "Date        Item        Category     Amount",
+              "2026-09-28  Metro card  travel       500.00",
+              "2026-09-27  Tea         food          20.00",
+              "No expenses yet. Choose 1 to add one."
+            ],
             "rows": [
               {
                 "cells": [
-                  "Listing",
-                  "expenses"
+                  "2026-09-28",
+                  "Metro card",
+                  "travel",
+                  "500.00"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09-27",
+                  "Tea",
+                  "food",
+                  "20.00"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The handling logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "An empty list returns a friendly message instead of misaligned columns.",
             "rows": [
               {
                 "cells": [
-                  "neatly",
-                  "expenses"
+                  "[]",
+                  "empty",
+                  "friendly message",
+                  "No expenses yet. Choose 1 to add one."
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Slicing a long item name prevents columns from shifting.",
+            "whatIf": "def format_expense(e):\n    return f\"{e['date']}  {e['item'][:11]:<12}{e['category']:<10}{e['amount']:>9.2f}\"\n\ndef list_lines(expenses):\n    if not expenses:\n        return [\"No expenses yet. Choose 1 to add one.\"]\n    header = f\"{'Date':<12}{'Item':<12}{'Category':<10}{'Amount':>9}\"\n    rows = [format_expense(e) for e in sorted(expenses, key=lambda e: e[\"date\"], reverse=True)]\n    return [header, \"-\" * len(header)] + rows\n\ndata = [\n    {\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-27\"},\n    {\"id\": 2, \"item\": \"Metro card\", \"amount\": 500, \"category\": \"travel\", \"date\": \"2026-09-28\"},\n    {\"id\": 3, \"item\": \"Birthday gift for Amma\", \"amount\": 250, \"category\": \"gift\", \"date\": \"2026-09-29\"},\n]\nprint(\"\\n\".join(list_lines(data)))\nprint(\"\\n\".join(list_lines([])))",
+            "checks": [
+              "2026-09-29  Birthday gi gift         250.00",
+              "2026-09-28  Metro card  travel       500.00"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Birthday gift for Amma",
+                  "e['item'][:11]",
+                  "format_expense",
+                  "columns shift"
                 ],
                 "tone": "ok"
               }
@@ -262,40 +580,136 @@
       "codeHash": "e4a401745a254d2f04e5e3240fb03e90591fe44eee6796214479223cd8ee97dd",
       "spec": {
         "template": "table",
-        "title": "The menu in main.py",
+        "title": "Simulated menu loop with validation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Choice",
+          "Input",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The menu concept establishes the core structural baseline.",
+            "caption": "The menu reads a choice and calls add_expense before printing the result.",
+            "checks": [
+              "Added.",
+              "Please type a number above 0.",
+              "Not added: item is required",
+              "1 Tea 20.0",
+              "Bye!"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "1"
                   },
                   {
-                    "text": "menu"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "Added."
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "1"
+                  },
+                  {
+                    "text": "Juice"
+                  },
+                  {
+                    "text": "Please type a number above 0."
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The amount logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "When add_expense raises a ValueError, the menu catches it safely.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "main"
+                    "text": "1"
                   },
                   {
-                    "text": "menu"
+                    "text": "\" \""
+                  },
+                  {
+                    "text": "Not added: item is required"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "1 Tea 20.0"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "3"
+                  },
+                  {
+                    "text": "quit"
+                  },
+                  {
+                    "text": "Bye!"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Bus into pretend answers lists two expenses cleanly.",
+            "whatIf": "def parse_amount(text):\n    try:\n        value = float(text.strip())\n    except ValueError:\n        return None\n    return value if value > 0 else None\n\ndef add_expense(expenses, item, amount, category, date):\n    if not item.strip():\n        raise ValueError(\"item is required\")\n    new_id = max((e[\"id\"] for e in expenses), default=0) + 1\n    return expenses + [{\"id\": new_id, \"item\": item.strip(), \"amount\": amount, \"category\": category.strip().lower(), \"date\": date}]\n\nanswers = iter([\"1\", \"Tea\", \"20\", \"food\", \"1\", \"Juice\", \"abc\", \"food\", \"1\", \" \", \"30\", \"food\", \"1\", \"Bus\", \"45\", \"travel\", \"2\", \"3\"])\nexpenses = []\nwhile True:\n    choice = next(answers).strip()\n    if choice == \"1\":\n        item, amount, category = next(answers), parse_amount(next(answers)), next(answers)\n        if amount is None:\n            print(\"Please type a number above 0.\")\n            continue\n        try:\n            expenses = add_expense(expenses, item, amount, category, \"2026-09-28\")\n            print(\"Added.\")\n        except ValueError as error:\n            print(\"Not added:\", error)\n    elif choice == \"2\":\n        for e in expenses:\n            print(e[\"id\"], e[\"item\"], e[\"amount\"])\n    elif choice == \"3\":\n        print(\"Bye!\")\n        break",
+            "checks": [
+              "1 Tea 20.0",
+              "2 Bus 45.0",
+              "Bye!"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "1"
+                  },
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "1 Tea 20.0"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "next(answers)"
+                  },
+                  {
+                    "text": "Added."
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +720,95 @@
       },
       "filled": {
         "template": "table",
-        "title": "The menu in main.py",
+        "title": "Simulated menu loop with validation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Choice",
+          "Input",
+          "Output"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The menu concept establishes the core structural baseline.",
+            "caption": "The menu reads a choice and calls add_expense before printing the result.",
+            "checks": [
+              "Added.",
+              "Please type a number above 0.",
+              "Not added: item is required",
+              "1 Tea 20.0",
+              "Bye!"
+            ],
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "menu"
+                  "1",
+                  "Tea",
+                  "Added."
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "1",
+                  "Juice",
+                  "Please type a number above 0."
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The amount logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "When add_expense raises a ValueError, the menu catches it safely.",
             "rows": [
               {
                 "cells": [
-                  "main",
-                  "menu"
+                  "1",
+                  "\" \"",
+                  "Not added: item is required"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Tea",
+                  "1 Tea 20.0"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "3",
+                  "quit",
+                  "Bye!"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding Bus into pretend answers lists two expenses cleanly.",
+            "whatIf": "def parse_amount(text):\n    try:\n        value = float(text.strip())\n    except ValueError:\n        return None\n    return value if value > 0 else None\n\ndef add_expense(expenses, item, amount, category, date):\n    if not item.strip():\n        raise ValueError(\"item is required\")\n    new_id = max((e[\"id\"] for e in expenses), default=0) + 1\n    return expenses + [{\"id\": new_id, \"item\": item.strip(), \"amount\": amount, \"category\": category.strip().lower(), \"date\": date}]\n\nanswers = iter([\"1\", \"Tea\", \"20\", \"food\", \"1\", \"Juice\", \"abc\", \"food\", \"1\", \" \", \"30\", \"food\", \"1\", \"Bus\", \"45\", \"travel\", \"2\", \"3\"])\nexpenses = []\nwhile True:\n    choice = next(answers).strip()\n    if choice == \"1\":\n        item, amount, category = next(answers), parse_amount(next(answers)), next(answers)\n        if amount is None:\n            print(\"Please type a number above 0.\")\n            continue\n        try:\n            expenses = add_expense(expenses, item, amount, category, \"2026-09-28\")\n            print(\"Added.\")\n        except ValueError as error:\n            print(\"Not added:\", error)\n    elif choice == \"2\":\n        for e in expenses:\n            print(e[\"id\"], e[\"item\"], e[\"amount\"])\n    elif choice == \"3\":\n        print(\"Bye!\")\n        break",
+            "checks": [
+              "1 Tea 20.0",
+              "2 Bus 45.0",
+              "Bye!"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "Tea",
+                  "1 Tea 20.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "next(answers)",
+                  "Added."
                 ],
                 "tone": "ok"
               }
@@ -346,43 +822,118 @@
       "codeHash": "dac68c5e24856c14a89ba83c7c0f7cab836ff6ab56ac0e631b900f22b95fa346",
       "spec": {
         "template": "table",
-        "title": "Testing what you built",
+        "title": "Automated behavior checks for tracker functions",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Case",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The before concept establishes the core structural baseline.",
+            "caption": "Important checks verify clean category, rising ids, and unchanged list.",
+            "checks": [
+              "PASS item and category are cleaned",
+              "PASS ids go up",
+              "PASS original list unchanged",
+              "PASS text amount refused"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Testing"
+                    "text": "item and category are cleaned"
                   },
                   {
-                    "text": "what"
+                    "text": "PASS"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "ids go up"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "original list unchanged"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The once logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "When any test fails, its name and message point straight to what broke.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "you"
+                    "text": "empty item refused"
                   },
                   {
-                    "text": "built"
+                    "text": "PASS"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "negative amount refused"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "text amount refused"
+                  },
+                  {
+                    "text": "PASS"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing category lowering turns the first check output to FAIL.",
+            "whatIf": "def add_expense(expenses, item, amount, category, date):\n    item = item.strip()\n    if not item:\n        raise ValueError(\"item is required\")\n    if not isinstance(amount, (int, float)) or amount <= 0:\n        raise ValueError(\"amount must be more than 0\")\n    new_id = max((e[\"id\"] for e in expenses), default=0) + 1\n    return expenses + [{\"id\": new_id, \"item\": item, \"amount\": amount, \"category\": category.strip(), \"date\": date}]\n\ndef refused(**details):\n    try:\n        add_expense([], **details)\n    except ValueError:\n        return True\n    return False\n\nfirst = add_expense([], \" Tea \", 20, \" FOOD\", \"2026-09-28\")\nsecond = add_expense(first, \"Bus\", 45, \"travel\", \"2026-09-28\")\nchecks = {\n    \"item and category are cleaned\": first[0][\"item\"] == \"Tea\" and first[0][\"category\"] == \"food\",\n    \"ids go up\": [e[\"id\"] for e in second] == [1, 2],\n    \"original list unchanged\": len(first) == 1,\n    \"empty item refused\": refused(item=\" \", amount=5, category=\"x\", date=\"d\"),\n    \"negative amount refused\": refused(item=\"Tea\", amount=-5, category=\"x\", date=\"d\"),\n    \"text amount refused\": refused(item=\"Tea\", amount=\"20\", category=\"x\", date=\"d\"),\n}\nfor name, ok in checks.items():\n    print(\"PASS\" if ok else \"FAIL\", name)",
+            "checks": [
+              "FAIL item and category are cleaned",
+              "PASS ids go up"
+            ],
+            "mustNotShow": [
+              "PASS item and category are cleaned"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "item and category are cleaned"
+                  },
+                  {
+                    "text": "FAIL"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,35 +941,90 @@
       },
       "filled": {
         "template": "table",
-        "title": "Testing what you built",
+        "title": "Automated behavior checks for tracker functions",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Case",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The before concept establishes the core structural baseline.",
+            "caption": "Important checks verify clean category, rising ids, and unchanged list.",
+            "checks": [
+              "PASS item and category are cleaned",
+              "PASS ids go up",
+              "PASS original list unchanged",
+              "PASS text amount refused"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Testing",
-                  "what"
+                  "item and category are cleaned",
+                  "PASS"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "ids go up",
+                  "PASS"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "original list unchanged",
+                  "PASS"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The once logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "When any test fails, its name and message point straight to what broke.",
             "rows": [
               {
                 "cells": [
-                  "you",
-                  "built"
+                  "empty item refused",
+                  "PASS"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "negative amount refused",
+                  "PASS"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "text amount refused",
+                  "PASS"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing category lowering turns the first check output to FAIL.",
+            "whatIf": "def add_expense(expenses, item, amount, category, date):\n    item = item.strip()\n    if not item:\n        raise ValueError(\"item is required\")\n    if not isinstance(amount, (int, float)) or amount <= 0:\n        raise ValueError(\"amount must be more than 0\")\n    new_id = max((e[\"id\"] for e in expenses), default=0) + 1\n    return expenses + [{\"id\": new_id, \"item\": item, \"amount\": amount, \"category\": category.strip(), \"date\": date}]\n\ndef refused(**details):\n    try:\n        add_expense([], **details)\n    except ValueError:\n        return True\n    return False\n\nfirst = add_expense([], \" Tea \", 20, \" FOOD\", \"2026-09-28\")\nsecond = add_expense(first, \"Bus\", 45, \"travel\", \"2026-09-28\")\nchecks = {\n    \"item and category are cleaned\": first[0][\"item\"] == \"Tea\" and first[0][\"category\"] == \"food\",\n    \"ids go up\": [e[\"id\"] for e in second] == [1, 2],\n    \"original list unchanged\": len(first) == 1,\n    \"empty item refused\": refused(item=\" \", amount=5, category=\"x\", date=\"d\"),\n    \"negative amount refused\": refused(item=\"Tea\", amount=-5, category=\"x\", date=\"d\"),\n    \"text amount refused\": refused(item=\"Tea\", amount=\"20\", category=\"x\", date=\"d\"),\n}\nfor name, ok in checks.items():\n    print(\"PASS\" if ok else \"FAIL\", name)",
+            "checks": [
+              "FAIL item and category are cleaned",
+              "PASS ids go up"
+            ],
+            "mustNotShow": [
+              "PASS item and category are cleaned"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "item and category are cleaned",
+                  "FAIL"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -430,23 +1036,111 @@
       "codeHash": "a51fe27d947f6502a1a11ae1f45ec82ed3d1235a7d22590e6f9343f601b3fe85",
       "spec": {
         "template": "table",
-        "title": "Putting it together: today's working program",
+        "title": "End-of-day formatted expense summary",
         "columns": [
-          "Stage",
-          "Concept"
+          "ID",
+          "Formatted Line",
+          "Amount",
+          "Category"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The Expense Tracker adds validated expenses and lists them with tests.",
+            "checks": [
+              "1 Tea - Rs 20.00 (food)",
+              "2 Metro - Rs 30.00 (travel)",
+              "3 Notebook - Rs 60.00 (study)",
+              "Categories so far: ['food', 'study', 'travel']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "1"
                   },
                   {
-                    "text": "together"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "20"
+                  },
+                  {
+                    "text": "food"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Metro"
+                  },
+                  {
+                    "text": "30"
+                  },
+                  {
+                    "text": "travel"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "3"
+                  },
+                  {
+                    "text": "Notebook"
+                  },
+                  {
+                    "text": "60"
+                  },
+                  {
+                    "text": "study"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every function combines fundamentals like strings, decisions, and sorting.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "1"
+                  },
+                  {
+                    "text": "1 Tea - Rs 20.00 (food)"
+                  },
+                  {
+                    "text": "20"
+                  },
+                  {
+                    "text": "food"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "3"
+                  },
+                  {
+                    "text": "3 Notebook - Rs 60.00 (study)"
+                  },
+                  {
+                    "text": "60"
+                  },
+                  {
+                    "text": "study"
                   }
                 ],
                 "tone": "data"
@@ -454,16 +1148,27 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "A fourth Food expense stays in the same lower-case category.",
+            "whatIf": "def add_expense(expenses, item, amount, category, date):\n    new_id = max((e[\"id\"] for e in expenses), default=0) + 1\n    return expenses + [{\"id\": new_id, \"item\": item.strip(), \"amount\": amount, \"category\": category.strip().lower(), \"date\": date}]\n\ndef format_expense(e):\n    return f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"\n\nexpenses = []\nfor item, amount, category in [(\"Tea\", 20, \"Food\"), (\"Metro\", 30, \"travel\"), (\"Notebook\", 60, \"study\"), (\"Coffee\", 30, \"Food\")]:\n    expenses = add_expense(expenses, item, amount, category, \"2026-09-28\")\nfor e in expenses:\n    print(e[\"id\"], format_expense(e))\nprint(\"Categories so far:\", sorted({e[\"category\"] for e in expenses}))",
+            "checks": [
+              "4 Coffee - Rs 30.00 (food)",
+              "Categories so far: ['food', 'study', 'travel']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "today"
+                    "text": "1"
                   },
                   {
-                    "text": "working"
+                    "text": "1 Tea - Rs 20.00 (food)"
+                  },
+                  {
+                    "text": "20"
+                  },
+                  {
+                    "text": "food"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1179,92 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: today's working program",
+        "title": "End-of-day formatted expense summary",
         "columns": [
-          "Stage",
-          "Concept"
+          "ID",
+          "Formatted Line",
+          "Amount",
+          "Category"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The Expense Tracker adds validated expenses and lists them with tests.",
+            "checks": [
+              "1 Tea - Rs 20.00 (food)",
+              "2 Metro - Rs 30.00 (travel)",
+              "3 Notebook - Rs 60.00 (study)",
+              "Categories so far: ['food', 'study', 'travel']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "1",
+                  "Tea",
+                  "20",
+                  "food"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Metro",
+                  "30",
+                  "travel"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "3",
+                  "Notebook",
+                  "60",
+                  "study"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every function combines fundamentals like strings, decisions, and sorting.",
+            "rows": [
+              {
+                "cells": [
+                  "1",
+                  "1 Tea - Rs 20.00 (food)",
+                  "20",
+                  "food"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "3",
+                  "3 Notebook - Rs 60.00 (study)",
+                  "60",
+                  "study"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "A fourth Food expense stays in the same lower-case category.",
+            "whatIf": "def add_expense(expenses, item, amount, category, date):\n    new_id = max((e[\"id\"] for e in expenses), default=0) + 1\n    return expenses + [{\"id\": new_id, \"item\": item.strip(), \"amount\": amount, \"category\": category.strip().lower(), \"date\": date}]\n\ndef format_expense(e):\n    return f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"\n\nexpenses = []\nfor item, amount, category in [(\"Tea\", 20, \"Food\"), (\"Metro\", 30, \"travel\"), (\"Notebook\", 60, \"study\"), (\"Coffee\", 30, \"Food\")]:\n    expenses = add_expense(expenses, item, amount, category, \"2026-09-28\")\nfor e in expenses:\n    print(e[\"id\"], format_expense(e))\nprint(\"Categories so far:\", sorted({e[\"category\"] for e in expenses}))",
+            "checks": [
+              "4 Coffee - Rs 30.00 (food)",
+              "Categories so far: ['food', 'study', 'travel']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "today",
-                  "working"
+                  "1",
+                  "1 Tea - Rs 20.00 (food)",
+                  "20",
+                  "food"
                 ],
                 "tone": "ok"
               }

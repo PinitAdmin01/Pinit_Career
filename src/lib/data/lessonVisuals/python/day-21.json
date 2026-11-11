@@ -3,30 +3,71 @@
   "prefix": "python",
   "day": 21,
   "promptSha": "c01981c5271f01b4b3380899cd6c9b9cd01d9b9f235222d0692fb94231729917",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day21",
   "entries": [
     {
       "partTitle": "Why developers write tests",
       "codeHash": "b61c0cc082e1069e4c754e828eaf902ebe16498d296b5c4555e870c0ebf1421d",
       "spec": {
         "template": "table",
-        "title": "Why developers write tests",
+        "title": "Checking add_gst automatically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Expected",
+          "Status"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The checked concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Each assert calls the function and checks its expected answer.",
+            "checks": [
+              "All checks passed"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Why"
+                    "text": "add_gst(100)"
                   },
                   {
-                    "text": "developers"
+                    "text": "118.0"
+                  },
+                  {
+                    "text": "All checks passed"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "add_gst(0)"
+                  },
+                  {
+                    "text": "0"
+                  },
+                  {
+                    "text": "All checks passed"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Passing tests show the function did not break after changes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "round(price * 1.18, 2)"
+                  },
+                  {
+                    "text": "118.0"
+                  },
+                  {
+                    "text": "All checks passed"
                   }
                 ],
                 "tone": "data"
@@ -34,19 +75,29 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tests logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Changing 1.18 to 1.8 makes the first assert fail cleanly.",
+            "whatIf": "def add_gst(price):\n    return round(price * 1.8, 2)\n\nassert add_gst(100) == 118.0\nassert add_gst(0) == 0\nprint(\"All checks passed\")",
+            "checks": [
+              "AssertionError"
+            ],
+            "mustNotShow": [
+              "All checks passed"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "write"
+                    "text": "add_gst(100)"
                   },
                   {
-                    "text": "tests"
+                    "text": "1.8"
+                  },
+                  {
+                    "text": "118.0"
                   }
                 ],
-                "tone": "ok"
+                "tone": "error"
               }
             ]
           }
@@ -54,35 +105,70 @@
       },
       "filled": {
         "template": "table",
-        "title": "Why developers write tests",
+        "title": "Checking add_gst automatically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Expected",
+          "Status"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The checked concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Each assert calls the function and checks its expected answer.",
+            "checks": [
+              "All checks passed"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Why",
-                  "developers"
+                  "add_gst(100)",
+                  "118.0",
+                  "All checks passed"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "add_gst(0)",
+                  "0",
+                  "All checks passed"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Passing tests show the function did not break after changes.",
+            "rows": [
+              {
+                "cells": [
+                  "round(price * 1.18, 2)",
+                  "118.0",
+                  "All checks passed"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tests logic drives deterministic execution.",
+            "at": "tryIt",
+            "caption": "Changing 1.18 to 1.8 makes the first assert fail cleanly.",
+            "whatIf": "def add_gst(price):\n    return round(price * 1.8, 2)\n\nassert add_gst(100) == 118.0\nassert add_gst(0) == 0\nprint(\"All checks passed\")",
+            "checks": [
+              "AssertionError"
+            ],
+            "mustNotShow": [
+              "All checks passed"
+            ],
             "rows": [
               {
                 "cells": [
-                  "write",
-                  "tests"
+                  "add_gst(100)",
+                  "1.8",
+                  "118.0"
                 ],
-                "tone": "ok"
+                "tone": "error"
               }
             ]
           }
@@ -94,40 +180,93 @@
       "codeHash": "ccd204a27183612cec3ba21861adeeef3f3a8af9aa17da8339bde2b07b034d03",
       "spec": {
         "template": "table",
-        "title": "assert and failure messages",
+        "title": "Inspecting assert failure messages",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Expected",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The assert concept establishes the core structural baseline.",
+            "caption": "When an assert condition is False, Python raises AssertionError.",
+            "checks": [
+              "First check passed",
+              "AssertionError"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "assert"
+                    "text": "total([20, 45])"
                   },
                   {
-                    "text": "and"
+                    "text": "65"
+                  },
+                  {
+                    "text": "First check passed"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "total([20, 45, 10])"
+                  },
+                  {
+                    "text": "70"
+                  },
+                  {
+                    "text": "AssertionError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The very logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding a message shows expected and actual values when assert fails.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "failure"
+                    "text": "f\"expected 70, got {result}\""
                   },
                   {
-                    "text": "messages"
+                    "text": "70"
+                  },
+                  {
+                    "text": "expected 70, got 75"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Fixing the expected value lets both checks pass.",
+            "whatIf": "def total(amounts):\n    return sum(amounts)\n\nresult = total([20, 45])\nassert result == 65, f\"expected 65, got {result}\"\nprint(\"First check passed\")\nresult = total([20, 45, 10])\nassert result == 75, f\"expected 75, got {result}\"\nprint(\"This line is never reached\")",
+            "checks": [
+              "First check passed",
+              "This line is never reached"
+            ],
+            "mustNotShow": [
+              "AssertionError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "total([20, 45, 10])"
+                  },
+                  {
+                    "text": "75"
+                  },
+                  {
+                    "text": "First check passed"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +277,70 @@
       },
       "filled": {
         "template": "table",
-        "title": "assert and failure messages",
+        "title": "Inspecting assert failure messages",
         "columns": [
-          "Stage",
-          "Concept"
+          "Call",
+          "Expected",
+          "Outcome"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The assert concept establishes the core structural baseline.",
+            "caption": "When an assert condition is False, Python raises AssertionError.",
+            "checks": [
+              "First check passed",
+              "AssertionError"
+            ],
             "rows": [
               {
                 "cells": [
-                  "assert",
-                  "and"
+                  "total([20, 45])",
+                  "65",
+                  "First check passed"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "total([20, 45, 10])",
+                  "70",
+                  "AssertionError"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The very logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Adding a message shows expected and actual values when assert fails.",
             "rows": [
               {
                 "cells": [
-                  "failure",
-                  "messages"
+                  "f\"expected 70, got {result}\"",
+                  "70",
+                  "expected 70, got 75"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Fixing the expected value lets both checks pass.",
+            "whatIf": "def total(amounts):\n    return sum(amounts)\n\nresult = total([20, 45])\nassert result == 65, f\"expected 65, got {result}\"\nprint(\"First check passed\")\nresult = total([20, 45, 10])\nassert result == 75, f\"expected 75, got {result}\"\nprint(\"This line is never reached\")",
+            "checks": [
+              "First check passed",
+              "This line is never reached"
+            ],
+            "mustNotShow": [
+              "AssertionError"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "total([20, 45, 10])",
+                  "75",
+                  "First check passed"
                 ],
                 "tone": "ok"
               }
@@ -178,40 +354,106 @@
       "codeHash": "4aed69961a82c7800a8bf920433b11a94b4bd66533e1545b5c749b99ab22ba38",
       "spec": {
         "template": "table",
-        "title": "Test functions and pytest",
+        "title": "Running test_ functions automatically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Function",
+          "Input",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The writing concept establishes the core structural baseline.",
+            "caption": "Put each check in its own function starting with test_.",
+            "checks": [
+              "FAILED test_total_wrong_on_purpose - 1 + 1 is not 3",
+              "2 passed, 1 failed"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Test"
+                    "text": "test_total_adds_amounts"
                   },
                   {
-                    "text": "functions"
+                    "text": "[20, 45]"
+                  },
+                  {
+                    "text": "65"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "test_total_of_empty_list_is_zero"
+                  },
+                  {
+                    "text": "[]"
+                  },
+                  {
+                    "text": "0"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The test logic drives deterministic execution.",
+            "caption": "Each test name describes one behaviour when a test fails.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "test_total_wrong_on_purpose"
                   },
                   {
-                    "text": "pytest"
+                    "text": "[1, 1]"
+                  },
+                  {
+                    "text": "1 + 1 is not 3"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing the wrong-on-purpose test from tests leaves all passing.",
+            "whatIf": "def total(amounts):\n    return sum(amounts)\n\ndef test_total_adds_amounts():\n    assert total([20, 45]) == 65\n\ndef test_total_of_empty_list_is_zero():\n    assert total([]) == 0\n\ndef test_total_wrong_on_purpose():\n    assert total([1, 1]) == 3, \"1 + 1 is not 3\"\n\n# A tiny version of what pytest does:\ntests = [test_total_adds_amounts, test_total_of_empty_list_is_zero]\npassed = 0\nfor test in tests:\n    try:\n        test()\n        passed += 1\n    except AssertionError as error:\n        print(\"FAILED\", test.__name__, \"-\", error)\nprint(passed, \"passed,\", len(tests) - passed, \"failed\")",
+            "checks": [
+              "2 passed, 0 failed"
+            ],
+            "mustNotShow": [
+              "FAILED"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tests"
+                  },
+                  {
+                    "text": "test_total_adds_amounts"
+                  },
+                  {
+                    "text": "2 passed"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "tests"
+                  },
+                  {
+                    "text": "test_total_of_empty_list_is_zero"
+                  },
+                  {
+                    "text": "0 failed"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +464,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "Test functions and pytest",
+        "title": "Running test_ functions automatically",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Function",
+          "Input",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The writing concept establishes the core structural baseline.",
+            "caption": "Put each check in its own function starting with test_.",
+            "checks": [
+              "FAILED test_total_wrong_on_purpose - 1 + 1 is not 3",
+              "2 passed, 1 failed"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Test",
-                  "functions"
+                  "test_total_adds_amounts",
+                  "[20, 45]",
+                  "65"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "test_total_of_empty_list_is_zero",
+                  "[]",
+                  "0"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The test logic drives deterministic execution.",
+            "caption": "Each test name describes one behaviour when a test fails.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "pytest"
+                  "test_total_wrong_on_purpose",
+                  "[1, 1]",
+                  "1 + 1 is not 3"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing the wrong-on-purpose test from tests leaves all passing.",
+            "whatIf": "def total(amounts):\n    return sum(amounts)\n\ndef test_total_adds_amounts():\n    assert total([20, 45]) == 65\n\ndef test_total_of_empty_list_is_zero():\n    assert total([]) == 0\n\ndef test_total_wrong_on_purpose():\n    assert total([1, 1]) == 3, \"1 + 1 is not 3\"\n\n# A tiny version of what pytest does:\ntests = [test_total_adds_amounts, test_total_of_empty_list_is_zero]\npassed = 0\nfor test in tests:\n    try:\n        test()\n        passed += 1\n    except AssertionError as error:\n        print(\"FAILED\", test.__name__, \"-\", error)\nprint(passed, \"passed,\", len(tests) - passed, \"failed\")",
+            "checks": [
+              "2 passed, 0 failed"
+            ],
+            "mustNotShow": [
+              "FAILED"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "tests",
+                  "test_total_adds_amounts",
+                  "2 passed"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "tests",
+                  "test_total_of_empty_list_is_zero",
+                  "0 failed"
                 ],
                 "tone": "ok"
               }
@@ -262,40 +548,123 @@
       "codeHash": "07becec6719083a06e26d93800f82e0c0b4b47a84fab9fd6688aea24db669722",
       "spec": {
         "template": "table",
-        "title": "Normal cases and edge cases",
+        "title": "Boundary test cases for delivery_fee",
         "columns": [
-          "Stage",
-          "Concept"
+          "Bill",
+          "Expected",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The good concept establishes the core structural baseline.",
+            "caption": "Good test suites check normal inputs and edge cases.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Normal"
+                    "text": "100"
                   },
                   {
-                    "text": "cases"
+                    "text": "40"
+                  },
+                  {
+                    "text": "ok"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "0"
+                  },
+                  {
+                    "text": "40"
+                  },
+                  {
+                    "text": "ok"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The boundaries logic drives deterministic execution.",
+            "caption": "Boundary tests at 498, 499, and 500 catch off-by-one mistakes.",
+            "checks": [
+              "bill 498: expected 40, got 40  ok",
+              "bill 499: expected  0, got 40  BUG",
+              "bill 500: expected  0, got  0  ok"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "498"
                   },
                   {
-                    "text": "edge"
+                    "text": "40"
+                  },
+                  {
+                    "text": "ok"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "499"
+                  },
+                  {
+                    "text": "0"
+                  },
+                  {
+                    "text": "BUG"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "500"
+                  },
+                  {
+                    "text": "0"
+                  },
+                  {
+                    "text": "ok"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing > to >= fixes the bug so every line says ok.",
+            "whatIf": "def delivery_fee(bill):\n    return 0 if bill >= 499 else 40\n\ncases = [(100, 40), (498, 40), (499, 0), (500, 0), (0, 40)]\nfor bill, expected in cases:\n    got = delivery_fee(bill)\n    status = \"ok\" if got == expected else \"BUG\"\n    print(f\"bill {bill:>3}: expected {expected:>2}, got {got:>2}  {status}\")",
+            "checks": [
+              "bill 498: expected 40, got 40  ok",
+              "bill 499: expected  0, got  0  ok",
+              "bill 500: expected  0, got  0  ok"
+            ],
+            "mustNotShow": [
+              "BUG"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "499"
+                  },
+                  {
+                    "text": "0"
+                  },
+                  {
+                    "text": "ok"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +675,88 @@
       },
       "filled": {
         "template": "table",
-        "title": "Normal cases and edge cases",
+        "title": "Boundary test cases for delivery_fee",
         "columns": [
-          "Stage",
-          "Concept"
+          "Bill",
+          "Expected",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The good concept establishes the core structural baseline.",
+            "caption": "Good test suites check normal inputs and edge cases.",
             "rows": [
               {
                 "cells": [
-                  "Normal",
-                  "cases"
+                  "100",
+                  "40",
+                  "ok"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "0",
+                  "40",
+                  "ok"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The boundaries logic drives deterministic execution.",
+            "caption": "Boundary tests at 498, 499, and 500 catch off-by-one mistakes.",
+            "checks": [
+              "bill 498: expected 40, got 40  ok",
+              "bill 499: expected  0, got 40  BUG",
+              "bill 500: expected  0, got  0  ok"
+            ],
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "edge"
+                  "498",
+                  "40",
+                  "ok"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "499",
+                  "0",
+                  "BUG"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "500",
+                  "0",
+                  "ok"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing > to >= fixes the bug so every line says ok.",
+            "whatIf": "def delivery_fee(bill):\n    return 0 if bill >= 499 else 40\n\ncases = [(100, 40), (498, 40), (499, 0), (500, 0), (0, 40)]\nfor bill, expected in cases:\n    got = delivery_fee(bill)\n    status = \"ok\" if got == expected else \"BUG\"\n    print(f\"bill {bill:>3}: expected {expected:>2}, got {got:>2}  {status}\")",
+            "checks": [
+              "bill 498: expected 40, got 40  ok",
+              "bill 499: expected  0, got  0  ok",
+              "bill 500: expected  0, got  0  ok"
+            ],
+            "mustNotShow": [
+              "BUG"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "499",
+                  "0",
+                  "ok"
                 ],
                 "tone": "ok"
               }
@@ -346,43 +770,81 @@
       "codeHash": "3e5dfaa58c33b7ed811c535be2485a1171d842b59ffe9ad656c2939eed83d1ae",
       "spec": {
         "template": "table",
-        "title": "Testing errors and keeping functions testable",
+        "title": "Testing expected ValueError and valid add_expense",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test",
+          "Input",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The functions concept establishes the core structural baseline.",
+            "caption": "A good test checks that bad input triggers ValueError.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Testing"
+                    "text": "test_negative_amount_is_refused"
                   },
                   {
-                    "text": "errors"
+                    "text": "-50"
+                  },
+                  {
+                    "text": "ValueError"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The code logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Pure functions take parameters and return values, keeping tests easy.",
+            "checks": [
+              "Both tests passed"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "test_good_amount_is_added"
                   },
                   {
-                    "text": "keeping"
+                    "text": "20"
+                  },
+                  {
+                    "text": "Both tests passed"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing the check makes the first test fail with AssertionError.",
+            "whatIf": "def add_expense(expenses, item, amount):\n    return expenses + [{\"item\": item, \"amount\": amount}]\n\ndef test_negative_amount_is_refused():\n    try:\n        add_expense([], \"Refund\", -50)\n    except ValueError:\n        return\n    raise AssertionError(\"expected a ValueError\")\n\ndef test_good_amount_is_added():\n    result = add_expense([], \"Tea\", 20)\n    assert result == [{\"item\": \"Tea\", \"amount\": 20}]\n\ntest_negative_amount_is_refused()\ntest_good_amount_is_added()\nprint(\"Both tests passed\")",
+            "checks": [
+              "AssertionError",
+              "expected a ValueError"
+            ],
+            "mustNotShow": [
+              "Both tests passed"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "add_expense"
+                  },
+                  {
+                    "text": "-50"
+                  },
+                  {
+                    "text": "expected a ValueError"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,35 +852,63 @@
       },
       "filled": {
         "template": "table",
-        "title": "Testing errors and keeping functions testable",
+        "title": "Testing expected ValueError and valid add_expense",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test",
+          "Input",
+          "Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The functions concept establishes the core structural baseline.",
+            "caption": "A good test checks that bad input triggers ValueError.",
             "rows": [
               {
                 "cells": [
-                  "Testing",
-                  "errors"
+                  "test_negative_amount_is_refused",
+                  "-50",
+                  "ValueError"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The code logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Pure functions take parameters and return values, keeping tests easy.",
+            "checks": [
+              "Both tests passed"
+            ],
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "keeping"
+                  "test_good_amount_is_added",
+                  "20",
+                  "Both tests passed"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing the check makes the first test fail with AssertionError.",
+            "whatIf": "def add_expense(expenses, item, amount):\n    return expenses + [{\"item\": item, \"amount\": amount}]\n\ndef test_negative_amount_is_refused():\n    try:\n        add_expense([], \"Refund\", -50)\n    except ValueError:\n        return\n    raise AssertionError(\"expected a ValueError\")\n\ndef test_good_amount_is_added():\n    result = add_expense([], \"Tea\", 20)\n    assert result == [{\"item\": \"Tea\", \"amount\": 20}]\n\ntest_negative_amount_is_refused()\ntest_good_amount_is_added()\nprint(\"Both tests passed\")",
+            "checks": [
+              "AssertionError",
+              "expected a ValueError"
+            ],
+            "mustNotShow": [
+              "Both tests passed"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "add_expense",
+                  "-50",
+                  "expected a ValueError"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -430,40 +920,106 @@
       "codeHash": "7304453b617038692b0b287e2eb62da1512c68242b407967cd8029e5ac155bef",
       "spec": {
         "template": "table",
-        "title": "Putting it together: tests for the tracker",
+        "title": "Expense Tracker automated test suite",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Function",
+          "Case",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The write concept establishes the core structural baseline.",
+            "caption": "Each short test checks one tracker function or edge case.",
+            "checks": [
+              "PASSED test_category_totals_groups_amounts",
+              "PASSED test_category_totals_of_nothing_is_empty",
+              "PASSED test_parse_amount_accepts_spaces",
+              "PASSED test_parse_amount_refuses_text_and_zero"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "test_category_totals_groups_amounts"
                   },
                   {
-                    "text": "together"
+                    "text": "{\"food\": 50}"
+                  },
+                  {
+                    "text": "PASSED"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "test_category_totals_of_nothing_is_empty"
+                  },
+                  {
+                    "text": "[]"
+                  },
+                  {
+                    "text": "PASSED"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The laptop logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Clear test names document what the tracker promises.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "tests"
+                    "text": "test_parse_amount_accepts_spaces"
                   },
                   {
-                    "text": "for"
+                    "text": "\" 120 \""
+                  },
+                  {
+                    "text": "120.0"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "test_parse_amount_refuses_text_and_zero"
+                  },
+                  {
+                    "text": "\"0\""
+                  },
+                  {
+                    "text": "None"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding parse_amount edge tests confirms both return None.",
+            "whatIf": "def category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\ndef parse_amount(text):\n    try:\n        value = float(text.strip())\n    except ValueError:\n        return None\n    return value if value > 0 else None\n\ndef test_category_totals_groups_amounts():\n    data = [{\"category\": \"food\", \"amount\": 20}, {\"category\": \"food\", \"amount\": 30}]\n    assert category_totals(data) == {\"food\": 50}\n\ndef test_category_totals_of_nothing_is_empty():\n    assert category_totals([]) == {}\n\ndef test_parse_amount_accepts_spaces():\n    assert parse_amount(\" 120 \") == 120.0\n\ndef test_parse_amount_refuses_text_and_zero():\n    assert parse_amount(\"abc\") is None\n    assert parse_amount(\"0\") is None\n\ndef test_parse_amount_negative_and_empty():\n    assert parse_amount(\"-5\") is None\n    assert parse_amount(\"\") is None\n\ntests = [f for name, f in list(globals().items()) if name.startswith(\"test_\")]\nfor test in tests:\n    test()\n    print(\"PASSED\", test.__name__)",
+            "checks": [
+              "PASSED test_category_totals_groups_amounts",
+              "PASSED test_parse_amount_negative_and_empty"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "parse_amount(\"-5\")"
+                  },
+                  {
+                    "text": "parse_amount(\"\")"
+                  },
+                  {
+                    "text": "None"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1030,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: tests for the tracker",
+        "title": "Expense Tracker automated test suite",
         "columns": [
-          "Stage",
-          "Concept"
+          "Test Function",
+          "Case",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The write concept establishes the core structural baseline.",
+            "caption": "Each short test checks one tracker function or edge case.",
+            "checks": [
+              "PASSED test_category_totals_groups_amounts",
+              "PASSED test_category_totals_of_nothing_is_empty",
+              "PASSED test_parse_amount_accepts_spaces",
+              "PASSED test_parse_amount_refuses_text_and_zero"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "test_category_totals_groups_amounts",
+                  "{\"food\": 50}",
+                  "PASSED"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "test_category_totals_of_nothing_is_empty",
+                  "[]",
+                  "PASSED"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The laptop logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Clear test names document what the tracker promises.",
             "rows": [
               {
                 "cells": [
-                  "tests",
-                  "for"
+                  "test_parse_amount_accepts_spaces",
+                  "\" 120 \"",
+                  "120.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "test_parse_amount_refuses_text_and_zero",
+                  "\"0\"",
+                  "None"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding parse_amount edge tests confirms both return None.",
+            "whatIf": "def category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\ndef parse_amount(text):\n    try:\n        value = float(text.strip())\n    except ValueError:\n        return None\n    return value if value > 0 else None\n\ndef test_category_totals_groups_amounts():\n    data = [{\"category\": \"food\", \"amount\": 20}, {\"category\": \"food\", \"amount\": 30}]\n    assert category_totals(data) == {\"food\": 50}\n\ndef test_category_totals_of_nothing_is_empty():\n    assert category_totals([]) == {}\n\ndef test_parse_amount_accepts_spaces():\n    assert parse_amount(\" 120 \") == 120.0\n\ndef test_parse_amount_refuses_text_and_zero():\n    assert parse_amount(\"abc\") is None\n    assert parse_amount(\"0\") is None\n\ndef test_parse_amount_negative_and_empty():\n    assert parse_amount(\"-5\") is None\n    assert parse_amount(\"\") is None\n\ntests = [f for name, f in list(globals().items()) if name.startswith(\"test_\")]\nfor test in tests:\n    test()\n    print(\"PASSED\", test.__name__)",
+            "checks": [
+              "PASSED test_category_totals_groups_amounts",
+              "PASSED test_parse_amount_negative_and_empty"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "parse_amount(\"-5\")",
+                  "parse_amount(\"\")",
+                  "None"
                 ],
                 "tone": "ok"
               }

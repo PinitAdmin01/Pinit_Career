@@ -1239,7 +1239,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Valid Amount",
     eDesc: "Write `is_valid_amount(value)` that returns `True` only for numbers greater than 0 (int or float, not bool or text).",
     eStarter: lines("def is_valid_amount(value):", "    # isinstance(value, (int, float)), not isinstance(value, bool), and value > 0", "    pass"),
-    eHint: "return isinstance(value, (int, float)) and not isinstance(value, bool) and value > 0",
+    eHint: lines(
+      "def is_valid_amount(value):",
+      "    return isinstance(value, (int, float)) and not isinstance(value, bool) and value > 0"
+    ),
     eTest: lines(
       "_fn = globals().get('is_valid_amount')",
       "_ok_num = callable(_fn) and _fn(20) is True and _fn(9.5) is True and _fn(0) is False and _fn(-5) is False and _fn('20') is False",
@@ -1249,7 +1252,12 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Your Own Check",
     aDesc: "Write `check_equal(actual, expected)` that returns `True` when they are equal and raises `AssertionError` with the message `'Expected X but got Y'` when they are not.",
     aStarter: lines("def check_equal(actual, expected):", "    # if actual != expected: raise AssertionError(f'Expected {expected} but got {actual}')", "    pass"),
-    aHint: "if actual != expected: raise AssertionError(f'Expected {expected} but got {actual}'); return True",
+    aHint: lines(
+      "def check_equal(actual, expected):",
+      "    if actual != expected:",
+      "        raise AssertionError(f'Expected {expected} but got {actual}')",
+      "    return True"
+    ),
     aTest: lines(
       "assert check_equal(2, 2) is True, \"Expected check_equal(2, 2) to return True\"",
       "raised = False; _err_msg = ''",
@@ -1277,7 +1285,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Good Commit Message",
     eDesc: "Write `is_good_commit_message(msg)` that returns `True` when the message is between 10 and 72 characters long.",
     eStarter: lines("def is_good_commit_message(msg):", "    # return 10 <= len(msg) <= 72", "    pass"),
-    eHint: "return 10 <= len(msg) <= 72",
+    eHint: lines(
+      "def is_good_commit_message(msg):",
+      "    return 10 <= len(msg) <= 72"
+    ),
     eTest: lines(
       "_fn = globals().get('is_good_commit_message')",
       "_v1 = _fn('Add expense summary by category') if callable(_fn) else None",
@@ -1288,7 +1299,10 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Branch Name",
     aDesc: "Write `branch_name(task)` that turns `'Add Monthly Report'` into `'feature/add-monthly-report'`.",
     aStarter: lines("def branch_name(task):", "    # lower case, split words and join with '-'", "    pass"),
-    aHint: "return 'feature/' + '-'.join(task.lower().split())",
+    aHint: lines(
+      "def branch_name(task):",
+      "    return 'feature/' + '-'.join(task.lower().split())"
+    ),
     aTest: lines(
       "_fn = globals().get('branch_name')",
       "_v1 = _fn('Add Monthly Report') if callable(_fn) else None",
@@ -1309,7 +1323,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Newest First",
     eDesc: "Write `sort_by_date(expenses)` that returns a new list sorted by `'date'` (text like `'2026-09-01'`), newest first. The original must not change.",
     eStarter: lines("def sort_by_date(expenses):", "    # sorted(expenses, key=lambda e: e['date'], reverse=True)", "    pass"),
-    eHint: "return sorted(expenses, key=lambda e: e['date'], reverse=True)",
+    eHint: lines("def sort_by_date(expenses):", "    return sorted(expenses, key=lambda e: e['date'], reverse=True)"),
     eTest: lines(
       "data = [{'id': 1, 'date': '2026-09-01'}, {'id': 2, 'date': '2026-09-20'}, {'id': 3, 'date': '2026-09-10'}]",
       "_fn = globals().get('sort_by_date')",
@@ -1325,7 +1339,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Group by Category",
     aDesc: "Write `group_by_category(expenses)` that returns a dictionary like `{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}` with item names.",
     aStarter: lines("def group_by_category(expenses):", "    groups = {}", "    # loop over expenses; if category not in groups, set groups[category] = []", "    return groups"),
-    aHint: "for e in expenses: cat = e['category']; if cat not in groups: groups[cat] = []; groups[cat].append(e['item'])",
+    aHint: lines("def group_by_category(expenses):", "    groups = {}", "    for e in expenses:", "        cat = e['category']", "        if cat not in groups:", "            groups[cat] = []", "        groups[cat].append(e['item'])", "    return groups"),
     aTest: lines(
       "data = [{'item': 'Tea', 'category': 'food'}, {'item': 'Bus', 'category': 'travel'}, {'item': 'Lunch', 'category': 'food'}]",
       "_fn = globals().get('group_by_category')",
@@ -1349,7 +1363,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Add an Expense",
     eDesc: "Write `add_expense(expenses, item, amount, category, date)` that returns a NEW list with the new expense added. Give it the next `'id'` (starting at 1, using `max((e['id'] for e in expenses), default=0) + 1` or `len(expenses) + 1`) and remove extra spaces from `item` and `category`.",
     eStarter: lines("def add_expense(expenses, item, amount, category, date):", "    new = {", "        # id, item, amount, category, date", "    }", "    return expenses + [new]"),
-    eHint: "next_id = max((e['id'] for e in expenses), default=0) + 1; new = {'id': next_id, 'item': item.strip(), 'amount': amount, 'category': category.strip(), 'date': date}",
+    eHint: lines("def add_expense(expenses, item, amount, category, date):", "    next_id = max((e['id'] for e in expenses), default=0) + 1", "    new = {'id': next_id, 'item': item.strip(), 'amount': amount, 'category': category.strip(), 'date': date}", "    return expenses + [new]"),
     eTest: lines(
       "result = add_expense([], ' Tea ', 20, 'food ', '2026-09-28')",
       "if isinstance(result, list) and len(result) == 1 and isinstance(result[0], dict):",
@@ -1363,7 +1377,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Format an Expense",
     aDesc: "Write `format_expense(e)` that returns text like `'Tea - Rs 20.00 (food)'`.",
     aStarter: lines("def format_expense(e):", "    # f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"", "    pass"),
-    aHint: "return f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\"",
+    aHint: lines("def format_expense(e):", "    return f\"{e['item']} - Rs {e['amount']:.2f} ({e['category']})\""),
     aTest: lines(
       "_fn = globals().get('format_expense')",
       "_res = _fn({'item': 'Tea', 'amount': 20, 'category': 'food'}) if callable(_fn) else None",
@@ -1385,7 +1399,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     eTitle: "Summary",
     eDesc: "Write `summary(expenses)` that returns `{'total': ..., 'count': ..., 'biggest': ...}` where biggest is the item name of the largest expense, or `None` for an empty list.",
     eStarter: lines("def summary(expenses):", "    # max(expenses, key=...) finds the biggest", "    pass"),
-    eHint: "biggest = max(expenses, key=lambda e: e['amount'])['item'] if expenses else None",
+    eHint: lines("def summary(expenses):", "    if not expenses:", "        return {'total': 0, 'count': 0, 'biggest': None}", "    biggest = max(expenses, key=lambda e: e['amount'])['item']", "    return {'total': sum(e['amount'] for e in expenses), 'count': len(expenses), 'biggest': biggest}"),
     eTest: lines(
       "data = [{'item': 'Tea', 'amount': 20}, {'item': 'Rent', 'amount': 8000}, {'item': 'Bus', 'amount': 45}]",
       "_fn = globals().get('summary')",
@@ -1407,7 +1421,7 @@ export const PYTHON_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Totals per Category",
     aDesc: "Write `category_totals(expenses)` that returns a dictionary like `{'food': 170, 'travel': 45}`.",
     aStarter: lines("def category_totals(expenses):", "    totals = {}", "    # add each amount to totals[category]", "    return totals"),
-    aHint: "totals[e['category']] = totals.get(e['category'], 0) + e['amount']",
+    aHint: lines("def category_totals(expenses):", "    totals = {}", "    for e in expenses:", "        totals[e['category']] = totals.get(e['category'], 0) + e['amount']", "    return totals"),
     aTest: lines(
       "data = [{'category': 'food', 'amount': 20}, {'category': 'travel', 'amount': 45}, {'category': 'food', 'amount': 150}]",
       "assert category_totals(data) == {'food': 170, 'travel': 45} and category_totals([]) == {} and category_totals([{'category': 'bills', 'amount': 300}]) == {'bills': 300}, \"Expected {'food': 170, 'travel': 45}\"",

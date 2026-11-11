@@ -3,30 +3,66 @@
   "prefix": "python",
   "day": 25,
   "promptSha": "6f5114952db6d40ac0e732e8ea0d30819fd523e7b3e39014579c36855006048c",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day25",
   "entries": [
     {
       "partTitle": "A summary of spending",
       "codeHash": "9c7ee85c46fb128f5f4bcf1d47492bae5b0ebf2b446d224fa3bd25592d487e51",
       "spec": {
         "template": "table",
-        "title": "A summary of spending",
+        "title": "Expense summary dictionary fields",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Non-Empty Value",
+          "Empty Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The summary shows total spent, number of expenses, and biggest expense.",
+            "checks": [
+              "{'total': 8065.5, 'count': 3, 'biggest': 'Rent'}",
+              "{'total': 0, 'count': 0, 'biggest': None}"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "summary"
+                    "text": "total"
                   },
                   {
-                    "text": "spending"
+                    "text": "8065.5"
+                  },
+                  {
+                    "text": "0"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "count"
+                  },
+                  {
+                    "text": "3"
+                  },
+                  {
+                    "text": "0"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "biggest"
+                  },
+                  {
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "None"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +70,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The summary function returns a dictionary for the menu or test.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "summary"
+                    "text": "total"
                   },
                   {
-                    "text": "spending"
+                    "text": "8065.5"
+                  },
+                  {
+                    "text": "0"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "biggest"
+                  },
+                  {
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "None"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding an average key includes the rounded calculation on this data.",
+            "whatIf": "def summary(expenses):\n    if not expenses:\n        return {\"total\": 0, \"count\": 0, \"biggest\": None, \"average\": 0}\n    biggest = max(expenses, key=lambda e: e[\"amount\"])\n    return {\n        \"total\": round(sum(e[\"amount\"] for e in expenses), 2),\n        \"average\": round(sum(e[\"amount\"] for e in expenses) / len(expenses), 2),\n        \"count\": len(expenses),\n        \"biggest\": biggest[\"item\"],\n    }\n\ndata = [{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Rent\", \"amount\": 8000}, {\"item\": \"Bus\", \"amount\": 45.5}]\nprint(summary(data))\nprint(summary([]))",
+            "checks": [
+              "{'total': 8065.5, 'average': 2688.5, 'count': 3, 'biggest': 'Rent'}",
+              "{'total': 0, 'count': 0, 'biggest': None, 'average': 0}"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "total"
+                  },
+                  {
+                    "text": "8065.5"
+                  },
+                  {
+                    "text": "0"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "count"
+                  },
+                  {
+                    "text": "3"
+                  },
+                  {
+                    "text": "0"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +146,91 @@
       },
       "filled": {
         "template": "table",
-        "title": "A summary of spending",
+        "title": "Expense summary dictionary fields",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Non-Empty Value",
+          "Empty Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The today concept establishes the core structural baseline.",
+            "caption": "The summary shows total spent, number of expenses, and biggest expense.",
+            "checks": [
+              "{'total': 8065.5, 'count': 3, 'biggest': 'Rent'}",
+              "{'total': 0, 'count': 0, 'biggest': None}"
+            ],
             "rows": [
               {
                 "cells": [
-                  "summary",
-                  "spending"
+                  "total",
+                  "8065.5",
+                  "0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "count",
+                  "3",
+                  "0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "biggest",
+                  "Rent",
+                  "None"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The summary function returns a dictionary for the menu or test.",
             "rows": [
               {
                 "cells": [
-                  "summary",
-                  "spending"
+                  "total",
+                  "8065.5",
+                  "0"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "biggest",
+                  "Rent",
+                  "None"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding an average key includes the rounded calculation on this data.",
+            "whatIf": "def summary(expenses):\n    if not expenses:\n        return {\"total\": 0, \"count\": 0, \"biggest\": None, \"average\": 0}\n    biggest = max(expenses, key=lambda e: e[\"amount\"])\n    return {\n        \"total\": round(sum(e[\"amount\"] for e in expenses), 2),\n        \"average\": round(sum(e[\"amount\"] for e in expenses) / len(expenses), 2),\n        \"count\": len(expenses),\n        \"biggest\": biggest[\"item\"],\n    }\n\ndata = [{\"item\": \"Tea\", \"amount\": 20}, {\"item\": \"Rent\", \"amount\": 8000}, {\"item\": \"Bus\", \"amount\": 45.5}]\nprint(summary(data))\nprint(summary([]))",
+            "checks": [
+              "{'total': 8065.5, 'average': 2688.5, 'count': 3, 'biggest': 'Rent'}",
+              "{'total': 0, 'count': 0, 'biggest': None, 'average': 0}"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "total",
+                  "8065.5",
+                  "0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "count",
+                  "3",
+                  "0"
                 ],
                 "tone": "ok"
               }
@@ -94,23 +244,75 @@
       "codeHash": "efcb7a72d7fc23fca97cdf3edbd0a1072dc1a3be83dc6c1db4bed791f4db60ac",
       "spec": {
         "template": "table",
-        "title": "Totals per category",
+        "title": "Category totals sorted with shares",
         "columns": [
-          "Stage",
-          "Concept"
+          "Category",
+          "Total",
+          "Share"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
+            "caption": "Dictionary category_totals sums money spent under each category.",
+            "checks": [
+              "food         400.00   40%",
+              "rent         350.00   35%",
+              "fun          100.00   10%",
+              "['Nothing spent yet.']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Totals"
+                    "text": "food"
                   },
                   {
-                    "text": "per"
+                    "text": "400.00"
+                  },
+                  {
+                    "text": "40%"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "rent"
+                  },
+                  {
+                    "text": "350.00"
+                  },
+                  {
+                    "text": "35%"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "travel"
+                  },
+                  {
+                    "text": "150.00"
+                  },
+                  {
+                    "text": "15%"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "fun"
+                  },
+                  {
+                    "text": "100.00"
+                  },
+                  {
+                    "text": "10%"
                   }
                 ],
                 "tone": "data"
@@ -118,16 +320,59 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The percentage logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Categories appear sorted from biggest spend with total share.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "category"
+                    "text": "food"
                   },
                   {
-                    "text": "per"
+                    "text": "400.00"
+                  },
+                  {
+                    "text": "40%"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "fun"
+                  },
+                  {
+                    "text": "100.00"
+                  },
+                  {
+                    "text": "10%"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing format precision displays each percentage with one decimal place.",
+            "whatIf": "def category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\ndef category_lines(expenses):\n    totals = category_totals(expenses)\n    grand = sum(totals.values())\n    if grand == 0:\n        return [\"Nothing spent yet.\"]\n    ordered = sorted(totals.items(), key=lambda pair: pair[1], reverse=True)\n    return [f\"{cat:<10}{amount:>9.2f}  {amount / grand:>6.1%}\" for cat, amount in ordered]\n\ndata = [\n    {\"category\": \"food\", \"amount\": 400}, {\"category\": \"rent\", \"amount\": 350},\n    {\"category\": \"travel\", \"amount\": 150},\n    {\"category\": \"fun\", \"amount\": 100},\n]\nprint(\"\\n\".join(category_lines(data)))\nprint(category_lines([]))",
+            "checks": [
+              "food         400.00   40.0%",
+              "rent         350.00   35.0%",
+              "fun          100.00   10.0%"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "food"
+                  },
+                  {
+                    "text": "400.00"
+                  },
+                  {
+                    "text": "40%"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +383,94 @@
       },
       "filled": {
         "template": "table",
-        "title": "Totals per category",
+        "title": "Category totals sorted with shares",
         "columns": [
-          "Stage",
-          "Concept"
+          "Category",
+          "Total",
+          "Share"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
+            "caption": "Dictionary category_totals sums money spent under each category.",
+            "checks": [
+              "food         400.00   40%",
+              "rent         350.00   35%",
+              "fun          100.00   10%",
+              "['Nothing spent yet.']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Totals",
-                  "per"
+                  "food",
+                  "400.00",
+                  "40%"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "rent",
+                  "350.00",
+                  "35%"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "travel",
+                  "150.00",
+                  "15%"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "fun",
+                  "100.00",
+                  "10%"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The percentage logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Categories appear sorted from biggest spend with total share.",
             "rows": [
               {
                 "cells": [
-                  "category",
-                  "per"
+                  "food",
+                  "400.00",
+                  "40%"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "fun",
+                  "100.00",
+                  "10%"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Changing format precision displays each percentage with one decimal place.",
+            "whatIf": "def category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\ndef category_lines(expenses):\n    totals = category_totals(expenses)\n    grand = sum(totals.values())\n    if grand == 0:\n        return [\"Nothing spent yet.\"]\n    ordered = sorted(totals.items(), key=lambda pair: pair[1], reverse=True)\n    return [f\"{cat:<10}{amount:>9.2f}  {amount / grand:>6.1%}\" for cat, amount in ordered]\n\ndata = [\n    {\"category\": \"food\", \"amount\": 400}, {\"category\": \"rent\", \"amount\": 350},\n    {\"category\": \"travel\", \"amount\": 150},\n    {\"category\": \"fun\", \"amount\": 100},\n]\nprint(\"\\n\".join(category_lines(data)))\nprint(category_lines([]))",
+            "checks": [
+              "food         400.00   40.0%",
+              "rent         350.00   35.0%",
+              "fun          100.00   10.0%"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "food",
+                  "400.00",
+                  "40%"
                 ],
                 "tone": "ok"
               }
@@ -178,40 +484,135 @@
       "codeHash": "e123642d0ec875a11a068149db058207ffac0c0113b2d834ed1e66f237a42fdd",
       "spec": {
         "template": "table",
-        "title": "Filtering by month",
+        "title": "Monthly filtering by date prefix",
         "columns": [
-          "Stage",
-          "Concept"
+          "Month",
+          "Matching Items",
+          "Total"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The people concept establishes the core structural baseline.",
+            "caption": "Slicing the first seven characters of date finds each month.",
+            "checks": [
+              "['2026-08', '2026-09']",
+              "['Rent', 'Bus']",
+              "8045",
+              "[]"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Filtering"
+                    "text": "2026-08"
                   },
                   {
-                    "text": "month"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "20"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-09"
+                  },
+                  {
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "8045"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-12"
+                  },
+                  {
+                    "text": "[]"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The offer logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Function in_month returns a smaller list of expenses to combine easily.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Filtering"
+                    "text": "2026-09"
                   },
                   {
-                    "text": "month"
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "8000"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-09"
+                  },
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "45"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding another dated expense adds a third entry to months.",
+            "whatIf": "def in_month(expenses, month):\n    return [e for e in expenses if e[\"date\"][:7] == month]\n\ndef months(expenses):\n    return sorted({e[\"date\"][:7] for e in expenses})\n\ndata = [\n    {\"item\": \"Tea\", \"amount\": 20, \"date\": \"2026-08-30\"},\n    {\"item\": \"Rent\", \"amount\": 8000, \"date\": \"2026-09-01\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"date\": \"2026-09-15\"},\n    {\"item\": \"Train\", \"amount\": 300, \"date\": \"2026-10-02\"},\n]\nprint(months(data))\nseptember = in_month(data, \"2026-09\")\nprint([e[\"item\"] for e in september])\nprint(sum(e[\"amount\"] for e in september))\nprint(in_month(data, \"2026-12\"))",
+            "checks": [
+              "['2026-08', '2026-09', '2026-10']",
+              "8045",
+              "[]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "2026-08"
+                  },
+                  {
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "20"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-09"
+                  },
+                  {
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "8045"
                   }
                 ],
                 "tone": "ok"
@@ -222,33 +623,94 @@
       },
       "filled": {
         "template": "table",
-        "title": "Filtering by month",
+        "title": "Monthly filtering by date prefix",
         "columns": [
-          "Stage",
-          "Concept"
+          "Month",
+          "Matching Items",
+          "Total"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The people concept establishes the core structural baseline.",
+            "caption": "Slicing the first seven characters of date finds each month.",
+            "checks": [
+              "['2026-08', '2026-09']",
+              "['Rent', 'Bus']",
+              "8045",
+              "[]"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Filtering",
-                  "month"
+                  "2026-08",
+                  "Tea",
+                  "20"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "2026-09",
+                  "Rent",
+                  "8045"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-12",
+                  "[]",
+                  "[]"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The offer logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Function in_month returns a smaller list of expenses to combine easily.",
             "rows": [
               {
                 "cells": [
-                  "Filtering",
-                  "month"
+                  "2026-09",
+                  "Rent",
+                  "8000"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09",
+                  "Bus",
+                  "45"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding another dated expense adds a third entry to months.",
+            "whatIf": "def in_month(expenses, month):\n    return [e for e in expenses if e[\"date\"][:7] == month]\n\ndef months(expenses):\n    return sorted({e[\"date\"][:7] for e in expenses})\n\ndata = [\n    {\"item\": \"Tea\", \"amount\": 20, \"date\": \"2026-08-30\"},\n    {\"item\": \"Rent\", \"amount\": 8000, \"date\": \"2026-09-01\"},\n    {\"item\": \"Bus\", \"amount\": 45, \"date\": \"2026-09-15\"},\n    {\"item\": \"Train\", \"amount\": 300, \"date\": \"2026-10-02\"},\n]\nprint(months(data))\nseptember = in_month(data, \"2026-09\")\nprint([e[\"item\"] for e in september])\nprint(sum(e[\"amount\"] for e in september))\nprint(in_month(data, \"2026-12\"))",
+            "checks": [
+              "['2026-08', '2026-09', '2026-10']",
+              "8045",
+              "[]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "2026-08",
+                  "Tea",
+                  "20"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "2026-09",
+                  "Rent",
+                  "8045"
                 ],
                 "tone": "ok"
               }
@@ -262,43 +724,121 @@
       "codeHash": "9016c3217cb10086185a2a22c8fd878ccff05ea324222fc2e27387a5fd8c8a1a",
       "spec": {
         "template": "table",
-        "title": "Saving and loading with JSON",
+        "title": "Safe JSON persistence and error fallback",
         "columns": [
-          "Stage",
-          "Concept"
+          "File",
+          "State",
+          "load() Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The important concept establishes the core structural baseline.",
+            "caption": "Saving JSON keeps your data safe after the program closes.",
+            "checks": [
+              "True",
+              "[]"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Saving"
+                    "text": "test_expenses.json"
                   },
                   {
-                    "text": "and"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "does_not_exist.json"
+                  },
+                  {
+                    "text": "FileNotFoundError"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "broken.json"
+                  },
+                  {
+                    "text": "{not json"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The saving logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Function load returns an empty list on missing or broken JSON files.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "loading"
+                    "text": "does_not_exist.json"
                   },
                   {
-                    "text": "with"
+                    "text": "FileNotFoundError"
+                  },
+                  {
+                    "text": "[]"
                   }
                 ],
-                "tone": "ok"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "broken.json"
+                  },
+                  {
+                    "text": "ValueError"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Writing an unclosed bracket string into broken.json still returns empty.",
+            "whatIf": "import json\n\ndef save(expenses, path=\"expenses.json\"):\n    with open(path, \"w\") as f:\n        json.dump(expenses, f, indent=2)\n\ndef load(path=\"expenses.json\"):\n    try:\n        with open(path) as f:\n            data = json.load(f)\n    except (FileNotFoundError, ValueError):\n        return []\n    return data if isinstance(data, list) else []\n\ndata = [{\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-28\"}]\nsave(data, \"test_expenses.json\")\nprint(load(\"test_expenses.json\") == data)\nprint(load(\"does_not_exist.json\"))\nwith open(\"broken.json\", \"w\") as f:\n    f.write(\"[1, 2\")\nprint(load(\"broken.json\"))",
+            "checks": [
+              "True",
+              "[]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "broken.json"
+                  },
+                  {
+                    "text": "ValueError"
+                  },
+                  {
+                    "text": "[]"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -306,35 +846,85 @@
       },
       "filled": {
         "template": "table",
-        "title": "Saving and loading with JSON",
+        "title": "Safe JSON persistence and error fallback",
         "columns": [
-          "Stage",
-          "Concept"
+          "File",
+          "State",
+          "load() Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The important concept establishes the core structural baseline.",
+            "caption": "Saving JSON keeps your data safe after the program closes.",
+            "checks": [
+              "True",
+              "[]"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Saving",
-                  "and"
+                  "test_expenses.json",
+                  "Tea",
+                  "True"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "does_not_exist.json",
+                  "FileNotFoundError",
+                  "[]"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "broken.json",
+                  "{not json",
+                  "[]"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The saving logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Function load returns an empty list on missing or broken JSON files.",
             "rows": [
               {
                 "cells": [
-                  "loading",
-                  "with"
+                  "does_not_exist.json",
+                  "FileNotFoundError",
+                  "[]"
                 ],
-                "tone": "ok"
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "broken.json",
+                  "ValueError",
+                  "[]"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Writing an unclosed bracket string into broken.json still returns empty.",
+            "whatIf": "import json\n\ndef save(expenses, path=\"expenses.json\"):\n    with open(path, \"w\") as f:\n        json.dump(expenses, f, indent=2)\n\ndef load(path=\"expenses.json\"):\n    try:\n        with open(path) as f:\n            data = json.load(f)\n    except (FileNotFoundError, ValueError):\n        return []\n    return data if isinstance(data, list) else []\n\ndata = [{\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-28\"}]\nsave(data, \"test_expenses.json\")\nprint(load(\"test_expenses.json\") == data)\nprint(load(\"does_not_exist.json\"))\nwith open(\"broken.json\", \"w\") as f:\n    f.write(\"[1, 2\")\nprint(load(\"broken.json\"))",
+            "checks": [
+              "True",
+              "[]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "broken.json",
+                  "ValueError",
+                  "[]"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -346,43 +936,113 @@
       "codeHash": "aa07e4e88ee143ff8215baccb3082bb9cba0c1efd253806662b79807994c7c17",
       "spec": {
         "template": "table",
-        "title": "Connecting it all in the menu",
+        "title": "Persisting expenses across menu restarts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Session",
+          "Actions",
+          "Printed Summary"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The menu concept establishes the core structural baseline.",
+            "caption": "Menu options load saved expenses at start and save changes.",
+            "checks": [
+              "2 expenses, total Rs 65.00",
+              "--- program closed and opened again ---",
+              "3 expenses, total Rs 185.00"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Connecting"
+                    "text": "load"
                   },
                   {
-                    "text": "all"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "2 expenses, total Rs 65.00"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "save"
+                  },
+                  {
+                    "text": "Lunch"
+                  },
+                  {
+                    "text": "3 expenses, total Rs 185.00"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The program logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Good menu structure keeps each option short while tracker handles work.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "the"
+                    "text": "load"
                   },
                   {
-                    "text": "menu"
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "2 expenses, total Rs 65.00"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "save"
+                  },
+                  {
+                    "text": "Lunch"
+                  },
+                  {
+                    "text": "3 expenses, total Rs 185.00"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing save forgets earlier items after restart leaving only Lunch.",
+            "whatIf": "import json\nPATH = \"demo_expenses.json\"\nopen(PATH, \"w\").close()  # start with an empty file on every Run\n\ndef load():\n    try:\n        with open(PATH) as f:\n            data = json.load(f)\n    except (FileNotFoundError, ValueError):\n        return []\n    return data if isinstance(data, list) else []\n\ndef save(expenses):\n    with open(PATH, \"w\") as f:\n        json.dump(expenses, f)\n\ndef run_menu(typed):\n    answers = iter(typed)\n    expenses = load()\n    while True:\n        choice = next(answers)\n        if choice == \"1\":\n            expenses.append({\"item\": next(answers), \"amount\": float(next(answers))})\n            pass\n        elif choice == \"3\":\n            total = sum(e[\"amount\"] for e in expenses)\n            print(f\"{len(expenses)} expenses, total Rs {total:.2f}\")\n        elif choice == \"5\":\n            return\n\nrun_menu([\"1\", \"Tea\", \"20\", \"1\", \"Bus\", \"45\", \"3\", \"5\"])\nprint(\"--- program closed and opened again ---\")\nrun_menu([\"3\", \"1\", \"Lunch\", \"120\", \"3\", \"5\"])",
+            "checks": [
+              "2 expenses, total Rs 65.00",
+              "--- program closed and opened again ---",
+              "0 expenses, total Rs 0.00",
+              "1 expenses, total Rs 120.00"
+            ],
+            "mustNotShow": [
+              "3 expenses, total Rs 185.00"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "load"
+                  },
+                  {
+                    "text": "Lunch"
+                  },
+                  {
+                    "text": "120"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,35 +1050,83 @@
       },
       "filled": {
         "template": "table",
-        "title": "Connecting it all in the menu",
+        "title": "Persisting expenses across menu restarts",
         "columns": [
-          "Stage",
-          "Concept"
+          "Session",
+          "Actions",
+          "Printed Summary"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The menu concept establishes the core structural baseline.",
+            "caption": "Menu options load saved expenses at start and save changes.",
+            "checks": [
+              "2 expenses, total Rs 65.00",
+              "--- program closed and opened again ---",
+              "3 expenses, total Rs 185.00"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Connecting",
-                  "all"
+                  "load",
+                  "Tea",
+                  "2 expenses, total Rs 65.00"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "save",
+                  "Lunch",
+                  "3 expenses, total Rs 185.00"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The program logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Good menu structure keeps each option short while tracker handles work.",
             "rows": [
               {
                 "cells": [
-                  "the",
-                  "menu"
+                  "load",
+                  "Bus",
+                  "2 expenses, total Rs 65.00"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "save",
+                  "Lunch",
+                  "3 expenses, total Rs 185.00"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Removing save forgets earlier items after restart leaving only Lunch.",
+            "whatIf": "import json\nPATH = \"demo_expenses.json\"\nopen(PATH, \"w\").close()  # start with an empty file on every Run\n\ndef load():\n    try:\n        with open(PATH) as f:\n            data = json.load(f)\n    except (FileNotFoundError, ValueError):\n        return []\n    return data if isinstance(data, list) else []\n\ndef save(expenses):\n    with open(PATH, \"w\") as f:\n        json.dump(expenses, f)\n\ndef run_menu(typed):\n    answers = iter(typed)\n    expenses = load()\n    while True:\n        choice = next(answers)\n        if choice == \"1\":\n            expenses.append({\"item\": next(answers), \"amount\": float(next(answers))})\n            pass\n        elif choice == \"3\":\n            total = sum(e[\"amount\"] for e in expenses)\n            print(f\"{len(expenses)} expenses, total Rs {total:.2f}\")\n        elif choice == \"5\":\n            return\n\nrun_menu([\"1\", \"Tea\", \"20\", \"1\", \"Bus\", \"45\", \"3\", \"5\"])\nprint(\"--- program closed and opened again ---\")\nrun_menu([\"3\", \"1\", \"Lunch\", \"120\", \"3\", \"5\"])",
+            "checks": [
+              "2 expenses, total Rs 65.00",
+              "--- program closed and opened again ---",
+              "0 expenses, total Rs 0.00",
+              "1 expenses, total Rs 120.00"
+            ],
+            "mustNotShow": [
+              "3 expenses, total Rs 185.00"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "load",
+                  "Lunch",
+                  "120"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -430,23 +1138,60 @@
       "codeHash": "95ada380028a5d45aab6d1d8d675cb2c7d1d2929d352306e98bbbbc99907a1f7",
       "spec": {
         "template": "table",
-        "title": "Putting it together: all must-haves done",
+        "title": "Combining filters, summaries, and category totals",
         "columns": [
-          "Stage",
-          "Concept"
+          "Month",
+          "Summary Total",
+          "Category Totals"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "Expense Tracker delivers summary, category totals, and monthly filter.",
+            "checks": [
+              "{'total': 8170, 'count': 3, 'biggest': 'Rent'}",
+              "{'food': 170, 'home': 8000}",
+              "Must-haves done: True"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "2026-09"
                   },
                   {
-                    "text": "together"
+                    "text": "8170"
+                  },
+                  {
+                    "text": "food"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-09"
+                  },
+                  {
+                    "text": "8170"
+                  },
+                  {
+                    "text": "home"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-10"
+                  },
+                  {
+                    "text": "600"
+                  },
+                  {
+                    "text": "travel"
                   }
                 ],
                 "tone": "data"
@@ -454,16 +1199,59 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Tests check summary, category totals, in_month, and round trip saving.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "all"
+                    "text": "2026-09"
                   },
                   {
-                    "text": "must"
+                    "text": "3"
+                  },
+                  {
+                    "text": "170"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2026-09"
+                  },
+                  {
+                    "text": "Rent"
+                  },
+                  {
+                    "text": "8000"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running summary for October gives Train as the biggest expense.",
+            "whatIf": "def summary(expenses):\n    if not expenses:\n        return {\"total\": 0, \"count\": 0, \"biggest\": None}\n    return {\"total\": sum(e[\"amount\"] for e in expenses), \"count\": len(expenses),\n            \"biggest\": max(expenses, key=lambda e: e[\"amount\"])[\"item\"]}\n\ndef category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\ndef in_month(expenses, month):\n    return [e for e in expenses if e[\"date\"][:7] == month]\n\ndata = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-03\"},\n    {\"item\": \"Rent\", \"amount\": 8000, \"category\": \"home\", \"date\": \"2026-09-01\"},\n    {\"item\": \"Lunch\", \"amount\": 150, \"category\": \"food\", \"date\": \"2026-09-10\"},\n    {\"item\": \"Train\", \"amount\": 600, \"category\": \"travel\", \"date\": \"2026-10-02\"},\n]\nsept = in_month(data, \"2026-10\")\nprint(summary(sept))\nprint(category_totals(sept))\nstories = {\"add expenses\": True, \"totals per category\": True, \"keep data\": True}\nprint(\"Must-haves done:\", all(stories.values()))",
+            "checks": [
+              "{'total': 600, 'count': 1, 'biggest': 'Train'}",
+              "{'travel': 600}",
+              "Must-haves done: True"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "2026-10"
+                  },
+                  {
+                    "text": "600"
+                  },
+                  {
+                    "text": "Train"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1262,85 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: all must-haves done",
+        "title": "Combining filters, summaries, and category totals",
         "columns": [
-          "Stage",
-          "Concept"
+          "Month",
+          "Summary Total",
+          "Category Totals"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "Expense Tracker delivers summary, category totals, and monthly filter.",
+            "checks": [
+              "{'total': 8170, 'count': 3, 'biggest': 'Rent'}",
+              "{'food': 170, 'home': 8000}",
+              "Must-haves done: True"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "2026-09",
+                  "8170",
+                  "food"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09",
+                  "8170",
+                  "home"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-10",
+                  "600",
+                  "travel"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Tests check summary, category totals, in_month, and round trip saving.",
             "rows": [
               {
                 "cells": [
-                  "all",
-                  "must"
+                  "2026-09",
+                  "3",
+                  "170"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2026-09",
+                  "Rent",
+                  "8000"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Running summary for October gives Train as the biggest expense.",
+            "whatIf": "def summary(expenses):\n    if not expenses:\n        return {\"total\": 0, \"count\": 0, \"biggest\": None}\n    return {\"total\": sum(e[\"amount\"] for e in expenses), \"count\": len(expenses),\n            \"biggest\": max(expenses, key=lambda e: e[\"amount\"])[\"item\"]}\n\ndef category_totals(expenses):\n    totals = {}\n    for e in expenses:\n        totals[e[\"category\"]] = totals.get(e[\"category\"], 0) + e[\"amount\"]\n    return totals\n\ndef in_month(expenses, month):\n    return [e for e in expenses if e[\"date\"][:7] == month]\n\ndata = [\n    {\"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-03\"},\n    {\"item\": \"Rent\", \"amount\": 8000, \"category\": \"home\", \"date\": \"2026-09-01\"},\n    {\"item\": \"Lunch\", \"amount\": 150, \"category\": \"food\", \"date\": \"2026-09-10\"},\n    {\"item\": \"Train\", \"amount\": 600, \"category\": \"travel\", \"date\": \"2026-10-02\"},\n]\nsept = in_month(data, \"2026-10\")\nprint(summary(sept))\nprint(category_totals(sept))\nstories = {\"add expenses\": True, \"totals per category\": True, \"keep data\": True}\nprint(\"Must-haves done:\", all(stories.values()))",
+            "checks": [
+              "{'total': 600, 'count': 1, 'biggest': 'Train'}",
+              "{'travel': 600}",
+              "Must-haves done: True"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "2026-10",
+                  "600",
+                  "Train"
                 ],
                 "tone": "ok"
               }

@@ -3,30 +3,47 @@
   "prefix": "python",
   "day": 23,
   "promptSha": "719fd78efba76fc8c03b7b44a6eea611e5bab50b8238d90b9189e719c63faec4",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day23",
   "entries": [
     {
       "partTitle": "Why plan before coding",
       "codeHash": "5ffbb8a28585b6bbc78c1b28dbdc7996b1e69d3915603eef271dce018363abdc",
       "spec": {
         "template": "table",
-        "title": "Why plan before coding",
+        "title": "Four-question project plan",
         "columns": [
-          "Stage",
-          "Concept"
+          "Question",
+          "Planned Answer"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The week concept establishes the core structural baseline.",
+            "caption": "Planning answers key questions before writing code for the Expense Tracker.",
+            "checks": [
+              "What should it do?",
+              "  - add an expense",
+              "Data shape",
+              "  - item"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Why"
+                    "text": "What should it do?"
                   },
                   {
-                    "text": "plan"
+                    "text": "add an expense"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Data shape"
+                  },
+                  {
+                    "text": "item"
                   }
                 ],
                 "tone": "data"
@@ -34,16 +51,49 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The need logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The simple plan lists functions and build order.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "before"
+                    "text": "Functions"
                   },
                   {
-                    "text": "coding"
+                    "text": "add_expense"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Order"
+                  },
+                  {
+                    "text": "data + add"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding delete an expense extends the feature list cleanly.",
+            "whatIf": "plan = {\n    \"What should it do?\": [\"add an expense\", \"list expenses\", \"see totals by category\", \"save between runs\", \"delete an expense\"],\n    \"Data shape\": [\"item\", \"amount\", \"category\", \"date\"],\n    \"Functions\": [\"add_expense\", \"list_expenses\", \"category_totals\", \"save\", \"load\"],\n    \"Order\": [\"data + add\", \"list\", \"totals\", \"save/load\", \"menu\"],\n}\nfor question, answers in plan.items():\n    print(question)\n    for a in answers:\n        print(\"  -\", a)",
+            "checks": [
+              "What should it do?",
+              "  - delete an expense"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "What should it do?"
+                  },
+                  {
+                    "text": "delete an expense"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +104,71 @@
       },
       "filled": {
         "template": "table",
-        "title": "Why plan before coding",
+        "title": "Four-question project plan",
         "columns": [
-          "Stage",
-          "Concept"
+          "Question",
+          "Planned Answer"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The week concept establishes the core structural baseline.",
+            "caption": "Planning answers key questions before writing code for the Expense Tracker.",
+            "checks": [
+              "What should it do?",
+              "  - add an expense",
+              "Data shape",
+              "  - item"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Why",
-                  "plan"
+                  "What should it do?",
+                  "add an expense"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Data shape",
+                  "item"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The need logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The simple plan lists functions and build order.",
             "rows": [
               {
                 "cells": [
-                  "before",
-                  "coding"
+                  "Functions",
+                  "add_expense"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Order",
+                  "data + add"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding delete an expense extends the feature list cleanly.",
+            "whatIf": "plan = {\n    \"What should it do?\": [\"add an expense\", \"list expenses\", \"see totals by category\", \"save between runs\", \"delete an expense\"],\n    \"Data shape\": [\"item\", \"amount\", \"category\", \"date\"],\n    \"Functions\": [\"add_expense\", \"list_expenses\", \"category_totals\", \"save\", \"load\"],\n    \"Order\": [\"data + add\", \"list\", \"totals\", \"save/load\", \"menu\"],\n}\nfor question, answers in plan.items():\n    print(question)\n    for a in answers:\n        print(\"  -\", a)",
+            "checks": [
+              "What should it do?",
+              "  - delete an expense"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "What should it do?",
+                  "delete an expense"
                 ],
                 "tone": "ok"
               }
@@ -94,40 +182,107 @@
       "codeHash": "a53fefe58247aeca36bf71c04dd6227bb965ec1444587c4ba7ed35f8ea09bf7e",
       "spec": {
         "template": "table",
-        "title": "User stories",
+        "title": "User stories and priority labels",
         "columns": [
-          "Stage",
-          "Concept"
+          "Label",
+          "User Want",
+          "Benefit"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The user concept establishes the core structural baseline.",
+            "caption": "Each user story pairs a user action with a benefit.",
+            "checks": [
+              "[MUST] As a student, I want to add an expense with amount and category, so I record every spend.",
+              "[NICE] As a student, I want to export to a spreadsheet, so I can make charts."
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "User"
+                    "text": "MUST"
                   },
                   {
-                    "text": "stories"
+                    "text": "add an expense with amount and category"
+                  },
+                  {
+                    "text": "so I record every spend"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "NICE"
+                  },
+                  {
+                    "text": "export to a spreadsheet"
+                  },
+                  {
+                    "text": "so I can make charts"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The story logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Stories keep work focused on real needs.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "User"
+                    "text": "MUST"
                   },
                   {
-                    "text": "stories"
+                    "text": "see the total per category"
+                  },
+                  {
+                    "text": "so I know where money goes"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "MUST"
+                  },
+                  {
+                    "text": "keep my expenses after closing the app"
+                  },
+                  {
+                    "text": "so I do not lose data"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering with if must prints only the must-have stories.",
+            "whatIf": "stories = [\n    (\"add an expense with amount and category\", \"so I record every spend\", True),\n    (\"see the total per category\", \"so I know where money goes\", True),\n    (\"keep my expenses after closing the app\", \"so I do not lose data\", True),\n    (\"export to a spreadsheet\", \"so I can make charts\", False),\n]\nfor want, benefit, must in stories:\n    if not must:\n        continue\n    label = \"MUST\"\n    print(f\"[{label}] As a student, I want to {want}, {benefit}.\")",
+            "checks": [
+              "[MUST] As a student, I want to add an expense with amount and category, so I record every spend.",
+              "[MUST] As a student, I want to keep my expenses after closing the app, so I do not lose data."
+            ],
+            "mustNotShow": [
+              "[NICE]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "MUST"
+                  },
+                  {
+                    "text": "see the total per category"
+                  },
+                  {
+                    "text": "so I know where money goes"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +293,78 @@
       },
       "filled": {
         "template": "table",
-        "title": "User stories",
+        "title": "User stories and priority labels",
         "columns": [
-          "Stage",
-          "Concept"
+          "Label",
+          "User Want",
+          "Benefit"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The user concept establishes the core structural baseline.",
+            "caption": "Each user story pairs a user action with a benefit.",
+            "checks": [
+              "[MUST] As a student, I want to add an expense with amount and category, so I record every spend.",
+              "[NICE] As a student, I want to export to a spreadsheet, so I can make charts."
+            ],
             "rows": [
               {
                 "cells": [
-                  "User",
-                  "stories"
+                  "MUST",
+                  "add an expense with amount and category",
+                  "so I record every spend"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "NICE",
+                  "export to a spreadsheet",
+                  "so I can make charts"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The story logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Stories keep work focused on real needs.",
             "rows": [
               {
                 "cells": [
-                  "User",
-                  "stories"
+                  "MUST",
+                  "see the total per category",
+                  "so I know where money goes"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "MUST",
+                  "keep my expenses after closing the app",
+                  "so I do not lose data"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Filtering with if must prints only the must-have stories.",
+            "whatIf": "stories = [\n    (\"add an expense with amount and category\", \"so I record every spend\", True),\n    (\"see the total per category\", \"so I know where money goes\", True),\n    (\"keep my expenses after closing the app\", \"so I do not lose data\", True),\n    (\"export to a spreadsheet\", \"so I can make charts\", False),\n]\nfor want, benefit, must in stories:\n    if not must:\n        continue\n    label = \"MUST\"\n    print(f\"[{label}] As a student, I want to {want}, {benefit}.\")",
+            "checks": [
+              "[MUST] As a student, I want to add an expense with amount and category, so I record every spend.",
+              "[MUST] As a student, I want to keep my expenses after closing the app, so I do not lose data."
+            ],
+            "mustNotShow": [
+              "[NICE]"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "MUST",
+                  "see the total per category",
+                  "so I know where money goes"
                 ],
                 "tone": "ok"
               }
@@ -178,43 +378,135 @@
       "codeHash": "60ecd6b40a6b72e7148747ca14aaa2d9c84f50970a6773881abcd568adff6771",
       "spec": {
         "template": "table",
-        "title": "Designing the data shape",
+        "title": "Checking records against SHAPE",
         "columns": [
-          "Stage",
-          "Concept"
+          "Field",
+          "Expected Type",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
+            "caption": "Every expense dictionary defines each key and type in SHAPE.",
+            "checks": [
+              "[]",
+              "['amount has the wrong type', 'missing category', 'missing date']"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Designing"
+                    "text": "id"
                   },
                   {
-                    "text": "the"
+                    "text": "int"
+                  },
+                  {
+                    "text": "1"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "item"
+                  },
+                  {
+                    "text": "str"
+                  },
+                  {
+                    "text": "Tea"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "amount"
+                  },
+                  {
+                    "text": "(int, float)"
+                  },
+                  {
+                    "text": "20"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The writing logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The shape keeps amount, category, and date consistent for JSON.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "data"
+                    "text": "amount"
                   },
                   {
-                    "text": "shape"
+                    "text": "(int, float)"
+                  },
+                  {
+                    "text": "amount has the wrong type"
                   }
                 ],
-                "tone": "ok"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "category"
+                  },
+                  {
+                    "text": "str"
+                  },
+                  {
+                    "text": "missing category"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "date"
+                  },
+                  {
+                    "text": "str"
+                  },
+                  {
+                    "text": "missing date"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking that date has length ten catches bad record text.",
+            "whatIf": "EXAMPLE = {\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-28\"}\nSHAPE = {\"id\": int, \"item\": str, \"amount\": (int, float), \"category\": str, \"date\": str}\n\ndef problems(record):\n    found = []\n    for key, kind in SHAPE.items():\n        if key not in record:\n            found.append(f\"missing {key}\")\n        elif not isinstance(record[key], kind):\n            found.append(f\"{key} has the wrong type\")\n    if \"date\" in record and isinstance(record[\"date\"], str) and len(record[\"date\"]) != 10:\n        found.append(\"date must have length 10\")\n    return found\n\nprint(problems(EXAMPLE))\nprint(problems({\"id\": 2, \"item\": \"Bus\", \"amount\": \"45\"}))\nprint(problems({\"id\": 3, \"item\": \"Coffee\", \"amount\": 30, \"category\": \"food\", \"date\": \"28/9\"}))",
+            "checks": [
+              "[]",
+              "['date must have length 10']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "date"
+                  },
+                  {
+                    "text": "str"
+                  },
+                  {
+                    "text": "missing date"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -222,35 +514,93 @@
       },
       "filled": {
         "template": "table",
-        "title": "Designing the data shape",
+        "title": "Checking records against SHAPE",
         "columns": [
-          "Stage",
-          "Concept"
+          "Field",
+          "Expected Type",
+          "Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
+            "caption": "Every expense dictionary defines each key and type in SHAPE.",
+            "checks": [
+              "[]",
+              "['amount has the wrong type', 'missing category', 'missing date']"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Designing",
-                  "the"
+                  "id",
+                  "int",
+                  "1"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "item",
+                  "str",
+                  "Tea"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "amount",
+                  "(int, float)",
+                  "20"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The writing logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The shape keeps amount, category, and date consistent for JSON.",
             "rows": [
               {
                 "cells": [
-                  "data",
-                  "shape"
+                  "amount",
+                  "(int, float)",
+                  "amount has the wrong type"
                 ],
-                "tone": "ok"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "category",
+                  "str",
+                  "missing category"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "date",
+                  "str",
+                  "missing date"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking that date has length ten catches bad record text.",
+            "whatIf": "EXAMPLE = {\"id\": 1, \"item\": \"Tea\", \"amount\": 20, \"category\": \"food\", \"date\": \"2026-09-28\"}\nSHAPE = {\"id\": int, \"item\": str, \"amount\": (int, float), \"category\": str, \"date\": str}\n\ndef problems(record):\n    found = []\n    for key, kind in SHAPE.items():\n        if key not in record:\n            found.append(f\"missing {key}\")\n        elif not isinstance(record[key], kind):\n            found.append(f\"{key} has the wrong type\")\n    if \"date\" in record and isinstance(record[\"date\"], str) and len(record[\"date\"]) != 10:\n        found.append(\"date must have length 10\")\n    return found\n\nprint(problems(EXAMPLE))\nprint(problems({\"id\": 2, \"item\": \"Bus\", \"amount\": \"45\"}))\nprint(problems({\"id\": 3, \"item\": \"Coffee\", \"amount\": 30, \"category\": \"food\", \"date\": \"28/9\"}))",
+            "checks": [
+              "[]",
+              "['date must have length 10']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "date",
+                  "str",
+                  "missing date"
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -262,23 +612,46 @@
       "codeHash": "f756349e69fc14bd3c212b22a106e973a6be89fbd62c0ded3e2b91522a86e4ae",
       "spec": {
         "template": "table",
-        "title": "Breaking the program into small functions",
+        "title": "Pure helper functions for expenses",
         "columns": [
-          "Stage",
-          "Concept"
+          "Function",
+          "Input",
+          "Returned Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
+            "caption": "Each function should take data and return a result cleanly.",
+            "checks": [
+              "['Bus', 'Lunch', 'Tea']",
+              "{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}",
+              "Tea"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Breaking"
+                    "text": "sort_by_date"
                   },
                   {
-                    "text": "the"
+                    "text": "data"
+                  },
+                  {
+                    "text": "Bus"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "group_by_category"
+                  },
+                  {
+                    "text": "data"
+                  },
+                  {
+                    "text": "Lunch"
                   }
                 ],
                 "tone": "data"
@@ -286,16 +659,57 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Helper functions sort_by_date and category_totals keep data pure.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "program"
+                    "text": "sort_by_date"
                   },
                   {
-                    "text": "into"
+                    "text": "Tea"
+                  },
+                  {
+                    "text": "2026-09-01"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sort_by_date"
+                  },
+                  {
+                    "text": "Bus"
+                  },
+                  {
+                    "text": "2026-09-20"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Function items_in returns only item names in food category.",
+            "whatIf": "def sort_by_date(expenses):\n    return sorted(expenses, key=lambda e: e[\"date\"], reverse=True)\n\ndef group_by_category(expenses):\n    groups = {}\n    for e in expenses:\n        groups.setdefault(e[\"category\"], []).append(e[\"item\"])\n    return groups\n\ndata = [\n    {\"item\": \"Tea\", \"category\": \"food\", \"date\": \"2026-09-01\"},\n    {\"item\": \"Bus\", \"category\": \"travel\", \"date\": \"2026-09-20\"},\n    {\"item\": \"Lunch\", \"category\": \"food\", \"date\": \"2026-09-10\"},\n]\nprint([e[\"item\"] for e in sort_by_date(data)])\nprint(group_by_category(data))\nprint(data[0][\"item\"])\ndef items_in(expenses, category):\n    return [e[\"item\"] for e in expenses if e[\"category\"] == category]\nprint(items_in(data, \"food\"))",
+            "checks": [
+              "['Tea', 'Lunch']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "group_by_category"
+                  },
+                  {
+                    "text": "food"
+                  },
+                  {
+                    "text": "Tea"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +720,75 @@
       },
       "filled": {
         "template": "table",
-        "title": "Breaking the program into small functions",
+        "title": "Pure helper functions for expenses",
         "columns": [
-          "Stage",
-          "Concept"
+          "Function",
+          "Input",
+          "Returned Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The list concept establishes the core structural baseline.",
+            "caption": "Each function should take data and return a result cleanly.",
+            "checks": [
+              "['Bus', 'Lunch', 'Tea']",
+              "{'food': ['Tea', 'Lunch'], 'travel': ['Bus']}",
+              "Tea"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Breaking",
-                  "the"
+                  "sort_by_date",
+                  "data",
+                  "Bus"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "group_by_category",
+                  "data",
+                  "Lunch"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Helper functions sort_by_date and category_totals keep data pure.",
             "rows": [
               {
                 "cells": [
-                  "program",
-                  "into"
+                  "sort_by_date",
+                  "Tea",
+                  "2026-09-01"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "sort_by_date",
+                  "Bus",
+                  "2026-09-20"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Function items_in returns only item names in food category.",
+            "whatIf": "def sort_by_date(expenses):\n    return sorted(expenses, key=lambda e: e[\"date\"], reverse=True)\n\ndef group_by_category(expenses):\n    groups = {}\n    for e in expenses:\n        groups.setdefault(e[\"category\"], []).append(e[\"item\"])\n    return groups\n\ndata = [\n    {\"item\": \"Tea\", \"category\": \"food\", \"date\": \"2026-09-01\"},\n    {\"item\": \"Bus\", \"category\": \"travel\", \"date\": \"2026-09-20\"},\n    {\"item\": \"Lunch\", \"category\": \"food\", \"date\": \"2026-09-10\"},\n]\nprint([e[\"item\"] for e in sort_by_date(data)])\nprint(group_by_category(data))\nprint(data[0][\"item\"])\ndef items_in(expenses, category):\n    return [e[\"item\"] for e in expenses if e[\"category\"] == category]\nprint(items_in(data, \"food\"))",
+            "checks": [
+              "['Tea', 'Lunch']"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "group_by_category",
+                  "food",
+                  "Tea"
                 ],
                 "tone": "ok"
               }
@@ -346,23 +802,49 @@
       "codeHash": "aa462ab53c727956ceb5772d1f4e1dce95fcbb503e7e59acf7caa2f70bbc7ddf",
       "spec": {
         "template": "table",
-        "title": "Planning the build order",
+        "title": "Thin-slice build order and estimates",
         "columns": [
-          "Stage",
-          "Concept"
+          "Task",
+          "Estimate"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The last concept establishes the core structural baseline.",
+            "caption": "Build the program in thin working slices after each step.",
+            "checks": [
+              "Step 1: Data shape + add_expense + tests (~2h, total 2h)",
+              "Step 5: Menu that asks the user (~1.5h, total 8.0h)"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Planning"
+                    "text": "Data shape + add_expense + tests"
                   },
                   {
-                    "text": "the"
+                    "text": "2"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "List and format expenses"
+                  },
+                  {
+                    "text": "1"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Totals, categories, summary"
+                  },
+                  {
+                    "text": "2"
                   }
                 ],
                 "tone": "data"
@@ -370,16 +852,59 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The slice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "First build add_expense, then totals, saving, and the menu.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "build"
+                    "text": "Save and load with JSON"
                   },
                   {
-                    "text": "order"
+                    "text": "1.5"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Menu that asks the user"
+                  },
+                  {
+                    "text": "1.5"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the sixth step README and deploy updates the decimal total.",
+            "whatIf": "build = [\n    (\"Data shape + add_expense + tests\", 2),\n    (\"List and format expenses\", 1),\n    (\"Totals, categories, summary\", 2),\n    (\"Save and load with JSON\", 1.5),\n    (\"Menu that asks the user\", 1.5),\n    (\"README and deploy\", 2),\n]\nhours = 0\nfor step, (task, estimate) in enumerate(build, start=1):\n    hours += estimate\n    print(f\"Step {step}: {task} (~{estimate}h, total {hours}h)\")",
+            "checks": [
+              "Step 6: README and deploy (~2h, total 10.0h)"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Save and load with JSON"
+                  },
+                  {
+                    "text": "1.5"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Menu that asks the user"
+                  },
+                  {
+                    "text": "8.0h"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +915,82 @@
       },
       "filled": {
         "template": "table",
-        "title": "Planning the build order",
+        "title": "Thin-slice build order and estimates",
         "columns": [
-          "Stage",
-          "Concept"
+          "Task",
+          "Estimate"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The last concept establishes the core structural baseline.",
+            "caption": "Build the program in thin working slices after each step.",
+            "checks": [
+              "Step 1: Data shape + add_expense + tests (~2h, total 2h)",
+              "Step 5: Menu that asks the user (~1.5h, total 8.0h)"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Planning",
-                  "the"
+                  "Data shape + add_expense + tests",
+                  "2"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "List and format expenses",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Totals, categories, summary",
+                  "2"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The slice logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "First build add_expense, then totals, saving, and the menu.",
             "rows": [
               {
                 "cells": [
-                  "build",
-                  "order"
+                  "Save and load with JSON",
+                  "1.5"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Menu that asks the user",
+                  "1.5"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding the sixth step README and deploy updates the decimal total.",
+            "whatIf": "build = [\n    (\"Data shape + add_expense + tests\", 2),\n    (\"List and format expenses\", 1),\n    (\"Totals, categories, summary\", 2),\n    (\"Save and load with JSON\", 1.5),\n    (\"Menu that asks the user\", 1.5),\n    (\"README and deploy\", 2),\n]\nhours = 0\nfor step, (task, estimate) in enumerate(build, start=1):\n    hours += estimate\n    print(f\"Step {step}: {task} (~{estimate}h, total {hours}h)\")",
+            "checks": [
+              "Step 6: README and deploy (~2h, total 10.0h)"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Save and load with JSON",
+                  "1.5"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Menu that asks the user",
+                  "8.0h"
                 ],
                 "tone": "ok"
               }
@@ -430,23 +1004,50 @@
       "codeHash": "af89791efb4a7fd310bf18c14f6b45b7873b8aa5c3c68853605d69184fb3b323",
       "spec": {
         "template": "table",
-        "title": "Putting it together: PLAN.md and the first functio",
+        "title": "Generating PLAN.md sections from plan data",
         "columns": [
-          "Stage",
-          "Concept"
+          "Section",
+          "Content"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The finish concept establishes the core structural baseline.",
+            "caption": "Generating PLAN.md text turns plan data into clean text lines.",
+            "checks": [
+              "# Expense Tracker plan",
+              "- As a student, I want to add an expense.",
+              "- date: YYYY-MM-DD"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "# Expense Tracker plan"
                   },
                   {
-                    "text": "together"
+                    "text": "## User stories"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## User stories"
+                  },
+                  {
+                    "text": "Add an expense"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## One expense"
+                  },
+                  {
+                    "text": "YYYY-MM-DD"
                   }
                 ],
                 "tone": "data"
@@ -454,16 +1055,61 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The short specific plan shows what each expense looks like.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "PLAN"
+                    "text": "## User stories"
                   },
                   {
-                    "text": "and"
+                    "text": "See totals per category"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## One expense"
+                  },
+                  {
+                    "text": "number > 0"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a Build order section formats numbered steps with enumerate.",
+            "whatIf": "stories = [\"Add an expense\", \"See totals per category\", \"Keep data between runs\"]\nfields = {\"id\": \"int\", \"item\": \"str\", \"amount\": \"number > 0\", \"category\": \"str\", \"date\": \"YYYY-MM-DD\"}\nlines_out = [\"# Expense Tracker plan\", \"\", \"## User stories\"]\nlines_out += [f\"- As a student, I want to {s.lower()}.\" for s in stories]\nlines_out += [\"\", \"## One expense\"]\nlines_out += [f\"- {k}: {v}\" for k, v in fields.items()]\nsteps = [\"add\", \"list\", \"totals\", \"save\", \"menu\"]\nlines_out += [\"\", \"## Build order\"] + [f\"{i}. {s}\" for i, s in enumerate(steps, 1)]\nprint(\"\\n\".join(lines_out))",
+            "checks": [
+              "## Build order",
+              "1. add",
+              "5. menu"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "## User stories"
+                  },
+                  {
+                    "text": "Keep data between runs"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "## One expense"
+                  },
+                  {
+                    "text": "id"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1120,85 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: PLAN.md and the first functio",
+        "title": "Generating PLAN.md sections from plan data",
         "columns": [
-          "Stage",
-          "Concept"
+          "Section",
+          "Content"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The finish concept establishes the core structural baseline.",
+            "caption": "Generating PLAN.md text turns plan data into clean text lines.",
+            "checks": [
+              "# Expense Tracker plan",
+              "- As a student, I want to add an expense.",
+              "- date: YYYY-MM-DD"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "# Expense Tracker plan",
+                  "## User stories"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "## User stories",
+                  "Add an expense"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "## One expense",
+                  "YYYY-MM-DD"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The tomorrow logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The short specific plan shows what each expense looks like.",
             "rows": [
               {
                 "cells": [
-                  "PLAN",
-                  "and"
+                  "## User stories",
+                  "See totals per category"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "## One expense",
+                  "number > 0"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a Build order section formats numbered steps with enumerate.",
+            "whatIf": "stories = [\"Add an expense\", \"See totals per category\", \"Keep data between runs\"]\nfields = {\"id\": \"int\", \"item\": \"str\", \"amount\": \"number > 0\", \"category\": \"str\", \"date\": \"YYYY-MM-DD\"}\nlines_out = [\"# Expense Tracker plan\", \"\", \"## User stories\"]\nlines_out += [f\"- As a student, I want to {s.lower()}.\" for s in stories]\nlines_out += [\"\", \"## One expense\"]\nlines_out += [f\"- {k}: {v}\" for k, v in fields.items()]\nsteps = [\"add\", \"list\", \"totals\", \"save\", \"menu\"]\nlines_out += [\"\", \"## Build order\"] + [f\"{i}. {s}\" for i, s in enumerate(steps, 1)]\nprint(\"\\n\".join(lines_out))",
+            "checks": [
+              "## Build order",
+              "1. add",
+              "5. menu"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "## User stories",
+                  "Keep data between runs"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "## One expense",
+                  "id"
                 ],
                 "tone": "ok"
               }

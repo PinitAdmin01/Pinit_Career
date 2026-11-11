@@ -3,47 +3,100 @@
   "prefix": "python",
   "day": 22,
   "promptSha": "458e6958129a69cbb430b676d440b48439b9cb1cee1230ee8adab502ccc5001b",
-  "model": "gate-v2-verified",
+  "model": "hand-verified-day22",
   "entries": [
     {
       "partTitle": "What Git is and why every job uses it",
       "codeHash": "1d0d2cd3f153310bd45fa30ecff348d0dc83b2bb8f19d2e3f41a2a5227ab07ec",
       "spec": {
         "template": "table",
-        "title": "What Git is and why every job uses it",
+        "title": "Simulated Git commit snapshots",
         "columns": [
-          "Stage",
-          "Concept"
+          "ID",
+          "Message",
+          "main.py"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tool concept establishes the core structural baseline.",
+            "caption": "Each commit saves a snapshot and lets you go back if code breaks.",
+            "checks": [
+              "1 Add first version",
+              "2 Change output",
+              "Went back to: print('v1')"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "What"
+                    "text": "1"
                   },
                   {
-                    "text": "Git"
+                    "text": "Add first version"
+                  },
+                  {
+                    "text": "print('v1')"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Change output"
+                  },
+                  {
+                    "text": "print('v2 with a bug')"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The github logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Git lets many people work on the same code safely.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "and"
+                    "text": "1"
                   },
                   {
-                    "text": "why"
+                    "text": "Add first version"
+                  },
+                  {
+                    "text": "Went back to: print('v1')"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a third commit Fix output appends a working snapshot to history.",
+            "whatIf": "history = []\ndef commit(message, files):\n    history.append({\"id\": len(history) + 1, \"message\": message, \"files\": dict(files)})\n\nfiles = {\"main.py\": \"print('v1')\"}\ncommit(\"Add first version\", files)\nfiles[\"main.py\"] = \"print('v2 with a bug')\"\ncommit(\"Change output\", files)\nfiles[\"main.py\"] = \"print('v1')\"\ncommit(\"Fix output\", files)\nfor c in history:\n    print(c[\"id\"], c[\"message\"])\nfiles = dict(history[0][\"files\"])\nprint(\"Went back to:\", files[\"main.py\"])",
+            "checks": [
+              "1 Add first version",
+              "2 Change output",
+              "3 Fix output",
+              "Went back to: print('v1')"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "commit"
+                  },
+                  {
+                    "text": "Fix output"
+                  },
+                  {
+                    "text": "main.py"
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +107,70 @@
       },
       "filled": {
         "template": "table",
-        "title": "What Git is and why every job uses it",
+        "title": "Simulated Git commit snapshots",
         "columns": [
-          "Stage",
-          "Concept"
+          "ID",
+          "Message",
+          "main.py"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tool concept establishes the core structural baseline.",
+            "caption": "Each commit saves a snapshot and lets you go back if code breaks.",
+            "checks": [
+              "1 Add first version",
+              "2 Change output",
+              "Went back to: print('v1')"
+            ],
             "rows": [
               {
                 "cells": [
-                  "What",
-                  "Git"
+                  "1",
+                  "Add first version",
+                  "print('v1')"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2",
+                  "Change output",
+                  "print('v2 with a bug')"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The github logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Git lets many people work on the same code safely.",
             "rows": [
               {
                 "cells": [
-                  "and",
-                  "why"
+                  "1",
+                  "Add first version",
+                  "Went back to: print('v1')"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding a third commit Fix output appends a working snapshot to history.",
+            "whatIf": "history = []\ndef commit(message, files):\n    history.append({\"id\": len(history) + 1, \"message\": message, \"files\": dict(files)})\n\nfiles = {\"main.py\": \"print('v1')\"}\ncommit(\"Add first version\", files)\nfiles[\"main.py\"] = \"print('v2 with a bug')\"\ncommit(\"Change output\", files)\nfiles[\"main.py\"] = \"print('v1')\"\ncommit(\"Fix output\", files)\nfor c in history:\n    print(c[\"id\"], c[\"message\"])\nfiles = dict(history[0][\"files\"])\nprint(\"Went back to:\", files[\"main.py\"])",
+            "checks": [
+              "1 Add first version",
+              "2 Change output",
+              "3 Fix output",
+              "Went back to: print('v1')"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "commit",
+                  "Fix output",
+                  "main.py"
                 ],
                 "tone": "ok"
               }
@@ -94,40 +184,106 @@
       "codeHash": "dab3cf20d90a2d43258c5b09eb0eabb22fb66f4def4ec27e42ac56423044d69a",
       "spec": {
         "template": "table",
-        "title": "The basic cycle: status, add, commit",
+        "title": "Checking commit message length",
         "columns": [
-          "Stage",
-          "Concept"
+          "Message",
+          "Rule",
+          "Verdict"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The start concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Each git commit saves the snapshot with your message.",
+            "checks": [
+              "'fix': too short or too long",
+              "'Add category totals to the report': good",
+              "'stuff': too short or too long",
+              "'Handle an empty list in average()': good"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "\"fix\""
                   },
                   {
-                    "text": "basic"
+                    "text": "10 <= len(msg) <= 72"
+                  },
+                  {
+                    "text": "too short or too long"
                   }
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"Add category totals to the report\""
+                  },
+                  {
+                    "text": "10 <= len(msg) <= 72"
+                  },
+                  {
+                    "text": "good"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The commit logic drives deterministic execution.",
+            "caption": "Small meaningful commit messages explain each change clearly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "cycle"
+                    "text": "\"stuff\""
                   },
                   {
-                    "text": "status"
+                    "text": "10 <= len(msg) <= 72"
+                  },
+                  {
+                    "text": "too short or too long"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "\"Handle an empty list in average()\""
+                  },
+                  {
+                    "text": "10 <= len(msg) <= 72"
+                  },
+                  {
+                    "text": "good"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking custom tracker commit messages tests them with the function.",
+            "whatIf": "def is_good_commit_message(msg):\n    return 10 <= len(msg) <= 72\n\nmessages = [\"fix\", \"Add category totals to the report\", \"stuff\", \"Handle an empty list in average()\", \"Add JSON export\"]\nfor m in messages:\n    verdict = \"good\" if is_good_commit_message(m) else \"too short or too long\"\n    print(f\"{m!r}: {verdict}\")",
+            "checks": [
+              "'Add category totals to the report': good",
+              "'Add JSON export': good"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "messages"
+                  },
+                  {
+                    "text": "is_good_commit_message(m)"
+                  },
+                  {
+                    "text": "good"
                   }
                 ],
                 "tone": "ok"
@@ -138,33 +294,77 @@
       },
       "filled": {
         "template": "table",
-        "title": "The basic cycle: status, add, commit",
+        "title": "Checking commit message length",
         "columns": [
-          "Stage",
-          "Concept"
+          "Message",
+          "Rule",
+          "Verdict"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The start concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Each git commit saves the snapshot with your message.",
+            "checks": [
+              "'fix': too short or too long",
+              "'Add category totals to the report': good",
+              "'stuff': too short or too long",
+              "'Handle an empty list in average()': good"
+            ],
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "basic"
+                  "\"fix\"",
+                  "10 <= len(msg) <= 72",
+                  "too short or too long"
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "\"Add category totals to the report\"",
+                  "10 <= len(msg) <= 72",
+                  "good"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The commit logic drives deterministic execution.",
+            "caption": "Small meaningful commit messages explain each change clearly.",
             "rows": [
               {
                 "cells": [
-                  "cycle",
-                  "status"
+                  "\"stuff\"",
+                  "10 <= len(msg) <= 72",
+                  "too short or too long"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "\"Handle an empty list in average()\"",
+                  "10 <= len(msg) <= 72",
+                  "good"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Checking custom tracker commit messages tests them with the function.",
+            "whatIf": "def is_good_commit_message(msg):\n    return 10 <= len(msg) <= 72\n\nmessages = [\"fix\", \"Add category totals to the report\", \"stuff\", \"Handle an empty list in average()\", \"Add JSON export\"]\nfor m in messages:\n    verdict = \"good\" if is_good_commit_message(m) else \"too short or too long\"\n    print(f\"{m!r}: {verdict}\")",
+            "checks": [
+              "'Add category totals to the report': good",
+              "'Add JSON export': good"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "messages",
+                  "is_good_commit_message(m)",
+                  "good"
                 ],
                 "tone": "ok"
               }
@@ -178,43 +378,140 @@
       "codeHash": "5c4debd984d634c5535eeae7197da47bdd86d5c2ddcbe0611f0b07d684f9fb8e",
       "spec": {
         "template": "table",
-        "title": ".gitignore: files Git should skip",
+        "title": "Matching files against .gitignore rules",
         "columns": [
-          "Stage",
-          "Concept"
+          "File",
+          "Pattern",
+          "Action"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The files concept establishes the core structural baseline.",
+            "caption": "Skip large folders and secret .env files from Git.",
+            "checks": [
+              "main.py                   commit",
+              "tracker.py                commit",
+              ".env                      skip",
+              ".venv/bin/python          skip",
+              "__pycache__/tracker.pyc   skip",
+              "expenses.json             skip",
+              "README.md                 commit"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "gitignore"
+                    "text": "main.py"
                   },
                   {
-                    "text": "files"
+                    "text": "fnmatch"
+                  },
+                  {
+                    "text": "commit"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": ".env"
+                  },
+                  {
+                    "text": ".env"
+                  },
+                  {
+                    "text": "skip"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": ".venv/bin/python"
+                  },
+                  {
+                    "text": ".venv/*"
+                  },
+                  {
+                    "text": "skip"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The create logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Each rule pattern in .gitignore tells Git which files to skip.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Git"
+                    "text": "__pycache__/tracker.pyc"
                   },
                   {
-                    "text": "should"
+                    "text": "*.pyc"
+                  },
+                  {
+                    "text": "skip"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "expenses.json"
+                  },
+                  {
+                    "text": "skip"
+                  }
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "README.md"
+                  },
+                  {
+                    "text": "rules"
+                  },
+                  {
+                    "text": "commit"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding *.txt to rules marks notes.txt to skip.",
+            "whatIf": "from fnmatch import fnmatch\nrules = [\".venv/*\", \"__pycache__/*\", \"*.pyc\", \".env\", \"expenses.json\", \"*.txt\"]\nfiles = [\"main.py\", \"tracker.py\", \".env\", \".venv/bin/python\", \"__pycache__/tracker.pyc\", \"expenses.json\", \"README.md\", \"notes.txt\"]\nfor f in files:\n    ignored = any(fnmatch(f, rule) for rule in rules)\n    print(f\"{f:<26}{'skip' if ignored else 'commit'}\")",
+            "checks": [
+              "notes.txt                 skip",
+              "README.md                 commit"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "\"notes.txt\""
+                  },
+                  {
+                    "text": "\"*.txt\""
+                  },
+                  {
+                    "text": "skip"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           }
@@ -222,35 +519,98 @@
       },
       "filled": {
         "template": "table",
-        "title": ".gitignore: files Git should skip",
+        "title": "Matching files against .gitignore rules",
         "columns": [
-          "Stage",
-          "Concept"
+          "File",
+          "Pattern",
+          "Action"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The files concept establishes the core structural baseline.",
+            "caption": "Skip large folders and secret .env files from Git.",
+            "checks": [
+              "main.py                   commit",
+              "tracker.py                commit",
+              ".env                      skip",
+              ".venv/bin/python          skip",
+              "__pycache__/tracker.pyc   skip",
+              "expenses.json             skip",
+              "README.md                 commit"
+            ],
             "rows": [
               {
                 "cells": [
-                  "gitignore",
-                  "files"
+                  "main.py",
+                  "fnmatch",
+                  "commit"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  ".env",
+                  ".env",
+                  "skip"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  ".venv/bin/python",
+                  ".venv/*",
+                  "skip"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The create logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Each rule pattern in .gitignore tells Git which files to skip.",
             "rows": [
               {
                 "cells": [
-                  "Git",
-                  "should"
+                  "__pycache__/tracker.pyc",
+                  "*.pyc",
+                  "skip"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "expenses.json",
+                  "expenses.json",
+                  "skip"
+                ],
+                "tone": "idle"
+              },
+              {
+                "cells": [
+                  "README.md",
+                  "rules",
+                  "commit"
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adding *.txt to rules marks notes.txt to skip.",
+            "whatIf": "from fnmatch import fnmatch\nrules = [\".venv/*\", \"__pycache__/*\", \"*.pyc\", \".env\", \"expenses.json\", \"*.txt\"]\nfiles = [\"main.py\", \"tracker.py\", \".env\", \".venv/bin/python\", \"__pycache__/tracker.pyc\", \"expenses.json\", \"README.md\", \"notes.txt\"]\nfor f in files:\n    ignored = any(fnmatch(f, rule) for rule in rules)\n    print(f\"{f:<26}{'skip' if ignored else 'commit'}\")",
+            "checks": [
+              "notes.txt                 skip",
+              "README.md                 commit"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "\"notes.txt\"",
+                  "\"*.txt\"",
+                  "skip"
+                ],
+                "tone": "idle"
               }
             ]
           }
@@ -262,40 +622,77 @@
       "codeHash": "3fd700d32809dd90b85aec7080ed7c7a13040be0adc163d5d9d5c66c19cd4ebf",
       "spec": {
         "template": "table",
-        "title": "Branches: working safely on a feature",
+        "title": "Building formatted Git branch names",
         "columns": [
-          "Stage",
-          "Concept"
+          "Task Text",
+          "Prefix",
+          "Branch Name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The main concept establishes the core structural baseline.",
+            "caption": "A feature branch holds separate work while main stays clean.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Branches"
+                    "text": "Add Monthly Report"
                   },
                   {
-                    "text": "working"
+                    "text": "feature/"
+                  },
+                  {
+                    "text": "feature/add-monthly-report"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pull logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Branch names use lower-case words joined by hyphens.",
+            "checks": [
+              "feature/add-monthly-report",
+              "feature/export-to-csv"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "safely"
+                    "text": "  Export to   CSV "
                   },
                   {
-                    "text": "feature"
+                    "text": "feature/"
+                  },
+                  {
+                    "text": "feature/export-to-csv"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Function fix_branch_name builds a fix/ branch name cleanly.",
+            "whatIf": "def branch_name(task):\n    return \"feature/\" + \"-\".join(task.lower().split())\n\nprint(branch_name(\"Add Monthly Report\"))\nprint(branch_name(\"  Export to   CSV \"))\ndef fix_branch_name(task):\n    return \"fix/\" + \"-\".join(task.lower().split())\nprint(fix_branch_name(\"Empty list in average\"))",
+            "checks": [
+              "feature/add-monthly-report",
+              "feature/export-to-csv",
+              "fix/empty-list-in-average"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Empty list in average"
+                  },
+                  {
+                    "text": "\"fix/\""
+                  },
+                  {
+                    "text": "fix_branch_name(task)"
                   }
                 ],
                 "tone": "ok"
@@ -306,33 +703,60 @@
       },
       "filled": {
         "template": "table",
-        "title": "Branches: working safely on a feature",
+        "title": "Building formatted Git branch names",
         "columns": [
-          "Stage",
-          "Concept"
+          "Task Text",
+          "Prefix",
+          "Branch Name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The main concept establishes the core structural baseline.",
+            "caption": "A feature branch holds separate work while main stays clean.",
             "rows": [
               {
                 "cells": [
-                  "Branches",
-                  "working"
+                  "Add Monthly Report",
+                  "feature/",
+                  "feature/add-monthly-report"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pull logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Branch names use lower-case words joined by hyphens.",
+            "checks": [
+              "feature/add-monthly-report",
+              "feature/export-to-csv"
+            ],
             "rows": [
               {
                 "cells": [
-                  "safely",
-                  "feature"
+                  "  Export to   CSV ",
+                  "feature/",
+                  "feature/export-to-csv"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Function fix_branch_name builds a fix/ branch name cleanly.",
+            "whatIf": "def branch_name(task):\n    return \"feature/\" + \"-\".join(task.lower().split())\n\nprint(branch_name(\"Add Monthly Report\"))\nprint(branch_name(\"  Export to   CSV \"))\ndef fix_branch_name(task):\n    return \"fix/\" + \"-\".join(task.lower().split())\nprint(fix_branch_name(\"Empty list in average\"))",
+            "checks": [
+              "feature/add-monthly-report",
+              "feature/export-to-csv",
+              "fix/empty-list-in-average"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Empty list in average",
+                  "\"fix/\"",
+                  "fix_branch_name(task)"
                 ],
                 "tone": "ok"
               }
@@ -346,40 +770,78 @@
       "codeHash": "6fdd4572d612acb29615869859c4aaf7d4d45d51b2c728fcd327d572c54dce32",
       "spec": {
         "template": "table",
-        "title": "Pushing to GitHub",
+        "title": "Validating GitHub repository URLs",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input URL",
+          "Check",
+          "Valid"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The share concept establishes the core structural baseline.",
+            "caption": "Connect your local project to an empty GitHub repository.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Pushing"
+                    "text": "repo_url(\"priya-dev\", \"expense-tracker\")"
                   },
                   {
-                    "text": "GitHub"
+                    "text": "https://github.com/priya-dev/expense-tracker.git"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The work logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Remote origin lets git push upload commits cleanly.",
+            "checks": [
+              "https://github.com/priya-dev/expense-tracker.git",
+              "True",
+              "False"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Pushing"
+                    "text": "\"github.com/priya-dev\""
                   },
                   {
-                    "text": "GitHub"
+                    "text": "looks_like_github_url(url)"
+                  },
+                  {
+                    "text": "False"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Validating python-projects URL uses looks_like_github_url.",
+            "whatIf": "def repo_url(username, repo):\n    return f\"https://github.com/{username}/{repo}.git\"\n\ndef looks_like_github_url(url):\n    return url.startswith(\"https://github.com/\") and url.endswith(\".git\") and url.count(\"/\") == 4\n\nurl = repo_url(\"priya-dev\", \"expense-tracker\")\nprint(url)\nprint(looks_like_github_url(url))\nprint(looks_like_github_url(\"github.com/priya-dev\"))\nu = repo_url(\"student\", \"python-projects\")\nprint(u)\nprint(looks_like_github_url(u))",
+            "checks": [
+              "https://github.com/student/python-projects.git",
+              "True",
+              "False"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "python-projects"
+                  },
+                  {
+                    "text": "looks_like_github_url"
+                  },
+                  {
+                    "text": "True"
                   }
                 ],
                 "tone": "ok"
@@ -390,33 +852,61 @@
       },
       "filled": {
         "template": "table",
-        "title": "Pushing to GitHub",
+        "title": "Validating GitHub repository URLs",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input URL",
+          "Check",
+          "Valid"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The share concept establishes the core structural baseline.",
+            "caption": "Connect your local project to an empty GitHub repository.",
             "rows": [
               {
                 "cells": [
-                  "Pushing",
-                  "GitHub"
+                  "repo_url(\"priya-dev\", \"expense-tracker\")",
+                  "https://github.com/priya-dev/expense-tracker.git",
+                  "True"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The work logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Remote origin lets git push upload commits cleanly.",
+            "checks": [
+              "https://github.com/priya-dev/expense-tracker.git",
+              "True",
+              "False"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Pushing",
-                  "GitHub"
+                  "\"github.com/priya-dev\"",
+                  "looks_like_github_url(url)",
+                  "False"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Validating python-projects URL uses looks_like_github_url.",
+            "whatIf": "def repo_url(username, repo):\n    return f\"https://github.com/{username}/{repo}.git\"\n\ndef looks_like_github_url(url):\n    return url.startswith(\"https://github.com/\") and url.endswith(\".git\") and url.count(\"/\") == 4\n\nurl = repo_url(\"priya-dev\", \"expense-tracker\")\nprint(url)\nprint(looks_like_github_url(url))\nprint(looks_like_github_url(\"github.com/priya-dev\"))\nu = repo_url(\"student\", \"python-projects\")\nprint(u)\nprint(looks_like_github_url(u))",
+            "checks": [
+              "https://github.com/student/python-projects.git",
+              "True",
+              "False"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "python-projects",
+                  "looks_like_github_url",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -430,23 +920,60 @@
       "codeHash": "25113347332e060bc425a4345363095113082fc1b45853ab39a3c60a8e57b39b",
       "spec": {
         "template": "table",
-        "title": "Putting it together: your project on GitHub",
+        "title": "First GitHub push checklist",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Status",
+          "Next"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "Follow each step to prepare .gitignore, commit, and push.",
+            "checks": [
+              "1. [x] Create .gitignore",
+              "6. [ ] git push",
+              "Next: git push"
+            ],
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Putting"
+                    "text": "Create .gitignore"
                   },
                   {
-                    "text": "together"
+                    "text": "True"
+                  },
+                  {
+                    "text": "git push"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Check git status for secrets"
+                  },
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "git push"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "git push"
+                  },
+                  {
+                    "text": "False"
+                  },
+                  {
+                    "text": "Next: git push"
                   }
                 ],
                 "tone": "data"
@@ -454,16 +981,61 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The short logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Small steps build a clear project history cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "your"
+                    "text": "git init"
                   },
                   {
-                    "text": "project"
+                    "text": "True"
+                  },
+                  {
+                    "text": "git push"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "git commit"
+                  },
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "git push"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Setting the last step to True ends the output with Next: All done.",
+            "whatIf": "steps = [\n    (\"Create .gitignore\", True),\n    (\"git init\", True),\n    (\"git add .\", True),\n    (\"Check git status for secrets\", True),\n    (\"git commit\", True),\n    (\"git push\", True),\n]\nfor number, (step, done) in enumerate(steps, start=1):\n    print(f\"{number}. [{'x' if done else ' '}] {step}\")\nleft = [s for s, d in steps if not d]\nprint(\"Next:\", left[0] if left else \"All done\")",
+            "checks": [
+              "6. [x] git push",
+              "Next: All done"
+            ],
+            "mustNotShow": [
+              "Next: git push"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "git push"
+                  },
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "All done"
                   }
                 ],
                 "tone": "ok"
@@ -474,33 +1046,87 @@
       },
       "filled": {
         "template": "table",
-        "title": "Putting it together: your project on GitHub",
+        "title": "First GitHub push checklist",
         "columns": [
-          "Stage",
-          "Concept"
+          "Step",
+          "Status",
+          "Next"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The expense concept establishes the core structural baseline.",
+            "caption": "Follow each step to prepare .gitignore, commit, and push.",
+            "checks": [
+              "1. [x] Create .gitignore",
+              "6. [ ] git push",
+              "Next: git push"
+            ],
             "rows": [
               {
                 "cells": [
-                  "Putting",
-                  "together"
+                  "Create .gitignore",
+                  "True",
+                  "git push"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Check git status for secrets",
+                  "True",
+                  "git push"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "git push",
+                  "False",
+                  "Next: git push"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The short logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Small steps build a clear project history cleanly.",
             "rows": [
               {
                 "cells": [
-                  "your",
-                  "project"
+                  "git init",
+                  "True",
+                  "git push"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "git commit",
+                  "True",
+                  "git push"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Setting the last step to True ends the output with Next: All done.",
+            "whatIf": "steps = [\n    (\"Create .gitignore\", True),\n    (\"git init\", True),\n    (\"git add .\", True),\n    (\"Check git status for secrets\", True),\n    (\"git commit\", True),\n    (\"git push\", True),\n]\nfor number, (step, done) in enumerate(steps, start=1):\n    print(f\"{number}. [{'x' if done else ' '}] {step}\")\nleft = [s for s, d in steps if not d]\nprint(\"Next:\", left[0] if left else \"All done\")",
+            "checks": [
+              "6. [x] git push",
+              "Next: All done"
+            ],
+            "mustNotShow": [
+              "Next: git push"
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "git push",
+                  "True",
+                  "All done"
                 ],
                 "tone": "ok"
               }
