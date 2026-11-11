@@ -30,12 +30,12 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "What happens if a Node.js server-side module executes the code `const theme = window.localStorage.getItem('theme');`?",
           "options": [
             "The Node.js runtime throws a fatal ReferenceError: window is not defined because the browser DOM window object does not exist on the server",
-            "Node.js returns null and safely continues execution, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Node.js automatically creates a simulated DOM file on the hard drive, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "The operating system falls back to reading kernel environment variables"
+            "Node.js returns undefined and logs an unhandled rejection warning while keeping the server process alive",
+            "V8 automatically polyfills the missing window global by allocating a transient in-memory DOM mock object",
+            "The operating system intercepts the call and falls back to reading kernel environment variables from process.env"
           ],
           "answer": 0,
-          "why": "In Node.js, the global scope is `global`, not `window`. Referencing `window` without a guard check throws an uncaught ReferenceError and terminates the execution flow.",
+          "why": "In Node.js, the global scope is `global` (or `globalThis`), not `window`. Referencing `window` without an environment guard throws an uncaught ReferenceError and crashes the execution thread.",
           "answerIndex": 0
         }
       },
@@ -55,10 +55,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why do Promise resolution callbacks (.then()) execute before setTimeout(fn, 0) callbacks when both are ready?",
           "options": [
-            "setTimeout has an artificial hardcoded 1-second delay in V8, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Timers in setTimeout require operating system hardware clock synchronization that yields the CPU to background threads",
             "Promise callbacks are queued in the high-priority Microtask Queue, which the event loop completely drains before executing any task from the Macrotask Queue",
-            "Node.js runs setTimeout in a separate operating system process with lower CPU affinity",
-            "Promises convert JavaScript code directly into C++ binary machine code, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Node.js delegates setTimeout callbacks to the libuv threadpool while executing Promise reactions synchronously on the main thread",
+            "V8 compiles Promise callbacks into immediate machine bytecode while deferring timer registrations until the next garbage collection cycle"
           ],
           "answer": 1,
           "why": "The event loop specification guarantees that the microtask queue is fully drained whenever the call stack becomes empty, before the engine advances to pick the next macrotask from the timer queue.",
@@ -82,10 +82,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What causes a React Hydration Mismatch in full-stack Server-Side Rendered (SSR) applications?",
           "options": [
-            "The client browser is running in Dark Mode while the server runs in Light Mode",
-            "The database server has fewer than 8 CPU cores, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "The client browser has CSS Transitions enabled while the server-side compiler uses static style extraction",
+            "The network latency between client and server exceeds the default 200-millisecond WebSocket heartbeat timeout",
             "The server and client produce different HTML output during the initial render pass (e.g. using new Date() or window checks inside the render body)",
-            "The user does not have a verified GitHub account, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "The JavaScript bundler compiles server components with ECMAScript 5 modules while the browser evaluates modern ES2022 syntax"
           ],
           "answer": 2,
           "why": "Hydration requires the client-side JavaScript render tree to match the pre-rendered server HTML byte-for-byte. Non-deterministic data like timestamps or direct window checks during render break this contract.",
@@ -109,9 +109,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why should an application never rely on client-side JavaScript to hide private database passwords or API keys?",
           "options": [
-            "Client JavaScript is deleted after 24 hours by the operating system, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Browsers automatically transmit all JavaScript variables to search engine crawlers",
-            "Database passwords only work when encoded in base64, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Browser sandboxes automatically encrypt all bundled source code before storing it in local browser cache partitions",
+            "Search engine indexing bots execute client-side scripts in headless containers that automatically publish global scope variables",
+            "Content Security Policy headers forbid browsers from evaluating scripts that contain string literals exceeding 64 characters",
             "Client-side code can be inspected, downloaded, and decompiled by anyone using browser developer tools, exposing any bundled secret immediately"
           ],
           "answer": 3,
@@ -136,10 +136,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why should a production Node.js service intercept POSIX SIGTERM signals rather than relying on SIGKILL?",
           "options": [
-            "SIGTERM allows the process to execute a graceful shutdown, completing in-flight HTTP requests and closing database pools cleanly before exiting",
-            "SIGKILL causes immediate physical hardware damage to the server CPU, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "SIGTERM converts all JavaScript files into static JSON caches, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Node.js does not support SIGKILL, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "SIGTERM can be caught by the process to complete in-flight HTTP requests, drain connection pools, and exit cleanly before the orchestrator forces termination",
+            "SIGKILL automatically delegates pending database transactions to child worker threads before terminating the primary event loop",
+            "SIGTERM triggers an automatic process restart with doubled memory limits while SIGKILL suspends the container indefinitely",
+            "Node.js ignores SIGKILL unless the operating system user possesses root administrative privileges inside the container"
           ],
           "answer": 0,
           "why": "SIGTERM signals allow the application to cleanly finish active client requests, flush logging buffers, and close open database connections before exiting with code 0.",
@@ -214,10 +214,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why can using Buffer.allocUnsafe() introduce a severe security vulnerability if not handled with care?",
           "options": [
-            "It disables operating system file permissions permanently, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It forces the CPU into single-core mode, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It allocates memory without clearing it, potentially exposing sensitive residual data (such as passwords or tokens) left in memory by previous processes",
-            "It causes the browser DOM to crash, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It bypasses the V8 sandbox boundary and grants untrusted guest code root execution access to the host kernel",
+            "It triggers synchronous garbage collection sweeps on every invocation, stalling the event loop for hundreds of milliseconds",
+            "It allocates memory segments without zero-filling them, potentially exposing residual sensitive data (such as auth tokens or decrypted secrets) left behind in RAM",
+            "It causes V8 to deoptimize all JIT-compiled functions across the entire Node.js runtime process"
           ],
           "answer": 2,
           "why": "Buffer.allocUnsafe() bypasses memory zeroing for speed. If any portion of the uninitialized buffer is transmitted over the network or saved to disk without being overwritten, previous sensitive memory contents may leak.",
@@ -240,10 +240,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why must an HTTP server use Buffer.byteLength(body, 'utf8') instead of body.length when setting the Content-Length header?",
           "options": [
-            "body.length is deprecated in ECMAScript 2026, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Buffer.byteLength converts the response into compressed gzip automatically, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "HTTP 1.1 requires all header values to be written in Roman numerals, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "body.length counts UTF-16 code units, not UTF-8 bytes; multi-byte characters like emojis or Asian scripts consume up to 4 bytes per character, causing truncated responses if body.length is used"
+            "HTTP/1.1 proxies reject Content-Length headers unless they are computed using base64 byte offsets rather than standard integer counts",
+            "Buffer.byteLength automatically strips trailing newline whitespace characters before transmitting payload headers across the TCP socket",
+            "The TCP framing layer automatically pads strings to 64-byte boundaries, requiring the server to calculate alignment margins",
+            "body.length counts 16-bit UTF-16 code units rather than wire bytes; multi-byte characters like emojis or non-Latin scripts take up to 4 bytes, causing payload truncation"
           ],
           "answer": 3,
           "why": "The Content-Length HTTP header specifies the exact number of octets (bytes) transmitted. In UTF-8, characters take between 1 and 4 bytes; using body.length undercounts multi-byte payloads and truncates the response.",
@@ -266,10 +266,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What does it indicate when writableStream.write(chunk) returns false in Node.js?",
           "options": [
-            "The writable stream's internal memory buffer has exceeded its highWaterMark, and the producer must pause writing until the 'drain' event fires",
-            "The hard drive has run out of physical disk space, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "The network router has disconnected from the internet, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "The chunk contains invalid JavaScript syntax, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "The writable stream's internal memory buffer has reached or exceeded its highWaterMark threshold, signaling the producer to pause until the 'drain' event fires",
+            "The destination socket has closed abruptly due to a TCP RST packet and the pending chunk has been discarded",
+            "The operating system has temporarily revoked the process's file descriptor write permissions due to CPU contention",
+            "The chunk size exceeds the maximum allowable TLS record layer payload size and must be split manually into smaller slices"
           ],
           "answer": 0,
           "why": "A return value of false from write() signals backpressure. The internal buffer has reached or exceeded its highWaterMark threshold, instructing the data producer to pause to prevent memory exhaustion.",
@@ -293,10 +293,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What is the primary cause of memory leaks when utilizing EventEmitters in long-running Node.js services?",
           "options": [
-            "Calling process.exit(0) too early, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Registering listener closures inside request or connection lifecycles without deregistering them via .off() or unsubscribe handles when the lifecycle terminates",
-            "Using arrow functions instead of the function keyword, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Allocating buffers with Buffer.alloc() instead of strings, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Emitting events synchronously on the call stack before the V8 garbage collector can complete its scavenge phase",
+            "Registering listener closures during transient request or connection lifecycles without removing them via .off() or cleanup handles when the connection concludes",
+            "Subscribing to EventEmitter instances that inherit from native C++ handles rather than standard JavaScript Object prototypes",
+            "Passing immutable object references across multiple event listener callbacks without cloning them via structuredClone"
           ],
           "answer": 1,
           "why": "EventEmitters maintain strong references to listener functions in an internal array. If listeners retain references to request/session contexts and are never deregistered, V8 cannot garbage collect them, causing unbounded heap growth.",
@@ -345,10 +345,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In HTTP/1.1, how does a server know that the headers section has finished and the message body is beginning?",
           "options": [
-            "The client disconnects from the TCP socket, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "The server waits 500 milliseconds for incoming bytes to stop",
-            "An empty line consisting of a double Carriage Return Line Feed (\\r\\n\\r\\n) separates the headers from the body",
-            "A special XML closing tag </headers> is transmitted, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "The client transmits an explicit TLS termination frame indicating end-of-headers",
+            "The server relies on a socket inactivity timeout of 500 milliseconds after the last byte",
+            "An empty line consisting of a double Carriage Return Line Feed (\\r\\n\\r\\n) marks the boundary between headers and body",
+            "The TCP window size drops to zero octets to signal the transition to body stream"
           ],
           "answer": 2,
           "why": "RFC 9110 specifies that the end of the header section in an HTTP/1.1 frame is explicitly designated by an empty line: a carriage return and line feed sequence (\\r\\n\\r\\n).",
@@ -371,10 +371,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What is the critical architectural difference between the PUT and PATCH HTTP methods?",
           "options": [
-            "PATCH can only be invoked by Python servers, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "PUT only works over HTTPS, while PATCH works over HTTP, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "PUT is strictly for uploading binary image files, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "PUT performs a complete resource replacement overwriting all fields, whereas PATCH applies a partial delta to only the specified attributes"
+            "PUT creates a new database revision index while PATCH discards transaction histories across all table replicas",
+            "PUT requires client TLS client certificates while PATCH permits unauthenticated transmission across CORS boundaries",
+            "PUT can only mutate scalar attributes while PATCH is restricted to appending elements into nested JSON arrays",
+            "PUT performs a complete resource replacement overwriting unmentioned fields, whereas PATCH applies a partial delta modifying only the specified attributes"
           ],
           "answer": 3,
           "why": "RFC 9110 and RFC 5789 explicitly define PUT as a complete replacement of the target resource, whereas PATCH applies a partial set of changes (a delta) without erasing unmentioned fields.",
@@ -424,10 +424,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is returning HTTP 200 OK with a body of {\"success\": false, \"error\": \"Invalid password\"} considered a severe architectural defect in RESTful systems?",
           "options": [
-            "It causes the client's monitor display to flicker, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It confuses HTTP proxies, violates caching semantics, disables browser security error handling, and prevents observability monitors from detecting failures",
-            "HTTP 200 responses are automatically deleted by network firewalls, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "JSON bodies cannot contain boolean false values, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It causes intermediate NAT routers to silently terminate the underlying TCP connection due to status mismatch",
+            "It breaks HTTP caching semantics, misleads reverse proxy error triggers, and prevents APM observability monitors from tracking real failure rates",
+            "It forces the browser rendering thread to execute synchronous DOM layout reflows on every failed API response",
+            "It invalidates the TLS session ticket, requiring the client to negotiate a complete TLS handshake on the next request"
           ],
           "answer": 1,
           "why": "HTTP status codes convey transport-level outcomes. A 200 status code tells caches and network monitoring tools that the transaction succeeded, masking real authentication failures and breaking standard error-handling pipelines.",
@@ -450,10 +450,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why should an API formatter guarantee that the error field is explicitly null when success is true, and data is explicitly null when success is false?",
           "options": [
-            "It encrypts the JSON string automatically using SHA-256, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "It reduces the size of the JavaScript V8 compiler binary, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "It ensures JSON serializers omit undefined keys to minimize raw byte payload transfer overhead across mobile networks",
+            "It prevents browser garbage collectors from allocating additional object shapes in the V8 hidden class transition table",
             "It provides unambiguous, deterministic schema contracts that eliminate ambiguous null/undefined checks in frontend client state machines",
-            "The HTTP specification bans returning numbers in JSON bodies, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "It allows intermediate reverse proxies to calculate SHA-256 integrity checksums directly without parsing JSON keys"
           ],
           "answer": 2,
           "why": "A strict envelope contract guarantees mutual exclusivity: on success, data is guaranteed and error is null; on failure, error is guaranteed and data is null. This simplifies client-side state handling and prevents UI errors.",
@@ -532,9 +532,9 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
           "question": "How should a TypeScript project declare custom augmented properties on the Express Request object to ensure strict type safety?",
           "options": [
             "By using TypeScript Declaration Merging to extend interface Request inside namespace Express",
-            "By casting every request to any throughout the codebase",
-            "By modifying the node_modules source code directly",
-            "By renaming all TypeScript files to .js, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "By casting every request to any throughout all application route handlers and controllers",
+            "By overriding the global Object prototype with dynamic getters and setters in runtime bootstrap",
+            "By modifying and recompiling the third-party @types/express source files in node_modules"
           ],
           "answer": 0,
           "why": "TypeScript Declaration Merging allows developers to extend the global Express.Request interface cleanly without unsafe type casting or modifying third-party packages.",
@@ -557,10 +557,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does an unhandled rejected Promise inside an unwrapped Express 4 async middleware crash modern Node.js applications?",
           "options": [
-            "Because modern operating systems disable asynchronous CPU instructions, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because Express 4's synchronous try/catch cannot catch asynchronous promise rejections, triggering an unhandled rejection process crash in Node.js 16+",
-            "Because Express 4 automatically converts rejected Promises into hard drive formatting commands",
-            "Because JavaScript garbage collection deletes async functions immediately, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because Node.js libuv threadpool workers automatically terminate when an asynchronous file descriptor times out",
+            "Because Express 4's synchronous router try/catch block cannot intercept asynchronous Promise rejections, triggering a fatal unhandledRejection event in Node.js",
+            "Because the V8 compiler forcibly deoptimizes the entire module graph whenever an async arrow function throws an error",
+            "Because operating system kernel signals automatically revoke memory access from threads with unresolved microtasks"
           ],
           "answer": 1,
           "why": "In Express 4, middleware dispatching is synchronous. When an async function returns a rejected promise, the synchronous catch has already finished, causing an unhandled promise rejection that terminates the Node process.",
@@ -583,10 +583,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why must an Express error-handling middleware explicitly declare all four parameters (err, req, res, next) even if the next parameter is not used inside the function body?",
           "options": [
-            "Because the HTTP specification requires 4 parameters for network sockets, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because JavaScript syntax prohibits functions with fewer than 4 arguments, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
+            "Because the underlying HTTP/1.1 wire protocol parser expects four distinct memory pointers for TCP socket frames",
+            "Because Node.js streams mandate that all transform handlers accept error, payload, encoding, and callback references",
             "Because Express checks fn.length at runtime; if fewer than 4 parameters are declared, Express classifies it as a regular 3-parameter middleware and fails to route errors to it",
-            "Because Node.js V8 crashes if a function has unused variable names, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Because V8 inline caching algorithms deoptimize function calls when formal parameter counts do not match invocation arguments"
           ],
           "answer": 2,
           "why": "Express inspects fn.length to register error handlers. A function with 3 parameters has length 3 and is treated as standard middleware; declaring all 4 parameters gives length 4.",
@@ -610,10 +610,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "How can an Express middleware execute logic AFTER the downstream route handler finishes processing, before the HTTP response is sent?",
           "options": [
-            "Express does not allow executing logic after route handlers",
-            "By calling next() twice in the same middleware, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "By putting a while(true) infinite loop in the middleware",
-            "By intercepting and wrapping the response methods (such as res.send or res.end) before invoking next()"
+            "By registering an unhandledRejection listener on the global Node.js process object",
+            "By invoking next() repeatedly in a recursive tail-call loop until the response is sent",
+            "By blocking the event loop with synchronous Atomics.wait until the database responds",
+            "By intercepting and wrapping the response egress methods (such as res.send or res.end) before invoking next()"
           ],
           "answer": 3,
           "why": "By overriding res.send or res.end to calculate metrics and attach headers before delegating to the original implementation, middleware can execute cleanup or telemetry logic upon response egress.",
@@ -664,10 +664,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why does an enterprise API Gateway sit in front of microservices rather than having client applications connect directly to each microservice?",
           "options": [
-            "To provide a single entry point that centralizes authentication, rate limiting, logging, and TLS termination while reducing client network roundtrips",
-            "Because web browsers are only capable of storing one IP address in memory, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because microservices cannot execute JavaScript code, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "To prevent developers from writing backend unit tests, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "To provide a unified entry point that consolidates authentication, rate limiting, telemetry, and TLS termination while reducing client network roundtrips",
+            "To compress all HTTP/1.1 JSON responses into proprietary C++ binary structs before transmission across public networks",
+            "To execute client-side React component lifecycle methods directly on the gateway Layer 7 reverse proxy cluster",
+            "To automatically convert incoming REST requests into SOAP XML envelopes before dispatching them to internal databases"
           ],
           "answer": 0,
           "why": "An API Gateway abstracts backend architecture, consolidating cross-cutting concerns (authentication, rate limiting, telemetry) into a single high-performance ingress layer.",
@@ -719,10 +719,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "Why is the Token Bucket algorithm preferred over the Fixed Window Counter in enterprise API gateways?",
           "options": [
-            "Token Bucket only works on encrypted HTTPS connections, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Fixed Window counters crash the Node.js V8 garbage collector, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Token Bucket accommodates legitimate bursts while strictly preventing boundary spikes, whereas Fixed Window allows 2x traffic bursts across window boundaries",
-            "Fixed Window counters require writing raw C++ code, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "Token Bucket stores request histories indefinitely in Redis sorted sets to enable retrospective security auditing",
+            "Fixed Window counters require persistent database table locks that stall concurrent queries across cluster nodes",
+            "Token Bucket accommodates legitimate traffic bursts while preventing boundary spikes, whereas Fixed Window allows up to 2x traffic bursts across window boundaries",
+            "Fixed Window counters cannot throttle requests identified by client IP addresses or bearer authentication tokens"
           ],
           "answer": 2,
           "why": "Fixed Window algorithms permit double the maximum traffic rate across the boundary between two consecutive windows. Token Bucket enforces smooth continuous replenishment with bounded burst capacity.",
@@ -746,10 +746,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "What is the critical difference between a Liveness Probe and a Readiness Probe in cloud orchestration?",
           "options": [
-            "There is no difference; they are duplicate terms for the same check, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Liveness probes are written in Python, while readiness probes are written in C++",
-            "Readiness probes only run once every 24 hours, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "A Liveness Probe checks if the process is alive and restarts it if frozen, while a Readiness Probe checks if dependencies are ready to accept customer traffic"
+            "A Liveness Probe verifies user authentication tokens, while a Readiness Probe audits database transaction isolation levels",
+            "A Liveness Probe measures network throughput across the VPC, while a Readiness Probe computes SSL certificate expiration dates",
+            "A Liveness Probe executes during initial container build time, while a Readiness Probe runs exclusively on production load balancers",
+            "A Liveness Probe checks if the process is running and restarts it if deadlocked, while a Readiness Probe checks if downstream dependencies are healthy enough to receive live traffic"
           ],
           "answer": 3,
           "why": "Liveness probes detect process deadlocks and restart containers; readiness probes confirm dependencies (databases, caches) are healthy before routing live traffic to the pod.",
@@ -773,10 +773,10 @@ export const FULLSTACK_JS_LONG_LESSONS: ReadonlyArray<LongLesson> = [
         "check": {
           "question": "In class ApiGateway, why does dispatch(req) immediately return res if res.status is >= 400 after executing global middlewares?",
           "options": [
-            "To enforce short-circuiting: if an upstream security or rate-limit middleware rejected the request, downstream route handlers must not be executed",
-            "Because numbers greater than 400 cannot be stored in JavaScript variables",
-            "To reboot the Node.js operating system, which violates architectural isolation and lacks the required cryptographic guarantees in production.",
-            "Because route handlers only work for status codes ending in zero, which violates architectural isolation and lacks the required cryptographic guarantees in production."
+            "To enforce short-circuiting: if an upstream auth or rate-limit middleware rejected the request, downstream route handlers must not execute",
+            "Because HTTP/2 binary framing protocol forbids dispatching request bodies when the response status code is an integer above 399",
+            "Because Node.js stream pipelines automatically revoke socket write permissions whenever an error code is written to memory",
+            "To trigger an automatic failover to the secondary standby gateway cluster before the client TCP connection times out"
           ],
           "answer": 0,
           "why": "Short-circuiting ensures that rejected requests (401 Unauthorized, 429 Rate Limited) never trigger downstream business logic or database queries.",
